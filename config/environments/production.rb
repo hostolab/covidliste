@@ -100,13 +100,12 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: ENV['PLATFORM_URL'] }
   config.action_mailer.delivery_method = :smtp
   ActionMailer::Base.smtp_settings = {
-    address: 'smtp.sendgrid.net',
-    port: 587,
-    domain: 'yourdomain.com',
-    user_name: ENV['SENDGRID_USERNAME'],
-    password: ENV['SENDGRID_PASSWORD'],
-    authentication: :login,
-    enable_starttls_auto: true
+    address: 'smtp.eu.mailgun.org',
+    port: ENV['SMTP_PORT'] || 587,
+    domain: ENV['SMTP_DOMAIN'],
+    authentication: :plain,
+    user_name: ENV['SMTP_USERNAME'],
+    password: ENV['SMTP_PASSWORD'],
   }
 
   # Inserts middleware to perform automatic connection switching.
