@@ -10,7 +10,7 @@
       = simple_form_for @user do |f|
         = f.input :firstname, label: 'Prénom', error: 'Prénom requis', placeholder: 'Alexandre'
         = f.input :lastname, label: 'Nom', error: 'Nom requis', placeholder: 'Yersin'
-        = f.input :birthdate, as: :date, label: 'Date de naissance', start_year: Date.today.year - 50, end_year: Date.today.year - 12, order: [:year, :month, :day]
+        = f.input :birthdate, as: :date, label: 'Date de naissance', start_year: Date.today.year - 90, end_year: Date.today.year - 9, order: [:day, :month, :year]
         = f.input :address, label: 'Addresse', error: 'Addresse requise', placeholder: '5 rue Indochine, 13600 Marseille'
         = f.input :email, label: 'Email', error: f.error(:email), placeholder: 'alexandre@yersin.com'
         = f.input :phone_number, label: 'Numéro de téléphone', error: '', placeholder: '06 06 06 06 06'
