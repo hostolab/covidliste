@@ -100,7 +100,7 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: ENV['PLATFORM_URL'] }
   config.action_mailer.delivery_method = :smtp
   ActionMailer::Base.smtp_settings = {
-    address: 'smtp.eu.mailgun.org',
+    address: ENV['SMTP_ADDRESS'] || 'smtp.mailgun.org',
     port: ENV['SMTP_PORT'] || 587,
     domain: ENV['SMTP_DOMAIN'],
     authentication: :plain,
