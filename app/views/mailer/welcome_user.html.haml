@@ -1,0 +1,27 @@
+!!!
+%html{:xmlns => "http://www.w3.org/1999/xhtml"}
+  %head
+    %meta{:content => "width=device-width", :name => "viewport"}
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}
+    = render "styles"
+    %title
+      =@subject
+
+  %body{:bgcolor => "#f2f2f2"}
+    %table.body-wrap
+      %tr
+        %td.container{:style => "border: none; color: #00000"}
+          %h4
+            =@subject
+
+        %td.container{:bgcolor => "#FFFFFF", style:"border-radius:5px"}
+          / content
+          .content
+            %table
+              %tr
+                %td{:align => "left"}
+                  %h5="#{@user.full_name},"
+                  %p
+                    Vous étes bien enregistré sur Covidliste.
+
+    =render 'footer'

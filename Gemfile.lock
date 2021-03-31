@@ -115,6 +115,14 @@ GEM
       concurrent-ruby (~> 1.0)
     jbuilder (2.11.2)
       activesupport (>= 5.0.0)
+    launchy (2.5.0)
+      addressable (~> 2.7)
+    letter_opener (1.7.0)
+      launchy (~> 2.2)
+    letter_opener_web (1.4.0)
+      actionmailer (>= 3.2)
+      letter_opener (~> 1.0)
+      railties (>= 3.2)
     listen (3.5.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -256,6 +264,8 @@ DEPENDENCIES
   font-awesome-sass
   haml-rails (~> 2.0)
   jbuilder (~> 2.7)
+  letter_opener (~> 1.7)
+  letter_opener_web (~> 1.4)
   listen (~> 3.3)
   pg (~> 1.1)
   pry-byebug

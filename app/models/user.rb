@@ -7,4 +7,15 @@ class User < ApplicationRecord
   validates :birthdate, presence: true
   validates :toc, presence: true, acceptance: true
 
+  after_create :send_welcome_email
+
+
+  def full_name
+    "#{firstname} #{lastname}"
+  end
+
+  def send_welcome_email
+    Mailer.welcome_user(id).deliver_later
+  end
+
 end
