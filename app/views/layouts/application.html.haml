@@ -10,7 +10,8 @@
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload', defer: true
   %body
-    .container.mtop2
+    =render 'layouts/navbar'
+    .container.mtop2.pbot4
       %h5
         %strong Covidliste
       =render 'layouts/alerts'
