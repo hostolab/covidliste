@@ -38,6 +38,12 @@ Rails.application.routes.draw do
 
   ####################
 
+  # Partners
+  # TODO FIXME MIGRATE TO DEVISE PARTNER
+  authenticate :user, lambda(&:partner?) do
+    get '/partenaires/recherche' => "partners#search"
+    post '/partenaires/recherche' => "partners#search"
+  end
 
   ## users
   resources :users, only: [:create, :new]

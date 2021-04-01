@@ -56,13 +56,13 @@ module Admin
       ]
 
       @search_users_count = User
-              .where.not(lat: nil)
-              .where.not(lon: nil)
-              .where(lat: [box[0]..box[2]])
-              .where(lon: [box[1]..box[3]])
-               .where(birthdate: min_date..max_date)
-              .limit(volunteers_limit + 100) # extra security
-              .count
+                            .where.not(lat: nil)
+                            .where.not(lon: nil)
+                            .where(lat: [box[0]..box[2]])
+                            .where(lon: [box[1]..box[3]])
+                            .where(birthdate: min_date..max_date)
+                            .limit(volunteers_limit + 100) # extra security
+                            .count
 
       @users = User
                .where.not(lat: nil)

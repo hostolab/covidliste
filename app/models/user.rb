@@ -63,6 +63,10 @@ class User < ApplicationRecord
     has_role?(:admin)
   end
 
+  def partner?
+    has_role?(:partner)
+  end
+
   protected
 
   # Devise override
