@@ -1,0 +1,18 @@
+#devise
+  .row.mtop2
+    .col-sm-12.col-md-8.col-lg-6
+      %p
+        %strong Connexion
+      = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+        = f.input :email, autocomplete: 'off', autofocus: true, required: true, id: 'inputEmail', class: 'bp3-input bp3-fill bp3-large input', placeholder: 'E-mail'
+        = f.input :password, autocomplete: 'off', required: true, id: 'inputPassword', class: 'bp3-input bp3-fill bp3-large input', placeholder: 'Mot de passe'
+        - if devise_mapping.rememberable?
+          %p
+            = f.check_box :remember_me
+            %span.bp3-control-indicator
+            Se souvenir de moi
+          %p
+          - if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations'
+            = link_to "Mot de passe oublié ?", new_password_path(resource_name), class: "bp3-text-muted"
+        %p.mtop2
+          = f.submit 'Connexion', class: 'btn btn-primary'
