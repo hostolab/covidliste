@@ -10,7 +10,7 @@ class User < ApplicationRecord
   validates :birthdate, presence: true
   validates :toc, presence: true, acceptance: true
 
-  after_create :send_welcome_email
+  after_create :send_confirmation_email
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
 
@@ -19,8 +19,8 @@ class User < ApplicationRecord
     "#{firstname} #{lastname}"
   end
 
-  def send_welcome_email
-    # Mailer.welcome_user(id).deliver_later
+  def send_confirmation_email
+    # Mailer.confirmation_email(id).deliver_later
   end
 
   def confirmed?
