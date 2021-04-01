@@ -4,7 +4,6 @@
       %p
         %strong Connexion
       = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-        = render 'layouts/alerts'
         = f.input :email, autocomplete: 'off', autofocus: true, required: true, id: 'inputEmail', class: 'bp3-input bp3-fill bp3-large input', placeholder: 'E-mail'
         = f.input :password, autocomplete: 'off', required: true, id: 'inputPassword', class: 'bp3-input bp3-fill bp3-large input', placeholder: 'Mot de passe'
         - if devise_mapping.rememberable?

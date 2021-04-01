@@ -4,7 +4,6 @@
       %p 
         %strong Mot de passe oublié
         = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
-          = devise_error_messages!
           %p
             Veuillez saisir votre adresse email afin d'un recevoir un lien pour changer votre mot de passe.
           = f.input :email, autofocus: true, required: true, id: 'inputEmail', class: 'bp3-input bp3-fill bp3-large'
