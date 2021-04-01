@@ -23,8 +23,7 @@ class User < ApplicationRecord
   end
 
   def send_confirmation_email
-    self.send_confirmation_instructions
-    # Mailer.confirmation_email(id).deliver_later
+    # self.send_confirmation_instructions
   end
 
   def confirmed?
