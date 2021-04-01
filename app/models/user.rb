@@ -13,17 +13,11 @@ class User < ApplicationRecord
   validates :birthdate, presence: true
   validates :toc, presence: true, acceptance: true
 
-  after_create :send_confirmation_email
-
   scope :confirmed, -> { where.not(confirmed_at: nil) }
 
 
   def full_name
     "#{firstname} #{lastname}"
-  end
-
-  def send_confirmation_email
-    # self.send_confirmation_instructions
   end
 
   def confirmed?
