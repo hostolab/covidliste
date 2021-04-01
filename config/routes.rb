@@ -2,6 +2,14 @@ require 'sidekiq/web'
 
 Rails.application.routes.draw do
 
+  namespace :admin do
+    get '/' => 'home#index'
+    # Admins
+    authenticate :user, lambda(&:admin?) do
+      get '/search' => "search#search", as: :admin_search
+      post '/search' => "search#search"
+    end
+  end
 
   authenticate :user, lambda(&:super_admin?) do
     mount Blazer::Engine, at: 'admin/blazer'
@@ -29,6 +37,7 @@ Rails.application.routes.draw do
   end
 
   ####################
+
 
   ## users
   resources :users, only: [:create, :new]

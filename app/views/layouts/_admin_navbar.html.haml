@@ -4,6 +4,9 @@
     %span.navbar-toggler-icon
   #navbarNavDropdown.collapse.navbar-collapse
     %ul.navbar-nav.ml-auto
+      - if current_user.has_role?(:admin)
+        %li{class: (action_name == 'search' ? 'nav-item active' : 'nav-item')}
+          =link_to "Recherche", :admin_search, class: 'nav-link'
       - if current_user.has_role?(:super_admin)
         %li.nav-item.dropdown
           %a#dropdown12.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => ""}
