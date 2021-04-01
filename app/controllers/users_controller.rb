@@ -1,7 +1,9 @@
+include ActionView::Helpers::NumberHelper
 class UsersController < ApplicationController
   
   def new
     @user = User.new
+    @users_count = number_with_delimiter(User.count, locale: :fr)
   end
 
   def create
