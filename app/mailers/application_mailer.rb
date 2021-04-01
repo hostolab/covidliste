@@ -1,5 +1,5 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'covidlist@protonmail.com'
+  default from: 'Covidliste <hello@covidliste.com>'
   layout 'mailer'
   
 end
