@@ -10,10 +10,12 @@ class User < ApplicationRecord
   validates :birthdate, presence: true
   validates :toc, presence: true, acceptance: true
 
+  geocoded_by :address
+
+  after_validation :geocode
   after_create :send_confirmation_email
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
-
 
   def full_name
     "#{firstname} #{lastname}"
