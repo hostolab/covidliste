@@ -28,6 +28,8 @@ gem 'jbuilder', '~> 2.7'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
+gem 'geocoder'
+
 gem 'autoprefixer-rails'
 gem 'font-awesome-sass'
 gem 'simple_form'
@@ -36,7 +38,6 @@ gem 'bootstrap', '~> 5.0.0.beta2'
 gem 'letter_opener', '~> 1.7'
 gem 'letter_opener_web', '~> 1.4'
 gem 'devise'
-gem 'geocoder'
 
 
 group :development, :test do

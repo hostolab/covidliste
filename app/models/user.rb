@@ -3,14 +3,13 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+  geocoded_by :address
 
   validates :firstname, presence: true
   validates :lastname, presence: true
   validates :address, presence: true
   validates :birthdate, presence: true
   validates :toc, presence: true, acceptance: true
-
-  geocoded_by :address
 
   after_validation :geocode
   after_create :send_confirmation_email
