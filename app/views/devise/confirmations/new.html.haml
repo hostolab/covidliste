@@ -1,11 +1,9 @@
-- content_for :body_class, "text-center"
-%p
-  = devise_error_messages!
-= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post, :class => "form-signin" }) do |f|
-  %p
-    %strong Renvoyez moi l'email de confirmation
-  %label.sr-only{:for => "inputEmail"} Email address
-  =f.email_field :email, autofocus: true, required: true, placeholder: "Email address", id: "inputEmail", class: "form-control"
-
-  %div.mt-3
-    =f.submit "C'est parti", class: "bp3-button bp3-intent-success bp3-fill bp3-large"
+#devise
+  .row.mtop2
+    .col-sm-12.col-md-8.col-lg-6
+      =simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post, :class => "form-signin" }) do |f|
+        %p
+          %strong Renvoyez moi l'email de confirmation
+        =f.input :email, autofocus: true, required: true, placeholder: "Email", id: "inputEmail", class: "form-control"
+        %p.mtop2
+          =f.submit "C'est parti", class: "btn btn-primary"
