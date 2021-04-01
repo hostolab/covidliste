@@ -1,8 +1,11 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+  devise :database_authenticatable,
+         :recoverable,
+         :rememberable, 
+         :validatable,
+         :confirmable
 
   validates :firstname, presence: true
   validates :lastname, presence: true
@@ -20,11 +23,12 @@ class User < ApplicationRecord
   end
 
   def send_confirmation_email
+    self.send_confirmation_instructions
     # Mailer.confirmation_email(id).deliver_later
   end
 
   def confirmed?
-    confirmed_at
+    confirmed_at.present?
   end
 
   protected

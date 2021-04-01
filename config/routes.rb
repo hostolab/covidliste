@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
   
   devise_for :users,
-    skip: %i[sessions registrations]
+    skip: %i[registrations],
+    controllers: {
+      confirmations: 'confirmations',
+    }
+
+
 
   mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
   resources :users, only: [:create, :new]
