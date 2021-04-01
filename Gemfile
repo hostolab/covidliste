@@ -33,8 +33,9 @@ gem 'font-awesome-sass'
 gem 'simple_form'
 gem "haml-rails", "~> 2.0"
 gem 'bootstrap', '~> 5.0.0.beta2'
-  gem 'letter_opener', '~> 1.7'
-  gem 'letter_opener_web', '~> 1.4'
+gem 'letter_opener', '~> 1.7'
+gem 'letter_opener_web', '~> 1.4'
+gem 'devise'
 
 group :development, :test do
   gem 'pry-byebug'

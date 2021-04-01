@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   
+  devise_for :users,
+    skip: %i[sessions registrations]
+
   mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
   resources :users, only: [:create, :new]
   get '/users' => "users#new"

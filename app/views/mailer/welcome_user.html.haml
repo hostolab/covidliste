@@ -20,8 +20,11 @@
             %table
               %tr
                 %td{:align => "left"}
-                  %h5="#{@user.full_name},"
+                  %h5="Bonjour #{@user.full_name},"
                   %p
-                    Vous étes bien enregistré sur Covidliste.
+                    Vous étes bien enregistré sur Covidliste. 
+                    Afin de valider votre inscription veuillez suivre ce lien de confirmation.
+                    
+                  %p= link_to 'Validez votre inscription', confirmation_url(@user, confirmation_token: @user.confirmation_token)
 
     =render 'footer'
