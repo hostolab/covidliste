@@ -8,4 +8,12 @@
         =link_to "Mentions Légales", :mentions_legales, class: 'nav-link'
       %li{class: (action_name == 'privacy' ? 'nav-item active' : 'nav-item')}
         =link_to "Protection des données", :privacy, class: 'nav-link'
-
+      - if current_user
+        %li.nav-item.dropdown
+          %a#dropdown09.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => ""}
+            =current_user.full_name
+          .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "dropdown09"}
+            =link_to "Déconnexion", destroy_user_session_path, :method => :delete, class: 'dropdown-item'
+      - else
+        -# %li.nav-item
+        -#   =link_to "Login", new_user_session_path, class: "nav-link"

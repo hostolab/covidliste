@@ -1,9 +1,25 @@
 include ActionView::Helpers::NumberHelper
 class UsersController < ApplicationController
+
+  before_action :authenticate_user!, except: [:new, :create]
   
   def new
-    @user = User.new
-    @users_count = number_with_delimiter(User.count, locale: :fr)
+    if current_user
+      redirect_to profile_path
+    else
+      @user = User.new
+      @users_count = number_with_delimiter(User.count, locale: :fr)
+    end
+  end
+  
+  def show
+    @user = current_user
+  end
+
+  def update
+    @user = current_user
+    @user.update(user_params)
+    render action: :show
   end
 
   def create
