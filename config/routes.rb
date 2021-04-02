@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   authenticate :user, lambda(&:super_admin?) do
     mount Blazer::Engine, at: 'admin/blazer'
-    mount PgHero::Engine, at: "pghero"
+    mount PgHero::Engine, at: "admin/pghero"
   end
   
   
