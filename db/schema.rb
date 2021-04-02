@@ -87,8 +87,8 @@ ActiveRecord::Schema.define(version: 2021_04_02_085941) do
     t.string "email"
     t.date "birthdate"
     t.string "address"
-    t.float "latitude"
-    t.float "longitude"
+    t.float "lat"
+    t.float "lon"
     t.string "phone_number"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
