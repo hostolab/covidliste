@@ -16,6 +16,7 @@ class User < ApplicationRecord
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
 
+  belongs_to :vaccination_center, optional :true
 
   def full_name
     "#{firstname} #{lastname}"
