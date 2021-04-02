@@ -19,6 +19,7 @@ class UsersController < ApplicationController
   def update
     @user = current_user
     @user.update(user_params)
+    flash.now[:success] = "Modifications enregistrées"
     render action: :show
   end
 
@@ -28,6 +29,13 @@ class UsersController < ApplicationController
     @user.skip_confirmation! if ENV["SKIP_EMAIL_CONFIRMATION"] == 'true'
     @user.save
     render action: :new
+  end
+
+  def delete
+    @user = current_user
+    @user.destroy
+    flash[:success] = "Votre compte a bien été supprimé."
+    redirect_to root_path
   end
 
   private

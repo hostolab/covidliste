@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   resources :users, only: [:create, :new]
   get '/profile' => "users#show", as: :profile
   put '/profile' => "users#update", as: :user
+  delete '/profile' => "users#delete", as: :delete_user
   get '/users' => "users#new"
 
   ## pages
