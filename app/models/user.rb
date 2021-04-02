@@ -14,7 +14,7 @@ class User < ApplicationRecord
   validates :birthdate, presence: true
   validates :toc, presence: true, acceptance: true
 
-  before_create :approcimate_coords
+  before_save :approcimate_coords
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
 

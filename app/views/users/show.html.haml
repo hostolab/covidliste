@@ -14,6 +14,8 @@
       = f.input :lastname, label: 'Nom', error: 'Nom requis', placeholder: 'Dupont'
       = f.input :birthdate, as: :date, label: 'Date de naissance', start_year: Date.today.year - 90, end_year: Date.today.year - 9, order: [:day, :month, :year]
       = f.input :address, label: 'Adresse', error: 'Adresse requise', placeholder: '5 rue larue, 13600 Marseille'
+      = f.input :lat, :as => :hidden
+      = f.input :lon, :as => :hidden
       = f.input :email, disabled: true, label: 'Email', error: f.error(:email), placeholder: 'jean@dupont.com'
       = f.input :phone_number, label: 'Numéro de téléphone', error: '', placeholder: '06 06 06 06 06'
       = f.button :submit, "Je modifie mes informations", class: 'btn btn-primary'
