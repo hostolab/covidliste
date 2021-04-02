@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_02_085941) do
+ActiveRecord::Schema.define(version: 2021_04_02_161755) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -111,4 +111,18 @@ ActiveRecord::Schema.define(version: 2021_04_02_085941) do
     t.index ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id"
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
+
+  create_table "vaccination_centers", force: :cascade do |t|
+    t.string "name"
+    t.string "num_address"
+    t.string "voie_address"
+    t.string "postal"
+    t.string "city"
+    t.float "lat"
+    t.float "lon"
+    t.string "phone_number"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
 end

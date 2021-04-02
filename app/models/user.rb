@@ -19,8 +19,8 @@ class User < ApplicationRecord
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
 
-  belongs_to :vaccination_center, optional :true
-  
+  belongs_to :vaccination_center, optional: true
+
   LATLNG_DECIMALS = 2
 
   def approximate_coords

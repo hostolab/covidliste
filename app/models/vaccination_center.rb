@@ -7,7 +7,7 @@ class VaccinationCenter < ApplicationRecord
   validates :postal, presence: true
   validates :city, presence: true
   validates :lat, presence: true
-  validates :long, presence: true
+  validates :lon, presence: true
   validates :phone_number, presence: true
 
   def address
