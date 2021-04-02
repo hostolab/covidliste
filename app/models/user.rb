@@ -8,10 +8,12 @@ class User < ApplicationRecord
          :validatable,
          :confirmable
   
-  encrypts :firstname, migrating: true
-  encrypts :lastname, migrating: true
-  encrypts :address, migrating: true
-  encrypts :phone_number, migrating: true
+  encrypts :firstname
+  encrypts :lastname
+  encrypts :address
+  encrypts :phone_number
+
+  self.ignored_columns = ['firstname', 'lastname', 'address', 'phone_number']
 
   validates :firstname, presence: true
   validates :lastname, presence: true
