@@ -15,5 +15,5 @@
           .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "dropdown09"}
             =link_to "Déconnexion", destroy_user_session_path, :method => :delete, class: 'dropdown-item'
       - else
-        -# %li.nav-item
-        -#   =link_to "Login", new_user_session_path, class: "nav-link"
+        %li{class: (controller_name == 'sessions' ? 'nav-item active' : 'nav-item')}
+          =link_to "Espace personnel", new_user_session_path, class: "nav-link"
