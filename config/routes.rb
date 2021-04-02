@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
 
   namespace :admin do
@@ -7,6 +9,7 @@ Rails.application.routes.draw do
   authenticate :user, lambda(&:super_admin?) do
     mount Blazer::Engine, at: 'admin/blazer'
     mount PgHero::Engine, at: "admin/pghero"
+    mount Sidekiq::Web => 'admin/sidekiq'
   end
   
   
