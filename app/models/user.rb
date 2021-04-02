@@ -14,8 +14,17 @@ class User < ApplicationRecord
   validates :birthdate, presence: true
   validates :toc, presence: true, acceptance: true
 
+  before_save :approcimate_coords
+
   scope :confirmed, -> { where.not(confirmed_at: nil) }
 
+  LATLNG_DECIMALS = 2
+
+  def approcimate_coords
+    return if (self.lat.nil? || self.lon.nil?)
+    self.lat = self.lat.round(LATLNG_DECIMALS)
+    self.lon = self.lon.round(LATLNG_DECIMALS)
+  end
 
   def full_name
     "#{firstname} #{lastname}"

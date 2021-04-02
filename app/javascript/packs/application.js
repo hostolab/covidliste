@@ -21,10 +21,9 @@ ActiveStorage.start()
 // External imports
 import "bootstrap";
 
-// Internal imports, e.g:
-// import { initSelect2 } from '../components/init_select2';
-
+import { placesAutocomplete } from '../plugins/places_autocomplete';
 document.addEventListener('turbolinks:load', () => {
-  // Call your functions here, e.g:
-  // initSelect2();
+  const appId = process.env.PLACES_APP_ID;
+  const apiKey = process.env.PLACES_API_KEY;
+  placesAutocomplete(appId, apiKey);
 });
