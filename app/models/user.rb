@@ -15,6 +15,7 @@ class User < ApplicationRecord
   validates :toc, presence: true, acceptance: true
 
   before_save :approcimate_coords
+  before_save :geocode_address, if: :will_save_change_to_address?
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
 
@@ -24,6 +25,10 @@ class User < ApplicationRecord
     return if (self.lat.nil? || self.lon.nil?)
     self.lat = self.lat.round(LATLNG_DECIMALS)
     self.lon = self.lon.round(LATLNG_DECIMALS)
+  end
+
+  def geocode_address
+    GeocodeJob.perform_later(id)
   end
 
   def full_name

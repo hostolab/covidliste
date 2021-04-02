@@ -40,6 +40,7 @@ gem 'rolify'
 gem 'blazer'
 gem 'pghero'
 gem 'pg_query', '>= 0.9.0'
+gem 'sidekiq'
 
 group :development, :test do
   gem 'pry-byebug'

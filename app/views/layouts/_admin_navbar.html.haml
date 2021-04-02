@@ -11,6 +11,7 @@
           .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "dropdown10"}
             =link_to "Blazer", "/admin/blazer", class: 'dropdown-item', target: "_blank"
             =link_to "PgHero", "/admin/pghero", class: 'dropdown-item', target: "_blank"
+            =link_to "Sidekiq", "/admin/sidekiq", class: 'dropdown-item', target: "_blank"
       - if current_user
         %li.nav-item.dropdown
           %a#dropdown09.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => ""}
