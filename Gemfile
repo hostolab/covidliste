@@ -41,6 +41,7 @@ gem 'blazer'
 gem 'pghero'
 gem 'pg_query', '>= 0.9.0'
 gem 'sidekiq'
+gem 'geocoder'
 
 group :development, :test do
   gem 'pry-byebug'

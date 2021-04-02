@@ -15,7 +15,7 @@ class User < ApplicationRecord
   validates :toc, presence: true, acceptance: true
 
   before_save :approximate_coords
-  before_save :geocode_address, if: :will_save_change_to_address?
+  after_commit :geocode_address, if: :saved_change_to_address?
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
 
@@ -28,7 +28,7 @@ class User < ApplicationRecord
   end
 
   def geocode_address
-    GeocodeJob.perform_later(id)
+    GeocodeJob.perform_later(self.id)
   end
 
   def full_name

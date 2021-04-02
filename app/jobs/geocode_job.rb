@@ -6,6 +6,13 @@ class GeocodeJob < ActiveJob::Base
     user = User.find(user_id)
     return if user.address.nil?
     return if user.lat && user.lon
-    ## geocode
+    results = Geocoder.search(user.address)
+    begin
+      lat = results.first.coordinates[0]
+      lon = results.first.coordinates[1]
+      user.update(lat: lat, lon: lon)
+    rescue
+      ## todo: add error reporting
+    end
   end
 end

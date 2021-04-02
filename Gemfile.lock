@@ -110,6 +110,7 @@ GEM
     ffi (1.15.0)
     font-awesome-sass (5.15.1)
       sassc (>= 1.11)
+    geocoder (1.6.6)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     haml (5.2.1)
@@ -299,6 +300,7 @@ DEPENDENCIES
   devise
   dotenv-rails
   font-awesome-sass
+  geocoder
   haml-rails (~> 2.0)
   jbuilder (~> 2.7)
   letter_opener (~> 1.7)
