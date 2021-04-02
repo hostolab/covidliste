@@ -12,7 +12,7 @@
     = simple_form_for(@user, url: :profile, method: :put, wrapper: :horizontal_form) do |f|
       = f.input :firstname, label: 'Prénom', placeholder: 'Jean', valid_class: ''
       = f.input :lastname, label: 'Nom', error: 'Nom requis', placeholder: 'Dupont'
-      = f.input :birthdate, as: :date, label: 'Date de naissance', start_year: Date.today.year - 90, end_year: Date.today.year - 9, order: [:day, :month, :year]
+      = f.input :birthdate, as: :date, label: 'Date de naissance', start_year: Date.today.year - 90, end_year: Date.today.year - 18, order: [:day, :month, :year]
       = f.input :address, label: 'Adresse', error: 'Adresse requise', placeholder: '5 rue larue, 13600 Marseille'
       = f.input :lat, :as => :hidden
       = f.input :lon, :as => :hidden
