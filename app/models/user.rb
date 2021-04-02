@@ -7,6 +7,11 @@ class User < ApplicationRecord
          :rememberable, 
          :validatable,
          :confirmable
+  
+  encrypts :firstname, migrating: true
+  encrypts :lastname, migrating: true
+  encrypts :address, migrating: true
+  encrypts :phone_number, migrating: true
 
   validates :firstname, presence: true
   validates :lastname, presence: true

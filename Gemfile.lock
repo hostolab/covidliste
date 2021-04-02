@@ -142,6 +142,7 @@ GEM
     listen (3.5.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
+    lockbox (0.6.3)
     loofah (2.9.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -298,7 +299,7 @@ DEPENDENCIES
   byebug
   capybara (>= 3.26)
   devise
-  dotenv-rails
+  dotenv-rails (= 2.7.6)
   font-awesome-sass
   geocoder
   haml-rails (~> 2.0)
@@ -306,6 +307,7 @@ DEPENDENCIES
   letter_opener (~> 1.7)
   letter_opener_web (~> 1.4)
   listen (~> 3.3)
+  lockbox
   pg (~> 1.1)
   pg_query (>= 0.9.0)
   pghero
