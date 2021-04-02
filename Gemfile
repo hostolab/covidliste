@@ -37,6 +37,7 @@ gem 'letter_opener', '~> 1.7'
 gem 'letter_opener_web', '~> 1.4'
 gem 'devise'
 gem 'rolify'
+gem 'blazer'
 
 group :development, :test do
   gem 'pry-byebug'

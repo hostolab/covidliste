@@ -1,4 +1,13 @@
 Rails.application.routes.draw do
+
+  namespace :admin do
+    get '/' => 'home#index'
+  end
+
+  authenticate :user, lambda(&:super_admin?) do
+    mount Blazer::Engine, at: 'admin/blazer'
+  end
+  
   
   mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
 
