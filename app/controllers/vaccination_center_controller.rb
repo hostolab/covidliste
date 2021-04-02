@@ -1,2 +1,2 @@
 class VaccinationCentersController < ApplicationController
-    
+end

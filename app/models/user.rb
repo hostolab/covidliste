@@ -4,9 +4,12 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable,
          :recoverable,
-         :rememberable, 
+         :rememberable,
          :validatable,
          :confirmable
+
+  has_many :user_vaccination_centers
+  has_many :vaccination_centers, through: :user_vaccination_center
 
   validates :firstname, presence: true
   validates :lastname, presence: true
@@ -19,7 +22,6 @@ class User < ApplicationRecord
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
 
-  belongs_to :vaccination_center, optional: true
 
   LATLNG_DECIMALS = 2
 
