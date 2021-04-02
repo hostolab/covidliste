@@ -14,9 +14,24 @@ class User < ApplicationRecord
   validates :birthdate, presence: true
   validates :toc, presence: true, acceptance: true
 
+  before_save :approximate_coords
+  after_commit :geocode_address, if: :saved_change_to_address?
+
   scope :confirmed, -> { where.not(confirmed_at: nil) }
 
   belongs_to :vaccination_center, optional :true
+  
+  LATLNG_DECIMALS = 2
+
+  def approximate_coords
+    return if (self.lat.nil? || self.lon.nil?)
+    self.lat = self.lat.round(LATLNG_DECIMALS)
+    self.lon = self.lon.round(LATLNG_DECIMALS)
+  end
+
+  def geocode_address
+    GeocodeJob.perform_later(self.id)
+  end
 
   def full_name
     "#{firstname} #{lastname}"
