@@ -10,3 +10,28 @@
 .navbar-lewagon .navbar-brand img {
   width: 40px;
 }
+
+@media (prefers-color-scheme: dark) {
+  .navbar  {
+    background-color: rgb(32, 33, 36);
+    color: #E0E0E0;
+  }
+
+  .navbar a.navbar-brand, .navbar a.nav-link {
+    color: #E0E0E0;
+  }
+
+  nav .active > a.nav-link {
+    color: white;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .navbar {
+    background-color: white;
+  }
+
+  .navbar a.navbar-brand, .navbar a.nav-link {
+    color: rgba(0, 0, 0, 0.9);
+  }
+}
