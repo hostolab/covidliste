@@ -112,4 +112,16 @@ ActiveRecord::Schema.define(version: 2021_04_02_085941) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
+  create_table "vaccination_centers", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "name"
+    t.string "num_address"
+    t.string "voie_address"
+    t.int "postal"
+    t.string "city"
+    t.float "lat"
+    t.float "lon"
+    t.string "phone_number"
+    t.index ["user_id"], name: "index_vaccinations_centers_on_user_id"
+  end
 end
