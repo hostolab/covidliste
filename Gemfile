@@ -38,6 +38,8 @@ gem 'letter_opener_web', '~> 1.4'
 gem 'devise'
 gem 'rolify'
 gem 'blazer'
+gem 'pghero'
+gem 'pg_query', '>= 0.9.0'
 
 group :development, :test do
   gem 'pry-byebug'
