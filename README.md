@@ -10,9 +10,40 @@ Covidliste makes it easy to manage waiting lists for vaccination centers.
 
 - Ruby on Rails
 - Postgresql
+
 # Local Development
 
-[Todo]
+## Installation
+
+### Prerequisites
+
+If you don't already have them :
+
+- Install ruby 2.6.6 `rbenv install 2.6.6 && rbenv global 2.6.6`
+- Install bundler 2.1.4 `gem install bundler:2.1.4`
+- Install yarn `npm i -g yarn`
+
+### Dependencies
+
+Setup the project's dependencies :
+
+```bash
+bundle install
+yarn
+```
+
+### Database
+
+1. Create a database called `covidliste_development` using your favorite postgresql GUI or CLI.
+2. Then run the migrations : `bin/rails db:migrate RAILS_ENV=development`
+
+### Running
+
+Run :
+
+```bash
+bin/rails server
+```
 
 # To Contribute
 
