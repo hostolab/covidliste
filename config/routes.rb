@@ -2,7 +2,9 @@ require 'sidekiq/web'
 
 Rails.application.routes.draw do
 
-
+  namespace :admin do
+    get '/' => 'home#index'
+  end
   authenticate :user, lambda(&:super_admin?) do
     mount Blazer::Engine, at: 'admin/blazer'
     mount PgHero::Engine, at: "admin/pghero"
