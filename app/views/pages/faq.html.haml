@@ -1,5 +1,63 @@
 .row.mtop2
-    .col-sm-12.col-md-8.col-lg-8
-        %h3
-            Foire aux questions 
-        
+  .col-sm-12.col-md-8.col-lg-8
+    %p
+      %strong Foire aux questions 
+    %p 
+      Vous trouverez ici un ensemble de réponses aux questions les plus posées.
+
+    %p 
+      %strong Je me suis inscrit mais je souhaite modifier ou supprimer mes données ?
+    
+    %p
+      %ul
+        %li 
+          Afin de modifier ou supprimer vos données personnelles, connectez-vous sur votre espace personnel
+          =link_to 'ici', '/login'
+        %li
+          Si vous souhaitez modifier vos données : modifiez-les puis cliquez sur “Je modifie mes informations”. 
+        %li
+          Si vous souhaitez supprimer vos données : cliquez sur “Supprimez mon compte”. 
+
+    %p 
+      %strong Je suis un centre de vaccination. Comment accéder à votre service ?
+    
+    -# %p 
+    -#   %ul 
+    -#     %li
+    -#       Je suis un centre de vaccination / vaccinodrome : valider dans les coordonnées 
+    -#       =link_to 'fichier', 'https://docs.google.com/spreadsheets/d/1nrhUfjbSvhtDnsRs3DoYCqJrU3debmfnpo31NBcxSKc/edit#gid=1656677593'
+    -#       (source 
+    -#       =link_to 'Open Data', 'https://www.data.gouv.fr/fr/datasets/lieux-de-vaccination-contre-la-covid-19/'
+    -#       )
+    -#     %li 
+    -#       Je suis une pharmacie / médecin généraliste 
+
+    %p 
+      Nous sommes en train de développer une interface de gestion automatisée des volontaires à la vaccination. Celle-ci sera disponible dans les prochains jours. 
+    
+    %p
+      Afin de référencer votre centre, vous pouvez d'ores et déjà nous confirmer : 
+      %ul 
+        %li
+          Les coordonnées de la ou les personnes référentes du centre concerné (nom, prénom, email, titre, numéro de téléphone). 
+        %li 
+          Les informations relatives au centre (nom du centre, adresse postale, vaccin administrés et horaires d'ouverture)
+    %p 
+      Nous allons démarrer le déploiement de la solution avec des centres de vaccination pilote dès la semaine prochaine. Si vous souhaitez faire partie des centres pilotes, nous vous invitons à contacter gaelle@covidliste.com
+
+    %p 
+      %strong Je n’ai pas reçu d’email de confirmation ?
+
+    %p 
+      Veuillez vous connecter sur votre espace personnel
+
+    %p 
+      %strong Comment être certain que les coordonnées transmises ne soient pas par la suite revendues à des tiers ?
+
+    %p 
+      %ul 
+        %li 
+          Covidliste est une initiative citoyenne et philanthrope portée par une équipe de plus de 100 bénévoles qui se sont rassemblés dans l’unique but de ne pas perdre de doses de vaccins. 
+        %li 
+          Les données que vous renseignez ne sont transmises qu’aux centres de vaccination ou aux professionnels de santé proches de chez vous et disposant de doses de vaccins à sauver. 
+
