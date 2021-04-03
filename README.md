@@ -25,7 +25,7 @@ If you don't already have them :
 
 ### Dependencies
 
-Then setup the project's dependencies :
+Setup the project's dependencies :
 
 ```bash
 bundle install
@@ -38,6 +38,8 @@ yarn
 2. Then run the migrations : `bin/rails db:migrate RAILS_ENV=development`
 
 ### Running
+
+Run :
 
 ```bash
 bin/rails server
