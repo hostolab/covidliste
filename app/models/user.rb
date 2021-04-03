@@ -23,6 +23,7 @@ class User < ApplicationRecord
 
   before_save :approximate_coords
   after_commit :geocode_address, if: :saved_change_to_address?
+  after_create :increment_user_count
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
 
@@ -61,4 +62,8 @@ class User < ApplicationRecord
     confirmed? ? super : false
   end
 
+  # Callback after_create
+  def increment_user_count
+    RedisModels::UserCount.increment
+  end
 end

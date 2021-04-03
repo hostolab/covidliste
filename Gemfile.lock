@@ -316,6 +316,7 @@ DEPENDENCIES
   puma (~> 5.0)
   rack-mini-profiler (~> 2.0)
   rails (~> 6.1.1)
+  redis (~> 4.0)
   rolify
   sass-rails (>= 6)
   selenium-webdriver
