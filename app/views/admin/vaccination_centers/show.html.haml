@@ -1,0 +1,46 @@
+.row.mtop2
+  .col-12
+    %p.mb-2
+      =link_to '← Retour', admin_vaccination_centers_path
+    %h2 Espace admin : Centres de vaccination
+    %h3
+      #{@vaccination_center.name}
+      %span.small.text-muted.font-italic #{@vaccination_center.kind}
+    %p.small.mb-2
+      - if @vaccination_center.confirmed?
+        %i.fas.fa-check.text-success
+        Validé
+        par #{@vaccination_center.confirmer.full_name}
+        le #{@vaccination_center.confirmed_at.strftime("%d/%m/%Y")}
+      - else
+        %i.fas.fa-times.text-danger
+        Non validé
+    %p.mb-2 #{@vaccination_center.address}
+    %p.small.mb-2
+      %i.fas.fa-phone
+      #{@vaccination_center.phone_number}
+      \-
+      Vaccins :
+      -if @vaccination_center.pfizer
+        %span.mr-1 Pfizer
+      -if @vaccination_center.moderna
+        %span.mr-1 Moderna
+      -if @vaccination_center.astrazeneca
+        %span.mr-1 Astrazeneca
+      -if @vaccination_center.janssen
+        %span.mr-1 Janssen
+    %p.small.mb-2
+      #{@vaccination_center.description}
+.row
+  .col-12
+    %h5.mtop2 Partenaires liés
+    %table.table.table-striped.table-bordered.table-sm.small
+      %tr
+        %th #
+        %th Nom
+        %th Email
+      - @vaccination_center.partner.each do |partner|
+        %tr
+          %th #{partner.id}
+          %th #{partner.name}
+          %th #{partner.email}

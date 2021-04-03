@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     authenticate :user, lambda(&:admin?) do
       get '/search' => "search#search", as: :admin_search
       post '/search' => "search#search"
+      resources :vaccination_centers, only: [:index, :show, :new, :create]
     end
   end
 
@@ -20,24 +21,30 @@ Rails.application.routes.draw do
 
   mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
 
-  ## devise
+  ## devise users
   devise_for :users,
+   path_names: {sign_in: 'login', sign_out: 'logout'},
     skip: %i[sessions registrations],
     controllers: {
       confirmations: 'confirmations',
     }
 
+  # TODO FIXME Legacy hardcoced login/logout routes, we should use the routes from devise instead
   devise_scope :user do
     get 'login', to: 'devise/sessions#new', as: :new_user_session
     post 'login', to: 'devise/sessions#create', as: :user_session
     delete 'logout', to: 'devise/sessions#destroy', as: :destroy_user_session
   end
 
-  devise_for :partners do
-  end
+  ## devise partners
+  devise_for :partners,
+     path_names: {sign_in: 'login', sign_out: 'logout'},
+     skip: %i[registrations],
+     controllers: {
+       confirmations: 'confirmations',
+     }
 
   ####################
-
 
   ## users
   resources :users, only: [:create, :new]
@@ -45,6 +52,15 @@ Rails.application.routes.draw do
   put '/profile' => "users#update", as: :user
   delete '/profile' => "users#delete", as: :delete_user
   get '/users' => "users#new"
+
+  ## partners
+  resources :partners, only: [:index, :new, :create]
+  get '/partenaires/inscription' => "partners#new", as: :partenaires_inscription_path
+
+  ## vaccionation centers
+  namespace :partners do
+    resources :vaccination_centers, only: [:index, :show, :new, :create]
+  end
 
   ## pages
   get '/mentions_legales' => "pages#mentions_legales", as: :mentions_legales

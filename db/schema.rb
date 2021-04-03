@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_04_214357) do
+ActiveRecord::Schema.define(version: 2021_04_04_233011) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,6 +69,16 @@ ActiveRecord::Schema.define(version: 2021_04_04_214357) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["creator_id"], name: "index_blazer_queries_on_creator_id"
+  end
+
+  create_table "partner_vaccination_centers", id: false, force: :cascade do |t|
+    t.bigint "partner_id"
+    t.bigint "vaccination_center_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["partner_id", "vaccination_center_id"], name: "idx_partners_vac_centers_on_partner_id_and_vac_center_id"
+    t.index ["partner_id"], name: "index_partner_vaccination_centers_on_partner_id"
+    t.index ["vaccination_center_id"], name: "index_partner_vaccination_centers_on_vaccination_center_id"
   end
 
   create_table "partners", force: :cascade do |t|
@@ -140,11 +150,13 @@ ActiveRecord::Schema.define(version: 2021_04_04_214357) do
     t.boolean "janssen"
     t.date "confirmed_at"
     t.string "phone_number"
-    t.bigint "partner_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["partner_id"], name: "index_vaccination_centers_on_partner_id"
+    t.bigint "confirmer_id"
+    t.index ["confirmer_id"], name: "index_vaccination_centers_on_confirmer_id"
   end
 
-  add_foreign_key "vaccination_centers", "partners"
+  add_foreign_key "partner_vaccination_centers", "partners"
+  add_foreign_key "partner_vaccination_centers", "vaccination_centers"
+  add_foreign_key "vaccination_centers", "users", column: "confirmer_id"
 end

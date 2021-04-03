@@ -4,7 +4,9 @@ class UsersController < ApplicationController
   before_action :authenticate_user!, except: [:new, :create]
   
   def new
-    if current_user
+    if current_partner
+      redirect_to partners_path
+    elsif current_user
       redirect_to profile_path
     else
       @user = User.new

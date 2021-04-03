@@ -1,0 +1,91 @@
+.row
+  .col-12
+
+    %p.mtop2
+      %strong
+        ="Bonjour #{@partner.name}"
+
+    - if @partner.vaccination_center.size > 0
+      %p.mt-4 Vous avez accès aux centres de vaccination suivants :
+      %table.table.table-striped.table-bordered.table-sm.small
+        %tr
+          %th Nom
+          %th Coordonnées
+          %th Vaccins
+          %th Actions
+        - @partner.vaccination_center.each do |vaccination_center|
+          %tr
+            %td
+              %strong
+                =link_to vaccination_center.name, partners_vaccination_center_path(vaccination_center.id)
+              %br/
+              %i #{vaccination_center.kind}
+              %br/
+              #{vaccination_center.description}
+            %td
+              %i.fas.fa-phone
+              #{vaccination_center.phone_number}
+              %br/
+              #{vaccination_center.address}
+            %td
+              -if vaccination_center.pfizer
+                %span.mr-1 Pfizer
+              -if vaccination_center.moderna
+                %span.mr-1 Moderna
+              -if vaccination_center.astrazeneca
+                %span.mr-1 Astrazeneca
+              -if vaccination_center.janssen
+                %span.mr-1 Janssen
+            %td
+              =link_to 'Voir / Gèrer les campagnes', partners_vaccination_center_path(vaccination_center.id)
+    - else
+      %p.mt-4
+        Vous n'avez actuellement accès à aucun centre de vaccination.
+      %p
+        =link_to "Demander la création d'un nouveau centre de vaccination", new_partners_vaccination_center_path, class: "btn btn-primary btn-sm"
+
+    - if @partner.vaccination_center_unconfirmed.size > 0
+      %p.mt-4 Vos centres de vaccination en attente de validation :
+      %table.table.table-striped.table-bordered.table-sm.small
+        %tr
+          %th Nom
+          %th Coordonnées
+          %th Vaccins
+          %th Etat
+        - @partner.vaccination_center_unconfirmed.each do |vaccination_center|
+          %tr
+            %td
+              %strong #{vaccination_center.name}
+              %br/
+              %i #{vaccination_center.kind}
+              %br/
+              #{vaccination_center.description}
+            %td
+              %i.fas.fa-phone
+              #{vaccination_center.phone_number}
+              %br/
+              #{vaccination_center.address}
+            %td
+              -if vaccination_center.pfizer
+                %span.mr-1 Pfizer
+              -if vaccination_center.moderna
+                %span.mr-1 Moderna
+              -if vaccination_center.astrazeneca
+                %span.mr-1 Astrazeneca
+              -if vaccination_center.janssen
+                %span.mr-1 Janssen
+            %td En attente de validation
+
+    %p.mt-4
+      Créer ou rejoindre un nouveau centre de vaccination  :
+      .small
+        Vous pouvez demander la création d'un nouveau centre sur Covidliste :
+        =link_to "Demander la création d'un nouveau centre de vaccination", new_partners_vaccination_center_path
+        %br/
+        Si vous souhaitez rejoindre un centre déjà existant sur Covidliste,
+        contactez-nous sur
+        =link_to "hello@covidliste.com", "mailto:hello@covidliste.com"
+.row.mtop2
+  .col-12
+    %hr
+    =link_to "Se déconnecter", destroy_partner_session_path, :method => :delete, class: 'btn btn-warning'

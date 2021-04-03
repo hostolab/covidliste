@@ -1,0 +1,45 @@
+.row.mtop2
+  .col-12
+    %p.mb-2
+      =link_to '← Retour', admin_path
+    %h2 Espace admin : Centres de vaccination
+    .mtop2
+      %table.table.table-striped.table-bordered.table-sm.small
+        %tr
+          %th #
+          %th Nom
+          %th Type
+          %th Addresse
+          %th Téléphone
+          %th Types de vaccins
+          %th Validé
+        - @vaccination_centers.each do |vaccination_center|
+          %tr
+            %th #{vaccination_center.id}
+            %td
+              %strong
+                =link_to vaccination_center.name, admin_vaccination_center_path(vaccination_center.id)
+              %br/
+              #{vaccination_center.description}
+            %td #{vaccination_center.kind}
+            %td #{vaccination_center.address}
+            %td #{vaccination_center.phone_number}
+            %td
+              -if vaccination_center.pfizer
+                %span.mr-1 Pfizer
+              -if vaccination_center.moderna
+                %span.mr-1 Moderna
+              -if vaccination_center.astrazeneca
+                %span.mr-1 Astrazeneca
+              -if vaccination_center.janssen
+                %span.mr-1 Janssen
+            %td
+              - if vaccination_center.confirmed?
+                %i.fas.fa-check.text-success
+                Oui
+                par #{vaccination_center.confirmer.full_name}
+                le #{vaccination_center.confirmed_at.strftime("%d/%m/%Y")}
+              - else
+                %i.fas.fa-times.text-danger
+                Non
+    =link_to 'Créer un nouveau centre de vaccination', new_admin_vaccination_center_path

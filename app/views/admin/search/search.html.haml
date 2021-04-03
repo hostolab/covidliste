@@ -1,55 +1,127 @@
 .row
   .col-12
-
+    %p.mb-2
+      =link_to '← Retour', admin_path
     %h2 Espace admin : Recherche
-
-    %p.mtop2
-      %strong
-        Bonjour #{@user.full_name},
-
     %p
       Depuis cet espace vous pouvez accèder aux profils des #{@users_count} volontaires inscrit sur Covidliste pour la vaccination.
     %p
       Nous vous rappelons que les données présentées dans cet espace ne peuvent être utilisées à d'autre fins que celles pour lesquelles elles ont été récoltées.
 
-      = simple_form_for :map do |f|
-        = f.input :address, label: 'Adresse', placeholder: "Paris, France"
-        = f.input :lat, :as => :hidden
-        = f.input :lon, :as => :hidden
-        = f.input :distance, label: 'Distance (km)', placeholder: "50"
-        = f.input :age_min, label: 'Age minimum', placeholder: "1"
-        = f.input :age_max, label: 'Age maximum', placeholder: "200"
-        = f.button :submit, "Rechercher", class: 'btn btn-primary'
+.row
+  .col-12
+    .row
+      .col-12.col-lg-3.order-lg-1
+        .mtop6.d-none.d-lg-block
+        .px-4.py-3.bg-light.border
+          %p.mb-2 Filtres
+          %div.small
+            = form_tag('', :method => :get) do
+              .form-group.row.mb-2
+                %label.col-6.col-form-label
+                  Distance max
+                  %span.text-muted (kilomètres)
+                .col-6.form-inline
+                  = text_field_tag 'distance', @distance, class: 'form-control form-control-sm', size: 6
+              .form-group.row.mb-1
+                %label.col-3.col-form-label Age
+                %label.col-3.col-form-label.text-muted Min.
+                .col-6.form-inline
+                  = text_field_tag 'age_min', @age_min, class: 'form-control form-control-sm', size: 6
+              .form-group.row.mb-2
+                %label.col-3.col-form-label
+                %label.col-3.col-form-label.text-muted Max.
+                .col-6.form-inline
+                  = text_field_tag 'age_max', @age_max, class: 'form-control form-control-sm', size: 6
+              .form-group.row
+                .col-11.text-right
+                  %button.btn.btn-secondary.btn-sm{ type: 'submit' } Filtrer
+                  = hidden_field_tag 'sort', @sort_column
+                  = hidden_field_tag 'direction', @sort_direction
+                  = hidden_field_tag 'address', @address
+                  = hidden_field_tag 'lat', @lat
+                  = hidden_field_tag 'lon', @lon
+        %p.mtop2.small.mx-2.text-muted
+          Nous vos rappelons que les données présentées dans cet espace ne peuvent être utilisées à d'autre fins que celles pour lesquelles elles ont été récoltées.
 
-    .mtop2
-      %p
-        - if @users_count > @users.count
-          Plus de #{@users.count} volontaires correspondants trouvés à moins de #{@distance} km de #{@address}, affichage des #{@users.count} premiers résultats.
-        - else
-          #{@users.count} volontaires correspondants trouvés à moins de #{@distance} km de #{@address}.
-      %table.table.table-striped.table-bordered
-        %tr
-          %th #
-          %th Nom
-          %th Age
-          %th Téléphone
-          %th Email
-        - @users.each do |user|
-          %tr
-            %th #{user.id}
-            %th #{user.full_name}
-            %td{title: user.birthdate.strftime('%d/%m/%Y')} #{user.age} ans
-            %td #{user.phone_number}
-            %td #{user.email}
-      #leaflet_map{:style => "height: 600px", "data-lat" => @lat, "data-lon" => @lon, "data-address" => @address, "data-border" => @bounds, "data-icon" => asset_path("map/markers/firstaid.png")}
-        #leaflet_markers.d-none
-          - @users.each do |user|
-            .leaflet-marker{"data-lat" => user.lat, "data-lon" => user.lon, "data-icon" => user.age && user.age >= 0 && user.age < 150 ? asset_path("map/markers/number_"+user.age.to_s+".png") : asset_path("map/markers/symbol_inter.png") }
-              %strong #{user.full_name}
-              %br/
-              #{user.age} ans (#{user.birthdate.strftime('%d/%m/%Y')})
-              %br/
-              Téléphone: #{user.phone_number}
-              %br/
-              Email : #{user.email}
+      .col-12.col-lg-9.order-lg-0
+        .d-flex
+          .flex-fill.px-3
+            = form_tag('', :method => :get) do
+              .form-group.row
+                .col-sm-8
+                  = text_field_tag 'address', @address, id: 'map_address', class: 'form-control'
+                .col-sm-4
+                  %button.btn.btn-primary.primary-button{ type: 'submit' } Rechercher
+                  = hidden_field_tag 'lat', @lat, id: 'map_lat'
+                  = hidden_field_tag 'lon', @lon, id: 'map_lon'
+                  = hidden_field_tag 'distance', @distance
+                  = hidden_field_tag 'age_min', @age_min
+                  = hidden_field_tag 'age_max', @age_max
+                  = hidden_field_tag 'sort', @sort_column
+                  = hidden_field_tag 'direction', @sort_direction
+            %p.small
+              - if @search_users_count > @users.count
+                Plus de #{@users.count} volontaires à la vaccination sont disponibles dans un
+                %br/
+                rayon de #{@distance} km, affichage des #{@users.count} premiers résultats.
+              - else
+                #{@users.count} volontaires à la vaccination sont
+                %br/
+                disponibles dans un rayon de #{@distance} km.
+          .small.text-right
+            %table.table.table-sm
+              %tr
+                %th Age
+                %th Volontaires
+              - @search_users_count_by_age.each do |label, value|
+                %tr
+                  %td #{label}
+                  %td #{value}
 
+        .row
+          .col-12
+            %table.table.table-striped.table-bordered.table-sm.small
+              %tr
+                %th
+                  =sortable 'id', '#'
+                %th Nom
+                %th
+                  =sortable 'birthdate', 'Age', true
+                %th Distance
+                %th Téléphone/Email
+                %th Actions
+              - @users.each do |user|
+                %tr
+                  %th #{user.id}
+                  %th
+                    #{user.firstname}
+                    %br/
+                    #{user.lastname}
+                  %td{title: user.birthdate.strftime('%d/%m/%Y')} #{user.age} ans
+                  %td #{user.distance(@lat, @lon)} km
+                  %td
+                    %i.fas.fa-phone
+                    #{user.phone_number}
+                    %br/
+                    %i.fas.fa-envelope
+                    #{user.email}
+                  %td
+
+    .row
+      .col-12.mtop2
+        #leaflet_map{:style => "height: 600px", "data-lat" => @lat, "data-lon" => @lon, "data-address" => @address, "data-border" => @bounds, "data-icon" => asset_path("map/markers/firstaid.png")}
+          #leaflet_markers.d-none
+            - @users.each do |user|
+              .leaflet-marker{"data-lat" => user.lat, "data-lon" => user.lon, "data-icon" => user.age && user.age >= 0 && user.age < 150 ? asset_path("map/markers/number_"+user.age.to_s+".png") : asset_path("map/markers/symbol_inter.png") }
+                %strong #{user.full_name}
+                %br/
+                #{user.age} ans
+                %br/
+                Distance: #{user.distance(@lat, @lon)} km
+                %br/
+                %i.fas.fa-phone
+                #{user.phone_number}
+                %br/
+                %i.fas.fa-envelope
+                #{user.email}
