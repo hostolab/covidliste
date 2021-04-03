@@ -40,7 +40,8 @@ Rails.application.routes.draw do
   ## pages
   get '/mentions_legales' => "pages#mentions_legales", as: :mentions_legales
   get '/privacy' => "pages#privacy", as: :privacy
-
+  get '/faq' => "pages#faq", as: :faq
+  
   root to: 'users#new'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
