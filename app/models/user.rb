@@ -42,6 +42,10 @@ class User < ApplicationRecord
     "#{firstname} #{lastname}"
   end
 
+  def distance(lat, lon)
+    Geocoder::Calculations.distance_between([lat, lon], [self.lat, self.lon]).round(1)
+  end
+
   def age
     now = Time.now.utc.to_date
     now.year - birthdate.year - ((now.month > birthdate.month || (now.month == birthdate.month && now.day >= birthdate.day)) ? 0 : 1)

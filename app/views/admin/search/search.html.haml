@@ -12,26 +12,45 @@
     %p
       Nous vous rappelons que les données présentées dans cet espace ne peuvent être utilisées à d'autre fins que celles pour lesquelles elles ont été récoltées.
 
-      = simple_form_for :map do |f|
-        = f.input :address, label: 'Adresse', placeholder: "Paris, France"
-        = f.input :lat, :as => :hidden
-        = f.input :lon, :as => :hidden
-        = f.input :distance, label: 'Distance (km)', placeholder: "50"
-        = f.input :age_min, label: 'Age minimum', placeholder: "1"
-        = f.input :age_max, label: 'Age maximum', placeholder: "200"
-        = f.button :submit, "Rechercher", class: 'btn btn-primary'
+      = form_tag('', :method => :get) do
+        .form-group.row
+          %label.col-sm-2.col-form-label Adresse
+          .col-sm-10
+            = text_field_tag 'address', @address, id: 'map_address', class: 'form-control'
+            = hidden_field_tag 'lat', @lat
+            = hidden_field_tag 'lon', @lon
+        .form-group.row
+          %label.col-sm-2.col-form-label Distance (km)
+          .col-sm-10
+            = text_field_tag 'distance', @distance, class: 'form-control'
+        .form-group.row
+          %label.col-sm-2.col-form-label Age
+          .col-10.form-inline
+            .form-group
+              %label.col-form-label.text-muted Min
+              = text_field_tag 'age_min', @age_min, class: 'form-control mx-sm-3'
+            .form-group
+              %label.col-form-label.text-muted Max
+              = text_field_tag 'age_max', @age_max, class: 'form-control mx-sm-3'
+        .form-group
+          %button.btn.btn-primary.primary-button.d-block.mr-0.ml-auto{ type: 'submit' } Rechercher
+          = hidden_field_tag 'sort', @sort_column
+          = hidden_field_tag 'direction', @sort_direction
 
     .mtop2
       %p
-        - if @users_count > @users.count
-          Plus de #{@users.count} volontaires correspondants trouvés à moins de #{@distance} km de #{@address}, affichage des #{@users.count} premiers résultats.
+        - if @search_users_count > @users.count
+          Plus de #{@users.count} volontaires correspondants trouvés, affichage des #{@users.count} premiers résultats.
         - else
-          #{@users.count} volontaires correspondants trouvés à moins de #{@distance} km de #{@address}.
+          #{@users.count} volontaires correspondants trouvés.
       %table.table.table-striped.table-bordered
         %tr
-          %th #
+          %th
+            =sortable 'id', '#'
           %th Nom
-          %th Age
+          %th
+            =sortable 'birthdate', 'Age', true
+          %th Distance
           %th Téléphone
           %th Email
         - @users.each do |user|
@@ -39,6 +58,7 @@
             %th #{user.id}
             %th #{user.full_name}
             %td{title: user.birthdate.strftime('%d/%m/%Y')} #{user.age} ans
+            %td #{user.distance(@lat, @lon)} km
             %td #{user.phone_number}
             %td #{user.email}
       #leaflet_map{:style => "height: 600px", "data-lat" => @lat, "data-lon" => @lon, "data-address" => @address, "data-border" => @bounds, "data-icon" => asset_path("map/markers/firstaid.png")}
@@ -48,6 +68,8 @@
               %strong #{user.full_name}
               %br/
               #{user.age} ans (#{user.birthdate.strftime('%d/%m/%Y')})
+              %br/
+              Distance: #{user.distance(@lat, @lon)} km
               %br/
               Téléphone: #{user.phone_number}
               %br/
