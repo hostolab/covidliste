@@ -44,6 +44,8 @@ gem 'sidekiq'
 gem 'geocoder'
 gem 'lockbox'
 
+gem "appsignal"
+
 group :development, :test do
   gem 'pry-byebug'
   gem 'pry-rails'
