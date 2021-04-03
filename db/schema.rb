@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_03_111713) do
+ActiveRecord::Schema.define(version: 2021_04_03_113911) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,15 +94,6 @@ ActiveRecord::Schema.define(version: 2021_04_03_111713) do
     t.index ["resource_type", "resource_id"], name: "index_roles_on_resource"
   end
 
-  create_table "user_vaccination_centers", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "vaccination_center_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_user_vaccination_centers_on_user_id"
-    t.index ["vaccination_center_id"], name: "index_user_vaccination_centers_on_vaccination_center_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "email"
     t.date "birthdate"
@@ -137,21 +128,21 @@ ActiveRecord::Schema.define(version: 2021_04_03_111713) do
   create_table "vaccination_centers", force: :cascade do |t|
     t.string "name"
     t.string "description"
-    t.string "type"
-    t.string "num_address"
-    t.string "voie_address"
-    t.string "postal"
-    t.string "city"
+    t.string "address"
     t.float "lat"
     t.float "lon"
+    t.string "kind"
+    t.boolean "pfizer"
+    t.boolean "moderna"
+    t.boolean "astrazeneca"
+    t.boolean "janssen"
+    t.date "confirmed_at"
     t.string "phone_number"
-    t.string "vaccins"
-    t.string "email"
-    t.string "confirmed_at"
+    t.bigint "partner_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["partner_id"], name: "index_vaccination_centers_on_partner_id"
   end
 
-  add_foreign_key "user_vaccination_centers", "users"
-  add_foreign_key "user_vaccination_centers", "vaccination_centers"
+  add_foreign_key "vaccination_centers", "partners"
 end

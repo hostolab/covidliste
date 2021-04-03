@@ -4,10 +4,10 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable,
          :recoverable,
-         :rememberable, 
+         :rememberable,
          :validatable,
          :confirmable
-  
+
   encrypts :firstname
   encrypts :lastname
   encrypts :address
@@ -60,5 +60,6 @@ class User < ApplicationRecord
   def password_required?
     confirmed? ? super : false
   end
+
 
 end
