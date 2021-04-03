@@ -2,17 +2,14 @@ require 'sidekiq/web'
 
 Rails.application.routes.draw do
 
-  namespace :admin do
-    get '/' => 'home#index'
-  end
 
   authenticate :user, lambda(&:super_admin?) do
     mount Blazer::Engine, at: 'admin/blazer'
     mount PgHero::Engine, at: "admin/pghero"
     mount Sidekiq::Web => 'admin/sidekiq'
   end
-  
-  
+
+
   mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
 
   ## devise
@@ -27,6 +24,10 @@ Rails.application.routes.draw do
     post 'login', to: 'devise/sessions#create', as: :user_session
     delete 'logout', to: 'devise/sessions#destroy', as: :destroy_user_session
   end
+
+  devise_for :partners do
+  end
+
   ####################
 
   ## users
