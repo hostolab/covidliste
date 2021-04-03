@@ -47,4 +47,6 @@ bin/rails server
 
 # To Contribute
 
-[Todo]
+- Go to https://github.com/hostolab/covidliste/issues and assign yourself an issue you think you can address.
+- Submit a PR
+
