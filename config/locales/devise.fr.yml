@@ -30,6 +30,7 @@ fr:
   devise:
     confirmations:
       confirmed: Votre compte a bien été confirmé.
+      already_confirmed: Votre compte a déjà été confirmé. Vous pouvez, ci-dessous, faire un demande de mot de passe pour accéder à votre espace personnel.
       new:
         resend_confirmation_instructions: Renvoyer les instructions de confirmation
       send_instructions: Vous allez recevoir sous quelques minutes un email comportant des instructions pour confirmer votre compte.
