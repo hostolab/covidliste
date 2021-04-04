@@ -12,7 +12,7 @@ class User < ApplicationRecord
   encrypts :lastname
   encrypts :address
   encrypts :phone_number
-  encrypts :email
+  encrypts :email, migrating: true
 
   validates :firstname, presence: true
   validates :lastname, presence: true
