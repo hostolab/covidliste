@@ -62,6 +62,8 @@ GEM
       zeitwerk (~> 2.3)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
+    appsignal (3.0.2)
+      rack
     autoprefixer-rails (10.2.4.0)
       execjs
     bcrypt (3.1.16)
@@ -292,6 +294,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  appsignal
   autoprefixer-rails
   blazer
   bootsnap (>= 1.4.4)
