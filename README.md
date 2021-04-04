@@ -50,3 +50,24 @@ bin/rails server
 - Go to https://github.com/hostolab/covidliste/issues and assign yourself an issue you think you can address.
 - Submit a PR
 
+# Testing
+
+To launch the tests locally, run:
+
+```bash
+bin/rspec
+```
+
+If you want to debug System Tests in the browser, add the following Ruby line as a debugger in your `spec/system/...` file:
+
+```ruby
+page.driver.debug(binding)
+```
+
+Then launch the test with:
+
+```bash
+INSPECTOR=true bin/rspec spec/system/THE_FILE_spec.rb
+```
+
+It should automatically open **Chrome** and allow you to inspect the DOM, queries, etc. You can `next` and `continue` in the Terminal as if you had a `binding.pry` debugging session.
