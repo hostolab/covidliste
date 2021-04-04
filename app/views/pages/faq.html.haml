@@ -1,0 +1,147 @@
+.row.mtop2
+  .col-sm-12.col-md-8.col-lg-8
+    %p
+      %strong Foire aux questions 
+    %p 
+      Vous trouverez ici un ensemble de réponses aux questions les plus posées.
+
+    %p 
+      %strong Je me suis inscrit mais je souhaite modifier ou supprimer mes données ?
+    
+    %p
+      %ul
+        %li 
+          Afin de modifier ou supprimer vos données personnelles, connectez-vous sur votre espace personnel
+          =link_to 'ici', :new_user_session
+        %li
+          Si vous souhaitez modifier vos données : modifiez-les puis cliquez sur “Je modifie mes informations”. 
+        %li
+          Si vous souhaitez supprimer vos données : cliquez sur “Supprimez mon compte”. 
+
+    %p 
+      %strong Je suis un centre de vaccination. Comment accéder à votre service ?
+    
+    -# %p 
+    -#   %ul 
+    -#     %li
+    -#       Je suis un centre de vaccination / vaccinodrome : valider dans les coordonnées 
+    -#       =link_to 'fichier', 'https://docs.google.com/spreadsheets/d/1nrhUfjbSvhtDnsRs3DoYCqJrU3debmfnpo31NBcxSKc/edit#gid=1656677593'
+    -#       (source 
+    -#       =link_to 'Open Data', 'https://www.data.gouv.fr/fr/datasets/lieux-de-vaccination-contre-la-covid-19/'
+    -#       )
+    -#     %li 
+    -#       Je suis une pharmacie / médecin généraliste 
+
+    %p 
+      Nous sommes en train de développer une interface de gestion automatisée des volontaires à la vaccination. Celle-ci sera disponible dans les prochains jours. 
+    
+    %p
+      Afin de référencer votre centre, vous pouvez d'ores et déjà nous confirmer : 
+      %ul 
+        %li
+          Les coordonnées de la ou les personnes référentes du centre concerné (nom, prénom, email, titre, numéro de téléphone). 
+        %li 
+          Les informations relatives au centre (nom du centre, adresse postale, vaccin administrés et horaires d'ouverture)
+    %p 
+      Nous allons démarrer le déploiement de la solution avec des centres de vaccination pilote dès la semaine prochaine. Si vous souhaitez faire partie des centres pilotes, nous vous invitons à contacter gaelle@covidliste.com
+
+    %p 
+      %strong Je n’ai pas reçu d’email de confirmation
+
+    %p 
+      Vous pouvez faire une demande d'email de confirmation
+      =link_to 'ici', new_user_confirmation_path
+
+    %p 
+      %strong Comment être certain que les coordonnées transmises ne soient pas par la suite revendues à des tiers ?
+
+    %p 
+      %ul 
+        %li 
+          Covidliste est une initiative citoyenne et philanthrope portée par une équipe de plus de 100 bénévoles qui se sont rassemblés dans l’unique but de ne pas perdre de doses de vaccins. 
+        %li 
+          Les données que vous renseignez ne sont transmises qu’aux centres de vaccination ou aux professionnels de santé proches de chez vous et disposant de doses de vaccins à sauver. 
+
+    %p 
+      %strong Je ne souhaite pas recevoir tel vaccin / Je préfère un autre vaccin, comment faire ?
+    
+    %p 
+      %ul 
+        %li 
+          La plateforme Covidliste prend uniquement en charge la mise en relation entre un centre de vaccination et les volontaires en fonction de critères établis par le centre tels que l'âge et la distance du point de vaccination.
+        %li 
+          Le centre de vaccination jugera de votre éligibilité en fonction du vaccin disponible.
+        %li 
+          Si un centre vous contacte, nous vous invitons à lui faire part de votre préférence et de toutes les informations que vous jugez nécessaires.
+    
+    %p 
+      %strong Je ne suis pas prioritaire, est-ce que je peux quand même m’inscrire ?
+    
+    %p 
+      %ul 
+        %li 
+          Covidliste est un outil d’ajustement de l’offre et de la demande qui a pour objectif d’éviter de perdre des doses de vaccins. 
+        %li 
+          Les centres pourront vous contacter même si vous n’êtes pas prioritaires selon les critères de la vague de vaccination en vigueur à ce moment. 
+        %li 
+          Ce sont les centres qui sélectionnent les volontaires selon des critères qui leur sont propres parmi lesquels géolocalisation, âge, vaccin disponible...
+    
+    %p 
+      %strong  Je suis inscrit depuis XX semaines et je n’ai jamais été contacté pour une vaccination
+
+    %p 
+      %ul 
+        %li 
+          Covidliste est un outil d’ajustement de l’offre et de la demande qui a pour objectif d’éviter de perdre des doses de vaccins. 
+        %li 
+          Covidliste est complémentaire de la stratégie vaccinale actuelle et n’a pas vocation à s’y substituer.
+        %li 
+          Covidliste ne peut garantir qu’une dose de vaccin sera proposée aux volontaires sur la plateforme.
+
+    %p 
+      %strong Comment vais-je être contacté pour la seconde dose ?
+    
+    %p 
+      Covidliste prend uniquement en charge la mise en relation entre des volontaires et un centre de vaccination partenaire qui a des doses disponibles en surnombre. 
+      %br/
+      Une fois entré dans le protocole de vaccination, c’est le centre qui vous aura proposé la première dose qui suivra votre dossier vaccinal.
+
+    %p 
+      %strong Est-ce que je peux m’inscrire sur Covidliste si j’ai déjà reçu ma première dose ?
+
+    %p 
+      %ul 
+        %li 
+          Covidliste s’adresse aux non vaccinés volontaires et s’est fixé pour pour mission de sauver des doses qui risqueraient d’être perdues.
+        %li 
+          Covidliste est complémentaire à la stratégie vaccinale actuelle et n’a pas vocation à s’y substituer.
+    
+    %p 
+      %strong Si l'on est vacciné par l'intermédiaire de Covidliste sans être de la catégorie prioritaire, est-ce que la deuxième dose est assurée dans les bons délais ?
+
+    %p 
+      Covidliste prend uniquement en charge la mise en relation entre des volontaires et un centre de vaccination partenaire qui a des doses disponibles en surnombre. 
+      %br/
+      Une fois entré dans le protocole de vaccination, c’est le centre qui vous aura proposé la première dose qui suivra votre dossier vaccinal.
+
+    %p 
+      %strong Quels sont les centres de vaccination partenaires ?
+
+    %p 
+      L’équipe de Covidliste diffusera la liste des centres dans les prochains jours. L’initiative est lancée en partenariat avec des centres pilotes en Île-de-France et va se développer sur l’ensemble du territoire.
+
+    %p 
+      %strong Puis-je choisir les centres susceptibles de me contacter ?
+
+    %p 
+      %ul 
+        %li 
+          La plateforme Covidliste permet aux centres de vaccination d’identifier et de contacter des volontaires à proximité afin d’écouler des surdoses qui risqueraient d’être détruites.
+        %li 
+          Covidliste est complémentaire à la stratégie vaccinale actuelle et n’a pas vocation à s’y substituer.
+    
+    %p 
+      %strong Je suis journaliste et souhaite réaliser une interview
+
+    %p 
+      Nous vous invitons à nous contacter sur hello@covidliste.com

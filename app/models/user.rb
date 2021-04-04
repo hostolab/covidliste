@@ -12,8 +12,9 @@ class User < ApplicationRecord
   encrypts :lastname
   encrypts :address
   encrypts :phone_number
+  encrypts :email
 
-  self.ignored_columns = ['firstname', 'lastname', 'address', 'phone_number']
+  self.ignored_columns = ['email']
 
   validates :firstname, presence: true
   validates :lastname, presence: true
