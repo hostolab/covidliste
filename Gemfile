@@ -43,6 +43,7 @@ gem 'pg_query', '>= 0.9.0'
 gem 'sidekiq'
 gem 'geocoder'
 gem 'lockbox'
+gem 'appsignal'
 
 group :development, :test do
   gem 'pry-byebug'
@@ -65,12 +66,15 @@ group :development do
 end
 
 group :test do
-  # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '>= 3.26'
+  gem 'capybara', '>= 2.15'
+  gem 'cuprite'
   gem 'selenium-webdriver'
-  # Easy installation and use of web drivers to run system tests with browsers
-  gem 'webdrivers'
+  gem 'factory_bot_rails'
+  gem 'rspec-rails', '~> 4.0.0'
+  gem 'rspec-sidekiq'
+  gem 'database_cleaner-active_record'
+  gem 'webmock'
 end
 
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+# Windows does not include zone
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

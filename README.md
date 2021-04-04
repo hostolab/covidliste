@@ -30,8 +30,10 @@ You need the following software installed:
 After a fresh clone, go to the project folder and create an `.env` file:
 
 ```bash
-echo "LOCKBOX_MASTER_KEY=dev" > .env
+echo "LOCKBOX_MASTER_KEY=8f3b0605f48bdd55e6e53e3450208be2778a8eb0ac9648e83235f3f5c4d6b6ff" > .env
 ```
+
+(This key is _not_ the production one. You can generate another one with `Lockbox.generate_key` in a `rails c`)
 
 Then:
 
@@ -65,3 +67,26 @@ bin/webpack-dev-server
 - Submit a PR
 
 We use the [GitHub flow](https://guides.github.com/introduction/flow/)
+
+# Testing
+
+To launch the tests locally, run:
+
+```bash
+bin/rspec
+```
+
+If you want to debug System Tests in the browser, add the following Ruby line as a debugger in your `spec/system/...` file:
+
+```ruby
+page.driver.debug(binding)
+```
+
+Then launch the test with:
+
+```bash
+INSPECTOR=true bin/rspec spec/system/THE_FILE_spec.rb
+```
+
+It should automatically open **Chrome** and allow you to inspect the DOM, queries, etc. You can `next` and `continue` in the Terminal as if you had a `binding.pry` debugging session.
+
