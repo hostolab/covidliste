@@ -43,6 +43,7 @@ gem 'pg_query', '>= 0.9.0'
 gem 'sidekiq'
 gem 'geocoder'
 gem 'lockbox'
+gem 'appsignal'
 
 group :development, :test do
   gem 'pry-byebug'
