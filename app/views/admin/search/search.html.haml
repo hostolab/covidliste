@@ -3,7 +3,7 @@
 
     %h2 Espace admin : Recherche
 
-    %p.mtop2
+    %p.mt-2
       %strong
         Bonjour #{@user.full_name},
 
@@ -21,7 +21,7 @@
         = f.input :age_max, label: 'Age maximum', placeholder: "200"
         = f.button :submit, "Rechercher", class: 'btn btn-primary'
 
-    .mtop2
+    .mt-2
       %p
         - if @users_count > @users.count
           Plus de #{@users.count} volontaires correspondants trouvés à moins de #{@distance} km de #{@address}, affichage des #{@users.count} premiers résultats.

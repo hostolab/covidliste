@@ -1,5 +1,5 @@
 #devise
-  .row.mtop2
+  .row.mt-3
     .col-sm-12.col-md-8.col-lg-6
       %p
         %strong Connexion
@@ -11,7 +11,7 @@
             = f.check_box :remember_me
             %span.bp3-control-indicator
             Se souvenir de moi
-        %p.mtop2
+        %p.mt-3
           = f.submit 'Connexion', class: 'btn btn-primary'
         %p
           - if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations'

@@ -13,7 +13,6 @@
 @import "components/index";
 @import "pages/index";
 
-
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -27,20 +26,4 @@ body {
   color: #0E0000;
   text-align: left;
   background-color: #fff;
-}
-
-.mtop2{
-  margin-top: 20px;
-}
-
-.pbot4{
-  padding-bottom: 40px;
-}
-
-.navbar-light .navbar-nav .nav-link {
-  color: rgba(0, 0, 0, 0.5);
-}
-
-nav .active > .nav-link {
-  color: rgba(0, 0, 0, 1);
 }

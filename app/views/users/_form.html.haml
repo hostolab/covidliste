@@ -1,9 +1,9 @@
-.row.mtop2
+.row.mt-3
   .col-12
     %p
       %strong Inscription
     - if @user.persisted?
-      .row.mtop2
+      .row.mt-3
         .alert.alert-success{:role => "alert", style: "position: inherit"}
           Merci ! Vous étes bien enregistré sur Covidliste. Vous allez recevoir dans quelques instants un email de confirmation qui vous permettra de valider votre inscription et accéder à votre espace sécurisé.
     - else
