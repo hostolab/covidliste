@@ -20,8 +20,9 @@ Covidliste makes it easy to manage waiting lists for vaccination centers.
 If you don't already have them :
 
 - Install ruby 2.6.6 `rbenv install 2.6.6 && rbenv global 2.6.6`
-- Install bundler 2.1.4 `gem install bundler:2.1.4`
+- Install bundler 2.1.4 `gem install bundler:2.2.7`
 - Install yarn `npm i -g yarn`
+- Install redis `npm i -g yarn`
 
 ### Dependencies
 
@@ -32,16 +33,24 @@ bundle install
 yarn
 ```
 
-### Database
+Add a development encryption key to your .bashrc/.zshrc :
+
+```bash
+export LOCKBOX_MASTER_KEY=0000000000000000000000000000000000000000000000000000000000000000
+```
+
+### Database / Cache
 
 1. Create a database called `covidliste_development` using your favorite postgresql GUI or CLI.
 2. Then run the migrations : `bin/rails db:migrate RAILS_ENV=development`
+3. Run redis if it's not already running : `redis-server /usr/local/etc/redis.conf`
 
 ### Running
 
 Run :
 
 ```bash
+redis-server /usr/local/etc/redis.conf # Run redis if not already running
 bin/rails server
 ```
 

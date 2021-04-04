@@ -12,6 +12,7 @@ class User < ApplicationRecord
   encrypts :lastname
   encrypts :address
   encrypts :phone_number
+  encrypts :email, migrating: true
 
   self.ignored_columns = ['firstname', 'lastname', 'address', 'phone_number']
 
