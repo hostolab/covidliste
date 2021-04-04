@@ -14,8 +14,6 @@ class User < ApplicationRecord
   encrypts :phone_number
   encrypts :email
 
-  self.ignored_columns = ['email']
-
   validates :firstname, presence: true
   validates :lastname, presence: true
   validates :address, presence: true
