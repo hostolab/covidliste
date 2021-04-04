@@ -28,3 +28,12 @@
 # For further information see the following documentation:
 # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy-Report-Only
 # Rails.application.config.content_security_policy_report_only = true
+
+Rails.application.config.content_security_policy do |policy|
+    policy.default_src :self, :https
+    policy.font_src    :self, :data, :https
+    policy.img_src     :self, :data, :https
+    policy.object_src  :none
+    policy.script_src  :self, :https, "'unsafe-inline'"
+    policy.style_src   :self, :https, "'unsafe-inline'"
+  end
