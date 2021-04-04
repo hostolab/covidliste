@@ -12,7 +12,7 @@
       %ul
         %li 
           Afin de modifier ou supprimer vos données personnelles, connectez-vous sur votre espace personnel
-          =link_to 'ici', '/login'
+          =link_to 'ici', :new_user_session
         %li
           Si vous souhaitez modifier vos données : modifiez-les puis cliquez sur “Je modifie mes informations”. 
         %li
@@ -49,7 +49,8 @@
       %strong Je n’ai pas reçu d’email de confirmation
 
     %p 
-      Veuillez vous connecter sur votre espace personnel
+      Vous pouvez faire une demande d'email de confirmation
+      =link_to 'ici', new_user_confirmation_path
 
     %p 
       %strong Comment être certain que les coordonnées transmises ne soient pas par la suite revendues à des tiers ?
