@@ -23,9 +23,9 @@ You need the following software installed:
 - Ruby 2.7.2
 - Node 10.17
 - Yarn 1.22+
-- PostgreSQL & Redis running
+- PostgreSQL & Redis **running** in the background
 
-## Start
+## Setup
 
 After a fresh clone, go to the project folder and create an `.env` file:
 
@@ -34,7 +34,6 @@ echo "LOCKBOX_MASTER_KEY=dev" > .env
 ```
 
 Then:
-
 
 ```bash
 bundle install
@@ -66,4 +65,3 @@ bin/webpack-dev-server
 - Submit a PR
 
 We use the [GitHub flow](https://guides.github.com/introduction/flow/)
-
