@@ -7,4 +7,6 @@ class PagesController < ApplicationController
   def privacy
   end
 
+  def faq
+  end
 end
