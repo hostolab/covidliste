@@ -9,44 +9,61 @@ Covidliste makes it easy to manage waiting lists for vaccination centers.
 # Stack
 
 - Ruby on Rails
-- Postgresql
+- Bootstrap
+- Vanilla JS w/ Webpack
+- PostgreSQL
+- Redis (for Sidekiq & Caching)
 
 # Local Development
 
-## Installation
+## Dependencies
 
-### Prerequisites
+You need the following software installed:
 
-If you don't already have them :
+- Ruby 2.7.2
+- Node 10.17
+- Yarn 1.22+
+- PostgreSQL & Redis running
 
-- Install ruby 2.6.6 `rbenv install 2.6.6 && rbenv global 2.6.6`
-- Install bundler 2.1.4 `gem install bundler:2.1.4`
-- Install yarn `npm i -g yarn`
+## Start
 
-### Dependencies
+After a fresh clone, go to the project folder and create an `.env` file:
 
-Setup the project's dependencies :
+```bash
+echo "LOCKBOX_MASTER_KEY=dev" > .env
+```
+
+Then:
+
 
 ```bash
 bundle install
-yarn
+yarn install
+bin/rails db:create RAILS_ENV=development
+bin/rails db:migrate RAILS_ENV=development
 ```
 
-### Database
+Please note that these four steps should be done every time you fetch a new version of `master` as gems, npm packages or DB migrations might have been added.
 
-1. Create a database called `covidliste_development` using your favorite postgresql GUI or CLI.
-2. Then run the migrations : `bin/rails db:migrate RAILS_ENV=development`
+## Running
 
-### Running
-
-Run :
+Open two terminals. In the first, start:
 
 ```bash
 bin/rails server
 ```
 
+In the second:
+
+```bash
+bin/webpack-dev-server
+```
+
 # To Contribute
 
 - Go to https://github.com/hostolab/covidliste/issues and assign yourself an issue you think you can address.
+- Work in a branch
 - Submit a PR
+
+We use the [GitHub flow](https://guides.github.com/introduction/flow/)
 

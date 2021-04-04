@@ -148,7 +148,7 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.7.1)
       mini_mime (>= 0.1.1)
-    marcel (1.0.0)
+    marcel (1.0.1)
     method_source (1.0.0)
     mini_mime (1.0.3)
     mini_portile2 (2.5.0)
@@ -315,7 +315,7 @@ DEPENDENCIES
   pry-rails
   puma (~> 5.0)
   rack-mini-profiler (~> 2.0)
-  rails (~> 6.1.1)
+  rails (~> 6.1)
   rolify
   sass-rails (>= 6)
   selenium-webdriver
@@ -329,7 +329,7 @@ DEPENDENCIES
   webpacker (~> 5.0)
 
 RUBY VERSION
-   ruby 2.6.6p146
+   ruby 2.7.2p137
 
 BUNDLED WITH
-   2.2.7
+   2.2.13
