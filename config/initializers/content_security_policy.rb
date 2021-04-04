@@ -34,6 +34,6 @@ Rails.application.config.content_security_policy do |policy|
     policy.font_src    :self, :data, :https
     policy.img_src     :self, :data, :https
     policy.object_src  :none
-    policy.script_src  :self, :https, "'unsafe-inline'"
+    policy.script_src  :self, :https, "'unsafe-inline'", "'unsafe-eval'"
     policy.style_src   :self, :https, "'unsafe-inline'"
   end
