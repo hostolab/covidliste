@@ -16,8 +16,6 @@ class User < ApplicationRecord
 
   blind_index :email
 
-  self.ignored_columns = ['email']
-
   validates :firstname, presence: true
   validates :lastname, presence: true
   validates :address, presence: true
