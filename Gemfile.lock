@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/faker-ruby/faker.git
+  revision: 08cd44c88f0e5579be557acca4633e25a64ffe55
+  branch: master
+  specs:
+    faker (2.17.0)
+      i18n (>= 1.6, < 2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -369,6 +377,7 @@ DEPENDENCIES
   devise
   dotenv-rails (= 2.7.6)
   factory_bot_rails
+  faker!
   font-awesome-sass
   geocoder
   haml-rails (~> 2.0)
