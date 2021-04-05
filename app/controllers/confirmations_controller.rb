@@ -18,8 +18,6 @@ class ConfirmationsController < ::Devise::ConfirmationsController
       # NOTE(ssaunier): We already have a valid password at sign up
       partners_vaccination_centers_path
     else
-      # token = resource.send(:set_reset_password_token)
-      # edit_password_url(resource, reset_password_token: token)
       root_path
     end
   end
