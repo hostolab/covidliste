@@ -34,7 +34,7 @@ jobs:
           # runs 'bundle install' and caches installed gems automatically
           bundler-cache: true
       - name: Set up .env
-        run: echo "LOCKBOX_MASTER_KEY=dev" > .env
+        run: echo "LOCKBOX_MASTER_KEY=438a8426c2fa76692adb8ed5c335a9665f8d8b5eed671464b651655806baf88a" > .env
       - name: Set up Node
         uses: actions/setup-node@v2
         with:
