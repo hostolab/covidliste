@@ -11,9 +11,10 @@ module Admin
 
     def require_role!
       authenticate_user!
-      return if current_user.has_role?(:super_admin)
-      flash[:alert] = "Vous n'êtes pas autorisé à accéder à cette page !"
-      redirect_to(root_path)
+      if !current_user.admin?
+        flash[:alert] = "Vous n'êtes pas autorisé à accéder à cette page !"
+        redirect_to(root_path)
+      end
     end
 
   end
