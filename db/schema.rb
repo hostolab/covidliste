@@ -76,7 +76,7 @@ ActiveRecord::Schema.define(version: 2021_04_05_150350) do
     t.bigint "vaccination_center_id"
     t.bigint "partner_id"
     t.datetime "expires_at", null: false
-    t.integer "size", default: 0, null: false
+    t.integer "size", null: false
     t.integer "duration_in_minutes", default: 10, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
