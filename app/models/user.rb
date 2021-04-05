@@ -1,7 +1,6 @@
 class User < ApplicationRecord
   rolify
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+
   devise :database_authenticatable,
          :recoverable,
          :rememberable,
@@ -43,6 +42,10 @@ class User < ApplicationRecord
     "#{firstname} #{lastname}"
   end
 
+  def distance(lat, lon)
+    Geocoder::Calculations.distance_between([lat, lon], [self.lat, self.lon]).round(1)
+  end
+
   def age
     now = Time.now.utc.to_date
     now.year - birthdate.year - ((now.month > birthdate.month || (now.month == birthdate.month && now.day >= birthdate.day)) ? 0 : 1)
@@ -57,7 +60,7 @@ class User < ApplicationRecord
   end
 
   def admin?
-    has_role?(:admin)
+    has_role?(:admin) || super_admin?
   end
 
   protected
@@ -66,6 +69,4 @@ class User < ApplicationRecord
   def password_required?
     confirmed? ? super : false
   end
-
-
 end

@@ -1,12 +1,14 @@
-include ActionView::Helpers::NumberHelper
 module Admin
   class SearchController < BaseController
+    include ActionView::Helpers::NumberHelper
 
-    before_action :require_role!
+    helper_method :sort_column, :sort_direction
 
     def search
       @user = current_user
-      @users_count = number_with_delimiter(User.count, locale: :fr)
+      @users_count = Rails.cache.fetch(:users_count, expires_in: 1.minute) do
+        number_with_delimiter(User.count, locale: :fr)
+      end
 
       @lat = '48.8534'
       @lon = '2.3488'
@@ -14,30 +16,30 @@ module Admin
       @distance = 50
       @age_min = 1
       @age_max = 200
-      unless params[:map].blank?
-        unless params[:map][:age_min].blank?
-          @age_min = params[:map][:age_min].to_i
-        end
-        unless params[:map][:age_max].blank?
-          @age_max = params[:map][:age_max].to_i
-        end
-        unless params[:map][:distance].blank?
-          @distance = params[:map][:distance].to_i
-        end
-        unless params[:map][:address].blank?
-          if !params[:map][:lat].blank? && !params[:map][:lon].blank?
-            @lat = params[:map][:lat]
-            @lon = params[:map][:lon]
-            @address = params[:map][:address]
+      @sort_column = sort_column
+      @sort_direction = sort_direction
+      unless params[:age_min].blank?
+        @age_min = params[:age_min].to_i
+      end
+      unless params[:age_max].blank?
+        @age_max = params[:age_max].to_i
+      end
+      unless params[:distance].blank?
+        @distance = params[:distance].to_i
+      end
+      unless params[:address].blank?
+        if !params[:lat].blank? && !params[:lon].blank?
+          @lat = params[:lat]
+          @lon = params[:lon]
+          @address = params[:address]
+        else
+          result = Geocoder.search(params[:address])
+          if result&.first
+            @lat = result.first.data['lat'].to_f.round(2).to_s
+            @lon = result.first.data['lon'].to_f.round(2).to_s
+            @address = result.first.address
           else
-            result = Geocoder.search(params[:map][:address])
-            if result&.first
-              @lat = result.first.data['lat'].to_f.round(2).to_s
-              @lon = result.first.data['lon'].to_f.round(2).to_s
-              @address = result.first.address
-            else
-              flash.now.alert = "Adresse #{params[:map][:address]} non trouvée."
-            end
+            flash.now.alert = "Adresse #{params[:address]} non trouvée."
           end
         end
       end
@@ -45,37 +47,46 @@ module Admin
       min_date = Date.today - @age_max.years
       max_date = Date.today - @age_min.years
 
-      volunteers_limit = 2000
+      volunteers_limit = 500
       box = Geocoder::Calculations.bounding_box([@lat, @lon], @distance)
       @bounds = [
         [box[0], box[1]],
         [box[2], box[3]],
       ]
 
-      @users_count = User
-              .where.not(lat: nil)
-              .where.not(lon: nil)
-              .where(lat: [box[0]..box[2]])
-              .where(lon: [box[1]..box[3]])
-              .where("birthdate BETWEEN ? AND ?", min_date, max_date)
-              .limit(volunteers_limit + 100) # extra security
-              .count
+      @search_users_count = User
+                            .where.not(lat: nil)
+                            .where.not(lon: nil)
+                            .where(lat: [box[0]..box[2]])
+                            .where(lon: [box[1]..box[3]])
+                            .where(birthdate: min_date..max_date)
+                            .limit(volunteers_limit + 100) # extra security
+                            .count
 
-      # TODO IMPLEMENT DISTANCE IN RESULTS WITH Geocoder::Calculations.distance_between(start_address_coordinates, destination_coordinates)
       @users = User
                .where.not(lat: nil)
                .where.not(lon: nil)
                .where(lat: [box[0]..box[2]])
                .where(lon: [box[1]..box[3]])
                .where(birthdate: min_date..max_date)
-               .limit(volunteers_limit + 100) # extra security
+               .order(sort_column => sort_direction)
+               .limit(volunteers_limit) # extra security
+
+      @search_users_count_by_age = {
+        '< 59 ans' => @users.select{|x| x.birthdate.between?((Date.today - 59.years), (Date.today - 0.years))}.size,
+        '59 - 69 ans' => @users.select{|x| x.birthdate.between?((Date.today - 70.years), (Date.today - 59.years))}.size,
+        '70+ ans' => @users.select{|x| x.birthdate.between?((Date.today - 200.years), (Date.today - 70.years))}.size,
+      }
     end
 
-    def require_role!
-      authenticate_user!
-      return if current_user.has_role?(:admin)
-      flash[:alert] = "Vous n'êtes pas autorisé à accéder à cette page !"
-      redirect_to(root_path)
+    private
+
+    def sort_column
+      User.column_names.include?(params[:sort]) ? params[:sort] : "id"
+    end
+
+    def sort_direction
+      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
     end
   end
 end

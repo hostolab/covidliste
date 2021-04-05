@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  protect_from_forgery prepend: true
+  
   if !Rails.env.development?
     content_security_policy do |policy|
       policy.default_src :self, :https
