@@ -116,6 +116,7 @@ ActiveRecord::Schema.define(version: 2021_04_05_150350) do
     t.bigint "partner_id"
     t.bigint "user_id"
     t.datetime "sent_at"
+    t.datetime "expires_at"
     t.datetime "confirmed_at"
     t.text "token"
     t.datetime "created_at", precision: 6, null: false
