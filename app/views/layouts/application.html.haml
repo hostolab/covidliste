@@ -11,8 +11,8 @@
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload', defer: true, nonce: true
   %body
     = render 'layouts/navbar'
-    .container.mtop2.pbot4
-      %h5
-        %strong Covidliste
+    .container.mt-5.pb-5
+      %h3
+        Covidliste
       = render 'layouts/alerts'
       = yield

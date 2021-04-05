@@ -43,3 +43,6 @@ yarn-debug.log*
 
 # Ignore dumps
 *.dump
+
+# Jetbrains
+.idea

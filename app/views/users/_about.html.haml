@@ -1,59 +1,38 @@
 .row.mtop2
   .col-12
-    %p
-      %strong
-        Qu’est-ce que Covidliste ?
-    %P
-      Covidliste est une application gratuite permettant d’être alerté lorsqu’une dose de vaccin est disponible près de
-      chez vous.
-      %b
-        #{@users_count} volontaires sont déjà inscrits.
-
-    %p
-      %strong Pourquoi ce projet ?
-
-    %p
-      Certains vaccins (comme Pfizer/BioNTech) administrés dans des centres de vaccination nécessitent de respecter une
-      chaîne logistique complexe. Lorsqu’un patient rate un rendez-vous, le flacon déjà ouvert doit être consommé
-      rapidement. Covidliste permet de faciliter l’accès à une liste de volontaires pour les centres de vaccination.
-
-    %p
-      %strong Comment ça marche ?
-
-    %p
-      Entrez vos informations et validez votre inscription. Lorsqu’une dose est disponible, un lien vous est envoyé.
-      À la confirmation, vous êtes mis en relation avec un centre de vaccination. Attention : si vous ne validez pas
-      rapidement votre demande, cette dose sera attribuée à un prochain volontaire.
-
-    %p
-      %strong Je ne suis pas encore éligible. Je peux tout de même m’inscrire?
-
-    %p Oui.
-
-    %p
-      %strong Qui est derrière Covidliste ?
-
-    %p
-      = link_to 'Martin Daniel', 'https://twitter.com/martindaniel4', target: '_blank'
-      et
-      = link_to 'Mathieu Ripert', 'https://twitter.com/mathieurip', target: '_blank'
-      ont conçu l’application, en collaboration avec
-      = link_to 'Dr Antoine Roux', 'https://www.paristransplantgroup.org/antoine-roux.html', target: '_blank'
-      de l’hôpital Foch.
-
-    %p
-      %strong Qu’en est-il du traitement de mes données ?
-
-    %p
-      Consultez notre politique de traitement des données
-      = link_to 'ici.', :privacy
-      Si vous souhaitez supprimer vos données, vous pouvez le faire depuis votre
-      = link_to 'espace personnel.', new_user_session_path
-
-    %p
-      %strong Comment entrer en contact avec vous ?
-
-    %p
-      Suivez-nous sur
-      = link_to 'Twitter', 'https://twitter.com/covidliste', target: '_blank'
-      pour ne rien rater de notre actualité !
+    %dl
+      %dt Qu’est-ce que Covidliste ?
+      %dd.mt-1
+        Covidliste est une application gratuite permettant d’être alerté lorsqu’une dose de vaccin est disponible près de chez vous.
+        <strong>#{@users_count} volontaires sont déjà inscrits.</strong>
+      %dt.mt-4 Pourquoi ce projet ?
+      %dd.mt-1
+        Certains vaccins (comme Pfizer/BioNTech) administrés dans des centres de vaccination nécessitent de respecter une
+        chaîne logistique complexe. Lorsqu’un patient rate un rendez-vous, le flacon déjà ouvert doit être consommé
+        rapidement. Covidliste permet de faciliter l’accès à une liste de volontaires pour les centres de vaccination.
+      %dt.mt-4 Comment ça marche ?
+      %dd.mt-1
+        Entrez vos informations et validez votre inscription. Lorsqu’une dose est disponible, un lien vous est envoyé.
+        À la confirmation, vous êtes mis en relation avec un centre de vaccination. Attention : si vous ne validez pas
+        rapidement votre demande, cette dose sera attribuée à un prochain volontaire.
+      %dt.mt-4 Je ne suis pas encore éligible. Je peux tout de même m’inscrire?<br />
+      %dd.mt-1 Oui.
+      %dt.mt-4 Qui est derrière Covidliste ?
+      %dd.mt-1
+        = link_to 'Martin Daniel', 'https://twitter.com/martindaniel4', target: '_blank'
+        et
+        = link_to 'Mathieu Ripert', 'https://twitter.com/mathieurip', target: '_blank'
+        ont conçu l’application, en collaboration avec
+        = link_to 'Dr Antoine Roux', 'https://www.paristransplantgroup.org/antoine-roux.html', target: '_blank'
+        de l’hôpital Foch.
+      %dt.mt-4 Qu’en est-il du traitement de mes données ?
+      %dd.mt-1
+        Consultez notre politique de traitement des données
+        = link_to 'ici.', :privacy
+        Si vous souhaitez supprimer vos données, vous pouvez le faire depuis votre
+        = link_to 'espace personnel.', new_user_session_path
+      %dt.mt-4 Comment entrer en contact avec vous ?
+      %dd.mt-1
+        Suivez-nous sur
+        = link_to 'Twitter', 'https://twitter.com/covidliste', target: '_blank'
+        pour ne rien rater de notre actualité !
