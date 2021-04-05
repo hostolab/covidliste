@@ -45,8 +45,7 @@ gem 'geocoder'
 gem 'blind_index'
 gem 'lockbox'
 gem 'appsignal'
-
-gem "appsignal"
+gem 'http'
 
 group :development, :test do
   gem 'pry-byebug'
