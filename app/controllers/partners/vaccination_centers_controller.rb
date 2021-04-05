@@ -10,11 +10,11 @@ module Partners
 
     def show
       unless current_partner.vaccination_centers.exists?(params[:id])
-        redirect_to partners_path and return
+        redirect_to partners_vaccination_centers_path and return
       end
       @vaccination_center = VaccinationCenter.find(params[:id])
       unless @vaccination_center.confirmed?
-        redirect_to partners_path and return
+        redirect_to partners_vaccination_centers_path and return
       end
     end
 

@@ -1,6 +1,15 @@
 class VaccinationCenter < ApplicationRecord
-  validates_presence_of :name, :description, :address, :lat, :lon, :phone_number
-  validates :kind, inclusion: { in: ['Centre de vaccination', 'Cabinet médical', 'Pharmacie', 'Ephad'] }
+  module Kinds
+    CENTRE_VACCINATION = 'Centre de vaccination'
+    CABINET_MEDICAL = 'Cabinet médical'
+    PHARMACIE = 'Pharmacie'
+    EHPAD = 'Ehpad'
+
+    ALL = [CENTRE_VACCINATION, CABINET_MEDICAL, PHARMACIE, EHPAD].freeze
+  end
+
+  validates_presence_of :name, :address, :lat, :lon, :phone_number
+  validates :kind, inclusion: { in: VaccinationCenter::Kinds::ALL }
 
   has_many :partner_vaccination_centers
   has_many :partners, through: :partner_vaccination_centers

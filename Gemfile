@@ -46,6 +46,7 @@ gem 'blind_index'
 gem 'lockbox'
 gem 'appsignal'
 gem 'http'
+gem 'valid_email'
 
 group :development, :test do
   gem 'pry-byebug'
