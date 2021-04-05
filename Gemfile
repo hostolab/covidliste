@@ -48,6 +48,7 @@ gem 'appsignal'
 
 # Email mx validation github.com/hallelujah/valid_email
 gem 'valid_email'
+gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
 
 group :development, :test do
   gem 'pry-byebug'

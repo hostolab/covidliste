@@ -39,7 +39,7 @@ class User < ApplicationRecord
   scope :confirmed, -> { where.not(confirmed_at: nil) }
   scope :between_age, -> (min, max) { where("birthdate between ? and ?", max.years.ago, min.years.ago) }
 
-  LATLNG_DECIMALS = 2
+  LATLNG_DECIMALS = 3
 
   def approximate_coords
     return if (self.lat.nil? || self.lon.nil?)
@@ -48,7 +48,7 @@ class User < ApplicationRecord
   end
 
   def geocode_address
-    GeocodeJob.perform_later(self.id)
+    GeocodeUserJob.perform_later(self.id)
   end
 
   def full_name

@@ -1,14 +1,16 @@
+require 'faker'
+
 FactoryBot.define do
   factory :user do
-    birthdate { "1993-11-01" }
-    password { "test_password" }
-    address { "12 rue Larue, Lyon" }
-    lat { 48.0 }
-    lon { 2.0 }
+    firstname { 'MMM' }
+    sequence(:lastname) { |n| "_#{n}" }
+    sequence(:email) { |n| "test_#{n}@covidliste.com" }
+    password { 'securepassword' }
+    password_confirmation { 'securepassword' }
+    confirmed_at { Time.zone.now }
+    address { Faker::Address.city }
+    phone_number {Faker::PhoneNumber.phone_number}
+    birthdate { DateTime.now - 30.years }
     toc { true }
-    firstname { "fist_name" }
-    lastname { "last_name" }
-    phone_number { "33611223344" }
-    email { "test@covidliste.com" }
   end
 end
