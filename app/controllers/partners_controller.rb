@@ -3,11 +3,7 @@ class PartnersController < ApplicationController
   helper_method :sort_column, :sort_direction
 
   def new
-    if current_partner
-      redirect_to partners_path
-    else
-      @partner = Partner.new
-    end
+    @partner = Partner.new
   end
 
   def create
@@ -18,14 +14,10 @@ class PartnersController < ApplicationController
     render action: :new
   end
 
-  def index
-    @partner = current_partner
-  end
-
   private
 
   def partner_params
-    params.require(:partner).permit(:name, :email, :password)
+    params.require(:partner).permit(:name, :email, :password, :phone_number)
   end
 
   def vaccination_center_params

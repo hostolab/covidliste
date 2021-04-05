@@ -1,8 +1,7 @@
-include ActionView::Helpers::NumberHelper
 module Admin
   class SearchController < BaseController
+    include ActionView::Helpers::NumberHelper
 
-    before_action :require_role!
     helper_method :sort_column, :sort_direction
 
     def search
@@ -88,13 +87,6 @@ module Admin
 
     def sort_direction
       %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
-    end
-
-    def require_role!
-      authenticate_user!
-      return if current_user.has_role?(:admin)
-      flash[:alert] = "Vous n'êtes pas autorisé à accéder à cette page !"
-      redirect_to(root_path)
     end
   end
 end

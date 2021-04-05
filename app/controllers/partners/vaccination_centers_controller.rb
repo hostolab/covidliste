@@ -4,12 +4,12 @@ module Partners
     helper_method :sort_column, :sort_direction
 
     def index
-      redirect_to partners_path and return
+      @vaccination_centers = current_partner.vaccination_centers
+      @unconfirmed_vaccination_centers = current_partner.unconfirmed_vaccination_centers
     end
 
     def show
-      @partner = current_partner
-      unless @partner.vaccination_center.exists?(params[:id])
+      unless current_partner.vaccination_centers.exists?(params[:id])
         redirect_to partners_path and return
       end
       @vaccination_center = VaccinationCenter.find(params[:id])
@@ -23,10 +23,9 @@ module Partners
     end
 
     def create
-      @partner = current_partner
       @vaccination_center = VaccinationCenter.new(vaccination_center_params)
       @vaccination_center.save
-      @partner_vaccination_center = PartnerVaccinationCenter.new(partner: @partner, vaccination_center: @vaccination_center)
+      @partner_vaccination_center = PartnerVaccinationCenter.new(partner: current_partner, vaccination_center: @vaccination_center)
       @partner_vaccination_center.save
       render action: :new
     end

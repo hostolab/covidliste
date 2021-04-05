@@ -2,7 +2,6 @@
   .col-12
     %p.mb-2
       =link_to '← Retour', admin_vaccination_centers_path
-    %h2 Espace admin : Centres de vaccination
     %h3
       #{@vaccination_center.name}
       %span.small.text-muted.font-italic #{@vaccination_center.kind}
@@ -10,11 +9,13 @@
       - if @vaccination_center.confirmed?
         %i.fas.fa-check.text-success
         Validé
-        par #{@vaccination_center.confirmer.full_name}
-        le #{@vaccination_center.confirmed_at.strftime("%d/%m/%Y")}
+        par
+        %strong #{@vaccination_center.confirmer.full_name}
+        le #{l @vaccination_center.confirmed_at}
       - else
         %i.fas.fa-times.text-danger
         Non validé
+        =link_to "Valider ce centre", validate_admin_vaccination_center_path(@vaccination_center), method: :patch, class: "btn btn-sm btn-primary", "data-confirm": "Êtes-vous sûr(e)?"
     %p.mb-2 #{@vaccination_center.address}
     %p.small.mb-2
       %i.fas.fa-phone

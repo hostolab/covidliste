@@ -8,7 +8,9 @@ Rails.application.routes.draw do
     authenticate :user, lambda(&:admin?) do
       get '/search' => "search#search", as: :admin_search
       post '/search' => "search#search"
-      resources :vaccination_centers, only: [:index, :show, :new, :create]
+      resources :vaccination_centers, only: [:index, :show, :new, :create] do
+        patch :validate, on: :member
+      end
     end
   end
 
@@ -54,7 +56,7 @@ Rails.application.routes.draw do
   get '/users' => "users#new"
 
   ## partners
-  resources :partners, only: [:index, :new, :create]
+  resources :partners, only: [:new, :create]
   get '/partenaires/inscription' => "partners#new", as: :partenaires_inscription_path
 
   ## vaccionation centers
@@ -66,7 +68,6 @@ Rails.application.routes.draw do
   get '/mentions_legales' => "pages#mentions_legales", as: :mentions_legales
   get '/privacy' => "pages#privacy", as: :privacy
   get '/faq' => "pages#faq", as: :faq
-  
+
   root to: 'users#new'
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

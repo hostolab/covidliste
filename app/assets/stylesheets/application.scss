@@ -45,6 +45,6 @@ body {
   color: rgba(0, 0, 0, 0.5);
 }
 
-nav .active > .nav-link {
+nav .active > .nav-link, nav .nav-item.active {
   color: rgba(0, 0, 0, 1);
 }

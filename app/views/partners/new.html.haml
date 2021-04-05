@@ -9,21 +9,19 @@
     - else
       = simple_form_for @partner do |f|
         .form-inputs
-        = f.input :name, label: 'Nom', error: 'Nom requis', placeholder: 'Jean Dupont'
+        = f.input :name, label: 'Nom', error: 'Nom requis', placeholder: 'Prénom Nom'
+        = f.input :phone_number, label: "Téléphone portable", placeholder: "06 .... (votre téléphone professionnel)"
         = f.input :email,
           required: true,
           autofocus: true,
-          placeholder: 'jean@dupont.com',
+          placeholder: 'votre_email@du_centre_de_vaccination.fr',
           input_html: { autocomplete: "email" }
         = f.input :password,
           required: true,
-          hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
-          input_html: { autocomplete: "new-password" }
-        = f.input :password_confirmation,
-          required: true,
+          hint: "Un email de confirmation de création de compte vous sera envoyé. Cliquez sur le lien pour activer votre compte",
           input_html: { autocomplete: "new-password" }
         .form-actions
         = f.button :submit, "S'inscrire", class:"btn btn-primary"
     %p.mtop2
-      = link_to "Accèder à l'espace partenaires", new_partner_session_path, class: "bp3-text-muted"
+      = link_to "Connexion Partenaire", new_partner_session_path, class: "bp3-text-muted"
 

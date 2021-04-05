@@ -1,8 +1,8 @@
 .row.mtop2
   .col-12
-    %p.mb-2
-      =link_to '← Retour', admin_path
-    %h2 Espace admin : Centres de vaccination
+    %h2
+      Centres de vaccination
+      =link_to 'Ajouter un centre', new_admin_vaccination_center_path, class: "btn btn-primary btn-sm float-right"
     .mtop2
       %table.table.table-striped.table-bordered.table-sm.small
         %tr
@@ -36,10 +36,7 @@
             %td
               - if vaccination_center.confirmed?
                 %i.fas.fa-check.text-success
-                Oui
-                par #{vaccination_center.confirmer.full_name}
-                le #{vaccination_center.confirmed_at.strftime("%d/%m/%Y")}
+                %span{title: "Validé par #{vaccination_center.confirmer.full_name} le #{l vaccination_center.confirmed_at}", data: { toggle: :tooltip }} oui
               - else
                 %i.fas.fa-times.text-danger
                 Non
-    =link_to 'Créer un nouveau centre de vaccination', new_admin_vaccination_center_path

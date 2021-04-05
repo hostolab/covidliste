@@ -1,7 +1,7 @@
 .row
   .col-12
     %p.mb-2
-      =link_to '← Retour', partners_path
+      =link_to '← Retour', partners_vaccination_centers_path
 .d-flex
   .flex-fill
     %h3
@@ -25,9 +25,9 @@
       #{@vaccination_center.description}
   .mtop2.text-right
     %p.mb-1
-      #{@partner.name}
+      #{current_partner.name}
     %p.small.mb-2.font-italic.text-muted
-      #{@partner.email}
+      #{current_partner.email}
 
 .row
   .col-12
