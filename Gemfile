@@ -46,8 +46,6 @@ gem 'blind_index'
 gem 'lockbox'
 gem 'appsignal'
 
-gem "appsignal"
-
 group :development, :test do
   gem 'pry-byebug'
   gem 'pry-rails'
