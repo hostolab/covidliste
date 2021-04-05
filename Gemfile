@@ -80,9 +80,12 @@ group :test do
   gem 'rspec-sidekiq'
   gem 'database_cleaner-active_record'
   gem 'webmock'
+  gem 'spring'
+  gem "spring-commands-rspec", "~> 1.0"
 end
 
 # Windows does not include zone
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem "twilio-ruby", "~> 5.50"
+
