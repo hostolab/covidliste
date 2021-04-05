@@ -46,7 +46,8 @@ gem 'blind_index'
 gem 'lockbox'
 gem 'appsignal'
 
-gem "appsignal"
+# Email mx validation github.com/hallelujah/valid_email
+gem 'valid_email'
 
 group :development, :test do
   gem 'pry-byebug'

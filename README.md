@@ -33,10 +33,10 @@ bundle install
 yarn
 ```
 
-Add a development encryption key to your .bashrc/.zshrc :
+Create the `.env` file:
 
 ```bash
-export LOCKBOX_MASTER_KEY=0000000000000000000000000000000000000000000000000000000000000000
+echo "LOCKBOX_MASTER_KEY=0000000000000000000000000000000000000000000000000000000000000000" > .env 
 ```
 
 ### Database / Cache
