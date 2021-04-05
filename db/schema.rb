@@ -77,13 +77,11 @@ ActiveRecord::Schema.define(version: 2021_04_05_150350) do
     t.bigint "partner_id"
     t.datetime "expires_at", null: false
     t.integer "size", default: 0, null: false
-    t.integer "match_count", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["campaign_id"], name: "index_campaign_batches_on_campaign_id"
     t.index ["partner_id"], name: "index_campaign_batches_on_partner_id"
     t.index ["vaccination_center_id"], name: "index_campaign_batches_on_vaccination_center_id"
-    t.check_constraint "match_count > 0", name: "match_count_gt_or_eq_zero"
     t.check_constraint "size > 0", name: "size_gt_or_eq_zero"
   end
 
