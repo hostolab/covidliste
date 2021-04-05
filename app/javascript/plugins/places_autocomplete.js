@@ -9,6 +9,13 @@ const placesAutocomplete = (appId, apiKey) => {
       container: addressInput,
       appId: appId,
       apiKey: apiKey,
+      templates: {
+        suggestion: function(suggestion) {
+          return '<div>' + suggestion.name +
+              ', ' + suggestion.postcode +
+              ' ' + suggestion.city + '</div>';
+        }
+      }
     }).configure({
       language: 'fr',
       countries: ['fr']
@@ -19,6 +26,7 @@ const placesAutocomplete = (appId, apiKey) => {
       lonInput.value = latlng['lng'];
     });
   }
+
   const addressInputMap = document.getElementById('map_address');
   const latInputMap = document.getElementById('map_lat');
   const lonInputMap = document.getElementById('map_lon');
@@ -37,6 +45,7 @@ const placesAutocomplete = (appId, apiKey) => {
       lonInputMap.value = latlng['lng'];
     });
   }
+
   const centerAddressInput = document.getElementById('vaccination_center_address');
   const centerLatInput = document.getElementById('vaccination_center_lat');
   const centerLonInput = document.getElementById('vaccination_center_lon');
@@ -54,7 +63,6 @@ const placesAutocomplete = (appId, apiKey) => {
       centerLatInput.value = latlng['lat'];
       centerLonInput.value = latlng['lng'];
     });
-
   }
 };
 
