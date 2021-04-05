@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_05_114752) do
+ActiveRecord::Schema.define(version: 2021_04_05_143748) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,6 +69,28 @@ ActiveRecord::Schema.define(version: 2021_04_05_114752) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["creator_id"], name: "index_blazer_queries_on_creator_id"
+  end
+
+  create_table "campaigns", force: :cascade do |t|
+    t.string "name"
+    t.bigint "vaccination_center_id"
+    t.bigint "partner_id"
+    t.string "vaccine_type", null: false
+    t.integer "available_doses", null: false
+    t.datetime "starts_at", null: false
+    t.datetime "ends_at", null: false
+    t.string "extra_info"
+    t.integer "min_age", null: false
+    t.integer "max_distance_in_meters", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["partner_id"], name: "index_campaigns_on_partner_id"
+    t.index ["vaccination_center_id"], name: "index_campaigns_on_vaccination_center_id"
+    t.check_constraint "(vaccine_type)::text = ANY ((ARRAY['pfizer'::character varying, 'moderna'::character varying, 'astrazeneca'::character varying, 'janssen'::character varying])::text[])", name: "vaccine_type_is_a_known_brand"
+    t.check_constraint "available_doses > 0", name: "available_doses_gt_zero"
+    t.check_constraint "max_distance_in_meters > 0", name: "max_distance_in_meters_gt_zero"
+    t.check_constraint "min_age > 0", name: "min_age_gt_zero"
+    t.check_constraint "starts_at < ends_at", name: "starts_at_lt_ends_at"
   end
 
   create_table "partner_vaccination_centers", force: :cascade do |t|
@@ -163,6 +185,8 @@ ActiveRecord::Schema.define(version: 2021_04_05_114752) do
     t.index ["confirmer_id"], name: "index_vaccination_centers_on_confirmer_id"
   end
 
+  add_foreign_key "campaigns", "partners"
+  add_foreign_key "campaigns", "vaccination_centers"
   add_foreign_key "partner_vaccination_centers", "partners"
   add_foreign_key "partner_vaccination_centers", "vaccination_centers"
   add_foreign_key "vaccination_centers", "users", column: "confirmer_id"
