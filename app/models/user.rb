@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  include HasPhoneNumberConcern
   rolify
 
   devise :database_authenticatable,
@@ -21,7 +22,16 @@ class User < ApplicationRecord
   validates :address, presence: true
   validates :birthdate, presence: true
   validates :toc, presence: true, acceptance: true
-  validates :email, email: { mx: true, message: 'Email invalide' }
+  validates :email,
+            email: {
+              mx: true,
+              message: 'Email invalide'
+            },
+            format: {
+              without: /gmail\.fr|gamil\.com|gmil\.com|gmaul\.com|gamail\.com|gmai\.com|gmail\.cm|hormail\.com|hotmal\.com|hormail\.fr/i,
+              message: 'Email invalide'
+            },
+            if: :email_changed?
 
   before_save :approximate_coords
   after_commit :geocode_address, if: :saved_change_to_address?

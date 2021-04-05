@@ -4,7 +4,7 @@ FactoryBot.define do
   factory :user do
     firstname { 'MMM' }
     sequence(:lastname) { |n| "_#{n}" }
-    sequence(:email) { |n| "super_email_#{n}@email.com" }
+    sequence(:email) { |n| "test_#{n}@covidliste.com" }
     password { 'securepassword' }
     password_confirmation { 'securepassword' }
     confirmed_at { Time.zone.now }
