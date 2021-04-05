@@ -48,6 +48,9 @@ gem 'appsignal'
 
 gem "appsignal"
 
+# Email mx validation github.com/hallelujah/valid_email
+gem 'valid_email'
+
 group :development, :test do
   gem 'pry-byebug'
   gem 'pry-rails'
@@ -81,3 +84,5 @@ end
 
 # Windows does not include zone
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+gem "twilio-ruby", "~> 5.50"
