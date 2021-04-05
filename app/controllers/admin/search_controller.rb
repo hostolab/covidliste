@@ -1,81 +1,25 @@
-include ActionView::Helpers::NumberHelper
 module Admin
   class SearchController < BaseController
 
-    before_action :require_role!
-
     def search
-      @user = current_user
-      @users_count = number_with_delimiter(User.count, locale: :fr)
+      @age_bin = 10
+      @lat = params[:lat]
+      @lon = params[:lon]
+      @address = params[:address] || "Paris, France"
+      @min_age = (params[:min_age] || 18).to_i
+      @max_age = (params[:max_age] || 90).to_i
+      @max_distance = [50, (params[:max_distance] || 1).to_f].min
 
-      @lat = '48.8534'
-      @lon = '2.3488'
-      @address = 'Paris, France'
-      @distance = 50
-      @age_min = 1
-      @age_max = 200
-      unless params[:map].blank?
-        unless params[:map][:age_min].blank?
-          @age_min = params[:map][:age_min].to_i
-        end
-        unless params[:map][:age_max].blank?
-          @age_max = params[:map][:age_max].to_i
-        end
-        unless params[:map][:distance].blank?
-          @distance = params[:map][:distance].to_i
-        end
-        unless params[:map][:address].blank?
-          if !params[:map][:lat].blank? && !params[:map][:lon].blank?
-            @lat = params[:map][:lat]
-            @lon = params[:map][:lon]
-            @address = params[:map][:address]
-          else
-            result = Geocoder.search(params[:map][:address])
-            if result&.first
-              @lat = result.first.data['lat'].to_f.round(2).to_s
-              @lon = result.first.data['lon'].to_f.round(2).to_s
-              @address = result.first.address
-            else
-              flash.now.alert = "Adresse #{params[:map][:address]} non trouvée."
-            end
-          end
-        end
+      if @address && (@lat.nil? || @lon.nil?)
+        geocode_results = Geocoder.search(@address)
+        @lat = geocode_results.first.coordinates[0]
+        @lon = geocode_results.first.coordinates[1]
       end
-
-      min_date = Date.today - @age_max.years
-      max_date = Date.today - @age_min.years
-
-      volunteers_limit = 2000
-      box = Geocoder::Calculations.bounding_box([@lat, @lon], @distance)
-      @bounds = [
-        [box[0], box[1]],
-        [box[2], box[3]],
-      ]
-
-      @users_count = User
-              .where.not(lat: nil)
-              .where.not(lon: nil)
-              .where(lat: [box[0]..box[2]])
-              .where(lon: [box[1]..box[3]])
-              .where("birthdate BETWEEN ? AND ?", min_date, max_date)
-              .limit(volunteers_limit + 100) # extra security
-              .count
-
-      # TODO IMPLEMENT DISTANCE IN RESULTS WITH Geocoder::Calculations.distance_between(start_address_coordinates, destination_coordinates)
-      @users = User
-               .where.not(lat: nil)
-               .where.not(lon: nil)
-               .where(lat: [box[0]..box[2]])
-               .where(lon: [box[1]..box[3]])
-               .where(birthdate: min_date..max_date)
-               .limit(volunteers_limit + 100) # extra security
+      @results = User.select(:lat, :lon, :id, :birthdate).between_age(@min_age, @max_age).near([@lat, @lon], @max_distance, unit: :km)
+      @total_count = @results.size
+      @count_by_age = @results.group_by {|x| @age_bin * (x.age / @age_bin).to_i }.map {|k, v| ["#{k}-#{k + @age_bin - 1}", v.size]}.sort_by{|x| x[0]}
+      @results = @results.limit(500)
     end
 
-    def require_role!
-      authenticate_user!
-      return if current_user.has_role?(:admin)
-      flash[:alert] = "Vous n'êtes pas autorisé à accéder à cette page !"
-      redirect_to(root_path)
-    end
   end
 end

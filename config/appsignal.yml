@@ -6,6 +6,9 @@ default: &defaults
   # Your app's name
   name: "Covidliste"
 
+  # Scalingo sends Deployment event to AppSignal
+  revision: <%= ENV.fetch("CONTAINER_VERSION") { nil } %>
+
   # Actions that should not be monitored by AppSignal
   # ignore_actions:
   #   - ApplicationController#isup
@@ -33,7 +36,7 @@ default: &defaults
 # to false to not push metrics for that environment.
 development:
   <<: *defaults
-  active: true
+  active: false
 
 production:
   <<: *defaults

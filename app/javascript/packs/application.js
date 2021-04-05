@@ -28,4 +28,5 @@ document.addEventListener('turbolinks:load', () => {
   const apiKey = process.env.PLACES_API_KEY;
   placesAutocomplete(appId, apiKey);
   leafletMap();
+  $('[data-toggle="tooltip"]').tooltip()
 });
