@@ -1,4 +1,6 @@
 class Partner < ApplicationRecord
+  include HasPhoneNumberConcern
+
   devise :database_authenticatable,
          :recoverable,
          :rememberable,
