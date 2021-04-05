@@ -24,7 +24,10 @@ class User < ApplicationRecord
   before_save :approximate_coords
   after_commit :geocode_address, if: :saved_change_to_address?
 
+  geocoded_by :address, latitude: :lat, longitude: :lon
+
   scope :confirmed, -> { where.not(confirmed_at: nil) }
+  scope :between_age, -> (min, max) { where("birthdate between ? and ?", max.years.ago, min.years.ago) }
 
   LATLNG_DECIMALS = 2
 
