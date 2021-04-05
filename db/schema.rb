@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_05_081419) do
+ActiveRecord::Schema.define(version: 2021_04_05_114752) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,7 +94,6 @@ ActiveRecord::Schema.define(version: 2021_04_05_081419) do
     t.string "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
-    t.string "email"
     t.string "email_bidx"
     t.index ["confirmation_token"], name: "index_partners_on_confirmation_token", unique: true
     t.index ["email_bidx"], name: "index_partners_on_email_bidx", unique: true
