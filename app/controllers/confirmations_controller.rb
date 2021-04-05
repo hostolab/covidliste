@@ -15,11 +15,12 @@ class ConfirmationsController < ::Devise::ConfirmationsController
 
   def after_confirmation_path_for(_resource_name, resource)
     if resource.is_a?(Partner)
-      # NOTE(ssaunier): We already have a valida password at sign up
+      # NOTE(ssaunier): We already have a valid password at sign up
       partners_vaccination_centers_path
     else
-      token = resource.send(:set_reset_password_token)
-      edit_password_url(resource, reset_password_token: token)
+      # token = resource.send(:set_reset_password_token)
+      # edit_password_url(resource, reset_password_token: token)
+      root_path
     end
   end
 end
