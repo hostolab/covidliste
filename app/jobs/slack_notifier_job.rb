@@ -1,11 +1,11 @@
 class SlackNotifierJob < ActiveJob::Base
   queue_as :default
 
-  def perform(channel, text, blocks)
+  def perform(channel, text, attachments)
     body = {
       channel: channel,
       text: text,
-      blocks: JSON.parse(blocks)
+      attachments: attachments ? JSON.parse(attachments) : nil
     }.to_json
 
     response = HTTP \

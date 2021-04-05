@@ -40,7 +40,7 @@
         %th #
         %th Nom
         %th Email
-      - @vaccination_center.partner.each do |partner|
+      - @vaccination_center.partners.each do |partner|
         %tr
           %th #{partner.id}
           %th #{partner.name}
