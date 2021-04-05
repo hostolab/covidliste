@@ -14,6 +14,7 @@ class User < ApplicationRecord
   encrypts :email
 
   blind_index :email
+  geocoded_by :address, latitude: :lat, longitude: :lon
 
   validates :firstname, presence: true
   validates :lastname, presence: true
@@ -25,6 +26,7 @@ class User < ApplicationRecord
   after_commit :geocode_address, if: :saved_change_to_address?
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
+  scope :between_age, -> (min, max) { where("birthdate between ? and ?", max.years.ago, min.years.ago) }
 
   LATLNG_DECIMALS = 2
 
