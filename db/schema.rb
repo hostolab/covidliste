@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_05_143748) do
+ActiveRecord::Schema.define(version: 2021_04_05_145759) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,6 +69,22 @@ ActiveRecord::Schema.define(version: 2021_04_05_143748) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["creator_id"], name: "index_blazer_queries_on_creator_id"
+  end
+
+  create_table "campaign_batches", force: :cascade do |t|
+    t.bigint "campaign_id"
+    t.bigint "vaccination_center_id"
+    t.bigint "partner_id"
+    t.datetime "expires_at", null: false
+    t.integer "size", default: 0, null: false
+    t.integer "match_count", default: 0, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["campaign_id"], name: "index_campaign_batches_on_campaign_id"
+    t.index ["partner_id"], name: "index_campaign_batches_on_partner_id"
+    t.index ["vaccination_center_id"], name: "index_campaign_batches_on_vaccination_center_id"
+    t.check_constraint "match_count > 0", name: "match_count_gt_or_eq_zero"
+    t.check_constraint "size > 0", name: "size_gt_or_eq_zero"
   end
 
   create_table "campaigns", force: :cascade do |t|
@@ -185,6 +201,9 @@ ActiveRecord::Schema.define(version: 2021_04_05_143748) do
     t.index ["confirmer_id"], name: "index_vaccination_centers_on_confirmer_id"
   end
 
+  add_foreign_key "campaign_batches", "campaigns"
+  add_foreign_key "campaign_batches", "partners"
+  add_foreign_key "campaign_batches", "vaccination_centers"
   add_foreign_key "campaigns", "partners"
   add_foreign_key "campaigns", "vaccination_centers"
   add_foreign_key "partner_vaccination_centers", "partners"
