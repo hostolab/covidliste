@@ -7,8 +7,11 @@ class PartnerConfirmable < ActiveRecord::Migration[6.1]
       t.datetime :confirmation_sent_at
     end
 
-    change_column :partners, :email, :email_ciphertext
-    change_column :partners, :name, :name_ciphertext
+
+    rename_column :partners, :name, :name_ciphertext
+    rename_column :partners, :email, :email_ciphertext
+
+    add_column :partners, :email, :string
     add_column :partners, :email_bidx, :string
     add_index :partners, :email_bidx, unique: true
 
