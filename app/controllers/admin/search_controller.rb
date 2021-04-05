@@ -8,7 +8,7 @@ module Admin
       @address = params[:address] || "Paris, France"
       @min_age = (params[:min_age] || 18).to_i
       @max_age = (params[:max_age] || 90).to_i
-      @max_distance = [50, (params[:max_distance] || 1).to_i].min
+      @max_distance = [50, (params[:max_distance] || 1).to_f].min
 
       if @address && (@lat.nil? || @lon.nil?)
         geocode_results = Geocoder.search(@address)
