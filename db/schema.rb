@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_05_145759) do
+ActiveRecord::Schema.define(version: 2021_04_05_150350) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -107,6 +107,24 @@ ActiveRecord::Schema.define(version: 2021_04_05_145759) do
     t.check_constraint "max_distance_in_meters > 0", name: "max_distance_in_meters_gt_zero"
     t.check_constraint "min_age > 0", name: "min_age_gt_zero"
     t.check_constraint "starts_at < ends_at", name: "starts_at_lt_ends_at"
+  end
+
+  create_table "matches", force: :cascade do |t|
+    t.bigint "vaccination_center_id"
+    t.bigint "campaign_id"
+    t.bigint "campaign_batch_id"
+    t.bigint "partner_id"
+    t.bigint "user_id"
+    t.datetime "sent_at"
+    t.datetime "confirmed_at"
+    t.text "token"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["campaign_batch_id"], name: "index_matches_on_campaign_batch_id"
+    t.index ["campaign_id"], name: "index_matches_on_campaign_id"
+    t.index ["partner_id"], name: "index_matches_on_partner_id"
+    t.index ["user_id"], name: "index_matches_on_user_id"
+    t.index ["vaccination_center_id"], name: "index_matches_on_vaccination_center_id"
   end
 
   create_table "partner_vaccination_centers", force: :cascade do |t|
@@ -206,6 +224,11 @@ ActiveRecord::Schema.define(version: 2021_04_05_145759) do
   add_foreign_key "campaign_batches", "vaccination_centers"
   add_foreign_key "campaigns", "partners"
   add_foreign_key "campaigns", "vaccination_centers"
+  add_foreign_key "matches", "campaign_batches"
+  add_foreign_key "matches", "campaigns"
+  add_foreign_key "matches", "partners"
+  add_foreign_key "matches", "users"
+  add_foreign_key "matches", "vaccination_centers"
   add_foreign_key "partner_vaccination_centers", "partners"
   add_foreign_key "partner_vaccination_centers", "vaccination_centers"
   add_foreign_key "vaccination_centers", "users", column: "confirmer_id"
