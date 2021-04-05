@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_04_214357) do
+ActiveRecord::Schema.define(version: 2021_04_05_081419) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,16 +71,34 @@ ActiveRecord::Schema.define(version: 2021_04_04_214357) do
     t.index ["creator_id"], name: "index_blazer_queries_on_creator_id"
   end
 
+  create_table "partner_vaccination_centers", force: :cascade do |t|
+    t.bigint "partner_id"
+    t.bigint "vaccination_center_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["partner_id", "vaccination_center_id"], name: "idx_partners_vac_centers_on_partner_id_and_vac_center_id"
+    t.index ["partner_id"], name: "index_partner_vaccination_centers_on_partner_id"
+    t.index ["vaccination_center_id"], name: "index_partner_vaccination_centers_on_vaccination_center_id"
+  end
+
   create_table "partners", force: :cascade do |t|
-    t.string "email", default: "", null: false
+    t.string "email_ciphertext", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "name"
-    t.index ["email"], name: "index_partners_on_email", unique: true
+    t.string "name_ciphertext"
+    t.string "phone_number_ciphertext"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "email"
+    t.string "email_bidx"
+    t.index ["confirmation_token"], name: "index_partners_on_confirmation_token", unique: true
+    t.index ["email_bidx"], name: "index_partners_on_email_bidx", unique: true
+    t.index ["email_ciphertext"], name: "index_partners_on_email_ciphertext", unique: true
     t.index ["reset_password_token"], name: "index_partners_on_reset_password_token", unique: true
   end
 
@@ -138,13 +156,15 @@ ActiveRecord::Schema.define(version: 2021_04_04_214357) do
     t.boolean "moderna"
     t.boolean "astrazeneca"
     t.boolean "janssen"
-    t.date "confirmed_at"
+    t.datetime "confirmed_at"
     t.string "phone_number"
-    t.bigint "partner_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["partner_id"], name: "index_vaccination_centers_on_partner_id"
+    t.bigint "confirmer_id"
+    t.index ["confirmer_id"], name: "index_vaccination_centers_on_confirmer_id"
   end
 
-  add_foreign_key "vaccination_centers", "partners"
+  add_foreign_key "partner_vaccination_centers", "partners"
+  add_foreign_key "partner_vaccination_centers", "vaccination_centers"
+  add_foreign_key "vaccination_centers", "users", column: "confirmer_id"
 end

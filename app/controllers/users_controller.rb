@@ -2,9 +2,11 @@ include ActionView::Helpers::NumberHelper
 class UsersController < ApplicationController
 
   before_action :authenticate_user!, except: [:new, :create]
-  
+
   def new
-    if current_user
+    if current_partner
+      redirect_to partners_vaccination_centers_path
+    elsif current_user
       redirect_to profile_path
     else
       @user = User.new
@@ -13,7 +15,7 @@ class UsersController < ApplicationController
       end
     end
   end
-  
+
   def show
     @user = current_user
   end

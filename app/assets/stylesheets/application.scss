@@ -33,6 +33,10 @@ body {
   margin-top: 20px;
 }
 
+.mtop6{
+  margin-top: 60px;
+}
+
 .pbot4{
   padding-bottom: 40px;
 }
@@ -41,7 +45,7 @@ body {
   color: rgba(0, 0, 0, 0.5);
 }
 
-nav .active > .nav-link {
+nav .active > .nav-link, nav .nav-item.active {
   color: rgba(0, 0, 0, 1);
 }
 
