@@ -63,16 +63,10 @@ class User < ApplicationRecord
     has_role?(:admin) || super_admin?
   end
 
-  def partner?
-    has_role?(:partner)
-  end
-
   protected
 
   # Devise override
   def password_required?
     confirmed? ? super : false
   end
-
-
 end
