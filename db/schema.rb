@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_05_150350) do
+ActiveRecord::Schema.define(version: 2021_04_05_204958) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,7 +75,6 @@ ActiveRecord::Schema.define(version: 2021_04_05_150350) do
     t.bigint "campaign_id"
     t.bigint "vaccination_center_id"
     t.bigint "partner_id"
-    t.datetime "expires_at", null: false
     t.integer "size", null: false
     t.integer "duration_in_minutes", default: 10, null: false
     t.datetime "created_at", precision: 6, null: false
