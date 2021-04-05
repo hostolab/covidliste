@@ -21,9 +21,13 @@ module Admin
 
     def validate
       if @vaccination_center.confirmed_at.nil?
-        @vaccination_center.update(confirmed_at: Time.now.utc, confirmer: current_user)
-        flash[:success] = "Ce centre a bien été validé"
-        redirect_to admin_vaccination_center_path(@vaccination_center)
+        if @vaccination_center.update(confirmed_at: Time.now.utc, confirmer: current_user)
+          flash[:success] = "Ce centre a bien été validé"
+          redirect_to admin_vaccination_center_path(@vaccination_center)
+        else
+          flash[:alert] = "Une erreur est survenue : #{@vaccination_center.errors.full_messages.join(', ')}"
+          redirect_to admin_vaccination_center_path(@vaccination_center)
+        end
       else
         flash[:alert] = "Ce centre a déjà été validé !"
         redirect_to admin_vaccination_center_path(@vaccination_center)

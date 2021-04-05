@@ -12,7 +12,7 @@
       = simple_form_for [:admin, @vaccination_center] do |f|
         = f.input :name, label: 'Nom du centre', error: 'Nom requis', placeholder: 'Centre de vaccination Marseille'
         = f.input :description, label: 'Description', error: 'Description requise', placeholder: 'Description du lieu de vaccination'
-        = f.input :kind, label: 'Type de centre de vaccination', :collection => ['Centre de vaccination', 'Cabinet médical', 'Pharmacie', 'Ephad']
+        = f.input :kind, label: 'Type de centre de vaccination', collection: VaccinationCenter::Kinds::ALL
         %p.mtop2
           Type(s) de vaccins disponibles
         = f.input :pfizer, as: :boolean, label: "Pfizer", checked_value: true, unchecked_value: false, class: 'form-check-inline'
