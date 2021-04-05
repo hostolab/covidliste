@@ -71,7 +71,7 @@ ActiveRecord::Schema.define(version: 2021_04_04_233011) do
     t.index ["creator_id"], name: "index_blazer_queries_on_creator_id"
   end
 
-  create_table "partner_vaccination_centers", id: false, force: :cascade do |t|
+  create_table "partner_vaccination_centers", force: :cascade do |t|
     t.bigint "partner_id"
     t.bigint "vaccination_center_id"
     t.datetime "created_at", precision: 6, null: false

@@ -1,6 +1,6 @@
 class AddPartnersVaccinationCenters < ActiveRecord::Migration[6.1]
   def change
-    create_table(:partner_vaccination_centers, :id => false) do |t|
+    create_table(:partner_vaccination_centers) do |t|
       t.references :partner, foreign_key: true
       t.references :vaccination_center, foreign_key: true
 
