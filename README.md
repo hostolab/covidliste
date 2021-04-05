@@ -54,6 +54,15 @@ redis-server /usr/local/etc/redis.conf # Run redis if not already running
 bin/rails server
 ```
 
+### Admin development
+
+In a rails console with `rails c`
+
+```ruby
+user = User.find_by(email: <your_email>)
+user.add_role(:super_admin)
+```
+
 # To Contribute
 
 - Go to https://github.com/hostolab/covidliste/issues and assign yourself an issue you think you can address.
