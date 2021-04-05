@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_02_085941) do
+ActiveRecord::Schema.define(version: 2021_04_04_214357) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,6 +71,19 @@ ActiveRecord::Schema.define(version: 2021_04_02_085941) do
     t.index ["creator_id"], name: "index_blazer_queries_on_creator_id"
   end
 
+  create_table "partners", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "name"
+    t.index ["email"], name: "index_partners_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_partners_on_reset_password_token", unique: true
+  end
+
   create_table "roles", force: :cascade do |t|
     t.string "name"
     t.string "resource_type"
@@ -82,14 +95,9 @@ ActiveRecord::Schema.define(version: 2021_04_02_085941) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "firstname"
-    t.string "lastname"
-    t.string "email"
     t.date "birthdate"
-    t.string "address"
     t.float "lat"
     t.float "lon"
-    t.string "phone_number"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "toc"
@@ -100,7 +108,14 @@ ActiveRecord::Schema.define(version: 2021_04_02_085941) do
     t.string "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
-    t.index ["email"], name: "index_users_on_email", unique: true
+    t.text "firstname_ciphertext"
+    t.text "lastname_ciphertext"
+    t.text "phone_number_ciphertext"
+    t.text "address_ciphertext"
+    t.text "email_ciphertext"
+    t.string "email_bidx"
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token"
+    t.index ["email_bidx"], name: "index_users_on_email_bidx", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
@@ -112,4 +127,24 @@ ActiveRecord::Schema.define(version: 2021_04_02_085941) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
+  create_table "vaccination_centers", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.string "address"
+    t.float "lat"
+    t.float "lon"
+    t.string "kind"
+    t.boolean "pfizer"
+    t.boolean "moderna"
+    t.boolean "astrazeneca"
+    t.boolean "janssen"
+    t.date "confirmed_at"
+    t.string "phone_number"
+    t.bigint "partner_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["partner_id"], name: "index_vaccination_centers_on_partner_id"
+  end
+
+  add_foreign_key "vaccination_centers", "partners"
 end

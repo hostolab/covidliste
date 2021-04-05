@@ -4,9 +4,17 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable,
          :recoverable,
-         :rememberable, 
+         :rememberable,
          :validatable,
          :confirmable
+
+  encrypts :firstname
+  encrypts :lastname
+  encrypts :address
+  encrypts :phone_number
+  encrypts :email
+
+  blind_index :email
 
   validates :firstname, presence: true
   validates :lastname, presence: true
@@ -35,6 +43,11 @@ class User < ApplicationRecord
     "#{firstname} #{lastname}"
   end
 
+  def age
+    now = Time.now.utc.to_date
+    now.year - birthdate.year - ((now.month > birthdate.month || (now.month == birthdate.month && now.day >= birthdate.day)) ? 0 : 1)
+  end
+
   def confirmed?
     confirmed_at.present?
   end
@@ -53,5 +66,6 @@ class User < ApplicationRecord
   def password_required?
     confirmed? ? super : false
   end
+
 
 end

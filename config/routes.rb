@@ -4,6 +4,11 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get '/' => 'home#index'
+    # Admins
+    authenticate :user, lambda(&:admin?) do
+      get '/search' => "search#search", as: :admin_search
+      post '/search' => "search#search"
+    end
   end
 
   authenticate :user, lambda(&:super_admin?) do
@@ -11,8 +16,8 @@ Rails.application.routes.draw do
     mount PgHero::Engine, at: "admin/pghero"
     mount Sidekiq::Web => 'admin/sidekiq'
   end
-  
-  
+
+
   mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
 
   ## devise
@@ -27,7 +32,12 @@ Rails.application.routes.draw do
     post 'login', to: 'devise/sessions#create', as: :user_session
     delete 'logout', to: 'devise/sessions#destroy', as: :destroy_user_session
   end
+
+  devise_for :partners do
+  end
+
   ####################
+
 
   ## users
   resources :users, only: [:create, :new]
@@ -39,7 +49,8 @@ Rails.application.routes.draw do
   ## pages
   get '/mentions_legales' => "pages#mentions_legales", as: :mentions_legales
   get '/privacy' => "pages#privacy", as: :privacy
-
+  get '/faq' => "pages#faq", as: :faq
+  
   root to: 'users#new'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

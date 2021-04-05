@@ -1,0 +1,55 @@
+.row
+  .col-12
+
+    %h2 Espace admin : Recherche
+
+    %p.mtop2
+      %strong
+        Bonjour #{@user.full_name},
+
+    %p
+      Depuis cet espace vous pouvez accèder aux profils des #{@users_count} volontaires inscrit sur Covidliste pour la vaccination.
+    %p
+      Nous vous rappelons que les données présentées dans cet espace ne peuvent être utilisées à d’autre fins que celles pour lesquelles elles ont été récoltées.
+
+      = simple_form_for :map do |f|
+        = f.input :address, label: 'Adresse', placeholder: "Paris, France"
+        = f.input :lat, as: :hidden
+        = f.input :lon, as: :hidden
+        = f.input :distance, label: 'Distance (km)', placeholder: "50"
+        = f.input :age_min, label: 'Age minimum', placeholder: "1"
+        = f.input :age_max, label: 'Age maximum', placeholder: "200"
+        = f.button :submit, "Rechercher", class: 'btn btn-primary'
+
+    .mtop2
+      %p
+        - if @users_count > @users.count
+          Plus de #{@users.count} volontaires correspondants trouvés à moins de #{@distance} km de #{@address}, affichage des #{@users.count} premiers résultats.
+        - else
+          #{@users.count} volontaires correspondants trouvés à moins de #{@distance} km de #{@address}.
+      %table.table.table-striped.table-bordered
+        %tr
+          %th #
+          %th Nom
+          %th Age
+          %th Téléphone
+          %th Email
+        - @users.each do |user|
+          %tr
+            %th #{user.id}
+            %th #{user.full_name}
+            %td{title: user.birthdate.strftime('%d/%m/%Y')} #{user.age} ans
+            %td #{user.phone_number}
+            %td #{user.email}
+      #leaflet_map{style: "height: 600px", "data-lat": @lat, "data-lon": @lon, "data-address": @address, "data-border": @bounds, "data-icon": asset_path("map/markers/firstaid.png")}
+        #leaflet_markers.d-none
+          - @users.each do |user|
+            .leaflet-marker{"data-lat": user.lat, "data-lon": user.lon, "data-icon": user.age && user.age >= 0 && user.age < 150 ? asset_path("map/markers/number_"+user.age.to_s+".png") : asset_path("map/markers/symbol_inter.png") }
+              %strong #{user.full_name}
+              %br/
+              #{user.age} ans (#{user.birthdate.strftime('%d/%m/%Y')})
+              %br/
+              Téléphone: #{user.phone_number}
+              %br/
+              Email : #{user.email}
+

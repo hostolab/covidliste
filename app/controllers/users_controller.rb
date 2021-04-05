@@ -8,7 +8,9 @@ class UsersController < ApplicationController
       redirect_to profile_path
     else
       @user = User.new
-      @users_count = number_with_delimiter(User.count, locale: :fr)
+      @users_count = Rails.cache.fetch(:users_count, expires_in: 1.minute) do
+        number_with_delimiter(User.count, locale: :fr)
+      end
     end
   end
   
