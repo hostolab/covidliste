@@ -22,7 +22,7 @@ If you don't already have them :
 - Install ruby 2.6.6 `rbenv install 2.6.6 && rbenv global 2.6.6`
 - Install bundler 2.1.4 `gem install bundler:2.2.7`
 - Install yarn `npm i -g yarn`
-- Install redis `npm i -g yarn`
+- Install redis `brew install redis`
 
 ### Dependencies
 
