@@ -21,6 +21,7 @@ class User < ApplicationRecord
   validates :address, presence: true
   validates :birthdate, presence: true
   validates :toc, presence: true, acceptance: true
+  validates :email, email: { mx: true, message: 'Email invalide' }
 
   before_save :approximate_coords
   after_commit :geocode_address, if: :saved_change_to_address?
