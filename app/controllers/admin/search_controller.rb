@@ -70,7 +70,7 @@ module Admin
                .where(lat: [box[0]..box[2]])
                .where(lon: [box[1]..box[3]])
                .where(birthdate: min_date..max_date)
-               .order("#{sort_column} #{sort_direction}")
+               .order(sort_column => sort_direction)
                .limit(volunteers_limit) # extra security
 
       @search_users_count_by_age = {

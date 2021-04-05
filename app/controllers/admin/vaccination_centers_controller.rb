@@ -1,6 +1,5 @@
 module Admin
   class VaccinationCentersController < BaseController
-    before_action :authenticate_user!
 
     def index
       @vaccination_centers = VaccinationCenter.all
