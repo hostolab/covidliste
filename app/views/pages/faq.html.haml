@@ -12,11 +12,11 @@
       %ul
         %li 
           Afin de modifier ou supprimer vos données personnelles, connectez-vous sur votre espace personnel
-          =link_to 'ici', :new_user_session
+          = link_to 'ici', :new_user_session
         %li
-          Si vous souhaitez modifier vos données : modifiez-les puis cliquez sur “Je modifie mes informations”. 
+          Si vous souhaitez modifier vos données : modifiez-les puis cliquez sur « Je modifie mes informations ».
         %li
-          Si vous souhaitez supprimer vos données : cliquez sur “Supprimez mon compte”. 
+          Si vous souhaitez supprimer vos données : cliquez sur « Supprimez mon compte ».
 
     %p 
       %strong Je suis un centre de vaccination. Comment accéder à votre service ?
@@ -25,9 +25,9 @@
     -#   %ul 
     -#     %li
     -#       Je suis un centre de vaccination / vaccinodrome : valider dans les coordonnées 
-    -#       =link_to 'fichier', 'https://docs.google.com/spreadsheets/d/1nrhUfjbSvhtDnsRs3DoYCqJrU3debmfnpo31NBcxSKc/edit#gid=1656677593'
+    -#       = link_to 'fichier', 'https://docs.google.com/spreadsheets/d/1nrhUfjbSvhtDnsRs3DoYCqJrU3debmfnpo31NBcxSKc/edit#gid=1656677593'
     -#       (source 
-    -#       =link_to 'Open Data', 'https://www.data.gouv.fr/fr/datasets/lieux-de-vaccination-contre-la-covid-19/'
+    -#       = link_to 'Open Data', 'https://www.data.gouv.fr/fr/datasets/lieux-de-vaccination-contre-la-covid-19/'
     -#       )
     -#     %li 
     -#       Je suis une pharmacie / médecin généraliste 
@@ -36,21 +36,22 @@
       Nous sommes en train de développer une interface de gestion automatisée des volontaires à la vaccination. Celle-ci sera disponible dans les prochains jours. 
     
     %p
-      Afin de référencer votre centre, vous pouvez d'ores et déjà nous confirmer : 
+      Afin de référencer votre centre, vous pouvez d’ores et déjà nous confirmer :
       %ul 
         %li
           Les coordonnées de la ou les personnes référentes du centre concerné (nom, prénom, email, titre, numéro de téléphone). 
         %li 
-          Les informations relatives au centre (nom du centre, adresse postale, vaccin administrés et horaires d'ouverture)
+          Les informations relatives au centre (nom du centre, adresse postale, vaccins administrés et horaires d’ouverture)
     %p 
-      Nous allons démarrer le déploiement de la solution avec des centres de vaccination pilote dès la semaine prochaine. Si vous souhaitez faire partie des centres pilotes, nous vous invitons à contacter gaelle@covidliste.com
+      Nous allons démarrer le déploiement de la solution avec des centres de vaccination pilote dès la semaine prochaine. Si vous souhaitez faire partie des centres pilotes, nous vous invitons à contacter
+      = link_to 'gaelle@covidliste.com', 'mailto:gaelle@covidliste.com'
 
     %p 
       %strong Je n’ai pas reçu d’email de confirmation
 
     %p 
       Vous pouvez faire une demande d'email de confirmation
-      =link_to 'ici', new_user_confirmation_path
+      = link_to 'ici', new_user_confirmation_path
 
     %p 
       %strong Comment être certain que les coordonnées transmises ne soient pas par la suite revendues à des tiers ?
@@ -87,7 +88,7 @@
           Ce sont les centres qui sélectionnent les volontaires selon des critères qui leur sont propres parmi lesquels géolocalisation, âge, vaccin disponible...
     
     %p 
-      %strong  Je suis inscrit depuis XX semaines et je n’ai jamais été contacté pour une vaccination
+      %strong  Je suis inscrit depuis plusieurs semaines et je n’ai jamais été contacté pour une vaccination
 
     %p 
       %ul 
@@ -117,7 +118,7 @@
           Covidliste est complémentaire à la stratégie vaccinale actuelle et n’a pas vocation à s’y substituer.
     
     %p 
-      %strong Si l'on est vacciné par l'intermédiaire de Covidliste sans être de la catégorie prioritaire, est-ce que la deuxième dose est assurée dans les bons délais ?
+      %strong Si l’on est vacciné par l’intermédiaire de Covidliste sans être de la catégorie prioritaire, est-ce que la deuxième dose est assurée dans les bons délais ?
 
     %p 
       Covidliste prend uniquement en charge la mise en relation entre des volontaires et un centre de vaccination partenaire qui a des doses disponibles en surnombre. 
@@ -144,4 +145,5 @@
       %strong Je suis journaliste et souhaite réaliser une interview
 
     %p 
-      Nous vous invitons à nous contacter sur hello@covidliste.com
+      Nous vous invitons à nous contacter sur
+      = link_to 'hello@covidliste.com', 'mailto:hello@covidliste.com'

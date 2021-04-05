@@ -1,6 +1,6 @@
 %nav.navbar.navbar-expand-lg.navbar-light.bg-light
-  %a.navbar-brand{:href => "/"} Covidliste Admin
-  %button.navbar-toggler{"aria-controls" => "navbarNavDropdown", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarNavDropdown", "data-toggle" => "collapse", :type => "button"}
+  %a.navbar-brand{href: "/"} Covidliste Admin
+  %button.navbar-toggler{"aria-controls": "navbarNavDropdown", "aria-expanded": "false", "aria-label": "Toggle navigation", "data-target": "#navbarNavDropdown", "data-toggle": "collapse", type: "button"}
     %span.navbar-toggler-icon
   #navbarNavDropdown.collapse.navbar-collapse
     %ul.navbar-nav.ml-auto
@@ -28,4 +28,4 @@
             =link_to "Déconnexion", destroy_user_session_path, :method => :delete, class: 'dropdown-item'
       - else
         %li{class: (controller_name == 'sessions' ? 'nav-item active' : 'nav-item')}
-          =link_to "Espace personnel", new_user_session_path, class: "nav-link"
+          = link_to "Espace personnel", new_user_session_path, class: "nav-link"
