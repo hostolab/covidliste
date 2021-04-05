@@ -2,10 +2,10 @@
   .col-sm-12.col-md-8.col-lg-6
 
     %p.mtop2
-      %strong
-        Bonjour #{@user.full_name}
+      Bonjour #{@user.full_name}
     %p
       Vous êtes inscrit sur Covidliste depuis le #{@user.created_at.strftime("%d/%m/%Y")}
+    = twitter_share
 
     %p.mtop2
       %strong
