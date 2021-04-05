@@ -64,6 +64,7 @@ GEM
       public_suffix (>= 2.0.2, < 5.0)
     appsignal (3.0.2)
       rack
+    argon2-kdf (0.1.6)
     autoprefixer-rails (10.2.4.0)
       execjs
     bcrypt (3.1.16)
@@ -73,6 +74,9 @@ GEM
       chartkick (>= 3.2)
       railties (>= 5)
       safely_block (>= 0.1.1)
+    blind_index (2.2.0)
+      activesupport (>= 5)
+      argon2-kdf (>= 0.1.1)
     bootsnap (1.7.3)
       msgpack (~> 1.0)
     bootstrap (5.0.0.beta2)
@@ -340,6 +344,7 @@ DEPENDENCIES
   appsignal
   autoprefixer-rails
   blazer
+  blind_index
   bootsnap (>= 1.4.4)
   bootstrap (~> 5.0.0.beta2)
   byebug

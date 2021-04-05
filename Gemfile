@@ -42,8 +42,11 @@ gem 'pghero'
 gem 'pg_query', '>= 0.9.0'
 gem 'sidekiq'
 gem 'geocoder'
+gem 'blind_index'
 gem 'lockbox'
 gem 'appsignal'
+
+gem "appsignal"
 
 group :development, :test do
   gem 'pry-byebug'
