@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_05_204958) do
+ActiveRecord::Schema.define(version: 2021_04_05_205147) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -99,10 +99,12 @@ ActiveRecord::Schema.define(version: 2021_04_05_204958) do
     t.integer "max_distance_in_meters", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "max_age"
     t.index ["partner_id"], name: "index_campaigns_on_partner_id"
     t.index ["vaccination_center_id"], name: "index_campaigns_on_vaccination_center_id"
     t.check_constraint "(available_doses > 0) AND (available_doses <= 1000)", name: "available_doses_gt_zero"
-    t.check_constraint "(vaccine_type)::text = ANY (ARRAY[('pfizer'::character varying)::text, ('moderna'::character varying)::text, ('astrazeneca'::character varying)::text, ('janssen'::character varying)::text])", name: "vaccine_type_is_a_known_brand"
+    t.check_constraint "(max_age > 0) AND (max_age > min_age)", name: "max_age_gt_zero"
+    t.check_constraint "(vaccine_type)::text = ANY ((ARRAY['pfizer'::character varying, 'moderna'::character varying, 'astrazeneca'::character varying, 'janssen'::character varying])::text[])", name: "vaccine_type_is_a_known_brand"
     t.check_constraint "max_distance_in_meters > 0", name: "max_distance_in_meters_gt_zero"
     t.check_constraint "min_age > 0", name: "min_age_gt_zero"
     t.check_constraint "starts_at < ends_at", name: "starts_at_lt_ends_at"
