@@ -29,6 +29,9 @@
     %p.small.mb-2.font-italic.text-muted
       #{current_partner.email}
 
+%p
+  =link_to "Créer une nouvelle campagne", new_partners_vaccination_center_campaign_path(@vaccination_center), class: "btn btn-primary btn-sm"
+
 .row
   .col-12
     %h5.mtop2 Campagnes
