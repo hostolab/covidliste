@@ -29,7 +29,14 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
 
-    @user.save
+    if @user.save
+      render action: :new
+    else
+      flash.now[:error] = "Impossible de créer un compte : #{@user.errors.full_messages.join(", ")}"
+      render action: :new
+    end
+  rescue ActiveRecord::RecordNotUnique
+    flash.now[:error] = "Une erreur s’est produite."
     render action: :new
   end
 
