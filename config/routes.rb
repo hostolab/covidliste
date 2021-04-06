@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     authenticate :user, lambda(&:admin?) do
       get '/search' => "search#search", as: :admin_search
       post '/search' => "search#search"
-      resources :vaccination_centers, only: [:index, :show, :new, :create] do
+      resources :vaccination_centers do
         patch :validate, on: :member
       end
     end
@@ -19,7 +19,6 @@ Rails.application.routes.draw do
     mount PgHero::Engine, at: "admin/pghero"
     mount Sidekiq::Web => 'admin/sidekiq'
   end
-
 
   mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
 

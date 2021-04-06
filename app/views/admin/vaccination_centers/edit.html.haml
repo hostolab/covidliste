@@ -1,0 +1,29 @@
+.row.mtop2
+  .col-12
+    %p.mb-2
+      = link_to '← Retour', admin_vaccination_centers_path
+    %h2 Espace admin : Centres de vaccination
+    %h3 Modification du centre de vaccinatin « #{@vaccination_center.name} »
+
+    - if !@vaccination_center.confirmed?
+      .alert.alert-warning
+        %p
+          = icon("fas", "times", class: "text-danger")
+          Centre non validé
+        = link_to "Valider ce centre", validate_admin_vaccination_center_path(@vaccination_center), method: :patch, class: "btn btn-sm btn-primary", "data-confirm": "Êtes-vous sûr(e)?"
+
+    = simple_form_for [:admin, @vaccination_center] do |f|
+      = f.input :name, label: 'Nom du centre', error: 'Nom requis', placeholder: 'Centre de vaccination Marseille'
+      = f.input :description, label: 'Description', error: 'Description requise', placeholder: 'Description du lieu de vaccination'
+      = f.input :kind, label: 'Type de centre de vaccination', collection: VaccinationCenter::Kinds::ALL
+      %p.mtop2
+        Type(s) de vaccins disponibles
+      = f.input :pfizer, as: :boolean, label: "Pfizer", checked_value: true, unchecked_value: false, class: 'form-check-inline'
+      = f.input :moderna, as: :boolean, label: "Moderna", checked_value: true, unchecked_value: false, class: 'form-check-inline'
+      = f.input :astrazeneca, as: :boolean, label: "Astrazeneca", checked_value: true, unchecked_value: false, class: 'form-check-inline'
+      = f.input :janssen, as: :boolean, label: "Janssen", checked_value: true, unchecked_value: false
+      = f.input :address, label: 'Adresse', error: 'Adresse requise', placeholder: '5 rue larue, 13600 Marseille'
+      = f.input :lat, :as => :hidden
+      = f.input :lon, :as => :hidden
+      = f.input :phone_number, label: 'Numéro de téléphone', error: 'Numéro de téléphone requis', placeholder: '06 06 06 06 06'
+      = f.button :submit, "Modifier le centre", class: 'btn btn-primary', data: { disable_with: 'Validation...' }
