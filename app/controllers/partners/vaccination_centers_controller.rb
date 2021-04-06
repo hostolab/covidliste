@@ -32,13 +32,15 @@ module Partners
     def find_vaccination_center
       @vaccination_center = VaccinationCenter.find(params[:id])
 
-      unless @vaccination_center.partners.include?(current_partner)
-        flash[:error] = "Vous ne pouvez pas accéder à ce centre"
-        return redirect_to(partners_vaccination_centers_path)
-      end
-
       unless @vaccination_center.confirmed?
         flash[:error] = "Votre centre n'a pas encore été approuvé par Covidliste"
+        redirect_to(partners_vaccination_centers_path)
+      end
+    end
+
+    def authorize!
+      unless @vaccination_center.partners.include?(current_partner)
+        flash[:error] = "Vous ne pouvez pas accéder à ce centre"
         redirect_to(partners_vaccination_centers_path)
       end
     end
