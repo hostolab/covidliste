@@ -39,7 +39,7 @@ module Partners
 
       unless @vaccination_center.confirmed?
         flash[:error] = "Votre centre n'a pas encore été approuvé par Covidliste"
-        return redirect_to(partners_vaccination_centers_path)
+        redirect_to(partners_vaccination_centers_path)
       end
     end
 
