@@ -189,9 +189,11 @@ ActiveRecord::Schema.define(version: 2021_04_06_172700) do
     t.string "email_bidx"
     t.string "zipcode"
     t.string "city"
+    t.index ["city"], name: "index_users_on_city"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token"
     t.index ["email_bidx"], name: "index_users_on_email_bidx", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["zipcode"], name: "index_users_on_zipcode"
   end
 
   create_table "users_roles", id: false, force: :cascade do |t|
