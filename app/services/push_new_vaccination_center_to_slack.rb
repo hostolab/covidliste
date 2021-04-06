@@ -24,7 +24,7 @@ class PushNewVaccinationCenterToSlack
             value: @vaccination_center.description
           },
           {
-            title: "Addresse",
+            title: "Adresse",
             value: @vaccination_center.address
           }
         ]
