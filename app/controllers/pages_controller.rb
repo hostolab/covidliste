@@ -1,6 +1,4 @@
 class PagesController < ApplicationController
-
-
   def mentions_legales
   end
 

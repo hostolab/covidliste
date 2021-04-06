@@ -1,7 +1,6 @@
-include ActionView::Helpers::NumberHelper
 class UsersController < ApplicationController
-
-  before_action :authenticate_user!, except: [:new, :create]
+  include ActionView::Helpers::NumberHelper
+  before_action :authenticate_user!, except: %i[new create]
 
   def new
     if current_partner
@@ -29,8 +28,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    @user.password = Devise.friendly_token.first(12)
-    @user.skip_confirmation! if ENV["SKIP_EMAIL_CONFIRMATION"] == 'true'
+
     @user.save
     render action: :new
   end
@@ -45,7 +43,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:firstname, :lastname, :email, :phone_number, :toc, :address, :birthdate, :lat, :lon)
+    params.require(:user).permit(:firstname, :lastname, :email, :phone_number, :toc, :address, :birthdate, :lat, :lon, :password)
   end
-
 end

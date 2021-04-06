@@ -23,7 +23,7 @@ Capybara.register_driver(:cuprite) do |app|
     window_size: [1440, 900],
     js_errors: false,
     # headless: !(ENV["PREVIEW"] == "true"),
-    inspector: (ENV['INSPECTOR'] == "true"),
+    inspector: (ENV["INSPECTOR"] == "true"),
     process_timeout: 30,
     timeout: 60,
     browser_options: {'no-sandbox': nil}
@@ -34,6 +34,10 @@ RSpec.configure do |config|
   config.prepend_before :each, type: :system do
     driven_by :cuprite
     DatabaseCleaner.allow_remote_database_url = true
+    Rails.application.routes.default_url_options = {
+      host: Capybara.current_session.server.host,
+      port: Capybara.current_session.server.port
+    }
   end
 
   config.include ActiveJob::TestHelper

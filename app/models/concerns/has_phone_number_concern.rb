@@ -5,20 +5,21 @@ module HasPhoneNumberConcern
 
   included do
     before_validation :format_phone_number
-    validates :phone_number, length: { minimum: 7, maximum: 15, allow_blank: false }
+    validates :phone_number, length: {minimum: 7, maximum: 15, allow_blank: false}
   end
 
   private
 
   def format_phone_number
-    return if self.phone_number.blank?
+    return if phone_number.blank?
 
-    new_phone = self.phone_number.to_s
+    new_phone = phone_number.to_s
 
     # Remove separators and other unicode characters
     # 06  12-23.4.5 67-8
     # => 0612345678
-    patterns = [" ", "+", "-", ".", ",", "/", "－", "–", "_", "\u00A0", "\u202C", "\u202D", "\u0020", "~", "—", "@", "*", "	", "\t"]
+    patterns = [" ", "+", "-", ".", ",", "/", "－", "–", "_", "\u00A0", "\u202C", "\u202D", "\u0020", "~", "—", "@",
+      "*", "	", "\t"]
     patterns.each do |string|
       new_phone = new_phone.gsub(string, "")
     end
@@ -26,9 +27,7 @@ module HasPhoneNumberConcern
     # Remove two leading zeros
     # 00336xx
     # => 336xx
-    if new_phone.length > 2 && new_phone[0..1] == "00"
-      new_phone = new_phone[2..-1]
-    end
+    new_phone = new_phone[2..] if new_phone.length > 2 && new_phone[0..1] == "00"
 
     # French mobile and fix numbers have 10 digits, and we want a 33x number
     # 0612345678
@@ -37,7 +36,7 @@ module HasPhoneNumberConcern
       # "FR 06 xx xx xx xx"
       # "FR 07 xx xx xx xx"
       # "FR 01 xx xx xx xx"
-      new_phone = "33" + new_phone[1..-1]
+      new_phone = "33" + new_phone[1..]
     end
 
     self.phone_number = new_phone
