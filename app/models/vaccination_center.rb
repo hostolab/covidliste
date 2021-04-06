@@ -2,10 +2,11 @@ class VaccinationCenter < ApplicationRecord
   module Kinds
     CENTRE_VACCINATION = "Centre de vaccination"
     CABINET_MEDICAL = "Cabinet médical"
-    PHARMACIE = "Pharmacie"
     EHPAD = "Ehpad"
+    HOPITAL = "Hôpital"
+    PHARMACIE = "Pharmacie"
 
-    ALL = [CENTRE_VACCINATION, CABINET_MEDICAL, PHARMACIE, EHPAD].freeze
+    ALL = [CENTRE_VACCINATION, CABINET_MEDICAL, EHPAD, HOPITAL, PHARMACIE].freeze
   end
 
   validates_presence_of :name, :address, :lat, :lon, :phone_number
