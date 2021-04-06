@@ -69,7 +69,7 @@ Rails.application.routes.draw do
   end
 
   ## matches
-  resources :matches, only: [:show, :update]
+  resources :matches, only: [:show, :update], param: :token
 
   ## pages
   get "/mentions_legales" => "pages#mentions_legales", :as => :mentions_legales

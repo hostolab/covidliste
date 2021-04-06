@@ -1,0 +1,25 @@
+<h2>Une dose de vaccin vous attend !</h2>
+<h2>Confirmez votre disponibilité. </h2>
+
+<p class="mt-4">
+  Bonne nouvelle ! Une dose est disponible près de chez vous.
+  <strong> Vous avez jusqu'à <%= @match.expires_at.strftime('%Hh%M')%>  pour confirmer votre venue au centre de vaccination au créneau horaire proposé </strong>. 
+  Passé ce délai, la dose sera attribuée à un autre de volontaire.
+</p>
+
+<%= render 'match_details', match: @match %>
+
+<div class="alert alert-primary" role="alert">
+  Merci de confirmer votre présence <strong>uniquement</strong> si vous pouvez vous rendre au centre de vaccination
+  l'horaire communiqué.
+</div>
+
+<div class="btn btn-primary m-2">
+  <%= link_to 'Je suis disponible' , match_path(token: @match.token), method: :patch, class: 'btn. btn-primary btn-block' %>
+</div>
+
+<p>
+  <small>
+    Une fois votre présence confirmée, vos coordonées sont transmise au centre de vaccination. Votre compte et vos informations seront alors définitivement supprimés de Covidliste sous 24h, et vous ne recevrez plus de notifications.
+  </small>
+</p>
