@@ -1,13 +1,29 @@
-.row.mtop2
+.row.mt-2
   .col-sm-12.col-md-8.col-lg-6
     %p
       %strong Inscription en tant que centre de vaccination Partenaire
 
-    %p.text-justify
-      Cette page d'inscription concerne les centres de vaccination qui souhaitent participer à l'initiative et avoir accès à notre plateforme.
+    %p.text-justify.mb-5
+      Cette page d'inscription concerne uniquement l'inscription du
+      %strong
+        personnel médical
+      membre d'un centre de vaccination qui souhaite devenir partenaire.
       %br
-      Pour s’inscrire en tant que volontaire à la vaccination, merci de vous rendre sur
-      =link_to ' cette page.', root_path
+
+    %h2
+      %i.far.fa-user
+      %i.fas.fa-syringe
+    %p
+      Si vous souhaitez vous inscrire comme volontaire, c'est par là !
+    .btn.btn-warning
+      =link_to 'Je suis volontaire pour me faire vacciner', root_path, style: 'color: white', class: 'text-decoration-none'
+
+    %h2.mt-5
+      %i.fas.fa-user-md
+      %i.fas.fa-clinic-medical
+    %p
+      Si vous êtes membre d'un centre de vaccination et souhaitez devenir partenaire de Covidliste, c'est bien ici ! Veuillez remplir le formulaire ci-dessous.
+
     - if @partner.persisted?
       .row.mtop2
         .alert.alert-success{:role => "alert", style: "position: inherit"}
@@ -19,7 +35,6 @@
         = f.input :phone_number, label: "Téléphone portable", placeholder: "06 .... (votre téléphone professionnel)"
         = f.input :email,
           required: true,
-          autofocus: true,
           placeholder: 'votre_email@du_centre_de_vaccination.fr',
           input_html: { autocomplete: "email" }
         = f.input :password,
@@ -30,4 +45,7 @@
         = f.button :submit, "S'inscrire", class:"btn btn-primary", data: { disable_with: 'Validation...' }
     %p.mtop2
       = link_to "Se connecter en tant que Partenaire", new_partner_session_path, class: "bp3-text-muted"
+
+
+
 

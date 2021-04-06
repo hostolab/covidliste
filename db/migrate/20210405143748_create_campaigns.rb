@@ -8,7 +8,7 @@ class CreateCampaigns < ActiveRecord::Migration[6.1]
       t.integer :available_doses, null: false
       t.datetime :starts_at, null: false
       t.datetime :ends_at, null: false
-      t.string :extra_info
+      t.text :extra_info
       t.integer :min_age, null: false
       t.integer :max_distance_in_meters, null: false
 
