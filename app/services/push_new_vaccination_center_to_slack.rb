@@ -44,7 +44,7 @@ class PushNewVaccinationCenterToSlack
   end
 
   def creator
-    if @vaccination_center.parters.none?
+    if @vaccination_center.partners.none?
       "par un admin"
     else
       "par #{@vaccination_center.partners.first.name}"
