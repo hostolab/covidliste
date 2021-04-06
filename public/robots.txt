@@ -1,3 +1,4 @@
 User-agent: *
 Disallow: /profile
 Disallow: /partners/
+Disallow: /admin/
