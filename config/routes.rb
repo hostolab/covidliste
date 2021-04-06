@@ -65,7 +65,6 @@ Rails.application.routes.draw do
     resources :vaccination_centers, only: [:index, :show, :new, :create]
   end
 
-
   ## matches
   resources :matches, only: [:show, :update]
 
