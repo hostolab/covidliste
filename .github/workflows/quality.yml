@@ -5,19 +5,11 @@ on: [push]
 
 jobs:
   quality:
-    env:
-      RAILS_ENV: test
-      NODE_ENV: test
     runs-on: ubuntu-latest # runner
     steps:
       - name: Checkout repository # copies repo in runner
         uses: actions/checkout@v2 # short for https://github.com/actions/checkout
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1 # short for https://github.com/ruby/setup-ruby
-        with:
-          # runs 'bundle install' and caches installed gems automatically
-          bundler-cache: true
-      - name: StandardRB Linter
+      - name: Linting
         uses: andrewmcodes/standardrb-action@v0.0.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
