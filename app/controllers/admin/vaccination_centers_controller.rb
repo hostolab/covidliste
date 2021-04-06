@@ -1,6 +1,6 @@
 module Admin
   class VaccinationCentersController < BaseController
-    before_action :set_vaccination_center, only: [:show, :validate]
+    before_action :set_vaccination_center, only: [:show, :validate, :edit, :update, :destroy]
 
     def index
       @vaccination_centers = VaccinationCenter.all
@@ -30,6 +30,31 @@ module Admin
         end
       else
         flash[:alert] = "Ce centre a déjà été validé !"
+        redirect_to admin_vaccination_center_path(@vaccination_center)
+      end
+    end
+
+    def edit
+    end
+
+    def update
+      if @vaccination_center.update(vaccination_center_params)
+        flash[:success] = "Ce centre a bien été modifié"
+      else
+        flash[:alert] = "Une erreur est survenue : #{@vaccination_center.errors.full_messages.join(', ')}"
+      end
+
+      redirect_to admin_vaccination_center_path(@vaccination_center)
+    end
+
+    def destroy
+      @vaccination_center.partners.destroy_all
+
+      if @vaccination_center.destroy
+        flash[:success] = "Ce centre a bien été supprimé"
+        redirect_to admin_vaccination_centers_path
+      else
+        flash[:alert] = "Une erreur est survenue : #{@vaccination_center.errors.full_messages.join(', ')}"
         redirect_to admin_vaccination_center_path(@vaccination_center)
       end
     end
