@@ -18,5 +18,15 @@
     "SLACK_INCOMING_WEBHOOK_URL": {
       "value": ""
     }
+  },
+  "formation": {
+    "web": {
+      "amount": 1,
+      "size": "S"
+    },
+    "worker": {
+      "amount": 1,
+      "size": "S"
+    }
   }
 }
