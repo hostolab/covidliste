@@ -26,13 +26,13 @@
             %td #{vaccination_center.address}
             %td #{vaccination_center.phone_number}
             %td
-              -if vaccination_center.pfizer
+              = if vaccination_center.pfizer
                 %span.mr-1 Pfizer
-              -if vaccination_center.moderna
+              = if vaccination_center.moderna
                 %span.mr-1 Moderna
-              -if vaccination_center.astrazeneca
+              = if vaccination_center.astrazeneca
                 %span.mr-1 Astrazeneca
-              -if vaccination_center.janssen
+              = if vaccination_center.janssen
                 %span.mr-1 Janssen
             %td
               - if vaccination_center.confirmed?
