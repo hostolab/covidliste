@@ -40,7 +40,7 @@ module Partners
     end
 
     def restrict_to_dev
-      unless !Rails.env.development?
+      unless Rails.env.development?
         redirect_to partners_vaccination_centers_path() and return
       end
     end
