@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_05_205147) do
+ActiveRecord::Schema.define(version: 2021_04_06_064248) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -114,7 +114,6 @@ ActiveRecord::Schema.define(version: 2021_04_05_205147) do
     t.bigint "vaccination_center_id"
     t.bigint "campaign_id"
     t.bigint "campaign_batch_id"
-    t.bigint "partner_id"
     t.bigint "user_id"
     t.datetime "sent_at"
     t.datetime "expires_at"
@@ -124,7 +123,6 @@ ActiveRecord::Schema.define(version: 2021_04_05_205147) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["campaign_batch_id"], name: "index_matches_on_campaign_batch_id"
     t.index ["campaign_id"], name: "index_matches_on_campaign_id"
-    t.index ["partner_id"], name: "index_matches_on_partner_id"
     t.index ["user_id"], name: "index_matches_on_user_id"
     t.index ["vaccination_center_id"], name: "index_matches_on_vaccination_center_id"
   end
@@ -228,7 +226,6 @@ ActiveRecord::Schema.define(version: 2021_04_05_205147) do
   add_foreign_key "campaigns", "vaccination_centers"
   add_foreign_key "matches", "campaign_batches"
   add_foreign_key "matches", "campaigns"
-  add_foreign_key "matches", "partners"
   add_foreign_key "matches", "users"
   add_foreign_key "matches", "vaccination_centers"
   add_foreign_key "partner_vaccination_centers", "partners"
