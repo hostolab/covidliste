@@ -2,20 +2,21 @@
   .col-12
     %h2
       Centres de vaccination
-      =link_to 'Ajouter un centre', new_admin_vaccination_center_path, class: "btn btn-primary btn-sm float-right"
+      = link_to 'Ajouter un centre', new_admin_vaccination_center_path, class: "btn btn-primary btn-sm float-right"
     .mtop2
       %table.table.table-striped.table-bordered.table-sm.small
         %tr
-          %th #
+          %th.text-right #
           %th Nom
           %th Type
-          %th Addresse
+          %th Adresse
           %th Téléphone
           %th Types de vaccins
           %th Validé
+          %th
         - @vaccination_centers.each do |vaccination_center|
           %tr
-            %th #{vaccination_center.id}
+            %th.text-right #{vaccination_center.id}
             %td
               %strong
                 =link_to vaccination_center.name, admin_vaccination_center_path(vaccination_center.id)
@@ -40,3 +41,5 @@
               - else
                 %i.fas.fa-times.text-danger
                 Non
+            %td.text-center
+              = link_to icon("fas", "edit"), edit_admin_vaccination_center_path(vaccination_center), title: "Éditer (ou supprimer) ce centre", data: { toggle: :tooltip }

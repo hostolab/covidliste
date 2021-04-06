@@ -10,12 +10,11 @@ module Partners
 
     def show
       unless current_partner.vaccination_centers.exists?(params[:id])
-        redirect_to partners_vaccination_centers_path and return
+        redirect_to(partners_vaccination_centers_path) && return
       end
+
       @vaccination_center = VaccinationCenter.find(params[:id])
-      unless @vaccination_center.confirmed?
-        redirect_to partners_vaccination_centers_path and return
-      end
+      redirect_to(partners_vaccination_centers_path) && return unless @vaccination_center.confirmed?
     end
 
     def new
@@ -25,7 +24,8 @@ module Partners
     def create
       @vaccination_center = VaccinationCenter.new(vaccination_center_params)
       @vaccination_center.save
-      @partner_vaccination_center = PartnerVaccinationCenter.new(partner: current_partner, vaccination_center: @vaccination_center)
+      @partner_vaccination_center = PartnerVaccinationCenter.new(partner: current_partner,
+                                                                 vaccination_center: @vaccination_center)
       @partner_vaccination_center.save
       render action: :new
     end
@@ -33,7 +33,8 @@ module Partners
     private
 
     def vaccination_center_params
-      params.require(:vaccination_center).permit(:name, :description, :address, :kind, :pfizer, :moderna, :astrazeneca, :janssen, :phone_number, :lat, :lon)
+      params.require(:vaccination_center).permit(:name, :description, :address, :kind, :pfizer, :moderna, :astrazeneca,
+        :janssen, :phone_number, :lat, :lon)
     end
 
     def sort_column

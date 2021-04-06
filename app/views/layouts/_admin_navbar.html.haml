@@ -9,6 +9,11 @@
           =link_to "Recherche", :admin_search, class: 'nav-link'
         %li{class: (controller_name == 'vaccination_centers' ? 'nav-item active' : 'nav-item')}
           =link_to "Centres de vaccination", admin_vaccination_centers_path, class: 'nav-link'
+        %li.nav-item.dropdown
+          %a#dropdown12.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => ""}
+            ="Admin Tools"
+          .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "dropdown10"}
+            =link_to "Flipper", "/admin/flipper", class: 'dropdown-item', target: "_blank"
       - if current_user.has_role?(:super_admin)
         %li.nav-item.dropdown
           %a#dropdown12.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => ""}
