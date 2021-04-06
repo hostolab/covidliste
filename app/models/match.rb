@@ -4,4 +4,8 @@ class Match < ApplicationRecord
   belongs_to :campaign_batch
   belongs_to :partner
   belongs_to :user
+
+  def confirmed?
+    confirmed_at.present?
+  end
 end
