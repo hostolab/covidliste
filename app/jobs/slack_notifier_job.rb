@@ -1,5 +1,5 @@
 class SlackNotifierJob < ActiveJob::Base
-  queue_as :default
+  queue_as :critical
 
   def perform(channel, text, json_attachments = nil)
     body = {
