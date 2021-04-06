@@ -51,7 +51,6 @@ gem "standard"
 gem "spring"
 
 group :development, :test do
-
   gem "pry-byebug"
   gem "pry-rails"
   gem "dotenv-rails", "2.7.6"
