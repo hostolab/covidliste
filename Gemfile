@@ -45,8 +45,9 @@ gem 'geocoder'
 gem 'blind_index'
 gem 'lockbox'
 gem 'appsignal'
-gem 'http'
 gem 'valid_email'
+gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
+gem 'httparty'
 
 group :development, :test do
   gem 'pry-byebug'

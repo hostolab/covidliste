@@ -1,19 +1,16 @@
 class SlackNotifierJob < ActiveJob::Base
   queue_as :default
 
-  def perform(channel, text, attachments)
+  def perform(channel, text, json_attachments = nil)
     body = {
       channel: channel,
       text: text,
-      attachments: attachments ? JSON.parse(attachments) : nil
+      attachments: json_attachments ? JSON.parse(json_attachments) : nil
     }.to_json
 
-    response = HTTP \
-      .headers("Content-Type": "application/json")
-      .post(
-        ENV["SLACK_INCOMING_WEBHOOK_URL"],
-        body: body
-      )
-    puts response.to_s
+    headers = {
+      "Content-Type": "application/json"
+    }
+    HTTParty.post(ENV["SLACK_INCOMING_WEBHOOK_URL"], body: body, headers: headers)
   end
 end

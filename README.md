@@ -22,7 +22,7 @@ If you don't already have them :
 - Install ruby 2.6.6 `rbenv install 2.6.6 && rbenv global 2.6.6`
 - Install bundler 2.1.4 `gem install bundler:2.2.7`
 - Install yarn `npm i -g yarn`
-- Install redis `npm i -g yarn`
+- Install redis `brew install redis`
 
 ### Dependencies
 
@@ -52,6 +52,15 @@ Run :
 ```bash
 redis-server /usr/local/etc/redis.conf # Run redis if not already running
 bin/rails server
+```
+
+### Admin development
+
+In a rails console with `rails c`
+
+```ruby
+user = User.find_by(email: <your_email>)
+user.add_role(:super_admin)
 ```
 
 # To Contribute

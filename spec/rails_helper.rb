@@ -34,6 +34,10 @@ RSpec.configure do |config|
   config.prepend_before :each, type: :system do
     driven_by :cuprite
     DatabaseCleaner.allow_remote_database_url = true
+    Rails.application.routes.default_url_options = {
+      host: Capybara.current_session.server.host,
+      port: Capybara.current_session.server.port
+    }
   end
 
   config.include ActiveJob::TestHelper
