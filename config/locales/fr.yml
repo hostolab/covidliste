@@ -1,6 +1,9 @@
 ---
 fr:
   activerecord:
+    models:
+      campaign:
+        one: campagne
     errors:
       messages:
         record_invalid: 'La validation a échoué : %{errors}'

@@ -16,12 +16,20 @@ class VaccinationCenter < ApplicationRecord
   has_many :partners, through: :partner_vaccination_centers
   belongs_to :confirmer, class_name: "User", optional: true
 
+  has_many :campaigns
+
   scope :confirmed, -> { where.not(confirmed_at: nil) }
 
   after_commit :push_to_slack, on: :create
 
   def confirmed?
     confirmed_at.present?
+  end
+
+  def can_be_accessed_by?(user, partner)
+    return true if user&.admin?
+
+    partners.include?(partner)
   end
 
   private
