@@ -28,5 +28,8 @@
       "amount": 1,
       "size": "S"
     }
+  },
+  "scripts": {
+    "first-deploy": "bundle exec rails db:migrate && echo 'Placeholder pour créer les fakedata'"
   }
 }
