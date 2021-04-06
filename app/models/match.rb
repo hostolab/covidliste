@@ -19,4 +19,10 @@ class Match < ApplicationRecord
   def expired?
     !confirmed? && Time.now.utc > expires_at
   end
+
+  def sent_at=(val)
+    self.expires_at = val + campaign_batch.duration_in_minutes.minutes
+
+    super
+  end
 end
