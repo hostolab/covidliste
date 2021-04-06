@@ -1,7 +1,8 @@
-require 'rails_helper'
+require "rails_helper"
 
 describe GeocodeUserJob do
   let!(:user) { create(:user) }
+  subject { described_class.perform_now(user.id) }
 
   context "user with missing lat/lon" do
     it "does call geocoding and approximate coords" do

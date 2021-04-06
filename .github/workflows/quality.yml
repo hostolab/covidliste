@@ -1,0 +1,23 @@
+name: Quality
+
+# triggers on
+on: [push]
+
+jobs:
+  quality:
+    env:
+      RAILS_ENV: test
+      NODE_ENV: test
+    runs-on: ubuntu-latest # runner
+    steps:
+      - name: Checkout repository # copies repo in runner
+        uses: actions/checkout@v2 # short for https://github.com/actions/checkout
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1 # short for https://github.com/ruby/setup-ruby
+        with:
+          # runs 'bundle install' and caches installed gems automatically
+          bundler-cache: true
+      - name: Rubocop checks
+          uses: luizfonseca/github-actions-rubocop@1.5.5
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

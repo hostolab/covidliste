@@ -1,6 +1,5 @@
 module Admin
   class SearchController < BaseController
-
     def search
       @age_bin = 10
       @lat = params[:lat]
@@ -15,11 +14,13 @@ module Admin
         @lat = geocode_results.first.coordinates[0]
         @lon = geocode_results.first.coordinates[1]
       end
-      @results = User.select(:lat, :lon, :id, :birthdate).between_age(@min_age, @max_age).near([@lat, @lon], @max_distance, unit: :km)
+      @results = User.select(:lat, :lon, :id, :birthdate).between_age(@min_age, @max_age).near([@lat, @lon],
+        @max_distance, unit: :km)
       @total_count = @results.size
-      @count_by_age = @results.group_by {|x| @age_bin * (x.age / @age_bin).to_i }.map {|k, v| ["#{k}-#{k + @age_bin - 1}", v.size]}.sort_by{|x| x[0]}
+      @count_by_age = @results.group_by do |x|
+                        @age_bin * (x.age / @age_bin).to_i
+                      end.map { |k, v| ["#{k}-#{k + @age_bin - 1}", v.size] }.sort_by { |x| x[0] }
       @results = @results.limit(500)
     end
-
   end
 end

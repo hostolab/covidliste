@@ -1,5 +1,5 @@
 class PartnersController < ApplicationController
-  before_action :authenticate_partner!, except: [:new, :create]
+  before_action :authenticate_partner!, except: %i[new create]
   helper_method :sort_column, :sort_direction
 
   def new
@@ -21,7 +21,8 @@ class PartnersController < ApplicationController
   end
 
   def vaccination_center_params
-    params.require(:vaccination_center).permit(:name, :description, :address, :kind, :pfizer, :moderna, :astrazeneca, :janssen, :phone_number, :lat, :lon)
+    params.require(:vaccination_center).permit(:name, :description, :address, :kind, :pfizer, :moderna, :astrazeneca,
+      :janssen, :phone_number, :lat, :lon)
   end
 
   def sort_column

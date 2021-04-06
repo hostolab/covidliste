@@ -1,7 +1,6 @@
 include ActionView::Helpers::NumberHelper
 class UsersController < ApplicationController
-
-  before_action :authenticate_user!, except: [:new, :create]
+  before_action :authenticate_user!, except: %i[new create]
 
   def new
     if current_partner
@@ -29,6 +28,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+
     @user.save
     render action: :new
   end
@@ -45,5 +45,4 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:firstname, :lastname, :email, :phone_number, :toc, :address, :birthdate, :lat, :lon, :password)
   end
-
 end
