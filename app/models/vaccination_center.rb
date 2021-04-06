@@ -32,6 +32,49 @@ class VaccinationCenter < ApplicationRecord
     partners.include?(partner)
   end
 
+  def self.to_csv
+    headers = ["ID", "Nom du centre", "Type de centre", "Adresse", "Téléphone", "Type de vaccin", "Nom du contact", "Email du contact", "Validé", "Validé par", "Validé le"]
+
+    CSV.generate("\uFEFF", headers: true) do |csv|
+      csv << headers
+
+      all.each do |vaccination_center|
+        vaccin_types = ""
+        confirmed = false
+        if vaccination_center.pfizer
+          vaccin_types += "pfizer "
+        end
+        if vaccination_center.moderna
+          vaccin_types += "moderna "
+        end
+        if vaccination_center.astrazeneca
+          vaccin_types += "astrazeneca "
+        end
+        if vaccination_center.janssen
+          vaccin_types += "janssen"
+        end
+        if vaccination_center.confirmed_at
+          confirmed = true
+        end
+        line = [
+          vaccination_center.id,
+          vaccination_center.name,
+          vaccination_center.kind,
+          vaccination_center.address,
+          vaccination_center.phone_number,
+          vaccin_types,
+          vaccination_center.partners&.first&.name,
+          vaccination_center.partners&.first&.email,
+          confirmed
+        ]
+        if confirmed
+          line += [vaccination_center.confirmer.full_name, vaccination_center.confirmed_at]
+        end
+        csv << line
+      end
+    end
+  end
+
   private
 
   def push_to_slack

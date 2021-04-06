@@ -4,6 +4,11 @@ module Admin
 
     def index
       @vaccination_centers = VaccinationCenter.all
+
+      respond_to do |format|
+        format.html
+        format.csv { send_data @vaccination_centers.to_csv, filename: "vaccination_centers-#{Date.today}.csv" }
+      end
     end
 
     def show
