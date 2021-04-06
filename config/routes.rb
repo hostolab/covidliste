@@ -10,6 +10,9 @@ Rails.application.routes.draw do
       resources :vaccination_centers do
         patch :validate, on: :member
       end
+
+      # admin tools
+      mount Flipper::UI.app(Flipper), at: "/flipper"
     end
   end
 
