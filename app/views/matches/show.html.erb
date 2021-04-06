@@ -3,9 +3,11 @@
     <div class="text-center mt-4">
       <h2>Une dose vous attend !</h2>
 
-      <p>
+      <p class="mt-4">
         Bonne nouvelle ! Une dose est disponible près de chez vous.
-        Vous avez <strong> jusqu'à <%= @match.expires_at.strftime('%Hh%M')%> </strong> pour confirmer votre venue au centre de vaccination au créneau horaire proposé. Passé ce délai, la dose sera attribuée à un autre de volontaire.
+        <% if @match.confirmed_at.nil? %>
+          Vous avez <strong> jusqu'à <%= @match.expires_at.strftime('%Hh%M')%> </strong> pour confirmer votre venue au centre de vaccination au créneau horaire proposé. Passé ce délai, la dose sera attribuée à un autre de volontaire.
+        <% end %>
       </p>
 
       <div>
@@ -58,7 +60,7 @@
 
       <p>
         <small>
-          Une fois votre présence confirmée, vos coordonées seront transmies au centre de vaccination. Votre compte et vos informations seront alors définitivement supprimés de Covidliste sous 24h, et vous ne recevez plus de notifications.
+          Une fois votre présence confirmée, vos coordonées sont transmise au centre de vaccination. Votre compte et vos informations seront alors définitivement supprimés de Covidliste sous 24h, et vous ne recevrez plus de notifications.
         </small>
       </p>
 
