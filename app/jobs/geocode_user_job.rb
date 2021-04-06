@@ -1,7 +1,7 @@
 class GeocodeUserJob < ActiveJob::Base
   # Set the Queue as Default
   queue_as :default
-  
+
   def perform(user_id)
     begin
       user = User.find(user_id)
