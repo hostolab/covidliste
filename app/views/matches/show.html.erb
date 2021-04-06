@@ -5,7 +5,7 @@
 
       <p>
         Bonne nouvelle ! Une dose est disponible près de chez vous.
-        Vous avez <strong> jusqu'à <%= @match.expires_at.strftime('%Hh%M')%> </strong> pour confirmer votre venue au centre de vaccination. Passé ce délai, la dose sera attribuée à un autre de volontaire.
+        Vous avez <strong> jusqu'à <%= @match.expires_at.strftime('%Hh%M')%> </strong> pour confirmer votre venue au centre de vaccination au créneau horaire proposé. Passé ce délai, la dose sera attribuée à un autre de volontaire.
       </p>
 
       <div>
@@ -46,13 +46,13 @@
 
       <p>
         <strong>
-          Merci de confirmer votre présence uniquement si vous êtes sur de pouvoir vous rendre au centre à l'horaire communiquée.
+          Merci de confirmer votre présence uniquement si vous êtes sûr de pouvoir vous rendre au centre à l'horaire communiquée.
         </strong>
       </p>
 
       <% if @match.confirmed_at.nil? %>
         <div class="btn btn-primary m-2">
-          <%= link_to 'Je confirme ma présence' , match_path(@match), method: :patch, class: 'btn. btn-primary btn-block' %>
+          <%= link_to 'Je confirme ma disponibilité' , match_path(@match), method: :patch, class: 'btn. btn-primary btn-block' %>
         </div>
       <% end %>
 
