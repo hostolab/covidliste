@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_06_064248) do
+ActiveRecord::Schema.define(version: 2021_04_06_144355) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,7 +94,7 @@ ActiveRecord::Schema.define(version: 2021_04_06_064248) do
     t.integer "available_doses", null: false
     t.datetime "starts_at", null: false
     t.datetime "ends_at", null: false
-    t.string "extra_info"
+    t.text "extra_info"
     t.integer "min_age", null: false
     t.integer "max_distance_in_meters", null: false
     t.datetime "created_at", precision: 6, null: false

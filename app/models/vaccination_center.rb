@@ -25,6 +25,12 @@ class VaccinationCenter < ApplicationRecord
     confirmed_at.present?
   end
 
+  def can_be_accessed_by?(user, partner)
+    return true if user&.admin?
+
+    partners.include?(partner)
+  end
+
   private
 
   def push_to_slack

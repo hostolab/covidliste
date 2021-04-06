@@ -60,8 +60,9 @@ Rails.application.routes.draw do
 
   namespace :partners do
     resources :vaccination_centers, only: [:index, :show, :new, :create] do
-      resources :campaigns, only: [:index, :show, :new, :create]
+      resources :campaigns, only: [:index, :new, :create]
     end
+    resources :campaigns, only: :show
   end
 
   ## pages
