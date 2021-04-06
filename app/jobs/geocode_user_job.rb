@@ -3,6 +3,7 @@ class GeocodeUserJob < ActiveJob::Base
   queue_as :default
   
   def perform(user_id)
+    sleep(10.seconds)  # to avoid being rate limited by nominatim (max 1 req/sec)
     user = User.find(user_id)
     return if user.address.nil?
     return unless user.lat.nil? || user.lon.nil?
