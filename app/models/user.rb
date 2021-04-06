@@ -49,8 +49,6 @@ class User < ApplicationRecord
   end
 
   def geocode_address
-    return if Rails.env.test?
-
     GeocodeUserJob.perform_later(self.id)
   end
 
