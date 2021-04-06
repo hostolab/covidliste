@@ -1,7 +1,13 @@
 .row.mtop2
   .col-sm-12.col-md-8.col-lg-6
     %p
-      %strong Inscription Partenaire
+      %strong Inscription en tant que centre de vaccination Partenaire
+
+    %p.text-justify
+      Cette page d'inscription concerne les centres de vaccination qui souhaitent participer à l'initiative et avoir accès à notre plateforme.
+      %br
+      Pour s’inscrire en tant que volontaire à la vaccination, merci de vous rendre sur
+      =link_to ' cette page.', root_path
     - if @partner.persisted?
       .row.mtop2
         .alert.alert-success{:role => "alert", style: "position: inherit"}
@@ -23,5 +29,5 @@
         .form-actions
         = f.button :submit, "S'inscrire", class:"btn btn-primary"
     %p.mtop2
-      = link_to "Connexion Partenaire", new_partner_session_path, class: "bp3-text-muted"
+      = link_to "Se connecter en tant que Partenaire", new_partner_session_path, class: "bp3-text-muted"
 
