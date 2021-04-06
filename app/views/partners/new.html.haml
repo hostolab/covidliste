@@ -27,7 +27,7 @@
           hint: "Un email de confirmation de création de compte vous sera envoyé. Cliquez sur le lien pour activer votre compte",
           input_html: { autocomplete: "new-password" }
         .form-actions
-        = f.button :submit, "S'inscrire", class:"btn btn-primary"
+        = f.button :submit, "S'inscrire", class:"btn btn-primary", data: { disable_with: 'Validation...' }
     %p.mtop2
       = link_to "Se connecter en tant que Partenaire", new_partner_session_path, class: "bp3-text-muted"
 
