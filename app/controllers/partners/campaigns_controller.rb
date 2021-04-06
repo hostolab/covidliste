@@ -1,6 +1,7 @@
 module Partners
   class CampaignsController < ApplicationController
     before_action :authenticate_partner!
+    before_action :restrict_to_dev # Poor man's feature flagging
     before_action :load_vaccination_center
 
     def show
@@ -36,6 +37,12 @@ module Partners
         PartnerVaccinationCenter
           .find_by(id: params[:vaccination_center_id], partner_id: current_partner.id)
           &.vaccination_center
+    end
+
+    def restrict_to_dev
+      unless !Rails.env.development?
+        redirect_to partners_vaccination_centers_path() and return
+      end
     end
 
     def create_params
