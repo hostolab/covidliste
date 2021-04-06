@@ -1,9 +1,9 @@
-class PushNewVaccinationCenterToSlack
-  def initialize(vaccination_center)
-    @vaccination_center = vaccination_center
-  end
+class PushNewVaccinationCenterToSlackJob < ActiveJob::Base
+  queue_as :critical
 
-  def call
+  def perform(vaccination_center)
+    @vaccination_center = vaccination_center
+
     text = "Un nouveau centre vient d'être créé #{creator} :point_right: #{cta}"
     attachments = [
       {
@@ -30,7 +30,8 @@ class PushNewVaccinationCenterToSlack
         ]
       }
     ].to_json
-    SlackNotifierJob.set(wait: 5.seconds).perform_later(channel, text, attachments)
+
+    SlackNotifierJob.perform_later(channel, text, attachments)
   end
 
   private

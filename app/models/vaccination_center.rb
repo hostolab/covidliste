@@ -28,6 +28,7 @@ class VaccinationCenter < ApplicationRecord
   def push_to_slack
     return unless Rails.env.production?
 
-    PushNewVaccinationCenterToSlack.new(self).call
+    # Wait for vaccination partner to be created
+    PushNewVaccinationCenterToSlackJob.set(wait: 5.seconds).perform_later(self)
   end
 end
