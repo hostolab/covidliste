@@ -3,11 +3,15 @@ class GeocodeUserJob < ActiveJob::Base
   queue_as :default
   
   def perform(user_id)
-    user = User.find(user_id)
-    return if user.address.nil?
-    return unless user.lat.nil? || user.lon.nil?
-    result = GeocodingService.new(user.address).geocode
-    user.update(lat: result[:lat], lon: result[:lon]) if result
+    begin
+      user = User.find(user_id)
+      return if user.address.nil?
+      return unless user.lat.nil? || user.lon.nil?
+      result = GeocodingService.new(user.address).geocode
+      user.update(lat: result[:lat], lon: result[:lon]) if result
+    rescue
+      #todo report error
+    end
   end
 
 end

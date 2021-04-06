@@ -45,8 +45,6 @@ gem 'geocoder'
 gem 'blind_index'
 gem 'lockbox'
 gem 'appsignal'
-
-# Email mx validation github.com/hallelujah/valid_email
 gem 'valid_email'
 gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
 gem 'httparty'
