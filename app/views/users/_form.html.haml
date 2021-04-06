@@ -9,13 +9,14 @@
           confirmation qui vous permettra de valider votre inscription et accéder à votre espace sécurisé. Le lien de confirmation sera valable pendant 24 heures.
     - else
       = simple_form_for @user do |f|
-        = f.input :firstname, label: 'Prénom', error: 'Prénom requis', placeholder: 'Jean'
-        = f.input :lastname, label: 'Nom', error: 'Nom requis', placeholder: 'Dupont'
+        = f.input :firstname, label: 'Prénom', error: 'Prénom requis', placeholder: 'Jean', required: true
+        = f.input :lastname, label: 'Nom', error: 'Nom requis', placeholder: 'Dupont', required: true
         = f.input :birthdate, as: :date, label: 'Date de naissance', start_year: Date.today.year - 90, end_year: Date.today.year - 18, order: [:day, :month, :year]
-        = f.input :address, label: 'Adresse', error: 'Adresse requise', placeholder: '5 rue larue, 13600 Marseille'
+        = f.input :address, label: 'Adresse', error: 'Adresse requise', placeholder: '5 rue larue, 13600 Marseille', required: true
         = f.input :lat, as: :hidden
         = f.input :lon, as: :hidden
         = f.input :email, label: 'Email', error: f.error(:email), placeholder: 'jean@dupont.com', hint: "Une adresse email ne peut être utilisée que par une seule personne. 2 personnes = 2 adresses email différentes."
         = f.input :phone_number, label: 'Numéro de téléphone', error: 'Numéro de téléphone invalide', placeholder: '06 06 06 06 06'
+        = f.input :password, required: true
         = f.input :toc, as: :boolean, label: 'J’accepte que mes données soient partagées avec les centres de vaccination partenaires de Covidliste.', checked_value: true, unchecked_value: false, error: "Vous devez cocher cette case pour valider votre inscription"
-        = f.button :submit, 'Je m’inscris', class: 'btn btn-primary'
+        = f.button :submit, 'Je m’inscris', class: 'btn btn-primary', data: { disable_with: 'Inscription en cours...' }
