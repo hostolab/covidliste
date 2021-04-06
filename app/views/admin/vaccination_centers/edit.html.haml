@@ -1,16 +1,8 @@
 .row.mtop2
   .col-12
     %p.mb-2
-      = link_to '← Retour', admin_vaccination_centers_path
-    %h2 Espace admin : Centres de vaccination
-    %h3 Modification du centre de vaccinatin « #{@vaccination_center.name} »
-
-    - if !@vaccination_center.confirmed?
-      .alert.alert-warning
-        %p
-          = icon("fas", "times", class: "text-danger")
-          Centre non validé
-        = link_to "Valider ce centre", validate_admin_vaccination_center_path(@vaccination_center), method: :patch, class: "btn btn-sm btn-primary", "data-confirm": "Êtes-vous sûr(e)?"
+      = link_to '← Retour', admin_vaccination_center_path(@vaccination_center)
+    %h3 Modification du centre de vaccination « #{@vaccination_center.name} »
 
     = simple_form_for [:admin, @vaccination_center] do |f|
       = f.input :name, label: 'Nom du centre', error: 'Nom requis', placeholder: 'Centre de vaccination Marseille'
@@ -27,3 +19,6 @@
       = f.input :lon, :as => :hidden
       = f.input :phone_number, label: 'Numéro de téléphone', error: 'Numéro de téléphone requis', placeholder: '06 06 06 06 06'
       = f.button :submit, "Modifier le centre", class: 'btn btn-primary', data: { disable_with: 'Validation...' }
+      %span ou
+      = link_to icon("fas", "trash", "supprimer ce centre"), admin_vaccination_center_path(@vaccination_center), class: "text-danger", method: :delete, data: { confirm: "Êtes-vous sûr(e) ?" }
+

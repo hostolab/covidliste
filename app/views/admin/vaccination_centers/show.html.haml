@@ -1,7 +1,7 @@
 .row.mtop2
   .col-12
     %p.mb-2
-      =link_to '← Retour', admin_vaccination_centers_path
+      =link_to '← Retour à la liste des centres', admin_vaccination_centers_path
     %h3
       #{@vaccination_center.name}
       %span.badge.badge-success.text-uppercase.text-white #{@vaccination_center.kind}
@@ -46,4 +46,4 @@
           %th #{partner.name}
           %th #{partner.email}
 
-= link_to icon("fas", "trash", "Supprimer ce centre"), admin_vaccination_center_path(@vaccination_center), class: "text-danger", method: :delete, data: { confirm: "Êtes-vous sûr(e) ?" }
+= link_to icon("fas", "edit", "Editer (ou supprimer) ce centre"), edit_admin_vaccination_center_path(@vaccination_center)
