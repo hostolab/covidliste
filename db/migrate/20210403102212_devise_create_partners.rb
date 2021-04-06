@@ -4,11 +4,11 @@ class DeviseCreatePartners < ActiveRecord::Migration[6.1]
   def change
     create_table :partners do |t|
       ## Database authenticatable
-      t.string :email,              null: false, default: ""
+      t.string :email, null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
 
       ## Recoverable
-      t.string   :reset_password_token
+      t.string :reset_password_token
       t.datetime :reset_password_sent_at
 
       ## Rememberable
@@ -32,11 +32,10 @@ class DeviseCreatePartners < ActiveRecord::Migration[6.1]
       # t.string   :unlock_token # Only if unlock strategy is :email or :both
       # t.datetime :locked_at
 
-
       t.timestamps null: false
     end
 
-    add_index :partners, :email,                unique: true
+    add_index :partners, :email, unique: true
     add_index :partners, :reset_password_token, unique: true
     # add_index :partners, :confirmation_token,   unique: true
     # add_index :partners, :unlock_token,         unique: true

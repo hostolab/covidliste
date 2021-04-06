@@ -8,7 +8,7 @@ RSpec.describe "Privacy Page", type: :system do
   it "has the ssi mail" do
     visit "/privacy"
     expect(page).to have_text("ssi@covidliste.com")
-    end
+  end
   it "has the privacy mail" do
     visit "/privacy"
     expect(page).to have_text("privacy@covidliste.com")

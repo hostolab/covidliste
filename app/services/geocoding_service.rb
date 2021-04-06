@@ -1,9 +1,9 @@
 class GeocodingService
   include HTTParty
-  base_uri 'https://api-adresse.data.gouv.fr/search'
+  base_uri "https://api-adresse.data.gouv.fr/search"
 
   def initialize(address)
-    @address = URI.encode(address)
+    @address = CGI.escape(address)
     @options = {}
   end
 
@@ -26,7 +26,4 @@ class GeocodingService
   def postal_code
     @postal_code ||= geojson_result["features"][0]["properties"]["postcode"]
   end
-
-
-  
 end

@@ -2,20 +2,18 @@
 
 module Admin
   class BaseController < ApplicationController
-
     include AdminHelper
     before_action :require_role!
-    layout '/admin_application'
+    layout "/admin_application"
 
     private
 
     def require_role!
       authenticate_user!
-      if !current_user.admin?
+      unless current_user.admin?
         flash[:alert] = "Vous n'êtes pas autorisé à accéder à cette page !"
         redirect_to(root_path)
       end
     end
-
   end
 end

@@ -3,10 +3,10 @@ class User < ApplicationRecord
   rolify
 
   devise :database_authenticatable,
-         :recoverable,
-         :rememberable,
-         :validatable,
-         :confirmable
+    :recoverable,
+    :rememberable,
+    :validatable,
+    :confirmable
 
   encrypts :firstname
   encrypts :lastname
@@ -24,26 +24,27 @@ class User < ApplicationRecord
   validates :birthdate, presence: true
   validates :toc, presence: true, acceptance: true
   validates :email,
-            email: {
-              mx: true,
-              message: 'Email invalide'
-            },
-            format: {
-              without: /gmail\.fr|gamil\.com|gmil\.com|gmaul\.com|gamail\.com|gmai\.com|gmail\.cm|hormail\.com|hotmal\.com|hormail\.fr/i,
-              message: 'Email invalide'
-            },
-            if: :email_changed?
+    email: {
+      mx: true,
+      message: "Email invalide"
+    },
+    format: {
+      without: /gmail\.fr|gamil\.com|gmil\.com|gmaul\.com|gamail\.com|gmai\.com|gmail\.cm|hormail\.com|hotmal\.com|hormail\.fr/i,
+      message: "Email invalide"
+    },
+    if: :email_changed?
 
   before_save :approximate_coords
   after_commit :geocode_address, if: :saved_change_to_address?
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
-  scope :between_age, -> (min, max) { where("birthdate between ? and ?", max.years.ago, min.years.ago) }
+  scope :between_age, ->(min, max) { where("birthdate between ? and ?", max.years.ago, min.years.ago) }
 
   LATLNG_DECIMALS = 3
 
   def approximate_coords
     return if lat.nil? || lon.nil?
+
     self.lat = lat.round(LATLNG_DECIMALS)
     self.lon = lon.round(LATLNG_DECIMALS)
   end
@@ -62,7 +63,7 @@ class User < ApplicationRecord
 
   def age
     now = Time.now.utc.to_date
-    now.year - birthdate.year - ((now.month > birthdate.month || (now.month == birthdate.month && now.day >= birthdate.day)) ? 0 : 1)
+    now.year - birthdate.year - (now.month > birthdate.month || (now.month == birthdate.month && now.day >= birthdate.day) ? 0 : 1)
   end
 
   def confirmed?
