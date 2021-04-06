@@ -73,5 +73,8 @@ Rails.application.routes.draw do
   get "/privacy" => "pages#privacy", :as => :privacy
   get "/faq" => "pages#faq", :as => :faq
 
+  ## robots.txt
+  get "/robots.txt", to: "pages#robots"
+
   root to: "users#new"
 end
