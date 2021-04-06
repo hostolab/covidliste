@@ -39,7 +39,7 @@ module Admin
       if @vaccination_center.update(vaccination_center_params)
         flash[:success] = "Ce centre a bien été modifié"
       else
-        flash[:alert] = "Une erreur est survenue : #{@vaccination_center.errors.full_messages.join(', ')}"
+        flash[:alert] = "Une erreur est survenue : #{@vaccination_center.errors.full_messages.join(", ")}"
       end
 
       redirect_to admin_vaccination_center_path(@vaccination_center)
@@ -52,7 +52,7 @@ module Admin
         flash[:success] = "Ce centre a bien été supprimé"
         redirect_to admin_vaccination_centers_path
       else
-        flash[:alert] = "Une erreur est survenue : #{@vaccination_center.errors.full_messages.join(', ')}"
+        flash[:alert] = "Une erreur est survenue : #{@vaccination_center.errors.full_messages.join(", ")}"
         redirect_to admin_vaccination_center_path(@vaccination_center)
       end
     end
