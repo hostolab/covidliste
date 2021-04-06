@@ -19,12 +19,16 @@ module Covidliste
 
     config.active_job.queue_adapter = :sidekiq
 
+    config.after_initialize do |app|
+      app.routes.default_url_options = app.config.action_mailer.default_url_options
+    end
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
     # in config/environments, which are processed later.
     #
-    # config.time_zone = "Central Time (US & Canada)"
+    config.time_zone = "Europe/Paris"
     # config.eager_load_paths << Rails.root.join("extras")
   end
 end

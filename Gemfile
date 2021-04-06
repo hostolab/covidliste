@@ -42,11 +42,17 @@ gem 'pghero'
 gem 'pg_query', '>= 0.9.0'
 gem 'sidekiq'
 gem 'geocoder'
+gem 'blind_index'
+gem 'lockbox'
+gem 'appsignal'
+gem 'valid_email'
+gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
+gem 'httparty'
 
 group :development, :test do
   gem 'pry-byebug'
   gem 'pry-rails'
-  gem 'dotenv-rails'
+  gem 'dotenv-rails', '2.7.6'
 
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -64,12 +70,21 @@ group :development do
 end
 
 group :test do
-  # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '>= 3.26'
+  gem 'capybara', '>= 2.15'
+  gem 'cuprite'
   gem 'selenium-webdriver'
-  # Easy installation and use of web drivers to run system tests with browsers
-  gem 'webdrivers'
+  gem 'factory_bot_rails'
+  gem 'rspec-rails', '~> 4.0.0'
+  gem 'rspec-sidekiq'
+  gem 'database_cleaner-active_record'
+  gem 'webmock'
+  gem 'spring'
+  gem "spring-commands-rspec", "~> 1.0"
+  gem 'rspec_junit_formatter'
 end
 
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+# Windows does not include zone
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+gem "twilio-ruby", "~> 5.50"
+

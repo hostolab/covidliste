@@ -1,0 +1,39 @@
+.row
+  .col-12
+    %p.mb-2
+      =link_to '← Retour', admin_path
+    %strong Recherche
+
+.row.mtop2
+  .col-sm-12.col-md-6.col-lg-6 
+    %h4 Critères de recherche
+    = simple_form_for '', url: admin_admin_search_path, method: :get do |f|
+      =f.input :address, label: "Addresse", input_html: { value: @address }
+      =f.input :min_age, label: "Age Minimum", as: :numeric, input_html: { value: @min_age }
+      =f.input :max_age, label: "Age Maximum", as: :numeric, input_html: { value: @max_age }
+      =f.input :max_distance, label: "Distance Maximum (km)", as: :numeric, input_html: { value: @max_distance }
+      = f.submit "Cherchez !", class: 'btn btn-primary btn-block'
+  .col-sm-12.col-md-6.col-lg-6 
+    %h4 Resultats
+    %p
+      ="#{@total_count} volontaires trouvés"
+    %table.table.table-sm
+      %tr
+        %th Age
+        %th # Volontaires
+      - @count_by_age.each do |k|
+        %tr
+          %td=k[0]
+          %td=k[1]
+
+.row
+  .col-12.mtop2
+    #leaflet_map{:style => "height: 600px", "data-lat" => @lat, "data-lon" => @lon, "data-address" => @address, "data-border" => @bounds, "data-icon" => asset_path("map/markers/firstaid.png")}
+      #leaflet_markers.d-none
+        - @results.each do |user|
+          .leaflet-marker{"data-lat" => user.lat, "data-lon" => user.lon, "data-icon" => user.age && user.age >= 0 && user.age < 150 ? asset_path("map/markers/number_"+user.age.to_s+".png") : asset_path("map/markers/symbol_inter.png") }
+            %strong 
+              ="id #{user.id}"
+
+
+      

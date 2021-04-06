@@ -2,16 +2,20 @@ include ActionView::Helpers::NumberHelper
 class UsersController < ApplicationController
 
   before_action :authenticate_user!, except: [:new, :create]
-  
+
   def new
-    if current_user
+    if current_partner
+      redirect_to partners_vaccination_centers_path
+    elsif current_user
       redirect_to profile_path
     else
       @user = User.new
-      @users_count = number_with_delimiter(User.count, locale: :fr)
+      @users_count = Rails.cache.fetch(:users_count, expires_in: 1.minute) do
+        number_with_delimiter(User.count, locale: :fr).gsub(" ", "&nbsp;").html_safe
+      end
     end
   end
-  
+
   def show
     @user = current_user
   end

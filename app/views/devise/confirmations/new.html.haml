@@ -1,9 +1,11 @@
 #devise
   .row.mtop2
     .col-sm-12.col-md-8.col-lg-6
-      =simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post, :class => "form-signin" }) do |f|
+      = simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post, class: "form-signin" }) do |f|
         %p
-          %strong Renvoyez moi l'email de confirmation
-        =f.input :email, autofocus: true, required: true, placeholder: "Email", id: "inputEmail", class: "form-control"
+          %strong Demande de renvoi de l’email de confirmation
+        %p
+          Si vous n’avez pas encore pu valider votre inscription, veuillez saisir votre adresse email afin de recevoir un email de confirmation.
+        = f.input :email, autofocus: true, required: true, placeholder: "jean@dupont.com", id: "inputEmail", class: "form-control"
         %p.mtop2
-          =f.submit "C'est parti", class: "btn btn-primary"
+          = f.submit "C’est parti !", class: "btn btn-primary"

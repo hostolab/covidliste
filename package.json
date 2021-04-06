@@ -8,9 +8,11 @@
     "@rails/webpacker": "5.2.1",
     "bootstrap": "^4.6.0",
     "jquery": "^3.6.0",
+    "leaflet": "^1.7.1",
     "popper.js": "^1.16.1",
     "turbolinks": "^5.2.0",
-    "places.js": "^1.19.0"
+    "places.js": "^1.19.0",
+    "is-svg": "^4.2.2"
   },
   "version": "0.1.0",
   "devDependencies": {

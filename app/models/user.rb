@@ -1,25 +1,45 @@
 class User < ApplicationRecord
+  include HasPhoneNumberConcern
   rolify
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+
   devise :database_authenticatable,
          :recoverable,
-         :rememberable, 
+         :rememberable,
          :validatable,
          :confirmable
+
+  encrypts :firstname
+  encrypts :lastname
+  encrypts :address
+  encrypts :phone_number
+  encrypts :email
+
+  blind_index :email
+  geocoded_by :address, latitude: :lat, longitude: :lon
 
   validates :firstname, presence: true
   validates :lastname, presence: true
   validates :address, presence: true
   validates :birthdate, presence: true
   validates :toc, presence: true, acceptance: true
+  validates :email,
+            email: {
+              mx: true,
+              message: 'Email invalide'
+            },
+            format: {
+              without: /gmail\.fr|gamil\.com|gmil\.com|gmaul\.com|gamail\.com|gmai\.com|gmail\.cm|hormail\.com|hotmal\.com|hormail\.fr/i,
+              message: 'Email invalide'
+            },
+            if: :email_changed?
 
   before_save :approximate_coords
   after_commit :geocode_address, if: :saved_change_to_address?
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
+  scope :between_age, -> (min, max) { where("birthdate between ? and ?", max.years.ago, min.years.ago) }
 
-  LATLNG_DECIMALS = 2
+  LATLNG_DECIMALS = 3
 
   def approximate_coords
     return if (self.lat.nil? || self.lon.nil?)
@@ -28,11 +48,20 @@ class User < ApplicationRecord
   end
 
   def geocode_address
-    GeocodeJob.perform_later(self.id)
+    GeocodeUserJob.perform_later(self.id)
   end
 
   def full_name
     "#{firstname} #{lastname}"
+  end
+
+  def distance(lat, lon)
+    Geocoder::Calculations.distance_between([lat, lon], [self.lat, self.lon]).round(1)
+  end
+
+  def age
+    now = Time.now.utc.to_date
+    now.year - birthdate.year - ((now.month > birthdate.month || (now.month == birthdate.month && now.day >= birthdate.day)) ? 0 : 1)
   end
 
   def confirmed?
@@ -44,7 +73,7 @@ class User < ApplicationRecord
   end
 
   def admin?
-    has_role?(:admin)
+    has_role?(:admin) || super_admin?
   end
 
   protected
@@ -53,5 +82,4 @@ class User < ApplicationRecord
   def password_required?
     confirmed? ? super : false
   end
-
 end
