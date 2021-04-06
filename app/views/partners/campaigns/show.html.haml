@@ -11,12 +11,12 @@
 
 .row.justify-content-center.mb-5
   .col-4.flex-column.d-flex.align-items-center
-    %i.fas.fa-paper-plane
+    = icon("fas", "paper-plane")
     %h2.text-center.mt-4
       = @campaign.matches.count
       volontaires contactés
   .col-4.flex-column.d-flex.align-items-center
-    %i.fas.fa-user-check
+    = icon("fas", "user-check")
     %h2.text-center.mt-4
       = @campaign.matches.confirmed.count
       volontaires confirmés

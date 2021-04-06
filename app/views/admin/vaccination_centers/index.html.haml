@@ -19,7 +19,7 @@
             %th.text-right #{vaccination_center.id}
             %td
               %strong
-                =link_to vaccination_center.name, admin_vaccination_center_path(vaccination_center.id)
+                = link_to vaccination_center.name, admin_vaccination_center_path(vaccination_center.id)
               %br/
               #{vaccination_center.description}
             %td #{vaccination_center.kind}
@@ -36,10 +36,10 @@
                 %span.mr-1 Janssen
             %td
               - if vaccination_center.confirmed?
-                %i.fas.fa-check.text-success
+                = icon("fas", "check", class: "text-success")
                 %span{title: "Validé par #{vaccination_center.confirmer.full_name} le #{l vaccination_center.confirmed_at}", data: { toggle: :tooltip }} oui
               - else
-                %i.fas.fa-times.text-danger
+                = icon("fas", "times", class: "text-danger")
                 Non
             %td.text-center
               = link_to icon("fas", "edit"), edit_admin_vaccination_center_path(vaccination_center), title: "Éditer (ou supprimer) ce centre", data: { toggle: :tooltip }

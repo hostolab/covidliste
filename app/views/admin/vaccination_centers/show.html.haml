@@ -1,24 +1,24 @@
 .row.mtop2
   .col-12
     %p.mb-2
-      =link_to '← Retour à la liste des centres', admin_vaccination_centers_path
+      = link_to '← Retour à la liste des centres', admin_vaccination_centers_path
     %h3
       #{@vaccination_center.name}
       %span.badge.badge-success.text-uppercase.text-white #{@vaccination_center.kind}
     %p.small.mb-2
       - if @vaccination_center.confirmed?
-        %i.fas.fa-check.text-success
+        = icon("fas", "check", class: "text-success")
         Validé
         par
         %strong #{@vaccination_center.confirmer.full_name}
         le #{l @vaccination_center.confirmed_at}
       - else
-        %i.fas.fa-times.text-danger
+        = icon("fas", "times", class: "text-danger")
         Non validé
-        =link_to "Valider ce centre", validate_admin_vaccination_center_path(@vaccination_center), method: :patch, class: "btn btn-sm btn-primary", "data-confirm": "Êtes-vous sûr(e)?"
+        = link_to "Valider ce centre", validate_admin_vaccination_center_path(@vaccination_center), method: :patch, class: "btn btn-sm btn-primary", "data-confirm": "Êtes-vous sûr(e)?"
     %p.mb-2 #{@vaccination_center.address}
     %p.small.mb-2
-      %i.fas.fa-phone
+      = icon("fas", "phone")
       #{@vaccination_center.phone_number}
       \-
       Vaccins :

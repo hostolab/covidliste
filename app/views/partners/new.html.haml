@@ -11,16 +11,16 @@
       %br
 
     %h2
-      %i.far.fa-user
-      %i.fas.fa-syringe
+      = icon("fas", "user-md")
+      = icon("fas", "syringe")
     %p
       Si vous souhaitez vous inscrire comme volontaire, c'est par là !
     .btn.btn-warning
-      =link_to 'Je suis volontaire pour me faire vacciner', root_path, style: 'color: white', class: 'text-decoration-none'
+      = link_to 'Je suis volontaire pour me faire vacciner', root_path, style: 'color: white', class: 'text-decoration-none'
 
     %h2.mt-5
-      %i.fas.fa-user-md
-      %i.fas.fa-clinic-medical
+      = icon("fas", "user-md")
+      = icon("fas", "clinic-medical")
     %p
       Si vous êtes membre d'un centre de vaccination et souhaitez devenir partenaire de Covidliste, c'est bien ici ! Veuillez remplir le formulaire ci-dessous.
 
