@@ -12,7 +12,7 @@ Rails.application.routes.draw do
       end
 
       # admin tools
-      mount Flipper::UI.app(Flipper), at: '/flipper'
+      mount Flipper::UI.app(Flipper), at: "/flipper"
     end
   end
 
