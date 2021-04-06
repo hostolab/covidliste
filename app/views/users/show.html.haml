@@ -19,7 +19,7 @@
       = f.input :lon, as: :hidden
       = f.input :email, disabled: true, label: 'Email', error: f.error(:email), placeholder: 'jean@dupont.com'
       = f.input :phone_number, label: 'Numéro de téléphone', error: '', placeholder: '06 06 06 06 06'
-      = f.button :submit, "Je modifie mes informations", class: 'btn btn-primary'
+      = f.button :submit, "Je modifie mes informations", class: 'btn btn-primary', data: { disable_with: 'Validation...' }
 .row.mtop2
   .col-sm-12.col-md-8.col-lg-6
     %p

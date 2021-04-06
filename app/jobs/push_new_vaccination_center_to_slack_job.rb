@@ -1,9 +1,9 @@
-class PushNewVaccinationCenterToSlack
-  def initialize(vaccination_center)
-    @vaccination_center = vaccination_center
-  end
+class PushNewVaccinationCenterToSlackJob < ActiveJob::Base
+  queue_as :critical
 
-  def call
+  def perform(vaccination_center)
+    @vaccination_center = vaccination_center
+
     text = "Un nouveau centre vient d'être créé #{creator} :point_right: #{cta}"
     attachments = [
       {
@@ -30,6 +30,7 @@ class PushNewVaccinationCenterToSlack
         ]
       }
     ].to_json
+
     SlackNotifierJob.perform_later(channel, text, attachments)
   end
 
@@ -40,7 +41,7 @@ class PushNewVaccinationCenterToSlack
   end
 
   def cta
-    "<#{Rails.application.routes.url_helpers.admin_vaccination_centers_url}|Aller à la validation>"
+    "<#{Rails.application.routes.url_helpers.admin_vaccination_center_url(@vaccination_center)}|Aller à la validation>"
   end
 
   def creator
