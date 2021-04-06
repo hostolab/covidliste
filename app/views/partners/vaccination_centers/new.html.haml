@@ -10,9 +10,9 @@
       .row.mtop2
         .alert.alert-success{:role => "alert", style: "position: inherit"}
           Votre demande de création du centre de vaccination #{@vaccination_center.name} a bien été enregistrée.
-          %br/
+          %br
           Votre demande est en attente de validation par l'équipe Covidliste.
-          %br/
+          %br
           Vous pourrez suivre l'état de la demande sur votre
           = link_to 'profil partenaire', partners_vaccination_centers_path
     - else
