@@ -2,8 +2,7 @@ class MatchesController < ApplicationController
   before_action :set_match, only: [:show, :update]
 
   def show
-    period = (@match.expires_at - Time.now.utc)
-    if period <= 0
+    if @match.expires_at < Time.now.utc
       flash[:alert] = "Le délai de confirmation est dépassé, nous avons dû contacter un autre volontaire."
       redirect_to root_path
     elsif @match.confirmed_at
@@ -12,9 +11,14 @@ class MatchesController < ApplicationController
   end
 
   def update
-    @match.update(confirmed_at: Time.now.utc)
-    flash[:success] = "Votre confirmation a bien été prise en compte. Le centre attend votre venue."
-    redirect_to match_path(@match)
+    if @match.expires_at > Time.now.utc
+      @match.update(confirmed_at: Time.now.utc)
+      flash[:success] = "Votre confirmation a bien été prise en compte. Le centre attend votre venue."
+      redirect_to match_path(@match)
+    else
+      flash[:alert] = "Le délai de confirmation est dépassé, nous avons dû contacter un autre volontaire."
+      redirect_to root_path
+    end
   end
 
   private
