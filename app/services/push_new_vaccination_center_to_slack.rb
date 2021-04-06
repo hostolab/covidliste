@@ -30,7 +30,7 @@ class PushNewVaccinationCenterToSlack
         ]
       }
     ].to_json
-    SlackNotifierJob.perform_later(channel, text, attachments)
+    SlackNotifierJob.set(wait: 5.seconds).perform_later(channel, text, attachments)
   end
 
   private
@@ -40,7 +40,7 @@ class PushNewVaccinationCenterToSlack
   end
 
   def cta
-    "<#{Rails.application.routes.url_helpers.admin_vaccination_centers_url}|Aller à la validation>"
+    "<#{Rails.application.routes.url_helpers.admin_vaccination_center_url(@vaccination_center)}|Aller à la validation>"
   end
 
   def creator
