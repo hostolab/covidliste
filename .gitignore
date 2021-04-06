@@ -46,3 +46,4 @@ yarn-debug.log*
 
 # Jetbrains
 .idea
+.idea/*
