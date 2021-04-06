@@ -17,6 +17,7 @@ class User < ApplicationRecord
   blind_index :email
   geocoded_by :address, latitude: :lat, longitude: :lon
 
+  validates :password, presence: true, on: :create
   validates :firstname, presence: true
   validates :lastname, presence: true
   validates :address, presence: true
@@ -42,13 +43,13 @@ class User < ApplicationRecord
   LATLNG_DECIMALS = 3
 
   def approximate_coords
-    return if (self.lat.nil? || self.lon.nil?)
-    self.lat = self.lat.round(LATLNG_DECIMALS)
-    self.lon = self.lon.round(LATLNG_DECIMALS)
+    return if lat.nil? || lon.nil?
+    self.lat = lat.round(LATLNG_DECIMALS)
+    self.lon = lon.round(LATLNG_DECIMALS)
   end
 
   def geocode_address
-    GeocodeUserJob.perform_later(self.id)
+    GeocodeUserJob.perform_later(id)
   end
 
   def full_name
