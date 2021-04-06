@@ -17,8 +17,11 @@ class ConfirmationsController < ::Devise::ConfirmationsController
     if resource.is_a?(Partner)
       # NOTE(ssaunier): We already have a valid password at sign up
       partners_vaccination_centers_path
+    elsif resource.encrypted_password.blank?
+      token = resource.send(:set_reset_password_token)
+      edit_password_url(resource, reset_password_token: token)
     else
-      root_path
+      new_user_session_path
     end
   end
 end

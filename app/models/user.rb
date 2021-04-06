@@ -17,6 +17,7 @@ class User < ApplicationRecord
   blind_index :email
   geocoded_by :address, latitude: :lat, longitude: :lon
 
+  validates :password, presence: true
   validates :firstname, presence: true
   validates :lastname, presence: true
   validates :address, presence: true
@@ -48,6 +49,8 @@ class User < ApplicationRecord
   end
 
   def geocode_address
+    return if Rails.env.test?
+
     GeocodeUserJob.perform_later(self.id)
   end
 
