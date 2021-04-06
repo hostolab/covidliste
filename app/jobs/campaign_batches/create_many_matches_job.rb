@@ -1,6 +1,6 @@
 module CampaignBatches
   class CreateManyMatchesJob < ApplicationJob
-    queue_as :default
+    queue_as :critical
 
     def perform(campaign_batch_id)
       CreateMatchesForEligibleUsersLater
