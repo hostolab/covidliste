@@ -1,10 +1,19 @@
 {
   "env": {
-    "CANONICAL_HOST_URL": {
+    "PLATFORM_URL": {
       "generator": "url"
     },
     "IS_REVIEW_APP": {
       "value": "true"
+    },
+    "BLAZER_DATABASE_URL": {
+      "value": ""
+    },
+    "LOCKBOX_MASTER_KEY": {
+      "generator": "secret"
+    },
+    "SECRET_KEY_BASE": {
+      "generator": "secret"
     }
   }
 }
