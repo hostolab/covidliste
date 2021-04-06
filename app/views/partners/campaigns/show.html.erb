@@ -1,0 +1,41 @@
+<h1 class="mb-4">Suivi de la <%= @campaign.name %></h1>
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div class="progress" style="height: 20px;">
+      <div class="progress-bar" role="progressbar" style="width: <%= @campaign.matches.confirmed.count*100/@campaign.available_doses %>%;"></div>
+    </div>
+    <h2 class="text-center mt-4"><%= @campaign.matches.confirmed.count %> doses attribuées / <%= @campaign.available_doses %></h2>
+  </div>
+</div>
+<div class="row justify-content-center mb-5">
+  <div class="col-4 flex-column d-flex align-items-center">
+    <i class="fas fa-paper-plane"></i>
+    <h2 class="text-center mt-4"><%= @campaign.matches.count %> volontaires contactés</h2>
+  </div>
+  <div class="col-4 flex-column d-flex align-items-center">
+    <i class="fas fa-user-check"></i>
+    <h2 class="text-center mt-4"><%= @campaign.matches.confirmed.count %> volontaires confirmés</h2>
+  </div>
+</div>
+<h2 class="mb-4">Volontaires confirmés</h1>
+<p>Ces informations seront supprimées définitivement ce soir à minuit. <br>
+Ces informations ne doivent être utilisées que pour la vaccination des volontaires par votre centre</p>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Nom</th>
+      <th scope="col">Numéro</th>
+      <th scope="col">Date de naissance</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @campaign.matches.confirmed.each do |match| %>
+      <tr>
+        <td scope="row"><%= match.user.firstname %> <%= match.user.lastname %></td>
+        <th><%= match.user.phone_number %></th>
+        <td><%= match.user.birthdate.strftime('%d/%m/%Y') %></td>
+      </tr>
+    <% end %>
+
+  </tbody>
+</table>

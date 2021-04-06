@@ -3,6 +3,13 @@ module Partners
     before_action :authenticate_partner!
     before_action :load_vaccination_center
 
+    def show
+      unless @vaccination_center.campaigns.exists?(params[:id])
+        redirect_to partners_vaccination_center_path(@vaccination_center.id) and return
+      end
+      @campaign = @vaccination_center.campaigns.find(params[:id])
+    end
+
     def new
       if @vaccination_center
         @campaign = Campaign.new
@@ -12,12 +19,14 @@ module Partners
     end
 
     def create
-      @vaccination_center.campaigns.create!(
+      campaign = @vaccination_center.campaigns.create!(
         create_params.merge(
           'partner_id'             => current_partner.id,
           'max_distance_in_meters' => create_params['max_distance_in_meters'].to_i * 1000
         )
       )
+      campaign.update(name: "campagne ##{campaign.id} du #{campaign.created_at.strftime('%d/%m/%Y')}")
+      redirect_to partners_vaccination_center_campaign_path(vaccination_center_id: @vaccination_center.id, id: campaign.id)
     end
 
     private
