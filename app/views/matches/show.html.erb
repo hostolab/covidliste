@@ -1,0 +1,49 @@
+<div class="row">
+  <div class="col-sm-12 col-md-8 col-lg-8">
+    <p>
+      <strong>Une dose vous attend</strong>
+    </p>
+    <p>
+      Bonne nouvelle ! Une dose est disponible près de chez vous.
+      Vous avez <%= @period %> min secondes pour confirmer votre venue au centre de vaccination. Passé ce délai, la dose sera attribuée à un autre de volontaire.
+    </p>
+    <p>
+      Adresse du centre de vaccination
+    </p>
+    <p>
+      <%= @match.vaccination_center.address %>
+    </p>
+    <p>
+      Créneau horaire
+    </p>
+    <p>
+      Entre <%= @match.campaign.starts_at.strftime('%Hh%M') %> et <%=  @match.campaign.ends_at.strftime('%Hh%M')%>
+    </p>
+    <p>
+      Réservé pour
+      Réservation strictement nominative.
+    </p>
+    <p>
+      Type de vaccin : <%= @match.campaign.vaccine_type.capitalize %>
+    </p>
+    <p>
+      <%= @match.campaign.extra_info %>
+    </p>
+    <p>
+      <strong>
+        Merci de confirmer votre présence uniquement si vous êtes sur de pouvoir vous rendre au centre à l'horaire communiquée.
+      </strong>
+    </p>
+    <% if @match.confirmed_at.nil? %>
+      <div class="btn btn-primary">
+        <%= link_to 'Je confirme ma présence' , match_path(@match), method: :patch, class: 'btn. btn-primary btn-block' %>
+      </div>
+
+    <% end %>
+    <p>
+      <small>
+        Une fois votre présence confirmée, vos coordonées seront transmies au centre de vaccination. Votre compte et vos informations seront alors définitivement supprimés de Covidliste sous 24h, et vous ne recevez plus de notifications.
+      </small>
+    </p>
+  </div>
+</div>

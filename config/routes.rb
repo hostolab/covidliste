@@ -64,6 +64,10 @@ Rails.application.routes.draw do
     resources :vaccination_centers, only: [:index, :show, :new, :create]
   end
 
+
+  ## matches
+  resources :matches, only: [:show, :update]
+
   ## pages
   get '/mentions_legales' => "pages#mentions_legales", as: :mentions_legales
   get '/privacy' => "pages#privacy", as: :privacy
