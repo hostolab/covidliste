@@ -1,9 +1,9 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe CampaignBatches::CreateManyMatchesJob, type: :job do
   subject(:perform_job) { described_class.new.perform(campaign_batch.id) }
 
-  let(:execution_time) { Time.zone.parse('2021-04-05T17:00:00+02:00') }
+  let(:execution_time) { Time.zone.parse("2021-04-05T17:00:00+02:00") }
 
   def build_confirmed_match
     FactoryBot.build(:match, :confirmed)
@@ -17,8 +17,8 @@ RSpec.describe CampaignBatches::CreateManyMatchesJob, type: :job do
     create(
       :campaign,
       :from_paris,
-      min_age:                34,
-      max_age:                65,
+      min_age: 34,
+      max_age: 65,
       max_distance_in_meters: 150_000
     )
   end
@@ -26,16 +26,16 @@ RSpec.describe CampaignBatches::CreateManyMatchesJob, type: :job do
   let(:campaign_batch) do
     create(
       :campaign_batch,
-      campaign:           campaign,
+      campaign: campaign,
       vaccination_center: campaign.vaccination_center,
-      size:               1
+      size: 1
     )
   end
 
-  let(:eligible_birthdate_1) { Date.parse('1955-04-06') }
-  let(:eligible_birthdate_2) { Date.parse('1987-04-05') }
-  let(:ineligible_birthdate_1) { Date.parse('1955-04-05') }
-  let(:ineligible_birthdate_2) { Date.parse('1987-04-06') }
+  let(:eligible_birthdate_1) { Date.parse("1955-04-06") }
+  let(:eligible_birthdate_2) { Date.parse("1987-04-05") }
+  let(:ineligible_birthdate_1) { Date.parse("1955-04-05") }
+  let(:ineligible_birthdate_2) { Date.parse("1987-04-06") }
 
   let!(:ineligible_user_from_paris_1) { create(:user, :from_paris, birthdate: ineligible_birthdate_1, matches: [build_unconfirmed_match]) }
   let!(:ineligible_user_from_paris_2) { create(:user, :from_paris, birthdate: eligible_birthdate_1, matches: [build_confirmed_match]) }
@@ -52,7 +52,7 @@ RSpec.describe CampaignBatches::CreateManyMatchesJob, type: :job do
     end
   end
 
-  it 'should plan a job to create a Match for each eligible user' do
+  it "should plan a job to create a Match for each eligible user" do
     expect(CampaignBatches::CreateOneMatchJob).to receive(:perform_later).once.with(eligible_user_from_paris_1.id, campaign_batch.id)
 
     perform_job

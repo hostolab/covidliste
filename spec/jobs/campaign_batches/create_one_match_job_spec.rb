@@ -1,9 +1,9 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe CampaignBatches::CreateOneMatchJob, type: :job do
   subject(:perform_job) { described_class.new.perform(user.id, campaign_batch.id) }
 
-  let(:execution_time) { Time.zone.parse('2021-04-05T17:00:00+02:00') }
+  let(:execution_time) { Time.zone.parse("2021-04-05T17:00:00+02:00") }
 
   let(:campaign) { create(:campaign) }
 
@@ -17,7 +17,7 @@ RSpec.describe CampaignBatches::CreateOneMatchJob, type: :job do
 
   let(:user) { create(:user) }
 
-  it 'creates the expected Match with the expected :sent_at/:expires_at values' do
+  it "creates the expected Match with the expected :sent_at/:expires_at values" do
     expect { perform_job }.to change { Match.count }.by(1)
 
     actual_match = user.matches.first

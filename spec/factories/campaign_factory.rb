@@ -9,7 +9,7 @@ FactoryBot.define do
     min_age { 18 }
     max_age { 80 }
     max_distance_in_meters { 5_000 }
-    vaccine_type { ['pfizer', 'moderna', 'astrazeneca', 'janssen'].sample }
+    vaccine_type { ["pfizer", "moderna", "astrazeneca", "janssen"].sample }
 
     trait :from_paris do
       association :vaccination_center, :from_paris

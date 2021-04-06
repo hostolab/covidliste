@@ -43,7 +43,7 @@ module CampaignBatches
           no_confirmed_match_exists_clause,
           {
             most_ancient_valid_birthdate: most_ancient_valid_birthdate,
-            most_recent_valid_birthdate:  most_recent_valid_birthdate
+            most_recent_valid_birthdate: most_recent_valid_birthdate
           }
         ])
       end

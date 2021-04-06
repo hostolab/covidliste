@@ -86,7 +86,6 @@ group :test do
   gem "webmock"
   gem "spring-commands-rspec", "~> 1.0"
   gem "rspec_junit_formatter"
-  gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'master'
 end
 
 # Windows does not include zone

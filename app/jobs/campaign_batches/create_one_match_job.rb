@@ -18,10 +18,10 @@ module CampaignBatches
 
       Match.new(
         vaccination_center_id: campaign.vaccination_center_id,
-        campaign_id:           campaign.id,
-        campaign_batch_id:     campaign_batch_id,
-        user_id:               user_id,
-        token:                 generate_token(user_id)
+        campaign_id: campaign.id,
+        campaign_batch_id: campaign_batch_id,
+        user_id: user_id,
+        token: generate_token(user_id)
       )
     end
 
