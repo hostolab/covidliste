@@ -19,6 +19,10 @@ module Covidliste
 
     config.active_job.queue_adapter = :sidekiq
 
+    config.after_initialize do |app|
+      app.routes.default_url_options = app.config.action_mailer.default_url_options
+    end
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

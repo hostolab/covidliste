@@ -23,4 +23,4 @@
         = f.input :lat, :as => :hidden
         = f.input :lon, :as => :hidden
         = f.input :phone_number, label: 'Numéro de téléphone', error: 'Numéro de téléphone requis', placeholder: '06 06 06 06 06'
-        = f.button :submit, "Créer le centre", class: 'btn btn-primary'
+        = f.button :submit, "Créer le centre", class: 'btn btn-primary', data: { disable_with: 'Validation...' }
