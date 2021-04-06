@@ -1,0 +1,10 @@
+{
+  "env": {
+    "CANONICAL_HOST_URL": {
+      "generator": "url"
+    },
+    "IS_REVIEW_APP": {
+      "value": "true"
+    }
+  }
+}
