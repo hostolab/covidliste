@@ -3,7 +3,7 @@ class GeocodingService
   base_uri 'https://api-adresse.data.gouv.fr/search'
 
   def initialize(address)
-    @address = address
+    @address = URI.encode(address)
     @options = {}
   end
 
