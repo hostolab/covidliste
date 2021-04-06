@@ -27,7 +27,7 @@ module HasPhoneNumberConcern
     # Remove two leading zeros
     # 00336xx
     # => 336xx
-    new_phone = new_phone[2..-1] if new_phone.length > 2 && new_phone[0..1] == "00"
+    new_phone = new_phone[2..] if new_phone.length > 2 && new_phone[0..1] == "00"
 
     # French mobile and fix numbers have 10 digits, and we want a 33x number
     # 0612345678
@@ -36,7 +36,7 @@ module HasPhoneNumberConcern
       # "FR 06 xx xx xx xx"
       # "FR 07 xx xx xx xx"
       # "FR 01 xx xx xx xx"
-      new_phone = "33" + new_phone[1..-1]
+      new_phone = "33" + new_phone[1..]
     end
 
     self.phone_number = new_phone

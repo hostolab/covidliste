@@ -1,5 +1,5 @@
-include ActionView::Helpers::NumberHelper
 class UsersController < ApplicationController
+  include ActionView::Helpers::NumberHelper
   before_action :authenticate_user!, except: %i[new create]
 
   def new
