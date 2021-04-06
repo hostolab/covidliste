@@ -1,10 +1,10 @@
 .row.mtop2
   .col-12
     %p.mb-2
-      =link_to '← Retour', admin_vaccination_centers_path
+      =link_to '← Retour à la liste des centres', admin_vaccination_centers_path
     %h3
       #{@vaccination_center.name}
-      %span.small.text-muted.font-italic #{@vaccination_center.kind}
+      %span.badge.badge-success.text-uppercase.text-white #{@vaccination_center.kind}
     %p.small.mb-2
       - if @vaccination_center.confirmed?
         %i.fas.fa-check.text-success
@@ -37,11 +37,13 @@
     %h5.mtop2 Partenaires liés
     %table.table.table-striped.table-bordered.table-sm.small
       %tr
-        %th #
+        %th.text-right #
         %th Nom
         %th Email
       - @vaccination_center.partners.each do |partner|
         %tr
-          %th #{partner.id}
+          %th.text-right #{partner.id}
           %th #{partner.name}
           %th #{partner.email}
+
+= link_to icon("fas", "edit", "Editer (ou supprimer) ce centre"), edit_admin_vaccination_center_path(@vaccination_center)
