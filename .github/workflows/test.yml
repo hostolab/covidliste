@@ -54,4 +54,9 @@ jobs:
           cp config/database.github.yml config/database.yml
           bundle exec rails db:create db:migrate
       - name: Run tests
-        run: bundle exec rspec
+        run: bundle exec rspec --format RspecJunitFormatter --out rspec.xml
+      - name: Publish Unit Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v1
+        if: always()
+        with:
+          files: rspec.xml

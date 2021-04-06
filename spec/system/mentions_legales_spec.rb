@@ -11,6 +11,6 @@ RSpec.describe "Mentions Legales Page", type: :system do
   end
   it "has information about hosting" do
     visit "/mentions_legales"
-    expect(page.text).to match(/^.*hébergé par.* dont le siège social est sis.*siret.* [0-9]{14}.*$/)
+    expect(page.text).to match(/^.*hébergé par.* dont le siège social est sis.*SIRET.* [0-9]{14}.*$/)
   end
 end
