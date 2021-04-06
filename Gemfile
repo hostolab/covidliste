@@ -32,30 +32,29 @@ gem "autoprefixer-rails"
 gem "font-awesome-sass"
 gem "simple_form"
 gem "haml-rails", "~> 2.0"
-gem 'bootstrap', '~> 5.0.0.beta2'
-gem 'letter_opener', '~> 1.7'
-gem 'letter_opener_web', '~> 1.4'
-gem 'devise'
-gem 'rolify'
-gem 'blazer'
-gem 'pghero'
-gem 'pg_query', '>= 0.9.0'
-gem 'sidekiq'
-gem 'geocoder'
-gem 'blind_index'
-gem 'lockbox'
-gem 'appsignal'
-gem 'valid_email'
-gem 'httparty'
+gem "bootstrap", "~> 5.0.0.beta2"
+gem "letter_opener", "~> 1.7"
+gem "letter_opener_web", "~> 1.4"
+gem "devise"
+gem "rolify"
+gem "blazer"
+gem "pghero"
+gem "pg_query", ">= 0.9.0"
+gem "sidekiq"
+gem "geocoder"
+gem "blind_index"
+gem "lockbox"
+gem "appsignal"
+gem "valid_email"
+gem "httparty"
 gem "standard"
 gem "spring"
 
 group :development, :test do
-  gem 'pry-byebug'
-  gem 'pry-rails'
-  gem 'dotenv-rails', '2.7.6'
-  gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
-
+  gem "pry-byebug"
+  gem "pry-rails"
+  gem "dotenv-rails", "2.7.6"
+  gem "faker", git: "https://github.com/faker-ruby/faker.git", branch: "master"
 
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem "byebug", platforms: %i[mri mingw x64_mingw]
