@@ -5,7 +5,7 @@ FactoryBot.define do
     firstname { "MMM" }
     sequence(:lastname) { |n| "_#{n}" }
     sequence(:email) { |n| "test_#{n}@covidliste.com" }
-    password { 'securepassword' }
+    password { "securepassword" }
 
     confirmed_at { Time.zone.now }
     address { Faker::Address.city }
