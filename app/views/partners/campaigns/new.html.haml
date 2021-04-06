@@ -1,0 +1,31 @@
+.row
+  .col.col-lg-6
+    = link_to '← Retour', partners_vaccination_center_path(@vaccination_center)
+
+    %h4.mt-3 Nouvelle Campagne
+
+    %p
+      Centre de vaccination:
+      %strong= @vaccination_center.name
+    %p Lorsque vous constatez qu’il vous restera des doses, créez une campagne Covidliste
+
+    = simple_form_for([:partners, @vaccination_center, @campaign]) do |f|
+      %h5 Informations sur la campagne
+      = f.input :available_doses, label: 'Nombre de doses à écouler', as: :integer, input_html: { min: '1', max: '1000' }
+      = f.input :vaccine_type, label: 'Type de vaccin', collection: ['pfizer', 'moderna', 'astrazeneca', 'janssen']
+
+      %h5 Plage horaire de disponibilité des vaccins
+
+      .row
+        .col.col-6
+          = f.input :starts_at, as: :time, label: "Début"
+        .col.col-6
+          = f.input :ends_at, as: :time, label: "Fin"
+      = f.input :extra_info, label: 'Informations supplémentaires pour les volontaires', hint: 'Accès, modalités... Les volontaires verront cette information avant de confirmer leur rendez-vous.'
+
+      %h5 Critères de sélection des volontaires
+
+      = f.input :min_age, label: 'Âge minimum (inclus)', input_html: { min: '1', max: '130' }
+      = f.input :max_age, label: 'Âge maximum (inclus)', input_html: { min: '1', max: '130' }
+      = f.input :max_distance_in_meters, label: 'Distance maximum au centre (en km)', input_html: { min: '1' }
+      = f.button :submit

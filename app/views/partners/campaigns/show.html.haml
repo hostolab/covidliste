@@ -1,0 +1,43 @@
+%h1.mb-4
+  Suivi de la #{@campaign.name}
+
+.row.justify-content-center
+  .col-8
+    .progress{style: "height: 20px;"}
+      .progress-bar{role: "progressbar", style: "width: #{@campaign.matches.confirmed.count * 100 / @campaign.available_doses}%;"}
+
+    %h2.text-center.mt-4
+      #{@campaign.matches.confirmed.count} doses attribuées / #{@campaign.available_doses}
+
+.row.justify-content-center.mb-5
+  .col-4.flex-column.d-flex.align-items-center
+    %i.fas.fa-paper-plane
+    %h2.text-center.mt-4
+      = @campaign.matches.count
+      volontaires contactés
+  .col-4.flex-column.d-flex.align-items-center
+    %i.fas.fa-user-check
+    %h2.text-center.mt-4
+      = @campaign.matches.confirmed.count
+      volontaires confirmés
+
+%h2.mb-4 Volontaires confirmés
+
+%p
+  Ces informations seront supprimées définitivement ce soir à minuit.
+  %brs
+  Ces informations ne doivent être utilisées que pour la vaccination des volontaires par votre centre
+
+%table.table
+  %thead
+    %tr
+      %th Nom
+      %th Numéro
+      %th Date de naissance
+  %tbody
+    - @campaign.matches.confirmed.each do |match|
+      - user = match.user
+      %tr
+        %td #{user.firstname} #{user.lastname}
+        %th= user.phone_number
+        %td= user.birthdate.strftime('%d/%m/%Y')
