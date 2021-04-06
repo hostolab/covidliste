@@ -15,7 +15,7 @@
         = f.input :address, label: 'Adresse', error: 'Adresse requise', placeholder: '5 rue larue, 13600 Marseille'
         = f.input :lat, as: :hidden
         = f.input :lon, as: :hidden
-        = f.input :email, label: 'Email', error: f.error(:email), placeholder: 'jean@dupont.com', hint: "Une adresse email ne peut correspondre qu’à un seul volontaire inscrit."
-        = f.input :phone_number, label: 'Numéro de téléphone', error: '', placeholder: '06 06 06 06 06'
+        = f.input :email, label: 'Email', error: f.error(:email), placeholder: 'jean@dupont.com', hint: "Une adresse email ne peut être utilisée que par une seule personne. 2 personnes = 2 adresses email différentes."
+        = f.input :phone_number, label: 'Numéro de téléphone', error: 'Numéro de téléphone invalide', placeholder: '06 06 06 06 06'
         = f.input :toc, as: :boolean, label: 'J’accepte que mes données soient partagées avec les centres de vaccination partenaires de Covidliste.', checked_value: true, unchecked_value: false, error: "Vous devez cocher cette case pour valider votre inscription"
         = f.button :submit, 'Je m’inscris', class: 'btn btn-primary'
