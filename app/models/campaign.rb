@@ -16,7 +16,7 @@ class Campaign < ApplicationRecord
 
   def min_age_lesser_than_max_age
     if (min_age || 0) >= (max_age || 0)
-      errors.add(:max_age, "doit être supérieur à l'âge minimum")
+      errors.add(:max_age, "doit être supérieur à l’âge minimum")
     end
   end
 
