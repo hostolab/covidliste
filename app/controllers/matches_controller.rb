@@ -6,7 +6,7 @@ class MatchesController < ApplicationController
 
   def update
     @match.confirm!
-    render action: 'show'
+    render action: "show"
   end
 
   private

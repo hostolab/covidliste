@@ -17,5 +17,4 @@ class Match < ApplicationRecord
   def expired?
     !confirmed? && Time.now.utc > expires_at
   end
-
 end
