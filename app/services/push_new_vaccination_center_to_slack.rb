@@ -4,7 +4,7 @@ class PushNewVaccinationCenterToSlack
   end
 
   def call
-    text = "Un nouveau centre vient d'être créé par *#{creator}* :point_right: #{cta}"
+    text = "Un nouveau centre vient d'être créé #{creator} :point_right: #{cta}"
     attachments = [
       {
         color: "",
@@ -44,6 +44,10 @@ class PushNewVaccinationCenterToSlack
   end
 
   def creator
-    @vaccination_center.partners.first.name
+    if @vaccination_center.parters.none?
+      "par un admin"
+    else
+      "par #{@vaccination_center.partners.first.name}"
+    end
   end
 end
