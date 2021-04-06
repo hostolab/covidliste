@@ -49,6 +49,9 @@ gem "valid_email"
 gem "httparty"
 gem "standard"
 gem "spring"
+gem 'flipper'
+gem 'flipper-redis'
+gem 'flipper-ui'
 
 group :development, :test do
   gem "pry-byebug"
