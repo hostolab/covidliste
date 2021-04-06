@@ -10,10 +10,12 @@ module Admin
       @max_age = (params[:max_age] || 90).to_i
       @max_distance = [50, (params[:max_distance] || 1).to_f].min
 
-      if @address && (@lat.nil? || @lon.nil?)
+      if @address.present? && (@lat.nil? || @lon.nil?)
         geocode_results = Geocoder.search(@address)
-        @lat = geocode_results.first.coordinates[0]
-        @lon = geocode_results.first.coordinates[1]
+        if geocode_results.present?
+          @lat = geocode_results.first.coordinates[0]
+          @lon = geocode_results.first.coordinates[1]
+        end
       end
       @results = User.select(:lat, :lon, :id, :birthdate).between_age(@min_age, @max_age).near([@lat, @lon], @max_distance, unit: :km)
       @total_count = @results.size
