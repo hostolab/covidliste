@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby ::File.read(::File.expand_path('.ruby-version', __dir__))
+ruby ::File.read(::File.expand_path(".ruby-version", __dir__))
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem "rails", "~> 6.1.1"
