@@ -8,6 +8,8 @@ class User < ApplicationRecord
     :validatable,
     :confirmable
 
+  has_many :matches, dependent: :nullify
+
   encrypts :firstname
   encrypts :lastname
   encrypts :address
