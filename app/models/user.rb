@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   include HasPhoneNumberConcern
+  include NormalizeCityFormatConcern
   rolify
 
   devise :database_authenticatable,
