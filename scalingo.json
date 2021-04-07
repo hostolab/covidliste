@@ -17,6 +17,9 @@
     },
     "SLACK_INCOMING_WEBHOOK_URL": {
       "value": ""
+    },
+    "RAILS_MAX_THREADS": {
+      "value": 2
     }
   },
   "addons": [
