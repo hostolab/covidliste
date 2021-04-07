@@ -7,4 +7,8 @@ class PagesController < ApplicationController
 
   def faq
   end
+
+  def robots
+    render "pages/robots", layout: false, content_type: "text/plain"
+  end
 end

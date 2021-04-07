@@ -1,7 +1,7 @@
 .row
   .col-12
     %p.mb-2
-      =link_to '← Retour', partners_vaccination_centers_path
+      = link_to "← Retour", partners_vaccination_centers_path
 .d-flex
   .flex-fill
     %h3
@@ -9,23 +9,23 @@
       %span.small.text-muted.font-italic #{@vaccination_center.kind}
     %p.mb-2 #{@vaccination_center.address}
     %p.small.mb-2
-      %i.fas.fa-phone
+      = icon("fas", "phone")
       = @vaccination_center.phone_number
       \-
       Vaccins :
-      -if @vaccination_center.pfizer
+      = if @vaccination_center.pfizer
         %span.mr-1 Pfizer
-      -if @vaccination_center.moderna
+      = if @vaccination_center.moderna
         %span.mr-1 Moderna
-      -if @vaccination_center.astrazeneca
+      = if @vaccination_center.astrazeneca
         %span.mr-1 Astrazeneca
-      -if @vaccination_center.janssen
+      = if @vaccination_center.janssen
         %span.mr-1 Janssen
     %p.small.mb-2
       = @vaccination_center.description
 
 %p
-  =link_to "Créer une nouvelle campagne", new_partners_vaccination_center_campaign_path(@vaccination_center), class: "btn btn-primary btn-sm"
+  = link_to "Créer une nouvelle campagne", new_partners_vaccination_center_campaign_path(@vaccination_center), class: "btn btn-primary btn-sm"
 
 .row
   .col-12
@@ -41,7 +41,7 @@
       - @vaccination_center.campaigns.each do |campaign|
         %tr
           %th
-            =link_to campaign.id, partners_campaign_path(campaign)
+            = link_to campaign.id, partners_campaign_path(campaign)
           %td #{campaign.available_doses}
           %td #{campaign.vaccine_type}
           %td #{campaign.starts_at} #{campaign.ends_at}

@@ -1,9 +1,9 @@
 .row.mtop2
   .col-12
     %p.mb-2
-      =link_to '← Retour', admin_vaccination_centers_path
+      = link_to '← Retour', admin_vaccination_centers_path
     %h2 Espace admin : Centres de vaccination
-    %h3 Création d'un centre de vaccination
+    %h3 Création d’un centre de vaccination
     - if @vaccination_center.persisted?
       .row.mtop2
         .alert.alert-success{:role => "alert", style: "position: inherit"}
