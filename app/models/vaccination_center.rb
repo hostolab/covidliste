@@ -75,7 +75,7 @@ class VaccinationCenter < ApplicationRecord
           confirmed
         ]
         if confirmed
-          line += [vaccination_center.confirmer.full_name, vaccination_center.confirmed_at]
+          line += [vaccination_center.confirmer&.full_name, vaccination_center.confirmed_at]
         end
         csv << line
       end

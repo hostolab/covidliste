@@ -19,13 +19,14 @@ module Partners
     end
 
     def new
-      @campaign = @vaccination_center.campaigns.build
+      @campaign = @vaccination_center.campaigns.build(ends_at: 1.hour.from_now)
     end
 
     def create
       @campaign = @vaccination_center.campaigns.build(create_params)
       @campaign.partner = current_partner
       @campaign.max_distance_in_meters = create_params["max_distance_in_meters"].to_i * 1000
+
       if @campaign.save
         @campaign.update(name: "Campagne ##{@campaign.id} du #{@campaign.created_at.strftime("%d/%m/%Y")}")
         redirect_to partners_campaign_path(@campaign)
