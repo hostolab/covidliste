@@ -37,7 +37,14 @@
   %tbody
     - @campaign.matches.confirmed.each do |match|
       - user = match.user
-      %tr
-        %td #{user.firstname} #{user.lastname}
-        %th= user.phone_number
-        %td= user.birthdate.strftime("%d/%m/%Y")
+      - if user.anonymized_at
+        %tr
+          %td
+            %em Anonymized
+          %td -
+          %td= user.birthdate.strftime("%d/%m/%Y")
+      - else
+        %tr
+          %td #{user.firstname} #{user.lastname}
+          %td= user.phone_number
+          %td= user.birthdate.strftime("%d/%m/%Y")
