@@ -12,7 +12,7 @@ Rails.application.routes.draw do
       end
 
       # admin tools
-      mount Blazer::Engine, at: "blazer"
+      mount Blazer::Engine, at: "/blazer"
       mount Flipper::UI.app(Flipper), at: "/flipper"
     end
   end
