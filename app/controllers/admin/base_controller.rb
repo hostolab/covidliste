@@ -3,6 +3,7 @@
 module Admin
   class BaseController < ApplicationController
     include AdminHelper
+    include Pagy::Backend
     before_action :require_role!
     layout "/admin_application"
 
