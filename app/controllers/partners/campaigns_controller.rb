@@ -1,7 +1,7 @@
 module Partners
   class CampaignsController < ApplicationController
     before_action :authenticate_partner!
-    before_action :find_vaccination_center
+    before_action :find_vaccination_center, except: :show
     before_action :find_campaign, only: :show
     before_action :authorize!
 
