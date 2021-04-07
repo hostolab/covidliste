@@ -36,8 +36,6 @@ class User < ApplicationRecord
     },
     if: :email_changed?
 
-  has_many :matches, dependent: :nullify
-
   after_commit :geocode_address, if: :saved_change_to_address?
   before_save :approximate_coords
 
