@@ -12,7 +12,7 @@
     = simple_form_for([:partners, @vaccination_center, @campaign]) do |f|
       %h5 Informations sur la campagne
       = f.input :available_doses, label: "Nombre de doses à écouler", as: :integer, input_html: { min: "1", max: "1000" }
-      = f.input :vaccine_type, label: "Type de vaccin", collection: ["pfizer", "moderna", "astrazeneca", "janssen"]
+      = f.input :vaccine_type, label: "Type de vaccin", collection: Vaccine::Brands::ALL
 
       %h5 Plage horaire de disponibilité des vaccins
 
