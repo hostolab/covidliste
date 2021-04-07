@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_05_114752) do
+ActiveRecord::Schema.define(version: 2021_04_06_172700) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,6 +69,62 @@ ActiveRecord::Schema.define(version: 2021_04_05_114752) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["creator_id"], name: "index_blazer_queries_on_creator_id"
+  end
+
+  create_table "campaign_batches", force: :cascade do |t|
+    t.bigint "campaign_id"
+    t.bigint "vaccination_center_id"
+    t.bigint "partner_id"
+    t.integer "size", null: false
+    t.integer "duration_in_minutes", default: 10, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["campaign_id"], name: "index_campaign_batches_on_campaign_id"
+    t.index ["partner_id"], name: "index_campaign_batches_on_partner_id"
+    t.index ["vaccination_center_id"], name: "index_campaign_batches_on_vaccination_center_id"
+    t.check_constraint "duration_in_minutes > 0", name: "duration_in_minutes_gt_zero"
+    t.check_constraint "size > 0", name: "size_gt_zero"
+  end
+
+  create_table "campaigns", force: :cascade do |t|
+    t.string "name"
+    t.bigint "vaccination_center_id"
+    t.bigint "partner_id"
+    t.string "vaccine_type", null: false
+    t.integer "available_doses", null: false
+    t.datetime "starts_at", null: false
+    t.datetime "ends_at", null: false
+    t.text "extra_info"
+    t.integer "min_age", null: false
+    t.integer "max_distance_in_meters", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "max_age"
+    t.index ["partner_id"], name: "index_campaigns_on_partner_id"
+    t.index ["vaccination_center_id"], name: "index_campaigns_on_vaccination_center_id"
+    t.check_constraint "(available_doses > 0) AND (available_doses <= 1000)", name: "available_doses_gt_zero"
+    t.check_constraint "(max_age > 0) AND (max_age > min_age)", name: "max_age_gt_zero"
+    t.check_constraint "(vaccine_type)::text = ANY ((ARRAY['pfizer'::character varying, 'moderna'::character varying, 'astrazeneca'::character varying, 'janssen'::character varying])::text[])", name: "vaccine_type_is_a_known_brand"
+    t.check_constraint "max_distance_in_meters > 0", name: "max_distance_in_meters_gt_zero"
+    t.check_constraint "min_age > 0", name: "min_age_gt_zero"
+    t.check_constraint "starts_at < ends_at", name: "starts_at_lt_ends_at"
+  end
+
+  create_table "matches", force: :cascade do |t|
+    t.bigint "vaccination_center_id"
+    t.bigint "campaign_id"
+    t.bigint "campaign_batch_id"
+    t.bigint "user_id"
+    t.datetime "sent_at"
+    t.datetime "expires_at"
+    t.datetime "confirmed_at"
+    t.text "token"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["campaign_batch_id"], name: "index_matches_on_campaign_batch_id"
+    t.index ["campaign_id"], name: "index_matches_on_campaign_id"
+    t.index ["user_id"], name: "index_matches_on_user_id"
+    t.index ["vaccination_center_id"], name: "index_matches_on_vaccination_center_id"
   end
 
   create_table "partner_vaccination_centers", force: :cascade do |t|
@@ -131,9 +187,17 @@ ActiveRecord::Schema.define(version: 2021_04_05_114752) do
     t.text "address_ciphertext"
     t.text "email_ciphertext"
     t.string "email_bidx"
+    t.string "zipcode"
+    t.string "city"
+    t.string "geo_citycode"
+    t.string "geo_context"
+    t.index ["city"], name: "index_users_on_city"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token"
     t.index ["email_bidx"], name: "index_users_on_email_bidx", unique: true
+    t.index ["geo_citycode"], name: "index_users_on_geo_citycode"
+    t.index ["geo_context"], name: "index_users_on_geo_context"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["zipcode"], name: "index_users_on_zipcode"
   end
 
   create_table "users_roles", id: false, force: :cascade do |t|
@@ -163,6 +227,15 @@ ActiveRecord::Schema.define(version: 2021_04_05_114752) do
     t.index ["confirmer_id"], name: "index_vaccination_centers_on_confirmer_id"
   end
 
+  add_foreign_key "campaign_batches", "campaigns"
+  add_foreign_key "campaign_batches", "partners"
+  add_foreign_key "campaign_batches", "vaccination_centers"
+  add_foreign_key "campaigns", "partners"
+  add_foreign_key "campaigns", "vaccination_centers"
+  add_foreign_key "matches", "campaign_batches"
+  add_foreign_key "matches", "campaigns"
+  add_foreign_key "matches", "users"
+  add_foreign_key "matches", "vaccination_centers"
   add_foreign_key "partner_vaccination_centers", "partners"
   add_foreign_key "partner_vaccination_centers", "vaccination_centers"
   add_foreign_key "vaccination_centers", "users", column: "confirmer_id"

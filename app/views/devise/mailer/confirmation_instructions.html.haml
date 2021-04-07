@@ -2,10 +2,10 @@
   Bonjour #{@resource.full_name},
 
 %p
-  Vous venez de vous enregistrer sur CovidListe. 
-  Pour finaliser votre inscription merci de cliquer le lien ci-dessous.
-  Vous allez également pouvoir choisir/modifier votre mot de passe afin d'accéder à votre espace sécurisé.  
+  Vous venez de vous enregistrer sur CovidListe.
+  Pour finaliser votre inscription, merci de cliquer sur le lien ci-dessous (ce lien reste valide pendant 24 heures, au-delà des 24 heures vous devrez refaire une demande de confirmation).
 
-%p= link_to 'Validez votre inscription', confirmation_url(@resource, confirmation_token: @token)
+%p
+  = link_to 'Validez votre inscription', confirmation_url(@resource, confirmation_token: @token)
 
 = render 'mailer/footer'

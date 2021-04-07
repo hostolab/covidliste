@@ -1,0 +1,8 @@
+<%= "User-agent: *" %>
+<% if Rails.env.production? %>
+  <%= "Disallow: /profile" %>
+  <%= "Disallow: /partners" %>
+  <%= "Disallow: /admin" %>
+<% else %>
+  <%= "Disallow: /" %>
+<% end %>

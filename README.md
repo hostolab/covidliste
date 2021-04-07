@@ -19,10 +19,10 @@ Covidliste makes it easy to manage waiting lists for vaccination centers.
 
 If you don't already have them :
 
-- Install ruby 2.6.6 `rbenv install 2.6.6 && rbenv global 2.6.6`
-- Install bundler 2.1.4 `gem install bundler:2.2.7`
+- Install ruby 2.7.3 `rbenv install 2.7.3 && rbenv global 2.7.3`
+- Install bundler 2.2.15 `gem install bundler:2.2.15`
 - Install yarn `npm i -g yarn`
-- Install redis `npm i -g yarn`
+- Install redis `brew install redis`
 
 ### Dependencies
 
@@ -33,10 +33,10 @@ bundle install
 yarn
 ```
 
-Add a development encryption key to your .bashrc/.zshrc :
+Create the `.env` file:
 
 ```bash
-export LOCKBOX_MASTER_KEY=0000000000000000000000000000000000000000000000000000000000000000
+echo "LOCKBOX_MASTER_KEY=0000000000000000000000000000000000000000000000000000000000000000" > .env 
 ```
 
 ### Database / Cache
@@ -54,11 +54,31 @@ redis-server /usr/local/etc/redis.conf # Run redis if not already running
 bin/rails server
 ```
 
+### Admin development
+
+In a rails console with `rails c`
+
+```ruby
+user = User.find_by(email: <your_email>)
+user.add_role(:super_admin)
+```
+
 # To Contribute
 
 - Go to https://github.com/hostolab/covidliste/issues and assign yourself an issue you think you can address.
 - Submit a PR
 
+# Code formatting
+In order for the pipeline to be successful, you must ensure that you respect the linting made using
+
+```bash
+bundle exec standardrb --fix   
+```
+If some errors are printed it means that some of the different issues can not be corrected automatically. 
+Then you will need to correct them manually.
+
+In rubymine, please follow this procedure to add the formatter / linter directly in the editor tabs:
+https://www.jetbrains.com/help/ruby/rubocop.html#prerequisites
 # Testing
 
 To launch the tests locally, run:

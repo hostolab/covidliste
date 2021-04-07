@@ -1,6 +1,9 @@
 module Partners
   class VaccinationCentersController < ApplicationController
     before_action :authenticate_partner!
+    before_action :find_vaccination_center, only: [:show]
+    before_action :authorize!, except: [:index, :new, :create]
+
     helper_method :sort_column, :sort_direction
 
     def index
@@ -9,13 +12,6 @@ module Partners
     end
 
     def show
-      unless current_partner.vaccination_centers.exists?(params[:id])
-        redirect_to partners_path and return
-      end
-      @vaccination_center = VaccinationCenter.find(params[:id])
-      unless @vaccination_center.confirmed?
-        redirect_to partners_path and return
-      end
     end
 
     def new
@@ -25,15 +21,33 @@ module Partners
     def create
       @vaccination_center = VaccinationCenter.new(vaccination_center_params)
       @vaccination_center.save
-      @partner_vaccination_center = PartnerVaccinationCenter.new(partner: current_partner, vaccination_center: @vaccination_center)
+      @partner_vaccination_center = PartnerVaccinationCenter.new(partner: current_partner,
+                                                                 vaccination_center: @vaccination_center)
       @partner_vaccination_center.save
       render action: :new
     end
 
     private
 
+    def find_vaccination_center
+      @vaccination_center = VaccinationCenter.find(params[:id])
+
+      unless @vaccination_center.confirmed?
+        flash[:error] = "Votre centre n'a pas encore été approuvé par Covidliste"
+        redirect_to(partners_vaccination_centers_path)
+      end
+    end
+
+    def authorize!
+      unless @vaccination_center.partners.include?(current_partner)
+        flash[:error] = "Vous ne pouvez pas accéder à ce centre"
+        redirect_to(partners_vaccination_centers_path)
+      end
+    end
+
     def vaccination_center_params
-      params.require(:vaccination_center).permit(:name, :description, :address, :kind, :pfizer, :moderna, :astrazeneca, :janssen, :phone_number, :lat, :lon)
+      params.require(:vaccination_center).permit(:name, :description, :address, :kind, :pfizer, :moderna, :astrazeneca,
+        :janssen, :phone_number, :lat, :lon)
     end
 
     def sort_column

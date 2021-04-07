@@ -1,6 +1,7 @@
 require_relative "boot"
 
 require "rails/all"
+require "csv"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -18,6 +19,10 @@ module Covidliste
     config.i18n.default_locale = :fr
 
     config.active_job.queue_adapter = :sidekiq
+
+    config.after_initialize do |app|
+      app.routes.default_url_options = app.config.action_mailer.default_url_options
+    end
 
     # Configuration for the application, engines, and railties goes here.
     #

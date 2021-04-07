@@ -1,6 +1,4 @@
 class PagesController < ApplicationController
-
-
   def mentions_legales
   end
 
@@ -8,5 +6,9 @@ class PagesController < ApplicationController
   end
 
   def faq
+  end
+
+  def robots
+    render "pages/robots", layout: false, content_type: "text/plain"
   end
 end

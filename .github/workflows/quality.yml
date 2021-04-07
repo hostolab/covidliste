@@ -1,0 +1,15 @@
+name: Quality
+
+# triggers on
+on: [push]
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest # runner
+    steps:
+      - name: Checkout repository # copies repo in runner
+        uses: actions/checkout@v2 # short for https://github.com/actions/checkout
+      - name: Linting
+        uses: andrewmcodes/standardrb-action@v0.0.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

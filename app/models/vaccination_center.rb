@@ -1,24 +1,86 @@
 class VaccinationCenter < ApplicationRecord
-
   module Kinds
-    CENTRE_VACCINATION = 'Centre de vaccination'
-    CABINET_MEDICAL = 'Cabinet médical'
-    PHARMACIE = 'Pharmacie'
-    EHPAD = 'Ehpad'
+    CABINET_MEDICAL = "Cabinet médical"
+    CENTRE_VACCINATION = "Centre de vaccination"
+    EHPAD = "Ehpad"
+    HOPITAL = "Hôpital"
+    PHARMACIE = "Pharmacie"
 
-    ALL = [CENTRE_VACCINATION, CABINET_MEDICAL, PHARMACIE, EHPAD].freeze
+    ALL = [CABINET_MEDICAL, CENTRE_VACCINATION, EHPAD, HOPITAL, PHARMACIE].freeze
   end
 
-  validates_presence_of :name, :description, :address, :lat, :lon, :phone_number
-  validates :kind, inclusion: { in: VaccinationCenter::Kinds::ALL }
+  validates_presence_of :name, :address, :lat, :lon, :phone_number
+  validates :kind, inclusion: {in: VaccinationCenter::Kinds::ALL}
 
-  has_many :partner_vaccination_center
-  has_many :partner, through: :partner_vaccination_center
-  belongs_to :confirmer, class_name: 'User', optional: true
+  has_many :partner_vaccination_centers
+  has_many :partners, through: :partner_vaccination_centers
+  belongs_to :confirmer, class_name: "User", optional: true
+
+  has_many :campaigns
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
 
+  after_commit :push_to_slack, on: :create
+
   def confirmed?
     confirmed_at.present?
+  end
+
+  def can_be_accessed_by?(user, partner)
+    return true if user&.admin?
+
+    partners.include?(partner)
+  end
+
+  def self.to_csv
+    headers = ["ID", "Nom du centre", "Type de centre", "Adresse", "Téléphone", "Type de vaccin", "Nom du contact", "Email du contact", "Validé", "Validé par", "Validé le"]
+
+    CSV.generate("\uFEFF", headers: true) do |csv|
+      csv << headers
+
+      all.each do |vaccination_center|
+        vaccin_types = ""
+        confirmed = false
+        if vaccination_center.pfizer
+          vaccin_types += "pfizer "
+        end
+        if vaccination_center.moderna
+          vaccin_types += "moderna "
+        end
+        if vaccination_center.astrazeneca
+          vaccin_types += "astrazeneca "
+        end
+        if vaccination_center.janssen
+          vaccin_types += "janssen"
+        end
+        if vaccination_center.confirmed_at
+          confirmed = true
+        end
+        line = [
+          vaccination_center.id,
+          vaccination_center.name,
+          vaccination_center.kind,
+          vaccination_center.address,
+          vaccination_center.phone_number,
+          vaccin_types,
+          vaccination_center.partners&.first&.name,
+          vaccination_center.partners&.first&.email,
+          confirmed
+        ]
+        if confirmed
+          line += [vaccination_center.confirmer.full_name, vaccination_center.confirmed_at]
+        end
+        csv << line
+      end
+    end
+  end
+
+  private
+
+  def push_to_slack
+    return unless Rails.env.production?
+
+    # Wait for vaccination partner to be created
+    PushNewVaccinationCenterToSlackJob.set(wait: 5.seconds).perform_later(self)
   end
 end

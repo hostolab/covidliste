@@ -2,8 +2,7 @@
   .col-12
 
     %p.mtop2
-      %strong
-        ="Bonjour #{current_partner.name}"
+      %strong Bonjour #{current_partner.name}
 
     - if @vaccination_centers.any?
       %p.mt-4 Vous avez accès aux centres de vaccination suivants :
@@ -17,27 +16,27 @@
           %tr
             %td
               %strong
-                =link_to vaccination_center.name, partners_vaccination_center_path(vaccination_center.id)
-              %br/
+                = link_to vaccination_center.name, partners_vaccination_center_path(vaccination_center.id)
+              %br
               %i #{vaccination_center.kind}
-              %br/
+              %br
               #{vaccination_center.description}
             %td
-              %i.fas.fa-phone
+              = icon("fas", "phone")
               #{vaccination_center.phone_number}
-              %br/
+              %br
               #{vaccination_center.address}
             %td
-              -if vaccination_center.pfizer
+              - if vaccination_center.pfizer
                 %span.mr-1 Pfizer
-              -if vaccination_center.moderna
+              - if vaccination_center.moderna
                 %span.mr-1 Moderna
-              -if vaccination_center.astrazeneca
+              - if vaccination_center.astrazeneca
                 %span.mr-1 Astrazeneca
-              -if vaccination_center.janssen
+              - if vaccination_center.janssen
                 %span.mr-1 Janssen
             %td
-              =link_to 'Voir / Gèrer les campagnes', partners_vaccination_center_path(vaccination_center.id)
+              = link_to "Voir / Gérer les campagnes", partners_vaccination_center_path(vaccination_center.id)
 
     - if @unconfirmed_vaccination_centers.any?
       %p.mt-4 Vos centres de vaccination en attente de validation :
@@ -51,37 +50,37 @@
           %tr
             %td
               %strong #{vaccination_center.name}
-              %br/
+              %br
               %i #{vaccination_center.kind}
-              %br/
+              %br
               #{vaccination_center.description}
             %td
-              %i.fas.fa-phone
+              = icon("fas", "phone")
               #{vaccination_center.phone_number}
-              %br/
+              %br
               #{vaccination_center.address}
             %td
-              -if vaccination_center.pfizer
+              - if vaccination_center.pfizer
                 %span.mr-1 Pfizer
-              -if vaccination_center.moderna
+              - if vaccination_center.moderna
                 %span.mr-1 Moderna
-              -if vaccination_center.astrazeneca
+              - if vaccination_center.astrazeneca
                 %span.mr-1 Astrazeneca
-              -if vaccination_center.janssen
+              - if vaccination_center.janssen
                 %span.mr-1 Janssen
             %td En attente de validation
 
     %p.mt-4
-      Vous n'avez actuellement accès à aucun centre de vaccination.
+      Vous n’avez actuellement accès à aucun centre de vaccination.
     %p
-      =link_to "Demander la création d'un nouveau centre de vaccination", new_partners_vaccination_center_path, class: "btn btn-primary btn-sm"
+      = link_to "Demander la création d’un nouveau centre de vaccination", new_partners_vaccination_center_path, class: "btn btn-primary btn-sm"
 
     %p.mt-4
       .small
         Si vous souhaitez rejoindre un centre déjà existant sur Covidliste,
         contactez-nous sur
-        =link_to "hello@covidliste.com", "mailto:hello@covidliste.com"
+        = link_to "hello@covidliste.com", "mailto:hello@covidliste.com"
 .row.mtop2
   .col-12
     %hr
-    =link_to "Se déconnecter", destroy_partner_session_path, :method => :delete, class: 'btn btn-warning'
+    = link_to "Se déconnecter", destroy_partner_session_path, method: :delete, class: "btn btn-warning"
