@@ -50,7 +50,7 @@ class User < ApplicationRecord
   end
 
   def geocode_address
-    GeocodeUserJob.perform_later(id)
+    GeocodeUserJob.perform_later(self)
   end
 
   def full_name

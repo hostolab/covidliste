@@ -1,29 +1,25 @@
 class GeocodingService
   include HTTParty
-  base_uri "https://api-adresse.data.gouv.fr/search"
+  base_uri "https://api-adresse.data.gouv.fr"
 
   def initialize(address)
-    @address = CGI.escape(address)
-    @options = {}
+    @address = address
   end
 
   def geocode
+    first_result = self.class.get("/search", query: {q: @address, limit: 1}).dig("features")&.first
+    return nil if first_result.nil?
+
+    Rails.logger.debug(first_result)
+
+    coordinates = first_result.dig("geometry", "coordinates")
     {
-      lat: latlon[1],
-      lon: latlon[0],
-      postal_code: postal_code
+      lat: coordinates.second,
+      lon: coordinates.first,
+      zipcode: first_result.dig("properties", "postcode"),
+      city: first_result.dig("properties", "city"),
+      geo_citycode: first_result.dig("properties", "citycode"),
+      geo_context: first_result.dig("properties", "context")
     }
-  end
-
-  def geojson_result
-    @geojson_result ||= self.class.get("?q=#{@address}&limit=1", @options)
-  end
-
-  def latlon
-    @latlon ||= geojson_result["features"][0]["geometry"]["coordinates"]
-  end
-
-  def postal_code
-    @postal_code ||= geojson_result["features"][0]["properties"]["postcode"]
   end
 end
