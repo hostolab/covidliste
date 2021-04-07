@@ -11,7 +11,6 @@ class MatchesController < ApplicationController
       @match.confirm!
     end
     render action: "show"
-
   end
 
   private
