@@ -2,7 +2,7 @@ namespace :populate do
   desc "Create a new validated Vaccination center with a new partner"
   task create_vaccination_center_with_partner_and_validate: :environment do
     partner = Partner.new(
-      name: Faker::Name,
+      name: Faker::Name.name,
       email: Faker::Internet.email,
       phone_number: Faker::PhoneNumber.phone_number,
       password: Faker::Internet.password
