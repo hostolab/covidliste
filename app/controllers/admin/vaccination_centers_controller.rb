@@ -7,7 +7,7 @@ module Admin
 
       respond_to do |format|
         format.html {
-          @pagy_vaccinations_centers, @vaccinations_centers = pagy(vaccination_centers)
+          @pagy_vaccination_centers, @vaccination_centers = pagy(vaccination_centers)
         }
         format.csv { send_data vaccination_centers.to_csv, filename: "vaccination_centers-#{Date.today}.csv" }
       end
