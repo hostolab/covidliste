@@ -16,13 +16,5 @@ describe GeocodeUserJob do
       expect(user.lat).to eq 48.123
       expect(user.lon).to eq 2.123
     end
-
-    context "user with lat/lon" do
-      before { user.update(lat: 55.12345, lon: 1.12345) }
-      it "does not run geocoding but still approximate coords" do
-        expect(user.lat).to eq 55.123
-        expect(user.lon).to eq 1.123
-      end
-    end
   end
 end
