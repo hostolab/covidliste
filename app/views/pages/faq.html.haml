@@ -30,7 +30,7 @@
     %p
       Afin de référencer votre centre, vous pouvez d’ores et déjà nous confirmer :
       %ul 
-        %li
+        %li 
           Les coordonnées de la ou les personnes référentes du centre concerné (nom, prénom, email, titre, numéro de téléphone). 
         %li 
           Les informations relatives au centre (nom du centre, adresse postale, vaccins administrés et horaires d’ouverture)
@@ -42,14 +42,23 @@
       %strong Je n’ai pas reçu d’email de confirmation
 
     %p 
-      Vous pouvez faire une demande d’email de confirmation
+      Vérifiez que le mail de confirmation n'est pas présent dans vos courriers indésirables, ou boîte SPAM.
+      %br/
+      S'il n'est pas présent, vous pouvez faire une nouvelle demande d’email de confirmation
       = link_to 'ici', new_user_confirmation_path
+      %br/
+      Attendez quelques minutes, vérifiez vos courriers indésirables ou boîte SPAM.
+      %br/
+      Si vous n'avez toujours rien reçu, contactez-nous à l'adresse e-mail située au bas de cette page.
 
-    %p 
-      %strong Par quel moyen vais être contacté ?
+    -# %p 
+    -#   %strong Par quel moyen vais être contacté ?
 
     %p 
       %strong Comment fonctionne la liste d'attente ?
+    
+    %p 
+      Covidliste n'est pas une liste d'attente.
     
     %p 
       %strong Comment être certain que les coordonnées transmises ne soient pas par la suite revendues à des tiers ?
@@ -62,7 +71,7 @@
           Les données que vous renseignez ne sont transmises qu’aux centres de vaccination ou aux professionnels de santé proches de chez vous et disposant de doses de vaccins à sauver. 
 
     %p 
-      %strong Je ne souhaite pas recevoir tel vaccin / Je préfère un autre vaccin, comment faire ?
+      %strong Quel type de vaccin va-t-on m'administrer ?
     
     %p 
       %ul 
@@ -139,6 +148,68 @@
         %li 
           Covidliste est complémentaire à la stratégie vaccinale actuelle et n’a pas vocation à s’y substituer.
     
+    -# %p 
+    -#   %strong Est-ce gratuit ?
+
+    %p 
+      %strong À quoi servent les données demandées lors de l'inscription ?
+    
+    %p 
+      Lors de l'inscription sur Covidliste, nous demandons à l'utilisateur de nous confier certaines données personnelles.
+      %br/ 
+      Nous ne demandons que les données strictement nécessaires à l'utilisation de la plateforme, rien de plus.
+      %br/
+      Détails par donnée : 
+      %ul 
+        %li Le prénom est transmis au centre de vaccination pour identifier le volontaire lors de son arrivée au RDV
+        %li Le nom est transmis au centre de vaccination pour identifier le volontaire lors de son arrivée au RDV
+        %li La date de naissance est utilisée pour selectionner des volontaires selon les critères d'age choisis par le centre de vaccination
+        %li L'adresse est utilisée pour déterminer les deux champs "latitude" et "longitude" (ces deux champs sont arrondis ou approximés)
+        %li La latitude est utilisée pour selectionner des volontaires selon les critères de distance choisis par le centre de vaccination
+        %li La longitude est utilisée pour selectionner des volontaires selon les critères de distance choisis par le centre de vaccination
+        %li Le numéro de téléphone est utilisé pour prévenir les volontaires par SMS qu'une dose est disponible
+        %li L'adresse email est utilisée pour prévenir les volontaires par Email qu'une dose est disponible ainsi que pour se connecter à son compte
+        %li Le mot de passe est utilisé pour se connecter à son compte
+      
+      Les informations personnelles partagées avec les centres après validation du RDV par le volontaire sont :
+      %ul 
+        %li Le prénom 
+        %li Le nom 
+        %li La date de naissance 
+        %li Le numéro de téléphone 
+    
+    %p 
+      %strong Comment sont stockées les données demandées lors de l'inscriptin ?
+
+    %p 
+      Lors de l'inscription sur Covidliste, nous demandons à l'utilisateur de nous confier certaines données personnelles.
+      Nous nous efforçons de protèger les données que nous sommes amenés à traiter.
+      %br/ 
+      %br/
+      Type de stockage utilisés : 
+      %ul 
+        %li Lieu et choix de l'hébergeur : dans une volonté de souligner son attachement à des technologies françaises et de s'assurer de la conformité avec les législation en vigueur, COVIDLISTE a fait le choix d'héberger ses données en France via la société SCALINGO.
+        %li La plupart des données personnelles sont stockées et chiffrées dans notre base de données conformément à l'état de l'art. 
+        %li La clé de chiffrement est stockée séparément, sur la plateforme d'hébergement du site, et n'est accessible que des gestionnaires de COVIDLISTE et de l'hébergeur pour des raisons techniques.
+        %li 
+          Ces mesures de protection sont renforcées par des outils de hashage. Plus d'informations : 
+          = link_to 'https://fr.wikipedia.org/wiki/Fonction_de_hachage', 'https://fr.wikipedia.org/wiki/Fonction_de_hachage'
+        %li Quelques données personnelles sont stockées en clair dans notre base de données.
+        %li Elles sont réduites au strict minimum et/ou sont volontairement imprécises.
+      
+      Blibliothèques techniques utilisées :
+      %ul
+        %li
+          Pour le chiffrement des données, nous utilisons
+          = link_to 'https://github.com/ankane/lockbox', 'https://github.com/ankane/lockbox'
+        %li
+          Pour le hachage de l'adresse email, nous utilisons
+          = link_to 'https://github.com/ankane/blind_index', 'https://github.com/ankane/blind_index'
+        %li
+          Pour le hachage du mot de passe, nous utilisons les options de hachage par défaut proposées par
+          = link_to 'https://github.com/heartcombo/devise', 'https://github.com/heartcombo/devise'
+          (bcrypt)  
+
     %p 
       %strong Je suis journaliste et souhaite réaliser une interview
 
@@ -147,20 +218,26 @@
       = link_to 'hello@covidliste.com', 'mailto:hello@covidliste.com'
 
     %p 
-      %strong Avez-vous une application mobile ?
-
-    %p 
-      %strong Si je n'accepte pas une dose, suis-je radié de vos données ?
+      %strong Comment télécharger votre application mobile ?
+    
+    %p À ce jour, Covidliste ne dispose pas d'application mobile. 
 
     %p 
       %strong Peut-on s'inscrire à deux (ou plus) ?
-
     %p 
-      %strong Je ne suis pas français, puis-je m'inscrire ?
+      À ce jour, CovidListe n'autorise qu'une inscription par adresse e-mail.
 
+    %p
+      %strong Comment inscrire deux adresses postales différentes (domicile, travail, etc.) ?
     %p 
-      %strong Je veux m'inscrire à un centre de vaccination, comment faire ?
+      À ce jour, CovidListe n'autorise qu'une adresse postale par compte.
+
+
+    -# %p 
+    -#   %strong Je ne suis pas français, puis-je m'inscrire ?
+
+    -# %p 
+    -#   %strong Je veux m'inscrire à un centre de vaccination, comment faire ?
     
-    %p 
-      %strong Est-ce gratuit ?
+    
     
