@@ -2,17 +2,15 @@ require "rails_helper"
 
 describe GeocodeUserJob do
   let!(:user) { create(:user) }
-  subject { described_class.perform_now(user.id) }
 
   context "user with missing lat/lon" do
     it "does call geocoding and approximate coords" do
       allow_any_instance_of(GeocodingService).to receive(:geocode).and_return({
         lat: 48.12345,
-        lon: 2.12345,
-        postal_code: "75001"
+        lon: 2.12345
       })
 
-      GeocodeUserJob.new.perform(user.id)
+      GeocodeUserJob.new.perform(user)
       user.reload
 
       expect(user.lat).to eq 48.123
