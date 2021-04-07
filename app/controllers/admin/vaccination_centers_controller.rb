@@ -1,13 +1,14 @@
 module Admin
   class VaccinationCentersController < BaseController
     before_action :set_vaccination_center, only: %i[show validate edit update destroy]
+    helper_method :sort_column, :sort_direction
 
     def index
       vaccination_centers = VaccinationCenter.all
 
       respond_to do |format|
         format.html {
-          @pagy_vaccination_centers, @vaccination_centers = pagy(vaccination_centers)
+          @pagy_vaccination_centers, @vaccination_centers = pagy(vaccination_centers.order("#{sort_column} #{sort_direction}"))
         }
         format.csv { send_data vaccination_centers.to_csv, filename: "vaccination_centers-#{Date.today}.csv" }
       end
@@ -73,6 +74,14 @@ module Admin
     def vaccination_center_params
       params.require(:vaccination_center).permit(:name, :description, :address, :kind, :pfizer, :moderna, :astrazeneca,
         :janssen, :phone_number, :lat, :lon)
+    end
+
+    def sort_column
+      VaccinationCenter.column_names.include?(params[:sort]) ? params[:sort] : "id"
+    end
+
+    def sort_direction
+      %w[asc desc].include?(params[:direction]) ? params[:direction].to_sym : :desc
     end
   end
 end

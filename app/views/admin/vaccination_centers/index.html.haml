@@ -8,13 +8,13 @@
       %span #{number_with_delimiter(@pagy_vaccination_centers.count, delimiter: ".")} résultats
       %table.table.table-striped.table-bordered.table-sm.small
         %tr
-          %th.text-right #
-          %th Nom
-          %th Type
+          %th.text-right= sortable "id", "#"
+          %th= sortable "name", "Nom"
+          %th= sortable "kind", "Type"
           %th Adresse
           %th Téléphone
           %th Types de vaccins
-          %th Validé
+          %th= sortable "confirmed_at", "Validé"
           %th
         - @vaccination_centers.each do |vaccination_center|
           %tr
@@ -39,7 +39,7 @@
             %td
               - if vaccination_center.confirmed?
                 = icon("fas", "check", class: "text-success")
-                %span{title: "Validé par #{vaccination_center.confirmer.full_name} le #{l vaccination_center.confirmed_at}", data: { toggle: :tooltip }} oui
+                %span{title: "Validé par #{vaccination_center.confirmer&.full_name} le #{l vaccination_center.confirmed_at}", data: { toggle: :tooltip }} oui
               - else
                 = icon("fas", "times", class: "text-danger")
                 Non
