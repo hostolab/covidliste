@@ -31,13 +31,13 @@
 - if @vaccination_centers.present?
   %table.table.table-hover.table-bordered.table-sm
     %tr
-      %th.text-right #
-      %th Nom
-      %th Type
+      %th.text-right= sortable "id", "#"
+      %th= sortable "name", "Nom"
+      %th= sortable "kind", "Type"
       %th Adresse
       %th Téléphone
       %th Types de vaccins
-      %th Validé
+      %th= sortable "confirmed_at", "Validé"
       %th
     - @vaccination_centers.each do |vaccination_center|
       %tr
