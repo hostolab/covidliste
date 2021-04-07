@@ -17,6 +17,8 @@ class User < ApplicationRecord
   blind_index :email
   geocoded_by :address, latitude: :lat, longitude: :lon
 
+  has_many :matches, dependent: :nullify
+
   validates :password, presence: true, on: :create
   validates :firstname, presence: true
   validates :lastname, presence: true

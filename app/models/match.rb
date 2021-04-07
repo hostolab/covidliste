@@ -9,7 +9,7 @@ class Match < ApplicationRecord
   scope :confirmed, -> { where.not(confirmed_at: nil) }
 
   def confirmed?
-    !confirmed_at.nil?
+    confirmed_at.present?
   end
 
   def confirm!
