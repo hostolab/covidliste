@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "2.6.6"
+ruby ::File.read(::File.expand_path(".ruby-version", __dir__))
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem "rails", "~> 6.1.1"
@@ -58,7 +58,6 @@ group :development, :test do
   gem "pry-rails"
   gem "dotenv-rails", "2.7.6"
   gem "faker", git: "https://github.com/faker-ruby/faker.git", branch: "master"
-
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem "byebug", platforms: %i[mri mingw x64_mingw]
 end

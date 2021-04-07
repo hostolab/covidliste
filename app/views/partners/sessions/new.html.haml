@@ -11,7 +11,7 @@
         membre d'un centre de vaccination qui est partenaire avec CovidListe.
         %br
         Pour se connecter en tant que volontaire à la vaccination, merci de vous rendre sur
-        =link_to ' cette page.', new_user_session_path
+        = link_to ' cette page.', new_user_session_path
 
       = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
         = f.input :email, autocomplete: 'off', autofocus: true, required: true, id: 'inputEmail', class: 'bp3-input bp3-fill bp3-large input', placeholder: 'E-mail'

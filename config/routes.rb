@@ -56,14 +56,20 @@ Rails.application.routes.draw do
   delete "/profile" => "users#delete", :as => :delete_user
   get "/users" => "users#new"
 
-  ## partners
+  ## Partners
+
   resources :partners, only: [:new, :create]
   get "/partenaires/inscription" => "partners#new", :as => :partenaires_inscription_path
 
-  ## vaccionation centers
   namespace :partners do
-    resources :vaccination_centers, only: [:index, :show, :new, :create]
+    resources :vaccination_centers, only: [:index, :show, :new, :create] do
+      resources :campaigns, only: [:new, :create]
+    end
+    resources :campaigns, only: :show
   end
+
+  ## matches
+  resources :matches, only: [:show, :update], param: :token
 
   ## pages
   get "/mentions_legales" => "pages#mentions_legales", :as => :mentions_legales
