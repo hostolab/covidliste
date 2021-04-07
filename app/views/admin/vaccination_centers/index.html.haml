@@ -3,6 +3,7 @@
     %h2
       Centres de vaccination
       = link_to 'Ajouter un centre', new_admin_vaccination_center_path, class: "btn btn-primary btn-sm float-right"
+      = link_to 'Télécharger en CSV', admin_vaccination_centers_path(@vaccination_centers, format: :csv), class: "btn btn-primary btn-sm mr-2 float-right"
     .mtop2
       %table.table.table-striped.table-bordered.table-sm.small
         %tr
