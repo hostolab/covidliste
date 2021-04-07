@@ -30,10 +30,10 @@ module Admin
       # Vaccines
       if @vaccines.present?
         vaccines_ids = []
-        vaccines_ids += vaccination_centers.where(pfizer: true).ids if "pfizer".in?(@vaccines)
-        vaccines_ids += vaccination_centers.where(moderna: true).ids if "moderna".in?(@vaccines)
-        vaccines_ids += vaccination_centers.where(astrazeneca: true).ids if "astrazeneca".in?(@vaccines)
-        vaccines_ids += vaccination_centers.where(janssen: true).ids if "janssen".in?(@vaccines)
+        vaccines_ids += vaccination_centers.where(pfizer: true).ids if Vaccine::Brands::PFIZER.in?(@vaccines)
+        vaccines_ids += vaccination_centers.where(moderna: true).ids if Vaccine::Brands::MODERNA.in?(@vaccines)
+        vaccines_ids += vaccination_centers.where(astrazeneca: true).ids if Vaccine::Brands::ASTRAZENECA.in?(@vaccines)
+        vaccines_ids += vaccination_centers.where(janssen: true).ids if Vaccine::Brands::JANSSEN.in?(@vaccines)
 
         vaccination_centers = vaccination_centers.where(id: vaccines_ids)
       end

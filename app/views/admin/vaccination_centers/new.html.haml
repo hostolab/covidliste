@@ -14,10 +14,10 @@
       = f.input :kind, label: 'Type de centre de vaccination', collection: VaccinationCenter::Kinds::ALL
       %p.mtop2
         Type(s) de vaccins disponibles
-      = f.input :pfizer, as: :boolean, label: "Pfizer", checked_value: true, unchecked_value: false, class: 'form-check-inline'
-      = f.input :moderna, as: :boolean, label: "Moderna", checked_value: true, unchecked_value: false, class: 'form-check-inline'
-      = f.input :astrazeneca, as: :boolean, label: "Astrazeneca", checked_value: true, unchecked_value: false, class: 'form-check-inline'
-      = f.input :janssen, as: :boolean, label: "Janssen", checked_value: true, unchecked_value: false
+      = f.input :pfizer, as: :boolean, label: Vaccine::Brands::PFIZER, checked_value: true, unchecked_value: false, class: 'form-check-inline'
+      = f.input :moderna, as: :boolean, label: Vaccine::Brands::MODERNA, checked_value: true, unchecked_value: false, class: 'form-check-inline'
+      = f.input :astrazeneca, as: :boolean, label: Vaccine::Brands::ASTRAZENECA, checked_value: true, unchecked_value: false, class: 'form-check-inline'
+      = f.input :janssen, as: :boolean, label: Vaccine::Brands::JANSSEN, checked_value: true, unchecked_value: false
       = f.input :address, label: 'Adresse', error: 'Adresse requise', placeholder: '5 rue larue, 13600 Marseille'
       = f.input :lat, :as => :hidden
       = f.input :lon, :as => :hidden
