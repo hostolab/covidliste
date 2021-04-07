@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_07_130721) do
+ActiveRecord::Schema.define(version: 2021_04_07_212400) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,12 +74,13 @@ ActiveRecord::Schema.define(version: 2021_04_07_130721) do
   create_table "campaign_batches", force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "vaccination_center_id"
+    t.bigint "partner_id"
     t.integer "size", null: false
     t.integer "duration_in_minutes", default: 10, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "partner_id"
     t.index ["campaign_id"], name: "index_campaign_batches_on_campaign_id"
+    t.index ["partner_id"], name: "index_campaign_batches_on_partner_id"
     t.index ["vaccination_center_id"], name: "index_campaign_batches_on_vaccination_center_id"
     t.check_constraint "duration_in_minutes > 0", name: "duration_in_minutes_gt_zero"
     t.check_constraint "size > 0", name: "size_gt_zero"
@@ -192,6 +193,7 @@ ActiveRecord::Schema.define(version: 2021_04_07_130721) do
     t.string "city"
     t.string "geo_citycode"
     t.string "geo_context"
+    t.datetime "anonymized_at"
     t.index ["city"], name: "index_users_on_city"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token"
     t.index ["email_bidx"], name: "index_users_on_email_bidx", unique: true
@@ -229,7 +231,7 @@ ActiveRecord::Schema.define(version: 2021_04_07_130721) do
   end
 
   add_foreign_key "campaign_batches", "campaigns"
-  add_foreign_key "campaign_batches", "partners", name: "campaign_batches_partner_id_fkey"
+  add_foreign_key "campaign_batches", "partners"
   add_foreign_key "campaign_batches", "vaccination_centers"
   add_foreign_key "campaigns", "partners"
   add_foreign_key "campaigns", "vaccination_centers"

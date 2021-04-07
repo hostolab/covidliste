@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   include ActionView::Helpers::NumberHelper
   before_action :authenticate_user!, except: %i[new create]
+  before_action :sign_out_if_anonymized!
 
   def new
     if current_partner
@@ -51,5 +52,13 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:firstname, :lastname, :email, :phone_number, :toc, :address, :birthdate, :lat,
       :lon, :zipcode, :city, :password)
+  end
+
+  def sign_out_if_anonymized!
+    if current_user&.anonymized_at
+      flash[:notice] = "Votre compte a été anonymisé car vous avez confirmé un RDV avec un centre de vaccination"
+      sign_out
+      redirect_to root_path
+    end
   end
 end

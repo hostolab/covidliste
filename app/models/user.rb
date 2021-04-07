@@ -36,7 +36,7 @@ class User < ApplicationRecord
     },
     if: :email_changed?
 
-  after_commit :geocode_address, if: :saved_change_to_address?
+  after_commit :geocode_address, if: -> { saved_change_to_address? && anonymized_at.nil? }
   before_save :approximate_coords
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
@@ -78,6 +78,18 @@ class User < ApplicationRecord
 
   def admin?
     has_role?(:admin) || super_admin?
+  end
+
+  def anonymize!
+    return unless anonymized_at.nil?
+
+    self.email = "anonymous#{id}+#{rand(100_000_000)}@null"
+    self.firstname = nil
+    self.lastname = nil
+    self.address = nil
+    self.phone_number = nil
+    self.anonymized_at = Time.now.utc
+    save(validate: false)
   end
 
   protected
