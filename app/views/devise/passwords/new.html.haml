@@ -1,8 +1,9 @@
 #devise
-  .row.mtop2
-    .col-sm-12.col-md-8.col-lg-6
-      %p 
-        %strong Demande de mot de passe
+  .container
+    .row.mt-5
+      .col-12.col-sm-6.offset-sm-3
+        %p
+          %strong Demande de mot de passe
         = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
           %p
             Veuillez saisir votre adresse email afin de recevoir un lien pour créer ou changer votre mot de passe.

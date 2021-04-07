@@ -16,6 +16,7 @@ module Admin
           @lon = geocode_results.first.coordinates[1]
         end
       end
+
       @results = User.select(:lat, :lon, :id, :birthdate).between_age(@min_age, @max_age).near([@lat, @lon],
         @max_distance, unit: :km)
       @total_count = @results.size

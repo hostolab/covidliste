@@ -1,36 +1,34 @@
-.row
-  .col-12
-    %p.mb-2
-      = link_to "← Retour", partners_vaccination_centers_path
-.d-flex
-  .flex-fill
-    %h3
-      #{@vaccination_center.name}
-      %span.small.text-muted.font-italic #{@vaccination_center.kind}
-    %p.mb-2 #{@vaccination_center.address}
-    %p.small.mb-2
-      = icon("fas", "phone")
-      = @vaccination_center.phone_number
-      \-
-      Vaccins :
-      - if @vaccination_center.pfizer
-        %span.mr-1= Vaccine::Brands::PFIZER
-      - if @vaccination_center.moderna
-        %span.mr-1= Vaccine::Brands::MODERNA
-      - if @vaccination_center.astrazeneca
-        %span.mr-1= Vaccine::Brands::ASTRAZENECA
-      - if @vaccination_center.janssen
-        %span.mr-1= Vaccine::Brands::JANSSEN
-    %p.small.mb-2
-      = @vaccination_center.description
+.container
+  %p.mb-2
+    = link_to "← Retour", partners_vaccination_centers_path
+  .d-flex
+    .flex-fill
+      %h3
+        #{@vaccination_center.name}
+        %span.small.text-muted.font-italic #{@vaccination_center.kind}
+      %p.mb-2 #{@vaccination_center.address}
+      %p.small.mb-2
+        = icon("fas", "phone")
+        = @vaccination_center.phone_number
+        \-
+        Vaccins :
+        - if @vaccination_center.pfizer
+          %span.mr-1= Vaccine::Brands::PFIZER
+        - if @vaccination_center.moderna
+          %span.mr-1= Vaccine::Brands::MODERNA
+        - if @vaccination_center.astrazeneca
+          %span.mr-1= Vaccine::Brands::ASTRAZENECA
+        - if @vaccination_center.janssen
+          %span.mr-1= Vaccine::Brands::JANSSEN
+      %p.small.mb-2
+        = @vaccination_center.description
 
-%p
-  = link_to "Créer une nouvelle campagne", new_partners_vaccination_center_campaign_path(@vaccination_center), class: "btn btn-primary btn-sm"
+  %p
+    = link_to "Créer une nouvelle campagne", new_partners_vaccination_center_campaign_path(@vaccination_center), class: "btn btn-primary btn-sm"
 
-.row
-  .col-12
-    %h5.mtop2 Campagnes
-    %table.table.table-striped.table-bordered.table-sm.small
+  - if @vaccination_center.campaigns.present?
+    %h5.mt-2 Campagnes
+    %table.table.table-striped.table-bordered.table-sm
       %tr
         %th #
         %th Nombre de doses
