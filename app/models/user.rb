@@ -35,7 +35,6 @@ class User < ApplicationRecord
     if: :email_changed?
 
   before_save :approximate_coords
-  after_commit :geocode_address, if: :saved_change_to_address?
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
   scope :between_age, ->(min, max) { where("birthdate between ? and ?", max.years.ago, min.years.ago) }
@@ -47,10 +46,6 @@ class User < ApplicationRecord
 
     self.lat = lat.round(LATLNG_DECIMALS)
     self.lon = lon.round(LATLNG_DECIMALS)
-  end
-
-  def geocode_address
-    GeocodeUserJob.perform_later(id)
   end
 
   def full_name
