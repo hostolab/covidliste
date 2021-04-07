@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(version: 2021_04_07_130721) do
     t.integer "duration_in_minutes", default: 10, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "partner_id"
     t.index ["campaign_id"], name: "index_campaign_batches_on_campaign_id"
     t.index ["vaccination_center_id"], name: "index_campaign_batches_on_vaccination_center_id"
     t.check_constraint "duration_in_minutes > 0", name: "duration_in_minutes_gt_zero"
