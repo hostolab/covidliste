@@ -19,7 +19,7 @@
       "value": ""
     },
     "RAILS_MAX_THREADS": {
-      "value": 2
+      "value": "2"
     }
   },
   "addons": [
