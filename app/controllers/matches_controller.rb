@@ -12,6 +12,6 @@ class MatchesController < ApplicationController
   private
 
   def set_match
-    @match = Match.find_by(token: params[:token])
+    @match = Match.find_by(match_confirmation_token: params[:match_confirmation_token])
   end
 end

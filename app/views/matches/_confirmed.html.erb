@@ -1,8 +1,8 @@
 <h2>Votre disponibilité est confirmée !</h2>
 
 <p class="mt-4">
-  Nous sommes heureux de vous permettre d'accéder à la vaccination plus rapidement. 
-  <strong>Le centre de vaccination va vous contacter pour fixer un rendez-vous dans les créneaux horaires indiqués.</strong>
+  Nous sommes heureux de vous permettre d'accéder à la vaccination plus rapidement. <br>
+  <strong>Le centre de vaccination vous attend à partir de <%= match.campaign.starts_at.strftime('%Hh%M') %></strong>
 </p>
 
 <%= render 'match_details', match: @match %>
