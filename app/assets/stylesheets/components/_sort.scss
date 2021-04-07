@@ -1,0 +1,28 @@
+// Sort order icon
+a.current.asc::after {
+  content: "↑";
+  margin-left: 4px;
+  position: relative;
+  display: inline-block;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  text-rendering: auto;
+  line-height: 1;
+}
+
+a.current.desc::after {
+  content: "↓";
+  margin-left: 4px;
+  position: relative;
+  display: inline-block;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  text-rendering: auto;
+  line-height: 1;
+}

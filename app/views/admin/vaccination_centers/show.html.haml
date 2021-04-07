@@ -9,7 +9,7 @@
       = icon("fas", "check", class: "text-success")
       Validé
       par
-      %strong #{@vaccination_center.confirmer.full_name}
+      %strong #{@vaccination_center.confirmer&.full_name}
       le #{l @vaccination_center.confirmed_at}
     - else
       = icon("fas", "times", class: "text-danger")
