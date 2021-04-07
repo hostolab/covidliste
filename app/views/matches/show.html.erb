@@ -1,0 +1,15 @@
+<div class="row">
+  <div class="col-sm-12 col-md-8 col-lg-8">
+    <div class="text-center mt-4">
+      
+      <% if @match && @match.confirmed? %>
+        <%= render 'confirmed', match: @match %>
+      <% elsif @match  && !@match.expired? %>
+        <%= render 'pending', match: @match %>
+      <% elsif @match  && @match.expired? %>
+        <%= render 'expired', match: @match %>
+      <% end %>
+ 
+    </div>
+  </div>
+</div>

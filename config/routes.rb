@@ -68,10 +68,16 @@ Rails.application.routes.draw do
     resources :campaigns, only: :show
   end
 
+  ## matches
+  resources :matches, only: [:show, :update], param: :token
+
   ## pages
   get "/mentions_legales" => "pages#mentions_legales", :as => :mentions_legales
   get "/privacy" => "pages#privacy", :as => :privacy
   get "/faq" => "pages#faq", :as => :faq
+
+  ## robots.txt
+  get "/robots.txt", to: "pages#robots"
 
   root to: "users#new"
 end

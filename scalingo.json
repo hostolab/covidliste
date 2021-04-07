@@ -1,0 +1,45 @@
+{
+  "env": {
+    "PLATFORM_URL": {
+      "generator": "url"
+    },
+    "IS_REVIEW_APP": {
+      "value": "true"
+    },
+    "BLAZER_DATABASE_URL": {
+      "value": ""
+    },
+    "LOCKBOX_MASTER_KEY": {
+      "generator": "secret"
+    },
+    "SECRET_KEY_BASE": {
+      "generator": "secret"
+    },
+    "SLACK_INCOMING_WEBHOOK_URL": {
+      "value": ""
+    }
+  },
+  "addons": [
+    {
+      "addon_provider_id": "postgresql",
+      "plan_id": "postgresql-sandbox",
+    },
+    {
+      "addon_provider_id": "redis",
+      "plan_id": "redis-sandbox",
+    }
+  ],
+  "formation": {
+    "web": {
+      "amount": 1,
+      "size": "S"
+    },
+    "worker": {
+      "amount": 1,
+      "size": "S"
+    }
+  },
+  "scripts": {
+    "first-deploy": "bundle exec rails db:migrate && echo 'Placeholder pour créer les fakedata'"
+  }
+}

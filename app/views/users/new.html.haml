@@ -1,6 +1,9 @@
+= content_for(:append_to_head) do
+  %meta{content: "index;follow", name: "robots"}
+
 .row.mtop2
   .col-sm-12.col-md-6.col-lg-5.order-1.order-sm-0
-    = render 'form'
+    = render "form"
   .col-sm-12.col-md-6.col-lg-7.order-0.order-sm-1
-    = render 'about'
+    = render "about"
 

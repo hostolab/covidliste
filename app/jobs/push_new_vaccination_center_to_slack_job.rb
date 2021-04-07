@@ -4,7 +4,7 @@ class PushNewVaccinationCenterToSlackJob < ActiveJob::Base
   def perform(vaccination_center)
     @vaccination_center = vaccination_center
 
-    text = "Un nouveau centre vient d'être créé #{creator} :point_right: #{cta}"
+    text = "Un nouveau centre vient d’être créé #{creator} :point_right: #{cta}"
     attachments = [
       {
         color: "",
