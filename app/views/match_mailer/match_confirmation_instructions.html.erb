@@ -1,0 +1,10 @@
+<div>
+  <h2>
+    Bonne nouvelle <%= @match.user.full_name %> !
+  </h2>
+
+  <p>
+    Un vaccin <%= @match.campaign.vaccine_type  %> est disponible. Réservez-le avant <%= @match.expires_at.strftime("%Hh%M") %> en cliquant sur le lien suivant :
+    <%= link_to 'Je réserve mon vaccin', match_url(@match, match_confirmation_token: @match_confirmation_token) %>
+  </p>
+</div>

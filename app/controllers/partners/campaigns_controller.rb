@@ -1,13 +1,13 @@
 module Partners
   class CampaignsController < ApplicationController
     before_action :authenticate_partner!
-    before_action :find_vaccination_center, only: [:index, :new, :create]
+    before_action :find_vaccination_center
     before_action :find_campaign, only: :show
     before_action :authorize!
 
     # Feature flag
     # TODO: remove the code when feature is ready
-    before_action :not_ready_yet!, if: -> { Rails.env.production? }
+    before_action :not_ready_yet!, if: -> { (@vaccination_center.id != 77) && Rails.env.production? }
 
     def not_ready_yet!
       flash[:error] = "Désolé, ette fonctionnalité est toujours en cours de développement."
