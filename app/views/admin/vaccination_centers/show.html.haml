@@ -22,13 +22,13 @@
     \-
     Vaccins :
     - if @vaccination_center.pfizer
-      %span.mr-1 Pfizer
+      %span.mr-1= Vaccine::Brands::PFIZER
     - if @vaccination_center.moderna
-      %span.mr-1 Moderna
+      %span.mr-1= Vaccine::Brands::MODERNA
     - if @vaccination_center.astrazeneca
-      %span.mr-1 Astrazeneca
+      %span.mr-1= Vaccine::Brands::ASTRAZENECA
     - if @vaccination_center.janssen
-      %span.mr-1 Janssen
+      %span.mr-1= Vaccine::Brands::JANSSEN
   %p.small.mb-2
     #{@vaccination_center.description}
   .row
