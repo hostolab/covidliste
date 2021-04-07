@@ -15,11 +15,11 @@
 </div>
 
 <div class="btn btn-primary m-2">
-  <%= link_to 'Je suis disponible' , match_path(token: @match.token), method: :patch, class: 'btn. btn-primary btn-block' %>
+  <%= link_to 'Je suis disponible' , match_path(match_confirmation_token: @match.match_confirmation_token), method: :patch, class: 'btn btn-primary btn-block' %>
 </div>
 
 <p>
   <small>
-    Une fois votre présence confirmée, vos coordonées sont transmise au centre de vaccination. Votre compte et vos informations seront alors définitivement supprimés de Covidliste sous 24h, et vous ne recevrez plus de notifications.
+    Une fois votre présence confirmée, vos coordonées sont transmises au centre de vaccination. Votre compte et vos informations seront alors définitivement supprimés de Covidliste sous 24h, et vous ne recevrez plus de notifications.
   </small>
 </p>

@@ -5,13 +5,21 @@ class MatchesController < ApplicationController
   end
 
   def update
-    @match.confirm!
+    if @match.expired?
+      flash[:error] = "Désolé, votre invitation a expiré"
+    else
+      @match.confirm!
+    end
     render action: "show"
   end
 
   private
 
   def set_match
-    @match = Match.find_by(token: params[:token])
+    @match = Match.find_by(match_confirmation_token: params[:match_confirmation_token])
+    if @match.nil?
+      flash[:error] = "Désolé, ce lien d'invitation n'est pas valide"
+      redirect_to root_path
+    end
   end
 end
