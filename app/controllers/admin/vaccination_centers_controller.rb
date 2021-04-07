@@ -20,8 +20,8 @@ module Admin
       if @kinds.present?
         kinds_ids = []
 
-        VaccinationCenter::Kinds::ALL.each do |_kind|
-          kinds_ids += vaccination_centers.where(kind: _kind) if _kind.in?(@kinds)
+        VaccinationCenter::Kinds::ALL.each do |this_kind|
+          kinds_ids += vaccination_centers.where(kind: this_kind) if this_kind.in?(@kinds)
         end
 
         vaccination_centers = vaccination_centers.where(id: kinds_ids)
@@ -40,11 +40,7 @@ module Admin
 
       # Validation
       if @validations.present?
-        if "oui".in?(@validations)
-          vaccination_centers = vaccination_centers.where.not(confirmed_at: nil)
-        else
-          vaccination_centers = vaccination_centers.where(confirmed_at: nil)
-        end
+        vaccination_centers = "oui".in?(@validations) ? vaccination_centers.where.not(confirmed_at: nil) : vaccination_centers.where(confirmed_at: nil)
       end
 
       respond_to do |format|
@@ -122,7 +118,7 @@ module Admin
         :query,
         kinds: [],
         vaccines: [],
-        validations: [],
+        validations: []
       )
     end
 
