@@ -20,7 +20,7 @@ class Match < ApplicationRecord
     !confirmed? && Time.now.utc > expires_at
   end
 
-  def sent_at=(val)
+  def sms_sent_at=(val)
     self.expires_at = val + campaign_batch.duration_in_minutes.minutes
 
     super

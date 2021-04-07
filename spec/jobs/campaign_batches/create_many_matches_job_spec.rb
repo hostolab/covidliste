@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe CampaignBatches::CreateManyMatchesJob, type: :job do
-  subject(:perform_job) { described_class.new.perform(campaign_batch.id) }
+  subject(:perform_job) { described_class.new.perform(campaign_batch) }
 
   let(:execution_time) { Time.zone.parse("2021-04-05T17:00:00+02:00") }
 

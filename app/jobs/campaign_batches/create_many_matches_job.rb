@@ -2,10 +2,8 @@ module CampaignBatches
   class CreateManyMatchesJob < ApplicationJob
     queue_as :critical
 
-    def perform(campaign_batch_id)
-      CreateMatchesForEligibleUsersLater
-        .new(CampaignBatch.find(campaign_batch_id))
-        .call
+    def perform(campaign_batch)
+      CreateMatchesForEligibleUsersLater.new(campaign_batch).call
     end
 
     class CreateMatchesForEligibleUsersLater

@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe CampaignBatches::CreateOneMatchJob, type: :job do
-  subject(:perform_job) { described_class.new.perform(user.id, campaign_batch.id) }
+  subject(:perform_job) { described_class.new.perform(user, campaign_batch) }
 
   let(:execution_time) { Time.zone.parse("2021-04-05T17:00:00+02:00") }
 
@@ -22,9 +22,9 @@ RSpec.describe CampaignBatches::CreateOneMatchJob, type: :job do
 
     actual_match = user.matches.first
 
-    expect(actual_match.campaign_id).to eql(campaign.id)
-    expect(actual_match.campaign_batch_id).to eql(campaign_batch.id)
-    expect(actual_match.sent_at).to eql(execution_time)
+    expect(actual_match.campaign).to eql(campaign)
+    expect(actual_match.campaign_batch).to eql(campaign_batch)
+    expect(actual_match.sms_sent_at).to eql(execution_time)
     expect(actual_match.expires_at).to eql(execution_time + campaign_batch.duration_in_minutes.minutes)
   end
 end
