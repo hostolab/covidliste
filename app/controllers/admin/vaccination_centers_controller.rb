@@ -1,9 +1,10 @@
 module Admin
   class VaccinationCentersController < BaseController
     before_action :set_vaccination_center, only: %i[show validate edit update destroy]
-    helper_method :sort_column, :sort_direction
     before_action :search_params, only: [:index]
     before_action :set_filters, only: [:index]
+
+    helper_method :sort_column, :sort_direction
 
     def index
       vaccination_centers = VaccinationCenter.all
@@ -120,6 +121,7 @@ module Admin
 
     def sort_direction
       %w[asc desc].include?(params[:direction]) ? params[:direction].to_sym : :desc
+    end
 
     def search_params
       params.permit(
