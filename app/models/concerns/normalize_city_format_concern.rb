@@ -16,7 +16,7 @@ module NormalizeCityFormatConcern
     [
       ["Paris", (1..20).to_a],
       ["Marseille", (1..8).to_a],
-      ["Lyon", (1..9).to_a],
+      ["Lyon", (1..9).to_a]
     ].each do |city, district_array|
       district_array.each do |district|
         s = district == 1 ? "#{city} #{district}er Arrondissement" : "#{city} #{district}e Arrondissement"
