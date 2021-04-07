@@ -1,5 +1,5 @@
 class GeocodeUserJob < ActiveJob::Base
-  queue_as :default
+  queue_as :low
 
   def perform(user)
     return if user.address.nil?
