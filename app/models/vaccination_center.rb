@@ -22,6 +22,13 @@ class VaccinationCenter < ApplicationRecord
 
   after_commit :push_to_slack, on: :create
 
+  def self.search(search)
+    return VaccinationCenter.all unless search
+
+    search = search.strip
+    VaccinationCenter.distinct.where("name ILIKE ? OR description ILIKE ? OR address ILIKE ? OR phone_number ILIKE ?", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search.delete(" ")}%")
+  end
+
   def confirmed?
     confirmed_at.present?
   end
@@ -42,16 +49,16 @@ class VaccinationCenter < ApplicationRecord
         vaccin_types = ""
         confirmed = false
         if vaccination_center.pfizer
-          vaccin_types += "pfizer "
+          vaccin_types += Vaccine::Brands::PFIZER + " "
         end
         if vaccination_center.moderna
-          vaccin_types += "moderna "
+          vaccin_types += Vaccine::Brands::MODERNA + " "
         end
         if vaccination_center.astrazeneca
-          vaccin_types += "astrazeneca "
+          vaccin_types += Vaccine::Brands::ASTRAZENECA + " "
         end
         if vaccination_center.janssen
-          vaccin_types += "janssen"
+          vaccin_types += Vaccine::Brands::JANSSEN
         end
         if vaccination_center.confirmed_at
           confirmed = true

@@ -2,9 +2,47 @@ module Admin
   class VaccinationCentersController < BaseController
     before_action :set_vaccination_center, only: %i[show validate edit update destroy]
     helper_method :sort_column, :sort_direction
+    before_action :search_params, only: [:index]
+    before_action :set_filters, only: [:index]
 
     def index
       vaccination_centers = VaccinationCenter.all
+
+      ## Query
+      query = params.dig(:centers_search, :query)
+      if query.present?
+        query = query.first
+        vaccination_centers = vaccination_centers.search(query)
+      end
+
+      ## Filters
+
+      # Kinds
+      if @kinds.present?
+        kinds_ids = []
+
+        VaccinationCenter::Kinds::ALL.each do |this_kind|
+          kinds_ids += vaccination_centers.where(kind: this_kind) if this_kind.in?(@kinds)
+        end
+
+        vaccination_centers = vaccination_centers.where(id: kinds_ids)
+      end
+
+      # Vaccines
+      if @vaccines.present?
+        vaccines_ids = []
+        vaccines_ids += vaccination_centers.where(pfizer: true).ids if Vaccine::Brands::PFIZER.in?(@vaccines)
+        vaccines_ids += vaccination_centers.where(moderna: true).ids if Vaccine::Brands::MODERNA.in?(@vaccines)
+        vaccines_ids += vaccination_centers.where(astrazeneca: true).ids if Vaccine::Brands::ASTRAZENECA.in?(@vaccines)
+        vaccines_ids += vaccination_centers.where(janssen: true).ids if Vaccine::Brands::JANSSEN.in?(@vaccines)
+
+        vaccination_centers = vaccination_centers.where(id: vaccines_ids)
+      end
+
+      # Validation
+      if @validations.present?
+        vaccination_centers = "oui".in?(@validations) ? vaccination_centers.where.not(confirmed_at: nil) : vaccination_centers.where(confirmed_at: nil)
+      end
 
       respond_to do |format|
         format.html {
@@ -82,6 +120,20 @@ module Admin
 
     def sort_direction
       %w[asc desc].include?(params[:direction]) ? params[:direction].to_sym : :desc
+
+    def search_params
+      params.permit(
+        :query,
+        kinds: [],
+        vaccines: [],
+        validations: []
+      )
+    end
+
+    def set_filters
+      @kinds = search_params[:kinds].to_a.reject(&:blank?)
+      @vaccines = search_params[:vaccines].to_a.reject(&:blank?)
+      @validations = search_params[:validations].to_a.reject(&:blank?)
     end
   end
 end
