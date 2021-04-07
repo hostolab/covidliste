@@ -12,12 +12,12 @@ Rails.application.routes.draw do
       end
 
       # admin tools
+      mount Blazer::Engine, at: "/blazer"
       mount Flipper::UI.app(Flipper), at: "/flipper"
     end
   end
 
   authenticate :user, lambda(&:super_admin?) do
-    mount Blazer::Engine, at: "admin/blazer"
     mount PgHero::Engine, at: "admin/pghero"
     mount Sidekiq::Web => "admin/sidekiq"
   end

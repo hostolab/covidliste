@@ -188,9 +188,17 @@ ActiveRecord::Schema.define(version: 2021_04_07_130721) do
     t.text "address_ciphertext"
     t.text "email_ciphertext"
     t.string "email_bidx"
+    t.string "zipcode"
+    t.string "city"
+    t.string "geo_citycode"
+    t.string "geo_context"
+    t.index ["city"], name: "index_users_on_city"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token"
     t.index ["email_bidx"], name: "index_users_on_email_bidx", unique: true
+    t.index ["geo_citycode"], name: "index_users_on_geo_citycode"
+    t.index ["geo_context"], name: "index_users_on_geo_context"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["zipcode"], name: "index_users_on_zipcode"
   end
 
   create_table "users_roles", id: false, force: :cascade do |t|

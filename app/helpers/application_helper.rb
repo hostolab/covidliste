@@ -1,4 +1,6 @@
 module ApplicationHelper
+  include Pagy::Frontend
+
   def message_flash(key, value)
     type = {
       success: "success",

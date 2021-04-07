@@ -52,8 +52,10 @@ gem "spring"
 gem "flipper"
 gem "flipper-redis"
 gem "flipper-ui"
+gem "pagy"
 
 group :development, :test do
+  gem "bullet"
   gem "pry-byebug"
   gem "pry-rails"
   gem "dotenv-rails", "2.7.6"

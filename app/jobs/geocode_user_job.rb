@@ -1,14 +1,12 @@
 class GeocodeUserJob < ActiveJob::Base
-  # Set the Queue as Default
-  queue_as :default
+  queue_as :low
 
   def perform(user_id)
-    user = User.find(user_id)
-    return if user.address.nil?
-    return unless user.lat.nil? || user.lon.nil?
+    user = User.find_by(id: user_id)
+    return if user.nil? || user.address.nil?
 
     result = GeocodingService.new(user.address).geocode
-    user.update(lat: result[:lat], lon: result[:lon]) if result
+    user.update(result) if result
   rescue
     # TODO: report error
   end

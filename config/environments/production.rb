@@ -91,6 +91,7 @@ Rails.application.configure do
   if ENV["RAILS_LOG_TO_STDOUT"].present?
     logger = ActiveSupport::Logger.new($stdout)
     logger.formatter = config.log_formatter
+    logger.level = Logger::WARN
     config.logger = ActiveSupport::TaggedLogging.new(logger)
   end
 

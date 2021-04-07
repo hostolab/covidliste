@@ -3,11 +3,13 @@ module Admin
     before_action :set_vaccination_center, only: %i[show validate edit update destroy]
 
     def index
-      @vaccination_centers = VaccinationCenter.all
+      vaccination_centers = VaccinationCenter.all
 
       respond_to do |format|
-        format.html
-        format.csv { send_data @vaccination_centers.to_csv, filename: "vaccination_centers-#{Date.today}.csv" }
+        format.html {
+          @pagy_vaccination_centers, @vaccination_centers = pagy(vaccination_centers)
+        }
+        format.csv { send_data vaccination_centers.to_csv, filename: "vaccination_centers-#{Date.today}.csv" }
       end
     end
 

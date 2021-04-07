@@ -17,16 +17,19 @@
     },
     "SLACK_INCOMING_WEBHOOK_URL": {
       "value": ""
+    },
+    "RAILS_MAX_THREADS": {
+      "value": "2"
     }
   },
   "addons": [
     {
       "addon_provider_id": "postgresql",
-      "plan_id": "postgresql-sandbox",
+      "plan_id": "postgresql-sandbox"
     },
     {
       "addon_provider_id": "redis",
-      "plan_id": "redis-sandbox",
+      "plan_id": "redis-sandbox"
     }
   ],
   "formation": {
