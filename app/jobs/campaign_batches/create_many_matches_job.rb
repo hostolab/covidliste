@@ -5,7 +5,7 @@ module CampaignBatches
     def perform(campaign_batch_id)
       CreateMatchesForEligibleUsersLater
         .new(CampaignBatch.find(campaign_batch_id))
-        .execute
+        .call
     end
 
     class CreateMatchesForEligibleUsersLater
@@ -13,7 +13,7 @@ module CampaignBatches
         @campaign_batch = campaign_batch
       end
 
-      def execute
+      def call
         eligible_users.find_each do |user|
           CreateOneMatchJob.perform_later(user.id, @campaign_batch.id)
         end
