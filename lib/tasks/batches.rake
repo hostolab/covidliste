@@ -23,7 +23,7 @@ namespace :batches do
     users = User
       .joins("LEFT JOIN matches ON matches.user_id = users.id")
       .where("SQRT(((? - lat)*110.574)^2 + ((? - lon)*111.320*COS(lat::float*3.14159/180))^2) < ?", batch.vaccination_center.lat, batch.vaccination_center.lon, campaign.max_distance_in_meters / 1000)
-      .where("(matches.expires_at > now()::date OR matches.confirmed_at IS NOT NULL) AND matches.id IS NULL")
+      .where("(matches.expires_at < now()::date AND matches.confirmed_at IS NULL) OR matches.id IS NULL")
       .where("(DATE_PART('year', now()::date) - DATE_PART('year', birthdate::date))::int >= ? and (DATE_PART('year', now()::date) - DATE_PART('year', birthdate::date))::int <= ?", campaign.min_age, campaign.max_age)
       .order(id: :asc)
       .limit(batch.size).all
