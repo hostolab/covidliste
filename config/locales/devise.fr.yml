@@ -55,7 +55,7 @@ fr:
   devise:
     confirmations:
       confirmed: Votre compte a bien été confirmé.
-      already_confirmed: Votre compte a déjà été confirmé. Vous pouvez, si-besoin, faire une demande de mot de passe en cliquant sur 'Mot de passe oublié ?'.
+      already_confirmed: Votre compte a déjà été confirmé. Vous pouvez, si besoin, faire une demande de mot de passe en cliquant sur 'Mot de passe oublié ?'.
       new:
         resend_confirmation_instructions: Renvoyer les instructions de confirmation
       send_instructions: Vous allez recevoir sous quelques minutes un email comportant des instructions pour confirmer votre compte.
