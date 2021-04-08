@@ -12,6 +12,12 @@ class UsersController < ApplicationController
       @users_count = Rails.cache.fetch(:users_count, expires_in: 1.minute) do
         number_with_delimiter(User.count, locale: :fr).gsub(" ", "&nbsp;").html_safe
       end
+      @matched_users_count = Rails.cache.fetch(:matched_users_count, expires_in: 1.minute) do
+        number_with_delimiter(User.includes(:matches).where.not(matches: { confirmed_at: nil }).count, locale: :fr).gsub(" ", "&nbsp;").html_safe
+      end
+      @vaccination_centers_count = Rails.cache.fetch(:vaccination_centers_count, expires_in: 1.minute) do
+        number_with_delimiter(VaccinationCenter.count, locale: :fr).gsub(" ", "&nbsp;").html_safe
+      end
     end
   end
 
