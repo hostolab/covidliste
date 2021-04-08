@@ -23,6 +23,8 @@ class Campaign < ApplicationRecord
     CSV.generate(headers: true) do |csv|
       csv << %w[firstname lastname birthdate phone_number confirmed_at]
       matches.confirmed.order(:confirmed_at).each do |match|
+        next if match.user.nil?
+
         csv << [
           match.user.firstname,
           match.user.lastname,

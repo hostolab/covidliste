@@ -3,7 +3,8 @@ class SendMatchSmsJob < ApplicationJob
   queue_as :critical
 
   def perform(match)
-    return if match.user.phone_number.blank? ||
+    return if match.user.nil? ||
+      match.user.phone_number.blank? ||
       match.sms_sent_at.present? ||
       (match.expires_at && match.expires_at < Time.now.utc)
 
