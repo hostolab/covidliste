@@ -6,21 +6,14 @@
 import Rails from "@rails/ujs"
 import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
+import "controllers"
 import "channels"
+import "bootstrap";
 import "bootstrap-select"
 
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
-
-
-// ----------------------------------------------------
-// Note(lewagon): ABOVE IS RAILS DEFAULT CONFIGURATION
-// WRITE YOUR OWN JS STARTING FROM HERE 👇
-// ----------------------------------------------------
-
-// External imports
-import "bootstrap";
 
 import { placesAutocomplete } from '../plugins/places_autocomplete';
 import { leafletMap } from '../plugins/leaflet_map';

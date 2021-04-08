@@ -10,7 +10,7 @@ module Partners
     before_action :not_ready_yet!, if: -> { (@vaccination_center.id != 77) && Rails.env.production? }
 
     def not_ready_yet!
-      flash[:error] = "Désolé, ette fonctionnalité est toujours en cours de développement."
+      flash[:error] = "Désolé, cette fonctionnalité est toujours en cours de développement."
       redirect_to partners_vaccination_center_path(@vaccination_center)
     end
     # End feature flag
@@ -33,6 +33,16 @@ module Partners
       else
         render :new
       end
+    end
+
+    def simulate_reach
+      # TODO: we should validate params here before running simulation
+      reach = @vaccination_center.reachable_users_query(
+        min_age: params[:min_age],
+        max_age: params[:max_age],
+        max_distance_in_meters: params[:max_distance_in_meters].to_i
+      ).count
+      render json: {reach: reach}
     end
 
     private
