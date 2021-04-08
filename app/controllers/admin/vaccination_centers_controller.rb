@@ -111,16 +111,16 @@ module Admin
 
       if partner.present?
         if partner.in?(@vaccination_center.partners)
-          @display_result = [:warning, "#{partner.email} fait déjà partie de cette organisation."]
+          flash[:error] = "#{partner.email} fait déjà partie de cette organisation."
         else
           @vaccination_center.partners << partner
-          @display_result = [:success, "#{partner.email} fait désormais partie de cette organisation."]
+          flash[:success] = "#{partner.email} fait désormais partie de cette organisation."
         end
       else
-        @display_result = [:warning, "Partenaire introuvable. #{query_email} doit d’abord créer un compte."]
+        flash[:error] = "Partenaire introuvable. #{query_email} doit d’abord créer un compte."
       end
 
-      render :show
+      redirect_to admin_vaccination_center_path(@vaccination_center)
     end
 
     private
