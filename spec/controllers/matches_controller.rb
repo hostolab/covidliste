@@ -1,24 +1,22 @@
 require "rails_helper"
 
 RSpec.describe MatchesController, type: :system do
-  
-  let!(:user) {create(:user)}
-  let!(:partner) {create(:partner)}
-  let!(:center){create(:vaccination_center)}
-  let!(:campaign){create(:campaign, vaccination_center: center)}
-  let!(:batch){create(:campaign_batch, campaign: campaign, vaccination_center: center)}
-  let!(:match_confirmation_token){'abcd'}
-  let!(:match) {create(:match, campaign_batch: batch, user: user, vaccination_center: center, match_confirmation_token: match_confirmation_token, expires_at: 1.hour.since)}
+  let!(:user) { create(:user) }
+  let!(:partner) { create(:partner) }
+  let!(:center) { create(:vaccination_center) }
+  let!(:campaign) { create(:campaign, vaccination_center: center) }
+  let!(:batch) { create(:campaign_batch, campaign: campaign, vaccination_center: center) }
+  let!(:match_confirmation_token) { "abcd" }
+  let!(:match) { create(:match, campaign_batch: batch, user: user, vaccination_center: center, match_confirmation_token: match_confirmation_token, expires_at: 1.hour.since) }
 
   subject { visit "/matches/#{match_confirmation_token}" }
 
   describe "GET show" do
-    
     context "with a valid match" do
       it "loads properly" do
         subject
         expect(page).to have_text("Une dose est disponible")
-        expect(page).to have_text('Je suis disponible')
+        expect(page).to have_text("Je suis disponible")
         expect(page).to have_text(center.address)
       end
     end
@@ -50,7 +48,5 @@ RSpec.describe MatchesController, type: :system do
         expect(page).to have_current_path(root_path)
       end
     end
-
   end
 end
-
