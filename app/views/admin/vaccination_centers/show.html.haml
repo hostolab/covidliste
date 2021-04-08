@@ -57,6 +57,7 @@
             %th Nom
             %th Email
             %th Téléphone
+            %th.text-center Confirmé ?
         %tbody
           - @vaccination_center.partners.each do |partner|
             %tr
@@ -64,6 +65,7 @@
               %td= partner.name
               %td= partner.email
               %td= partner.phone_number
+              %td.text-center{title: partner.confirmed_at.present? ? "Confirmé le #{l(partner.confirmed_at)}" : ""}= humanize_boolean partner.confirmed_at.present?
   - else
     %p
       = icon("fas", "info-circle")
