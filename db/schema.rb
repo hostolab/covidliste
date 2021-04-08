@@ -100,7 +100,7 @@ ActiveRecord::Schema.define(version: 2021_04_08_131230) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "max_age"
-    t.string "status", default: "En cours"
+    t.integer "status", default: 0
     t.index ["partner_id"], name: "index_campaigns_on_partner_id"
     t.index ["vaccination_center_id"], name: "index_campaigns_on_vaccination_center_id"
     t.check_constraint "(available_doses > 0) AND (available_doses <= 1000)", name: "available_doses_gt_zero"

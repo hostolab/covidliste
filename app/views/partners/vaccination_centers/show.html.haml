@@ -26,12 +26,14 @@
   %p
     = link_to "Créer une nouvelle campagne", new_partners_vaccination_center_campaign_path(@vaccination_center), class: "btn btn-primary btn-sm"
 
-  - if @vaccination_center.campaigns.present?
+  - if @vaccination_center.campaigns.order(id: :desc).present?
     %h5.mt-2 Campagnes
     %table.table.table-striped.table-bordered.table-sm
       %tr
         %th #
-        %th Nombre de doses
+        %th Statut
+        %th Volontaires confirmés
+        %th Doses disponible
         %th Vaccin
         %th Date et heure
         %th Age
@@ -40,8 +42,10 @@
         %tr
           %th
             = link_to campaign.id, partners_campaign_path(campaign)
-          %td #{campaign.available_doses}
-          %td #{campaign.vaccine_type}
-          %td #{campaign.starts_at} #{campaign.ends_at}
+          %td= french_status(campaign)
+          %td= campaign.matches.confirmed.size
+          %td= campaign.available_doses
+          %td #{campaign.vaccine_type.capitalize}
+          %td #{l campaign.starts_at}
           %td #{campaign.min_age}-#{campaign.max_age} ans
           %td #{campaign.max_distance_in_meters/1000} km

@@ -1,9 +1,20 @@
+-# Poor's man real-time feature, reload every 10s while the campaign is running.
+- if @campaign.running?
+  :javascript
+    setTimeout(function() { document.location.reload(); }, 10000)
+
 .container
+  %p.mb-2
+    = link_to "← Retour", partners_vaccination_center_path(@campaign.vaccination_center)
+
   %h1.mb-4
     Suivi de la #{@campaign.name}
+    - if @campaign.running?
+      %small
+        = link_to "Annuler", partners_campaign_path(@campaign, cancel: true), method: :patch, data: {confirm: "Êtes-vous sûr de vouloir annuler la recherche de volontaire pour cette campagne ?"}, class: "btn btn-sm btn-danger"
 
   .row.justify-content-center
-    .col-8
+    .col-12
       .progress{style: "height: 20px;"}
         .progress-bar{role: "progressbar", style: "width: #{@campaign.matches.confirmed.count * 100 / @campaign.available_doses}%;"}
 
@@ -35,11 +46,13 @@
         %th Nom
         %th Téléphone
         %th Date de naissance
+        %th Confirmation
     %tbody
-      - @campaign.matches.confirmed.each do |match|
+      - @campaign.matches.confirmed.order(:confirmed_at).each do |match|
         - user = match.user
         - next if user.blank?
         %tr
           %td #{user.firstname} #{user.lastname}
-          %th= user.phone_number
+          %td= user.phone_number
           %td= user.birthdate.strftime("%d/%m/%Y")
+          %td= l match.confirmed_at
