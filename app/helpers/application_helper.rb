@@ -28,4 +28,12 @@ module ApplicationHelper
       class: "btn twitter-share-button"
     )
   end
+
+  def humanize_boolean(boolean)
+    if boolean
+      icon("fas", "check", class: "text-success")
+    else
+      icon("fas", "times", class: "text-danger")
+    end
+  end
 end
