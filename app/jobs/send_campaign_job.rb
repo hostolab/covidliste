@@ -37,6 +37,6 @@ class SendCampaignJob < ApplicationJob
     end
 
     # Prepare for next campaign batch
-    SendCampaignJob.set(wait: BATCH_EXPIRE_IN_MINUTES + 1.minute).perform_later(campaign, partner)
+    SendCampaignJob.set(wait: BATCH_EXPIRE_IN_MINUTES.minutes + 1.minute).perform_later(campaign, partner)
   end
 end
