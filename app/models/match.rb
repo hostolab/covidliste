@@ -7,7 +7,7 @@ class Match < ApplicationRecord
   belongs_to :user
 
   encrypts :match_confirmation_token, migrating: true
-  blind_index :match_confirmation_token
+  blind_index :match_confirmation_token, migrating: true
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
 
