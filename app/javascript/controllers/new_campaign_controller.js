@@ -14,7 +14,7 @@ export default class extends Controller {
     const maxAge = parseInt(this.maxAgeTarget.value, 10) || 0
     const availableDoses = parseInt(this.availableDosesTarget.value, 10) || 0
     const maxDistance = parseInt(this.maxDistanceTarget.value, 10) || 0
-    console.log('test:' + availableDoses)
+
     debugger
     if (minAge == 0 || maxAge == 0 || maxDistance == 0 || availableDoses == 0) {
       this.simulationResultTarget.innerHTML =
