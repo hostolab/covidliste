@@ -20,6 +20,6 @@
         = f.input :phone_number, label: "Numéro de téléphone portable", error: "Numéro de téléphone invalide", placeholder: "06 06 06 06 06", required: true
         = f.input :email, label: "Email", error: f.error(:email), placeholder: "jean@dupont.com", hint: "Une adresse email ne peut être utilisée que par une seule personne. 2 personnes = 2 adresses email différentes.", required: true
         = f.input :password, required: true
-        = f.input :statement, as: :boolean, label: "Je certifie sur l'honneur que les informations communiquées sont exactes.", error: "Vous devez cocher cette case pour valider votre inscription", required: true
+        = f.input :statement, as: :boolean, label: "Je certifie sur l'honneur que les informations communiquées ci-dessus sont exactes.", error: "Vous devez cocher cette case pour valider votre inscription", required: true
         = f.input :toc, as: :boolean, label: "J’accepte que mes données soient partagées avec les centres de vaccination partenaires de Covidliste.", checked_value: true, unchecked_value: false, error: "Vous devez cocher cette case pour valider votre inscription"
         = f.button :submit, "Je m’inscris", class: "btn btn-primary", data: { disable_with: "Inscription en cours..." }

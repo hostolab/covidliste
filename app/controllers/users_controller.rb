@@ -23,7 +23,7 @@ class UsersController < ApplicationController
     @user = current_user
     if @user.update(user_params)
       @user.update(user_params)
-      flash.now[:success] = "Modifications enregistrées"
+      flash.now[:success] = "Modifications enregistrées."
     else
       flash.now[:error] = "Impossible d'enregistrer vos modifications."
     end

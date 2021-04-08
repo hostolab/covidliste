@@ -22,7 +22,7 @@
         = f.input :lon, as: :hidden
         = f.input :zipcode, as: :hidden
         = f.input :city, as: :hidden
-        = f.input :statement, as: :boolean, label: "Je certifie sur l'honneur que les informations communiquées sont exactes.", error: "Vous devez cocher cette case pour valider votre inscription", checked_value: true, unchecked_value: false, required: true
+        = f.input :statement, as: :boolean, label: "Je certifie sur l'honneur que les informations communiquées ci-dessus sont exactes.", error: "Vous devez cocher cette case pour modifier vos informations.", checked_value: true, unchecked_value: false, required: true
         = f.button :submit, "Je modifie mes informations", class: "btn btn-primary", data: { disable_with: "Validation..." }
 
       %p.mt-4
