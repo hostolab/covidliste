@@ -1,4 +1,4 @@
-class SendCampaignJob < ActiveJob::Base
+class SendCampaignJob < ApplicationJob
   queue_as :critical
 
   BATCH_OVERBOOKING_FACTOR = 2 # If there are 10 remaining doses, 10 * 2 SMS will be sent

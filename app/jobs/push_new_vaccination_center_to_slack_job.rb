@@ -1,4 +1,4 @@
-class PushNewVaccinationCenterToSlackJob < ActiveJob::Base
+class PushNewVaccinationCenterToSlackJob < ApplicationJob
   queue_as :critical
 
   def perform(vaccination_center)
