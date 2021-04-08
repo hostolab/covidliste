@@ -20,6 +20,7 @@ module Partners
       if @campaign.save
         @campaign.update(name: "Campagne ##{@campaign.id} du #{@campaign.created_at.strftime("%d/%m/%Y")}")
         SendCampaignJob.perform_later(@campaign, current_partner)
+        PushNewCampaignToSlackJob.perform_later(@campaign)
         redirect_to partners_campaign_path(@campaign)
       else
         render :new
