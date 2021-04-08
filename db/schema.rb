@@ -122,9 +122,11 @@ ActiveRecord::Schema.define(version: 2021_04_08_065659) do
     t.string "match_confirmation_token"
     t.datetime "mail_sent_at"
     t.string "match_confirmation_token_ciphertext"
+    t.string "match_confirmation_token_bidx"
     t.index ["campaign_batch_id"], name: "index_matches_on_campaign_batch_id"
     t.index ["campaign_id"], name: "index_matches_on_campaign_id"
     t.index ["match_confirmation_token"], name: "index_matches_on_match_confirmation_token", unique: true
+    t.index ["match_confirmation_token_bidx"], name: "index_matches_on_match_confirmation_token_bidx", unique: true
     t.index ["user_id"], name: "index_matches_on_user_id"
     t.index ["vaccination_center_id"], name: "index_matches_on_vaccination_center_id"
   end
