@@ -1,7 +1,7 @@
 class SendCampaignJob < ApplicationJob
   queue_as :critical
 
-  BATCH_OVERBOOKING_FACTOR = 2 # If there are 10 remaining doses, 10 * 2 SMS will be sent
+  BATCH_OVERBOOKING_FACTOR = 1.5 # If there are 10 remaining doses, 15 SMS will be sent
   BATCH_EXPIRE_IN_MINUTES = 7
 
   def perform(campaign, partner = nil)
@@ -10,7 +10,7 @@ class SendCampaignJob < ApplicationJob
     batch = CampaignBatch.create!(
       campaign: campaign,
       vaccination_center: campaign.vaccination_center,
-      size: campaign.remaining_slots * BATCH_OVERBOOKING_FACTOR,
+      size: (campaign.remaining_slots * BATCH_OVERBOOKING_FACTOR).floor,
       partner: partner,
       duration_in_minutes: BATCH_EXPIRE_IN_MINUTES
     )

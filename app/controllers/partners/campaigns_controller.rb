@@ -28,11 +28,7 @@ module Partners
 
     def simulate_reach
       # TODO: we should validate params here before running simulation
-      reach = @vaccination_center.reachable_users_query(
-        min_age: params[:min_age],
-        max_age: params[:max_age],
-        max_distance_in_meters: params[:max_distance_in_meters].to_i
-      ).count
+      reach = @vaccination_center.reachable_users_query(**simulate_params.to_h.symbolize_keys).count
       render json: {reach: reach}
     end
 
@@ -70,6 +66,10 @@ module Partners
         :ends_at,
         :vaccine_type
       )
+    end
+
+    def simulate_params
+      params.require(:campaign).permit(:min_age, :max_age, :max_distance_in_meters)
     end
   end
 end
