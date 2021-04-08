@@ -33,11 +33,6 @@
     #{@vaccination_center.description}
 
   %h5.mt-4 Ajouter un partenaire
-
-  - if @display_result.present?
-    .alert{class: @display_result[0].to_s}
-      = @display_result[1]
-
   = simple_form_for :new_partner_email,
                     url: add_partner_admin_vaccination_center_path(@vaccination_center),
                     method: :post,
