@@ -1,6 +1,7 @@
 class MatchMailer < ApplicationMailer
   def match_confirmation_instructions
     @match = params[:match]
+    return if @match.user.blank?
     @match_confirmation_token = params[:match_confirmation_token]
     mail(
       to: @match.user.email,
