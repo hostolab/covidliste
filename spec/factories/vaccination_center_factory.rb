@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :vaccination_center do
     address { generate(:french_address) }
     description { generate(:description) }
-    kind { ["Centre de vaccination", "Cabinet médical", "Pharmacie", "Ehpad"].sample }
+    kind { VaccinationCenter::Kinds::ALL.sample }
     lat { generate(:lat) }
     lon { generate(:lon) }
     name { generate(:company_name) }
