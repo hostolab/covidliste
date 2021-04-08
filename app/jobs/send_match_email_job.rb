@@ -3,7 +3,7 @@ class SendMatchEmailJob < ApplicationJob
   queue_as :critical
 
   def perform(match)
-    return if match.mail_sent_at.present?
+    return if match.mail_sent_at.present? || (match.expires_at && match.expires_at < Time.now.utc)
 
     match.update(expires_at: Time.now.utc + match.campaign_batch.duration_in_minutes.minutes) if match.expires_at.nil?
 
