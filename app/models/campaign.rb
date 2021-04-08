@@ -21,15 +21,13 @@ class Campaign < ApplicationRecord
 
   def to_csv
     CSV.generate(headers: true) do |csv|
-      csv << %w[firstname lastname birthdate email phone_number zipcode confirmed_at]
+      csv << %w[firstname lastname birthdate phone_number confirmed_at]
       matches.confirmed.order(:confirmed_at).each do |match|
         csv << [
           match.user.firstname,
           match.user.lastname,
           match.user.birthdate,
-          match.user.email,
           match.user.phone_number,
-          match.user.zipcode,
           match.confirmed_at
         ]
       end
