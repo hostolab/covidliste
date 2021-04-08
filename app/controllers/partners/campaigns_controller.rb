@@ -6,6 +6,12 @@ module Partners
     before_action :authorize!
 
     def show
+      respond_to do |format|
+        format.html
+        format.csv do
+          send_data @campaign.to_csv, type: "text/csv", filename: "campagne_#{@campaign.id}.csv", disposition: :attachment
+        end
+      end
     end
 
     def new
@@ -38,7 +44,7 @@ module Partners
     def simulate_reach
       # TODO: we should validate params here before running simulation
       reach = @vaccination_center.reachable_users_query(**simulate_params.to_h.symbolize_keys).count
-      render json: {reach: reach}
+      render json: {reach: Rails.env.production? ? reach : 1}
     end
 
     private

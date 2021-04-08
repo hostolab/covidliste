@@ -19,6 +19,22 @@ class Campaign < ApplicationRecord
     available_doses - matches.confirmed.size
   end
 
+  def to_csv
+    CSV.generate(headers: true) do |csv|
+      csv << %w[match_id firstname lastname phone_number birthdate confirmed_at]
+      matches.confirmed.order(:confirmed_at).each do |match|
+        csv << [
+          match.id,
+          match.user.firstname,
+          match.user.lastname,
+          match.user.phone_number,
+          match.user.birthdate,
+          match.confirmed_at
+        ]
+      end
+    end
+  end
+
   private
 
   def min_age_lesser_than_max_age

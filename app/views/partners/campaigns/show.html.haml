@@ -43,6 +43,10 @@
     %brs
     Ces informations ne doivent être utilisées que pour la vaccination des volontaires par votre centre
 
+  - if @campaign.matches.confirmed.any?
+    %p.float-right
+      = link_to "Télécharger la liste (CSV)", partners_campaign_path(@campaign, format: :csv)
+
   %table.table
     %thead
       %tr
