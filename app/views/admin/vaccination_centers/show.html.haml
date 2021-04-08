@@ -35,16 +35,19 @@
   .col-12
   %h5.mtop2 Partenaires liés
   - if @vaccination_center.partners.present?
-    %table.table.table-striped.table-bordered.table-sm.small
-      %tr
-        %th.text-right #
-        %th Nom
-        %th Email
-      - @vaccination_center.partners.each do |partner|
-        %tr
-          %th.text-right #{partner.id}
-          %th #{partner.name}
-          %th #{partner.email}
+    .table-responsive
+      %table.table.table-bordered.table-sm.table-hover.small
+        %thead.thead-light
+          %tr
+            %th.text-right #
+            %th Nom
+            %th Email
+          %tbody
+          - @vaccination_center.partners.each do |partner|
+            %tr
+              %th.text-right #{partner.id}
+              %th #{partner.name}
+              %th #{partner.email}
   - else
     %p
       = icon("fas", "info-circle")
