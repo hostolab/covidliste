@@ -28,7 +28,7 @@ module Partners
     end
 
     def update
-      if params[:cancel] == "true"
+      if params[:cancel] == "true" && @campaign.running?
         @campaign.canceled!
         flash[:notice] = "La campagne a bien été annulée. Attention, des volontaires ont reçu des SMS et peuvent encore confirmer dans les prochaines #{SendCampaignJob::BATCH_EXPIRE_IN_MINUTES} minutes"
         redirect_to partners_campaign_path(@campaign)
