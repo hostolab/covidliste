@@ -15,12 +15,16 @@ class SendCampaignJob < ActiveJob::Base
       duration_in_minutes: BATCH_EXPIRE_IN_MINUTES
     )
 
-    batch.vaccination_center.reachable_users_query(
+    users = batch.vaccination_center.reachable_users_query(
       min_age: campaign.min_age,
       max_age: campaign.max_age,
       max_distance_in_meters: campaign.max_distance_in_meters,
       limit: batch.size
-    ).each do |user|
+    )
+
+    return if users.none?
+
+    users.each do |user|
       the_match = Match.create(
         campaign: campaign,
         campaign_batch: batch,
