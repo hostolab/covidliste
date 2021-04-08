@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       post "/search" => "search#search"
       resources :vaccination_centers do
         patch :validate, on: :member
+        post :add_partner, on: :member
       end
 
       # admin tools
