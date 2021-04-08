@@ -31,20 +31,37 @@
       %span.mr-1= Vaccine::Brands::JANSSEN
   %p.small.mb-2
     #{@vaccination_center.description}
-  .row
-  .col-12
-  %h5.mtop2 Partenaires liés
+
+  %h5.mt-4 Ajouter un partenaire
+
+  - if @display_result.present?
+    .alert{class: @display_result[0].to_s}
+      = @display_result[1]
+
+  = simple_form_for :new_partner_email,
+                    url: add_partner_admin_vaccination_center_path(@vaccination_center),
+                    method: :post,
+                    wrapper: :inline_form,
+                    html: { class: "form-inline" } do |f|
+    = f.input :email, type: :email, label: false, placeholder: "Email du partenaire", required: true
+    = f.submit "Ajouter ce partenaire", class: "ml-3 btn btn-primary"
+
+  %h5.mt-4 Partenaires liés
+
   - if @vaccination_center.partners.present?
-    %table.table.table-striped.table-bordered.table-sm.small
-      %tr
-        %th.text-right #
-        %th Nom
-        %th Email
-      - @vaccination_center.partners.each do |partner|
-        %tr
-          %th.text-right #{partner.id}
-          %th #{partner.name}
-          %th #{partner.email}
+    .table-responsive
+      %table.table.table-bordered.table-sm.table-hover
+        %thead.thead-light
+          %tr
+            %th.text-right #
+            %th Nom
+            %th Email
+        %tbody
+          - @vaccination_center.partners.each do |partner|
+            %tr
+              %th.text-right #{partner.id}
+              %th #{partner.name}
+              %th #{partner.email}
   - else
     %p
       = icon("fas", "info-circle")
