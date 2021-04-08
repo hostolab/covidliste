@@ -1,0 +1,89 @@
+<div class="mt-2">
+  <p>
+    <strong>
+      Qu’est-ce que Covidliste ?
+    </strong>
+  </p>
+
+  <p>
+    Covidliste est une application gratuite permettant d’être alerté lorsqu’une dose de vaccin est disponible près de
+    chez vous.
+    <br/>
+    <%= @users_count %> volontaires sont déjà inscrits.
+  </p>
+
+  <p>
+    <strong>
+      Pourquoi ce projet ?
+    </strong>
+  </p>
+
+  <p>
+    Certains vaccins (comme Pfizer/BioNTech) administrés dans des centres de vaccination nécessitent de respecter une
+    chaîne logistique complexe. Lorsqu’un patient rate un rendez-vous, le flacon déjà ouvert doit être consommé
+    rapidement. Covidliste permet de faciliter l’accès à une liste de volontaires pour les centres de vaccination.
+  </p>
+
+
+  <p>
+    <strong>
+      Comment ça marche ?
+    </strong>
+  </p>
+
+  <p>
+    Entrez vos informations et validez votre inscription. Lorsqu’une dose est disponible, un lien vous est envoyé.
+    À la confirmation, vous êtes mis en relation avec un centre de vaccination. Attention : si vous ne validez pas
+    rapidement votre demande, cette dose sera attribuée à un prochain volontaire.
+  </p>
+
+  <p>
+    <strong>
+      Je ne suis pas encore éligible. Je peux tout de même m’inscrire ?
+    </strong>
+  </p>
+
+  <p>
+    Oui.
+  </p>
+
+  <p>
+    <strong>
+      Qui est derrière Covidliste ?
+    </strong>
+  </p>
+
+  <p>
+    <%= link_to "Martin Daniel", "https://twitter.com/martindaniel4", target: "_blank" %>
+    et
+    <%= link_to "Mathieu Ripert", "https://twitter.com/mathieurip", target: "_blank" %>
+    ont conçu l’application, en collaboration avec
+    <%= link_to "Dr Antoine Roux", "https://www.paristransplantgroup.org/antoine-roux.html", target: "_blank" %>
+    de l’hôpital Foch.
+  </p>
+
+  <p>
+    <strong>
+      Qu’en est-il du traitement de mes données ?
+    </strong>
+  </p>
+
+  <p>
+    Consultez notre politique de traitement des données
+    <%= link_to "ici.", :privacy %>.
+    Si vous souhaitez supprimer vos données, vous pouvez le faire depuis votre
+    <%= link_to "espace personnel.", new_user_session_path %>.
+  </p>
+
+  <p>
+    <strong>
+      Comment entrer en contact avec vous ?
+    </strong>
+  </p>
+
+  <p>
+    Suivez-nous sur
+    <%= link_to "Twitter", "https://twitter.com/covidliste", target: "_blank" %>
+    pour ne rien rater de notre actualité !
+  </p>
+</div>
