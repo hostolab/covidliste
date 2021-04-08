@@ -42,8 +42,6 @@ class User < ApplicationRecord
   scope :confirmed, -> { where.not(confirmed_at: nil) }
   scope :between_age, ->(min, max) { where("birthdate between ? and ?", max.years.ago, min.years.ago) }
 
-  has_many :matches
-
   LATLNG_DECIMALS = 3
 
   def approximate_coords
