@@ -5,16 +5,6 @@ module Partners
     before_action :find_campaign, only: :show
     before_action :authorize!
 
-    # Feature flag
-    # TODO: remove the code when feature is ready
-    before_action :not_ready_yet!, if: -> { (@vaccination_center.id != 77) && Rails.env.production? }
-
-    def not_ready_yet!
-      flash[:error] = "Désolé, cette fonctionnalité est toujours en cours de développement."
-      redirect_to partners_vaccination_center_path(@vaccination_center)
-    end
-    # End feature flag
-
     def show
     end
 
@@ -29,6 +19,7 @@ module Partners
 
       if @campaign.save
         @campaign.update(name: "Campagne ##{@campaign.id} du #{@campaign.created_at.strftime("%d/%m/%Y")}")
+        SendCampaignJob.perform_later(@campaign, current_partner)
         redirect_to partners_campaign_path(@campaign)
       else
         render :new
@@ -61,6 +52,11 @@ module Partners
 
     def find_vaccination_center
       @vaccination_center = VaccinationCenter.find(params[:vaccination_center_id])
+
+      if @vaccination_center.confirmed_at.nil?
+        flash[:error] = "Votre centre n'a pas encore été validé par l'équipe Covidliste."
+        redirect_to partners_vaccination_centers_path
+      end
     end
 
     def create_params

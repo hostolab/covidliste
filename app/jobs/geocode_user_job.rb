@@ -1,4 +1,4 @@
-class GeocodeUserJob < ActiveJob::Base
+class GeocodeUserJob < ApplicationJob
   queue_as :low
 
   def perform(user_id)

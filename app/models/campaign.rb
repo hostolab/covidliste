@@ -1,6 +1,7 @@
 class Campaign < ApplicationRecord
   belongs_to :vaccination_center
   belongs_to :partner
+
   has_many :campaign_batches
   has_many :matches
 
@@ -11,6 +12,10 @@ class Campaign < ApplicationRecord
   validates :max_distance_in_meters, numericality: {greater_than: 0}
   validate :min_age_lesser_than_max_age
   validate :starts_at_lesser_than_ends_at
+
+  def remaining_slots
+    available_doses - matches.confirmed.size
+  end
 
   private
 
