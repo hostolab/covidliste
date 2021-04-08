@@ -29,6 +29,7 @@ module Partners
 
       if @campaign.save
         @campaign.update(name: "Campagne ##{@campaign.id} du #{@campaign.created_at.strftime("%d/%m/%Y")}")
+        SendCampaignJob.perform_later(@campaign, current_partner)
         redirect_to partners_campaign_path(@campaign)
       else
         render :new
@@ -61,6 +62,11 @@ module Partners
 
     def find_vaccination_center
       @vaccination_center = VaccinationCenter.find(params[:vaccination_center_id])
+
+      if @vaccination_center.confirmed_at.nil?
+        flash[:error] = "Votre centre n'a pas encore été validé par l'équipe Covidliste."
+        redirect_to partners_vaccination_centers_path
+      end
     end
 
     def create_params

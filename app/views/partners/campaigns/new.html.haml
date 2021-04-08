@@ -31,4 +31,4 @@
         = f.input :max_distance_in_meters, label: "Distance maximum au centre (en km)", input_html: { min: "1", data: { new_campaign_target: "maxDistance" } }
         = button_tag "Simuler", type: :button, class: "btn btn-primary", data:  {new_campaign_target: "simulateButton", action: "click->new-campaign#simulate" }
         = content_tag :p, "", data: { new_campaign_target: "simulationResult" }
-        = f.button :submit, "Créer la campagne", class: "btn btn-primary d-none", disabled: true, data: {new_campaign_target: "submitButton"}
+        = f.button :submit, "Envoyer les SMS aux volontaires !", class: "btn btn-primary d-none", disabled: true, data: {new_campaign_target: "submitButton", confirm: "Êtes-vous sûr(e) ?"}

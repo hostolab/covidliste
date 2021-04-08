@@ -13,6 +13,10 @@ class Campaign < ApplicationRecord
   validate :min_age_lesser_than_max_age
   validate :starts_at_lesser_than_ends_at
 
+  def remaining_slots
+    available_doses - matches.confirmed.size
+  end
+
   private
 
   def min_age_lesser_than_max_age
