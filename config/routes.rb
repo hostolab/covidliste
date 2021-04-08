@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       post "/search" => "search#search"
       resources :vaccination_centers do
         patch :validate, on: :member
+        post :add_partner, on: :member
       end
 
       # admin tools
@@ -59,6 +60,7 @@ Rails.application.routes.draw do
   ## Partners
 
   resources :partners, only: [:new, :create]
+  get "/partenaires", to: redirect("/partenaires/inscription", status: 302)
   get "/partenaires/inscription" => "partners#new", :as => :partenaires_inscription_path
 
   namespace :partners do
@@ -68,7 +70,7 @@ Rails.application.routes.draw do
       end
       post "/campaigns/simulate_reach" => "campaigns#simulate_reach", :as => :campaign_simulate_reach
     end
-    resources :campaigns, only: :show
+    resources :campaigns, only: [:show, :update]
   end
 
   ## matches

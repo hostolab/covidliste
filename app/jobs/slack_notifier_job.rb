@@ -3,7 +3,7 @@ class SlackNotifierJob < ApplicationJob
 
   def perform(channel, text, json_attachments = nil)
     body = {
-      channel: channel,
+      channel: Rails.env.production? ? channel : "test-dev",
       text: text,
       attachments: json_attachments ? JSON.parse(json_attachments) : nil
     }.to_json

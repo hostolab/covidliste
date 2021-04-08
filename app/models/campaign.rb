@@ -5,6 +5,8 @@ class Campaign < ApplicationRecord
   has_many :campaign_batches
   has_many :matches
 
+  enum status: {running: 0, completed: 1, canceled: 2}
+
   validates :available_doses, numericality: {greater_than: 0}
   validates :vaccine_type, presence: true
   validates :min_age, numericality: {greater_than: 17}
@@ -15,6 +17,23 @@ class Campaign < ApplicationRecord
 
   def remaining_slots
     available_doses - matches.confirmed.size
+  end
+
+  def to_csv
+    CSV.generate(headers: true) do |csv|
+      csv << %w[firstname lastname birthdate phone_number confirmed_at]
+      matches.confirmed.order(:confirmed_at).each do |match|
+        next if match.user.nil?
+
+        csv << [
+          match.user.firstname,
+          match.user.lastname,
+          match.user.birthdate,
+          match.user.phone_number,
+          match.confirmed_at
+        ]
+      end
+    end
   end
 
   private
