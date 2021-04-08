@@ -36,10 +36,11 @@ module Partners
     end
 
     def simulate_reach
+      # TODO: we should validate params here before running simulation
       reach = @vaccination_center.reachable_users_query(
         min_age: params[:min_age],
         max_age: params[:max_age],
-        max_distance_in_meters: params[:max_distance_in_meters]
+        max_distance_in_meters: params[:max_distance_in_meters].to_i
       ).count
       render json: {reach: reach}
     end
