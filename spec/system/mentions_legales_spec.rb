@@ -7,7 +7,7 @@ RSpec.describe "Mentions Legales Page", type: :system do
   end
   it "has Martin as publication director" do
     visit "/mentions_legales"
-    expect(page.text).to match(/^Directeur de la publication.*Martin DANIEL$/)
+    expect(page).to have_text("Directeur de la publication (éditeur) : Martin DANIEL")
   end
   it "has information about hosting" do
     visit "/mentions_legales"
