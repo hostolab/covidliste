@@ -10,14 +10,14 @@ class SendMatchSmsJob < ApplicationJob
     client.messages.create(
       from: "COVIDLISTE",
       to: match.user.phone_number,
-      body: "Bonne nouvelle ! Un vaccin #{batch.campaign.vaccine_type} est disponible. Réservez-le avant #{match.expires_at.strftime("%Hh%M")} en cliquant ici : #{cta_url}"
+      body: "Bonne nouvelle ! Un vaccin #{batch.campaign.vaccine_type} est disponible. Réservez-le avant #{match.expires_at.strftime("%Hh%M")} en cliquant ici : #{cta_url(match)}"
     )
     match.update(sms_sent_at: Time.now.utc)
   end
 
   private
 
-  def cta_url
+  def cta_url(match)
     Rails.application.routes.url_helpers.match_url(match_confirmation_token: match.match_confirmation_token)
   end
 end
