@@ -13,7 +13,7 @@
       = simple_form_for([:partners, @vaccination_center, @campaign], data: {controller: "new-campaign", new_campaign_simulate_path_value: simulate_reach_partners_vaccination_center_campaigns_path(@vaccination_center) }) do |f|
         %h5 Informations sur la campagne
         = f.input :available_doses, label: "Nombre de doses à écouler", as: :integer, input_html: { min: "1", max: "1000", data: { new_campaign_target: "availableDoses"} }
-        = f.input :vaccine_type, label: "Type de vaccin", collection: Vaccine::Brands::ALL
+        = f.input :vaccine_type, label: "Type de vaccin", collection: Vaccine::Brands::ALL, input_html: { data: { new_campaign_target: "vaccineType"}}
 
         %h5 Plage horaire de disponibilité des vaccins
 

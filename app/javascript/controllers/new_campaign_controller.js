@@ -3,7 +3,7 @@ import Rails from "@rails/ujs"
 
 export default class extends Controller {
   static values = { simulatePath: String }
-  static targets = ["minAge", "maxAge", "maxDistance", "availableDoses", "simulationResult", "simulateButton", "submitButton"]
+  static targets = ["minAge", "maxAge", "maxDistance", "availableDoses", "vaccineType", "simulationResult", "simulateButton", "submitButton"]
 
   simulate(e) {
     e.preventDefault();
@@ -13,6 +13,7 @@ export default class extends Controller {
     const minAge = parseInt(this.minAgeTarget.value, 10) || 0
     const maxAge = parseInt(this.maxAgeTarget.value, 10) || 0
     const availableDoses = parseInt(this.availableDosesTarget.value, 10) || 0
+    const vaccineType = this.vaccineTypeTarget.value || ""
     const maxDistance = parseInt(this.maxDistanceTarget.value, 10) || 0
 
     debugger
@@ -43,14 +44,34 @@ export default class extends Controller {
         `Nous avons trouvé ${result.reach} volontaires avec ces critères d'âge et de distance au centre.`;
       if (result.reach > 0) {
         this._enableSubmit()
-        if (availableDoses > result.reach * 5) {
+        if (this.betterSelection(result.reach, availableDoses, vaccineType)) {
           this.simulationResultTarget.innerHTML +=
-            `<br/> Nous vous conseillons d'élargir vos critères de sélections (âge et/ou distance).`
+            `<br/> Au vu du nombre de volontaires trouvés et du nombre de doses de vaccin, nous vous conseillons d'élargir vos critères de sélections (âge et/ou distance).`
         }
       } else {
         this._disableSubmit()
       }
     })
+  }
+
+  /**
+   * Returns true if reach is too low for the doses quantity. Depends of vaccine type
+   * @param {Number} reach 
+   * @param {Number} doses 
+   * @param {'pfizer'|'moderna'|'astrazeneca'|'janssen'} vaccineType 
+   * @returns {boolean}
+   */
+  betterSelection(reach, doses, vaccineType) {
+    switch (vaccineType){
+      case 'pfizer':
+      case 'moderna':
+        return doses > reach * 5
+      
+      case 'astrazeneca':
+        return doses > reach * 20
+      default:
+        return doses > reach * 5
+    }
   }
 
   _disableSubmit() {
