@@ -5,16 +5,6 @@ module Partners
     before_action :find_campaign, only: :show
     before_action :authorize!
 
-    # Feature flag
-    # TODO: remove the code when feature is ready
-    before_action :not_ready_yet!, if: -> { (@vaccination_center.id != 77) && Rails.env.production? }
-
-    def not_ready_yet!
-      flash[:error] = "Désolé, cette fonctionnalité est toujours en cours de développement."
-      redirect_to partners_vaccination_center_path(@vaccination_center)
-    end
-    # End feature flag
-
     def show
     end
 
