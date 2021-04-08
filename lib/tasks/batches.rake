@@ -65,18 +65,21 @@ namespace :batches do
         puts "Error sending email to match #{match.id}"
       end
 
-      begin
-        response = client.messages.create({
-          from: "COVIDLISTE",
-          to: match.user.phone_number,
-          body: "Bonne nouvelle ! Un vaccin #{batch.campaign.vaccine_type} est disponible. Réservez-le avant #{match.expires_at.strftime("%Hh%M")} en cliquant ici : https://www.covidliste.com/matches/#{match.match_confirmation_token}"
-        })
-        puts response.body
-        match.update(sms_sent_at: Time.now.utc)
-      rescue => e
-        puts e.class
-        puts e.message
-        puts "Error sending sms to match #{match.id}"
+      # User can ban nil or anonymized, so we check if phone_number is present? before trying to send SMS
+      if match&.user&.phone_number.present?
+        begin
+          response = client.messages.create(
+            from: "COVIDLISTE",
+            to: match.user.phone_number,
+            body: "Bonne nouvelle ! Un vaccin #{batch.campaign.vaccine_type} est disponible. Réservez-le avant #{match.expires_at.strftime("%Hh%M")} en cliquant ici : https://www.covidliste.com/matches/#{match.match_confirmation_token}"
+          )
+          puts response.body
+          match.update(sms_sent_at: Time.now.utc)
+        rescue => e
+          puts e.class
+          puts e.message
+          puts "Error sending sms to match #{match.id}"
+        end
       end
     end
     puts "Done !"
