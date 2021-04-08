@@ -56,12 +56,14 @@
             %th.text-right #
             %th Nom
             %th Email
+            %th Téléphone
         %tbody
           - @vaccination_center.partners.each do |partner|
             %tr
-              %th.text-right #{partner.id}
-              %th #{partner.name}
-              %th #{partner.email}
+              %th.text-right= partner.id
+              %th= partner.name
+              %th= partner.email
+              %th= partner.phone_number
   - else
     %p
       = icon("fas", "info-circle")
