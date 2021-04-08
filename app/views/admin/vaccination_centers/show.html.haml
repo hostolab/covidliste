@@ -61,9 +61,9 @@
           - @vaccination_center.partners.each do |partner|
             %tr
               %th.text-right= partner.id
-              %th= partner.name
-              %th= partner.email
-              %th= partner.phone_number
+              %td= partner.name
+              %td= partner.email
+              %td= partner.phone_number
   - else
     %p
       = icon("fas", "info-circle")
