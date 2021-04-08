@@ -12,7 +12,7 @@ class SendCampaignJob < ApplicationJob
 
     limit = (campaign.remaining_slots * BATCH_OVERBOOKING_FACTOR).floor
 
-    users = batch.vaccination_center.reachable_users_query(
+    users = campaign.vaccination_center.reachable_users_query(
       min_age: campaign.min_age,
       max_age: campaign.max_age,
       max_distance_in_meters: campaign.max_distance_in_meters,
