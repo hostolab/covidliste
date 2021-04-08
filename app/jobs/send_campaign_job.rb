@@ -1,8 +1,8 @@
 class SendCampaignJob < ApplicationJob
   queue_as :critical
 
-  BATCH_OVERBOOKING_FACTOR = 1.5 # If there are 10 remaining doses, 15 SMS will be sent
-  BATCH_EXPIRE_IN_MINUTES = 7
+  BATCH_OVERBOOKING_FACTOR = 2 # If there are 10 remaining doses, 20 SMS will be sent
+  BATCH_EXPIRE_IN_MINUTES = 6
 
   def perform(campaign, partner = nil)
     return if campaign.remaining_slots.zero?
