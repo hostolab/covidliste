@@ -1,11 +1,17 @@
 module Partners
   class CampaignsController < ApplicationController
     before_action :authenticate_partner!
-    before_action :find_vaccination_center, except: :show
-    before_action :find_campaign, only: :show
+    before_action :find_vaccination_center, except: [:show, :update]
+    before_action :find_campaign, only: [:show, :update]
     before_action :authorize!
 
     def show
+      respond_to do |format|
+        format.html
+        format.csv do
+          send_data @campaign.to_csv, type: "text/csv", filename: "campagne_#{@campaign.id}.csv", disposition: :attachment
+        end
+      end
     end
 
     def new
@@ -27,10 +33,18 @@ module Partners
       end
     end
 
+    def update
+      if params[:cancel] == "true" && @campaign.running?
+        @campaign.canceled!
+        flash[:notice] = "La campagne a bien été annulée. Attention, des volontaires ont reçu des SMS et peuvent encore confirmer dans les prochaines #{SendCampaignJob::BATCH_EXPIRE_IN_MINUTES} minutes"
+        redirect_to partners_campaign_path(@campaign)
+      end
+    end
+
     def simulate_reach
       # TODO: we should validate params here before running simulation
       reach = @vaccination_center.reachable_users_query(**simulate_params.to_h.symbolize_keys).count
-      render json: {reach: reach}
+      render json: {reach: Rails.env.production? ? reach : 1}
     end
 
     private

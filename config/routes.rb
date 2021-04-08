@@ -70,7 +70,7 @@ Rails.application.routes.draw do
       end
       post "/campaigns/simulate_reach" => "campaigns#simulate_reach", :as => :campaign_simulate_reach
     end
-    resources :campaigns, only: :show
+    resources :campaigns, only: [:show, :update]
   end
 
   ## matches

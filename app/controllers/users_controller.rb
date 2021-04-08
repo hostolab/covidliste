@@ -17,6 +17,12 @@ class UsersController < ApplicationController
 
   def show
     @user = current_user
+    respond_to do |format|
+      format.html
+      format.csv do
+        send_data @user.to_csv, type: "text/csv", filename: "mes_donnees_covidliste.csv", disposition: :attachment
+      end
+    end
   end
 
   def update
