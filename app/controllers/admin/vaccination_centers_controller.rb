@@ -1,6 +1,6 @@
 module Admin
   class VaccinationCentersController < BaseController
-    before_action :set_vaccination_center, only: %i[show validate edit update destroy]
+    before_action :set_vaccination_center, only: %i[show validate edit update destroy add_partner]
     before_action :search_params, only: [:index]
     before_action :set_filters, only: [:index]
 
@@ -99,9 +99,28 @@ module Admin
         flash[:success] = "Ce centre a bien été supprimé"
         redirect_to admin_vaccination_centers_path
       else
-        flash[:alert] = "Une erreur est survenue : #{@vaccination_center.errors.full_messages.join(", ")}"
+        flash[:error] = "Une erreur est survenue : #{@vaccination_center.errors.full_messages.join(", ")}"
         redirect_to admin_vaccination_center_path(@vaccination_center)
       end
+    end
+
+    def add_partner
+      query_email = params.require(:new_partner_email).permit(:email)[:email]
+
+      partner = Partner.find_by(email: query_email)
+
+      if partner.present?
+        if partner.in?(@vaccination_center.partners)
+          flash[:error] = "#{partner.email} fait déjà partie de cette organisation."
+        else
+          @vaccination_center.partners << partner
+          flash[:success] = "#{partner.email} fait désormais partie de cette organisation."
+        end
+      else
+        flash[:error] = "Partenaire introuvable. #{query_email} doit d’abord créer un compte sur #{partenaires_inscription_path_url}"
+      end
+
+      redirect_to admin_vaccination_center_path(@vaccination_center)
     end
 
     private
