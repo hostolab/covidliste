@@ -7,8 +7,8 @@ class Campaign < ApplicationRecord
 
   validates :available_doses, numericality: {greater_than: 0}
   validates :vaccine_type, presence: true
-  validates :min_age, numericality: {greater_than: 0}
-  validates :max_age, numericality: {greater_than: 0}
+  validates :min_age, numericality: {greater_than: 17}
+  validates :max_age, numericality: {greater_than: 17}
   validates :max_distance_in_meters, numericality: {greater_than: 0}
   validate :min_age_lesser_than_max_age
   validate :starts_at_lesser_than_ends_at
