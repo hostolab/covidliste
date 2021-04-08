@@ -3,7 +3,7 @@ import Rails from "@rails/ujs"
 
 export default class extends Controller {
   static values = { simulatePath: String }
-  static targets = ["minAge", "maxAge", "maxDistance", "simulationResult", "simulateButton", "submitButton"]
+  static targets = ["minAge", "maxAge", "maxDistance", "availableDoses", "simulationResult", "simulateButton", "submitButton"]
 
   simulate(e) {
     e.preventDefault();
@@ -12,10 +12,11 @@ export default class extends Controller {
 
     const minAge = parseInt(this.minAgeTarget.value, 10) || 0
     const maxAge = parseInt(this.maxAgeTarget.value, 10) || 0
+    const availableDoses = parseInt(this.availableDosesTarget.value, 10) || 0
     const maxDistance = parseInt(this.maxDistanceTarget.value, 10) || 0
-
+    console.log('test:' + availableDoses)
     debugger
-    if (minAge == 0 || maxAge == 0 || maxDistance == 0) {
+    if (minAge == 0 || maxAge == 0 || maxDistance == 0 || availableDoses == 0) {
       this.simulationResultTarget.innerHTML =
         "Simulation impossible, merci de bien remplir les trois champs âge et distance"
       return
@@ -39,9 +40,13 @@ export default class extends Controller {
     .then(data => data.json())
     .then(result => {
       this.simulationResultTarget.innerHTML =
-        `Nous avons trouvé ${result.reach} volontaires avec ces critères d'âge et de distance au centre`;
+        `Nous avons trouvé ${result.reach} volontaires avec ces critères d'âge et de distance au centre.`;
       if (result.reach > 0) {
         this._enableSubmit()
+        if (availableDoses > result.reach * 5) {
+          this.simulationResultTarget.innerHTML +=
+            `<br/> Nous vous conseillons d'élargir vos critères de sélections (âge et/ou distance).`
+        }
       } else {
         this._disableSubmit()
       }
