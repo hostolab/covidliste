@@ -11,7 +11,7 @@
     = @campaign.name
     - if @campaign.running?
       %small
-        = link_to "Annuler", partners_campaign_path(@campaign, cancel: true), method: :patch, data: {confirm: "Êtes-vous sûr de vouloir annuler la recherche de volontaire pour cette campagne ?"}, class: "btn btn-sm btn-danger"
+        = link_to "Annuler", partners_campaign_path(@campaign, cancel: true), method: :patch, data: {confirm: "Êtes-vous sûr de vouloir annuler la recherche de volontaires pour cette campagne ?"}, class: "btn btn-sm btn-danger"
   %p
     État :
     = content_tag :span, french_status(@campaign), class: "badge badge-sm #{status_badge(@campaign)}"
