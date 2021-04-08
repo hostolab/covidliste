@@ -192,9 +192,14 @@ ActiveRecord::Schema.define(version: 2021_04_08_081931) do
     t.string "email_bidx"
     t.string "zipcode"
     t.string "city"
+    t.string "geo_citycode"
+    t.string "geo_context"
+    t.datetime "anonymized_at"
     t.index ["city"], name: "index_users_on_city"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token"
     t.index ["email_bidx"], name: "index_users_on_email_bidx", unique: true
+    t.index ["geo_citycode"], name: "index_users_on_geo_citycode"
+    t.index ["geo_context"], name: "index_users_on_geo_context"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["zipcode"], name: "index_users_on_zipcode"
   end
