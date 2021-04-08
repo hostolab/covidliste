@@ -5,7 +5,8 @@ export default class extends Controller {
   static values = { simulatePath: String }
   static targets = ["minAge", "maxAge", "maxDistance", "simulationResult", "simulateButton", "submitButton"]
 
-  simulate() {
+  simulate(e) {
+    e.preventDefault();
     this._disableSubmit()
     this.simulationResultTarget.innerHTML = ""
 
@@ -24,13 +25,16 @@ export default class extends Controller {
       method: "POST",
       credentials: 'same-origin',
       headers: {
-        'X-CSRF-Token': Rails.csrfToken()
+        "X-CSRF-Token": Rails.csrfToken(),
+        "Content-Type": "application/json"
       },
-      body: {
-        min_age: minAge,
-        max_age: maxAge,
-        max_distance_in_meters: maxDistance * 1000
-      }
+      body: JSON.stringify({
+        campaign: {
+          min_age: minAge,
+          max_age: maxAge,
+          max_distance_in_meters: maxDistance * 1000
+        }
+      })
     })
     .then(data => data.json())
     .then(result => {
