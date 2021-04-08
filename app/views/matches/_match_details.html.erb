@@ -11,29 +11,29 @@
     <p> Entre <%= match.campaign.starts_at.strftime('%Hh%M') %> et <%=  @match.campaign.ends_at.strftime('%Hh%M')%></p>
   </div>
 
-  <div>
-    <i class="fas fa-user-lock"></i>
-    <p>
-      Réservé pour <%= match.user.full_name %><br>
-      Né le <%= match.user.birthdate %><br>
-      Réservation strictement nominative.
-    </p>
-  </div>
+  <% user = match.user %>
+
+  <% if user.blank? %>
+    <div>
+      <i class="fas fa-minus-circle"></i>
+      <p>L’utilisateur a supprimé son compte.</p>
+    </div>
+  <%# elsif user.anonymized_at #TODO PR #197 %>
+  <% else %>
+    <div>
+      <i class="fas fa-user-lock"></i>
+      <p>
+        Réservé pour <%= user.full_name %><br>
+        Né le <%= user.birthdate %><br>
+        Réservation strictement nominative.
+      </p>
+    </div>
+  <% end %>
 
   <div>
     <i class="fas fa-check-circle"></i>
     <strong>Type de vaccin</strong>
     <p><%= match.campaign.vaccine_type.capitalize %></p>
   </div>
-
-  <% if match.campaign.extra_info %>
-    <div>
-      <p>
-        <i class="fas fa-info-circle"></i>
-        <%= match.campaign.extra_info %>
-      </p>
-    </div>
-  <% end %>
-
 </div>
 

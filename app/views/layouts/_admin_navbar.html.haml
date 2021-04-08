@@ -1,5 +1,5 @@
 %nav.navbar.navbar-expand-lg.navbar-light.bg-light
-  %a.navbar-brand{href: "/"} Covidliste Admin
+  %a.navbar-brand{href: "/admin"} Covidliste Admin
   %button.navbar-toggler{"aria-controls": "navbarNavDropdown", "aria-expanded": "false", "aria-label": "Toggle navigation", "data-target": "#navbarNavDropdown", "data-toggle": "collapse", type: "button"}
     %span.navbar-toggler-icon
   #navbarNavDropdown.collapse.navbar-collapse
@@ -18,14 +18,14 @@
       - if current_user.has_role?(:super_admin)
         %li.nav-item.dropdown
           %a#dropdown12.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => ""}
-            ="Super Admin"
+            = "Super Admin"
           .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "dropdown10"}
             = link_to "PgHero", "/admin/pghero", class: 'dropdown-item', target: "_blank"
             = link_to "Sidekiq", "/admin/sidekiq", class: 'dropdown-item', target: "_blank"
       - if current_user
         %li.nav-item.dropdown
           %a#dropdown09.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => ""}
-            =current_user.full_name
+            = current_user.full_name
             - if current_user.has_role?(:admin)
               %span.badge.badge-danger Admin
           .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "dropdown09"}
