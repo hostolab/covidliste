@@ -6,6 +6,8 @@ class Match < ApplicationRecord
   belongs_to :campaign_batch
   belongs_to :user
 
+  encrypts :match_confirmation_token, migrating: true
+
   scope :confirmed, -> { where.not(confirmed_at: nil) }
 
   def confirmed?
