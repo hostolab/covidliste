@@ -4,25 +4,30 @@ class SendCampaignJob < ApplicationJob
   BATCH_OVERBOOKING_FACTOR = 2 # If there are 10 remaining doses, 20 SMS will be sent
   BATCH_EXPIRE_IN_MINUTES = 6
 
-  def perform(campaign, partner = nil)
-    return if campaign.remaining_slots.zero?
+  STOP_SENDING_BEFORE_CAMPAIGN_ENDS_AT = 10.minutes
 
-    batch = CampaignBatch.create!(
-      campaign: campaign,
-      vaccination_center: campaign.vaccination_center,
-      size: (campaign.remaining_slots * BATCH_OVERBOOKING_FACTOR).floor,
-      partner: partner,
-      duration_in_minutes: BATCH_EXPIRE_IN_MINUTES
-    )
+  def perform(campaign, partner = nil)
+    return unless campaign.running?
+    return campaign.completed! if campaign.remaining_slots.zero? || (campaign.ends_at - STOP_SENDING_BEFORE_CAMPAIGN_ENDS_AT) < Time.now.utc
+
+    limit = (campaign.remaining_slots * BATCH_OVERBOOKING_FACTOR).floor
 
     users = batch.vaccination_center.reachable_users_query(
       min_age: campaign.min_age,
       max_age: campaign.max_age,
       max_distance_in_meters: campaign.max_distance_in_meters,
-      limit: batch.size
+      limit: limit
     )
 
-    return if users.none?
+    return campaign.completed! if users.none?
+
+    batch = CampaignBatch.create!(
+      campaign: campaign,
+      vaccination_center: campaign.vaccination_center,
+      size: [limit, users.size].min,
+      partner: partner,
+      duration_in_minutes: BATCH_EXPIRE_IN_MINUTES
+    )
 
     users.each do |user|
       the_match = Match.create(

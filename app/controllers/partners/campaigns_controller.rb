@@ -1,8 +1,8 @@
 module Partners
   class CampaignsController < ApplicationController
     before_action :authenticate_partner!
-    before_action :find_vaccination_center, except: :show
-    before_action :find_campaign, only: :show
+    before_action :find_vaccination_center, except: [:show, :update]
+    before_action :find_campaign, only: [:show, :update]
     before_action :authorize!
 
     def show
@@ -24,6 +24,14 @@ module Partners
         redirect_to partners_campaign_path(@campaign)
       else
         render :new
+      end
+    end
+
+    def update
+      if params[:cancel] == "true" && @campaign.running?
+        @campaign.canceled!
+        flash[:notice] = "La campagne a bien été annulée. Attention, des volontaires ont reçu des SMS et peuvent encore confirmer dans les prochaines #{SendCampaignJob::BATCH_EXPIRE_IN_MINUTES} minutes"
+        redirect_to partners_campaign_path(@campaign)
       end
     end
 

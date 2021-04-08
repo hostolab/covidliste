@@ -5,6 +5,8 @@ class Campaign < ApplicationRecord
   has_many :campaign_batches
   has_many :matches
 
+  enum status: {running: 0, completed: 1, canceled: 2}
+
   validates :available_doses, numericality: {greater_than: 0}
   validates :vaccine_type, presence: true
   validates :min_age, numericality: {greater_than: 17}
