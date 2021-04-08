@@ -25,6 +25,10 @@
         = f.button :submit, "Je modifie mes informations", class: "btn btn-primary", data: { disable_with: "Validation..." }
 
       %p.mt-4
+        Vous souhaitez vérifier vos données personnelles ?
+        = link_to "Télécharger mes données (CSV)", user_path(format: :csv)
+
+      %p.mt-4
         Vous souhaitez supprimer votre compte ?
         - message = "En confirmant, votre compte ainsi que toutes les données associées seront supprimées de nos serveurs. Êtes-vous sûr ?"
         = link_to "Supprimer mon compte", :delete_user, method: :delete, data: { confirm: message}, style: "color: red"
