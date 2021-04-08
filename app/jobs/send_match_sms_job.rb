@@ -1,4 +1,4 @@
-class SendMatchSmsJob < SendMatchEmailJob
+class SendMatchSmsJob < ApplicationJob
   # TODO: Define retry_on policy: https://edgeapi.rubyonrails.org/classes/ActiveJob/Exceptions/ClassMethods.html#method-i-retry_on
   queue_as :critical
 
