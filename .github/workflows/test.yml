@@ -65,3 +65,5 @@ jobs:
         if: always()
         with:
           files: rspec.xml
+      - name: Brakeman action
+        uses: artplan1/brakeman-action@v1.2.1

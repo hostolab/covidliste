@@ -57,7 +57,7 @@ Rails.application.configure do
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
-  config.cache_store = :redis_cache_store, {url: ENV["REDIS_URL"], ssl_params: {verify_mode: OpenSSL::SSL::VERIFY_NONE}}
+  config.cache_store = :redis_cache_store, {url: ENV["REDIS_URL"]}
   # Use a real queuing backend for Active Job (and separate queues per environment).
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "covidliste_production"
@@ -110,6 +110,7 @@ Rails.application.configure do
   }
 
   config.force_ssl = true
+  config.ssl_options = {hsts: {subdomains: true, preload: true, expires: 1.year}}
 
   # Inserts middleware to perform automatic connection switching.
   # The `database_selector` hash is used to pass options to the DatabaseSelector
