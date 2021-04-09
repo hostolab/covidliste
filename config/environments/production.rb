@@ -57,7 +57,7 @@ Rails.application.configure do
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
-  config.cache_store = :redis_cache_store, {url: ENV["REDIS_URL"], ssl_params: {verify_mode: OpenSSL::SSL::VERIFY_NONE}}
+  config.cache_store = :redis_cache_store, {url: ENV["REDIS_URL"]}
   # Use a real queuing backend for Active Job (and separate queues per environment).
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "covidliste_production"
@@ -101,7 +101,7 @@ Rails.application.configure do
   config.action_mailer.default_url_options = {host: ENV["PLATFORM_URL"]}
   config.action_mailer.delivery_method = :smtp
   ActionMailer::Base.smtp_settings = {
-    address: ENV["SMTP_ADDRESS"] || "smtp.mailgun.org",
+    address: ENV["SMTP_ADDRESS"],
     port: ENV["SMTP_PORT"] || 587,
     domain: ENV["SMTP_DOMAIN"],
     authentication: :plain,
@@ -110,6 +110,7 @@ Rails.application.configure do
   }
 
   config.force_ssl = true
+  config.ssl_options = {hsts: {subdomains: true, preload: true, expires: 1.year}}
 
   # Inserts middleware to perform automatic connection switching.
   # The `database_selector` hash is used to pass options to the DatabaseSelector

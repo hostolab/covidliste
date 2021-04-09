@@ -1,54 +1,51 @@
 = content_for(:append_to_head) do
   %meta{content: "index;follow", name: "robots"}
 
-.row.mt-2
-  .col-sm-12.col-md-8.col-lg-6
-    %p
-      %strong Inscription en tant que centre de vaccination Partenaire
+.container
+  .row.mt-2
+    .col-12.col-lg-8.offset-lg-2
+      %p
+        %strong Inscription en tant que centre de vaccination Partenaire
 
-    %p.text-justify.mb-5
-      Cette page d’inscription concerne uniquement l’inscription du
-      %strong
-        personnel médical
-      membre d’un centre de vaccination qui souhaite devenir partenaire.
-      %br
+      %p.text-justify.mb-5
+        Cette page d’inscription concerne uniquement l’inscription du
+        %strong
+          personnel médical
+        membre d’un centre de vaccination qui souhaite devenir partenaire.
+        %br
 
-    %h2
-      = icon("fas", "user-md")
-      = icon("fas", "syringe")
-    %p
-      Si vous souhaitez vous inscrire comme volontaire, c’est par là !
-    .btn.btn-warning
-      = link_to "Je suis volontaire pour me faire vacciner", root_path, class: "text-white text-decoration-none"
+      %h2
+        = icon("fas", "user-md")
+        = icon("fas", "syringe")
+      %p
+        Si vous souhaitez vous inscrire comme volontaire, c’est par là !
+      .btn.btn-warning
+        = link_to "Je suis volontaire pour me faire vacciner", root_path, class: "text-white text-decoration-none"
 
-    %h2.mt-5
-      = icon("fas", "user-md")
-      = icon("fas", "clinic-medical")
-    %p
-      Si vous êtes membre d’un centre de vaccination et souhaitez devenir partenaire de Covidliste, c’est bien ici ! Veuillez remplir le formulaire ci-dessous.
+      %h2.mt-5
+        = icon("fas", "user-md")
+        = icon("fas", "clinic-medical")
+      %p
+        Si vous êtes membre d’un centre de vaccination et souhaitez devenir partenaire de Covidliste, c’est bien ici ! Veuillez remplir le formulaire ci-dessous.
 
-    - if @partner.persisted?
-      .row.mtop2
-        .alert.alert-success{:role => "alert", style: "position: inherit"}
-          Merci ! Vous étes bien enregistré en tant que Partenaire Covidliste. Vous allez recevoir dans quelques instants un email de confirmation qui vous permettra de valider votre inscription et accéder à votre espace sécurisé.
-    - else
-      = simple_form_for @partner do |f|
-        .form-inputs
-        = f.input :name, label: "Nom", error: "Nom requis", placeholder: "Prénom Nom"
-        = f.input :phone_number, label: "Téléphone portable", placeholder: "06 .... (votre téléphone professionnel)"
-        = f.input :email,
-          required: true,
-          placeholder: "votre_email@du_centre_de_vaccination.fr",
-          input_html: { autocomplete: "email" }
-        = f.input :password,
-          required: true,
-          hint: "Un email de confirmation de création de compte vous sera envoyé. Cliquez sur le lien pour activer votre compte",
-          input_html: { autocomplete: "new-password" }
-        .form-actions
-        = f.button :submit, "S’inscrire", class:"btn btn-primary", data: { disable_with: "Validation..." }
-    %p.mtop2
-      = link_to "Se connecter en tant que Partenaire", new_partner_session_path, class: "bp3-text-muted"
-
-
-
-
+      - if @partner.persisted?
+        .row.mtop2
+          .alert.alert-success{:role => "alert", style: "position: inherit"}
+            Merci ! Vous êtes bien enregistré en tant que Partenaire Covidliste. Vous allez recevoir dans quelques instants un email de confirmation qui vous permettra de valider votre inscription et d'accéder à votre espace sécurisé.
+      - else
+        = simple_form_for @partner do |f|
+          .form-inputs
+          = f.input :name, label: "Nom", error: "Nom requis", placeholder: "Prénom Nom"
+          = f.input :phone_number, label: "Téléphone portable", placeholder: "06 .... (votre téléphone professionnel)"
+          = f.input :email,
+            required: true,
+            placeholder: "votre_email@du_centre_de_vaccination.fr",
+            input_html: { autocomplete: "email" }
+          = f.input :password,
+            required: true,
+            hint: "Un email de confirmation de création de compte vous sera envoyé. Cliquez sur le lien pour activer votre compte",
+            input_html: { autocomplete: "new-password" }
+          .form-actions
+          = f.button :submit, "S’inscrire", class:"btn btn-primary", data: { disable_with: "Validation..." }
+      %p.mtop2
+        = link_to "Se connecter en tant que Partenaire", new_partner_session_path, class: "bp3-text-muted"

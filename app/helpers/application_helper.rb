@@ -29,15 +29,11 @@ module ApplicationHelper
     )
   end
 
-  def sortable(column, title = nil, reverse_display = false)
-    title ||= column.titleize
-    css_class = column == sort_column ? "current #{sort_direction}" : nil
-    direction = column == sort_column && sort_direction == "asc" ? "desc" : "asc"
-    column == sort_column && title += if reverse_display
-                               sort_direction == "asc" ? " ↓" : " ↑"
-                             else
-                               sort_direction == "asc" ? " ↑" : " ↓"
-                             end
-    link_to title, request.parameters.merge({sort: column, direction: direction}), {class: css_class}
+  def humanize_boolean(boolean)
+    if boolean
+      icon("fas", "check", class: "text-success")
+    else
+      icon("fas", "times", class: "text-danger")
+    end
   end
 end

@@ -1,38 +1,39 @@
 = content_for(:append_to_head) do
   %meta{content: "index;follow", name: "robots"}
 
-#devise
-  .row.mtop2
-    .col-sm-12.col-md-8.col-lg-6
-      %p
-        %strong Connexion - Espace partenaire pour les centres de vaccination
+.container
+  #devise
+    .row.mt-5
+      .col-12.col-sm-6.offset-sm-3
+        %p
+          %strong Connexion - Espace partenaire pour les centres de vaccination
 
-      %p.text-justify.mb-4
-        Cet espace concerne concerne
-        %strong
-          uniquement le personnel médical
-        membre d’un centre de vaccination qui est partenaire avec CovidListe.
-        %br
-        Pour se connecter en tant que volontaire à la vaccination, merci de vous rendre sur
-        = link_to "cette page.", new_user_session_path
+        %p.text-justify.mb-4
+          Cet espace concerne concerne
+          %strong
+            uniquement le personnel médical
+          membre d’un centre de vaccination qui est partenaire avec Covidliste.
+          %br
+          Pour se connecter en tant que volontaire à la vaccination, merci de vous rendre sur
+          = link_to "cette page.", new_user_session_path
 
-      = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-        = f.input :email, autocomplete: "off", autofocus: true, required: true, id: "inputEmail", class: "bp3-input bp3-fill bp3-large input", placeholder: "E-mail"
-        = f.input :password, autocomplete: "off", required: true, id: "inputPassword", class: "bp3-input bp3-fill bp3-large input", placeholder: "Mot de passe"
-        - if devise_mapping.rememberable?
+        = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+          = f.input :email, autocomplete: "off", autofocus: true, required: true, id: "inputEmail", class: "bp3-input bp3-fill bp3-large input", placeholder: "E-mail"
+          = f.input :password, autocomplete: "off", required: true, id: "inputPassword", class: "bp3-input bp3-fill bp3-large input", placeholder: "Mot de passe"
+          - if devise_mapping.rememberable?
+            %p
+              = f.check_box :remember_me
+              %span.bp3-control-indicator
+              Se souvenir de moi
+          %p.mtop2
+            = f.submit "Connexion", class: "btn btn-primary"
           %p
-            = f.check_box :remember_me
-            %span.bp3-control-indicator
-            Se souvenir de moi
-        %p.mtop2
-          = f.submit "Connexion", class: "btn btn-primary"
-        %p
-          - if devise_mapping.recoverable? && controller_name != "passwords" && controller_name != "registrations"
-            = link_to "Mot de passe oublié ?", new_password_path(resource_name), class: "bp3-text-muted"
-        %p
-          - if devise_mapping.confirmable? && controller_name != "confirmations"
-            = link_to "Redemander l’email de confirmation", new_confirmation_path(resource_name), class: "bp3-text-muted"
-        %p
-          - if controller_name == "sessions"
-            = link_to "S’inscrire en tant que partenaire", :partenaires_inscription_path, class: "bp3-text-muted"
+            - if devise_mapping.recoverable? && controller_name != "passwords" && controller_name != "registrations"
+              = link_to "Mot de passe oublié ?", new_password_path(resource_name), class: "bp3-text-muted"
+          %p
+            - if devise_mapping.confirmable? && controller_name != "confirmations"
+              = link_to "Redemander l’email de confirmation", new_confirmation_path(resource_name), class: "bp3-text-muted"
+          %p
+            - if controller_name == "sessions"
+              = link_to "S’inscrire en tant que partenaire", :partenaires_inscription_path, class: "bp3-text-muted"
 

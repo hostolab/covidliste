@@ -92,6 +92,14 @@ class User < ApplicationRecord
     save(validate: false)
   end
 
+  def to_csv
+    columns = %w[created_at updated_at email firstname lastname birthdate phone_number address lat lon zipcode city geo_citycode geo_context]
+    CSV.generate(headers: true) do |csv|
+      csv << columns
+      csv << columns.map { |column| send(column) }
+    end
+  end
+
   protected
 
   # Devise override

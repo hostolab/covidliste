@@ -20,14 +20,12 @@ namespace :batches do
     puts "Batch #{batch.id} created"
 
     # Looking for users to match
-    users = User
-      .joins("LEFT JOIN matches ON matches.user_id = users.id")
-      .where("SQRT(((? - lat)*110.574)^2 + ((? - lon)*111.320*COS(lat::float*3.14159/180))^2) < ?", batch.vaccination_center.lat, batch.vaccination_center.lon, campaign.max_distance_in_meters / 1000)
-      .where("(matches.expires_at < now()::date AND matches.confirmed_at IS NULL) OR matches.id IS NULL")
-      .where("(DATE_PART('year', now()::date) - DATE_PART('year', birthdate::date))::int >= ? and (DATE_PART('year', now()::date) - DATE_PART('year', birthdate::date))::int <= ?", campaign.min_age, campaign.max_age)
-      .where("users.confirmed_at IS NOT NULL")
-      .order(id: :asc)
-      .limit(batch.size).all
+    users = batch.vaccination_center.reachable_users_query(
+      min_age: campaign.min_age,
+      max_age: campaign.max_age,
+      max_distance_in_meters: campaign.max_distance_in_meters,
+      limit: batch.size
+    ).all
     puts "#{users.size} users found"
 
     # Creating the matches
@@ -67,18 +65,21 @@ namespace :batches do
         puts "Error sending email to match #{match.id}"
       end
 
-      begin
-        response = client.messages.create({
-          from: "COVIDLISTE",
-          to: match.user.phone_number,
-          body: "Bonne nouvelle ! Un vaccin #{batch.campaign.vaccine_type} est disponible. Réservez-le avant #{match.expires_at.strftime("%Hh%M")} en cliquant ici : https://www.covidliste.com/matches/#{match.match_confirmation_token}"
-        })
-        puts response.body
-        match.update(sms_sent_at: Time.now.utc)
-      rescue => e
-        puts e.class
-        puts e.message
-        puts "Error sending sms to match #{match.id}"
+      # User can ban nil or anonymized, so we check if phone_number is present? before trying to send SMS
+      if match&.user&.phone_number.present?
+        begin
+          response = client.messages.create(
+            from: "COVIDLISTE",
+            to: match.user.phone_number,
+            body: "Bonne nouvelle ! Un vaccin #{batch.campaign.vaccine_type} est disponible. Réservez-le avant #{match.expires_at.strftime("%Hh%M")} en cliquant ici : https://www.covidliste.com/matches/#{match.match_confirmation_token}"
+          )
+          puts response.body
+          match.update(sms_sent_at: Time.now.utc)
+        rescue => e
+          puts e.class
+          puts e.message
+          puts "Error sending sms to match #{match.id}"
+        end
       end
     end
     puts "Done !"

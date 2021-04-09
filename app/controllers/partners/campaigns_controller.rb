@@ -1,37 +1,51 @@
 module Partners
   class CampaignsController < ApplicationController
     before_action :authenticate_partner!
-    before_action :find_vaccination_center, except: :show
-    before_action :find_campaign, only: :show
+    before_action :find_vaccination_center, except: [:show, :update]
+    before_action :find_campaign, only: [:show, :update]
     before_action :authorize!
 
-    # Feature flag
-    # TODO: remove the code when feature is ready
-    before_action :not_ready_yet!, if: -> { (@vaccination_center.id != 77) && Rails.env.production? }
-
-    def not_ready_yet!
-      flash[:error] = "Désolé, ette fonctionnalité est toujours en cours de développement."
-      redirect_to partners_vaccination_center_path(@vaccination_center)
-    end
-    # End feature flag
-
     def show
+      respond_to do |format|
+        format.html
+        format.csv do
+          send_data @campaign.to_csv, type: "text/csv", filename: "campagne_#{@campaign.id}.csv", disposition: :attachment
+        end
+      end
     end
 
     def new
-      @campaign = @vaccination_center.campaigns.build
+      @campaign = @vaccination_center.campaigns.build(ends_at: 1.hour.from_now)
     end
 
     def create
       @campaign = @vaccination_center.campaigns.build(create_params)
       @campaign.partner = current_partner
       @campaign.max_distance_in_meters = create_params["max_distance_in_meters"].to_i * 1000
+
       if @campaign.save
         @campaign.update(name: "Campagne ##{@campaign.id} du #{@campaign.created_at.strftime("%d/%m/%Y")}")
+        SendCampaignJob.perform_later(@campaign, current_partner)
+        PushNewCampaignToSlackJob.perform_later(@campaign)
         redirect_to partners_campaign_path(@campaign)
       else
+        @campaign.max_distance_in_meters = @campaign.max_distance_in_meters / 1000
         render :new
       end
+    end
+
+    def update
+      if params[:cancel] == "true" && @campaign.running?
+        @campaign.canceled!
+        flash[:notice] = "La campagne a bien été annulée. Attention, des volontaires ont reçu des SMS et peuvent encore confirmer dans les prochaines #{SendCampaignJob::BATCH_EXPIRE_IN_MINUTES} minutes"
+        redirect_to partners_campaign_path(@campaign)
+      end
+    end
+
+    def simulate_reach
+      # TODO: we should validate params here before running simulation
+      reach = @vaccination_center.reachable_users_query(**simulate_params.to_h.symbolize_keys).count
+      render json: {reach: Rails.env.production? ? reach : 1}
     end
 
     private
@@ -50,6 +64,11 @@ module Partners
 
     def find_vaccination_center
       @vaccination_center = VaccinationCenter.find(params[:vaccination_center_id])
+
+      if @vaccination_center.confirmed_at.nil?
+        flash[:error] = "Votre centre n'a pas encore été validé par l'équipe Covidliste."
+        redirect_to partners_vaccination_centers_path
+      end
     end
 
     def create_params
@@ -63,6 +82,10 @@ module Partners
         :ends_at,
         :vaccine_type
       )
+    end
+
+    def simulate_params
+      params.require(:campaign).permit(:min_age, :max_age, :max_distance_in_meters)
     end
   end
 end

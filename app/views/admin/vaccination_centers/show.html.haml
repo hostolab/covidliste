@@ -9,7 +9,7 @@
       = icon("fas", "check", class: "text-success")
       Validé
       par
-      %strong #{@vaccination_center.confirmer.full_name}
+      %strong #{@vaccination_center.confirmer&.full_name}
       le #{l @vaccination_center.confirmed_at}
     - else
       = icon("fas", "times", class: "text-danger")
@@ -31,20 +31,37 @@
       %span.mr-1= Vaccine::Brands::JANSSEN
   %p.small.mb-2
     #{@vaccination_center.description}
-  .row
-  .col-12
-  %h5.mtop2 Partenaires liés
+
+  %h5.mt-4 Ajouter un partenaire
+  = simple_form_for :new_partner_email,
+                    url: add_partner_admin_vaccination_center_path(@vaccination_center),
+                    method: :post,
+                    wrapper: :inline_form,
+                    html: { class: "form-inline" } do |f|
+    = f.input :email, type: :email, label: false, placeholder: "jean.dupont@email.com", required: true
+    = f.submit "Ajouter ce partenaire", class: "ml-3 btn btn-primary"
+
+  %h5.mt-4 Partenaires liés
+
   - if @vaccination_center.partners.present?
-    %table.table.table-striped.table-bordered.table-sm.small
-      %tr
-        %th.text-right #
-        %th Nom
-        %th Email
-      - @vaccination_center.partners.each do |partner|
-        %tr
-          %th.text-right #{partner.id}
-          %th #{partner.name}
-          %th #{partner.email}
+    .table-responsive
+      %table.table.table-bordered.table-sm.table-hover
+        %thead.thead-light
+          %tr
+            %th.text-right #
+            %th Nom
+            %th Email
+            %th Téléphone
+            %th.text-center Confirmé ?
+        %tbody
+          - @vaccination_center.partners.each do |partner|
+            %tr
+              %th.text-right= partner.id
+              %td= partner.name
+              %td= partner.email
+              %td= partner.phone_number
+              %td.text-center{title: partner.confirmed_at.present? ? "Confirmé le #{l(partner.confirmed_at)}" : ""}
+                = humanize_boolean partner.confirmed_at.present?
   - else
     %p
       = icon("fas", "info-circle")
