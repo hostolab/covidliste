@@ -9,6 +9,9 @@ class VaccinationCenter < ApplicationRecord
     ALL = [CABINET_MEDICAL, CENTRE_VACCINATION, EHPAD, HOPITAL, PHARMACIE].freeze
   end
 
+  include PgSearch::Model
+  pg_search_scope :global_search, against: [:name, :description, :kind, :address]
+
   validates_presence_of :name, :address, :lat, :lon, :phone_number
   validates :kind, inclusion: {in: VaccinationCenter::Kinds::ALL}
 
@@ -21,13 +24,6 @@ class VaccinationCenter < ApplicationRecord
   scope :confirmed, -> { where.not(confirmed_at: nil) }
 
   after_commit :push_to_slack, on: :create
-
-  def self.search(search)
-    return VaccinationCenter.all unless search
-
-    search = search.strip
-    VaccinationCenter.distinct.where("name ILIKE ? OR description ILIKE ? OR address ILIKE ? OR phone_number ILIKE ?", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search.delete(" ")}%")
-  end
 
   def confirmed?
     confirmed_at.present?
