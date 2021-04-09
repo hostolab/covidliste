@@ -82,13 +82,14 @@ class VaccinationCenter < ApplicationRecord
     end
   end
 
-  def reachable_users_query(min_age:, max_age:, max_distance_in_meters:, limit: nil)
-    User
-      .joins("LEFT JOIN matches ON matches.user_id = users.id")
+  def reachable_users_query(min_age:, max_age:, max_distance_in_meters:, limit: nil, lat:, lon:)
+    User.distinct
+      .where.not(confirmed_at: nil)
+      .where("EXTRACT(YEAR FROM AGE(birthdate))::int BETWEEN ? AND ?", min_age, max_age)
       .where("SQRT(((? - lat)*110.574)^2 + ((? - lon)*111.320*COS(lat::float*3.14159/180))^2) < ?", lat, lon, max_distance_in_meters / 1000)
-      .where("(matches.expires_at < now()::date AND matches.confirmed_at IS NULL) OR matches.id IS NULL")
-      .where("(DATE_PART('year', now()::date) - DATE_PART('year', birthdate::date))::int >= ? and (DATE_PART('year', now()::date) - DATE_PART('year', birthdate::date))::int <= ?", min_age, max_age)
-      .where("users.confirmed_at IS NOT NULL")
+      .joins("LEFT JOIN matches ON matches.user_id = users.id")
+      .where("matches.confirmed_at IS NULL")
+      .where("(matches.expires_at + interval '1' day < now() OR matches.id IS NULL)")
       .order(id: :asc)
       .limit(limit)
   end
