@@ -68,7 +68,6 @@ Rails.application.routes.draw do
       resources :campaigns, only: [:new, :create] do
         post :simulate_reach, on: :collection
       end
-      post "/campaigns/simulate_reach" => "campaigns#simulate_reach", :as => :campaign_simulate_reach
     end
     resources :campaigns, only: [:show, :update]
   end
