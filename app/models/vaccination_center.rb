@@ -89,7 +89,7 @@ class VaccinationCenter < ApplicationRecord
       .where("SQRT(((? - lat)*110.574)^2 + ((? - lon)*111.320*COS(lat::float*3.14159/180))^2) < ?", lat, lon, max_distance_in_meters / 1000)
       .joins("LEFT JOIN matches ON matches.user_id = users.id")
       .where("matches.confirmed_at IS NULL")
-      .where("(matches.expires_at + interval '1' day < now() OR matches.id IS NULL)")
+      .where("(matches.created_at + interval '1' day < now() OR matches.id IS NULL)")
       .order(id: :asc)
       .limit(limit)
   end
