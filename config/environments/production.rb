@@ -110,6 +110,7 @@ Rails.application.configure do
   }
 
   config.force_ssl = true
+  config.ssl_options = {hsts: {subdomains: true, preload: true, expires: 1.year}}
 
   # Inserts middleware to perform automatic connection switching.
   # The `database_selector` hash is used to pass options to the DatabaseSelector
