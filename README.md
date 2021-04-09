@@ -69,6 +69,12 @@ user.add_role(:super_admin)
 
 Visit https://github.com/hostolab/covidliste/blob/master/CONTRIBUTING.md
 
+# Thanks to all our contributors
+
+<a href="https://github.com/hostolab/covidliste/graphs/contributors">
+  <img src="https://contributors-img.web.app/image?repo=hostolab/covidliste" />
+</a>
+
 # Code formatting
 In order for the pipeline to be successful, you must ensure that you respect the linting made using
 
