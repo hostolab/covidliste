@@ -32,6 +32,7 @@ class UsersController < ApplicationController
     else
       flash.now[:error] = "Impossible d'enregistrer vos modifications."
     end
+    render action: :show
   end
 
   def create
