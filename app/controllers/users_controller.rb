@@ -34,8 +34,11 @@ class UsersController < ApplicationController
 
   def update
     @user = current_user
-    @user.update(user_params)
-    flash.now[:success] = "Modifications enregistrées"
+    if @user.update(user_params)
+      flash.now[:success] = "Modifications enregistrées."
+    else
+      flash.now[:error] = "Impossible d'enregistrer vos modifications."
+    end
     render action: :show
   end
 
@@ -63,7 +66,7 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:firstname, :lastname, :email, :phone_number, :toc, :address, :birthdate, :lat,
-      :lon, :zipcode, :city, :password)
+      :lon, :zipcode, :city, :password, :statement)
   end
 
   def sign_out_if_anonymized!

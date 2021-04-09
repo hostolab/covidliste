@@ -25,6 +25,7 @@ class User < ApplicationRecord
   validates :address, presence: true
   validates :birthdate, presence: true
   validates :toc, presence: true, acceptance: true
+  validates :statement, presence: true, acceptance: true
   validates :email,
     email: {
       mx: true,
