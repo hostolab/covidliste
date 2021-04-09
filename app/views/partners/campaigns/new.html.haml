@@ -3,17 +3,14 @@
     .col-12.col-lg-8.offset-lg-2
       = link_to "← Retour", partners_vaccination_center_path(@vaccination_center)
 
-      %h4.mt-3 Nouvelle Campagne
+      %h4.mt-3 Nouvelle Campagne pour #{@vaccination_center.name}
 
-      %p
-        Centre de vaccination :
-        %strong= @vaccination_center.name
-      %p Lorsque vous constatez qu’il vous restera des doses, créez une campagne Covidliste
-
-      = simple_form_for([:partners, @vaccination_center, @campaign], data: {controller: "new-campaign", new_campaign_simulate_path_value: simulate_reach_partners_vaccination_center_campaigns_path(@vaccination_center) }) do |f|
-        %h5 Informations sur la campagne
-        = f.input :available_doses, label: "Nombre de doses à écouler", as: :integer, input_html: { min: "1", max: Campaign::MAX_DOSES }, hint: "200 max. Si vous avez plus de doses à écouler, créez plusieurs campagnes successives"
-        = f.input :vaccine_type, label: "Type de vaccin", collection: Vaccine::Brands::ALL
+      = simple_form_for([:partners, @vaccination_center, @campaign], data: {controller: "new-campaign", new_campaign_simulate_path_value: simulate_reach_partners_vaccination_center_campaigns_path(@vaccination_center), new_campaign_max_distance_in_km_value: Campaign::MAX_DISTANCE_IN_KM }) do |f|
+        .row
+          .col.col-8
+            = f.input :available_doses, label: "Nombre de doses à écouler", as: :integer, input_html: { min: "1", max: Campaign::MAX_DOSES }, hint: "200 max. Plus de doses ? Créez plusieurs campagnes successives !"
+          .col.col-4
+            = f.input :vaccine_type, label: "Type de vaccin", collection: Vaccine::Brands::ALL
 
         %h5 Plage horaire de disponibilité des vaccins
 
@@ -26,9 +23,15 @@
 
         %h5 Critères de sélection des volontaires
 
-        = f.input :min_age, label: "Âge minimum (inclus)", input_html: { min: "18", max: "130", data: { new_campaign_target: "minAge" } }
-        = f.input :max_age, label: "Âge maximum (inclus)", input_html: { min: "18", max: "130", data: { new_campaign_target: "maxAge" } }
-        = f.input :max_distance_in_meters, label: "Distance maximum au centre (en km)", input_html: { min: "1", data: { new_campaign_target: "maxDistance" } }
+        .row
+          .col.col-4
+            = f.input :min_age, label: "Âge minimum (inclus)", input_html: { min: "18", max: "130", data: { new_campaign_target: "minAge" } }, hint: "18 ans min"
+          .col.col-4
+            = f.input :max_age, label: "Âge maximum (inclus)", input_html: { min: "18", max: "130", data: { new_campaign_target: "maxAge" } }, hint: "max ⩾ min"
+          .col.col-4
+            = f.input :max_distance_in_meters, label: "Distance maximum (en km)", input_html: { min: "1", max: Campaign::MAX_DISTANCE_IN_KM, data: { new_campaign_target: "maxDistance" } }, hint: "#{Campaign::MAX_DISTANCE_IN_KM} km max"
         = button_tag "Simuler", type: :button, class: "btn btn-primary", data:  {new_campaign_target: "simulateButton", action: "click->new-campaign#simulate" }
-        = content_tag :p, "", data: { new_campaign_target: "simulationResult" }
-        = f.button :submit, "Envoyer les SMS aux volontaires !", class: "btn btn-primary d-none", disabled: true, data: {new_campaign_target: "submitButton", confirm: "Êtes-vous sûr(e) ?", disable_with: "Création de la campagne et envoi..."}
+        = content_tag :p, "", data: { new_campaign_target: "simulationResult" }, class: "d-inline-block"
+        = f.button :submit, "Envoyer les SMS aux volontaires !", class: "btn btn-primary d-none mt-3", disabled: true, data: {new_campaign_target: "submitButton", confirm: "Êtes-vous sûr(e) ?", disable_with: "Création de la campagne et envoi..."}
+
+        %div.mb-5
