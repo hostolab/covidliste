@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="row mt-5">
+  <div class="row mt-5 pb-3">
     <div class="col-12 col-sm-8 offset-sm-2">
       <p>
         Bonjour <%= @user.full_name %>,
@@ -46,7 +46,7 @@
 
       <p class="mt-4">
         Vous souhaitez supprimer votre compte ?
-        <%= button_to "Supprimer mon compte", :delete_user, method: :delete, class: "text-danger",
+        <%= button_to "Supprimer mon compte", :delete_user, method: :delete, class: "btn btn-danger",
                     data: { confirm: "En confirmant, votre compte ainsi que toutes les données associées seront supprimées de nos serveurs. Êtes-vous sûr ?" } %>
       </p>
 
