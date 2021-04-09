@@ -29,44 +29,47 @@
 .mt-3
 %span #{number_with_delimiter(@pagy_vaccination_centers.count, delimiter: ".")} résultats
 - if @vaccination_centers.present?
-  %table.table.table-hover.table-bordered.table-sm
-    %tr
-      %th.text-right= sortable "id", "#"
-      %th= sortable "name", "Nom"
-      %th= sortable "kind", "Type"
-      %th Adresse
-      %th Téléphone
-      %th Types de vaccins
-      %th= sortable "confirmed_at", "Validé"
-      %th
-    - @vaccination_centers.each do |vaccination_center|
-      %tr
-        %th.text-right #{vaccination_center.id}
-        %td
-          %strong
-            = link_to vaccination_center.name, admin_vaccination_center_path(vaccination_center.id)
-          %br
-          #{vaccination_center.description}
-        %td #{vaccination_center.kind}
-        %td #{vaccination_center.address}
-        %td #{vaccination_center.phone_number}
-        %td
-          - if vaccination_center.pfizer
-            %span.mr-1= Vaccine::Brands::PFIZER
-          - if vaccination_center.moderna
-            %span.mr-1= Vaccine::Brands::MODERNA
-          - if vaccination_center.astrazeneca
-            %span.mr-1= Vaccine::Brands::ASTRAZENECA
-          - if vaccination_center.janssen
-            %span.mr-1= Vaccine::Brands::JANSSEN
-        %td
-          - if vaccination_center.confirmed?
-            = icon("fas", "check", class: "text-success")
-            %span{title: "Validé par #{vaccination_center.confirmer&.full_name} le #{l vaccination_center.confirmed_at}", data: { toggle: :tooltip }} oui
-          - else
-            = icon("fas", "times", class: "text-danger")
-            Non
-        %td.text-center
-          = link_to icon("fas", "edit"), edit_admin_vaccination_center_path(vaccination_center), title: "Éditer (ou supprimer) ce centre", data: { toggle: :tooltip }
+  .table-responsive
+    %table.table.table-hover.table-bordered.table-sm
+      %thead.thead-light
+        %tr
+          %th.text-right= sortable "id", "#"
+          %th= sortable "name", "Nom"
+          %th= sortable "kind", "Type"
+          %th Adresse
+          %th Téléphone
+          %th Types de vaccins
+          %th= sortable "confirmed_at", "Validé"
+          %th
+      %tbody
+        - @vaccination_centers.each do |vaccination_center|
+          %tr
+            %th.text-right #{vaccination_center.id}
+            %td
+              %strong
+                = link_to vaccination_center.name, admin_vaccination_center_path(vaccination_center.id)
+              %br
+              #{vaccination_center.description}
+            %td #{vaccination_center.kind}
+            %td #{vaccination_center.address}
+            %td #{vaccination_center.phone_number}
+            %td
+              - if vaccination_center.pfizer
+                %span.mr-1= Vaccine::Brands::PFIZER
+              - if vaccination_center.moderna
+                %span.mr-1= Vaccine::Brands::MODERNA
+              - if vaccination_center.astrazeneca
+                %span.mr-1= Vaccine::Brands::ASTRAZENECA
+              - if vaccination_center.janssen
+                %span.mr-1= Vaccine::Brands::JANSSEN
+            %td
+              - if vaccination_center.confirmed?
+                = icon("fas", "check", class: "text-success")
+                %span{title: "Validé par #{vaccination_center.confirmer&.full_name} le #{l vaccination_center.confirmed_at}", data: { toggle: :tooltip }} oui
+              - else
+                = icon("fas", "times", class: "text-danger")
+                Non
+            %td.text-center
+              = link_to icon("fas", "edit"), edit_admin_vaccination_center_path(vaccination_center), title: "Éditer (ou supprimer) ce centre", data: { toggle: :tooltip }
   - if @pagy_vaccination_centers.pages > 1
     = raw pagy_bootstrap_nav(@pagy_vaccination_centers)
