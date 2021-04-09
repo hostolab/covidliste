@@ -65,10 +65,9 @@ user = User.find_by(email: <your_email>)
 user.add_role(:super_admin)
 ```
 
-# To Contribute
+# Contributing
 
-- Go to https://github.com/hostolab/covidliste/issues and assign yourself an issue you think you can address.
-- Submit a PR
+Visit https://github.com/hostolab/covidliste/blob/master/CONTRIBUTING.md
 
 # Code formatting
 In order for the pipeline to be successful, you must ensure that you respect the linting made using
