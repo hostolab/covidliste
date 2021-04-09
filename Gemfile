@@ -53,6 +53,7 @@ gem "flipper"
 gem "flipper-redis"
 gem "flipper-ui"
 gem "pagy"
+gem "lefthook"
 
 group :development, :test do
   gem "bullet"
