@@ -46,7 +46,7 @@ module Admin
 
       respond_to do |format|
         format.html {
-          @pagy_vaccination_centers, @vaccination_centers = pagy(vaccination_centers.order(ActiveRecord::Base::sanitize_sql("#{sort_column} #{sort_direction}")))
+          @pagy_vaccination_centers, @vaccination_centers = pagy(vaccination_centers.order(ActiveRecord::Base.sanitize_sql("#{sort_column} #{sort_direction}")))
         }
         format.csv { send_data vaccination_centers.to_csv, filename: "vaccination_centers-#{Date.today}.csv" }
       end
