@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_08_131230) do
+ActiveRecord::Schema.define(version: 2021_04_08_232202) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -196,6 +196,7 @@ ActiveRecord::Schema.define(version: 2021_04_08_131230) do
     t.string "city"
     t.string "geo_citycode"
     t.string "geo_context"
+    t.boolean "statement", default: false
     t.index ["city"], name: "index_users_on_city"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token"
     t.index ["email_bidx"], name: "index_users_on_email_bidx", unique: true

@@ -10,6 +10,7 @@ FactoryBot.define do
 
     confirmed_at { Time.zone.now }
 
+    statement { true }
     toc { true }
 
     trait :from_lyon do
