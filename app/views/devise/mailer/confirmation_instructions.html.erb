@@ -10,7 +10,10 @@
 </p>
 
 <p>
-  <%= link_to "Validez votre inscription", confirmation_url(@resource, confirmation_token: @token) %>
+  <%= link_to "Validez votre inscription en cliquant ici", confirmation_url(@resource, confirmation_token: @token) %>
+  <br>
+  Si le lien ne fonctionne pas, copiez et collez l’adresse suivante dans votre navigateur :
+  <%= confirmation_url(@resource, confirmation_token: @token) %>
 </p>
 
 <%= render "mailer/footer" %>
