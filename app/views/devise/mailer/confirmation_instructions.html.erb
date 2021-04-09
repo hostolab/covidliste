@@ -1,0 +1,16 @@
+<p>
+  Bonjour <%= @resource.full_name %>,
+</p>
+
+<p>
+  Vous venez de vous enregistrer sur CovidListe.
+  <br>
+  Pour finaliser votre inscription, merci de cliquer sur le lien ci-dessous (ce lien reste valide pendant 24 heures,
+  au-delà des 24 heures vous devrez refaire une demande de confirmation).
+</p>
+
+<p>
+  <%= link_to "Validez votre inscription", confirmation_url(@resource, confirmation_token: @token) %>
+</p>
+
+<%= render "mailer/footer" %>

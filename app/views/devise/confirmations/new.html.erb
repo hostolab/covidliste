@@ -1,0 +1,20 @@
+<div id="devise">
+  <div class="container">
+    <div class="row mt-5">
+      <div class="col-12 col-sm-6 offset-sm-3">
+        <p>
+          <strong>Demande de renvoi de l’email de confirmation</strong>
+        </p>
+
+        <p>
+          Si vous n’avez pas encore pu valider votre inscription, veuillez saisir votre adresse email afin de recevoir un email de confirmation.
+        </p>
+
+        <%= simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post, class: "form-signin" }) do |f| %>
+          <%= f.input :email, autofocus: true, required: true, placeholder: "jean@dupont.com", id: "inputEmail", class: "form-control" %>
+          <%= f.submit "C’est parti !", class: "btn btn-primary" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
