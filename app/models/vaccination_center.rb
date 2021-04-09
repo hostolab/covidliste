@@ -82,7 +82,7 @@ class VaccinationCenter < ApplicationRecord
     end
   end
 
-  def reachable_users_query(min_age:, max_age:, max_distance_in_meters:, limit: nil, lat:, lon:)
+  def reachable_users_query(min_age:, max_age:, max_distance_in_meters:, limit: nil)
     User.distinct
       .where.not(confirmed_at: nil)
       .where("EXTRACT(YEAR FROM AGE(birthdate))::int BETWEEN ? AND ?", min_age, max_age)
