@@ -64,7 +64,7 @@
               %em Anonymized
             %td -
           - else
-            %td #{user.firstname} #{user.lastname}
+            %td= user.full_name
             %td= user.phone_number
 
           %td= user.birthdate.strftime("%d/%m/%Y")
