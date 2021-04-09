@@ -8,7 +8,7 @@ class SendCampaignJob < ApplicationJob
 
   def perform(campaign, partner = nil)
     return unless campaign.running?
-    return campaign.completed! if campaign.remaining_slots.zero? || (campaign.ends_at - STOP_SENDING_BEFORE_CAMPAIGN_ENDS_AT) < Time.now.utc
+    return campaign.completed! if campaign.remaining_slots < 0 || (campaign.ends_at - STOP_SENDING_BEFORE_CAMPAIGN_ENDS_AT) < Time.now.utc
 
     limit = (campaign.remaining_slots * BATCH_OVERBOOKING_FACTOR).floor
 
