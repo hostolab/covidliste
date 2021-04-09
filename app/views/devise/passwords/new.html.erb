@@ -1,0 +1,20 @@
+<div id="devise">
+  <div class="container">
+    <div class="row mt-5">
+      <div class="col-12 col-sm-6 offset-sm-3">
+        <p>
+          <strong>Demande de mot de passe</strong>
+        </p>
+
+        <p>
+          Veuillez saisir votre adresse email afin de recevoir un lien pour créer ou changer votre mot de passe.
+        </p>
+
+        <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+          <%= f.input :email, autofocus: true, required: true, id: "inputEmail" %>
+          <%= f.submit "Recevoir le lien", class: "btn btn-primary" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
