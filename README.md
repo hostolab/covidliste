@@ -1,5 +1,7 @@
 # Covidliste
 
+[![Test](https://github.com/hostolab/covidliste/actions/workflows/test.yml/badge.svg?branch=master)](https://github.com/hostolab/covidliste/actions/workflows/test.yml)
+
 Covidliste makes it easy to manage waiting lists for vaccination centers.
 
 [https://www.covidliste.com](https://www.covidliste.com)
@@ -63,10 +65,9 @@ user = User.find_by(email: <your_email>)
 user.add_role(:super_admin)
 ```
 
-# To Contribute
+# Contributing
 
-- Go to https://github.com/hostolab/covidliste/issues and assign yourself an issue you think you can address.
-- Submit a PR
+Visit https://github.com/hostolab/covidliste/blob/master/CONTRIBUTING.md
 
 # Code formatting
 In order for the pipeline to be successful, you must ensure that you respect the linting made using

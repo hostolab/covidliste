@@ -2,7 +2,7 @@ import { Controller } from "stimulus"
 import Rails from "@rails/ujs"
 
 export default class extends Controller {
-  static values = { simulatePath: String }
+  static values = { simulatePath: String, maxDistanceInKm: Number }
   static targets = ["minAge", "maxAge", "maxDistance", "simulationResult", "simulateButton", "submitButton"]
 
   simulate(e) {
@@ -14,10 +14,15 @@ export default class extends Controller {
     const maxAge = parseInt(this.maxAgeTarget.value, 10) || 0
     const maxDistance = parseInt(this.maxDistanceTarget.value, 10) || 0
 
-    debugger
     if (minAge == 0 || maxAge == 0 || maxDistance == 0) {
       this.simulationResultTarget.innerHTML =
         "Simulation impossible, merci de bien remplir les trois champs âge et distance"
+      return
+    }
+
+    if (maxDistance > this.maxDistanceInKmValue) {
+      this.simulationResultTarget.innerHTML =
+        `Simulation impossible, merci de préciser une distance inférieure ou égale à ${this.maxDistanceInKmValue} km`
       return
     }
 
