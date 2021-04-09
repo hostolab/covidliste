@@ -46,13 +46,13 @@
 
       <p class="mt-4">
         Vous souhaitez supprimer votre compte ?
-        <%= link_to "Supprimer mon compte", :delete_user, method: :delete, class: "text-danger",
+        <%= button_to "Supprimer mon compte", :delete_user, method: :delete, class: "text-danger",
                     data: { confirm: "En confirmant, votre compte ainsi que toutes les données associées seront supprimées de nos serveurs. Êtes-vous sûr ?" } %>
       </p>
 
       <hr/>
 
-      <%= link_to "Se déconnecter", destroy_user_session_path, method: :delete, class: "btn btn-warning" %>
+      <%= button_to "Se déconnecter", destroy_user_session_path, method: :delete, class: "btn btn-warning" %>
     </div>
   </div>
 </div>
