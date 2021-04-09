@@ -16,5 +16,12 @@
       <%= render "layouts/alerts" %>
       <%= yield %>
     </div>
+
+    <% if Rails.env.development? %>
+      <%# Highlight image missing alt for accessibility %>
+      <style>
+        img:not([alt]), img[alt=""] {border: 5px dashed red;}
+      </style>
+    <% end %>
   </body>
 </html>
