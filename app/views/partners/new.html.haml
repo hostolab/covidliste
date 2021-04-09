@@ -5,13 +5,13 @@
   .row.mt-2
     .col-12.col-lg-8.offset-lg-2
       %p
-        %strong Inscription en tant que centre de vaccination Partenaire
+        %strong Inscription en tant que Partenaire
 
       %p.text-justify.mb-5
         Cette page d’inscription concerne uniquement l’inscription du
         %strong
-          personnel médical
-        membre d’un centre de vaccination qui souhaite devenir partenaire.
+          personnel médical :
+        membre d'un centre de vaccination, cabinet de médecine libérale, hôpital, pharmacie... qui souhaite devenir partenaire.
         %br
 
       %h2
@@ -26,7 +26,7 @@
         = icon("fas", "user-md")
         = icon("fas", "clinic-medical")
       %p
-        Si vous êtes membre d’un centre de vaccination et souhaitez devenir partenaire de Covidliste, c’est bien ici ! Veuillez remplir le formulaire ci-dessous.
+        Si vous êtes un praticien en charge de vaccination et souhaitez devenir partenaire de Covidliste, c’est bien ici ! Veuillez remplir le formulaire ci-dessous.
 
       - if @partner.persisted?
         .row.mtop2
