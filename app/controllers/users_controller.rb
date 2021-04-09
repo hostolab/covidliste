@@ -12,11 +12,23 @@ class UsersController < ApplicationController
       @users_count = Rails.cache.fetch(:users_count, expires_in: 1.minute) do
         number_with_delimiter(User.count, locale: :fr).gsub(" ", "&nbsp;").html_safe
       end
+      @matched_users_count = Rails.cache.fetch(:matched_users_count, expires_in: 1.minute) do
+        number_with_delimiter(User.includes(:matches).where.not(matches: {confirmed_at: nil}).count, locale: :fr).gsub(" ", "&nbsp;").html_safe
+      end
+      @vaccination_centers_count = Rails.cache.fetch(:vaccination_centers_count, expires_in: 1.minute) do
+        number_with_delimiter(VaccinationCenter.confirmed.count, locale: :fr).gsub(" ", "&nbsp;").html_safe
+      end
     end
   end
 
   def show
     @user = current_user
+    respond_to do |format|
+      format.html
+      format.csv do
+        send_data @user.to_csv, type: "text/csv", filename: "mes_donnees_covidliste.csv", disposition: :attachment
+      end
+    end
   end
 
   def update

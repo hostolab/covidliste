@@ -1,6 +1,8 @@
 class PushNewVaccinationCenterToSlackJob < ApplicationJob
   queue_as :critical
 
+  SLACK_CHANNEL = "nouveau-centre".freeze
+
   def perform(vaccination_center)
     @vaccination_center = vaccination_center
 
@@ -31,14 +33,10 @@ class PushNewVaccinationCenterToSlackJob < ApplicationJob
       }
     ].to_json
 
-    SlackNotifierJob.perform_later(channel, text, attachments)
+    SlackNotifierJob.perform_later(SLACK_CHANNEL, text, attachments)
   end
 
   private
-
-  def channel
-    Rails.env.production? ? "nouveau-centre" : "test"
-  end
 
   def cta
     "<#{Rails.application.routes.url_helpers.admin_vaccination_center_url(@vaccination_center)}|Aller à la validation>"
