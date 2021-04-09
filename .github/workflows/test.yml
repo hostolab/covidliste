@@ -8,8 +8,7 @@ jobs:
     env:
       RAILS_ENV: test
       NODE_ENV: test
-      # NOTE(ssaunier): commenting out as it's breaking the build at the moment
-      # CI: 'true'
+      CI: 'true'
     runs-on: ubuntu-latest # runner
     services:
       # Label used to access the service container
@@ -57,11 +56,10 @@ jobs:
           bundle exec rails db:create db:migrate
       - name: Run tests
         run: bundle exec rspec --format RspecJunitFormatter --out rspec.xml
-      # NOTE(ssaunier): commenting out as it's breaking the build at the moment
-      # - name: Codecov
-      #   uses: codecov/codecov-action@v1.3.2
-      #   with:
-      #     token: ${{ secrets.CODECOV_TOKEN }}
+      - name: Codecov
+        uses: codecov/codecov-action@v1.3.2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
       - name: Publish Unit Test Results
         uses: EnricoMi/publish-unit-test-result-action@v1
         if: always()
