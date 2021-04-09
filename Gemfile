@@ -86,7 +86,7 @@ group :test do
   gem "webmock"
   gem "spring-commands-rspec", "~> 1.0"
   gem "rspec_junit_formatter"
-  gem 'codecov', require: false
+  gem "codecov", require: false
 end
 
 # Windows does not include zone
