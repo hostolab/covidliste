@@ -48,5 +48,19 @@ RSpec.describe MatchesController, type: :system do
         expect(page).to have_current_path(root_path)
       end
     end
+
+    context "when another match has already been confirmed" do
+      before do
+        match.update_column("confirmed_at", Time.now)
   end
+
+      it "handle the disappointment gracefully" do
+        visit "/matches/#{second_match_confirmation_token}"
+
+        expect(page).to have_text("La dose n'est plus disponible 😢")
+        expect(page).to have_text("Nous sommes désolés, un autre volontaire a été plus rapide que vous.")
+        expect(page).to have_text("Celà arrive parfois car pour être certains qu'aucune dose ne soit perdue nous contactons plusieurs volontaires")
+        expect(page).not_to have_text("Une dose est disponible")
+        expect(page).not_to have_text("Je suis disponible")
 end
+    end
