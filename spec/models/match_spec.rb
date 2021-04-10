@@ -25,6 +25,31 @@ RSpec.describe Match, type: :model do
       expect(match.geo_citycode).to eq "75001"
       expect(match.geo_context).to eq "GEO_CONTEXT"
     end
+
+    context 'When the match is already confirmed' do
+      subject { confirmed_match.confirm! }
+      it 'raises Match::DoseOverbookingError' do
+        expect {subject }.to raise_error(Match::DoseOverbookingError)
+      end
+    end
+
+    context 'When the batch has already at least one match confirmed' do
+      subject { match.confirm! }
+      it 'raises Match::DoseOverbookingError' do
+        confirmed_match
+        expect{ subject }.to raise_error(Match::DoseOverbookingError)
+      end
+    end
+
+    context 'When the match is confirmable' do
+      subject { match.confirm! }
+      it 'updates the confirmed_at' do
+        allow(now).to receive(:utc).and_return(now_utc)
+        allow(Time).to receive(:now).and_return(now)
+
+        expect{ subject }.to change { match.confirmed_at }.from(nil).to(now_utc)
+      end
+    end
   end
 
   describe '#confirmable?' do
