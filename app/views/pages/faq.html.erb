@@ -15,21 +15,6 @@
 
   <p>
     <strong>
-      Je me suis inscrit mais je souhaite modifier ou supprimer mes données ?
-    </strong>
-  </p>
-
-  <p>
-    Afin de modifier ou supprimer vos données personnelles, connectez-vous sur votre espace personnel
-    <%= link_to "ici", :new_user_session %>.
-    <br/>
-    Si vous souhaitez modifier vos données : modifiez-les puis cliquez sur « Je modifie mes informations ».
-    <br/>
-    Si vous souhaitez supprimer vos données : cliquez sur « Supprimez mon compte ».
-  </p>
-
-  <p>
-    <strong>
       Je suis un professionnel de santé en charge de la vaccination. Comment accéder à votre service ?
     </strong>
   </p>
@@ -45,14 +30,33 @@
   </p>
 
   <p>
-    Nous allons démarrer le déploiement de la solution avec des centres de vaccination pilotes dès la semaine prochaine.
-    Si vous souhaitez faire partie des centres pilotes, nous vous invitons à contacter
-    <%= link_to "gaelle@covidliste.com", "mailto:gaelle@covidliste.com" %>.
+    <strong>
+      Je suis journaliste et souhaite réaliser une interview.
+    </strong>
+  </p>
+
+  <p>
+    Nous vous invitons à nous contacter sur <%= link_to "hello@covidliste.com", "mailto:hello@covidliste.com", rel: "noopener" %>.
   </p>
 
   <p>
     <strong>
-      Je n’ai pas reçu d’email de confirmation
+      Je me suis inscrit mais je souhaite modifier ou supprimer mes données ?
+    </strong>
+  </p>
+
+  <p>
+    Afin de modifier ou supprimer vos données personnelles, connectez-vous sur votre espace personnel
+    <%= link_to "ici", :new_user_session %>.
+    <br/>
+    Si vous souhaitez modifier vos données : modifiez-les puis cliquez sur « Je modifie mes informations ».
+    <br/>
+    Si vous souhaitez supprimer vos données : cliquez sur « Supprimez mon compte ».
+  </p>
+
+  <p>
+    <strong>
+      Je n’ai pas reçu d’email de confirmation.
     </strong>
   </p>
 
@@ -63,6 +67,46 @@
     <%= link_to "ici", new_user_confirmation_path %>.
     <br>
     Attendez quelques minutes, vérifiez vos courriers indésirables ou boîte SPAM.
+  </p>
+
+
+  <p>
+    <strong>
+      Peut-on s’inscrire à deux (ou plus) ?
+    </strong>
+  </p>
+
+  <p>
+    Oui ! Chacun doit alors utiliser sa propre adresse email pour s'inscrire.
+    <br />
+    À ce jour, Covidliste n’autorise qu’une inscription par adresse e-mail.
+  </p>
+
+  <p>
+    <strong>
+      Je ne suis pas prioritaire, puis-je tout de même m’inscrire ?
+    </strong>
+  </p>
+
+  <p>
+    Covidliste est un outil d’ajustement de l’offre et de la demande qui a pour objectif d’éviter de perdre des doses
+    de vaccins.
+    <br/>
+    Les centres pourront vous contacter même si vous n’êtes pas prioritaires selon les critères de la vague de
+    vaccination en vigueur à ce moment.
+    <br/>
+    Ce sont les centres qui sélectionnent les volontaires selon des critères qui leur sont propres parmi lesquels
+    géolocalisation, âge, vaccin disponible...
+  </p>
+
+  <p>
+    <strong>
+      Comment inscrire deux adresses postales différentes (domicile, travail, etc.) ?
+    </strong>
+  </p>
+
+  <p>
+    À ce jour, Covidliste n’autorise qu’une adresse postale par compte.
   </p>
 
   <p>
@@ -89,16 +133,17 @@
 
   <p>
     <strong>
-      Comment être certain que les coordonnées transmises ne soient pas par la suite revendues à des tiers ?
+      Je suis inscrit depuis plusieurs semaines et je n’ai jamais été contacté pour une vaccination.
     </strong>
   </p>
 
   <p>
-    Covidliste est une initiative citoyenne et philanthrope portée par une équipe de plus de 100 bénévoles qui se sont
-    rassemblés dans l’unique but de ne pas perdre de doses de vaccins.
+    Covidliste est un outil d’ajustement de l’offre et de la demande qui a pour objectif d’éviter de perdre des doses
+    de vaccins.
     <br/>
-    Les données que vous renseignez ne sont transmises qu’aux centres de vaccination ou aux professionnels de santé
-    proches de chez vous et disposant de doses de vaccins à sauver.
+    Covidliste est complémentaire de la stratégie vaccinale actuelle et n’a pas vocation à s’y substituer.
+    <br/>
+    Covidliste ne peut garantir qu’une dose de vaccin sera proposée aux volontaires sur la plateforme.
   </p>
 
   <p>
@@ -115,38 +160,6 @@
     <br/>
     Si un centre vous contacte, nous vous invitons à lui faire part de votre préférence et de toutes les informations
     que vous jugez nécessaires.
-  </p>
-
-  <p>
-    <strong>
-      Je ne suis pas prioritaire, puis-je tout de même m’inscrire ?
-    </strong>
-  </p>
-
-  <p>
-    Covidliste est un outil d’ajustement de l’offre et de la demande qui a pour objectif d’éviter de perdre des doses
-    de vaccins.
-    <br/>
-    Les centres pourront vous contacter même si vous n’êtes pas prioritaires selon les critères de la vague de
-    vaccination en vigueur à ce moment.
-    <br/>
-    Ce sont les centres qui sélectionnent les volontaires selon des critères qui leur sont propres parmi lesquels
-    géolocalisation, âge, vaccin disponible...
-  </p>
-
-  <p>
-    <strong>
-      Je suis inscrit depuis plusieurs semaines et je n’ai jamais été contacté pour une vaccination.
-    </strong>
-  </p>
-
-  <p>
-    Covidliste est un outil d’ajustement de l’offre et de la demande qui a pour objectif d’éviter de perdre des doses
-    de vaccins.
-    <br/>
-    Covidliste est complémentaire de la stratégie vaccinale actuelle et n’a pas vocation à s’y substituer.
-    <br/>
-    Covidliste ne peut garantir qu’une dose de vaccin sera proposée aux volontaires sur la plateforme.
   </p>
 
   <p>
@@ -211,6 +224,20 @@
     afin d’écouler des surdoses qui risqueraient d’être détruites.
     <br>
     Covidliste est complémentaire à la stratégie vaccinale actuelle et n’a pas vocation à s’y substituer.
+  </p>
+
+  <p>
+    <strong>
+      Comment être certain que les coordonnées transmises ne soient pas par la suite revendues à des tiers ?
+    </strong>
+  </p>
+
+  <p>
+    Covidliste est une initiative citoyenne et philanthrope portée par une équipe de plus de 100 bénévoles qui se sont
+    rassemblés dans l’unique but de ne pas perdre de doses de vaccins.
+    <br/>
+    Les données que vous renseignez ne sont transmises qu’aux centres de vaccination ou aux professionnels de santé
+    proches de chez vous et disposant de doses de vaccins à sauver.
   </p>
 
   <p>
@@ -329,16 +356,6 @@
 
   <p>
     <strong>
-      Je suis journaliste et souhaite réaliser une interview
-    </strong>
-  </p>
-
-  <p>
-    Nous vous invitons à nous contacter sur <%= link_to "hello@covidliste.com", "mailto:hello@covidliste.com", rel: "noopener" %>.
-  </p>
-
-  <p>
-    <strong>
       Comment télécharger votre application mobile ?
     </strong>
   </p>
@@ -347,25 +364,4 @@
     À ce jour, Covidliste ne dispose pas d’application mobile.
   </p>
 
-  <p>
-    <strong>
-      Peut-on s’inscrire à deux (ou plus) ?
-    </strong>
-  </p>
-
-  <p>
-    Oui ! Chacun doit alors utiliser sa propre adresse email pour s'inscrire.
-    <br />
-    À ce jour, Covidliste n’autorise qu’une inscription par adresse e-mail.
-  </p>
-
-  <p>
-    <strong>
-      Comment inscrire deux adresses postales différentes (domicile, travail, etc.) ?
-    </strong>
-  </p>
-
-  <p>
-    À ce jour, Covidliste n’autorise qu’une adresse postale par compte.
-  </p>
 </div>
