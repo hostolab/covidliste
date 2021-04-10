@@ -1,5 +1,14 @@
+# Ignore this file!
+.prettierignore
+
 # Ignore bundler config.
 /.bundle
+
+# Ignore rake tasks
+lib/tasks/*.rake
+
+# Ignore Ruby files
+**/*.rb
 
 # Ignore all logfiles and tempfiles.
 /log/*
