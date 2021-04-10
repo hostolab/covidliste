@@ -28,6 +28,10 @@ class Match < ApplicationRecord
     )
   end
 
+  def confirmable?
+    !confirmed? && campaign_batch.matches.confirmed.none?
+  end
+
   def expired?
     !confirmed? && Time.now.utc > expires_at
   end
