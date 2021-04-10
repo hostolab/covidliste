@@ -1,0 +1,22 @@
+<div>
+  <h2>
+    Bonjour <%= @match.user.full_name %>,
+  </h2>
+
+  <p>
+    Cette semaine, vous avez été mis en contact avec un centre de vaccination grâce à Covidliste. Nous en sommes très heureux et espérons que vous avez pu vous rendre au rendez-vous.
+  </p>
+  <p>
+    Vous faites partie des premières personnes à avoir pu bénéficier de notre service et nous serions ravis de pouvoir recueillir votre témoignage. Si vous acceptez de nous partager votre expérience, merci de répondre à cet email.
+  </p>
+  <p>
+    Par ailleurs, comme indiqué lors de votre confirmation, votre compte et vos informations vont désormais être définitivement anonymisées. Vous ne recevrez plus de notifications et ne pourrez plus vous connecter.
+  </p>
+  <p>
+    Merci de nous avoir fait confiance,<br>
+    Covidliste
+  </p>
+
+  <%= render 'mailer/footer' %>
+
+</div>
