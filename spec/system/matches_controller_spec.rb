@@ -91,4 +91,3 @@ RSpec.describe MatchesController, type: :system do
     end
   end
 end
-

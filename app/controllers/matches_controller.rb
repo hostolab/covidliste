@@ -1,7 +1,8 @@
 class MatchesController < ApplicationController
   before_action :set_match, only: [:show, :update]
 
-  def show; end
+  def show
+  end
 
   def update
     if @match.expired?

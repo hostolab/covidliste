@@ -1,5 +1,6 @@
 class Match < ApplicationRecord
   class DoseOverbookingError < StandardError; end
+
   class AlreadyConfirmedError < StandardError; end
 
   has_secure_token :match_confirmation_token

@@ -1,8 +1,8 @@
 # frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe Match, type: :model do
-
   let(:campaign) { create(:campaign) }
   let(:campaign_batch) { create(:campaign_batch) }
   let(:match) { create(:match, campaign_batch: campaign_batch, campaign: campaign) }
@@ -28,50 +28,50 @@ RSpec.describe Match, type: :model do
       expect(match.geo_context).to eq "GEO_CONTEXT"
     end
 
-    context 'When the match itself is already confirmed' do
+    context "When the match itself is already confirmed" do
       subject { confirmed_match.confirm! }
-      it 'raises Match::AlreadyConfirmedError' do
-        expect {subject }.to raise_error(Match::AlreadyConfirmedError)
+      it "raises Match::AlreadyConfirmedError" do
+        expect { subject }.to raise_error(Match::AlreadyConfirmedError)
       end
     end
 
-    context 'When the match campaign has no #remaining_slots' do
+    context "When the match campaign has no #remaining_slots" do
       subject { match.confirm! }
-      it 'raises Match::DoseOverbookingError' do
+      it "raises Match::DoseOverbookingError" do
         allow(campaign).to receive(:remaining_slots).and_return 0
-        expect{ subject }.to raise_error(Match::DoseOverbookingError)
+        expect { subject }.to raise_error(Match::DoseOverbookingError)
       end
     end
 
-    context 'When the match campaign has at least 1 #remaining_slots' do
+    context "When the match campaign has at least 1 #remaining_slots" do
       subject { match.confirm! }
-      it 'updates the confirmed_at' do
+      it "updates the confirmed_at" do
         allow(campaign).to receive(:remaining_slots).and_return 1
         allow(now).to receive(:utc).and_return(now_utc)
         allow(Time).to receive(:now).and_return(now)
 
-        expect{ subject }.to change { match.confirmed_at }.from(nil).to(now_utc)
+        expect { subject }.to change { match.confirmed_at }.from(nil).to(now_utc)
       end
     end
   end
 
-  describe '#confirmable?' do
-    context 'When the match campaign has no #remaining_slots' do
-      it 'is not confirmable' do
+  describe "#confirmable?" do
+    context "When the match campaign has no #remaining_slots" do
+      it "is not confirmable" do
         allow(campaign).to receive(:remaining_slots).and_return 0
         expect(match.confirmable?).to be false
       end
     end
 
-    context 'When the match campaign has at least 1 #remaining_slots' do
-      it 'is confirmable' do
+    context "When the match campaign has at least 1 #remaining_slots" do
+      it "is confirmable" do
         allow(campaign).to receive(:remaining_slots).and_return 1
         expect(match.confirmable?).to be true
       end
     end
 
-    context 'When the match itself is already confirmed' do
-      it 'is confirmable' do
+    context "When the match itself is already confirmed" do
+      it "is confirmable" do
         expect(confirmed_match.confirmable?).to be false
       end
     end
