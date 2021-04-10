@@ -1,0 +1,50 @@
+<div class="container">
+  <p class="mb-2">
+    <%= link_to '← Retour', admin_path %>
+  </p>
+
+  <strong>Recherche</strong>
+
+  <div class="row mt-2">
+
+    <div class="col-sm-12 col-md-6 col-lg-6">
+      <h4>Critères de recherche</h4>
+
+      <%= simple_form_for '', url: admin_admin_search_path, method: :get do |f| %>
+        <%= f.input :address, label: "Adresse", input_html: { value: @address } %>
+        <div class="row">
+          <div class="col-12 col-sm-6">
+            <%= f.input :min_age, label: "Âge Minimum", as: :numeric, input_html: { value: @min_age } %>
+          </div>
+          <div class="col-12 col-sm-6">
+            <%= f.input :max_age, label: "Âge Maximum", as: :numeric, input_html: { value: @max_age } %>
+          </div>
+        </div>
+        <%= f.input :max_distance, label: "Distance Maximum (km)", as: :numeric, input_html: { value: @max_distance } %>
+        <%= f.submit "Cherchez !", class: 'btn btn-primary btn-block' %>
+      <% end %>
+    </div>
+
+
+    <div class="col-sm-12 col-md-6 col-lg-6">
+      <h4>Résultats</h4>
+      <p><%= @total_count %> volontaires trouvés</p>
+      <table class="table table-sm">
+        <tr>
+          <th>Âge</th>
+          <th># Volontaires</th>
+        </tr>
+        <% @count_by_age.each do |k| %>
+          <tr>
+            <td><%= k[0] %></td>
+            <td><%= k[1] %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+
+  </div>
+
+<!-- dernière div leaflet_map à ajouter -->
+
+</div>
