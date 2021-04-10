@@ -74,7 +74,7 @@ fr:
       confirmation_instructions:
         action: Confirmer mon email
         greeting: Bienvenue %{recipient} !
-        instruction: 'Vous pouvez confirmer votre email grâce au lien ci-dessous :'
+        instruction: "Vous pouvez confirmer votre email grâce au lien ci-dessous :"
         subject: Instructions de confirmation
       email_changed:
         greeting: Bonjour %{recipient} !
@@ -88,18 +88,18 @@ fr:
       reset_password_instructions:
         action: Changer mon mot de passe
         greeting: Bonjour %{recipient} !
-        instruction: 'Quelqu''un a demandé un lien pour changer votre mot de passe, le voici :'
+        instruction: "Quelqu'un a demandé un lien pour changer votre mot de passe, le voici :"
         instruction_2: Si vous n'avez pas émis cette demande, merci d'ignorer cet email.
         instruction_3: Votre mot de passe ne changera pas tant que vous n'aurez pas cliqué sur ce lien et renseigné un nouveau mot de passe.
         subject: Instructions pour changer le mot de passe
       unlock_instructions:
         action: Débloquer mon compte
         greeting: Bonjour %{recipient} !
-        instruction: 'Suivez ce lien pour débloquer votre compte :'
+        instruction: "Suivez ce lien pour débloquer votre compte :"
         message: Votre compte a été bloqué suite à un nombre d'essais de connexions manquées trop important.
         subject: Instructions pour déverrouiller le compte
     omniauth_callbacks:
-      failure: 'Nous ne pouvons pas vous authentifier depuis %{kind} pour la raison suivante : ''%{reason}''.'
+      failure: "Nous ne pouvons pas vous authentifier depuis %{kind} pour la raison suivante : '%{reason}'."
       success: Autorisé par votre compte %{kind}.
     passwords:
       edit:
@@ -120,7 +120,7 @@ fr:
       edit:
         are_you_sure: Êtes-vous sûr ?
         cancel_my_account: Supprimer mon compte
-        currently_waiting_confirmation_for_email: 'Confirmation en attente pour: %{email}'
+        currently_waiting_confirmation_for_email: "Confirmation en attente pour: %{email}"
         leave_blank_if_you_don_t_want_to_change_it: laissez ce champ vide pour le laisser inchangé
         title: Éditer %{resource}
         unhappy: Pas content ?
@@ -167,5 +167,5 @@ fr:
       not_found: n’a pas été trouvé(e)
       not_locked: n’était pas verrouillé(e)
       not_saved:
-        one: 'une erreur a empêché ce (cet ou cette) %{resource} d’être enregistré(e) :'
+        one: "une erreur a empêché ce (cet ou cette) %{resource} d’être enregistré(e) :"
         other: "%{count} erreurs ont empêché ce (cet ou cette) %{resource} d’être enregistré(e) :"
