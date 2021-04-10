@@ -9,7 +9,12 @@ jobs:
     steps:
       - name: Checkout repository # copies repo in runner
         uses: actions/checkout@v2 # short for https://github.com/actions/checkout
-      - name: Linting
+      - name: Linting with Standard
         uses: andrewmcodes/standardrb-action@v0.0.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Formatting with Prettier
+        uses: actionsx/prettier@v2
+        with:
+          # prettier CLI arguments.
+          args: --check .
