@@ -1,6 +1,9 @@
 # Covidliste
 
 [![Test](https://github.com/hostolab/covidliste/actions/workflows/test.yml/badge.svg?branch=master)](https://github.com/hostolab/covidliste/actions/workflows/test.yml)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=hostolab_covidliste&metric=security_rating)](https://sonarcloud.io/dashboard?id=hostolab_covidliste)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=hostolab_covidliste&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=hostolab_covidliste)
+[![codecov](https://codecov.io/gh/hostolab/covidliste/branch/master/graph/badge.svg?token=Z6SM94ONW9)](https://codecov.io/gh/hostolab/covidliste)
 
 Covidliste makes it easy to manage waiting lists for vaccination centers.
 
