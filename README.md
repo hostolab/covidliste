@@ -14,8 +14,11 @@ Covidliste makes it easy to manage waiting lists for vaccination centers.
 
 # Stack
 
-- Ruby on Rails
-- Postgresql
+- [Ruby on Rails](https://rubyonrails.org/)
+- [Stimulus](https://stimulus.hotwire.dev/)
+- [Bootstrap](https://getbootstrap.com/)
+- [PostgreSQL](https://www.postgresql.org/)
+- [Redis](https://redis.io/)
 
 # Local Development
 
@@ -54,11 +57,8 @@ echo "LOCKBOX_MASTER_KEY=0000000000000000000000000000000000000000000000000000000
 
 ### Running
 
-Run :
-
 ```bash
-redis-server /usr/local/etc/redis.conf # Run redis if not already running
-bin/rails server
+bin/rails s
 ```
 
 ### Admin development
@@ -67,7 +67,8 @@ In a rails console with `rails c`
 
 ```ruby
 user = User.find_by(email: <your_email>)
-user.add_role(:super_admin)
+user.add_role(:admin)
+# user.add_role(:super_admin) # for super admin
 ```
 
 # Contributing
@@ -85,8 +86,8 @@ Visit https://github.com/hostolab/covidliste/blob/master/CONTRIBUTING.md
 In order for the pipeline to be successful, you must ensure that you respect the linting made using
 
 ```bash
-bundle exec standardrb --fix
-yarn prettier --write .
+bin/standardrb --fix
+bin/yarn prettier --write .
 ```
 
 If some errors are printed it means that some of the different issues can not be corrected automatically.
@@ -101,6 +102,8 @@ To launch the tests locally, run:
 
 ```bash
 bin/rspec
+# On macOS you can open Code Coverage results with:
+# open coverage/index.html
 ```
 
 If you want to debug System Tests in the browser, add the following Ruby line as a debugger in your `spec/system/...` file:
