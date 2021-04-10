@@ -2,16 +2,16 @@ import { Controller } from "stimulus";
 import Rails from "@rails/ujs";
 
 export default class extends Controller {
-  static values = { simulatePath: String, maxDistanceInKm: Number }
+  static values = { simulatePath: String, maxDistanceInKm: Number };
   static targets = [
-    "minAge", 
-    "maxAge", 
-    "maxDistance", 
-    "availableDoses", 
-    "vaccineType", 
-    "simulationResult", 
-    "simulateButton", 
-    "submitButton"
+    "minAge",
+    "maxAge",
+    "maxDistance",
+    "availableDoses",
+    "vaccineType",
+    "simulationResult",
+    "simulateButton",
+    "submitButton",
   ];
 
   simulate(e) {
@@ -19,11 +19,11 @@ export default class extends Controller {
     this._disableSubmit();
     this.simulationResultTarget.innerHTML = "";
 
-    const minAge = parseInt(this.minAgeTarget.value, 10) || 0
-    const maxAge = parseInt(this.maxAgeTarget.value, 10) || 0
-    const availableDoses = parseInt(this.availableDosesTarget.value, 10) || 0
-    const vaccineType = this.vaccineTypeTarget.value || ""
-    const maxDistance = parseInt(this.maxDistanceTarget.value, 10) || 0
+    const minAge = parseInt(this.minAgeTarget.value, 10) || 0;
+    const maxAge = parseInt(this.maxAgeTarget.value, 10) || 0;
+    const availableDoses = parseInt(this.availableDosesTarget.value, 10) || 0;
+    const vaccineType = this.vaccineTypeTarget.value || "";
+    const maxDistance = parseInt(this.maxDistanceTarget.value, 10) || 0;
 
     if (minAge == 0 || maxAge == 0 || maxDistance == 0 || availableDoses == 0) {
       this.simulationResultTarget.innerHTML =
@@ -47,43 +47,41 @@ export default class extends Controller {
         campaign: {
           min_age: minAge,
           max_age: maxAge,
-          max_distance_in_meters: maxDistance * 1000
-        }
-      })
+          max_distance_in_meters: maxDistance * 1000,
+        },
+      }),
     })
-    .then(data => data.json())
-    .then(result => {
-      this.simulationResultTarget.innerHTML =
-        `Nous avons trouvé ${result.reach} volontaires avec ces critères d'âge et de distance au centre.`;
-      if (result.reach > 0) {
-        this._enableSubmit()
-        if (this.betterSelection(result.reach, availableDoses, vaccineType)) {
-          this.simulationResultTarget.innerHTML +=
-            `<br/> Au vu du nombre de volontaires trouvés et du nombre de doses de vaccin, nous vous conseillons d'élargir vos critères de sélections (âge et/ou distance).`
+      .then((data) => data.json())
+      .then((result) => {
+        this.simulationResultTarget.innerHTML = `Nous avons trouvé ${result.reach} volontaires avec ces critères d'âge et de distance au centre.`;
+        if (result.reach > 0) {
+          this._enableSubmit();
+          if (this.betterSelection(result.reach, availableDoses, vaccineType)) {
+            this.simulationResultTarget.innerHTML += `<br/> Au vu du nombre de volontaires trouvés et du nombre de doses de vaccin, nous vous conseillons d'élargir vos critères de sélections (âge et/ou distance).`;
+          }
+        } else {
+          this._disableSubmit();
         }
-      } else {
-        this._disableSubmit()
-      }
-    })
+      });
   }
 
   /**
    * Returns true if reach is too low for the doses quantity. Depends of vaccine type
-   * @param {Number} reach 
-   * @param {Number} doses 
-   * @param {'pfizer'|'moderna'|'astrazeneca'|'janssen'} vaccineType 
+   * @param {Number} reach
+   * @param {Number} doses
+   * @param {'pfizer'|'moderna'|'astrazeneca'|'janssen'} vaccineType
    * @returns {boolean}
    */
   betterSelection(reach, doses, vaccineType) {
-    switch (vaccineType){
-      case 'pfizer':
-      case 'moderna':
-        return doses > reach * 5
-      
-      case 'astrazeneca':
-        return doses > reach * 20
+    switch (vaccineType) {
+      case "pfizer":
+      case "moderna":
+        return doses > reach * 5;
+
+      case "astrazeneca":
+        return doses > reach * 20;
       default:
-        return doses > reach * 5
+        return doses > reach * 5;
     }
   }
 
