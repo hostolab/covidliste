@@ -81,6 +81,7 @@ class VaccinationCenter < ApplicationRecord
   def reachable_users_query(min_age:, max_age:, max_distance_in_meters:, limit: nil)
     User.distinct
       .where.not(confirmed_at: nil)
+      .where(anonymized_at: nil)
       .where("EXTRACT(YEAR FROM AGE(birthdate))::int BETWEEN ? AND ?", min_age, max_age)
       .where("SQRT(((? - lat)*110.574)^2 + ((? - lon)*111.320*COS(lat::float*3.14159/180))^2) < ?", lat, lon, max_distance_in_meters / 1000)
       .joins("LEFT JOIN matches ON matches.user_id = users.id")

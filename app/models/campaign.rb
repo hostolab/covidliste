@@ -29,7 +29,7 @@ class Campaign < ApplicationRecord
         next if match.user.nil?
 
         csv << [
-          match.user.firstname,
+          match.user.firstname || "Anonymous",
           match.user.lastname,
           match.user.birthdate,
           match.user.phone_number,

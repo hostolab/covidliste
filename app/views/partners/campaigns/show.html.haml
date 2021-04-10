@@ -59,7 +59,14 @@
         - user = match.user
         - next if user.blank?
         %tr
-          %td #{user.firstname} #{user.lastname}
-          %td= user.phone_number
-          %td= user.birthdate.strftime("%d/%m/%Y")
+          - if user.anonymized_at
+            %td
+              %em Anonymized
+            %td -
+            %td -
+          - else
+            %td= user.full_name
+            %td= user.phone_number
+            %td= user.birthdate.strftime("%d/%m/%Y")
+
           %td= l match.confirmed_at
