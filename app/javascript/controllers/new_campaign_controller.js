@@ -25,9 +25,15 @@ export default class extends Controller {
     const vaccineType = this.vaccineTypeTarget.value || "";
     const maxDistance = parseInt(this.maxDistanceTarget.value, 10) || 0;
 
-    if (minAge == 0 || maxAge == 0 || maxDistance == 0 || availableDoses == 0) {
+    if (
+      minAge == 0 ||
+      maxAge == 0 ||
+      maxDistance == 0 ||
+      availableDoses == 0 ||
+      vaccineType.length == 0
+    ) {
       this.simulationResultTarget.innerHTML =
-        "Simulation impossible, merci de bien remplir les trois champs âge et distance";
+        "Simulation impossible ! Renseignez <em>nb doses</em>, <em>vaccin</em>, <em>âge min + max</em> et <em>distance</em>";
       return;
     }
 
@@ -48,41 +54,25 @@ export default class extends Controller {
           min_age: minAge,
           max_age: maxAge,
           max_distance_in_meters: maxDistance * 1000,
+          available_doses: availableDoses,
+          vaccine_type: vaccineType,
         },
       }),
     })
       .then((data) => data.json())
       .then((result) => {
         this.simulationResultTarget.innerHTML = `Nous avons trouvé ${result.reach} volontaires avec ces critères d'âge et de distance au centre.`;
+
+        if (!result.enough) {
+          this.simulationResultTarget.innerHTML += `<br/> Au vu du nombre de volontaires trouvés et du nombre de doses de vaccin, nous vous conseillons d'élargir vos critères de sélections (âge et/ou distance).`;
+        }
+
         if (result.reach > 0) {
           this._enableSubmit();
-          if (this.betterSelection(result.reach, availableDoses, vaccineType)) {
-            this.simulationResultTarget.innerHTML += `<br/> Au vu du nombre de volontaires trouvés et du nombre de doses de vaccin, nous vous conseillons d'élargir vos critères de sélections (âge et/ou distance).`;
-          }
         } else {
           this._disableSubmit();
         }
       });
-  }
-
-  /**
-   * Returns true if reach is too low for the doses quantity. Depends of vaccine type
-   * @param {Number} reach
-   * @param {Number} doses
-   * @param {'pfizer'|'moderna'|'astrazeneca'|'janssen'} vaccineType
-   * @returns {boolean}
-   */
-  betterSelection(reach, doses, vaccineType) {
-    switch (vaccineType) {
-      case "pfizer":
-      case "moderna":
-        return doses > reach * 5;
-
-      case "astrazeneca":
-        return doses > reach * 20;
-      default:
-        return doses > reach * 5;
-    }
   }
 
   _disableSubmit() {
