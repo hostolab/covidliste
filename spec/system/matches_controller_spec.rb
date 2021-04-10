@@ -2,12 +2,15 @@ require "rails_helper"
 
 RSpec.describe MatchesController, type: :system do
   let!(:user) { create(:user) }
+  let!(:second_user) { create(:user) }
   let!(:partner) { create(:partner) }
   let!(:center) { create(:vaccination_center) }
   let!(:campaign) { create(:campaign, vaccination_center: center) }
   let!(:batch) { create(:campaign_batch, campaign: campaign, vaccination_center: center) }
   let!(:match_confirmation_token) { "abcd" }
+  let!(:second_match_confirmation_token) { "wxyz" }
   let!(:match) { create(:match, campaign_batch: batch, user: user, vaccination_center: center, match_confirmation_token: match_confirmation_token, expires_at: 1.hour.since) }
+  let!(:second_match) { create(:match, campaign_batch: batch, user: user, vaccination_center: center, match_confirmation_token: second_match_confirmation_token, expires_at: 1.hour.since) }
 
   subject { visit "/matches/#{match_confirmation_token}" }
 
@@ -52,7 +55,7 @@ RSpec.describe MatchesController, type: :system do
     context "when another match has already been confirmed" do
       before do
         match.update_column("confirmed_at", Time.now)
-  end
+      end
 
       it "handle the disappointment gracefully" do
         visit "/matches/#{second_match_confirmation_token}"
@@ -62,5 +65,19 @@ RSpec.describe MatchesController, type: :system do
         expect(page).to have_text("Celà arrive parfois car pour être certains qu'aucune dose ne soit perdue nous contactons plusieurs volontaires")
         expect(page).not_to have_text("Une dose est disponible")
         expect(page).not_to have_text("Je suis disponible")
-end
+      end
     end
+
+    context "when another match has been confirmed while I was already browsing the match page" do
+      it "handle the disappointment gracefully" do
+        visit "/matches/#{second_match_confirmation_token}"
+        # A volunteer confirms while I'm browsing the match show page
+        match.update_column("confirmed_at", Time.now)
+        expect(page).to have_text("Je suis disponible")
+        click_on("Je suis disponible")
+        expect(page).to have_text("La dose n'est plus disponible 😢")
+      end
+    end
+  end
+end
+
