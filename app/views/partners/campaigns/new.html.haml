@@ -15,6 +15,13 @@
         %h5 Plage horaire de disponibilité des vaccins
 
         .row
+          .col
+            %div.alert.alert-primary
+              La campagne aura lieu
+              %strong aujourd'hui #{l Date.today, format: "%e %B"}
+              \: il n'est pas encore possible de planifier plus loin.
+
+        .row
           .col.col-6
             = f.input :starts_at, as: :time, label: "Début"
           .col.col-6
