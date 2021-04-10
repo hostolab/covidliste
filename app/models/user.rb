@@ -87,7 +87,14 @@ class User < ApplicationRecord
     self.firstname = nil
     self.lastname = nil
     self.address = nil
+    self.lat = nil
+    self.lon = nil
+    self.zipcode = nil
+    self.city = nil
+    self.geo_citycode = nil
+    self.geo_context = nil
     self.phone_number = nil
+    self.birthdate = nil
     self.anonymized_at = Time.now.utc
     save(validate: false)
   end

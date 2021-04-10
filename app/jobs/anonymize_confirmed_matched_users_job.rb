@@ -8,19 +8,19 @@ class AnonymizeConfirmedMatchedUsersJob < ActiveJob::Base
   private
 
   def users_to_anonymize
-    two_weeks_ago = Date.today - 2.weeks
-    last_week = Date.today - 1.week
+    a_month_ago = Date.today - 1.month
+    three_days_ago = Date.today - 3.days
 
     User.distinct
       .joins("JOIN matches ON matches.user_id = users.id")
       .where.not("matches.confirmed_at": nil)
-      .where("matches.created_at": (two_weeks_ago..last_week))
+      .where("matches.created_at": (a_month_ago..three_days_ago))
       .where(anonymized_at: nil)
   end
 end
 
 Sidekiq::Cron::Job.create(
-  name: "Anonymize all users with confirmed match from 7 days ago",
+  name: "Anonymize all users with confirmed match from 3 days ago and more",
   cron: "0 3 * * *",
   class: "AnonymizeConfirmedMatchedUsersJob"
 )
