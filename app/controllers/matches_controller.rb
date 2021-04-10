@@ -11,6 +11,9 @@ class MatchesController < ApplicationController
       @match.confirm!
     end
     render action: "show"
+  rescue Match::DoseOverbookingError => e
+    flash[:error] = e.message
+    render action: "show"
   end
 
   private
