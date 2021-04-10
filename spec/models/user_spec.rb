@@ -64,4 +64,36 @@ RSpec.describe User, type: :model do
       expect(user.phone_number).to eq("33611223344")
     end
   end
+
+  describe "Full name" do
+    it "should return firstname + lastname" do
+      user = User.new(firstname: "George", lastname: "Abitbol")
+      expect(user.full_name).to eq("George Abitbol")
+    end
+
+    it "should return Anonymous" do
+      user = create(:user)
+      user.anonymize!
+      expect(user.full_name).to eq("Anonymous")
+    end
+  end
+
+  describe "Anonymisation" do
+    it "anonymise every fields" do
+      user = create(:user)
+      user.anonymize!
+      expect(user.firstname).to be_nil
+      expect(user.lastname).to be_nil
+      expect(user.address).to be_nil
+      expect(user.lat).to be_nil
+      expect(user.lon).to be_nil
+      expect(user.zipcode).to be_nil
+      expect(user.city).to be_nil
+      expect(user.geo_citycode).to be_nil
+      expect(user.geo_context).to be_nil
+      expect(user.phone_number).to be_nil
+      expect(user.birthdate).to be_nil
+      expect(user.anonymized_at).not_to be_nil
+    end
+  end
 end

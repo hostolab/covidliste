@@ -57,7 +57,7 @@ class User < ApplicationRecord
   end
 
   def full_name
-    "#{firstname} #{lastname}"
+    anonymized_at.nil? ? "#{firstname} #{lastname}" : "Anonymous"
   end
 
   def distance(lat, lon)
