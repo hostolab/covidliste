@@ -1,6 +1,7 @@
 # Covidliste
 
 [![Test](https://github.com/hostolab/covidliste/actions/workflows/test.yml/badge.svg?branch=master)](https://github.com/hostolab/covidliste/actions/workflows/test.yml)
+[![Ruby Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://github.com/testdouble/standard)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=hostolab_covidliste&metric=security_rating)](https://sonarcloud.io/dashboard?id=hostolab_covidliste)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=hostolab_covidliste&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=hostolab_covidliste)
 [![codecov](https://codecov.io/gh/hostolab/covidliste/branch/master/graph/badge.svg?token=Z6SM94ONW9)](https://codecov.io/gh/hostolab/covidliste)
@@ -35,13 +36,14 @@ Setup the project's dependencies :
 
 ```bash
 bundle install
+bin/lefthook install
 yarn
 ```
 
 Create the `.env` file:
 
 ```bash
-echo "LOCKBOX_MASTER_KEY=0000000000000000000000000000000000000000000000000000000000000000" > .env 
+echo "LOCKBOX_MASTER_KEY=0000000000000000000000000000000000000000000000000000000000000000" > .env
 ```
 
 ### Database / Cache
@@ -82,9 +84,9 @@ Visit https://github.com/hostolab/covidliste/blob/master/CONTRIBUTING.md
 In order for the pipeline to be successful, you must ensure that you respect the linting made using
 
 ```bash
-bundle exec standardrb --fix   
+bundle exec standardrb --fix
 ```
-If some errors are printed it means that some of the different issues can not be corrected automatically. 
+If some errors are printed it means that some of the different issues can not be corrected automatically.
 Then you will need to correct them manually.
 
 In rubymine, please follow this procedure to add the formatter / linter directly in the editor tabs:

@@ -207,6 +207,7 @@ GEM
     jwt (2.2.2)
     launchy (2.5.0)
       addressable (~> 2.7)
+    lefthook (0.7.2)
     letter_opener (1.7.0)
       launchy (~> 2.2)
     letter_opener_web (1.4.0)
@@ -468,6 +469,7 @@ DEPENDENCIES
   haml-rails (~> 2.0)
   httparty
   jbuilder (~> 2.7)
+  lefthook
   letter_opener (~> 1.7)
   letter_opener_web (~> 1.4)
   listen (~> 3.3)
