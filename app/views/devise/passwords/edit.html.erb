@@ -6,6 +6,14 @@
           <strong>Choisir un mot de passe</strong>
         </p>
 
+        <% if resource.errors.any? %>
+          <div class="alert alert-danger" role="alert" style="position: inherit">
+            <% resource.errors.full_messages.each do |msg| %>
+              <%= msg %><br />
+            <% end %>
+          </div>
+        <% end %>
+
         <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
           <%= f.hidden_field :reset_password_token %>
           <%= f.input :password, autofocus: true, required: true, id: "inputPassword", autocomplete: "off" %>

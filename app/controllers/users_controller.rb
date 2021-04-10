@@ -33,18 +33,17 @@ class UsersController < ApplicationController
 
   def update
     @user = current_user
-    @user.update(user_params)
-    flash.now[:success] = "Modifications enregistrées"
+    if @user.update(user_params)
+      flash.now[:success] = "Modifications enregistrées."
+    else
+      flash.now[:error] = "Impossible d'enregistrer vos modifications."
+    end
     render action: :show
   end
 
   def create
     @user = User.new(user_params)
-
-    if !@user.save
-      flash.now[:error] = "Impossible de créer un compte : #{@user.errors.full_messages.join(", ")}"
-    end
-
+    @user.save
     render action: :new
   rescue ActiveRecord::RecordNotUnique
     flash.now[:error] = "Une erreur s’est produite."
@@ -62,6 +61,6 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:firstname, :lastname, :email, :phone_number, :toc, :address, :birthdate, :lat,
-      :lon, :zipcode, :city, :password)
+      :lon, :zipcode, :city, :password, :statement)
   end
 end

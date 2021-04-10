@@ -13,7 +13,7 @@ RSpec.describe MatchesController, type: :system do
 
   describe "GET show" do
     context "with a valid match" do
-      it "loads properly" do
+      it "it says une dose dispo" do
         subject
         expect(page).to have_text("Une dose est disponible")
         expect(page).to have_text("Je suis disponible")
@@ -25,7 +25,7 @@ RSpec.describe MatchesController, type: :system do
       before do
         match.update_column("confirmed_at", Time.now)
       end
-      it "loads properly" do
+      it "it says dispo confirmée" do
         subject
         expect(page).to have_text("Votre disponibilité est confirmée")
         expect(page).to have_text(center.address)
@@ -36,7 +36,7 @@ RSpec.describe MatchesController, type: :system do
       before do
         match.update_column("expires_at", 5.minutes.ago)
       end
-      it "loads properly" do
+      it "it says delai dépassé" do
         subject
         expect(page).to have_text("Le délai de confirmation est dépassé")
       end

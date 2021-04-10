@@ -33,6 +33,11 @@
           .alert.alert-success{:role => "alert", style: "position: inherit"}
             Merci ! Vous êtes bien enregistré en tant que Partenaire Covidliste. Vous allez recevoir dans quelques instants un email de confirmation qui vous permettra de valider votre inscription et d'accéder à votre espace sécurisé.
       - else
+        - if @partner.errors.any?
+          .alert.alert-danger{:role => "alert", style: "position: inherit"}
+            - @partner.errors.full_messages.each do |msg|
+              #{msg}
+              %br/
         = simple_form_for @partner do |f|
           .form-inputs
           = f.input :name, label: "Nom", error: "Nom requis", placeholder: "Prénom Nom"

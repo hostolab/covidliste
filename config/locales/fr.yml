@@ -4,6 +4,30 @@ fr:
     models:
       campaign:
         one: campagne
+    attributes:
+      user:
+        firstname: Prénom
+        lastname: Nom
+        birthdate: Date de naissance
+        address: Adresse
+        phone_number: Numéro de téléphone
+        lat: Latitude
+        lon: Longitude
+        zipcode: Code postal
+        city: Ville
+        statement: Certification sur l'honneur
+        toc: Partage des données
+      partner:
+        name: Nom
+        phone_number: Numéro de téléphone
+      vaccination_center:
+        name: Nom
+        birthdate: Date de naissance
+        address: Adresse
+        phone_number: Numéro de téléphone
+        kind: Type de centre de vaccination
+        lat: Latitude
+        lon: Longitude
     errors:
       messages:
         record_invalid: 'La validation a échoué : %{errors}'

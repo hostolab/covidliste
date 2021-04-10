@@ -13,6 +13,11 @@
         Vous pourrez suivre l’état de la demande sur votre
         = link_to "profil partenaire", partners_vaccination_centers_path
   - else
+    - if @vaccination_center.errors.any?
+      .alert.alert-danger{:role => "alert", style: "position: inherit"}
+        - @vaccination_center.errors.full_messages.each do |msg|
+          #{msg}
+          %br/
     = simple_form_for [:partners, @vaccination_center] do |f|
       = f.input :name, label: "Nom du centre", error: "Nom requis", placeholder: "Centre de vaccination Marseille"
       = f.input :description, label: "Description", error: "Description requise", placeholder: "Description du lieu de vaccination"
