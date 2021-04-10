@@ -2,7 +2,7 @@
 <meta content="index;follow" name="robots"/>
 <% end %>
 
-<div class="container">
+<div class="container my-5">
   <p>
     <strong>
       Foire aux questions
@@ -19,40 +19,29 @@
     </strong>
   </p>
 
-  <ul>
-    <li>
-      Afin de modifier ou supprimer vos données personnelles, connectez-vous sur votre espace personnel
-      <%= link_to "ici", :new_user_session %>.
-    </li>
-    <li>
-      Si vous souhaitez modifier vos données : modifiez-les puis cliquez sur « Je modifie mes informations ».
-    </li>
-    <li>
-      Si vous souhaitez supprimer vos données : cliquez sur « Supprimez mon compte ».
-    </li>
-  </ul>
+  <p>
+    Afin de modifier ou supprimer vos données personnelles, connectez-vous sur votre espace personnel
+    <%= link_to "ici", :new_user_session %>.
+    <br/>
+    Si vous souhaitez modifier vos données : modifiez-les puis cliquez sur « Je modifie mes informations ».
+    <br/>
+    Si vous souhaitez supprimer vos données : cliquez sur « Supprimez mon compte ».
+  </p>
 
   <p>
     <strong>
-      Je suis un centre de vaccination. Comment accéder à votre service ?
+      Je suis un professionnel de santé en charge de la vaccination. Comment accéder à votre service ?
     </strong>
   </p>
 
   <p>
-    Nous sommes en train de développer une interface de gestion automatisée des volontaires à la vaccination.
-    Celle-ci sera disponible dans les prochains jours.
-  </p>
-
-  <p>
-    Afin de référencer votre centre, vous pouvez d’ores et déjà nous confirmer :
-    <ul>
-      <li>
-        Les coordonnées de la ou les personnes référentes du centre concerné (nom, prénom, email, titre, numéro de téléphone).
-      </li>
-      <li>
-        Les informations relatives au centre (nom du centre, adresse postale, vaccins administrés et horaires d’ouverture).
-      </li>
-    </ul>
+    Nous avons développé une interface de gestion automatisée des volontaires à la vaccination.
+    <br/>
+    Afin de référencer votre centre et obtenir un accès à notre interface, vous pouvez vous inscrire
+    <%= link_to "ici", partenaires_inscription_path %>.
+    <br/>
+    Si vous avez besoin d'accompagnement, nous vous invitons à contacter
+    <%= link_to "partenaires@covidliste.com", "mailto:partenaires@covidliste.com" %>.
   </p>
 
   <p>
@@ -73,8 +62,19 @@
     S’il n’est pas présent, vous pouvez faire une nouvelle demande d’email de confirmation
     <%= link_to "ici", new_user_confirmation_path %>.
     <br>
-    Attendez quelques minutes, vérifiez vos courriers indésirables ou boîte SPAM. Si vous n’avez toujours rien reçu,
-    contactez-nous à l’adresse e-mail située au bas de cette page.
+    Attendez quelques minutes, vérifiez vos courriers indésirables ou boîte SPAM.
+  </p>
+
+  <p>
+    <strong>
+      Par quel moyen vais-je être contacté ?
+    </strong>
+  </p>
+
+  <p>
+    Si une dose de vaccin est disponible, nous vous enverrons un SMS et un e-mail afin de connaître votre disponibilité.
+    <br />
+    Si vous êtes disponible, nous vous transmettrons les informations nécessaires pour vous rendre sur le lieu de vaccination.
   </p>
 
   <p>
@@ -93,16 +93,13 @@
     </strong>
   </p>
 
-  <ul>
-    <li>
-      Covidliste est une initiative citoyenne et philanthrope portée par une équipe de plus de 100 bénévoles qui se sont
-      rassemblés dans l’unique but de ne pas perdre de doses de vaccins.
-    </li>
-    <li>
-      Les données que vous renseignez ne sont transmises qu’aux centres de vaccination ou aux professionnels de santé
-      proches de chez vous et disposant de doses de vaccins à sauver.
-    </li>
-  </ul>
+  <p>
+    Covidliste est une initiative citoyenne et philanthrope portée par une équipe de plus de 100 bénévoles qui se sont
+    rassemblés dans l’unique but de ne pas perdre de doses de vaccins.
+    <br/>
+    Les données que vous renseignez ne sont transmises qu’aux centres de vaccination ou aux professionnels de santé
+    proches de chez vous et disposant de doses de vaccins à sauver.
+  </p>
 
   <p>
     <strong>
@@ -110,19 +107,15 @@
     </strong>
   </p>
 
-  <ul>
-    <li>
-      La plateforme Covidliste prend uniquement en charge la mise en relation entre un centre de vaccination et les
-      volontaires en fonction de critères établis par le centre tels que l’âge et la distance du point de vaccination.
-    </li>
-    <li>
-      Le centre de vaccination jugera de votre éligibilité en fonction du vaccin disponible.
-    </li>
-    <li>
-      Si un centre vous contacte, nous vous invitons à lui faire part de votre préférence et de toutes les informations
-      que vous jugez nécessaires.
-    </li>
-  </ul>
+  <p>
+    La plateforme Covidliste prend uniquement en charge la mise en relation entre des professionnels de santé acteurs de la vaccination et les
+    volontaires en fonction de critères établis par ces professionnels tels que l’âge et la distance du point de vaccination.
+    <br/>
+    Le centre de vaccination jugera de votre éligibilité en fonction du vaccin disponible.
+    <br/>
+    Si un centre vous contacte, nous vous invitons à lui faire part de votre préférence et de toutes les informations
+    que vous jugez nécessaires.
+  </p>
 
   <p>
     <strong>
@@ -130,20 +123,16 @@
     </strong>
   </p>
 
-  <ul>
-    <li>
-      Covidliste est un outil d’ajustement de l’offre et de la demande qui a pour objectif d’éviter de perdre des doses
-      de vaccins.
-    </li>
-    <li>
-      Les centres pourront vous contacter même si vous n’êtes pas prioritaires selon les critères de la vague de
-      vaccination en vigueur à ce moment.
-    </li>
-    <li>
-      Ce sont les centres qui sélectionnent les volontaires selon des critères qui leur sont propres parmi lesquels
-      géolocalisation, âge, vaccin disponible...
-    </li>
-  </ul>
+  <p>
+    Covidliste est un outil d’ajustement de l’offre et de la demande qui a pour objectif d’éviter de perdre des doses
+    de vaccins.
+    <br/>
+    Les centres pourront vous contacter même si vous n’êtes pas prioritaires selon les critères de la vague de
+    vaccination en vigueur à ce moment.
+    <br/>
+    Ce sont les centres qui sélectionnent les volontaires selon des critères qui leur sont propres parmi lesquels
+    géolocalisation, âge, vaccin disponible...
+  </p>
 
   <p>
     <strong>
@@ -151,18 +140,14 @@
     </strong>
   </p>
 
-  <ul>
-    <li>
-      Covidliste est un outil d’ajustement de l’offre et de la demande qui a pour objectif d’éviter de perdre des doses
-      de vaccins.
-    </li>
-    <li>
-      Covidliste est complémentaire de la stratégie vaccinale actuelle et n’a pas vocation à s’y substituer.
-    </li>
-    <li>
-      Covidliste ne peut garantir qu’une dose de vaccin sera proposée aux volontaires sur la plateforme.
-    </li>
-  </ul>
+  <p>
+    Covidliste est un outil d’ajustement de l’offre et de la demande qui a pour objectif d’éviter de perdre des doses
+    de vaccins.
+    <br/>
+    Covidliste est complémentaire de la stratégie vaccinale actuelle et n’a pas vocation à s’y substituer.
+    <br/>
+    Covidliste ne peut garantir qu’une dose de vaccin sera proposée aux volontaires sur la plateforme.
+  </p>
 
   <p>
     <strong>
@@ -171,10 +156,9 @@
   </p>
 
   <p>
-    Covidliste prend uniquement en charge la mise en relation entre des volontaires et un centre de vaccination
-    partenaire qui a des doses disponibles en surnombre.
+    Covidliste prend uniquement en charge la mise en relation entre des volontaires et un professionnel de santé partenaire qui a des doses disponibles en surnombre.
     <br>
-    Une fois entré dans le protocole de vaccination, c’est le centre qui vous aura proposé la première dose qui suivra
+    Une fois entré dans le protocole de vaccination, c’est le lieu de vaccination qui vous aura proposé la première dose qui suivra
     votre dossier vaccinal.
   </p>
 
@@ -184,15 +168,12 @@
     </strong>
   </p>
 
-  <ul>
-    <li>
-      Covidliste s’adresse aux non vaccinés volontaires et s’est fixé pour pour mission de sauver des doses qui
-      risqueraient d’être perdues.
-    </li>
-    <li>
-      Covidliste est complémentaire à la stratégie vaccinale actuelle et n’a pas vocation à s’y substituer.
-    </li>
-  </ul>
+  <p>
+    Covidliste s’adresse aux non vaccinés volontaires et s’est fixé pour pour mission de sauver des doses qui
+    risqueraient d’être perdues.
+    <br/>
+    Covidliste est complémentaire à la stratégie vaccinale actuelle et n’a pas vocation à s’y substituer.
+  </p>
 
   <p>
     <strong>
@@ -202,22 +183,21 @@
   </p>
 
   <p>
-    Covidliste prend uniquement en charge la mise en relation entre des volontaires et un centre de vaccination
-    partenaire qui a des doses disponibles en surnombre.
+    Covidliste prend uniquement en charge la mise en relation entre des volontaires et un professionnel de santé partenaire qui a des doses disponibles en surnombre.
     <br>
-    Une fois entré dans le protocole de vaccination, c’est le centre qui vous aura proposé la première dose qui suivra
+    Une fois entré dans le protocole de vaccination, c’est le lieu de vaccination qui vous aura proposé la première dose qui suivra
     votre dossier vaccinal.
   </p>
 
   <p>
     <strong>
-      Quels sont les centres de vaccination partenaires ?
+      Quels sont les professionnels de santé et lieux de vaccination partenaires ?
     </strong>
   </p>
 
   <p>
-    L’équipe de Covidliste diffusera la liste des centres dans les prochains jours. L’initiative est lancée en
-    partenariat avec des centres pilotes en Île-de-France et va se développer sur l’ensemble du territoire.
+    L’équipe de Covidliste diffusera bientôt la liste des centres. L’initiative a été lancée en partenariat
+    avec des centres pilotes en Île-de-France et se développe sur l’ensemble du territoire.
   </p>
 
   <p>
@@ -226,15 +206,12 @@
     </strong>
   </p>
 
-  <ul>
-    <li>
-      La plateforme Covidliste permet aux centres de vaccination d’identifier et de contacter des volontaires à proximité
-      afin d’écouler des surdoses qui risqueraient d’être détruites.
-    </li>
-    <li>
-      Covidliste est complémentaire à la stratégie vaccinale actuelle et n’a pas vocation à s’y substituer.
-    </li>
-  </ul>
+  <p>
+    La plateforme Covidliste permet aux centres de vaccination d’identifier et de contacter des volontaires à proximité
+    afin d’écouler des surdoses qui risqueraient d’être détruites.
+    <br>
+    Covidliste est complémentaire à la stratégie vaccinale actuelle et n’a pas vocation à s’y substituer.
+  </p>
 
   <p>
     <strong>
@@ -300,16 +277,19 @@
   <p>
     Lors de l’inscription sur Covidliste, nous demandons à l’utilisateur de nous confier certaines données personnelles.
     Nous nous efforçons de protèger les données que nous sommes amenés à traiter.
-    <br>
+  </p>
+
+  <p>
+    Lieu et choix de l’hébergeur : dans une volonté de souligner son attachement à des technologies françaises et de
+    s’assurer de la conformité avec les législation en vigueur, COVIDLISTE a fait le choix d’héberger ses données en
+    France via la société SCALINGO.
+  </p>
+
+  <p>
     Type de stockage utilisés :
   </p>
 
   <ul>
-    <li>
-      Lieu et choix de l’hébergeur : dans une volonté de souligner son attachement à des technologies françaises et de
-      s’assurer de la conformité avec les législation en vigueur, COVIDLISTE a fait le choix d’héberger ses données en
-      France via la société SCALINGO.
-    </li>
     <li>
       La plupart des données personnelles sont stockées et chiffrées dans notre base de données conformément à l’état
       de l’art.
@@ -319,8 +299,8 @@
       gestionnaires de COVIDLISTE et de l’hébergeur pour des raisons techniques.
     </li>
     <li>
-      Ces mesures de protection sont renforcées par des outils de hashage. Plus d’informations :
-      <%= link_to "https://fr.wikipedia.org/wiki/Fonction_de_hachage", "https://fr.wikipedia.org/wiki/Fonction_de_hachage", target: "_blank", rel: "noopener" %>.
+      Certaines données personnelles sont stockées de manière non réversible à l'aide de
+      <%= link_to "fonctions de hashage", "https://fr.wikipedia.org/wiki/Fonction_de_hachage", target: "_blank", rel: "noopener" %>.
     </li>
     <li>
       Quelques données personnelles sont stockées en clair dans notre base de données.
@@ -374,7 +354,9 @@
   </p>
 
   <p>
-    À ce jour, CovidListe n’autorise qu’une inscription par adresse e-mail.
+    Oui ! Chacun doit alors utiliser sa propre adresse email pour s'inscrire.
+    <br />
+    À ce jour, Covidliste n’autorise qu’une inscription par adresse e-mail.
   </p>
 
   <p>
@@ -384,6 +366,6 @@
   </p>
 
   <p>
-    À ce jour, CovidListe n’autorise qu’une adresse postale par compte.
+    À ce jour, Covidliste n’autorise qu’une adresse postale par compte.
   </p>
 </div>

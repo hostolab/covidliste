@@ -8,6 +8,7 @@ jobs:
     env:
       RAILS_ENV: test
       NODE_ENV: test
+      # CI: 'true'
     runs-on: ubuntu-latest # runner
     services:
       # Label used to access the service container
@@ -55,8 +56,14 @@ jobs:
           bundle exec rails db:create db:migrate
       - name: Run tests
         run: bundle exec rspec --format RspecJunitFormatter --out rspec.xml
+      # - name: Codecov
+      #   uses: codecov/codecov-action@v1.3.2
+      #   with:
+      #     token: ${{ secrets.CODECOV_TOKEN }}
       - name: Publish Unit Test Results
         uses: EnricoMi/publish-unit-test-result-action@v1
         if: always()
         with:
           files: rspec.xml
+      - name: Brakeman action
+        uses: artplan1/brakeman-action@v1.2.1

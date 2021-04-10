@@ -1,5 +1,11 @@
 # Covidliste
 
+[![Test](https://github.com/hostolab/covidliste/actions/workflows/test.yml/badge.svg?branch=master)](https://github.com/hostolab/covidliste/actions/workflows/test.yml)
+[![Ruby Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://github.com/testdouble/standard)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=hostolab_covidliste&metric=security_rating)](https://sonarcloud.io/dashboard?id=hostolab_covidliste)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=hostolab_covidliste&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=hostolab_covidliste)
+[![codecov](https://codecov.io/gh/hostolab/covidliste/branch/master/graph/badge.svg?token=Z6SM94ONW9)](https://codecov.io/gh/hostolab/covidliste)
+
 Covidliste makes it easy to manage waiting lists for vaccination centers.
 
 [https://www.covidliste.com](https://www.covidliste.com)
@@ -8,8 +14,11 @@ Covidliste makes it easy to manage waiting lists for vaccination centers.
 
 # Stack
 
-- Ruby on Rails
-- Postgresql
+- [Ruby on Rails](https://rubyonrails.org/)
+- [Stimulus](https://stimulus.hotwire.dev/)
+- [Bootstrap](https://getbootstrap.com/)
+- [PostgreSQL](https://www.postgresql.org/)
+- [Redis](https://redis.io/)
 
 # Local Development
 
@@ -31,12 +40,13 @@ Setup the project's dependencies :
 ```bash
 bundle install
 yarn
+bin/lefthook install
 ```
 
 Create the `.env` file:
 
 ```bash
-echo "LOCKBOX_MASTER_KEY=0000000000000000000000000000000000000000000000000000000000000000" > .env 
+echo "LOCKBOX_MASTER_KEY=0000000000000000000000000000000000000000000000000000000000000000" > .env
 ```
 
 ### Database / Cache
@@ -47,11 +57,8 @@ echo "LOCKBOX_MASTER_KEY=0000000000000000000000000000000000000000000000000000000
 
 ### Running
 
-Run :
-
 ```bash
-redis-server /usr/local/etc/redis.conf # Run redis if not already running
-bin/rails server
+bin/rails s
 ```
 
 ### Admin development
@@ -60,31 +67,43 @@ In a rails console with `rails c`
 
 ```ruby
 user = User.find_by(email: <your_email>)
-user.add_role(:super_admin)
+user.add_role(:admin)
+# user.add_role(:super_admin) # for super admin
 ```
 
-# To Contribute
+# Contributing
 
-- Go to https://github.com/hostolab/covidliste/issues and assign yourself an issue you think you can address.
-- Submit a PR
+Visit https://github.com/hostolab/covidliste/blob/master/CONTRIBUTING.md
+
+# Thanks to all our contributors
+
+<a href="https://github.com/hostolab/covidliste/graphs/contributors">
+  <img src="https://contributors-img.web.app/image?repo=hostolab/covidliste" />
+</a>
 
 # Code formatting
+
 In order for the pipeline to be successful, you must ensure that you respect the linting made using
 
 ```bash
-bundle exec standardrb --fix   
+bin/standardrb --fix
+bin/yarn prettier --write .
 ```
-If some errors are printed it means that some of the different issues can not be corrected automatically. 
+
+If some errors are printed it means that some of the different issues can not be corrected automatically.
 Then you will need to correct them manually.
 
 In rubymine, please follow this procedure to add the formatter / linter directly in the editor tabs:
 https://www.jetbrains.com/help/ruby/rubocop.html#prerequisites
+
 # Testing
 
 To launch the tests locally, run:
 
 ```bash
 bin/rspec
+# On macOS you can open Code Coverage results with:
+# open coverage/index.html
 ```
 
 If you want to debug System Tests in the browser, add the following Ruby line as a debugger in your `spec/system/...` file:

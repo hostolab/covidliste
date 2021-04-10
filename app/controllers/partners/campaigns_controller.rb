@@ -29,6 +29,7 @@ module Partners
         PushNewCampaignToSlackJob.perform_later(@campaign)
         redirect_to partners_campaign_path(@campaign)
       else
+        @campaign.max_distance_in_meters = @campaign.max_distance_in_meters / 1000
         render :new
       end
     end

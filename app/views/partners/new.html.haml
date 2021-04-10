@@ -5,13 +5,13 @@
   .row.mt-2
     .col-12.col-lg-8.offset-lg-2
       %p
-        %strong Inscription en tant que centre de vaccination Partenaire
+        %strong Inscription en tant que Partenaire
 
       %p.text-justify.mb-5
         Cette page d’inscription concerne uniquement l’inscription du
         %strong
-          personnel médical
-        membre d’un centre de vaccination qui souhaite devenir partenaire.
+          personnel médical :
+        membre d’un centre de vaccination, cabinet de médecine libérale, hôpital, pharmacie... qui souhaite devenir partenaire.
         %br
 
       %h2
@@ -26,13 +26,18 @@
         = icon("fas", "user-md")
         = icon("fas", "clinic-medical")
       %p
-        Si vous êtes membre d’un centre de vaccination et souhaitez devenir partenaire de Covidliste, c’est bien ici ! Veuillez remplir le formulaire ci-dessous.
+        Si vous êtes un praticien en charge de vaccination et souhaitez devenir partenaire de Covidliste, c’est bien ici ! Veuillez remplir le formulaire ci-dessous.
 
       - if @partner.persisted?
         .row.mtop2
           .alert.alert-success{:role => "alert", style: "position: inherit"}
             Merci ! Vous êtes bien enregistré en tant que Partenaire Covidliste. Vous allez recevoir dans quelques instants un email de confirmation qui vous permettra de valider votre inscription et d'accéder à votre espace sécurisé.
       - else
+        - if @partner.errors.any?
+          .alert.alert-danger{:role => "alert", style: "position: inherit"}
+            - @partner.errors.full_messages.each do |msg|
+              #{msg}
+              %br/
         = simple_form_for @partner do |f|
           .form-inputs
           = f.input :name, label: "Nom", error: "Nom requis", placeholder: "Prénom Nom"

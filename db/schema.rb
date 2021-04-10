@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_08_131230) do
+ActiveRecord::Schema.define(version: 2021_04_10_084648) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -125,6 +125,11 @@ ActiveRecord::Schema.define(version: 2021_04_08_131230) do
     t.datetime "mail_sent_at"
     t.string "match_confirmation_token_ciphertext"
     t.string "match_confirmation_token_bidx"
+    t.integer "age"
+    t.string "zipcode"
+    t.string "city"
+    t.string "geo_citycode"
+    t.string "geo_context"
     t.index ["campaign_batch_id"], name: "index_matches_on_campaign_batch_id"
     t.index ["campaign_id"], name: "index_matches_on_campaign_id"
     t.index ["match_confirmation_token_bidx"], name: "index_matches_on_match_confirmation_token_bidx", unique: true
@@ -196,6 +201,7 @@ ActiveRecord::Schema.define(version: 2021_04_08_131230) do
     t.string "city"
     t.string "geo_citycode"
     t.string "geo_context"
+    t.boolean "statement", default: false
     t.datetime "anonymized_at"
     t.index ["city"], name: "index_users_on_city"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token"

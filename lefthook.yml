@@ -1,0 +1,8 @@
+pre-commit:
+  parallel: true
+  commands:
+    standardrb:
+      glob: "*.{rb}"
+      run: bin/standardrb
+    prettier:
+      run: yarn prettier --write {staged_files}

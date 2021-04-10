@@ -1,4 +1,7 @@
 class Campaign < ApplicationRecord
+  MAX_DOSES = 200
+  MAX_DISTANCE_IN_KM = 50
+
   belongs_to :vaccination_center
   belongs_to :partner
 
@@ -7,11 +10,11 @@ class Campaign < ApplicationRecord
 
   enum status: {running: 0, completed: 1, canceled: 2}
 
-  validates :available_doses, numericality: {greater_than: 0}
+  validates :available_doses, numericality: {greater_than: 0, less_than_or_equal_to: MAX_DOSES}
   validates :vaccine_type, presence: true
   validates :min_age, numericality: {greater_than: 17}
   validates :max_age, numericality: {greater_than: 17}
-  validates :max_distance_in_meters, numericality: {greater_than: 0}
+  validates :max_distance_in_meters, numericality: {greater_than: 0, less_than_or_equal_to: MAX_DISTANCE_IN_KM * 1000}
   validate :min_age_lesser_than_max_age
   validate :starts_at_lesser_than_ends_at
 
@@ -26,7 +29,7 @@ class Campaign < ApplicationRecord
         next if match.user.nil?
 
         csv << [
-          match.user.firstname,
+          match.user.firstname || "Anonymous",
           match.user.lastname,
           match.user.birthdate,
           match.user.phone_number,

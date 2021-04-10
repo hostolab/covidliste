@@ -10,6 +10,14 @@
           Veuillez saisir votre adresse email afin de recevoir un lien pour créer ou changer votre mot de passe.
         </p>
 
+        <% if resource.errors.any? %>
+          <div class="alert alert-danger" role="alert" style="position: inherit">
+            <% resource.errors.full_messages.each do |msg| %>
+              <%= msg %><br />
+            <% end %>
+          </div>
+        <% end %>
+
         <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
           <%= f.input :email, autofocus: true, required: true, id: "inputEmail" %>
           <%= f.submit "Recevoir le lien", class: "btn btn-primary" %>

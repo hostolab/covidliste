@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   include ActionView::Helpers::NumberHelper
   before_action :authenticate_user!, except: %i[new create]
+  before_action :sign_out_if_anonymized!
 
   def new
     if current_partner
@@ -11,6 +12,12 @@ class UsersController < ApplicationController
       @user = User.new
       @users_count = Rails.cache.fetch(:users_count, expires_in: 1.minute) do
         number_with_delimiter(User.count, locale: :fr).gsub(" ", "&nbsp;").html_safe
+      end
+      @matched_users_count = Rails.cache.fetch(:matched_users_count, expires_in: 1.minute) do
+        number_with_delimiter(User.includes(:matches).where.not(matches: {confirmed_at: nil}).count, locale: :fr).gsub(" ", "&nbsp;").html_safe
+      end
+      @vaccination_centers_count = Rails.cache.fetch(:vaccination_centers_count, expires_in: 1.minute) do
+        number_with_delimiter(VaccinationCenter.confirmed.count, locale: :fr).gsub(" ", "&nbsp;").html_safe
       end
     end
   end
@@ -27,18 +34,17 @@ class UsersController < ApplicationController
 
   def update
     @user = current_user
-    @user.update(user_params)
-    flash.now[:success] = "Modifications enregistrées"
+    if @user.update(user_params)
+      flash.now[:success] = "Modifications enregistrées."
+    else
+      flash.now[:error] = "Impossible d'enregistrer vos modifications."
+    end
     render action: :show
   end
 
   def create
     @user = User.new(user_params)
-
-    if !@user.save
-      flash.now[:error] = "Impossible de créer un compte : #{@user.errors.full_messages.join(", ")}"
-    end
-
+    @user.save
     render action: :new
   rescue ActiveRecord::RecordNotUnique
     flash.now[:error] = "Une erreur s’est produite."
@@ -56,6 +62,14 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:firstname, :lastname, :email, :phone_number, :toc, :address, :birthdate, :lat,
-      :lon, :zipcode, :city, :password)
+      :lon, :zipcode, :city, :password, :statement)
+  end
+
+  def sign_out_if_anonymized!
+    if current_user&.anonymized_at
+      flash[:notice] = "Votre compte a été anonymisé car vous avez confirmé un RDV avec un centre de vaccination"
+      sign_out
+      redirect_to root_path
+    end
   end
 end
