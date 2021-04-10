@@ -1,7 +1,6 @@
 # Covidliste
 
 [![Test](https://github.com/hostolab/covidliste/actions/workflows/test.yml/badge.svg?branch=master)](https://github.com/hostolab/covidliste/actions/workflows/test.yml)
-
 [![codecov](https://codecov.io/gh/hostolab/covidliste/branch/master/graph/badge.svg?token=Z6SM94ONW9)](https://codecov.io/gh/hostolab/covidliste)
 
 Covidliste makes it easy to manage waiting lists for vaccination centers.
