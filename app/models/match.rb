@@ -1,4 +1,6 @@
 class Match < ApplicationRecord
+  class DoseOverbookingError < StandardError; end
+
   has_secure_token :match_confirmation_token
 
   belongs_to :vaccination_center
@@ -16,7 +18,7 @@ class Match < ApplicationRecord
   end
 
   def confirm!
-    return if confirmed?
+    raise DoseOverbookingError, "La dose de vaccin a déjà été réservée" unless confirmable?
 
     update(
       confirmed_at: Time.now.utc,
@@ -26,6 +28,8 @@ class Match < ApplicationRecord
       geo_citycode: user.geo_citycode,
       geo_context: user.geo_context
     )
+
+    update(confirmed_at: Time.now.utc)
   end
 
   def confirmable?
