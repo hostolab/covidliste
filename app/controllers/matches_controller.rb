@@ -1,8 +1,7 @@
 class MatchesController < ApplicationController
   before_action :set_match, only: [:show, :update]
 
-  def show
-  end
+  def show; end
 
   def update
     if @match.expired?
@@ -10,9 +9,9 @@ class MatchesController < ApplicationController
     else
       @match.confirm!
     end
-    render action: "show"
-  rescue Match::DoseOverbookingError => e
+  rescue Match::AlreadyConfirmedError, Match::DoseOverbookingError => e
     flash[:error] = e.message
+  ensure
     render action: "show"
   end
 

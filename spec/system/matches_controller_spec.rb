@@ -8,9 +8,7 @@ RSpec.describe MatchesController, type: :system do
   let!(:campaign) { create(:campaign, vaccination_center: center) }
   let!(:batch) { create(:campaign_batch, campaign: campaign, vaccination_center: center) }
   let!(:match_confirmation_token) { "abcd" }
-  let!(:second_match_confirmation_token) { "wxyz" }
-  let!(:match) { create(:match, campaign_batch: batch, user: user, vaccination_center: center, match_confirmation_token: match_confirmation_token, expires_at: 1.hour.since) }
-  let!(:second_match) { create(:match, campaign_batch: batch, user: user, vaccination_center: center, match_confirmation_token: second_match_confirmation_token, expires_at: 1.hour.since) }
+  let!(:match) { create(:match, campaign_batch: batch, user: user, vaccination_center: center, match_confirmation_token: match_confirmation_token, expires_at: 1.hour.since, campaign: campaign) }
 
   subject { visit "/matches/#{match_confirmation_token}" }
 
@@ -52,28 +50,41 @@ RSpec.describe MatchesController, type: :system do
       end
     end
 
-    context "when another match has already been confirmed" do
+    context "when the campaign has no #remaining_slots" do
+      # confirm all the slots
       before do
-        match.update_column("confirmed_at", Time.now)
+        while campaign.remaining_slots > 0
+          create(:match, :confirmed, campaign: campaign)
+        end
       end
 
-      it "handle the disappointment gracefully" do
-        visit "/matches/#{second_match_confirmation_token}"
+      it "handle the user's disappointment gracefully" do
+        visit "/matches/#{match_confirmation_token}"
 
         expect(page).to have_text("La dose n'est plus disponible 😢")
         expect(page).to have_text("Nous sommes désolés, un autre volontaire a été plus rapide que vous.")
-        expect(page).to have_text("Celà arrive parfois car pour être certains qu'aucune dose ne soit perdue nous contactons plusieurs volontaires")
+        expect(page).to have_text("Pour qu'aucune dose ne soit perdue, nous contactons quand c'est possible plusieurs volontaires.")
+        expect(page).to have_text("Dans de rares cas, il arrive que toutes les doses soient prises.")
         expect(page).not_to have_text("Une dose est disponible")
         expect(page).not_to have_text("Je suis disponible")
       end
     end
 
     context "when another match has been confirmed while I was already browsing the match page" do
-      it "handle the disappointment gracefully" do
-        visit "/matches/#{second_match_confirmation_token}"
-        # A volunteer confirms while I'm browsing the match show page
-        match.update_column("confirmed_at", Time.now)
-        expect(page).to have_text("Je suis disponible")
+      # confirm all the slots but one
+      before do
+        while campaign.remaining_slots > 1
+          create(:match, :confirmed, campaign: campaign)
+        end
+      end
+
+      it "handle the user's disappointment gracefully" do
+        visit "/matches/#{match_confirmation_token}"
+
+        # A volunteer confirms a few seconds before me
+        # while I'm browsing the match show page
+        create(:match, :confirmed, campaign: campaign)
+
         click_on("Je suis disponible")
         expect(page).to have_text("La dose n'est plus disponible 😢")
       end
