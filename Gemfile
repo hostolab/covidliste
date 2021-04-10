@@ -47,6 +47,7 @@ gem "spring"
 gem "standard"
 gem "twilio-ruby", "~> 5.50"
 gem "valid_email"
+gem "lefthook"
 
 group :development, :test do
   gem "dotenv-rails", "2.7.6"
