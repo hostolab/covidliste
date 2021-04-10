@@ -28,7 +28,7 @@ class Campaign < ApplicationRecord
       matches.confirmed.order(:confirmed_at).each do |match|
         next if match.user.nil?
 
-        [
+        csv << [
           match.user.firstname || "Anonymous",
           match.user.lastname,
           match.user.birthdate,
