@@ -25,6 +25,7 @@ class User < ApplicationRecord
   validates :address, presence: true
   validates :birthdate, presence: true
   validates :toc, presence: true, acceptance: true
+  validates :statement, presence: true, acceptance: true, unless: proc { |u| u.reset_password_token.present? }
   validates :email,
     email: {
       mx: true,
@@ -36,7 +37,7 @@ class User < ApplicationRecord
     },
     if: :email_changed?
 
-  after_commit :geocode_address, if: :saved_change_to_address?
+  after_commit :geocode_address, if: -> { saved_change_to_address? && anonymized_at.nil? }
   before_save :approximate_coords
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
@@ -56,7 +57,7 @@ class User < ApplicationRecord
   end
 
   def full_name
-    "#{firstname} #{lastname}"
+    anonymized_at.nil? ? "#{firstname} #{lastname}" : "Anonymous"
   end
 
   def distance(lat, lon)
@@ -78,6 +79,33 @@ class User < ApplicationRecord
 
   def admin?
     has_role?(:admin) || super_admin?
+  end
+
+  def anonymize!
+    return unless anonymized_at.nil?
+
+    self.email = "anonymous#{id}+#{rand(100_000_000)}@null"
+    self.firstname = nil
+    self.lastname = nil
+    self.address = nil
+    self.lat = nil
+    self.lon = nil
+    self.zipcode = nil
+    self.city = nil
+    self.geo_citycode = nil
+    self.geo_context = nil
+    self.phone_number = nil
+    self.birthdate = nil
+    self.anonymized_at = Time.now.utc
+    save(validate: false)
+  end
+
+  def to_csv
+    columns = %w[created_at updated_at email firstname lastname birthdate phone_number address lat lon zipcode city geo_citycode geo_context]
+    CSV.generate(headers: true) do |csv|
+      csv << columns
+      csv << columns.map { |column| send(column) }
+    end
   end
 
   protected

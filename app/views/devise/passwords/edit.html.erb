@@ -1,0 +1,26 @@
+<div id="devise">
+  <div class="container">
+    <div class="row mt-5">
+      <div class="col-12 col-sm-6 offset-sm-3">
+        <p>
+          <strong>Choisir un mot de passe</strong>
+        </p>
+
+        <% if resource.errors.any? %>
+          <div class="alert alert-danger" role="alert" style="position: inherit">
+            <% resource.errors.full_messages.each do |msg| %>
+              <%= msg %><br />
+            <% end %>
+          </div>
+        <% end %>
+
+        <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+          <%= f.hidden_field :reset_password_token %>
+          <%= f.input :password, autofocus: true, required: true, id: "inputPassword", autocomplete: "off" %>
+          <%= f.input :password_confirmation, autofocus: true, required: true, id: "inputPasswordConfirmation", autocomplete: "off" %>
+          <%= f.submit "C’est parti !", class: "btn btn-primary" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

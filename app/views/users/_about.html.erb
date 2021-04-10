@@ -1,0 +1,74 @@
+<div>
+  <p><strong>Qu’est-ce que Covidliste ?</strong></p>
+
+  <p>
+    A l’initiative de bénévoles, Covidliste est un site de mise en relation en temps réel entre les établissements et professionnels de santé qui disposent de doses de vaccins non utilisées, et des volontaires non vaccinés.
+  </p>
+
+  <p>
+    Aujourd’hui <strong><%= @users_count %> volontaires </strong> sont inscrits. <strong><%= @matched_users_count %></strong> d’entre eux ont déjà été mis en relation avec l’un de nos <strong><%= @vaccination_centers_count %> centres et professionnels de santé</strong> inscrits !
+  </p>
+
+  <p>
+    Solution entièrement gratuite et sécurisée, Covidliste permet :
+    <ul>
+      <li>
+        <strong>à ceux qui sont en première ligne</strong> (centres de vaccination et professionnels  de santé) de mettre à disposition des doses de vaccin non utilisées et de se concentrer sur leur mission - vacciner, grâce à un outil simple et instantané.
+      </li>
+      <li>
+        <strong>aux particuliers volontaires à la vaccination</strong>, d’être alertés lorsqu’une dose de vaccin est disponible près de chez eux.
+      </li>
+    </ul>
+  </p>
+
+  <p>
+    Centre de vaccination et professionnels de santé, <%= link_to 'rejoignez-nous !', new_partner_path %>
+  </p>
+
+  <p><strong>Pourquoi ce projet ?</strong></p>
+
+  <p>
+    La vocation de Covidliste est de permettre à toutes les doses de vaccin disponibles d’être utilisées, en premier lieu par les publics prioritaires identifiés dans le cadre de la
+    <%= link_to 'stratégie vaccinale', "https://solidarites-sante.gouv.fr/grands-dossiers/vaccin-covid-19/" %>
+    du Gouvernement. Cette solution s’appuie sur la connaissance unique des professionnels de santé sur le terrain (centres de vaccination, cabinets de médecine libérale, infirmiers libéraux, pharmacie).<br>
+    Covidliste se veut être un soutien et complémentaire à la stratégie vaccinale. Les stocks de vaccin étant mieux et plus vite écoulés, l’immunité collective pourra être atteinte plus rapidement.
+  </p>
+
+
+  <p><strong>Comment ça marche ?</strong></p>
+
+  <p>
+    <ul>
+      <li>
+        Lorsqu’un centre de vaccination ou praticien inscrit constate qu’il va lui rester des doses de vaccin, il peut créer une campagne pour trouver des volontaires à proximité, selon la tranche d’âge qu’il définit.
+      </li>
+      <li>
+        Un email et sms sont envoyés aux volontaires inscrits correspondants. Ils ont un temps limité pour pouvoir confirmer leur intérêt et disponibilité. La campagne se termine lorsque toutes les doses ont trouvé preneur.
+      </li>
+      <li>
+        Le centre ou praticien reçoit alors la liste des volontaires, qui eux peuvent se rendre au créneau indiqué pour se faire vacciner.
+      </li>
+    </ul>
+  </p>
+
+  <p><strong>Qui est derrière Covidliste ?</strong></p>
+
+  <p>
+    <%= link_to "Martin Daniel", "https://twitter.com/martindaniel4", target: "_blank", rel: "noopener" %>
+    et
+    <%= link_to "Mathieu Ripert", "https://twitter.com/mathieurip", target: "_blank", rel: "noopener" %>
+    ont conçu l’application, en collaboration avec
+    <%= link_to "Dr Antoine Roux", "https://www.paristransplantgroup.org/antoine-roux.html", target: "_blank", rel: "noopener" %>
+    de l’hôpital Foch.
+    Depuis, ils ont été rejoints par une centaine de bénévoles, développeurs informatiques, communicants, spécialistes en droit, gestion et traitements des données qui se sont spontanément présentés pour offrir leurs compétences au service du projet.
+  </p>
+
+
+  <p>
+    Pour en savoir plus, n’hésitez pas à consulter notre
+    <%= link_to 'FAQ', faq_path %>
+    et suivez-nous sur
+    <%= link_to "Twitter", "https://twitter.com/covidliste", target: "_blank", rel: "noopener" %>
+    pour ne rien rater de notre actualité !
+  </p>
+</div>

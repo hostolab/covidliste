@@ -43,6 +43,11 @@ class PushNewCampaignToSlackJob < ApplicationJob
           {
             title: "Adresse",
             value: campaign.vaccination_center.address
+          },
+          {
+            title: "Horaires",
+            value: "#{campaign.starts_at.strftime("%Hh%M")} - #{campaign.ends_at.strftime("%Hh%M")}",
+            short: true
           }
         ]
       }

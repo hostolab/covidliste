@@ -16,7 +16,16 @@ class Match < ApplicationRecord
   end
 
   def confirm!
-    update(confirmed_at: Time.now.utc) unless confirmed?
+    return if confirmed?
+
+    update(
+      confirmed_at: Time.now.utc,
+      age: user.age,
+      zipcode: user.zipcode,
+      city: user.city,
+      geo_citycode: user.geo_citycode,
+      geo_context: user.geo_context
+    )
   end
 
   def expired?

@@ -3,24 +3,24 @@
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
 
-import Rails from "@rails/ujs"
-import Turbolinks from "turbolinks"
-import * as ActiveStorage from "@rails/activestorage"
-import "controllers"
-import "channels"
+import Rails from "@rails/ujs";
+import Turbolinks from "turbolinks";
+import * as ActiveStorage from "@rails/activestorage";
+import "controllers";
+import "channels";
 import "bootstrap";
-import "bootstrap-select"
+import "bootstrap-select";
 
-Rails.start()
-Turbolinks.start()
-ActiveStorage.start()
+Rails.start();
+Turbolinks.start();
+ActiveStorage.start();
 
-import { placesAutocomplete } from '../plugins/places_autocomplete';
-import { leafletMap } from '../plugins/leaflet_map';
-document.addEventListener('turbolinks:load', () => {
+import { placesAutocomplete } from "../plugins/places_autocomplete";
+import { leafletMap } from "../plugins/leaflet_map";
+document.addEventListener("turbolinks:load", () => {
   const appId = process.env.PLACES_APP_ID;
   const apiKey = process.env.PLACES_API_KEY;
   placesAutocomplete(appId, apiKey);
   leafletMap();
-  $('[data-toggle="tooltip"]').tooltip()
+  $('[data-toggle="tooltip"]').tooltip();
 });

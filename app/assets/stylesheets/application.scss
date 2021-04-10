@@ -14,31 +14,30 @@
 @import "components/index";
 @import "pages/index";
 
-
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-  sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
-  color: #0E0000;
+  color: #0e0000;
   text-align: left;
   background-color: #fff;
 }
 
-.mtop2{
+.mtop2 {
   margin-top: 20px;
 }
 
-.mtop6{
+.mtop6 {
   margin-top: 60px;
 }
 
-.pbot4{
+.pbot4 {
   padding-bottom: 40px;
 }
 
@@ -46,12 +45,13 @@ body {
   color: rgba(0, 0, 0, 0.5);
 }
 
-nav .active > .nav-link, nav .nav-item.active {
+nav .active > .nav-link,
+nav .nav-item.active {
   color: rgba(0, 0, 0, 1);
 }
 
 .twitter-share-button {
-  background-color: #1DA1F2;
+  background-color: #1da1f2;
   color: white;
   font-size: 0.9rem;
   margin-bottom: 1rem;

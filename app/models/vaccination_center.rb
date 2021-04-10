@@ -9,6 +9,9 @@ class VaccinationCenter < ApplicationRecord
     ALL = [CABINET_MEDICAL, CENTRE_VACCINATION, EHPAD, HOPITAL, PHARMACIE].freeze
   end
 
+  include PgSearch::Model
+  pg_search_scope :global_search, against: [:name, :description, :kind, :address]
+
   validates_presence_of :name, :address, :lat, :lon, :phone_number
   validates :kind, inclusion: {in: VaccinationCenter::Kinds::ALL}
 
@@ -21,13 +24,6 @@ class VaccinationCenter < ApplicationRecord
   scope :confirmed, -> { where.not(confirmed_at: nil) }
 
   after_commit :push_to_slack, on: :create
-
-  def self.search(search)
-    return VaccinationCenter.all unless search
-
-    search = search.strip
-    VaccinationCenter.distinct.where("name ILIKE ? OR description ILIKE ? OR address ILIKE ? OR phone_number ILIKE ?", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search.delete(" ")}%")
-  end
 
   def confirmed?
     confirmed_at.present?
@@ -83,12 +79,14 @@ class VaccinationCenter < ApplicationRecord
   end
 
   def reachable_users_query(min_age:, max_age:, max_distance_in_meters:, limit: nil)
-    User
-      .joins("LEFT JOIN matches ON matches.user_id = users.id")
+    User.distinct
+      .where.not(confirmed_at: nil)
+      .where(anonymized_at: nil)
+      .where("EXTRACT(YEAR FROM AGE(birthdate))::int BETWEEN ? AND ?", min_age, max_age)
       .where("SQRT(((? - lat)*110.574)^2 + ((? - lon)*111.320*COS(lat::float*3.14159/180))^2) < ?", lat, lon, max_distance_in_meters / 1000)
-      .where("(matches.expires_at < now()::date AND matches.confirmed_at IS NULL) OR matches.id IS NULL")
-      .where("(DATE_PART('year', now()::date) - DATE_PART('year', birthdate::date))::int >= ? and (DATE_PART('year', now()::date) - DATE_PART('year', birthdate::date))::int <= ?", min_age, max_age)
-      .where("users.confirmed_at IS NOT NULL")
+      .joins("LEFT JOIN matches ON matches.user_id = users.id")
+      .where("matches.confirmed_at IS NULL")
+      .where("(matches.created_at + interval '1' day < now() OR matches.id IS NULL)")
       .order(id: :asc)
       .limit(limit)
   end

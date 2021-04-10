@@ -61,16 +61,15 @@ Rails.application.routes.draw do
 
   resources :partners, only: [:new, :create]
   get "/partenaires", to: redirect("/partenaires/inscription", status: 302)
-  get "/partenaires/inscription" => "partners#new", :as => :partenaires_inscription_path
+  get "/partenaires/inscription" => "partners#new", :as => :partenaires_inscription
 
   namespace :partners do
     resources :vaccination_centers, only: [:index, :show, :new, :create] do
       resources :campaigns, only: [:new, :create] do
         post :simulate_reach, on: :collection
       end
-      post "/campaigns/simulate_reach" => "campaigns#simulate_reach", :as => :campaign_simulate_reach
     end
-    resources :campaigns, only: :show
+    resources :campaigns, only: [:show, :update]
   end
 
   ## matches

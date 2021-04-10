@@ -18,6 +18,7 @@
   },
   "version": "0.1.0",
   "devDependencies": {
+    "prettier": "2.2.1",
     "webpack-dev-server": "^3.11.2"
   }
 }

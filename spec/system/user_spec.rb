@@ -10,6 +10,7 @@ RSpec.describe "Users", type: :system do
       fill_in :user_phone_number, with: Faker::PhoneNumber.cell_phone
       fill_in :user_email, with: "hello+#{(rand * 10000).to_i}@covidliste.com" # needs valid email here
       fill_in :user_password, with: Faker::Internet.password
+      check :user_statement
       check :user_toc
       click_on "Je m’inscris"
     end.to change { User.count }.by(1)

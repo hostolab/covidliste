@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_08_081931) do
+ActiveRecord::Schema.define(version: 2021_04_10_084648) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -100,7 +100,9 @@ ActiveRecord::Schema.define(version: 2021_04_08_081931) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "max_age"
+    t.integer "status", default: 0
     t.index ["partner_id"], name: "index_campaigns_on_partner_id"
+    t.index ["status"], name: "index_campaigns_on_status"
     t.index ["vaccination_center_id"], name: "index_campaigns_on_vaccination_center_id"
     t.check_constraint "(available_doses > 0) AND (available_doses <= 1000)", name: "available_doses_gt_zero"
     t.check_constraint "(max_age > 0) AND (max_age > min_age)", name: "max_age_gt_zero"
@@ -123,6 +125,11 @@ ActiveRecord::Schema.define(version: 2021_04_08_081931) do
     t.datetime "mail_sent_at"
     t.string "match_confirmation_token_ciphertext"
     t.string "match_confirmation_token_bidx"
+    t.integer "age"
+    t.string "zipcode"
+    t.string "city"
+    t.string "geo_citycode"
+    t.string "geo_context"
     t.index ["campaign_batch_id"], name: "index_matches_on_campaign_batch_id"
     t.index ["campaign_id"], name: "index_matches_on_campaign_id"
     t.index ["match_confirmation_token_bidx"], name: "index_matches_on_match_confirmation_token_bidx", unique: true
@@ -194,6 +201,7 @@ ActiveRecord::Schema.define(version: 2021_04_08_081931) do
     t.string "city"
     t.string "geo_citycode"
     t.string "geo_context"
+    t.boolean "statement", default: false
     t.datetime "anonymized_at"
     t.index ["city"], name: "index_users_on_city"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token"
