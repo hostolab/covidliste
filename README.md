@@ -61,6 +61,12 @@ echo "LOCKBOX_MASTER_KEY=0000000000000000000000000000000000000000000000000000000
 bin/rails s
 ```
 
+If you need Sidekiq background workers or Webpacker development server, you can start them all using [`overmind`](https://github.com/DarthSim/overmind)
+
+```bash
+overmind s
+```
+
 ### Admin development
 
 In a rails console with `rails c`
