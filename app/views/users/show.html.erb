@@ -14,6 +14,14 @@
         <strong>Vos informations</strong>
       </p>
 
+      <% if @user.errors.any? %>
+        <div class="alert alert-danger" role="alert" style="position: inherit">
+          <% @user.errors.full_messages.each do |msg| %>
+            <%= msg %><br />
+          <% end %>
+        </div>
+      <% end %>
+
       <%= simple_form_for(@user, url: :profile, method: :put, wrapper: :horizontal_form) do |f| %>
         <%= f.input :firstname, label: "Prénom", placeholder: "Jean", valid_class: "" %>
         <%= f.input :lastname, label: "Nom", error: "Nom requis", placeholder: "Dupont" %>
