@@ -8,8 +8,7 @@ RSpec.describe Match, type: :model do
         zipcode: "75001",
         city: "Paris",
         geo_citycode: "75001",
-        geo_context: "GEO_CONTEXT"
-      )
+        geo_context: "GEO_CONTEXT")
 
       match = create(:match, user: user)
       match.confirm!
