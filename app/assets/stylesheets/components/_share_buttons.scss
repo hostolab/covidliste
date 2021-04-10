@@ -1,0 +1,15 @@
+.twitter-share-button {
+  background-color: #1da1f2;
+  color: white;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+
+  &:hover {
+    background-color: #1277b5;
+    color: white;
+  }
+
+  & > :first-child {
+    margin-right: 0.3rem;
+  }
+}

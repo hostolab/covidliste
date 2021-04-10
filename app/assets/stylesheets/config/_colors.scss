@@ -1,10 +1,27 @@
-// Define variables for your color scheme
+// Covidliste colors
 
-// For example:
-$red: #fd1015;
-$blue: #167ffb;
-$yellow: #ffc65a;
-$orange: #e67e22;
-$green: #1edd88;
-$gray: #0e0000;
-$light-gray: #f4f4f4;
+$purple900: #2c1b2d;
+$purple500: #8c588f;
+$purple200: #ede2ee;
+
+$blue500: #0089fb;
+$blue200: #d1f4ff;
+
+$green500: #58d1a5;
+$green200: #e2faf1;
+
+$red500: #e02020;
+
+$yellow500: #ffe590;
+$yellow400: #f9e7ae;
+$yellow200: #fef8e7;
+
+// Override bootstrap default colors
+$primary: $purple500;
+$success: $green500;
+$info: $blue500;
+$danger: $red500;
+$warning: $yellow500;
+
+// Override specific bootstrap colors
+$body-bg: white;
