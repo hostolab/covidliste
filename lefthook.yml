@@ -3,4 +3,4 @@ pre-commit:
   commands:
     standardrb:
       glob: "*.{rb}"
-      run: bundle exec standardrb
+      run: bin/standardrb
