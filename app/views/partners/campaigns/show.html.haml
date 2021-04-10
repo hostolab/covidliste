@@ -63,9 +63,10 @@
             %td
               %em Anonymized
             %td -
+            %td -
           - else
             %td= user.full_name
             %td= user.phone_number
+            %td= user.birthdate.strftime("%d/%m/%Y")
 
-          %td= user.birthdate.strftime("%d/%m/%Y")
           %td= l match.confirmed_at

@@ -28,23 +28,13 @@ class Campaign < ApplicationRecord
       matches.confirmed.order(:confirmed_at).each do |match|
         next if match.user.nil?
 
-        csv << if match.user.anonymized_at
-          [
-            "Anonymous",
-            "Anonymous",
-            match.user.birthdate,
-            "",
-            match.confirmed_at
-          ]
-        else
-          [
-            match.user.firstname,
-            match.user.lastname,
-            match.user.birthdate,
-            match.user.phone_number,
-            match.confirmed_at
-          ]
-        end
+        [
+          match.user.firstname || "Anonymous",
+          match.user.lastname,
+          match.user.birthdate,
+          match.user.phone_number,
+          match.confirmed_at
+        ]
       end
     end
   end
