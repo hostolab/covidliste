@@ -1,5 +1,6 @@
 class Match < ApplicationRecord
   class DoseOverbookingError < StandardError; end
+  class AlreadyConfirmedError < StandardError; end
 
   has_secure_token :match_confirmation_token
 
@@ -18,6 +19,8 @@ class Match < ApplicationRecord
   end
 
   def confirm!
+    raise AlreadyConfirmedError, "Vous avez déjà confirmé votre disponibilité" if confirmed?
+
     raise DoseOverbookingError, "La dose de vaccin a déjà été réservée" unless confirmable?
 
     update(
@@ -33,7 +36,7 @@ class Match < ApplicationRecord
   end
 
   def confirmable?
-    !confirmed? && campaign_batch.matches.confirmed.none?
+    !confirmed? && campaign.remaining_slots > 0
   end
 
   def expired?
