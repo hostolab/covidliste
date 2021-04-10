@@ -5,5 +5,4 @@ pre-commit:
       glob: "*.{rb}"
       run: bin/standardrb
     prettier:
-      exclude: "*.(dev|env)"
-      run: yarn prettier --write {staged_files}
+      run: yarn prettier --write .

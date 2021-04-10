@@ -1,7 +1,9 @@
 name: Quality
 
 # triggers on
-on: [push]
+on:
+  - push
+  - pull_request
 
 jobs:
   quality:
