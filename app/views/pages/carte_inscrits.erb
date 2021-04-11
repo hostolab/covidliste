@@ -28,7 +28,7 @@
 <script language="javascript">
   window.addEventListener('load', () => {
     const data = <%=
-      vaccination_centers = VaccinationCenter.all.map do |v|
+      vaccination_centers = VaccinationCenter.all.filter { |v| v.confirmed? }.map do |v|
         {
           'coordinates' => [v.lon, v.lat],
           'nom' => v.name,
