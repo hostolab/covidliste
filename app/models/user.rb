@@ -81,17 +81,6 @@ class User < ApplicationRecord
     has_role?(:admin) || super_admin?
   end
 
-  def departement_code
-    return nil if geo_citycode.nil?
-    # See https://en.wikipedia.org/wiki/INSEE_code#Geographical_codes
-    dept_code = geo_citycode[0..1]
-    if dept_code.to_i <= 95
-      dept_code
-    else
-      geo_citycode[0..2]
-    end
-  end
-
   def anonymize!
     return unless anonymized_at.nil?
 

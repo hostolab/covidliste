@@ -12,6 +12,7 @@ import popByCode from "./pop2021.json";
 export default class extends Controller {
   connect() {
     const data = JSON.parse(this.element.dataset.map);
+    console.log(data)
 
     const UNKNOW_DEPT_COLOR = [220, 220, 220];
 
