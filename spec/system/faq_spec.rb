@@ -7,6 +7,7 @@ RSpec.describe "FAQ Page", type: :system do
   end
   it "knows the main email adress at least once" do
     visit "/faq"
+    Capybara.ignore_hidden_elements = false # Email adress is hidden in accordion
     expect(page).to have_text("hello@covidliste.com")
   end
 end
