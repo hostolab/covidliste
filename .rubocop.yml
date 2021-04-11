@@ -19,6 +19,7 @@ AllCops:
     - "Gemfile"
     - "db/schema.rb"
     - "node_modules/**/*"
+    - vendor/bundle/**/*
 
 Layout/ArgumentAlignment:
   Enabled: false
