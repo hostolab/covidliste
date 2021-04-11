@@ -77,6 +77,16 @@ user.add_role(:admin)
 # user.add_role(:super_admin) # for super admin
 ```
 
+## Docker
+
+Launch the Docker environment:
+
+```bash
+docker-compose up
+```
+
+Visit http://localhost:3000
+
 # Contributing
 
 Visit https://github.com/hostolab/covidliste/blob/master/CONTRIBUTING.md
