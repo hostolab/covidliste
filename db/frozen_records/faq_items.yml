@@ -374,7 +374,7 @@
   body_md_erb: |
     Nous vous invitons à nous contacter sur <%= link_to "presse@covidliste.com", "mailto:presse@covidliste.com", rel: "noopener" %>.
 
-- title: Je suis un professionnel de santé en charge de la vaccination et j’ai un question
+- title: Je suis un professionnel de santé en charge de la vaccination et j’ai une question
   category: Collaboration et contact
   body_md_erb: |
     Nous avons développé une interface de gestion automatisée des volontaires à la vaccination.
