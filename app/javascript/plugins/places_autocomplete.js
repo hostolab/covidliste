@@ -7,10 +7,10 @@ const placesAutocomplete = (appId, apiKey) => {
     places({
       container: addressInput,
       appId: appId,
-      apiKey: apiKey
+      apiKey: apiKey,
     }).configure({
       language: "fr",
-      countries: ["fr"]
+      countries: ["fr"],
     });
   }
 
@@ -24,12 +24,12 @@ const placesAutocomplete = (appId, apiKey) => {
     let p = places({
       container: centerAddressInput,
       appId: appId,
-      apiKey: apiKey
+      apiKey: apiKey,
     }).configure({
       language: "fr",
-      countries: ["fr"]
+      countries: ["fr"],
     });
-    p.on("change", function(e) {
+    p.on("change", function (e) {
       let latlng = e.suggestion.latlng;
       centerLatInput.value = latlng["lat"];
       centerLonInput.value = latlng["lng"];
