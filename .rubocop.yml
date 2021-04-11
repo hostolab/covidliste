@@ -19,19 +19,137 @@ AllCops:
     - "Gemfile"
     - "db/schema.rb"
     - "node_modules/**/*"
-Layout/LineLength:
-  Max: 90
-  Exclude:
-    - "**/swagger_docs/**/*"
-    - "app/admin/item.rb"
-    - "spec/**/*"
-  IgnoredPatterns: ['\#']
 
+Layout/ArgumentAlignment:
+  Enabled: false
+Layout/ArrayAlignment:
+  Enabled: false
+Layout/FirstHashElementIndentation:
+  Enabled: false
+Layout/LineLength:
+  Enabled: false
+Layout/MultilineMethodCallIndentation:
+  Enabled: false
+Layout/MultilineOperationIndentation:
+  Enabled: false
+Layout/SpaceInsideHashLiteralBraces:
+  Enabled: false
+
+Lint/UnusedBlockArgument:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
 Metrics/BlockLength:
-  Exclude:
-    - "**/admin/**/*"
-    - "spec/**/*"
+  Enabled: false
+Metrics/ClassLength:
+  Enabled: false
+Metrics/CyclomaticComplexity:
+  Enabled: false
+Metrics/MethodLength:
+  Enabled: false
+Metrics/PerceivedComplexity:
+  Enabled: false
+
 Rails:
   Enabled: true
+Rails/ActiveRecordCallbacksOrder:
+  Enabled: false
+Rails/ApplicationJob:
+  Enabled: false
+Rails/ContentTag:
+  Enabled: false
+Rails/Date:
+  Enabled: false
+Rails/FindEach:
+  Enabled: false
+Rails/HasAndBelongsToMany:
+  Enabled: false
+Rails/HasManyOrHasOneDependent:
+  Enabled: false
+Rails/LinkToBlank:
+  Enabled: false
+Rails/OutputSafety:
+  Enabled: false
+Rails/PluralizationGrammar:
+  Enabled: false
+Rails/SkipsModelValidations:
+  Enabled: false
+Rails/TimeZone:
+  Enabled: false
+Rails/Validation:
+  Enabled: false
+Rails/WhereEquals:
+  Enabled: false
+
+RSpec/AnyInstance:
+  Enabled: false
+RSpec/ContextWording:
+  Enabled: false
+RSpec/DescribedClass:
+  Enabled: false
+RSpec/EmptyLineAfterExample:
+  Enabled: false
+RSpec/EmptyLineAfterFinalLet:
+  Enabled: false
+RSpec/EmptyLineAfterHook:
+  Enabled: false
+RSpec/EmptyLineAfterSubject:
+  Enabled: false
+RSpec/ExampleLength:
+  Enabled: false
+RSpec/ExampleWording:
+  Enabled: false
+RSpec/ExpectChange:
+  Enabled: false
+RSpec/LeadingSubject:
+  Enabled: false
+RSpec/LetSetup:
+  Enabled: false
+RSpec/MultipleExpectations:
+  Enabled: false
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+RSpec/NamedSubject:
+  Enabled: false
+RSpec/NotToNot:
+  Enabled: false
+RSpec/RepeatedExample:
+  Enabled: false
+
+Style/BlockDelimiters:
+  Enabled: false
 Style/Documentation:
+  Enabled: false
+Style/EmptyMethod:
+  Enabled: false
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/GuardClause:
+  Enabled: false
+Style/IfUnlessModifier:
+  Enabled: false
+Style/MultilineBlockChain:
+  Enabled: false
+Style/MutableConstant:
+  Enabled: false
+Style/NumericLiterals:
+  Enabled: false
+Style/NumericPredicate:
+  Enabled: false
+Style/RescueStandardError:
+  Enabled: false
+Style/SingleArgumentDig:
+  Enabled: false
+Style/StringConcatenation:
+  Enabled: false
+Style/StringLiterals:
+  Enabled: false
+Style/StringLiteralsInInterpolation:
+  Enabled: false
+Style/SymbolArray:
+  Enabled: false
+Style/WhileUntilModifier:
+  Enabled: false
+Style/WordArray:
   Enabled: false
