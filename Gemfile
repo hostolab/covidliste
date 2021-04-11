@@ -56,6 +56,13 @@ group :development, :test do
   gem "faker", git: "https://github.com/faker-ruby/faker.git", branch: "master"
   gem "pry-byebug"
   gem "pry-rails"
+
+  gem "rubocop", require: false
+  gem "rubocop-faker", require: false
+  gem "rubocop-performance", require: false
+  gem "rubocop-rails", require: false
+  gem "rubocop-rake", require: false
+  gem "rubocop-rspec", require: false
 end
 
 group :development do

@@ -1,0 +1,37 @@
+require:
+  - rubocop-faker
+  - rubocop-performance
+  - rubocop-rails
+  - rubocop-rake
+  - rubocop-rspec
+
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 2.7.3
+  Include:
+    - "**/Rakefile"
+    - "**/config.ru"
+    - "**/*.rb"
+  Exclude:
+    - "bin/**/*"
+    - "db/**/*"
+    - "config/**/*"
+    - "Gemfile"
+    - "db/schema.rb"
+    - "node_modules/**/*"
+Layout/LineLength:
+  Max: 90
+  Exclude:
+    - "**/swagger_docs/**/*"
+    - "app/admin/item.rb"
+    - "spec/**/*"
+  IgnoredPatterns: ['\#']
+
+Metrics/BlockLength:
+  Exclude:
+    - "**/admin/**/*"
+    - "spec/**/*"
+Rails:
+  Enabled: true
+Style/Documentation:
+  Enabled: false
