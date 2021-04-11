@@ -5,8 +5,6 @@
   #navbarNavDropdown.collapse.navbar-collapse
     %ul.navbar-nav.ml-auto
       - if current_user.has_role?(:admin)
-        %li{class: (controller_name == 'search' ? 'nav-item active' : 'nav-item')}
-          = link_to "Recherche", :admin_search, class: 'nav-link'
         %li{class: (controller_name == 'vaccination_centers' ? 'nav-item active' : 'nav-item')}
           = link_to "Centres de vaccination", admin_vaccination_centers_path, class: 'nav-link'
         %li.nav-item.dropdown
