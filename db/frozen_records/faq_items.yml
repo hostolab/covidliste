@@ -44,10 +44,10 @@
 - title: Puis-je m’inscrire sur Covidliste si j’ai déjà reçu ma première dose ?
   category: Inscription
   body_md_erb: |
-    Covidliste s’adresse aux non vaccinés volontaires et s’est fixé pour mission de sauver
-    des doses qui risqueraient d’être perdues.
-
-    Covidliste est complémentaire à la stratégie vaccinale actuelle et n’a pas vocation à s’y substituer.
+    Covidliste s’adresse aux non vaccinés volontaires en se fixant pour mission de permettre
+    à toutes les doses de vaccin disponibles d’être utilisées, en premier lieu
+    par les publics prioritaires identifiés dans le cadre de la stratégie vaccinale
+    du Gouvernement.
 
 - title: Comment inscrire deux adresses postales différentes (domicile, travail, etc.) ?
   category: Inscription
@@ -92,18 +92,19 @@
 - title: Je suis inscrit depuis plusieurs semaines et je n’ai jamais été contacté pour une vaccination.
   category: Fonctionnement
   body_md_erb: |
-    Covidliste est un outil d’ajustement de l’offre et de la demande qui a pour
-    objectif d’éviter de perdre des doses de vaccins.
-
-    Covidliste est complémentaire de la stratégie vaccinale actuelle et n’a pas
-    vocation à s’y substituer.
+    Covidliste est un site de mise en relation en temps réel entre les établissements
+    qui disposent de vaccins non utilisés et des volontaires non vaccinés.
+    Covidliste est complémentaire de la stratégie vaccinale actuelle et
+    n’a pas vocation à s’y substituer.
 
     Covidliste ne recherche des volontaires qu'à la demande des professionnels
     de santé acteurs de la vaccination selon les critères établis par ces
     professionnels tels que l’âge et la distance du point de vaccination.
 
-    Covidliste ne peut garantir qu’une dose de vaccin sera proposée aux volontaires
-    sur la plateforme.
+    Conformément à la stratégie de vaccination, les praticiens ne sont tenus de
+    vacciner que les publics prioritaires. Une inscription via Covidliste ne permet
+    pas de déroger à cette règle essentielle au bon déroulé de la campagne de vaccination
+    et ne garantit donc pas de pouvoir bénéficier d'une dose non utilisée.
 
 - title: Avez-vous une application mobile pour smartphone sur l'Apple Store ou le Google Play Store ?
   category: Fonctionnement
@@ -254,12 +255,14 @@
   category: Données personnelles et code source
   body_md_erb: |
     Covidliste est une initiative citoyenne et philanthrope portée par une équipe
-    de plus de 100 bénévoles qui se sont rassemblés dans l’unique but de ne pas
-    perdre de doses de vaccins.
+    de plus de 100 bénévoles qui se sont rassemblés dans l’unique but de permettre
+    à toutes les doses de vaccin disponibles d’être utilisées, en premier lieu par
+    les publics prioritaires identifiés dans le cadre de la stratégie vaccinale
+    du Gouvernement.
 
     Les données que vous renseignez ne sont transmises qu’aux centres de vaccination
-    ou aux professionnels de santé proches de chez vous et disposant de doses de
-    vaccins à sauver.
+    ou aux professionnels de santé proches de chez vous et disposant de doses
+    de vaccins disponibles.
 
 - title: À quoi servent les données demandées lors de l’inscription ?
   category: Données personnelles et code source
