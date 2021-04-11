@@ -50,6 +50,8 @@ RSpec.describe User, type: :model do
   end
 
   describe "Phone format" do
+    it_behaves_like "has phone number"
+
     it "format phone number correctly" do
       user.phone_number = "06 11 22 33 44"
       expect(user).to be_valid
