@@ -1,16 +1,15 @@
 class SendCampaignJob < ApplicationJob
   queue_as :critical
 
-  BATCH_OVERBOOKING_FACTOR = 2 # If there are 10 remaining doses, 20 SMS will be sent
   BATCH_EXPIRE_IN_MINUTES = 6
 
   STOP_SENDING_BEFORE_CAMPAIGN_ENDS_AT = 10.minutes
 
   def perform(campaign, partner = nil)
     return unless campaign.running?
-    return campaign.completed! if campaign.remaining_slots < 0 || (campaign.ends_at - STOP_SENDING_BEFORE_CAMPAIGN_ENDS_AT) < Time.now.utc
+    return campaign.completed! if campaign.remaining_slots <= 0 || (campaign.ends_at - STOP_SENDING_BEFORE_CAMPAIGN_ENDS_AT) < Time.now.utc
 
-    limit = (campaign.remaining_slots * BATCH_OVERBOOKING_FACTOR).floor
+    limit = (campaign.remaining_slots * Vaccine.overbooking_factor(campaign.vaccine_type)).floor
 
     users = campaign.vaccination_center.reachable_users_query(
       min_age: campaign.min_age,

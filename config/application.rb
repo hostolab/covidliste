@@ -2,17 +2,16 @@ require_relative "boot"
 
 require "rails/all"
 require "csv"
-
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
-
 module Covidliste
   class Application < Rails::Application
     config.generators do |generate|
       generate.assets false
       generate.helper false
-      generate.test_framework :test_unit, fixture: false
+      generate.test_framework :rspec, fixture: false
+      generate.fixture_replacement :factory_bot, dir: "spec/factories"
     end
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1

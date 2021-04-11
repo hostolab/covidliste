@@ -10,6 +10,9 @@ class MatchesController < ApplicationController
     else
       @match.confirm!
     end
+  rescue Match::AlreadyConfirmedError, Match::DoseOverbookingError => e
+    flash[:error] = e.message
+  ensure
     render action: "show"
   end
 
