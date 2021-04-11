@@ -1,7 +1,5 @@
 // Graphical variables
-@import "config/fonts";
-@import "config/colors";
-@import "config/bootstrap_variables";
+@import "config/index";
 
 // External libraries
 @import "bootstrap/scss/bootstrap";
@@ -13,21 +11,6 @@
 // Your CSS partials
 @import "components/index";
 @import "pages/index";
-
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5;
-  color: #0e0000;
-  text-align: left;
-  background-color: #fff;
-}
 
 .mtop2 {
   margin-top: 20px;
@@ -48,20 +31,4 @@ body {
 nav .active > .nav-link,
 nav .nav-item.active {
   color: rgba(0, 0, 0, 1);
-}
-
-.twitter-share-button {
-  background-color: #1da1f2;
-  color: white;
-  font-size: 0.9rem;
-  margin-bottom: 1rem;
-
-  &:hover {
-    background-color: #1277b5;
-    color: white;
-  }
-
-  & > :first-child {
-    margin-right: 0.3rem;
-  }
 }

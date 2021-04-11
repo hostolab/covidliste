@@ -377,6 +377,8 @@ GEM
     sidekiq-cron (1.2.0)
       fugit (~> 1.1)
       sidekiq (>= 4.2.1)
+    sidekiq-failures (1.0.0)
+      sidekiq (>= 4.0.0)
     simple_form (5.1.0)
       actionpack (>= 5.2)
       activemodel (>= 5.2)
@@ -492,6 +494,7 @@ DEPENDENCIES
   selenium-webdriver
   sidekiq
   sidekiq-cron
+  sidekiq-failures
   simple_form
   spring
   spring-commands-rspec (~> 1.0)
