@@ -9,16 +9,16 @@ services:
       POSTGRES_USER: myuser
       POSTGRES_DB: covidliste_development
   redis:
-    image: 'redis:5-alpine'
+    image: "redis:5-alpine"
     command: redis-server
   web:
     depends_on:
-      - 'db'
-      - 'redis'
+      - "db"
+      - "redis"
     build: .
     restart: always
     ports:
-      - '3000:3000'
+      - "3000:3000"
     environment:
       - DATABASE_URL=postgres://myuser:mypass@db/covidliste_development
       - REDIS_URL=redis://redis:6379
