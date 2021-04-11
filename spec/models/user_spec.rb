@@ -96,4 +96,24 @@ RSpec.describe User, type: :model do
       expect(user.anonymized_at).not_to be_nil
     end
   end
+
+  describe "Age" do
+    it "should be increased on my birthday" do
+      today = Time.now.utc.to_date
+      user.birthdate = today - 20.years
+      expect(user.age).to eq(20)
+    end
+
+    it "should be correct before my birthday" do
+      today = Time.now.utc.to_date
+      user.birthdate = today - 20.years + 1.day
+      expect(user.age).to eq(19)
+    end
+
+    it "should be correct after my birthday" do
+      today = Time.now.utc.to_date
+      user.birthdate = today - 20.years - 1.day
+      expect(user.age).to eq(20)
+    end
+  end
 end
