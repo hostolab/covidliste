@@ -94,5 +94,10 @@ module Partners
     def simulate_params
       params.require(:campaign).permit(:min_age, :max_age, :max_distance_in_meters, :vaccine_type, :available_doses)
     end
+
+    def skip_pundit?
+      # TODO add a real policy
+      true
+    end
   end
 end
