@@ -6,6 +6,7 @@ class PagesController < ApplicationController
   end
 
   def faq
+    @faq_items = FaqItem.all
   end
 
   def robots
