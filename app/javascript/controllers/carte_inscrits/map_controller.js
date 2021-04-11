@@ -16,7 +16,8 @@ export default class extends Controller {
     const UNKNOW_DEPT_COLOR = [220, 220, 220];
 
     const getDepartmentValue = (code) =>
-      data.usersByDept[code] && (data.usersByDept[code] / popByCode[code]) * 1e5;
+      data.usersByDept[code] &&
+      (data.usersByDept[code] / popByCode[code]) * 1e5;
     const getDepartmentTooltip = (object) => {
       const value = getDepartmentValue(object.properties.code);
       let html = `<b>${object.properties.nom}</b><br />`;
@@ -105,5 +106,5 @@ export default class extends Controller {
       layers: layers,
     });
     console.log("Visualisation loaded");
-  };
+  }
 }
