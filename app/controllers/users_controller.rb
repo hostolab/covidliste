@@ -24,7 +24,7 @@ class UsersController < ApplicationController
 
   def show
     @user = current_user
-    @user.phone_number = @user.human_friendly_phone_number
+    prepare_phone_number
     respond_to do |format|
       format.html
       format.csv do
@@ -40,7 +40,7 @@ class UsersController < ApplicationController
     else
       flash.now[:error] = "Impossible d'enregistrer vos modifications."
     end
-    @user.phone_number = @user.human_friendly_phone_number
+    prepare_phone_number
     render action: :show
   end
 
@@ -61,6 +61,11 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def prepare_phone_number
+    human_friendly_phone_number = @user.human_friendly_phone_number
+    @user.phone_number = human_friendly_phone_number unless human_friendly_phone_number.nil?
+  end
 
   def user_params
     params.require(:user).permit(:firstname, :lastname, :email, :phone_number, :toc, :address, :birthdate, :lat,
