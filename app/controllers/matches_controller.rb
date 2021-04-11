@@ -25,4 +25,9 @@ class MatchesController < ApplicationController
     flash[:error] = "Désolé, ce lien d'invitation n'est pas valide."
     redirect_to root_path
   end
+
+  def skip_pundit?
+    # TODO add a real policy
+    true
+  end
 end
