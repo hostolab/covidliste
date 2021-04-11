@@ -29,7 +29,7 @@
         Si vous êtes un particulier et souhaitez vous inscrire en tant volontaire à la vaccination, c’est par là !
       </p>
 
-      <div class="btn btn-warning">
+      <div class="btn btn-secondary">
         <%= link_to "Je suis volontaire pour me faire vacciner", root_path, class: "text-white text-decoration-none" %>
       </div>
 
@@ -67,7 +67,7 @@
                 <%= f.input :password, required: true, hint: "Un email de confirmation de création de compte vous sera envoyé. Cliquez sur le lien pour activer votre compte", input_html: { autocomplete: "new-password" } %>
               </div>
               <div class="form-actions">
-                <%= f.button :submit, "S’inscrire", class:"btn btn-primary", data: { disable_with: "Validation..." } %>
+                <%= f.button :submit, "S’inscrire", class:"btn btn-primary", data: { disable_with: "Validation...", confirm: "Vous êtes bien professionnel de santé ?" } %>
               </div>
             <% end %>
           </div>
