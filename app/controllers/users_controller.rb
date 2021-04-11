@@ -62,7 +62,7 @@ class UsersController < ApplicationController
 
   private
 
-  def prepare_phone_numer
+  def prepare_phone_number
     human_friendly_phone_number = @user.human_friendly_phone_number
     @user.phone_number = human_friendly_phone_number unless human_friendly_phone_number.nil?
   end
