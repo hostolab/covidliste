@@ -36,7 +36,7 @@ class VaccinationCenter < ApplicationRecord
   end
 
   def self.to_csv
-    headers = ["ID", "Nom du centre", "Type de centre", "Adresse", "Téléphone", "Type de vaccin", "Nom du contact", "Email du contact", "Validé", "Validé par", "Validé le"]
+    headers = ["ID", "Nom du centre", "Type de centre", "Adresse", "Téléphone", "Type de vaccin", "Nom du contact", "Email du contact", "Téléphone du contact", "Validé", "Validé par", "Validé le"]
 
     CSV.generate("\uFEFF", headers: true) do |csv|
       csv << headers
@@ -68,6 +68,7 @@ class VaccinationCenter < ApplicationRecord
           vaccin_types,
           vaccination_center.partners&.first&.name,
           vaccination_center.partners&.first&.email,
+          vaccination_center.partners&.first&.phone_number,
           confirmed
         ]
         if confirmed
