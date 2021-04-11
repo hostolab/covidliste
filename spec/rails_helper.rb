@@ -38,6 +38,8 @@ RSpec.configure do |config|
       host: Capybara.current_session.server.host,
       port: Capybara.current_session.server.port
     }
+    Rails.application.config.action_mailer.default_url_options = \
+      Rails.application.routes.default_url_options
   end
 
   config.include ActiveJob::TestHelper
