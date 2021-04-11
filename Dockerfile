@@ -15,7 +15,7 @@ WORKDIR /usr/src
 
 COPY . .
 
-RUN sed -i 's|port ENV.fetch("PORT", 3000)|bind "tcp://0.0.0.0:#{ENV['PORT']\|\|3000}"|g' config/puma.rb
+RUN sed -i 's|port ENV.fetch("PORT", 3000)|bind "tcp://0.0.0.0:#{ENV["PORT"] \|\| 3000}"|g' config/puma.rb
 
 RUN gem install bundler:2.2.15
 
@@ -29,6 +29,4 @@ RUN bin/lefthook install
 
 RUN echo "LOCKBOX_MASTER_KEY=0000000000000000000000000000000000000000000000000000000000000000" > .env
 
-ENTRYPOINT ["/usr/src/entrypoint.sh"]
-
-CMD bin/rails s
+CMD ["/usr/src/entrypoint.sh"]
