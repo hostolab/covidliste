@@ -13,7 +13,7 @@ RSpec.describe Match, type: :model do
   describe "#confirm!" do
     it "should copy User information at confirmation" do
       user = create(:user,
-        birthdate: Date.today - 60.years,
+        birthdate: Time.now.utc.to_date - 60.years,
         zipcode: "75001",
         city: "Paris",
         geo_citycode: "75001",

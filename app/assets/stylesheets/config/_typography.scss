@@ -1,0 +1,15 @@
+// Base
+$font-size-base: 1rem;
+$font-family-base: "Poppins", sans-serif;
+
+// Body
+$body-color: $purple900;
+
+// Headers
+$headings-color: $body-color;
+
+// Font smoothing
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
