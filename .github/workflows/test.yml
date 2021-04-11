@@ -38,10 +38,13 @@ jobs:
           bundler-cache: true
       - name: Set up .env
         run: echo "LOCKBOX_MASTER_KEY=0000000000000000000000000000000000000000000000000000000000000000" > .env
+      - name: Get Node.js version
+        id: nvm
+        run: echo ::set-output name=NODE_VERSION::$(cat .nvmrc)
       - name: Set up Node
         uses: actions/setup-node@v2
         with:
-          node-version: "10.17"
+          node-version: "${{ steps.nvm.outputs.NODE_VERSION }}"
       - name: Get Yarn cache directory path
         id: yarn-cache
         run: echo "::set-output name=dir::$(yarn cache dir)"
