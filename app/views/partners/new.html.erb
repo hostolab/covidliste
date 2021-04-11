@@ -56,7 +56,7 @@
           Je suis professionnel de santé et souhaite devenir partenaire
         </button>
 
-        <div class="collapse" id="collapseForm">
+        <div class="collapse <%= @partner.errors.any? ? 'show' : '' %>" id="collapseForm">
           <div class="mt-4">
             <p>Veuillez remplir le formulaire ci-dessous pour vous inscrire en tant que professionnel de santé.</p>
             <%= simple_form_for @partner do |f| %>
