@@ -36,8 +36,9 @@
       end
       users_by_dept = Rails.cache.fetch("users_by_dept", expires_in: 1.hours) do
         User.all
-          .reject { |u| u.departement_code.nil? }
+          .filter { |u| u.confirmed? }
           .group_by { |u| u.departement_code }
+          .reject { |departement_code, _| departement_code.nil? }
           .transform_values(&:count)
           .reject { |_, count| count < 10 }
       end
