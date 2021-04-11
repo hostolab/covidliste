@@ -20,6 +20,17 @@ jobs:
         with:
           # prettier CLI arguments.
           args: --check .
+      - name: Set up Ruby 2.7.3
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7.3
+      - name: Cache gems
+        uses: actions/cache@v2
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-rubocop-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-rubocop-
       - name: Install gems
         run: |
           bundle config path vendor/bundle
