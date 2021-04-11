@@ -16,5 +16,10 @@ module Admin
         redirect_to(root_path)
       end
     end
+
+    def skip_pundit?
+      # TODO add a real policy
+      true
+    end
   end
 end

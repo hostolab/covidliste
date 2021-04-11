@@ -1,0 +1,27 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: mypass
+      POSTGRES_USER: myuser
+      POSTGRES_DB: covidliste_development
+  redis:
+    image: "redis:5-alpine"
+    command: redis-server
+  web:
+    depends_on:
+      - "db"
+      - "redis"
+    build: .
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=postgres://myuser:mypass@db/covidliste_development
+      - REDIS_URL=redis://redis:6379
+      - RAILS_ENV=development
+    volumes:
+      - ./app:/usr/src/app
