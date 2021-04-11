@@ -1,0 +1,25 @@
+<% message = yield.presence %>
+<% return if message.blank? %>
+<% title = local_assigns[:title].presence %>
+<% id = local_assigns[:id].presence || rand(36**12).to_s(36) %>
+<% parent_id = local_assigns[:parent_id].presence %>
+<% show = local_assigns[:show].presence %>
+<% div_suffix = parent_id.upcase_first + id.upcase_first %>
+
+<div class="card">
+  <div class="card-header" id="heading<%= div_suffix %>">
+    <h5 class="mb-0">
+      <button class="btn btn-link" data-toggle="collapse" data-target="#collapse<%= div_suffix %>"
+              aria-expanded="<% if show %>true<% else %>false<% end %>" aria-controls="collapse<%= div_suffix %>">
+        <%= title %>
+      </button>
+    </h5>
+  </div>
+
+  <div id="collapse<%= div_suffix %>" class="collapse <% if show %>show<% end %>" data-parent="#<%= parent_id %>"
+       aria-labelledby="heading_<%= div_suffix %>">
+    <div class="card-body">
+      <%= message %>
+    </div>
+  </div>
+</div>
