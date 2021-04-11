@@ -57,6 +57,7 @@
             %th Distance max. (km)
             %th Nombre de matchs
             %th Rdv confirmés
+            %th Statut
         %tbody
           - @vaccination_center.campaigns.each do |campaign|
             %tr
@@ -69,6 +70,7 @@
               %th= campaign.max_distance_in_meters/1000
               %th= campaign.matches.count
               %th= campaign.matches.confirmed.count
+              %th= campaign.status
 
   %h5.mt-4 Partenaires liés
 
