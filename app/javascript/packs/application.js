@@ -24,3 +24,7 @@ document.addEventListener("turbolinks:load", () => {
   leafletMap();
   $('[data-toggle="tooltip"]').tooltip();
 });
+
+// Expose data visualisation creation method for relevant pages
+import { createCarteInscrits } from "../plugins/carte_inscrits";
+window.createCarteInscrits = createCarteInscrits;

@@ -1,0 +1,53 @@
+<%= content_for(:append_to_head) do %>
+<meta content="index;follow" name="robots"/>
+<% end %>
+
+<style>
+  #map-container {
+    height: 500px;
+    position: relative; /* used to set a reference for the children */
+  }
+
+  #map, #deck-canvas {
+    /* children will take the full space of the container */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+</style>
+
+<h1><%= VaccinationCenter.count %> centres sur CovidListe, et des volontaires dans tous les d&eacute;partements</h1>
+
+<div id="map-container">
+  <div id="map"></div>
+  <canvas id="deck-canvas"></canvas>
+</div>
+
+<script language="javascript">
+  window.addEventListener('load', () => {
+    const data = <%=
+      vaccination_centers = VaccinationCenter.all.map do |v|
+        {
+          'coordinates' => [v.lon, v.lat],
+          'nom' => v.name,
+        }
+      end
+      users_by_dept = Rails.cache.fetch("users_by_dept", expires_in: 1.hours) do
+        User.all
+          .reject { |u| u.departement_code.nil? }
+          .group_by { |u| u.departement_code }
+          .transform_values(&:count)
+          .reject { |_, count| count < 10 }
+      end
+      objects = {
+        'vaccinationCenters' => vaccination_centers,
+        'usersByDept' => users_by_dept
+      }
+      raw(objects.to_json)
+    %>;
+
+    const _ = createCarteInscrits(data);
+  });
+</script>
