@@ -9,6 +9,16 @@ FactoryBot.define do
   sequence(:lon) { Faker::Address.longitude }
   sequence(:name) { Faker::Name.name }
   sequence(:password) { Faker::Lorem.characters(number: 10) }
-  sequence(:french_phone_number) { Faker::PhoneNumber.phone_number }
+  sequence(:french_phone_number) do
+    # Faker generates cell phones that are not valid
+    # because not yet attributed
+    # (Example : 0729999999 and lower are not attributed, 0730000000 and higher are)
+    # We're looping until Faker generates a valid number
+    phone_number = Faker::PhoneNumber.cell_phone
+    until Phonelib.valid?(phone_number)
+      phone_number = Faker::PhoneNumber.cell_phone
+    end
+    phone_number
+  end
   sequence(:unique_email) { Faker::Internet.unique.email(domain: "covidliste.com") }
 end
