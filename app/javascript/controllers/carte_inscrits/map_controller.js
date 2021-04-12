@@ -13,7 +13,8 @@ export default class extends Controller {
   connect() {
     const data = JSON.parse(this.element.dataset.map);
 
-    const UNKNOW_DEPT_COLOR = [220, 220, 220];
+    // const UNKNOW_DEPT_COLOR = [220, 220, 220];
+    const UNKNOW_DEPT_COLOR = [50, 100, 238];
 
     const getDepartmentValue = (code) =>
       data.usersByDept[code] &&
@@ -74,11 +75,11 @@ export default class extends Controller {
     const layers = [departementsLayer, iconLayer];
 
     const INITIAL_VIEW_STATE = {
-      bearing: 30,
-      latitude: 45.5,
+      bearing: 0,
+      latitude: 46.5,
       longitude: 2.3,
-      pitch: 45,
-      zoom: 5.2,
+      pitch: 0,
+      zoom: 4.5,
     };
     const map = new mapboxgl.Map({
       container: "map",
@@ -102,7 +103,7 @@ export default class extends Controller {
           pitch: viewState.pitch,
         });
       },
-      getTooltip: ({ object }) => object && getDepartmentTooltip(object),
+      // getTooltip: ({ object }) => object && getDepartmentTooltip(object),
       layers: layers,
     });
     console.log("Visualisation loaded");

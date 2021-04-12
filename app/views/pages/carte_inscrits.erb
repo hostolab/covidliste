@@ -25,28 +25,29 @@ vaccination_centers = VaccinationCenter.all.filter { |v| v.confirmed? }.map do |
     'nom' => v.name,
   }
 end
-users_by_dept = Rails.cache.fetch("users_by_dept", expires_in: 1.hours) do
-  sql = "
-    select
-    case
-    when substring(geo_citycode, 1, 2) in ('2A', '2B') then substring(geo_citycode, 1, 2)
-    when substring(geo_citycode, 1, 2)::int <= 95
-    then substring(geo_citycode, 1, 2)
-    else substring(geo_citycode, 1, 3) end as key,
-    count(*) as value
-    from users
-    where
-    confirmed_at is not null
-    and geo_citycode is not null
-    group by 1
-    having count(*) > 100
-    order by 2 desc
-    "
-  Hash[User.connection.select_all(sql).map{ |row| row.values }]
-end
+users_by_dept = {}
+# users_by_dept = Rails.cache.fetch("users_by_dept", expires_in: 1.hours) do
+#   sql = "
+#     select
+#     case
+#     when substring(geo_citycode, 1, 2) in ('2A', '2B') then substring(geo_citycode, 1, 2)
+#     when substring(geo_citycode, 1, 2)::int <= 95
+#     then substring(geo_citycode, 1, 2)
+#     else substring(geo_citycode, 1, 3) end as key,
+#     count(*) as value
+#     from users
+#     where
+#     confirmed_at is not null
+#     and geo_citycode is not null
+#     group by 1
+#     having count(*) > 100
+#     order by 2 desc
+#     "
+#   Hash[User.connection.select_all(sql).map{ |row| row.values }]
+# end
 %>
 
-<h1><%= vaccination_centers.count %> centres et <%= users_by_dept.values.sum %> volontaires sur CovidListe</h1>
+<h1><%= vaccination_centers.count %> centres sur CovidListe et des volontaires dans tous les d&eacute;partements</h1>
 
 <div
   id="map-container"
