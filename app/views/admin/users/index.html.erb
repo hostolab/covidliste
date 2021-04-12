@@ -64,7 +64,7 @@
     </table>
   </div>
 
-  <% if @user && @user.persisted? %>
+  <% if @user && @user.persisted? && params.dig(:other, :with_mails) %>
     <h6 class="mt-4" id="mails-sent-title">Emails envoyés</h6>
     <div class="table-responsive small">
       <table class="table table-bordered table-sm table-hover" aria-describedby="mails-sent-title">
