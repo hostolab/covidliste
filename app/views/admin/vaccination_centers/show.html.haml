@@ -18,7 +18,7 @@
   %p.mb-2 #{@vaccination_center.address}
   %p.small.mb-2
     = icon("fas", "phone")
-    #{@vaccination_center.phone_number}
+    #{@vaccination_center.human_friendly_phone_number_or_fallback}
     \-
     Vaccins :
     - if @vaccination_center.pfizer
@@ -90,7 +90,7 @@
               %th.text-right= partner.id
               %td= partner.name
               %td= partner.email
-              %td= partner.phone_number
+              %td= partner.human_friendly_phone_number_or_fallback
               %td.text-center{title: partner.confirmed_at.present? ? "Confirmé le #{l(partner.confirmed_at)}" : ""}
                 = humanize_boolean partner.confirmed_at.present?
   - else

@@ -1,4 +1,5 @@
 class VaccinationCenter < ApplicationRecord
+  include HasPhoneNumberConcern
   module Kinds
     CABINET_MEDICAL = "Cabinet médical"
     CENTRE_VACCINATION = "Centre de vaccination"
@@ -24,9 +25,22 @@ class VaccinationCenter < ApplicationRecord
   scope :confirmed, -> { where.not(confirmed_at: nil) }
 
   after_commit :push_to_slack, on: :create
+  before_validation :geocode_if_needed
 
   def confirmed?
     confirmed_at.present?
+  end
+
+  def geocode_if_needed
+    return if address.nil?
+    return unless lat.nil? || lon.nil?
+    geocode_results = Geocoder.search(address)
+    if geocode_results.present?
+      self.lat = geocode_results.first.coordinates[0]
+      self.lon = geocode_results.first.coordinates[1]
+    else
+      errors.add(:base, "Impossible de déterminer les coordonnées GPS de l'adresse " + address)
+    end
   end
 
   def can_be_accessed_by?(user, partner)
@@ -68,7 +82,7 @@ class VaccinationCenter < ApplicationRecord
           vaccin_types,
           vaccination_center.partners&.first&.name,
           vaccination_center.partners&.first&.email,
-          vaccination_center.partners&.first&.phone_number,
+          vaccination_center.partners&.first&.human_friendly_phone_number_or_fallback,
           confirmed
         ]
         if confirmed

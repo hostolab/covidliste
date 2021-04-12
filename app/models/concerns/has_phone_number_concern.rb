@@ -9,7 +9,21 @@ module HasPhoneNumberConcern
   end
 
   def human_friendly_phone_number
-    phone_number.gsub(/^33/, "0").match(/(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/)&.captures&.join(" ")
+    unless phone_number.nil?
+      if /^(33|0[1-9])/.match?(phone_number)
+        phone_number.gsub(/^\+?33/, "0").match(/^(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})$/)&.captures&.join(" ")
+      else
+        phone_number.gsub(/^00/, "+").gsub(/^(?!\+)/, "+")
+      end
+    end
+  end
+
+  def human_friendly_phone_number_or_fallback
+    if human_friendly_phone_number.nil?
+      phone_number
+    else
+      human_friendly_phone_number
+    end
   end
 
   private

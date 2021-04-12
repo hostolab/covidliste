@@ -9,7 +9,7 @@
       %p.mb-2 #{@vaccination_center.address}
       %p.small.mb-2
         = icon("fas", "phone")
-        = @vaccination_center.phone_number
+        = @vaccination_center.human_friendly_phone_number_or_fallback
         \-
         Vaccins :
         - if @vaccination_center.pfizer

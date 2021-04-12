@@ -66,7 +66,7 @@
             %td -
           - else
             %td= user.full_name
-            %td= user.phone_number
+            %td= user.human_friendly_phone_number_or_fallback
             %td= user.birthdate.strftime("%d/%m/%Y")
 
           %td= l match.confirmed_at

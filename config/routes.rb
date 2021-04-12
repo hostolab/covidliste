@@ -61,8 +61,10 @@ Rails.application.routes.draw do
   get "/users" => "users#new"
 
   ## Partners
-
   resources :partners, only: [:new, :create]
+  get "/partners/profile" => "partners#show", :as => :partners_profile
+  put "/partners/profile" => "partners#update", :as => ""
+  delete "/partners/profile" => "users#delete", :as => ""
   get "/partenaires", to: redirect("/partenaires/inscription", status: 302)
   get "/partenaires/inscription" => "partners#new", :as => :partenaires_inscription
 
@@ -82,6 +84,8 @@ Rails.application.routes.draw do
   get "/mentions_legales" => "pages#mentions_legales", :as => :mentions_legales
   get "/privacy" => "pages#privacy", :as => :privacy
   get "/faq" => "pages#faq", :as => :faq
+  get "/presse" => "pages#presse", :as => :presse
+  get "/benevoles" => "pages#benevoles", :as => :benevoles
 
   ## robots.txt
   get "/robots.txt", to: "pages#robots"

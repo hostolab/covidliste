@@ -52,7 +52,7 @@
               #{vaccination_center.description}
             %td #{vaccination_center.kind}
             %td #{vaccination_center.address}
-            %td #{vaccination_center.phone_number}
+            %td #{vaccination_center.human_friendly_phone_number_or_fallback}
             %td
               - if vaccination_center.pfizer
                 %span.mr-1= Vaccine::Brands::PFIZER

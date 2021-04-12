@@ -7,6 +7,8 @@
     Cet de création d'un nouveau lieu de vaccination est
     %strong réservé aux professionnels de santé assurant la vaccination :
     membre d’un centre de vaccination, cabinet de médecine libérale, hôpital, pharmacie...
+  %p
+    Nous prendrons contact avec vous pour valider la création du lieu.
   - if @vaccination_center.persisted?
     .row.mtop2
       .alert.alert-success{:role => "alert", style: "position: inherit"}
@@ -15,7 +17,7 @@
         Votre demande est en attente de validation par l'équipe Covidliste.
         %br
         Vous pourrez suivre l’état de la demande sur votre
-        = link_to "profil professionnel de santé assurant la vaccination", partners_vaccination_centers_path
+        = link_to "espace professionnel de santé assurant la vaccination", partners_vaccination_centers_path
   - else
     - if @vaccination_center.errors.any?
       .alert.alert-danger{:role => "alert", style: "position: inherit"}
@@ -26,6 +28,12 @@
       = f.input :name, label: "Nom du lieu de vaccination", error: "Nom requis", placeholder: "Centre de vaccination Marseille"
       = f.input :description, label: "Description", error: "Description requise", placeholder: "Description du lieu de vaccination"
       = f.input :kind, label: "Type de lieu de vaccination", collection: VaccinationCenter::Kinds::ALL
+      %p.small.text-primary
+        = icon("fas", "info-circle", class: "text-secondary")
+        Vous ne trouvez pas le type de lieu de vaccination qui vous correspond ?
+        %br/
+        Choisissez la valeur qui s'en approche le plus et ajoutez vore type de lieu comme préfixe dans le champ "Nom" ou "Description" ci-dessus.
+
       %p.mtop2
         Type(s) de vaccins disponibles
       = f.input :pfizer, as: :boolean, label: Vaccine::Brands::PFIZER, checked_value: true, unchecked_value: false, class: "form-check-inline"

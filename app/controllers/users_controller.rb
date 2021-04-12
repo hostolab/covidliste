@@ -47,6 +47,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     @user.save
+    prepare_phone_number
     render action: :new
   rescue ActiveRecord::RecordNotUnique
     flash.now[:error] = "Une erreur s’est produite."
@@ -63,8 +64,7 @@ class UsersController < ApplicationController
   private
 
   def prepare_phone_number
-    human_friendly_phone_number = @user.human_friendly_phone_number
-    @user.phone_number = human_friendly_phone_number unless human_friendly_phone_number.nil?
+    @user.phone_number = @user.human_friendly_phone_number_or_fallback
   end
 
   def user_params

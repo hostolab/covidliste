@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="row mt-4 pb-3">
+    <div class="col-12 col-sm-8 offset-sm-2">
+      <h2>Espace professionnels de santé</h2>
+      <p class="mt-3">
+        Bonjour <%= @partner.name %>,
+      </p>
+      <p>
+        Vous êtes inscrit sur Covidliste depuis le <%= @partner.created_at.strftime("%d/%m/%Y") %>
+      </p>
+
+      <p class="mt-3">
+        <strong>Vos informations</strong>
+      </p>
+
+      <% if @partner.errors.any? %>
+        <div class="alert alert-danger" role="alert" style="position: inherit">
+          <% @partner.errors.full_messages.each do |msg| %>
+            <%= msg %><br />
+          <% end %>
+        </div>
+      <% end %>
+
+      <%= simple_form_for(@partner, url: :partners_profile, method: :put, wrapper: :horizontal_form) do |f| %>
+        <%= f.input :name, label: "Nom", error: "Nom requis", placeholder: "Jean Dupont" %>
+        <%= f.input :email, disabled: true, label: "Email", error: f.error(:email), placeholder: "jean@dupont.com" %>
+        <%= f.input :phone_number, label: "Numéro de téléphone", error: "", placeholder: "06 06 06 06 06" %>
+        <%= f.button :submit, "Je modifie mes informations", class: "btn btn-primary", data: { disable_with: "Validation..." } %>
+      <% end %>
+
+      <p class="mt-4">
+        Vous souhaitez supprimer votre compte ?
+        <%= button_to "Supprimer mon compte", partners_profile_path, method: :delete, class: "btn btn-danger",
+                    data: { confirm: "En confirmant, votre compte ainsi que toutes les données associées seront supprimées de nos serveurs. Êtes-vous sûr ?" } %>
+      </p>
+
+      <hr/>
+
+      <%= button_to "Se déconnecter", destroy_partner_session_path, method: :delete, class: "btn btn-warning" %>
+    </div>
+  </div>
+</div>
