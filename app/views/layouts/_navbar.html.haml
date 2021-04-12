@@ -12,6 +12,8 @@
           = link_to "Protection des données", :privacy, class: 'nav-link'
         %li{class: (action_name == 'faq' ? 'nav-item active' : 'nav-item')}
           = link_to "FAQ", :faq, class: 'nav-link'
+        %li{class: (action_name == 'press' ? 'nav-item active':'nav-item')}
+          = link_to "Presse", :press, class: 'nav-link'
       - if current_partner
         %li.nav-item.dropdown
           %a#dropdown09.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => ""}

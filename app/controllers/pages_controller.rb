@@ -9,6 +9,9 @@ class PagesController < ApplicationController
     @faq_items = FaqItem.all
   end
 
+  def press
+  end
+
   def robots
     render "pages/robots", layout: false, content_type: "text/plain"
   end

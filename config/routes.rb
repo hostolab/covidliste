@@ -82,6 +82,7 @@ Rails.application.routes.draw do
   get "/mentions_legales" => "pages#mentions_legales", :as => :mentions_legales
   get "/privacy" => "pages#privacy", :as => :privacy
   get "/faq" => "pages#faq", :as => :faq
+  get "/press" => "pages#press", :as => :press
 
   ## robots.txt
   get "/robots.txt", to: "pages#robots"

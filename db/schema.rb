@@ -201,8 +201,8 @@ ActiveRecord::Schema.define(version: 2021_04_10_084648) do
     t.string "city"
     t.string "geo_citycode"
     t.string "geo_context"
-    t.boolean "statement", default: false
     t.datetime "anonymized_at"
+    t.boolean "statement", default: false
     t.index ["city"], name: "index_users_on_city"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token"
     t.index ["email_bidx"], name: "index_users_on_email_bidx", unique: true
