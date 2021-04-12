@@ -116,7 +116,7 @@ module Admin
           flash[:success] = "#{partner.email} fait désormais partie de cette organisation."
         end
       else
-        flash[:error] = "Partenaire introuvable. #{query_email} doit d’abord créer un compte sur #{partenaires_inscription_url}"
+        flash[:error] = "Professionnel de santé introuvable. #{query_email} doit d’abord créer un compte sur #{partenaires_inscription_url}"
       end
 
       redirect_to admin_vaccination_center_path(@vaccination_center)
