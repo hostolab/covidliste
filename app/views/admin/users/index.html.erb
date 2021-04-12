@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+
+<div class="container">
+  <h2 class="mb-4">Espace de gestion des volontaires</h2>
+
+  <%= simple_form_for @user, url: admin_users_path, method: :get do |f| %>
+    <%= f.input :email, placeholder: "Rechercher un volontaire par son email", label: false %>
+    <%= f.button :submit, "Chercher" %>
+  <% end %>
+
+  <% if @user.email %>
+    <div class="mt-5">
+      <% if @user.persisted? %>
+        <div>Un volontaire a été trouvé avec l'adresse email : <b><%= @user.email %></b></div>
+          <%= link_to 'Supprimer définitivement', admin_user_path(@user),
+                method: :delete,
+                class: "btn btn-danger mt-4",
+                id: dom_id(@user, :delete),
+                data: {
+                  confirm: 'êtes-vous sûrs ?' } %>
+        </div>
+      <% else %>
+        <div>Il n'y pas pas de volontaire avec l'adresse email : <b><%= @user.email %></b></div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+

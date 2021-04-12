@@ -4,7 +4,7 @@ class Admin::UserPolicy < ApplicationPolicy
       if user.super_admin?
         scope.all
       else
-        scope.none
+        raise Pundit::NotAuthorizedError
       end
     end
   end
