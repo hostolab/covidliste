@@ -1,6 +1,6 @@
 module Admin
-  class SearchController < BaseController
-    def search
+  class StatsController < BaseController
+    def stats
       @age_bin = 10
       @lat = params[:lat]
       @lon = params[:lon]

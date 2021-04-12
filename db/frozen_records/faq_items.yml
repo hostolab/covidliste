@@ -197,7 +197,7 @@
   category: Vaccins
   body_md_erb: |
     Covidliste prend uniquement en charge la mise en relation entre des volontaires
-    et un professionnel de santé partenaire qui a des doses disponibles en surnombre.
+    et un professionnel de santé inscrit qui a des doses disponibles en surnombre.
 
     Une fois entré dans le protocole de vaccination, c’est le lieu de vaccination
     qui vous aura proposé la première dose qui suivra  votre dossier vaccinal.
@@ -221,7 +221,7 @@
     L’équipe de Covidliste diffusera bientôt la liste des professionnels de santé
     et lieux de vaccination inscrits.
 
-    En attendant, vous pouvez poser la question directement au professionel ou
+    En attendant, vous pouvez poser la question directement au professionnel ou
     au lieu de vaccination en question.
 
     Si ce n’est pas le cas, n’hésitez pas à leur expliquer le concept et les mettre

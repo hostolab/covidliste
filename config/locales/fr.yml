@@ -25,7 +25,7 @@ fr:
         birthdate: Date de naissance
         address: Adresse
         phone_number: Numéro de téléphone
-        kind: Type de centre de vaccination
+        kind: Type de lieu de vaccination
         lat: Latitude
         lon: Longitude
     errors:
