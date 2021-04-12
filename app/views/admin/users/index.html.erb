@@ -51,7 +51,7 @@
           </tr>
         <% elsif !params.fetch(:user, {}).permit(:email).blank? %>
           <tr>
-            <td colspan="4" class="text-center text-muted font-italic">
+            <td colspan="3" class="text-center text-muted font-italic">
               Aucun utilisateur trouvé avec cette adresse 
               <%= params.fetch(:user, {}).permit(:email)[:email] %>
             </td>
