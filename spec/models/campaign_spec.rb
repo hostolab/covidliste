@@ -3,7 +3,6 @@
 require "rails_helper"
 
 RSpec.describe Campaign, type: :model do
-
   describe "#to_csv" do
     let(:campaign) { build(:campaign) }
     let!(:match) { create(:match, campaign: campaign, confirmed_at: Time.now) }

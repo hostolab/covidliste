@@ -67,9 +67,9 @@ RSpec.describe "Users", type: :system do
 
     it "it allows me to edit personal information " do
       new_attributes = {
-        firstname:    Faker::Name.first_name,
-        lastname:     Faker::Name.last_name,
-        address:      Faker::Address.full_address,
+        firstname: Faker::Name.first_name,
+        lastname: Faker::Name.last_name,
+        address: Faker::Address.full_address,
         phone_number: user.phone_number.reverse
       }
 
