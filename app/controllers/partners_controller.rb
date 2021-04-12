@@ -4,10 +4,12 @@ class PartnersController < ApplicationController
 
   def new
     @partner = Partner.new
+    skip_authorization
   end
 
   def create
     @partner = Partner.new(partner_params)
+    authorize @partner
     # @partner.password = Devise.friendly_token.first(12)
     # @partner.skip_confirmation! if ENV["SKIP_EMAIL_CONFIRMATION"] == 'true'
     @partner.save
@@ -31,10 +33,5 @@ class PartnersController < ApplicationController
 
   def sort_direction
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
-  end
-
-  def skip_pundit?
-    # TODO add a real policy
-    true
   end
 end
