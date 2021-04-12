@@ -22,7 +22,7 @@ module Admin
 
     def set_user
       @user = User.find(params[:id])
-      redirect_to admin_user_path unless @user
+      redirect_to admin_users_path unless @user
     end
   
   end
