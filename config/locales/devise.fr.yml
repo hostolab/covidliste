@@ -51,7 +51,7 @@ fr:
         updated_at: Date de mise à jour
     models:
       user: Utilisateur
-      partner: Partenaire
+      partner: Professionnel de santé
   devise:
     confirmations:
       confirmed: Votre compte a bien été confirmé.

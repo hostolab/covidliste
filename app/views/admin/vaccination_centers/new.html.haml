@@ -1,17 +1,17 @@
 .container
   %p.mb-2
     = link_to '← Retour', admin_vaccination_centers_path
-  %h2 Espace admin : Centres de vaccination
-  %h3 Création d’un centre de vaccination
+  %h2 Espace admin : Lieux de vaccination
+  %h3 Création d’un lieu de vaccination
   - if @vaccination_center.persisted?
     .row.mtop2
       .alert.alert-success{:role => "alert", style: "position: inherit"}
-        Le centre de vaccination #{@vaccination_center.name} à été crée avec succès
+        Le lieu de vaccination #{@vaccination_center.name} à été crée avec succès
   - else
     = simple_form_for [:admin, @vaccination_center] do |f|
-      = f.input :name, label: 'Nom du centre', error: 'Nom requis', placeholder: 'Centre de vaccination Marseille'
+      = f.input :name, label: 'Nom du lieu de vaccination', error: 'Nom requis', placeholder: 'Centre de vaccination Marseille'
       = f.input :description, label: 'Description', error: 'Description requise', placeholder: 'Description du lieu de vaccination'
-      = f.input :kind, label: 'Type de centre de vaccination', collection: VaccinationCenter::Kinds::ALL
+      = f.input :kind, label: 'Type de lieu de vaccination', collection: VaccinationCenter::Kinds::ALL
       %p.mtop2
         Type(s) de vaccins disponibles
       = f.input :pfizer, as: :boolean, label: Vaccine::Brands::PFIZER, checked_value: true, unchecked_value: false, class: 'form-check-inline'

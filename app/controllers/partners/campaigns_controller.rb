@@ -60,7 +60,7 @@ module Partners
     def authorize!
       return if @vaccination_center.can_be_accessed_by?(nil, current_partner)
 
-      flash[:error] = "Vous ne pouvez pas accéder à ce centre de vaccination"
+      flash[:error] = "Vous ne pouvez pas accéder à ce lieu de vaccination"
       redirect_to partners_vaccination_centers_path
     end
 
