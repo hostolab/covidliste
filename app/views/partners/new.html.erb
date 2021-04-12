@@ -13,11 +13,11 @@
         </div>
       <% end %>
 
-      <p><strong>Inscription en tant que Partenaire</strong></p>
+      <p><strong>Inscription en tant que professionnel de santé assurant la vaccination</strong></p>
 
       <p class="text-justify mb-5">
-        Cette page d’inscription concerne uniquement l’inscription du <strong>personnel médical :</strong>
-        membre d’un centre de vaccination, cabinet de médecine libérale, hôpital, pharmacie... qui souhaite devenir partenaire.
+        Cette page d’inscription concerne uniquement l’inscription du <strong>personnel médical assurant la vaccination :</strong>
+        membre d’un centre de vaccination, cabinet de médecine libérale, hôpital, pharmacie...
       </p>
 
       <h2>
@@ -39,21 +39,21 @@
       </h2>
 
       <p>
-        Si vous êtes un praticien en charge de vaccination et souhaitez devenir partenaire de Covidliste, c’est bien ici !
+        Si vous êtes un professionnel de santé assurant la vaccination et souhaitez inscrire votre lieu de vaccination sur Covidliste, c’est bien ici !
       </p>
 
       <% if @partner.persisted? %>
 
         <div class="row mtop2">
           <div class="alert alert-success" role="alert">
-            Merci ! Vous êtes bien enregistré en tant que Partenaire Covidliste. Vous allez recevoir dans quelques instants un email de confirmation qui vous permettra de valider votre inscription et d'accéder à votre espace sécurisé.
+            Merci ! Vous êtes bien enregistré en tant que professionnel de santé assurant la vaccination sur Covidliste. Vous allez recevoir dans quelques instants un email de confirmation qui vous permettra de valider votre inscription et d'accéder à votre espace sécurisé.
           </div>
         </div>
 
       <% else %>
 
         <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseForm" aria-expanded="false" aria-controls="collapseForm">
-          Je suis professionnel de santé et souhaite devenir partenaire
+          Je suis professionnel de santé assurant la vaccination
         </button>
 
         <div class="collapse <%= @partner.errors.any? ? 'show' : '' %>" id="collapseForm">
@@ -76,7 +76,7 @@
       <% end %>
 
         <p class="mtop2">
-          <%= link_to "Se connecter en tant que Partenaire", new_partner_session_path, class: "bp3-text-muted" %>
+          <%= link_to "Se connecter en tant que professionnel de santé assurant la vaccination", new_partner_session_path, class: "bp3-text-muted" %>
         </p>
 
     </div>

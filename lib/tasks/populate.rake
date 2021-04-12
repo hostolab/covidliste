@@ -51,6 +51,6 @@ namespace :populate do
     vaccination_center.update(confirmed_at: Time.now.utc)
     vaccination_center.partners << partner
 
-    puts "Connexion à '#{vaccination_center.name}' avec le compte Partenaire : #{partner.email} / #{partner.password}"
+    puts "Connexion à '#{vaccination_center.name}' avec le compte professionnel de santé assurant la vaccination : #{partner.email} / #{partner.password}"
   end
 end

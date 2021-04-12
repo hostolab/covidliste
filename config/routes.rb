@@ -5,11 +5,14 @@ Rails.application.routes.draw do
     get "/" => "home#index"
     # Admins
     authenticate :user, lambda(&:admin?) do
-      get "/search" => "search#search", :as => :admin_search
-      post "/search" => "search#search"
+      get "/stats" => "stats#stats"
+      post "/stats" => "stats#stats"
       resources :vaccination_centers do
         patch :validate, on: :member
         post :add_partner, on: :member
+      end
+      resources :users, only: [:index] do
+        post :resend_confirmation, on: :member
       end
 
       # admin tools
