@@ -3,9 +3,9 @@
     Volontaires
   </h2>
 
-  <%= simple_form_for(User.new, url: search_admin_users_path, method: :post) do |f| %>
+  <%= simple_form_for(@user, url: admin_users_path, method: :get) do |f| %>
     <%= f.input :email, autofocus: true, required: true, placeholder: "jean@dupont.com", id: "inputEmail", class: "form-control" %>
-    <%= f.submit "C’est parti !", class: "btn btn-primary" %>
+    <%= f.submit "Chercher", class: "btn btn-primary" %>
   <% end %>
 
   <div class="table-responsive mt-4">
@@ -18,7 +18,7 @@
         </tr>
       </thead>
       <tbody>
-        <% if @user %>
+        <% if @user && @user.persisted? %>
           <tr>
             <td><%= @user.email %></td>
             <td>
@@ -37,7 +37,7 @@
               <% end %>
             </td>
             <td>
-              <%= simple_form_for(@user, url: search_admin_users_path, method: :post, :html=> { class: 'd-inline' }) do |f| %>
+              <%= simple_form_for(@user, url: admin_users_path, method: :get, :html=> { class: 'd-inline' }) do |f| %>
                 <%= f.input_field :email, :as => :hidden %>
                 <%= simple_fields_for :other do |o| %>
                   <%= o.input_field :with_mails, as: :hidden, input_html: { value: "1" } %>
@@ -52,11 +52,11 @@
               <% end %>
             </td>
           </tr>
-        <% elsif !params.fetch(:user, {}).permit(:email).blank? %>
+        <% else %>
           <tr>
             <td colspan="3" class="text-center text-muted font-italic">
               Aucun utilisateur trouvé avec cette adresse 
-              <%= params.fetch(:user, {}).permit(:email)[:email] %>
+              <%= @user.email %>
             </td>
           </tr>
         <% end %>
@@ -64,7 +64,7 @@
     </table>
   </div>
 
-  <% if @user && params.fetch(:other, {}).permit(:with_mails)[:with_mails] %>
+  <% if @user && @user.persisted? %>
     <h6 class="mt-4" id="mails-sent-title">Emails envoyés</h6>
     <div class="table-responsive small">
       <table class="table table-bordered table-sm table-hover" aria-describedby="mails-sent-title">

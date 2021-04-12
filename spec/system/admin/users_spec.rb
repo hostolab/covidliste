@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Admin Users Search", type: :system do
+RSpec.describe "Admin Users", type: :system do
   describe "#search" do
     context "user is logged as an admin" do
       let(:admin_user) { create(:user, :admin) }
@@ -8,9 +8,9 @@ RSpec.describe "Admin Users Search", type: :system do
       before { login_as(admin_user) }
 
       subject do
-        visit search_admin_users_path
+        visit admin_users_path
         fill_in :user_email, with: email
-        click_on "C’est parti !"
+        click_on "Chercher"
       end
 
       context "with existing user" do
