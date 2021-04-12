@@ -52,7 +52,7 @@
 
       <% else %>
 
-        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseForm" aria-expanded="false" aria-controls="collapseForm">
+        <button class="btn btn-primary" type="button" id="health-professionnal" data-toggle="collapse" data-target="#collapseForm" aria-expanded="false" aria-controls="collapseForm">
           Je suis professionnel de santé assurant la vaccination
         </button>
 
@@ -67,7 +67,7 @@
                 <%= f.input :password, required: true, hint: "Un email de confirmation de création de compte vous sera envoyé. Cliquez sur le lien pour activer votre compte", input_html: { autocomplete: "new-password" } %>
               </div>
               <div class="form-actions">
-                <%= f.button :submit, "S’inscrire", class:"btn btn-primary", data: { disable_with: "Validation...", confirm: "Vous êtes bien professionnel de santé ?" } %>
+                <%= f.button :submit, "S’inscrire", id: "create-new-partner", class:"btn btn-primary", data: { disable_with: "Validation...", confirm: "Vous êtes bien professionnel de santé ?" } %>
               </div>
             <% end %>
           </div>
