@@ -8,8 +8,9 @@ RSpec.describe Admin::UsersController, type: :controller do
       let(:admin) { create(:user, :admin) }
       before { sign_in admin }
 
-      it "redirects to admin home page" do
-        expect(subject).to redirect_to admin_path
+      it "load correctly" do
+        expect(subject).to have_http_status :ok
+        expect(assigns(:user)).to_not be_persisted
       end
     end
 
@@ -28,6 +29,35 @@ RSpec.describe Admin::UsersController, type: :controller do
         it "index returns all users" do
           get :index, params: {user: {email: user_1.email}}
           expect(assigns(:user)).to eq user_1
+        end
+      end
+    end
+  end
+
+  describe "#resend_confirmation" do
+    subject { post :resend_confirmation, params: {id: user.id} }
+
+    context "admin" do
+      let(:admin) { create(:user, :admin) }
+      before { sign_in admin }
+
+      context "user confirmed" do
+        let!(:user) { create(:user) }
+        it "respond succesfully" do
+          post :resend_confirmation, params: {id: user.id}
+
+          expect(response).to render_template(:index)
+          expect(flash[:alert]).to match "Cet utilsateur a déjà été validé !"
+        end
+      end
+
+      context "user not yet confirmed" do
+        let!(:user) { create(:user, confirmed_at: nil) }
+        it "sends and email" do
+          post :resend_confirmation, params: {id: user.id}
+
+          expect(response).to render_template(:index)
+          expect(flash[:success]).to match "Le mail de confirmation a été renvoyé"
         end
       end
     end
