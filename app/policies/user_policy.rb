@@ -6,7 +6,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def show?
-    user == record
+    user.confirmed? && user == record
   end
 
   def create?
@@ -14,7 +14,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def update?
-    user == record
+    user.confirmed? && user == record
   end
 
   def delete?
