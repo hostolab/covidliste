@@ -31,6 +31,9 @@
               <% else %>
                 <%= icon("fas", "times", class: "text-danger") %>
                 Non
+                <small class="text-muted">
+                  (email de confirmation envoyé le <%= @user.confirmation_sent_at.strftime("%d/%m/%Y %H:%M") %>)
+                </small>
               <% end %>
             </td>
             <td>
