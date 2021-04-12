@@ -24,6 +24,5 @@ module Admin
       @user = User.find(params[:id])
       redirect_to admin_users_path unless @user
     end
-  
   end
 end
