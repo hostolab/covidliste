@@ -32,6 +32,7 @@ If you don't already have them :
 - Install bundler 2.2.15 `gem install bundler:2.2.15`
 - Install yarn `npm i -g yarn`
 - Install redis `brew install redis`
+- Install postgresql `brew install postgresql`
 
 ### Dependencies
 
