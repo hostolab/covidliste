@@ -1,6 +1,6 @@
 .container
   .row
-    .col-12.col-lg-8.offset-lg-2
+    .col-12.col-lg-10.offset-lg-1
       = link_to "← Retour", partners_vaccination_center_path(@vaccination_center)
 
       %h4.mt-3 Nouvelle Campagne pour #{@vaccination_center.name}
@@ -10,7 +10,7 @@
           .col.col-8
             = f.input :available_doses, label: "Nombre de doses à écouler", as: :integer, input_html: { min: "1", max: Campaign::MAX_DOSES , data: { new_campaign_target: "availableDoses"} }, hint: "200 max. Plus de doses ? Créez plusieurs campagnes successives !"
           .col.col-4
-            = f.input :vaccine_type, label: "Type de vaccin", collection: Vaccine::Brands::ALL, input_html: { data: { new_campaign_target: "vaccineType"}}
+            = f.input :vaccine_type, label: "Type de vaccin", collection: Vaccine::Brands::ALL, label_method: :humanize, input_html: { data: { new_campaign_target: "vaccineType"}}
 
         %h5 Plage horaire de disponibilité des vaccins
 

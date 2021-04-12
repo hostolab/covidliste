@@ -29,6 +29,8 @@
       %span.mr-1= Vaccine::Brands::ASTRAZENECA
     - if @vaccination_center.janssen
       %span.mr-1= Vaccine::Brands::JANSSEN
+    - if @vaccination_center.johnson_and_johnson
+      %span.mr-1= Vaccine::Brands::JOHNSON_AND_JOHNSON
   %p.small.mb-2
     #{@vaccination_center.description}
 
@@ -63,7 +65,7 @@
             %tr
               %th.text-right= campaign.id
               %th= campaign.created_at.strftime('%d-%m-%Y')
-              %th= campaign.vaccine_type
+              %th= campaign.vaccine_type.humanize
               %th= campaign.available_doses
               %th= campaign.min_age
               %th= campaign.max_age

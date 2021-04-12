@@ -20,6 +20,8 @@
           %span.mr-1= Vaccine::Brands::ASTRAZENECA
         - if @vaccination_center.janssen
           %span.mr-1= Vaccine::Brands::JANSSEN
+        - if @vaccination_center.johnson_and_johnson
+          %span.mr-1= Vaccine::Brands::JOHNSON_AND_JOHNSON
       %p.small.mb-2
         = @vaccination_center.description
 
@@ -45,7 +47,7 @@
           %td= french_status(campaign)
           %td= campaign.matches.confirmed.size
           %td= campaign.available_doses
-          %td= campaign.vaccine_type.capitalize
+          %td= campaign.vaccine_type.humanize
           %td= l campaign.starts_at
           %td #{campaign.min_age}-#{campaign.max_age} ans
           %td #{campaign.max_distance_in_meters/1000} km

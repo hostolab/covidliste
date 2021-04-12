@@ -20,6 +20,10 @@ RSpec.describe Vaccine, type: :model do
       expect(Vaccine.minimum_reach_to_dose_ratio(Vaccine::Brands::JANSSEN)).to eq 5
     end
 
+    it "returns 5 for JOHNSON_AND_JOHNSON" do
+      expect(Vaccine.minimum_reach_to_dose_ratio(Vaccine::Brands::JOHNSON_AND_JOHNSON)).to eq 5
+    end
+
     it "returns 5 for other" do
       expect(Vaccine.minimum_reach_to_dose_ratio("other")).to eq 5
     end
@@ -40,6 +44,10 @@ RSpec.describe Vaccine, type: :model do
 
     it "returns 2 for JANSSEN" do
       expect(Vaccine.overbooking_factor(Vaccine::Brands::JANSSEN)).to eq 2
+    end
+
+    it "returns 2 for JOHNSON_AND_JOHNSON" do
+      expect(Vaccine.overbooking_factor(Vaccine::Brands::JOHNSON_AND_JOHNSON)).to eq 2
     end
 
     it "returns 2 for other" do

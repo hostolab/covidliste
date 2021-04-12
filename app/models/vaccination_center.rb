@@ -56,6 +56,9 @@ class VaccinationCenter < ApplicationRecord
         if vaccination_center.janssen
           vaccin_types += Vaccine::Brands::JANSSEN
         end
+        if vaccination_center.johnson_and_johnson
+          vaccin_types += Vaccine::Brands::JOHNSON_AND_JOHNSON
+        end
         if vaccination_center.confirmed_at
           confirmed = true
         end

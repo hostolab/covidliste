@@ -62,6 +62,8 @@
                 %span.mr-1= Vaccine::Brands::ASTRAZENECA
               - if vaccination_center.janssen
                 %span.mr-1= Vaccine::Brands::JANSSEN
+              - if vaccination_center.johnson_and_johnson
+                %span.mr-1= Vaccine::Brands::JOHNSON_AND_JOHNSON
             %td
               - if vaccination_center.confirmed?
                 = icon("fas", "check", class: "text-success")

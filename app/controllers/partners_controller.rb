@@ -21,7 +21,7 @@ class PartnersController < ApplicationController
   end
 
   def vaccination_center_params
-    params.require(:vaccination_center).permit(:name, :description, :address, :kind, :pfizer, :moderna, :astrazeneca,
+    params.require(:vaccination_center).permit(:name, :description, :address, :kind, :pfizer, :johnson_and_johnson, :moderna, :astrazeneca,
       :janssen, :phone_number, :lat, :lon)
   end
 

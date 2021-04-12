@@ -35,6 +35,7 @@ module Admin
         vaccines_ids += vaccination_centers.where(moderna: true).ids if Vaccine::Brands::MODERNA.in?(@vaccines)
         vaccines_ids += vaccination_centers.where(astrazeneca: true).ids if Vaccine::Brands::ASTRAZENECA.in?(@vaccines)
         vaccines_ids += vaccination_centers.where(janssen: true).ids if Vaccine::Brands::JANSSEN.in?(@vaccines)
+        vaccines_ids += vaccination_centers.where(johnson_and_johnson: true).ids if Vaccine::Brands::JOHNSON_AND_JOHNSON.in?(@vaccines)
 
         vaccination_centers = vaccination_centers.where(id: vaccines_ids)
       end
@@ -130,7 +131,7 @@ module Admin
 
     def vaccination_center_params
       params.require(:vaccination_center).permit(:name, :description, :address, :kind, :pfizer, :moderna, :astrazeneca,
-        :janssen, :phone_number, :lat, :lon)
+        :janssen, :johnson_and_johnson, :phone_number, :lat, :lon)
     end
 
     def sort_column
