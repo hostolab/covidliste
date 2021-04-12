@@ -42,12 +42,6 @@ RSpec.shared_examples "has phone number" do |param|
 
       it { is_expected.to be_valid }
     end
-
-    context "when the phone number is a mobile phone" do
-      let(:phone_number) { Faker::PhoneNumber.cell_phone }
-
-      it { is_expected.to be_valid }
-    end
   end
 
   describe "#human_friendly_phone_number" do
