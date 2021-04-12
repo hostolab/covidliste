@@ -12,7 +12,6 @@
     <table class="table table-bordered table-sm table-hover" aria-describedby="page-title">
       <thead class="thead-light">
         <tr>
-          <th scope="col">ID</th>
           <th scope="col">Email</th>
           <th scope="col">Confirmé</th>
           <th scope="col">Actions</th>
@@ -21,7 +20,6 @@
       <tbody>
         <% if @user %>
           <tr>
-            <td>#<%= @user.id %></td>
             <td><%= @user.email %></td>
             <td>
               <% if @user.confirmed? %>
