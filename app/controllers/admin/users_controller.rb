@@ -1,34 +1,19 @@
 module Admin
   class UsersController < BaseController
-    before_action :set_user, only: %i[show resend_confirmation]
-    before_action :search_params, only: [:index]
-    before_action :search_other_params, only: [:index]
+    before_action :set_user, only: %i[resend_confirmation]
 
     def index
-      @user_search = User.new
     end
 
     def search
-      @user_search = User.new
       unless search_params[:email].blank?
-        @user_search.email = search_params[:email]
         @user = User.find_by(email: search_params[:email])
-        if @user && search_other_params[:with_mails]
-          @user_mails = MailProviderService.new.find_mails(@user.email).events
-        end
+        @user_mails = MailProviderService.new.find_mails(@user.email).events if @user && search_other_params[:with_mails]
       end
       render action: :index
     end
 
-    def show
-      @user_search = User.new
-      @user_search.email = @user.email
-      render action: :index
-    end
-
     def resend_confirmation
-      @user_search = User.new
-      @user_search.email = @user.email
       if @user.confirmed?
         flash[:alert] = "Cet utilsateur a déjà été validé !"
       elsif @user.send_confirmation_instructions
@@ -42,11 +27,8 @@ module Admin
     private
 
     def set_user
-      if params[:id]
-        @user = User.find(params[:id])
-      else
-        redirect_to admin_user_path
-      end
+      @user = User.find(params[:id])
+      redirect_to admin_user_path unless @user
     end
 
     def search_params

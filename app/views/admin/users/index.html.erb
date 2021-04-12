@@ -3,7 +3,7 @@
     Volontaires
   </h2>
 
-  <%= simple_form_for(@user_search, url: search_admin_users_path, method: :post) do |f| %>
+  <%= simple_form_for(User.new, url: search_admin_users_path, method: :post) do |f| %>
     <%= f.input :email, autofocus: true, required: true, placeholder: "jean@dupont.com", id: "inputEmail", class: "form-control" %>
     <%= f.submit "C’est parti !", class: "btn btn-primary" %>
   <% end %>
@@ -34,10 +34,10 @@
               <% end %>
             </td>
             <td>
-              <%= simple_form_for(@user_search, url: search_admin_users_path, method: :post, :html=> { class: 'd-inline' }) do |f| %>
+              <%= simple_form_for(@user, url: search_admin_users_path, method: :post, :html=> { class: 'd-inline' }) do |f| %>
                 <%= f.input_field :email, :as => :hidden %>
                 <%= simple_fields_for :other do |o| %>
-                  <%= o.input_field   :with_mails, as: :hidden, input_html: { value: "1" } %>
+                  <%= o.input_field :with_mails, as: :hidden, input_html: { value: "1" } %>
                 <% end %>
                 <%= f.submit "Voir les emails envoyés", class: "btn btn-sm btn-primary" %>
               <% end %>
@@ -49,10 +49,11 @@
               <% end %>
             </td>
           </tr>
-        <% elsif !@user_search.email.blank? %>
+        <% elsif !params.fetch(:user, {}).permit(:email).blank? %>
           <tr>
             <td colspan="4" class="text-center text-muted font-italic">
-              Aucun utilisateur trouvé avec l'adresse : <%= @user_search.email %>
+              Aucun utilisateur trouvé avec cette adresse 
+              <%= params.fetch(:user, {}).permit(:email)[:email] %>
             </td>
           </tr>
         <% end %>
@@ -86,7 +87,7 @@
                 <td><%= user_mail.reason %></td>
               </tr>
             <% end %>
-          <% elsif !@user_search.email.blank? %>
+          <% elsif params.fetch(:user, {}).permit(:email).blank? %>
             <tr>
               <td colspan="6" class="text-center text-muted font-italic">
                 Aucun email envoyé trouvé avec l'adresse : <%= @user.email %>
