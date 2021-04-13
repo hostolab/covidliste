@@ -57,7 +57,7 @@
         <% @vaccination_centers.each do |vaccination_center| %>
 
           <tr>
-            <th class="text-right"><%= vaccination_center.id %></th>
+            <th scope="row class="text-right"><%= vaccination_center.id %></th>
             <td scope="row">
               <strong><%= link_to vaccination_center.name, admin_vaccination_center_path(vaccination_center.id) %></strong>
               <br>
