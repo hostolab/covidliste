@@ -4,7 +4,7 @@
   </h2>
 
   <%= simple_form_for(@user, url: admin_users_path, method: :get) do |f| %>
-    <%= f.input :email, autofocus: true, required: true, placeholder: "jean@dupont.com", id: "inputEmail", class: "form-control" %>
+    <%= f.input :email, autofocus: true, required: true, placeholder: "jean@dupont.com", class: "form-control" %>
     <%= f.submit "Chercher", class: "btn btn-primary" %>
   <% end %>
 
@@ -37,25 +37,34 @@
               <% end %>
             </td>
             <td>
-              <%= simple_form_for(@user, url: admin_users_path, method: :get, :html=> { class: 'd-inline' }) do |f| %>
-                <%= f.input_field :email, :as => :hidden %>
-                <%= simple_fields_for :other do |o| %>
-                  <%= o.input_field :with_mails, as: :hidden, input_html: { value: "1" } %>
-                <% end %>
-                <%= f.submit "Voir les emails envoyés", class: "btn btn-sm btn-primary" %>
-              <% end %>
-              <% unless @user.confirmed? %>
-                <%= simple_form_for(@user, as: "user", url: resend_confirmation_admin_user_path(@user), method: :post, html: { class: "d-inline" }) do |f| %>
+              <div class="d-flex align-items-center justify-content-around">
+                <%= simple_form_for(@user, url: admin_users_path, method: :get, :html=> { class: 'd-inline' }) do |f| %>
                   <%= f.input_field :email, :as => :hidden %>
-                  <%= f.submit "Renvoyer le mail de confirmation", class: "btn btn-sm btn-primary", "data-confirm": "Êtes-vous sûr(e)?" %>
+                  <%= simple_fields_for :other do |o| %>
+                    <%= o.input_field :with_mails, as: :hidden, input_html: { value: "1" } %>
+                  <% end %>
+                  <%= f.submit "Voir les emails envoyés", class: "btn btn-sm btn-primary" %>
                 <% end %>
-              <% end %>
+                <% unless @user.confirmed? %>
+                  <%= simple_form_for(@user, as: "user", url: resend_confirmation_admin_user_path(@user), method: :post, html: { class: "d-inline" }) do |f| %>
+                    <%= f.input_field :email, :as => :hidden %>
+                    <%= f.submit "Renvoyer le mail de confirmation", class: "btn btn-sm btn-primary ml-3", "data-confirm": "Êtes-vous sûr(e)?" %>
+                  <% end %>
+                <% end %>
+                <% if policy([:admin, @user]).destroy? %>
+                  <%= button_to 'Supprimer', admin_user_path(@user),
+                        method: :delete,
+                        class: "btn btn-sm btn-danger ml-3",
+                        id: dom_id(@user, :delete),
+                        data: { confirm: 'êtes-vous sûrs ?' } %>
+                <% end %>
+              </div>
             </td>
           </tr>
         <% else %>
           <tr>
             <td colspan="3" class="text-center text-muted font-italic">
-              Aucun utilisateur trouvé avec cette adresse 
+              Aucun utilisateur trouvé avec cette adresse
               <%= @user.email %>
             </td>
           </tr>

@@ -11,7 +11,7 @@ Rails.application.routes.draw do
         patch :validate, on: :member
         post :add_partner, on: :member
       end
-      resources :users, only: [:index] do
+      resources :users, only: [:index, :destroy] do
         post :resend_confirmation, on: :member
       end
 

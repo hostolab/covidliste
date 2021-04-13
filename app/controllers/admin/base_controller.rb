@@ -7,6 +7,8 @@ module Admin
     before_action :require_role!
     layout "/admin_application"
 
+    rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+
     private
 
     def require_role!
@@ -20,6 +22,10 @@ module Admin
     def skip_pundit?
       # TODO add a real policy
       true
+    end
+
+    def user_not_authorized
+      redirect_to admin_path, notice: "Vous n'êtes pas autorisé à faire cette action"
     end
   end
 end
