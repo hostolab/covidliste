@@ -10,8 +10,8 @@ RSpec.describe Match, type: :model do
   let(:now_utc) { Time.now.utc }
   let(:now) { double }
 
-  describe "create" do
-    it "should copuy User information" do
+  describe "#create" do
+    it "should copy User information" do
       user = create(:user,
         birthdate: Time.now.utc.to_date - 60.years,
         zipcode: "75001",
