@@ -27,6 +27,7 @@
       <%= f.input :firstname, label: "Prénom", error: "Prénom requis", placeholder: "Jean", required: true %>
       <%= f.input :lastname, label: "Nom", error: "Nom requis", placeholder: "Dupont", required: true %>
       <%= f.input :birthdate, as: :date, label: "Date de naissance", start_year: Date.today.year - 90, end_year: Date.today.year - 18, order: [:day, :month, :year] %>
+      <p class="text-danger">Ne mentez pas sur votre âge, un centre de vaccination peut vous refuser si votre âge ne correspond pas à celui qui leur a été transmis</p>
       <%= f.input :address, label: "Adresse", error: "Adresse requise", placeholder: "5 rue larue, 13600 Marseille", required: true %>
       <%= f.input :phone_number, label: "Numéro de téléphone portable", error: "Numéro de téléphone invalide", placeholder: "06 06 06 06 06", required: true %>
       <%= f.input :email, label: "Email", error: f.error(:email), placeholder: "jean@dupont.com", hint: "Une adresse email ne peut être utilisée que par une seule personne. 2 personnes = 2 adresses email différentes.", required: true %>
