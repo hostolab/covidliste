@@ -52,7 +52,8 @@ echo "LOCKBOX_MASTER_KEY=0000000000000000000000000000000000000000000000000000000
 
 ### Database / Cache
 
-1. Create a database called `covidliste_development` using your favorite postgresql GUI or CLI.
+1. Create a database called `covidliste_development` using your favorite
+   postgresql GUI or CLI.
 2. Then run the migrations : `bin/rails db:migrate RAILS_ENV=development`
 3. Run redis if it's not already running : `redis-server /usr/local/etc/redis.conf`
 
@@ -62,7 +63,8 @@ echo "LOCKBOX_MASTER_KEY=0000000000000000000000000000000000000000000000000000000
 bin/rails s
 ```
 
-If you need Sidekiq background workers or Webpacker development server, you can start them all using [`overmind`](https://github.com/DarthSim/overmind)
+If you need Sidekiq background workers or Webpacker development server, you can
+start them all using [`overmind`](https://github.com/DarthSim/overmind)
 
 ```bash
 overmind s
@@ -87,10 +89,22 @@ A handbook is available [in the `doc` directory](doc/handbook.md).
 Launch the Docker environment:
 
 ```bash
-docker-compose up
+docker-compose up -d
 ```
 
-Visit http://localhost:3000
+The docker-compose setup launches databases (postgresql and redis).
+
+Put the following variable in `.env` file:
+
+```
+DATABASE_URL=postgres://covidliste:covidliste@localhost:3000/covidliste_development
+```
+
+Launch the Rails application:
+
+```bash
+bin/rails s
+```
 
 # Contributing
 
@@ -104,17 +118,19 @@ Visit https://github.com/hostolab/covidliste/blob/master/CONTRIBUTING.md
 
 # Code formatting
 
-In order for the pipeline to be successful, you must ensure that you respect the linting made using
+In order for the pipeline to be successful, you must ensure that you respect
+the linting made using
 
 ```bash
 bin/standardrb --fix
 bin/yarn prettier --write .
 ```
 
-If some errors are printed it means that some of the different issues can not be corrected automatically.
-Then you will need to correct them manually.
+Both these commands fix errors if possible. They will print errors if they
+can't.
 
-In rubymine, please follow this procedure to add the formatter / linter directly in the editor tabs:
+In rubymine, please follow this procedure to add the formatter / linter
+directly in the editor tabs:
 https://www.jetbrains.com/help/ruby/rubocop.html#prerequisites
 
 # Testing
@@ -127,7 +143,8 @@ bin/rspec
 # open coverage/index.html
 ```
 
-If you want to debug System Tests in the browser, add the following Ruby line as a debugger in your `spec/system/...` file:
+If you want to debug System Tests in the browser, add the following Ruby line
+as a debugger in your `spec/system/...` file:
 
 ```ruby
 page.driver.debug(binding)
@@ -139,4 +156,6 @@ Then launch the test with:
 INSPECTOR=true bin/rspec spec/system/THE_FILE_spec.rb
 ```
 
-It should automatically open **Chrome** and allow you to inspect the DOM, queries, etc. You can `next` and `continue` in the Terminal as if you had a `binding.pry` debugging session.
+It should automatically open **Chrome** and allow you to inspect the DOM,
+queries, etc. You can `next` and `continue` in the Terminal as if you had a
+`binding.pry` debugging session.
