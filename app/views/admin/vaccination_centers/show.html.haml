@@ -32,16 +32,47 @@
   %p.small.mb-2
     #{@vaccination_center.description}
 
-  %h5.mt-4 Ajouter un partenaire
+  %h5.mt-4 Ajouter un professionnel de santé
   = simple_form_for :new_partner_email,
                     url: add_partner_admin_vaccination_center_path(@vaccination_center),
                     method: :post,
                     wrapper: :inline_form,
                     html: { class: "form-inline" } do |f|
     = f.input :email, type: :email, label: false, placeholder: "jean.dupont@email.com", required: true
-    = f.submit "Ajouter ce partenaire", class: "ml-3 btn btn-primary"
+    = f.submit "Ajouter ce professionnel de santé", class: "ml-3 btn btn-primary"
 
-  %h5.mt-4 Partenaires liés
+  %h5.mt-4 Campagnes réalisées
+
+  - if @vaccination_center.campaigns.present?
+    .table-responsive
+      %table.table.table-bordered.table-sm.table-hover
+        %thead.thead-light
+          %tr
+            %th.text-right #
+            %th Date
+            %th Type de vaccin
+            %th Nombre de doses
+            %th Âge min.
+            %th Âge max.
+            %th Distance max. (km)
+            %th Nombre de matchs
+            %th Rdv confirmés
+            %th Statut
+        %tbody
+          - @vaccination_center.campaigns.each do |campaign|
+            %tr
+              %th.text-right= campaign.id
+              %th= campaign.created_at.strftime('%d-%m-%Y')
+              %th= campaign.vaccine_type
+              %th= campaign.available_doses
+              %th= campaign.min_age
+              %th= campaign.max_age
+              %th= campaign.max_distance_in_meters/1000
+              %th= campaign.matches.count
+              %th= campaign.matches.confirmed.count
+              %th= campaign.status
+
+  %h5.mt-4 Professionnels de santé liés
 
   - if @vaccination_center.partners.present?
     .table-responsive
@@ -65,6 +96,6 @@
   - else
     %p
       = icon("fas", "info-circle")
-      Aucun partenaire lié
+      Aucun professionnel de santé lié
 
   = link_to icon("fas", "edit", "Editer (ou supprimer) ce centre"), edit_admin_vaccination_center_path(@vaccination_center)

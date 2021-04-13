@@ -1,19 +1,28 @@
 <div class="container">
-  <h2>
+  <h2 class="mt-4">
     Espace admin
   </h2>
 
-  <p class="mt-2">
+  <p class="mt-4">
     <strong>
       Bonjour <%= current_user.full_name %> 👋
     </strong>
   </p>
 
   <p>
-    <%= link_to "Centres de vaccination", admin_vaccination_centers_path %>
+    Utilisez la barre de navigation pour parcourir les différentes pages.
   </p>
 
-  <p>
-    <%= link_to "Recherche de volontaires", admin_admin_search_path %>
-  </p>
+  <div class="mt-4">
+    Vous possèdez les rôles suivants :
+    <% if current_user.roles.any? %>
+      <ul>
+        <% current_user.roles.each do |role| %>
+          <li><%= role.name %></li>
+        <% end %>
+      </ul>
+    <% else %>
+      <em>Aucun role</em>
+    <% end %>
+  </div>
 </div>

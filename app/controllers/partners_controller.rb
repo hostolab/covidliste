@@ -32,4 +32,9 @@ class PartnersController < ApplicationController
   def sort_direction
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
+
+  def skip_pundit?
+    # TODO add a real policy
+    true
+  end
 end

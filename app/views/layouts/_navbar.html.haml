@@ -14,11 +14,13 @@
           = link_to "Protection des données", :privacy, class: 'nav-link'
         %li{class: (action_name == 'faq' ? 'nav-item active' : 'nav-item')}
           = link_to "FAQ", :faq, class: 'nav-link'
+        %li{class: (action_name == 'benevoles' ? 'nav-item active' : 'nav-item')}
+          = link_to "Bénévoles", :benevoles, class: 'nav-link'
       - if current_partner
         %li.nav-item.dropdown
           %a#dropdown09.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => ""}
             =current_partner.name
-            %span.badge.badge-primary Partenaire
+            %span.badge.badge-primary Professionnel
           .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "dropdown09"}
             = link_to "Déconnexion", destroy_partner_session_path, :method => :delete, class: 'dropdown-item'
       - elsif current_user
@@ -32,7 +34,7 @@
             = link_to "Déconnexion", destroy_user_session_path, :method => :delete, class: 'dropdown-item'
       - else
         %li{class: ((controller_name == 'sessions' && resource_name && resource_name.to_s == 'partner') ? 'nav-item active' : 'nav-item')}
-          = link_to "Espace partenaire", new_partner_session_path, class: "nav-link"
+          = link_to "Espace professionnels", new_partner_session_path, class: "nav-link"
         %li{class: ((controller_name == 'sessions' && resource_name && resource_name.to_s == 'user') ? 'nav-item active' : 'nav-item')}
           = link_to "Espace personnel", new_user_session_path, class: "nav-link"
           .dropdown-menu.dropdown-menu-right{"aria-labelledby": "dropdown09"}

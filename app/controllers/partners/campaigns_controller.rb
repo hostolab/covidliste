@@ -60,7 +60,7 @@ module Partners
     def authorize!
       return if @vaccination_center.can_be_accessed_by?(nil, current_partner)
 
-      flash[:error] = "Vous ne pouvez pas accéder à ce centre de vaccination"
+      flash[:error] = "Vous ne pouvez pas accéder à ce lieu de vaccination"
       redirect_to partners_vaccination_centers_path
     end
 
@@ -93,6 +93,11 @@ module Partners
 
     def simulate_params
       params.require(:campaign).permit(:min_age, :max_age, :max_distance_in_meters, :vaccine_type, :available_doses)
+    end
+
+    def skip_pundit?
+      # TODO add a real policy
+      true
     end
   end
 end

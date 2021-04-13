@@ -33,6 +33,12 @@
               <%= link_to "Redemander l’email de confirmation", new_confirmation_path(resource_name) %>
             </p>
           <% end %>
+
+          <% if controller_name == "sessions"  %>
+            <p>
+              <%= link_to "S’inscrire en tant que volontaire", users_path %>
+            </p>
+          <% end %>
         <% end %>
       </div>
     </div>

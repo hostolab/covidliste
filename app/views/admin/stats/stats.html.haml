@@ -1,12 +1,10 @@
 .container
-  %p.mb-2
-    = link_to '← Retour', admin_path
-  %strong Recherche
+  %h2.mt-4 Statistiques des volontaires
 
-  .row.mt-2
+  .row.mt-4
     .col-sm-12.col-md-6.col-lg-6
       %h4 Critères de recherche
-      = simple_form_for '', url: admin_admin_search_path, method: :get do |f|
+      = simple_form_for '', url: admin_stats_path, method: :get do |f|
         = f.input :address, label: "Adresse", input_html: { value: @address }
         .row
           .col-12.col-sm-6

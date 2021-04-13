@@ -25,7 +25,7 @@ fr:
         birthdate: Date de naissance
         address: Adresse
         phone_number: Numéro de téléphone
-        kind: Type de centre de vaccination
+        kind: Type de lieu de vaccination
         lat: Latitude
         lon: Longitude
     errors:
@@ -162,7 +162,7 @@ fr:
       other_than: doit être différent de %{count}
       present: doit être vide
       required: doit exister
-      taken: correspond déjà à un volontaire inscrit
+      taken: correspond déjà à une personne inscrite
       too_long:
         one: est trop long (pas plus d’un caractère)
         other: est trop long (pas plus de %{count} caractères)
