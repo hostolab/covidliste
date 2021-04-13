@@ -39,16 +39,17 @@
   <div class="table-responsive">
 
     <table class="table table-hover table-bordered table-sm">
+      <caption>Centres de vaccinations</caption>
 
       <thead class="thead-light">
         <tr>
-          <th class="text-right"><%= sortable("id", "#") %></th>
-          <th><%= sortable("name", "Nom") %></th>
-          <th><%= sortable("kind", "Type") %></th>
-          <th>Adresse</th>
-          <th>Téléphone</th>
-          <th>Types de vaccins</th>
-          <th><%= sortable("confirmed_at", "Validé") %></th>
+          <th scope="col" class="text-right"><%= sortable("id", "#") %></th>
+          <th scope="col"><%= sortable("name", "Nom") %></th>
+          <th scope="col"><%= sortable("kind", "Type") %></th>
+          <th scope="col">Adresse</th>
+          <th scope="col">Téléphone</th>
+          <th scope="col">Types de vaccins</th>
+          <th scope="col"><%= sortable("confirmed_at", "Validé") %></th>
         </tr>
       </thead>
 
@@ -57,15 +58,15 @@
 
           <tr>
             <th class="text-right"><%= vaccination_center.id %></th>
-            <td>
+            <td scope="row">
               <strong><%= link_to vaccination_center.name, admin_vaccination_center_path(vaccination_center.id) %></strong>
               <br>
               <%= vaccination_center.description %>
             </td>
-            <td><%= vaccination_center.kind %></td>
-            <td><%= vaccination_center.address %></td>
-            <td><%= vaccination_center.phone_number %></td>
-            <td>
+            <td scope="row"><%= vaccination_center.kind %></td>
+            <td scope="row"><%= vaccination_center.address %></td>
+            <td scope="row"><%= vaccination_center.phone_number %></td>
+            <td scope="row">
               <% if vaccination_center.pfizer %>
                 <span class="mr-1"><%= Vaccine::Brands::PFIZER %></span>
               <% end %>
