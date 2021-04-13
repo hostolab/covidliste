@@ -1,5 +1,5 @@
 class DeviseMailer < Devise::Mailer
-  default from: "Covidliste <no-reply@covidliste.com>"
+  default :from => "Covidliste <inscription@covidliste.com>", "X-Auto-Response-Suppress" => "OOF"
 
   def confirmation_instructions(record, token, opts = {})
     mail = super

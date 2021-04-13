@@ -8,6 +8,10 @@ module HasPhoneNumberConcern
     validates :phone_number, length: {minimum: 7, maximum: 15, allow_blank: false}
   end
 
+  def human_friendly_phone_number
+    phone_number.gsub(/^33/, "0").match(/(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/)&.captures&.join(" ")
+  end
+
   private
 
   def format_phone_number

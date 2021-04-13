@@ -24,5 +24,17 @@ FactoryBot.define do
       lat { "45.75620064462772" }
       lon { "4.8319385046869945" }
     end
+
+    trait :admin do
+      after(:create) do |user|
+        user.add_role(:admin)
+      end
+    end
+
+    trait :super_admin do
+      after(:create) do |user|
+        user.add_role(:super_admin)
+      end
+    end
   end
 end

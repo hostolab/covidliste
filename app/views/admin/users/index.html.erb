@@ -1,0 +1,113 @@
+<div class="container">
+  <h2 class="mt-4" id="page-title">
+    Volontaires
+  </h2>
+
+  <%= simple_form_for(@user, url: admin_users_path, method: :get) do |f| %>
+    <%= f.input :email, autofocus: true, required: true, placeholder: "jean@dupont.com", class: "form-control" %>
+    <%= f.submit "Chercher", class: "btn btn-primary" %>
+  <% end %>
+
+  <div class="table-responsive mt-4">
+    <table class="table table-bordered table-sm table-hover" aria-describedby="page-title">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">Email</th>
+          <th scope="col">Confirmé</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if @user && @user.persisted? %>
+          <tr>
+            <td><%= @user.email %></td>
+            <td>
+              <% if @user.confirmed? %>
+                <%= icon("fas", "check", class: "text-success") %>
+                Oui
+                <small class="text-muted">
+                  (<%= @user.confirmed_at.strftime("%d/%m/%Y %H:%M") %>)
+                </small>
+              <% else %>
+                <%= icon("fas", "times", class: "text-danger") %>
+                Non
+                <small class="text-muted">
+                  (email de confirmation envoyé le <%= @user.confirmation_sent_at.strftime("%d/%m/%Y %H:%M") %>)
+                </small>
+              <% end %>
+            </td>
+            <td>
+              <div class="d-flex align-items-center justify-content-around">
+                <%= simple_form_for(@user, url: admin_users_path, method: :get, :html=> { class: 'd-inline' }) do |f| %>
+                  <%= f.input_field :email, :as => :hidden %>
+                  <%= simple_fields_for :other do |o| %>
+                    <%= o.input_field :with_mails, as: :hidden, input_html: { value: "1" } %>
+                  <% end %>
+                  <%= f.submit "Voir les emails envoyés", class: "btn btn-sm btn-primary" %>
+                <% end %>
+                <% unless @user.confirmed? %>
+                  <%= simple_form_for(@user, as: "user", url: resend_confirmation_admin_user_path(@user), method: :post, html: { class: "d-inline" }) do |f| %>
+                    <%= f.input_field :email, :as => :hidden %>
+                    <%= f.submit "Renvoyer le mail de confirmation", class: "btn btn-sm btn-primary ml-3", "data-confirm": "Êtes-vous sûr(e)?" %>
+                  <% end %>
+                <% end %>
+                <% if policy([:admin, @user]).destroy? %>
+                  <%= button_to 'Supprimer', admin_user_path(@user),
+                        method: :delete,
+                        class: "btn btn-sm btn-danger ml-3",
+                        id: dom_id(@user, :delete),
+                        data: { confirm: 'êtes-vous sûrs ?' } %>
+                <% end %>
+              </div>
+            </td>
+          </tr>
+        <% else %>
+          <tr>
+            <td colspan="3" class="text-center text-muted font-italic">
+              Aucun utilisateur trouvé avec cette adresse
+              <%= @user.email %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <% if @user && @user.persisted? && params.dig(:other, :with_mails) %>
+    <h6 class="mt-4" id="mails-sent-title">Emails envoyés</h6>
+    <div class="table-responsive small">
+      <table class="table table-bordered table-sm table-hover" aria-describedby="mails-sent-title">
+        <thead class="thead-light">
+        <tr>
+          <th scope="col">Evènement</th>
+          <th scope="col">Sujet</th>
+          <th scope="col">De</th>
+          <th scope="col">À</th>
+          <th scope="col">Date</th>
+          <th scope="col">Raison</th>
+        </tr>
+        </thead>
+        <tbody>
+          <% if @user_mails %>
+            <%- @user_mails.each do |user_mail| -%>
+              <tr>
+                <td><%= user_mail.event %></td>
+                <td><%= user_mail.subject %></td>
+                <td><%= user_mail.from %></td>
+                <td><%= user_mail.email %></td>
+                <td><%= user_mail.date %></td>
+                <td><%= user_mail.reason %></td>
+              </tr>
+            <% end %>
+          <% elsif params.fetch(:user, {}).permit(:email).blank? %>
+            <tr>
+              <td colspan="6" class="text-center text-muted font-italic">
+                Aucun email envoyé trouvé avec l'adresse : <%= @user.email %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
+</div>

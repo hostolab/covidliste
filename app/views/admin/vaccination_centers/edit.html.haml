@@ -1,12 +1,12 @@
 .container
   %p.mb-2
     = link_to '← Retour', admin_vaccination_center_path(@vaccination_center)
-  %h3 Modification du centre de vaccination « #{@vaccination_center.name} »
+  %h3 Modification du lieu de vaccination « #{@vaccination_center.name} »
 
   = simple_form_for [:admin, @vaccination_center] do |f|
-    = f.input :name, label: 'Nom du centre', error: 'Nom requis', placeholder: 'Centre de vaccination Marseille'
+    = f.input :name, label: 'Nom du lieu de vaccination', error: 'Nom requis', placeholder: 'Centre de vaccination Marseille'
     = f.input :description, label: 'Description', error: 'Description requise', placeholder: 'Description du lieu de vaccination'
-    = f.input :kind, label: 'Type de centre de vaccination', collection: VaccinationCenter::Kinds::ALL
+    = f.input :kind, label: 'Type de lieu de vaccination', collection: VaccinationCenter::Kinds::ALL
     %p.mtop2
       Type(s) de vaccins disponibles
     = f.input :pfizer, as: :boolean, label: Vaccine::Brands::PFIZER, checked_value: true, unchecked_value: false, class: 'form-check-inline'

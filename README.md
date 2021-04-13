@@ -32,6 +32,7 @@ If you don't already have them :
 - Install bundler 2.2.15 `gem install bundler:2.2.15`
 - Install yarn `npm i -g yarn`
 - Install redis `brew install redis`
+- Install postgresql `brew install postgresql`
 
 ### Dependencies
 
@@ -76,6 +77,16 @@ user = User.find_by(email: <your_email>)
 user.add_role(:admin)
 # user.add_role(:super_admin) # for super admin
 ```
+
+## Docker
+
+Launch the Docker environment:
+
+```bash
+docker-compose up
+```
+
+Visit http://localhost:3000
 
 # Contributing
 

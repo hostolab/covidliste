@@ -6,13 +6,13 @@
     .row.mt-5
       .col-12.col-sm-6.offset-sm-3
         %p
-          %strong Connexion - Espace Partenaire pour les professionnels de santé
+          %strong Connexion - Espace professionnels de santé
 
         %p.text-justify.mb-4
           Cet espace concerne concerne
           %strong
-            uniquement le personnel médical :
-          membre d’un centre de vaccination, cabinet de médecine libérale, hôpital, pharmacie... partenaire de Covidliste.
+            uniquement le personnel médical assurant la vaccination :
+          membre d’un centre de vaccination, cabinet de médecine libérale, hôpital, pharmacie...
           %br
           Pour se connecter en tant que volontaire à la vaccination, merci de vous rendre sur
           = link_to "cette page.", new_user_session_path
@@ -35,5 +35,5 @@
               = link_to "Redemander l’email de confirmation", new_confirmation_path(resource_name), class: "bp3-text-muted"
           %p
             - if controller_name == "sessions"
-              = link_to "S’inscrire en tant que partenaire", partenaires_inscription_path, class: "bp3-text-muted"
+              = link_to "S’inscrire en tant que professionnel de santé", partenaires_inscription_path, class: "bp3-text-muted"
 

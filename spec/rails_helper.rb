@@ -38,11 +38,14 @@ RSpec.configure do |config|
       host: Capybara.current_session.server.host,
       port: Capybara.current_session.server.port
     }
+    Rails.application.config.action_mailer.default_url_options = \
+      Rails.application.routes.default_url_options
   end
 
   config.include ActiveJob::TestHelper
   config.include ActiveSupport::Testing::TimeHelpers
   config.include Devise::Test::ControllerHelpers, type: :controller
+  config.include ActionView::RecordIdentifier, type: :system # to use the dom_id helper
   config.include Warden::Test::Helpers, type: :system
   config.after :each, type: :system do
     Warden.test_reset!
