@@ -2,6 +2,13 @@ class PagesController < ApplicationController
   def benevoles
   end
 
+  def contact
+    @contact_items = FaqItem.where(category: "Collaboration et contact")
+  end
+
+  def presse
+  end
+
   def mentions_legales
   end
 
