@@ -29,6 +29,21 @@ module Covidliste
     # in config/environments, which are processed later.
     #
     config.time_zone = "Europe/Paris"
-    # config.eager_load_paths << Rails.root.join("extras")
+
+    config.assets.version = "1.0"
+    config.assets.paths << Rails.root.join("node_modules")
+
+    # Disabling this feature because some people are blocking referer headers for privacy
+    config.action_controller.forgery_protection_origin_check = false
+
+    config.action_dispatch.cookies_serializer = :json
+
+    config.filter_parameters +=
+      [:passw, :secret, :token, :_key, :crypt, :salt, :certificate, :otp, :ssn, :email,
+       :firstname, :lastname, :phone_number, :address]
+
+    config.content_security_policy_nonce_generator =
+      -> (request) { SecureRandom.base64(16) }
+    config.content_security_policy_nonce_directives = %w[script-src]
   end
 end
