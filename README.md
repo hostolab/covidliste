@@ -20,9 +20,6 @@ Covidliste makes it easy to manage waiting lists for vaccination centers.
 - [PostgreSQL](https://www.postgresql.org/)
 - [Redis](https://redis.io/)
 
-# Documentation
-A handbook is available [in the `doc` directory](doc/handbook.md).
-
 # Local Development
 
 ## Installation
@@ -80,6 +77,10 @@ user = User.find_by(email: <your_email>)
 user.add_role(:admin)
 # user.add_role(:super_admin) # for super admin
 ```
+
+## Documentation
+
+A handbook is available [in the `doc` directory](doc/handbook.md).
 
 ## Docker
 
