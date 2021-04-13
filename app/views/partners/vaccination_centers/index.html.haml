@@ -40,7 +40,7 @@
               = icon("fas", "phone")
               = vaccination_center.human_friendly_phone_number_or_fallback
               %br
-              #{vaccination_center.address}
+              = vaccination_center.address
             %td
               - if vaccination_center.pfizer
                 %span.mr-1= Vaccine::Brands::PFIZER
