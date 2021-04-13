@@ -10,22 +10,29 @@ RSpec.describe Match, type: :model do
   let(:now_utc) { Time.now.utc }
   let(:now) { double }
 
-  describe "#confirm!" do
-    it "should copy User information at confirmation" do
+  describe "create" do
+    it "should copuy User information" do
       user = create(:user,
         birthdate: Time.now.utc.to_date - 60.years,
         zipcode: "75001",
         city: "Paris",
         geo_citycode: "75001",
         geo_context: "GEO_CONTEXT")
-
       match = create(:match, user: user)
-      match.confirm!
+      match.reload
       expect(match.age).to eq 60
       expect(match.zipcode).to eq "75001"
       expect(match.city).to eq "Paris"
       expect(match.geo_citycode).to eq "75001"
       expect(match.geo_context).to eq "GEO_CONTEXT"
+    end
+  end
+
+  describe "#confirm!" do
+    it "should set confirmed_at" do
+      match = create(:match, user: user)
+      match.confirm!
+      expect(match.confirmed?).to eq true
     end
 
     context "When the match itself is already confirmed" do
