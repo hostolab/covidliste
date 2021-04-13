@@ -19,10 +19,7 @@ module HasPhoneNumberConcern
   end
 
   def human_friendly_phone_number_or_fallback
-    if human_friendly_phone_number.nil?
-      phone_number
-    else
-      human_friendly_phone_number
+    human_friendly_phone_number.presence || phone_number
     end
   end
 
