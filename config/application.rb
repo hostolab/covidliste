@@ -37,5 +37,9 @@ module Covidliste
     config.action_controller.forgery_protection_origin_check = false
 
     config.action_dispatch.cookies_serializer = :json
+
+    config.filter_parameters +=
+      [:passw, :secret, :token, :_key, :crypt, :salt, :certificate, :otp, :ssn, :email,
+       :firstname, :lastname, :phone_number, :address]
   end
 end
