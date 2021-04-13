@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   before_action :sign_out_if_anonymized!
 
   def new
+    skip_authorization
     if current_partner
       redirect_to partners_vaccination_centers_path
     elsif current_user
@@ -24,6 +25,7 @@ class UsersController < ApplicationController
 
   def show
     @user = current_user
+    authorize @user
     prepare_phone_number
     respond_to do |format|
       format.html
@@ -35,6 +37,7 @@ class UsersController < ApplicationController
 
   def update
     @user = current_user
+    authorize @user
     if @user.update(user_params)
       flash.now[:success] = "Modifications enregistrées."
     else
@@ -46,6 +49,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    authorize @user
     @user.save
     render action: :new
   rescue ActiveRecord::RecordNotUnique
@@ -55,6 +59,7 @@ class UsersController < ApplicationController
 
   def delete
     @user = current_user
+    authorize @user
     @user.destroy
     flash[:success] = "Votre compte a bien été supprimé."
     redirect_to root_path
@@ -77,10 +82,5 @@ class UsersController < ApplicationController
       sign_out
       redirect_to root_path
     end
-  end
-
-  def skip_pundit?
-    # TODO add a real policy
-    true
   end
 end
