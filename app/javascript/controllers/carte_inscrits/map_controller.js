@@ -9,12 +9,77 @@ import { scaleLinear } from "d3-scale";
 import departements from "./departements-version-simplifiee.json";
 import popByCode from "./pop2021.json";
 
+// const UNKNOW_DEPT_COLOR = [220, 220, 220];
+const UNKNOW_DEPT_COLOR = [50, 100, 238];
+
+const TERRITOIRES = {
+  METROPOLE: {
+    label: 'Métropole',
+    lon: 2.3,
+    lat: 46.5,
+    zoom: 4.5,
+  },
+  GUYANNE: {
+    label: 'Guyanne',
+    lon: -53.02730090442361,
+    lat: 4,
+    zoom: 6.5,
+  },
+  GUADELOUPE: {
+    label: 'Gadeloupe',
+    lon: -61.5,
+    lat: 16.176021024448076,
+    zoom: 9,
+  },
+  REUNION: {
+    label: 'La Réunion',
+    lon: 55.53913649067738,
+    lat: -21.153674695744286,
+    zoom: 9,
+  },
+  MARTINIQUE: {
+    label: 'Martinique',
+    lon: -60.97336870145841,
+    lat: 14.632175285699219,
+    zoom: 9.3,
+  },
+  MAYOTTE: {
+    label: 'Mayotte',
+    lon: 45.16242028163609,
+    lat: -12.831199035192768,
+    zoom: 9.5,
+  },
+  ST_BARTH: {
+    label: 'St-Barth.',
+    lon: -62.834089499999976,
+    lat: 17.90895231756872,
+    zoom: 11.5,
+  },
+  ST_MARTIN: {
+    label: 'St-Martin',
+    lon: -63.05,
+    lat: 18.060599132556177,
+    zoom: 11,
+  }
+};
+
+const INIT_TERRITOIRE = 'METROPOLE';
+if (!TERRITOIRES[INIT_TERRITOIRE]) {
+  throw new Error(`Unknown territoire ${INIT_TERRITOIRE}`);
+}
+
+const INITIAL_VIEW_STATE = {
+  bearing: 0,
+  latitude: TERRITOIRES[INIT_TERRITOIRE].lat,
+  longitude: TERRITOIRES[INIT_TERRITOIRE].lon,
+  zoom: TERRITOIRES[INIT_TERRITOIRE].zoom,
+  pitch: 0,
+};
+
 export default class extends Controller {
   connect() {
+    // Render map
     const data = JSON.parse(this.element.dataset.map);
-
-    // const UNKNOW_DEPT_COLOR = [220, 220, 220];
-    const UNKNOW_DEPT_COLOR = [50, 100, 238];
 
     const getDepartmentValue = (code) =>
       data.usersByDept[code] &&
@@ -74,13 +139,6 @@ export default class extends Controller {
 
     const layers = [departementsLayer, iconLayer];
 
-    const INITIAL_VIEW_STATE = {
-      bearing: 0,
-      latitude: 46.5,
-      longitude: 2.3,
-      pitch: 0,
-      zoom: 4.5,
-    };
     const map = new mapboxgl.Map({
       container: "map",
       style: "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json",
@@ -106,6 +164,33 @@ export default class extends Controller {
       // getTooltip: ({ object }) => object && getDepartmentTooltip(object),
       layers: layers,
     });
+
+    // Render territories selection
+    const btnContainer = document.getElementById('territoire-container');
+    Object.keys(TERRITOIRES).forEach((k) => {
+      const el = document.createElement('a');
+      el.setAttribute('href', '');
+      el.className = 'col';
+      const t = TERRITOIRES[k];
+      el.innerHTML = t.label;
+      el.onclick = () => {
+        deckgl.setProps({
+          initialViewState: {
+            ...INITIAL_VIEW_STATE,
+            longitude: t.lon,
+            latitude: t.lat,
+            zoom: t.zoom,
+          }
+        });
+        map.jumpTo({
+          center: [t.lon, t.lat],
+          zoom: t.zoom,
+        });
+        return false;
+      };
+      btnContainer.appendChild(el);
+    });
+
     console.log("Visualisation loaded");
   }
 }

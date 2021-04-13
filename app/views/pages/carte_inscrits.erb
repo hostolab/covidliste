@@ -50,7 +50,6 @@ users_by_dept = {}
 <h1><%= vaccination_centers.count %> centres sur CovidListe et des volontaires dans tous les d&eacute;partements</h1>
 
 <div
-  id="map-container"
   data-controller="carte-inscrits--map"
   data-map='<%=
     objects = {
@@ -60,6 +59,13 @@ users_by_dept = {}
     objects.to_json
   %>'
 >
-  <div id="map"></div>
-  <canvas id="deck-canvas"></canvas>
+  <small>
+    <div id="territoire-container" class="container my-3 row">
+      <div class="col"><b>Territoires:</b></div>
+    </div>
+  </small>
+  <div id="map-container">
+    <div id="map"></div>
+    <canvas id="deck-canvas"></canvas>
+  </div>
 </div>
