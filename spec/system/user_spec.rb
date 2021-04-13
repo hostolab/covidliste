@@ -70,7 +70,6 @@ RSpec.describe "Users", type: :system do
         firstname: Faker::Name.first_name,
         lastname: Faker::Name.last_name,
         address: Faker::Address.full_address,
-        phone_number: user.phone_number.reverse
       }
 
       new_attributes.each do |key, new_value|
