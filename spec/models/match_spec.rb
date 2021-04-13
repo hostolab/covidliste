@@ -29,11 +29,11 @@ RSpec.describe Match, type: :model do
   end
 
   describe "#confirm!" do
-    it "should set confirmed_at" do
+    it "should flag the match as confirmed" do
       user = create(:user)
       match = create(:match, user: user)
       match.confirm!
-      expect(match.confirmed?).to eq true
+      expect(match.confirmed?).to be true
     end
 
     context "When the match itself is already confirmed" do
