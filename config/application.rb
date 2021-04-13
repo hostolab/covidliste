@@ -29,6 +29,8 @@ module Covidliste
     # in config/environments, which are processed later.
     #
     config.time_zone = "Europe/Paris"
-    # config.eager_load_paths << Rails.root.join("extras")
+
+    config.assets.version = "1.0"
+    config.assets.paths << Rails.root.join("node_modules")
   end
 end
