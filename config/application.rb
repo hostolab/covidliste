@@ -35,5 +35,7 @@ module Covidliste
 
     # Disabling this feature because some people are blocking referer headers for privacy
     config.action_controller.forgery_protection_origin_check = false
+
+    config.action_dispatch.cookies_serializer = :json
   end
 end
