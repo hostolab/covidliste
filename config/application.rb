@@ -32,5 +32,8 @@ module Covidliste
 
     config.assets.version = "1.0"
     config.assets.paths << Rails.root.join("node_modules")
+
+    # Disabling this feature because some people are blocking referer headers for privacy
+    config.action_controller.forgery_protection_origin_check = false
   end
 end
