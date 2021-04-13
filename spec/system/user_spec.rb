@@ -69,7 +69,7 @@ RSpec.describe "Users", type: :system do
       new_attributes = {
         firstname: Faker::Name.first_name,
         lastname: Faker::Name.last_name,
-        address: Faker::Address.full_address,
+        address: Faker::Address.full_address
       }
 
       new_attributes.each do |key, new_value|
