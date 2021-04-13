@@ -42,7 +42,7 @@ export default class extends Controller {
       return;
     }
 
-    if (vaccineType === "astrazeneca" && (minAge < 55 || maxAge < 55)) {
+    if (vaccineType === "astrazeneca" && minAge < 55) {
       this.simulationResultTarget.innerHTML =
         "Simulation impossible, l'âge minimum requis pour le vaccin AstraZeneca est de 55 ans.";
       return;
