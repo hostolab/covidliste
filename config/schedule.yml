@@ -1,0 +1,19 @@
+blazer_checks_5_minute:
+  cron: "* * * * *"
+  class: "Blazer::RunBlazerChecksJob"
+  args: {shedule: "5 minutes"}
+
+blazer_checks_1_hour:
+  cron: "* * * * *"
+  class: "Blazer::RunBlazerChecksJob"
+  args: {shedule: "1 hour"}
+
+blazer_checks_6_hour:
+  cron: "* * * * *"
+  class: "Blazer::RunBlazerChecksJob"
+  args: {shedule: "6 hours"}
+
+blazer_checks_1_day:
+  cron: "* * * * *"
+  class: "Blazer::RunBlazerChecksJob"
+  args: {shedule: "1 day"}
