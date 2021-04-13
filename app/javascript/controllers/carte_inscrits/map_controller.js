@@ -14,56 +14,56 @@ const UNKNOW_DEPT_COLOR = [50, 100, 238];
 
 const TERRITOIRES = {
   METROPOLE: {
-    label: 'Métropole',
+    label: "Métropole",
     lon: 2.3,
     lat: 46.5,
     zoom: 4.5,
   },
   GUYANNE: {
-    label: 'Guyanne',
+    label: "Guyanne",
     lon: -53.02730090442361,
     lat: 4,
     zoom: 6.5,
   },
   GUADELOUPE: {
-    label: 'Gadeloupe',
+    label: "Gadeloupe",
     lon: -61.5,
     lat: 16.176021024448076,
     zoom: 9,
   },
   REUNION: {
-    label: 'La Réunion',
+    label: "La Réunion",
     lon: 55.53913649067738,
     lat: -21.153674695744286,
     zoom: 9,
   },
   MARTINIQUE: {
-    label: 'Martinique',
+    label: "Martinique",
     lon: -60.97336870145841,
     lat: 14.632175285699219,
     zoom: 9.3,
   },
   MAYOTTE: {
-    label: 'Mayotte',
+    label: "Mayotte",
     lon: 45.16242028163609,
     lat: -12.831199035192768,
     zoom: 9.5,
   },
   ST_BARTH: {
-    label: 'St-Barth.',
+    label: "St-Barth.",
     lon: -62.834089499999976,
     lat: 17.90895231756872,
     zoom: 11.5,
   },
   ST_MARTIN: {
-    label: 'St-Martin',
+    label: "St-Martin",
     lon: -63.05,
     lat: 18.060599132556177,
     zoom: 11,
-  }
+  },
 };
 
-const INIT_TERRITOIRE = 'METROPOLE';
+const INIT_TERRITOIRE = "METROPOLE";
 if (!TERRITOIRES[INIT_TERRITOIRE]) {
   throw new Error(`Unknown territoire ${INIT_TERRITOIRE}`);
 }
@@ -166,11 +166,11 @@ export default class extends Controller {
     });
 
     // Render territories selection
-    const btnContainer = document.getElementById('territoire-container');
+    const btnContainer = document.getElementById("territoire-container");
     Object.keys(TERRITOIRES).forEach((k) => {
-      const el = document.createElement('a');
-      el.setAttribute('href', '');
-      el.className = 'col';
+      const el = document.createElement("a");
+      el.setAttribute("href", "");
+      el.className = "col";
       const t = TERRITOIRES[k];
       el.innerHTML = t.label;
       el.onclick = () => {
@@ -180,7 +180,7 @@ export default class extends Controller {
             longitude: t.lon,
             latitude: t.lat,
             zoom: t.zoom,
-          }
+          },
         });
         map.jumpTo({
           center: [t.lon, t.lat],
