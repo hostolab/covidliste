@@ -1,0 +1,1 @@
+Faker::Config.locale = "fr"

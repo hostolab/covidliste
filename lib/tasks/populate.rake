@@ -32,7 +32,7 @@ namespace :populate do
     partner = Partner.new(
       name: Faker::Name.name,
       email: Faker::Internet.email,
-      phone_number: Faker::PhoneNumber.phone_number,
+      phone_number: Faker::PhoneNumber.cell_phone,
       password: Faker::Internet.password
     )
     partner.save!(validate: false) # Bypass MX validation
