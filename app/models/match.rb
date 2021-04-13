@@ -18,11 +18,11 @@ class Match < ApplicationRecord
   scope :confirmed, -> { where.not(confirmed_at: nil) }
 
   def save_user_info
-    self.age = self.user.age
-    self.city = self.user.city
-    self.zipcode = self.user.zipcode
-    self.geo_citycode = self.user.geo_citycode
-    self.geo_context = self.user.geo_context
+    self.age = user.age
+    self.city = user.city
+    self.zipcode = user.zipcode
+    self.geo_citycode = user.geo_citycode
+    self.geo_context = user.geo_context
   end
 
   def confirmed?
@@ -35,17 +35,15 @@ class Match < ApplicationRecord
     raise DoseOverbookingError, "La dose de vaccin a déjà été réservée" unless confirmable?
 
     update(confirmed_at: Time.now.utc)
-    
-    # temporary hack until all matches have the user data at creation
-    if self.age.nil? || self.zipcode.nil? || self.city.nil?
-      update(age: user.age,
-        zipcode: user.zipcode,
-        city: user.city,
-        geo_citycode: user.geo_citycode,
-        geo_context: user.geo_context
-      )
-    end
 
+    # temporary hack until all matches have the user data at creation
+    if age.nil? || zipcode.nil? || city.nil?
+      update(age: user.age,
+             zipcode: user.zipcode,
+             city: user.city,
+             geo_citycode: user.geo_citycode,
+             geo_context: user.geo_context)
+    end
   end
 
   def confirmable?
