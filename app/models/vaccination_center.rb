@@ -24,6 +24,7 @@ class VaccinationCenter < ApplicationRecord
   scope :confirmed, -> { where.not(confirmed_at: nil) }
 
   after_commit :push_to_slack, on: :create
+  before_validation :geocode, if: -> { will_save_change_to_address? }
 
   def active?
     confirmed? && !disabled?
@@ -35,6 +36,19 @@ class VaccinationCenter < ApplicationRecord
 
   def confirmed?
     confirmed_at.present?
+  end
+
+  def geocode
+    self.lat = nil
+    self.lon = nil
+    return if address.nil?
+    geocode_results = Geocoder.search(address)
+    if geocode_results.present?
+      self.lat = geocode_results.first.coordinates[0]
+      self.lon = geocode_results.first.coordinates[1]
+    else
+      errors.add(:base, "Impossible de déterminer les coordonnées GPS de l'adresse " + address)
+    end
   end
 
   def can_be_accessed_by?(user, partner)

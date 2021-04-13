@@ -70,7 +70,7 @@ module Admin
         if @vaccination_center.update(confirmed_at: Time.now.utc, confirmer: current_user)
           flash[:success] = "Ce centre a bien été validé"
         else
-          flash[:alert] = "Une erreur est survenue : #{@vaccination_center.errors.full_messages.join(", ")}"
+          flash[:error] = "Une erreur est survenue : #{@vaccination_center.errors.full_messages.join(", ")}"
         end
       else
         flash[:alert] = "Ce centre a déjà été validé !"
@@ -85,7 +85,7 @@ module Admin
         flash[:success] = "Ce centre est maintenant activé"
       else
         error = @center.errors.full_messages.join(", ")
-        flash[:alert] = "Une erreur est survenue: #{error}"
+        flash[:error] = "Une erreur est survenue: #{error}"
       end
 
       redirect_to admin_vaccination_center_path(@center)
@@ -98,7 +98,7 @@ module Admin
         flash[:success] = "Ce centre est maintenant désactivé"
       else
         error = @center.errors.full_messages.join(", ")
-        flash[:alert] = "Une erreur est survenue: #{error}"
+        flash[:error] = "Une erreur est survenue: #{error}"
       end
 
       redirect_to admin_vaccination_center_path(@center)
@@ -110,11 +110,10 @@ module Admin
     def update
       if @vaccination_center.update(vaccination_center_params)
         flash[:success] = "Ce centre a bien été modifié"
+        redirect_to admin_vaccination_center_path(@vaccination_center)
       else
-        flash[:alert] = "Une erreur est survenue : #{@vaccination_center.errors.full_messages.join(", ")}"
+        render action: :edit
       end
-
-      redirect_to admin_vaccination_center_path(@vaccination_center)
     end
 
     def destroy

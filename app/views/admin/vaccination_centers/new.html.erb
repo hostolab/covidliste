@@ -14,6 +14,14 @@
     </div>
 
   <% else %>
+    <% if @vaccination_center.errors.any? %>
+      <div class="alert alert-danger" role="alert" style="position: inherit">
+        <% @vaccination_center.errors.full_messages.each do |msg| %>
+          <%= msg %><br />
+        <% end %>
+      </div>
+    <% end %>
+
     <%= simple_form_for [:admin, @vaccination_center] do |f| %>
       <%= f.input :name, label: 'Nom du centre', error: 'Nom requis', placeholder: 'Centre de vaccination Marseille' %>
       <%= f.input :description, label: 'Description', error: 'Description requise', placeholder: 'Description du lieu de vaccination' %>
@@ -26,8 +34,6 @@
       <%= f.input :astrazeneca, as: :boolean, label: Vaccine::Brands::ASTRAZENECA.capitalize, checked_value: true, unchecked_value: false, class: 'form-check-inline' %>
       <%= f.input :janssen, as: :boolean, label: Vaccine::Brands::JANSSEN.capitalize, checked_value: true, unchecked_value: false %>
       <%= f.input :address, label: 'Adresse', error: 'Adresse requise', placeholder: '5 rue larue, 13600 Marseille' %>
-      <%= f.input :lat, :as => :hidden %>
-      <%= f.input :lon, :as => :hidden %>
       <%= f.input :phone_number, label: 'Numéro de téléphone', error: 'Numéro de téléphone requis', placeholder: '06 06 06 06 06' %>
       <%= f.button :submit, "Créer le centre", class: 'btn btn-primary', data: { disable_with: 'Validation...' } %>
     <% end %>

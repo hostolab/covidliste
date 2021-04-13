@@ -90,9 +90,10 @@
         </thead>
 
         <tbody>
-        <% @vaccination_centers.each do |vaccination_center| %>
+        <% @unconfirmed_vaccination_centers.each do |vaccination_center| %>
           <tr>
             <td>
+              <%= vaccination_center.id %>
               <strong>
                 <%= link_to vaccination_center.name, partners_vaccination_center_path(vaccination_center.id) %>
               </strong>
