@@ -30,6 +30,7 @@ RSpec.describe Match, type: :model do
 
   describe "#confirm!" do
     it "should set confirmed_at" do
+      user = create(:user)
       match = create(:match, user: user)
       match.confirm!
       expect(match.confirmed?).to eq true
