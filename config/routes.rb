@@ -11,7 +11,7 @@ Rails.application.routes.draw do
         patch :validate, on: :member
         post :add_partner, on: :member
       end
-      resources :users, only: [:index] do
+      resources :users, only: [:index, :destroy] do
         post :resend_confirmation, on: :member
       end
 
@@ -79,6 +79,7 @@ Rails.application.routes.draw do
   resources :matches, only: [:show, :update], param: :match_confirmation_token
 
   ## pages
+  get "/benevoles" => "pages#benevoles", :as => :benevoles
   get "/mentions_legales" => "pages#mentions_legales", :as => :mentions_legales
   get "/privacy" => "pages#privacy", :as => :privacy
   get "/faq" => "pages#faq", :as => :faq

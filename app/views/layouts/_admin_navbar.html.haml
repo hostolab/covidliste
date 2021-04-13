@@ -4,7 +4,7 @@
     %span.navbar-toggler-icon
   #navbarNavDropdown.collapse.navbar-collapse
     %ul.navbar-nav.ml-auto
-      - if current_user.has_role?(:admin)
+      - if current_user.admin?
         %li.nav-item.dropdown
           %a#dropdown12.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => ""}
             ="Outils support"
@@ -32,7 +32,7 @@
         %li.nav-item.dropdown
           %a#dropdown09.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => ""}
             = current_user.full_name
-            - if current_user.has_role?(:admin)
+            - if current_user.admin?
               %span.badge.badge-danger Admin
           .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "dropdown09"}
             = link_to "Profil", profile_path, class: 'dropdown-item'

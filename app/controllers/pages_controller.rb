@@ -1,4 +1,7 @@
 class PagesController < ApplicationController
+  def benevoles
+  end
+
   def mentions_legales
   end
 
