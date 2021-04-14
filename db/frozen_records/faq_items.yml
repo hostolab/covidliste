@@ -79,7 +79,7 @@
 
     Les volontaires sélectionné(e)s sont ensuite ordonné(e)s par ordre d'inscription (les premiers inscrit(e)s seront les premiers sélectionné(e)s).
 
-    Nous rentrons en contact avec chaque volontaire sélectionné(e) à hauteur des doses disponibles plus un facteur dit "d'overbooking" jusqu'à que toutes les doses disponibles soient réservées.
+    Nous rentrons en contact avec chaque volontaire sélectionné(e) à hauteur des doses disponibles plus un facteur dit "d'overbooking" jusqu'à ce que toutes les doses disponibles soient réservées.
 
     Si vous êtes développeur, et que vous souhaitez consulter l’algorithme utilisé,
     celui-ci est disponible sur le
