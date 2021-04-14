@@ -1,7 +1,7 @@
 class PartnersController < ApplicationController
   before_action :authenticate_partner!, except: %i[new create]
   helper_method :sort_column, :sort_direction
-  invisible_captcha only: %i[create update], honeypot: :subtitle
+  invisible_captcha only: [:create], honeypot: :subtitle
 
   def new
     @partner = Partner.new
