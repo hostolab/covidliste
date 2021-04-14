@@ -9,6 +9,7 @@
           %a#dropdown12.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => ""}
             ="Outils support"
           .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "dropdown10"}
+            = link_to "Super utilisateurs", admin_power_users_path, class: 'dropdown-item' if policy([:admin, :power_users, current_user]).index?
             = link_to "Volontaires", admin_users_path, class: 'dropdown-item'
         %li.nav-item.dropdown
           %a#dropdown12.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => ""}

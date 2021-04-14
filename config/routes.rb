@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       resources :users, only: [:index, :destroy] do
         post :resend_confirmation, on: :member
       end
+      resources :power_users, only: [:index]
 
       # admin tools
       mount Blazer::Engine, at: "/blazer"
@@ -79,6 +80,7 @@ Rails.application.routes.draw do
   resources :matches, only: [:show, :update], param: :match_confirmation_token
 
   ## pages
+  get "/carte" => "pages#carte", :as => :carte
   get "/benevoles" => "pages#benevoles", :as => :benevoles
   get "/contact" => "pages#contact", :as => :contact
   get "/mentions_legales" => "pages#mentions_legales", :as => :mentions_legales
