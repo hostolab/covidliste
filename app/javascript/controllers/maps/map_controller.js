@@ -1,7 +1,6 @@
 import { Controller } from "stimulus";
-
 import { Deck } from "@deck.gl/core";
-import { GridCellLayer, GeoJsonLayer, IconLayer } from "@deck.gl/layers";
+import { GeoJsonLayer, IconLayer } from "@deck.gl/layers";
 import mapboxgl from "mapbox-gl";
 import { scaleLinear } from "d3-scale";
 

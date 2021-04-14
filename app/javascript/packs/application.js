@@ -5,18 +5,19 @@
 
 import Rails from "@rails/ujs";
 import Turbolinks from "turbolinks";
-import * as ActiveStorage from "@rails/activestorage";
-import "controllers";
-import "channels";
+// import * as ActiveStorage from "@rails/activestorage";
+import "controllers/application";
+// import "channels";
 import "bootstrap";
 import "bootstrap-select";
 
 Rails.start();
 Turbolinks.start();
-ActiveStorage.start();
+// ActiveStorage.start();
 
 import { placesAutocomplete } from "../plugins/places_autocomplete";
 import { leafletMap } from "../plugins/leaflet_map";
+
 document.addEventListener("turbolinks:load", () => {
   const appId = process.env.PLACES_APP_ID;
   const apiKey = process.env.PLACES_API_KEY;

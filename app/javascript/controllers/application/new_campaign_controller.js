@@ -14,6 +14,9 @@ export default class extends Controller {
     "submitButton",
   ];
 
+  connect() {
+    console.log("hello new campaign");
+  }
   simulate(e) {
     e.preventDefault();
     this._disableSubmit();
