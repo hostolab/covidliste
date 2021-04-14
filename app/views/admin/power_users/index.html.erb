@@ -1,0 +1,28 @@
+<div class="container">
+  <h2 class="my-5" id="page-title">
+    Utilisateurs avec privilèges
+  </h2>
+
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover" aria-describedby="users with roles">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">email</th>
+          <th scope="col">roles</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td><%= user.email %></td>
+            <td>
+              <% user.roles.pluck(:name).each do |role| %>
+                <span class="badge badge-info text-larger"><%= role %></span>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
