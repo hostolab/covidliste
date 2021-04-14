@@ -12,7 +12,7 @@ RSpec.describe "Partners", type: :system do
         find("#health-professionnal").click
         expect(page).to have_selector(:id, "partner_name")
 
-        accept_confirm do
+        accept_confirm_modal do
           fill_in :partner_name, with: Faker::Name.last_name
           fill_in :partner_phone_number, with: generate(:french_phone_number)
           fill_in :partner_email, with: "hello+#{(rand * 10000).to_i}@covidliste.com" # needs valid email here
