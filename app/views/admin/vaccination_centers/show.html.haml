@@ -22,13 +22,13 @@
     \-
     Vaccins :
     - if @vaccination_center.pfizer
-      %span.mr-1= Vaccine::Brands::PFIZER
+      %span.mr-1= Vaccine::Brands::PFIZER.capitalize
     - if @vaccination_center.moderna
-      %span.mr-1= Vaccine::Brands::MODERNA
+      %span.mr-1= Vaccine::Brands::MODERNA.capitalize
     - if @vaccination_center.astrazeneca
-      %span.mr-1= Vaccine::Brands::ASTRAZENECA
+      %span.mr-1= Vaccine::Brands::ASTRAZENECA.capitalize
     - if @vaccination_center.janssen
-      %span.mr-1= Vaccine::Brands::JANSSEN
+      %span.mr-1= Vaccine::Brands::JANSSEN.capitalize
   %p.small.mb-2
     #{@vaccination_center.description}
 
