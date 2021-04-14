@@ -13,7 +13,7 @@ namespace :populate do
         birthdate: Faker::Date.between(from: 100.years.ago, to: 18.years.ago),
         address: Faker::Address.full_address,
         password: Faker::Internet.password,
-        phone_number: Faker::PhoneNumber.cell_phone,
+        phone_number: "06 01 02 03 04",
         toc: true,
         statement: true
       )
