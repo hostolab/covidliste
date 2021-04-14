@@ -48,7 +48,7 @@ users_by_dept = {}
 %>
 
 <% if current_user&.admin? %>
-  <h1><%= vaccination_centers.count %> centres sur CovidListe et des volontaires dans tous les d&eacute;partements</h1>
+  <h1><%= vaccination_centers.count %> lieux de vaccination sur Covidliste et des volontaires dans tous les d&eacute;partements</h1>
   <div
     data-controller="carte--map"
     data-map='<%=
@@ -70,5 +70,6 @@ users_by_dept = {}
     </div>
   </div>
 <% else -%>
-  <h1>Prochainement disponible</h1>
+    <h1><%= vaccination_centers.count %> lieux de vaccination sur Covidliste et des volontaires dans tous les d&eacute;partements</h1>
+    <p>Retrouvez bientôt ici la carte des lieux de vaccination inscrits sur Covidliste</p>
 <% end -%>
