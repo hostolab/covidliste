@@ -103,7 +103,7 @@ export default class extends Controller {
       getFillColor: (d) => colorScale(getDepartmentValue(d.properties.code)),
       getLineColor: [255, 255, 255],
       getLineWidth: 0.5,
-      lineWidthUnits: 'pixels',
+      lineWidthUnits: "pixels",
     });
 
     const ICON_MAPPING = {
