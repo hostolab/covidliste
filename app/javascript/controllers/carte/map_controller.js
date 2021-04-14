@@ -3,7 +3,6 @@ import { Controller } from "stimulus";
 import { Deck } from "@deck.gl/core";
 import { GridCellLayer, GeoJsonLayer, IconLayer } from "@deck.gl/layers";
 import mapboxgl from "mapbox-gl";
-import "mapbox-gl/dist/mapbox-gl.css";
 import { scaleLinear } from "d3-scale";
 
 import departements from "./departements-version-simplifiee.json";
