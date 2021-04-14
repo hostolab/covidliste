@@ -6,7 +6,7 @@
   #navbarNavDropdown.collapse.navbar-collapse
     %ul.navbar-nav.ml-auto
       %li{class: (action_name == 'carte' ? 'nav-item active' : 'nav-item')}
-        = link_to "Carte des inscrits", :carte, class: 'nav-link'
+        = link_to "Carte des centres", :carte, class: 'nav-link'
       - unless current_partner
         %li{class: (action_name == 'mentions_legales' ? 'nav-item active' : 'nav-item')}
           = link_to "Mentions légales", :mentions_legales, class: 'nav-link'
