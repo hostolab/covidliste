@@ -81,7 +81,9 @@ Rails.application.routes.draw do
   ## pages
   get "/carte" => "pages#carte", :as => :carte
   get "/benevoles" => "pages#benevoles", :as => :benevoles
+  get "/contact" => "pages#contact", :as => :contact
   get "/mentions_legales" => "pages#mentions_legales", :as => :mentions_legales
+  get "/presse" => "pages#presse", :as => :presse
   get "/privacy" => "pages#privacy", :as => :privacy
   get "/faq" => "pages#faq", :as => :faq
 
