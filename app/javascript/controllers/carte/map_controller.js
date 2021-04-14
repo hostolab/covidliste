@@ -22,43 +22,31 @@ const TERRITOIRES = {
     label: "Guyanne",
     lon: -53.02730090442361,
     lat: 4,
-    zoom: 6.5,
+    zoom: 6.0,
   },
   GUADELOUPE: {
     label: "Gadeloupe",
     lon: -61.5,
     lat: 16.176021024448076,
-    zoom: 9,
+    zoom: 8.5,
   },
   REUNION: {
     label: "La Réunion",
     lon: 55.53913649067738,
     lat: -21.153674695744286,
-    zoom: 9,
+    zoom: 8.5,
   },
   MARTINIQUE: {
     label: "Martinique",
     lon: -60.97336870145841,
     lat: 14.632175285699219,
-    zoom: 9.3,
+    zoom: 9.0,
   },
   MAYOTTE: {
     label: "Mayotte",
     lon: 45.16242028163609,
     lat: -12.831199035192768,
-    zoom: 9.5,
-  },
-  ST_BARTH: {
-    label: "St-Barth.",
-    lon: -62.834089499999976,
-    lat: 17.90895231756872,
-    zoom: 11.5,
-  },
-  ST_MARTIN: {
-    label: "St-Martin",
-    lon: -63.05,
-    lat: 18.060599132556177,
-    zoom: 11,
+    zoom: 9.0,
   },
 };
 
@@ -114,7 +102,8 @@ export default class extends Controller {
       stroked: true,
       getFillColor: (d) => colorScale(getDepartmentValue(d.properties.code)),
       getLineColor: [255, 255, 255],
-      getLineWidth: 500, // meters
+      getLineWidth: 0.5,
+      lineWidthUnits: 'pixels',
     });
 
     const ICON_MAPPING = {
