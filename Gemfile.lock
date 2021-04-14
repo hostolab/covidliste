@@ -259,6 +259,7 @@ GEM
       activesupport (>= 5.2)
     pghero (2.8.0)
       activerecord (>= 5)
+    phonelib (0.6.49)
     popper_js (2.8.6)
     pry (0.13.1)
       coderay (~> 1.1)
@@ -503,6 +504,7 @@ DEPENDENCIES
   pg_query (>= 0.9.0)
   pg_search
   pghero
+  phonelib
   pry-byebug
   pry-rails
   puma (~> 5.0)
