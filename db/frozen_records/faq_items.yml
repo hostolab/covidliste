@@ -74,7 +74,7 @@
 
       * Le compte du volontaire doit être confirmé.
       * L'adresse déclarée par le volontaire doit se trouver à une distance inférieure à la distance choisie par le centre de vaccination.
-      * L'âge déclaré du volontaire doit être dans la tranche d'age choisie par le centre de vaccination.
+      * L'âge déclaré du volontaire doit être dans la tranche d'âge choisie par le centre de vaccination.
       * Le volontaire ne doit pas avoir été contacté depuis 1 jour.
 
     Les volontaires sélectionné(e)s sont ensuite ordonné(e)s par ordre d'inscription (les premiers inscrit(e)s seront les premiers sélectionné(e)s).
