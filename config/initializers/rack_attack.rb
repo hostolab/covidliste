@@ -1,16 +1,16 @@
-Rack::Attack.throttle("logins/ip", limit: 20, period: 10.minutes) do |req|
+Rack::Attack.throttle("logins/ip", limit: 40, period: 10.minutes) do |req|
   req.ip if req.post? && req.path.start_with?("/login")
 end
 
-Rack::Attack.throttle("partners/login/ip", limit: 20, period: 10.minutes) do |req|
+Rack::Attack.throttle("partners/login/ip", limit: 40, period: 10.minutes) do |req|
   req.ip if req.post? && req.path.start_with?("/partners/login")
 end
 
-Rack::Attack.throttle("partners/password/new", limit: 20, period: 10.minutes) do |req|
+Rack::Attack.throttle("partners/password/new", limit: 40, period: 10.minutes) do |req|
   req.ip if req.post? && req.path.start_with?("/partners/password/new")
 end
 
-Rack::Attack.throttle("users/password/new", limit: 20, period: 10.minutes) do |req|
+Rack::Attack.throttle("users/password/new", limit: 40, period: 10.minutes) do |req|
   req.ip if req.post? && req.path.start_with?("/users/password/new")
 end
 
