@@ -42,7 +42,7 @@ class User < ApplicationRecord
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
   scope :between_age, ->(min, max) { where("birthdate between ? and ?", max.years.ago, min.years.ago) }
-  scope :power_users, -> { joins(:roles) }
+  scope :with_roles, -> { joins(:roles) }
 
   LATLNG_DECIMALS = 3
 

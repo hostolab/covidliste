@@ -2,7 +2,7 @@ class Admin::PowerUsers::UserPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       if user.super_admin?
-        scope.power_users
+        scope.with_roles
       else
         raise Pundit::NotAuthorizedError
       end
