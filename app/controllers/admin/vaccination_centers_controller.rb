@@ -61,7 +61,7 @@ module Admin
 
     def create
       @vaccination_center = VaccinationCenter.new(vaccination_center_params)
-      @vaccination_center.save(context: :validation_by_admin)
+      @vaccination_center.save
       render action: :new
     end
 
