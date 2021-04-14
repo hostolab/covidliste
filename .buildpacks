@@ -1,2 +1,3 @@
 https://github.com/DataDog/heroku-buildpack-datadog.git
-https://github.com/Scalingo/ruby-buildpack
+https://github.com/Scalingo/nodejs-buildpack
+https://github.com/Scalingo/ruby-buildpack.git
