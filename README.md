@@ -78,6 +78,10 @@ user.add_role(:admin)
 # user.add_role(:super_admin) # for super admin
 ```
 
+## Documentation
+
+A handbook is available [in the `doc` directory](doc/handbook.md).
+
 ## Docker
 
 Launch the Docker environment:

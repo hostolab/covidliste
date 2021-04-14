@@ -33,13 +33,13 @@
               #{vaccination_center.address}
             %td
               - if vaccination_center.pfizer
-                %span.mr-1= Vaccine::Brands::PFIZER
+                %span.mr-1= Vaccine::Brands::PFIZER.capitalize
               - if vaccination_center.moderna
-                %span.mr-1= Vaccine::Brands::MODERNA
+                %span.mr-1= Vaccine::Brands::MODERNA.capitalize
               - if vaccination_center.astrazeneca
-                %span.mr-1= Vaccine::Brands::ASTRAZENECA
+                %span.mr-1= Vaccine::Brands::ASTRAZENECA.capitalize
               - if vaccination_center.janssen
-                %span.mr-1= Vaccine::Brands::JANSSEN
+                %span.mr-1= Vaccine::Brands::JANSSEN.capitalize
             %td
               = link_to "Voir / Gérer les campagnes", partners_vaccination_center_path(vaccination_center.id)
 
@@ -67,13 +67,13 @@
               #{vaccination_center.address}
             %td
               - if vaccination_center.pfizer
-                %span.mr-1= Vaccine::Brands::PFIZER
+                %span.mr-1= Vaccine::Brands::PFIZER.capitalize
               - if vaccination_center.moderna
-                %span.mr-1= Vaccine::Brands::MODERNA
+                %span.mr-1= Vaccine::Brands::MODERNA.capitalize
               - if vaccination_center.astrazeneca
-                %span.mr-1= Vaccine::Brands::ASTRAZENECA
+                %span.mr-1= Vaccine::Brands::ASTRAZENECA.capitalize
               - if vaccination_center.janssen
-                %span.mr-1= Vaccine::Brands::JANSSEN
+                %span.mr-1= Vaccine::Brands::JANSSEN.capitalize
             %td En attente de validation
 
   %p.mt-4

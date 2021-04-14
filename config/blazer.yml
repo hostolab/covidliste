@@ -59,6 +59,7 @@ audit: true
 
 check_schedules:
   - "1 day"
+  - "6 hours"
   - "1 hour"
   - "5 minutes"
 # enable anomaly detection

@@ -13,7 +13,17 @@ class Match < ApplicationRecord
   encrypts :match_confirmation_token
   blind_index :match_confirmation_token
 
+  before_create :save_user_info
+
   scope :confirmed, -> { where.not(confirmed_at: nil) }
+
+  def save_user_info
+    self.age = user.age
+    self.city = user.city
+    self.zipcode = user.zipcode
+    self.geo_citycode = user.geo_citycode
+    self.geo_context = user.geo_context
+  end
 
   def confirmed?
     !confirmed_at.nil?
@@ -24,16 +34,16 @@ class Match < ApplicationRecord
 
     raise DoseOverbookingError, "La dose de vaccin a déjà été réservée" unless confirmable?
 
-    update(
-      confirmed_at: Time.now.utc,
-      age: user.age,
-      zipcode: user.zipcode,
-      city: user.city,
-      geo_citycode: user.geo_citycode,
-      geo_context: user.geo_context
-    )
-
     update(confirmed_at: Time.now.utc)
+
+    # temporary hack until all matches have the user data at creation
+    if age.nil? || zipcode.nil? || city.nil?
+      update(age: user.age,
+             zipcode: user.zipcode,
+             city: user.city,
+             geo_citycode: user.geo_citycode,
+             geo_context: user.geo_context)
+    end
   end
 
   def confirmable?
