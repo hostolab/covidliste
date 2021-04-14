@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       resources :users, only: [:index, :destroy] do
         post :resend_confirmation, on: :member
       end
+      resources :power_users, only: [:index]
 
       # admin tools
       mount Blazer::Engine, at: "/blazer"
