@@ -1,6 +1,6 @@
 ---
 name: Issue
-about: Template standard
+about: Créez une nouvelle issue
 title: ""
 labels: ""
 assignees: ""
