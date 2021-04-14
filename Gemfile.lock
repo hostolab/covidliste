@@ -277,6 +277,8 @@ GEM
     raabro (1.4.0)
     racc (1.5.2)
     rack (2.2.3)
+    rack-attack (6.5.0)
+      rack (>= 1.0, < 3)
     rack-mini-profiler (2.3.1)
       rack (>= 1.2.0)
     rack-protection (2.0.8.1)
@@ -509,6 +511,7 @@ DEPENDENCIES
   pry-rails
   puma (~> 5.0)
   pundit (~> 2.1)
+  rack-attack
   rack-mini-profiler (~> 2.0)
   rails (~> 6.1.1)
   rails-controller-testing

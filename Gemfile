@@ -55,6 +55,7 @@ gem "twilio-ruby", "~> 5.50"
 gem "valid_email"
 gem "lefthook"
 gem "pundit", "~> 2.1"
+gem "rack-attack"
 
 group :development, :test do
   gem "dotenv-rails", "2.7.6"
