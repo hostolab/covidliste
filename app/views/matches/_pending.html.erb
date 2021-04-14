@@ -8,18 +8,72 @@
 </p>
 
 <%= render 'match_details', match: @match %>
+<% user = match.user %>
 
 <div class="alert alert-primary" role="alert">
   Merci de confirmer votre présence <strong>uniquement</strong> si vous pouvez vous rendre au centre de vaccination à
   l'horaire communiqué.
 </div>
 
-<div class="btn btn-primary m-2">
-  <%= link_to 'Je suis disponible' , match_path(match_confirmation_token: @match.match_confirmation_token), method: :patch, class: 'btn btn-primary btn-block' %>
-</div>
+<form action="<%= match_path(match_confirmation_token: @match.match_confirmation_token) %>" method="POST" class="needs-validation row" novalidate>
+  <input type="hidden" name="_method" value="PATCH">
+  <div class="col-12 mb-2">
+    <div class="form-check flex-wrap">
+      <input class="form-check-input" type="checkbox" value="" id="confirm_name" required>
+      <label class="form-check-label w-75" for="confirm_name">
+        Je confirme avoir une pièce d'identitée au nom de <strong><%= user.full_name %></strong>
+      </label>
+      <div class="invalid-feedback w-100">
+        Vous devez confirmer votre nom. <br>
+        S'il est inexact, le practicien ne pourra pas vous vacciner.
+      </div>
+    </div>
+  </div>
+  <div class="col-12 mb-2">
+    <div class="form-check flex-wrap">
+      <input class="form-check-input" type="checkbox" value="" id="confirm_age" required>
+      <label class="form-check-label w-75" for="confirm_age">
+        Je confirme avoir une pièce d'identitée portant la date de naissance <strong><%= user.birthdate %></strong>
+      </label>
+      <div class="invalid-feedback w-100">
+        Vous devez confirmer votre date de naissance. <br>
+        Si elle est inexacte, le practicien ne pourra pas vous vacciner.
+      </div>
+    </div>
+  </div>
+  <div class="col-12">
+    <p>
+      <small>
+        Si ces informations sont inexactes, le practicien ne pourra pas vous vacciner. <br>
+        Vous pouvez les modifier sur <%= link_to "votre profil", profile_path %>, dans ce cas vous bénéficierez d'une prochaine dose disponible.
+      </small>
+    </p>
+  </div>
+  <div class="col-12 mb-2">
+    <button class="btn btn-primary" type="submit">Je suis disponible</button>
+  </div>
+</form>
 
 <p>
   <small>
-    Une fois votre présence confirmée, vos coordonnées sont transmises au centre de vaccination. Votre compte et vos informations seront alors définitivement supprimés de Covidliste sous 24h, et vous ne recevrez plus de notifications.
+    Une fois votre présence confirmée, vos coordonnées sont transmises au centre de vaccination. Votre compte et vos informations seront alors définitivement supprimés de Covidliste sous 7 jours, et vous ne recevrez plus de notifications.
   </small>
 </p>
+
+<script>
+// Script from https://getbootstrap.com/docs/5.0/forms/validation/
+(function () {
+  var forms = document.querySelectorAll('.needs-validation')
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+      }, false)
+    })
+})()
+</script>
