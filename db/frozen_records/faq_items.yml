@@ -351,12 +351,9 @@
   body_md_erb: |
     Merci beaucoup de vous proposer, cela nous fait très plaisir de voir que vous souhaitez nous apporter votre soutien !
 
-    Pour l’instant nous avons une solide équipe de bénévoles et nous n’avons pas besoin d’aide supplémentaire.
+    Nous vous invitons à consulter la <%= link_to "page dédiée aux bénévoles", :benevoles %>.
 
-    Si nous avons un besoin précis, nous communiquerons probablement sur
-    <%= link_to "Twitter", "https://twitter.com/covidliste", target: "_blank", rel: "noopener" %>.
-
-    Si vous êtes développeur, vous pouvez apporter votre aide en collaborant sur
+    Si vous êtes développeur, vous pouvez également apporter votre aide en collaborant sur
     <%= link_to "GitHub du projet", "https://github.com/hostolab/covidliste", target: "_blank", rel: "noopener" %>.
 
 - title: Je représente une entreprise ou une association et nous voulons vous aider.
@@ -393,6 +390,6 @@
     Nous faisons le maximum pour vous répondre au plus vite.
 
     Pour éviter d’allonger les délais de réponse, vérifiez bien que la réponse à votre question n’est pas présente
-    sur cette page avant de nous contacter.
+    dans la Foire aux questions avant de nous contacter.
 
     Si ce n’est pas le cas, nous somme disponibles sur <%= link_to "hello@covidliste.com", "mailto:hello@covidliste.com", rel: "noopener" %>.
