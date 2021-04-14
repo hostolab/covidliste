@@ -22,7 +22,6 @@
 vaccination_centers = VaccinationCenter.all.filter { |v| v.confirmed? }.map do |v|
   {
     'coordinates' => [v.lon, v.lat],
-    'nom' => v.name,
   }
 end
 users_by_dept = {}
@@ -47,29 +46,31 @@ users_by_dept = {}
 # end
 %>
 
-<% if current_user&.admin? %>
-  <h1><%= vaccination_centers.count %> lieux de vaccination sur Covidliste et des volontaires dans tous les d&eacute;partements</h1>
-  <div
-    data-controller="carte--map"
-    data-map='<%=
-      objects = {
-        'vaccinationCenters' => vaccination_centers,
-        'usersByDept' => users_by_dept
-      }
-      objects.to_json
-    %>'
-  >
-    <small>
-      <div id="territoire-container" class="container my-3 row">
-        <div class="col"><strong>Territoires:</strong></div>
+<div class="container my-5">
+  <h1>Carte des lieux de vaccination inscrits sur Covidliste</h1>
+  <p><%= vaccination_centers.count %> lieux de vaccination sur Covidliste et des volontaires dans tous les d&eacute;partements</p>
+
+  <% if current_user&.admin? %>
+    <div
+      data-controller="carte--map"
+      data-map='<%=
+        objects = {
+          'vaccinationCenters' => vaccination_centers,
+          'usersByDept' => users_by_dept
+        }
+        objects.to_json
+      %>'
+    >
+      <small>
+        <div id="territoire-container" class="container my-3 row">
+        </div>
+      </small>
+      <div id="map-container">
+        <div id="map"></div>
+        <canvas id="deck-canvas"></canvas>
       </div>
-    </small>
-    <div id="map-container">
-      <div id="map"></div>
-      <canvas id="deck-canvas"></canvas>
     </div>
-  </div>
-<% else -%>
-    <h1><%= vaccination_centers.count %> lieux de vaccination sur Covidliste et des volontaires dans tous les d&eacute;partements</h1>
+  <% else -%>
     <p>Retrouvez bientôt ici la carte des lieux de vaccination inscrits sur Covidliste</p>
-<% end -%>
+  <% end -%>
+</div>

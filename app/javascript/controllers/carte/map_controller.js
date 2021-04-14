@@ -13,7 +13,7 @@ const UNKNOW_DEPT_COLOR = [50, 100, 238];
 
 const TERRITOIRES = {
   METROPOLE: {
-    label: "Métropole",
+    label: "France métropolitaine",
     lon: 2.3,
     lat: 46.5,
     zoom: 4.5,
@@ -169,7 +169,7 @@ export default class extends Controller {
     Object.keys(TERRITOIRES).forEach((k) => {
       const el = document.createElement("a");
       el.setAttribute("href", "");
-      el.className = "col";
+      el.className = "col btn-sm btn btn-link small mx-2";
       const t = TERRITOIRES[k];
       el.innerHTML = t.label;
       el.onclick = () => {
