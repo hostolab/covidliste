@@ -169,7 +169,7 @@ export default class extends Controller {
     Object.keys(TERRITOIRES).forEach((k) => {
       const el = document.createElement("a");
       el.setAttribute("href", "");
-      el.className = "col btn-sm btn btn-link small mx-2";
+      el.className = "btn-sm btn btn-link small";
       const t = TERRITOIRES[k];
       el.innerHTML = t.label;
       el.onclick = () => {
