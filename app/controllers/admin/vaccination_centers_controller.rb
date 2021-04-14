@@ -78,6 +78,32 @@ module Admin
       redirect_to admin_vaccination_center_path(@vaccination_center)
     end
 
+    def enable
+      @center = VaccinationCenter.find(params[:id])
+
+      if @center.update(disabled_at: nil)
+        flash[:success] = "Ce centre est maintenant activé"
+      else
+        error = @center.errors.full_messages.join(", ")
+        flash[:alert] = "Une erreur est survenue: #{error}"
+      end
+
+      redirect_to admin_vaccination_center_path(@center)
+    end
+
+    def disable
+      @center = VaccinationCenter.find(params[:id])
+
+      if @center.update(disabled_at: Time.now.utc)
+        flash[:success] = "Ce centre est maintenant désactivé"
+      else
+        error = @center.errors.full_messages.join(", ")
+        flash[:alert] = "Une erreur est survenue: #{error}"
+      end
+
+      redirect_to admin_vaccination_center_path(@center)
+    end
+
     def edit
     end
 

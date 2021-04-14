@@ -50,6 +50,7 @@
           <th scope="col">Téléphone</th>
           <th scope="col">Types de vaccins</th>
           <th scope="col"><%= sortable("confirmed_at", "Validé") %></th>
+          <th scope="col">Activé</th>
         </tr>
       </thead>
 
@@ -87,6 +88,15 @@
               <% else %>
                 <%= icon("fas", "times", class: "text-danger") %>
                 Non
+              <% end %>
+            </td>
+            <td>
+              <% if vaccination_center.disabled? %>
+                <%= icon("fas", "times", class: "text-danger") %>
+                Non
+              <% else %>
+                <%= icon("fas", "check", class: "text-success") %>
+                Oui
               <% end %>
             </td>
             <td class="text-center">
