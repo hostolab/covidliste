@@ -12,6 +12,7 @@ require "webmock/rspec"
 WebMock.disable_net_connect!(allow_localhost: true)
 
 ActiveRecord::Migration.maintain_test_schema!
+DatabaseCleaner[:active_record].strategy = :truncation
 
 Capybara.default_max_wait_time = 10
 Capybara.server = :puma

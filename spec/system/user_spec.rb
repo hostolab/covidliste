@@ -10,7 +10,7 @@ RSpec.describe "Users", type: :system do
         fill_in :user_firstname, with: Faker::Name.first_name
         fill_in :user_lastname, with: Faker::Name.last_name
         fill_in :user_address, with: Faker::Address.full_address
-        fill_in :user_phone_number, with: Faker::PhoneNumber.cell_phone
+        fill_in :user_phone_number, with: generate(:french_phone_number)
         fill_in :user_email, with: "hello+#{(rand * 10000).to_i}@covidliste.com" # needs valid email here
         fill_in :user_password, with: Faker::Internet.password
         check :user_statement
@@ -27,7 +27,7 @@ RSpec.describe "Users", type: :system do
         fill_in :user_firstname, with: Faker::Name.first_name
         fill_in :user_lastname, with: Faker::Name.last_name
         fill_in :user_address, with: Faker::Address.full_address
-        fill_in :user_phone_number, with: Faker::PhoneNumber.cell_phone
+        fill_in :user_phone_number, with: generate(:french_phone_number)
         fill_in :user_email, with: user.email # not unique
         fill_in :user_password, with: Faker::Internet.password
         check :user_statement
@@ -70,7 +70,7 @@ RSpec.describe "Users", type: :system do
         firstname: Faker::Name.first_name,
         lastname: Faker::Name.last_name,
         address: Faker::Address.full_address,
-        phone_number: user.phone_number.reverse
+        phone_number: generate(:french_phone_number)
       }
 
       new_attributes.each do |key, new_value|
@@ -83,7 +83,11 @@ RSpec.describe "Users", type: :system do
       user.reload
 
       new_attributes.each do |key, value|
-        expect(user.public_send(key)).to eq value
+        if key == :phone_number
+          expect(user.phone_number).to end_with(new_attributes[:phone_number][1..].delete(" "))
+        else
+          expect(user.public_send(key)).to eq value
+        end
       end
     end
 
