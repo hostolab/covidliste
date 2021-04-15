@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   include ActionView::Helpers::NumberHelper
   before_action :authenticate_user!, except: %i[new create]
   before_action :sign_out_if_anonymized!
+  invisible_captcha only: [:create], honeypot: :subtitle
 
   def new
     skip_authorization
