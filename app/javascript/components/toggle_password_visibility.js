@@ -1,17 +1,15 @@
-var input = $("[data-behavior='toggle-password-visibility'] input");
-var icon = $("[data-behavior='toggle-password-visibility'] i");
+var input = document.querySelector("[data-behavior='toggle-password-visibility'] input");
+var icon = document.querySelector("[data-behavior='toggle-password-visibility'] i");
 
-$("[data-behavior='toggle-password-visibility'] a").on("click", function (e) {
-  return (
-    e.preventDefault(),
-    "text" === input.attr("type")
-      ? (input.attr("type", "password"),
-        icon.addClass("fa-eye-slash"),
-        icon.removeClass("fa-eye"))
-      : "password" === input.attr("type")
-      ? (input.attr("type", "text"),
-        icon.removeClass("fa-eye-slash"),
-        icon.addClass("fa-eye"))
-      : void 0
-  );
+document.querySelector("[data-behavior='toggle-password-visibility'] a").addEventListener("click", function (e) {
+  if (input.getAttribute("type") === "text") {
+    input.setAttribute("type", "password");
+    icon.classList.add("fa-eye-slash");
+    icon.classList.remove("fa-eye");
+  } else if (input.getAttribute("type") === "password") {
+    input.setAttribute("type", "text");
+    icon.classList.add("fa-eye");
+    icon.classList.remove("fa-eye-slash");
+  }
+  e.preventDefault();
 });
