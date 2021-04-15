@@ -66,17 +66,15 @@
                 <%= f.input :email, required: true, placeholder: "votre_email@du_centre_de_vaccination.fr", input_html: { autocomplete: "email" } %>
 
                 <div class="form-group">
-                  <label for="partner_password">
-                    Mot de passe
-                  </label>
+                  <label for="partner_password"> Mot de passe </label>
 
                   <div class="input-group show_hide_password">
                     <input class="form-control" id="partner_password" name="partner[password]" autocomplete="new-password" required type="password" pattern=".{6,}">
+
                     <div class="input-group-append">
-                      <span class="input-group-text">
-                          <%= link_to icon("fas", "eye") %>
-                      </span>
+                      <span class="input-group-text"> <%= link_to icon("fas", "eye") %> </span>
                     </div>
+
                     <small class="form-text text-muted">
                       Un email de confirmation de création de compte vous sera envoyé. Cliquez sur le lien pour activer votre compte.
                     </small>

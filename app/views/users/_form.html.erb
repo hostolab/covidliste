@@ -33,16 +33,13 @@
       <%= f.input :email, label: "Email", error: f.error(:email), placeholder: "jean@dupont.com", hint: "Une adresse email ne peut être utilisée que par une seule personne. 2 personnes = 2 adresses email différentes.", required: true %>
 
       <div class="form-group">
-        <label for="user_password">
-          Mot de passe
-        </label>
+        <label for="user_password"> Mot de passe </label>
 
         <div class="input-group show_hide_password">
           <input class="form-control" id="user_password" name="user[password]" autocomplete="new-password" required type="password" pattern=".{6,}">
+
           <div class="input-group-append">
-          <span class="input-group-text">
-              <%= link_to icon("fas", "eye") %>
-          </span>
+            <span class="input-group-text"> <%= link_to icon("fas", "eye") %> </span>
           </div>
         </div>
 
