@@ -2,10 +2,21 @@ class PagesController < ApplicationController
   def benevoles
   end
 
+  def contact
+    @contact_items = FaqItem.where(category: "Collaboration et contact")
+  end
+
+  def presse
+  end
+
   def mentions_legales
   end
 
   def privacy
+  end
+
+  def algorithme
+    @faq_item = FaqItem.find_by(title: "Comment fonctionne la sélection des volontaires ?")
   end
 
   def faq
