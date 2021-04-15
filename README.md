@@ -29,20 +29,24 @@ Covidliste makes it easy to manage waiting lists for vaccination centers.
 If you don't already have them :
 
 - Install ruby 2.7.3 `rbenv install 2.7.3 && rbenv global 2.7.3`
-- Install bundler 2.2.15 `gem install bundler:2.2.15`
+- Install NodeJS (version 12, you may use [nvm](https://github.com/nvm-sh/nvm) if you have several versions)
 - Install yarn `npm i -g yarn`
-- Install redis `brew install redis`
-- Install postgresql `brew install postgresql`
+
+Install Redis and PostgreSQL:
+
+- Using your favorite package manager (e.g. `brew install redis && brew install postgresql` on macOS).
+- Using docker-compose (see "Docker" section below).
 
 ### Dependencies
 
 Setup the project's dependencies :
 
 ```bash
-bundle install
-yarn
+bin/setup
 bin/lefthook install
 ```
+
+This installs bundler, runs yarn and setup the database.
 
 Create the `.env` file:
 
@@ -52,10 +56,8 @@ echo "LOCKBOX_MASTER_KEY=0000000000000000000000000000000000000000000000000000000
 
 ### Database / Cache
 
-1. Create a database called `covidliste_development` using your favorite
-   postgresql GUI or CLI.
-2. Then run the migrations : `bin/rails db:migrate RAILS_ENV=development`
-3. Run redis if it's not already running : `redis-server /usr/local/etc/redis.conf`
+- Run the migrations : `bin/rails db:migrate RAILS_ENV=development`
+- Run the db services according to your installation
 
 ### Running
 
@@ -90,20 +92,6 @@ Launch the Docker environment:
 
 ```bash
 docker-compose up -d
-```
-
-The docker-compose setup launches databases (postgresql and redis).
-
-Put the following variable in `.env` file:
-
-```
-DATABASE_URL=postgres://covidliste:covidliste@localhost:3000/covidliste_development
-```
-
-Launch the Rails application:
-
-```bash
-bin/rails s
 ```
 
 # Contributing
