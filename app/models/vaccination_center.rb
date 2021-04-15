@@ -25,6 +25,14 @@ class VaccinationCenter < ApplicationRecord
 
   after_commit :push_to_slack, on: :create
 
+  def active?
+    confirmed? && !disabled?
+  end
+
+  def disabled?
+    disabled_at.present?
+  end
+
   def confirmed?
     confirmed_at.present?
   end
