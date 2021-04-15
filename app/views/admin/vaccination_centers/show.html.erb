@@ -80,7 +80,7 @@
     Ajouter un professionnel de santé
   </h5>
 
-  <% simple_form_for :new_partner_email,
+  <%= simple_form_for :new_partner_email,
                      url: add_partner_admin_vaccination_center_path(@vaccination_center),
                      method: :post,
                      wrapper: :inline_form,
@@ -118,7 +118,7 @@
               <td class="text-right"> <%= campaign.id %> </td>
               <td> <%= campaign.created_at.strftime('%d-%m-%Y') %> </td>
               <td> <%= campaign.vaccine_type %> </td>
-              <td> <%= campaign.available_doses %> /td>
+              <td> <%= campaign.available_doses %> </td>
               <td> <%= campaign.min_age %> </td>
               <td> <%= campaign.max_age %> </td>
               <td> <%= campaign.max_distance_in_meters / 1000 %> </td>
