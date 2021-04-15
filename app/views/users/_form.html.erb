@@ -34,6 +34,7 @@
       <%= f.input :password, required: true %>
       <%= f.input :statement, as: :boolean, label: "Je certifie sur l'honneur que les informations communiquées ci-dessus sont exactes.", checked_value: true, unchecked_value: false, error: "Vous devez cocher cette case pour valider votre inscription", required: true %>
       <%= f.input :toc, as: :boolean, label: "J’accepte que mes données soient partagées avec les centres de vaccination inscrits sur Covidliste.", checked_value: true, unchecked_value: false, error: "Vous devez cocher cette case pour valider votre inscription", required: true %>
+      <%= f.invisible_captcha :subtitle %>
       <%= f.button :submit, "Je m’inscris", class: "btn btn-primary", data: { disable_with: "Inscription en cours..." } %>
     <% end %>
   <% end %>
