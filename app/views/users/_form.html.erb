@@ -43,7 +43,7 @@
           </div>
         </div>
 
-        <small class="form-text text-muted"> 6 caractères minimum </small>
+        <small class="form-text text-muted"> <%= Devise.password_length.min %> caractères minimum </small>
       </div>
 
       <%= f.input :statement, as: :boolean, label: "Je certifie sur l'honneur que les informations communiquées ci-dessus sont exactes.", checked_value: true, unchecked_value: false, error: "Vous devez cocher cette case pour valider votre inscription", required: true %>
