@@ -68,7 +68,7 @@
                 <label for="partner_password"> Mot de passe </label>
 
                 <div class="input-group show_hide_password">
-                  <input class="form-control" id="partner_password" name="partner[password]" autocomplete="new-password" required type="password" pattern=".{6,}">
+                  <input class="form-control" id="partner_password" name="partner[password]" autocomplete="new-password" required type="password" pattern=".{<%= Devise.password_length.min %>,}">
 
                   <div class="input-group-append">
                     <span class="input-group-text"> <%= link_to icon("fas", "eye") %> </span>
