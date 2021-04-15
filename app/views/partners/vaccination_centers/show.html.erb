@@ -1,0 +1,86 @@
+<div class="container">
+  <p class="mb-2">
+    <%= link_to "← Retour", partners_vaccination_centers_path %>
+  </p>
+
+  <div class="d-flex">
+    <div class="flex-fill">
+      <h3>
+        <%= @vaccination_center.name %>
+        <span class="text-muted font-italic small">
+          <%= @vaccination_center.kind %>
+        </span>
+      </h3>
+
+      <p class="mb-2">
+        <%= @vaccination_center.address %>
+        <br>
+        <%= @vaccination_center.description %>
+      </p>
+
+      <p class="mb-2 small">
+        <%= icon("fas", "phone", @vaccination_center.phone_number) %>
+      </p>
+
+      <p>
+        Vaccins :
+      </p>
+      <ul>
+        <% if @vaccination_center.pfizer %>
+          <li> <%= Vaccine::Brands::PFIZER.capitalize %> </li>
+        <% end %>
+        <% if @vaccination_center.moderna %>
+          <li> <%= Vaccine::Brands::MODERNA.capitalize %> </li>
+        <% end %>
+        <% if @vaccination_center.astrazeneca %>
+          <li> <%= Vaccine::Brands::ASTRAZENECA.capitalize %> </li>
+        <% end %>
+        <% if @vaccination_center.janssen %>
+          <li> <%= Vaccine::Brands::JANSSEN.capitalize %> </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+
+  <p>
+    <%= link_to "Créer une nouvelle campagne", new_partners_vaccination_center_campaign_path(@vaccination_center), class: "btn btn-primary" %>
+  </p>
+
+  <% if @vaccination_center.campaigns.present? %>
+    <h5 class="mt-2">
+      Campagnes
+    </h5>
+
+    <div class="table-responsive">
+      <table class="table table-bordered table-sm">
+        <thead class="thead-light">
+          <tr>
+            <th> # </th>
+            <th> Statut </th>
+            <th> Volontaires confirmés </th>
+            <th> Doses disponibles </th>
+            <th> Vaccin </th>
+            <th> Date et heure </th>
+            <th> Âge </th>
+            <th> Distance </th>
+          </tr>
+        </thead>
+
+        <tbody>
+        <% @vaccination_center.campaigns.order(id: :desc).each do |campaign| %>
+          <tr>
+            <th> <%= link_to campaign.id, partners_campaign_path(campaign) %> </th>
+            <td> <%= french_status(campaign) %> </td>
+            <td> <%= campaign.matches.confirmed.size %> </td>
+            <td> <%= campaign.available_doses %> </td>
+            <td> <%= campaign.vaccine_type.capitalize %> </td>
+            <td> <%= l campaign.starts_at %> </td>
+            <td> <%= campaign.min_age %>-<%= campaign.max_age %> ans</td>
+            <td> <%= campaign.max_distance_in_meters/1000 %> km</td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
+</div>

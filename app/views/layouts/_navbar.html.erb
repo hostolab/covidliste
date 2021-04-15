@@ -1,0 +1,70 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <%= link_to root_path, class: "navbar-brand" do %>
+    <%= image_tag "covidliste.png", height: 40, width: 40, alt: "logo covidliste" %>
+  <% end %>
+
+  <button class="navbar-toggler" type="button" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation" data-target="#navbarNavDropdown" data-toggle="collapse">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav ml-auto">
+      <li class="<% action_name == "carte" ? "nav-item active" : "nav-item" %>">
+        <%= link_to "Carte", :carte, class: "nav-link" %>
+      </li>
+
+      <% if !current_partner %>
+        <li class="<% action_name == "faq" ? "nav-item active" : "nav-item" %>">
+          <%= link_to "Foire aux questions", :faq, class: "nav-link" %>
+        </li>
+        <li class="<% action_name == "benevoles" ? "nav-item active" : "nav-item" %>">
+          <%= link_to "Bénévoles", :benevoles, class: "nav-link" %>
+        </li>
+      <% end %>
+
+      <% if current_partner %>
+        <li class="nav-item dropdown">
+          <%= link_to "", class: "nav-link dropdown-toggle", id: "dropdown09", "aria-expanded": "false", "aria-haspopup": "true", "data-toggle": "dropdown" do %>
+            <%= current_partner.name %>
+            <span class="badge badge-primary">
+              Professionnel
+            </span>
+          <% end %>
+
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown09">
+            <%= link_to "Déconnexion", destroy_partner_session_path, method: :delete, class: "dropdown-item" %>
+          </div>
+        </li>
+      <% elsif current_user %>
+        <li class="nav-item dropdown">
+          <%= link_to "", class: "nav-link dropdown-toggle", id: "dropdown09", "aria-expanded": "false", "aria-haspopup": "true", "data-toggle": "dropdown" do %>
+            <%= current_user.full_name %>
+          <% end %>
+
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown09">
+            <%= link_to "Profil", profile_path, class: "dropdown-item" %>
+            <% if current_user.admin? %>
+              <%= link_to "Admin", admin_path, class: "dropdown-item" %>
+            <% end %>
+            <%= link_to "Déconnexion", destroy_partner_session_path, method: :delete, class: "dropdown-item" %>
+          </div>
+        </li>
+      <% else %>
+        <li class="<% controller_name == "sessions" && resource_name.to_s == "partner" ? "nav-item active" : "nav-item" %>">
+          <%= link_to "Espace professionnels", new_partner_session_path, class: "nav-link" %>
+        </li>
+
+        <li class="<% controller_name == "sessions" && resource_name.to_s == "user" ? "nav-item active" : "nav-item" %>">
+          <%= link_to "Espace personnel", new_user_session_path, class: "nav-link" %>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown09">
+            <%= link_to "Profil", profile_path, class: "dropdown-item" %>
+            <% if current_user&.has_role?(:super_admin) %>
+              <%= link_to "Admin", admin_path, class: "dropdown-item" %>
+            <% end %>
+            <%= link_to "Déconnexion", destroy_partner_session_path, method: :delete, class: "dropdown-item" %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</nav>
