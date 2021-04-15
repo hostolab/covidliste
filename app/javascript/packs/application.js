@@ -11,6 +11,7 @@ import "channels";
 import "bootstrap";
 import "bootstrap-select";
 import "../components/confirmation";
+import "../components/toggle_password_visibility";
 
 Rails.start();
 Turbolinks.start();
