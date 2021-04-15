@@ -76,7 +76,7 @@ Rails.application.routes.draw do
   end
 
   ## matches
-  resources :matches, only: [:show, :update], param: :match_confirmation_token
+  resources :matches, only: [:show, :update, :destroy], param: :match_confirmation_token
 
   ## pages
   get "/benevoles" => "pages#benevoles", :as => :benevoles

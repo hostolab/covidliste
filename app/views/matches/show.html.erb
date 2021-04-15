@@ -3,6 +3,8 @@
     <div class="text-left mt-4">
       <% if @match.confirmed? %>
         <%= render 'confirmed', match: @match %>
+      <% elsif @match.refused? %>
+        <%= render 'canceled', match: @match %>
       <% elsif @match.expired? %>
         <%= render 'expired', match: @match %>
       <% elsif !@match.confirmable? %>

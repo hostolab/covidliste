@@ -47,7 +47,11 @@ class Match < ApplicationRecord
   end
 
   def confirmable?
-    !confirmed? && campaign.remaining_slots > 0
+    !confirmed? && campaign.remaining_slots > 0 && !refused?
+  end
+
+  def refuse!
+    update(refused: true)
   end
 
   def expired?

@@ -1,7 +1,12 @@
 class MatchesController < ApplicationController
-  before_action :set_match, only: [:show, :update]
+  before_action :set_match, only: [:show, :update, :destroy]
 
   def show
+  end
+
+  def destroy
+    @match.refuse!
+    redirect_to root_path
   end
 
   def update
