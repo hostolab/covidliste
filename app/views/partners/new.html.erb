@@ -67,7 +67,7 @@
               <div class="form-group">
                 <label for="partner_password"> Mot de passe </label>
 
-                <div class="input-group show_hide_password">
+                <div class="input-group" data-behavior="toggle-password-visibility">
                   <input class="form-control" id="partner_password" name="partner[password]" autocomplete="new-password" required type="password" pattern=".{<%= Devise.password_length.min %>,}">
 
                   <div class="input-group-append">
