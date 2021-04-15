@@ -17,14 +17,14 @@ const TERRITOIRES = {
     lat: 46.5,
     zoom: 4.5,
   },
-  GUYANNE: {
-    label: "Guyanne",
+  GUYANE: {
+    label: "Guyane",
     lon: -53.02730090442361,
     lat: 4,
     zoom: 6.0,
   },
   GUADELOUPE: {
-    label: "Gadeloupe",
+    label: "Guadeloupe",
     lon: -61.5,
     lat: 16.176021024448076,
     zoom: 8.5,

@@ -93,12 +93,20 @@ RSpec.describe "Users", type: :system do
 
     it "it allows me to delete my account" do
       expect do
-        accept_confirm "En confirmant, votre compte ainsi que toutes les données associées seront supprimées de nos serveurs. Êtes-vous sûr ?" do
+        accept_confirm_modal do
           click_on "Supprimer mon compte"
         end
       end.to change { User.count }.by(-1)
 
       expect(page).to have_text("Votre compte a bien été supprimé.")
+    end
+
+    it "it allows me to decline the delete" do
+      expect do
+        decline_confirm_modal do
+          click_on "Supprimer mon compte"
+        end
+      end.to change { User.count }.by(0)
     end
   end
 end

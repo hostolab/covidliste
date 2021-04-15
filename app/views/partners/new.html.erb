@@ -65,6 +65,7 @@
                 <%= f.input :phone_number, label: "Téléphone portable", placeholder: "06 .... (votre téléphone professionnel)" %>
                 <%= f.input :email, required: true, placeholder: "votre_email@du_centre_de_vaccination.fr", input_html: { autocomplete: "email" } %>
                 <%= f.input :password, required: true, hint: "Un email de confirmation de création de compte vous sera envoyé. Cliquez sur le lien pour activer votre compte", input_html: { autocomplete: "new-password" } %>
+                <%= f.invisible_captcha :subtitle, honeypots: true%>
               </div>
               <div class="form-actions">
                 <%= f.button :submit, "S’inscrire", id: "create-new-partner", class:"btn btn-primary", data: { disable_with: "Validation...", confirm: "Vous êtes bien professionnel de santé ?" } %>
