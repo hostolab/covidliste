@@ -81,10 +81,10 @@
   </h5>
 
   <%= simple_form_for :new_partner_email,
-                     url: add_partner_admin_vaccination_center_path(@vaccination_center),
-                     method: :post,
-                     wrapper: :inline_form,
-                     html: { class: "form-inline" } do |f| %>
+                      url: add_partner_admin_vaccination_center_path(@vaccination_center),
+                      method: :post,
+                      wrapper: :inline_form,
+                      html: { class: "form-inline" } do |f| %>
 
     <%= f.input :email, type: :email, label: false, placeholder: "jean.dupont@email.com", required: true %>
     <%= f.submit "Ajouter ce professionnel de santé", class: "ml-3 btn btn-primary" %>
