@@ -15,6 +15,16 @@
       = icon("fas", "times", class: "text-danger")
       Non validé
       = link_to "Valider ce centre", validate_admin_vaccination_center_path(@vaccination_center), method: :patch, class: "btn btn-sm btn-primary", "data-confirm": "Êtes-vous sûr(e)?"
+  %p.small.mb-2
+    - if @vaccination_center.disabled?
+      = icon("fas", "times", class: "text-danger")
+      Désactivé
+      = link_to "Activer ce centre", enable_admin_vaccination_center_path(@vaccination_center), method: :patch, class: "btn btn-sm btn-primary", "data-confirm": "Êtes-vous sûr(e)?"
+    - else
+      = icon("fas", "check", class: "text-success")
+      Activé
+      = link_to "Désactiver ce centre", disable_admin_vaccination_center_path(@vaccination_center), method: :patch, class: "btn btn-sm btn-danger", "data-confirm": "Êtes-vous sûr(e)?"
+  %p.small.mb-2
   %p.mb-2 #{@vaccination_center.address}
   %p.small.mb-2
     = icon("fas", "phone")

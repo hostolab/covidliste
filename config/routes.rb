@@ -9,6 +9,8 @@ Rails.application.routes.draw do
       post "/stats" => "stats#stats"
       resources :vaccination_centers do
         patch :validate, on: :member
+        patch :disable, on: :member
+        patch :enable, on: :member
         post :add_partner, on: :member
       end
       resources :users, only: [:index, :destroy] do
@@ -84,6 +86,7 @@ Rails.application.routes.draw do
   get "/benevoles" => "pages#benevoles", :as => :benevoles
   get "/contact" => "pages#contact", :as => :contact
   get "/mentions_legales" => "pages#mentions_legales", :as => :mentions_legales
+  get "/algorithme" => "pages#algorithme", :as => :algorithme
   get "/presse" => "pages#presse", :as => :presse
   get "/privacy" => "pages#privacy", :as => :privacy
   get "/faq" => "pages#faq", :as => :faq
