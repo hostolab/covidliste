@@ -50,27 +50,23 @@ users_by_dept = {}
   <h1>Carte des lieux de vaccination inscrits sur Covidliste</h1>
   <p><%= vaccination_centers.count %> lieux de vaccination sur Covidliste et des volontaires dans tous les d&eacute;partements</p>
 
-  <% if current_user&.admin? %>
-    <div
-      data-controller="carte--map"
-      data-map='<%=
-        objects = {
-          'vaccinationCenters' => vaccination_centers,
-          'usersByDept' => users_by_dept
-        }
-        objects.to_json
-      %>'
-    >
-      <small>
-        <div id="territoire-container" class="container my-3 row">
-        </div>
-      </small>
-      <div id="map-container">
-        <div id="map"></div>
-        <canvas id="deck-canvas"></canvas>
+  <div
+    data-controller="carte--map"
+    data-map='<%=
+      objects = {
+        'vaccinationCenters' => vaccination_centers,
+        'usersByDept' => users_by_dept
+      }
+      objects.to_json
+    %>'
+  >
+    <small>
+      <div id="territoire-container" class="container my-3 row">
       </div>
+    </small>
+    <div id="map-container">
+      <div id="map"></div>
+      <canvas id="deck-canvas"></canvas>
     </div>
-  <% else -%>
-    <p>Retrouvez bientôt ici la carte des lieux de vaccination inscrits sur Covidliste</p>
-  <% end -%>
+  </div>
 </div>

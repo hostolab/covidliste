@@ -55,6 +55,7 @@ gem "valid_email"
 gem "lefthook"
 gem "pundit", "~> 2.1"
 gem "rack-attack"
+gem "invisible_captcha"
 gem "ddtrace"
 
 group :development, :test do

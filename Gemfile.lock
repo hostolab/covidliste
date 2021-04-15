@@ -195,6 +195,8 @@ GEM
       multi_xml (>= 0.5.2)
     i18n (1.8.10)
       concurrent-ruby (~> 1.0)
+    invisible_captcha (2.0.0)
+      rails (>= 5.0)
     jbuilder (2.11.2)
       activesupport (>= 5.0.0)
     json (2.5.1)
@@ -477,6 +479,7 @@ DEPENDENCIES
   frozen_record
   geocoder
   httparty
+  invisible_captcha
   jbuilder (~> 2.7)
   kramdown
   lefthook
@@ -523,4 +526,4 @@ RUBY VERSION
    ruby 2.7.3p183
 
 BUNDLED WITH
-   2.2.15
+   2.2.16
