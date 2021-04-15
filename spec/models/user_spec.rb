@@ -55,15 +55,15 @@ RSpec.describe User, type: :model do
     it "format phone number correctly" do
       user.phone_number = "06 11 22 33 44"
       expect(user).to be_valid
-      expect(user.phone_number).to eq("33611223344")
+      expect(user.phone_number).to eq("+33611223344")
 
       user.phone_number = "06.11.22.33.44"
       expect(user).to be_valid
-      expect(user.phone_number).to eq("33611223344")
+      expect(user.phone_number).to eq("+33611223344")
 
       user.phone_number = "33 6.11.22.33.44"
       expect(user).to be_valid
-      expect(user.phone_number).to eq("33611223344")
+      expect(user.phone_number).to eq("+33611223344")
     end
   end
 

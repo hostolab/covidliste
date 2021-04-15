@@ -69,16 +69,16 @@
             <td scope="row"><%= vaccination_center.phone_number %></td>
             <td scope="row">
               <% if vaccination_center.pfizer %>
-                <span class="mr-1"><%= Vaccine::Brands::PFIZER %></span>
+                <span class="mr-1"><%= Vaccine::Brands::PFIZER.capitalize %></span>
               <% end %>
               <% if vaccination_center.moderna %>
-                <span class="mr-1"><%= Vaccine::Brands::MODERNA %></span>
+                <span class="mr-1"><%= Vaccine::Brands::MODERNA.capitalize %></span>
               <% end %>
               <% if vaccination_center.astrazeneca %>
-                <span class="mr-1"><%= Vaccine::Brands::ASTRAZENECA %></span>
+                <span class="mr-1"><%= Vaccine::Brands::ASTRAZENECA.capitalize %></span>
               <% end %>
               <% if vaccination_center.janssen %>
-                <span class="mr-1"><%= Vaccine::Brands::JANSSEN %></span>
+                <span class="mr-1"><%= Vaccine::Brands::JANSSEN.capitalize%></span>
               <% end %>
             </td>
             <td>

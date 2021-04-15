@@ -5,13 +5,12 @@
     %span.navbar-toggler-icon
   #navbarNavDropdown.collapse.navbar-collapse
     %ul.navbar-nav.ml-auto
+      - if current_user&.admin?
+        %li{class: (action_name == 'carte' ? 'nav-item active' : 'nav-item')}
+          = link_to "Carte", :carte, class: 'nav-link'
       - unless current_partner
-        %li{class: (action_name == 'mentions_legales' ? 'nav-item active' : 'nav-item')}
-          = link_to "Mentions légales", :mentions_legales, class: 'nav-link'
-        %li{class: (action_name == 'privacy' ? 'nav-item active' : 'nav-item')}
-          = link_to "Protection des données", :privacy, class: 'nav-link'
         %li{class: (action_name == 'faq' ? 'nav-item active' : 'nav-item')}
-          = link_to "FAQ", :faq, class: 'nav-link'
+          = link_to "Foire aux questions", :faq, class: 'nav-link'
         %li{class: (action_name == 'benevoles' ? 'nav-item active' : 'nav-item')}
           = link_to "Bénévoles", :benevoles, class: 'nav-link'
       - if current_partner

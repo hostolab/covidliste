@@ -1,0 +1,17 @@
+<%= content_for(:append_to_head) do %>
+<meta content="index;follow" name="robots"/>
+<% end %>
+
+<div class="container my-5" id="faq">
+  <h1>Contact</h1>
+
+  <p class="mt-4">
+    Besoin de nous contacter ? Choisissez votre situation.
+  </p>
+
+  <div id="accordion" class="mt-4">
+    <% @contact_items.each do |faq_item| %>
+      <%= render "faq_entry", faq_item: faq_item %>
+    <% end %>
+  </div>
+</div>

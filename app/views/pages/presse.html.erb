@@ -1,0 +1,20 @@
+<%= content_for(:append_to_head) do %>
+  <meta content="index;follow" name="robots"/>
+<% end %>
+
+<div class="container my-5" id="faq">
+  <h1>Presse</h1>
+
+  <p class="mt-4">
+    Si vous êtes journaliste et souhaitez réaliser une interview ou obtenir des informations<br />
+    nous vous invitons à contacter l'équipe presse sur <%= link_to "presse@covidliste.com", "mailto:presse@covidliste.com", rel: "noopener" %>.
+  </p>
+
+  <p>
+    Retrouvez ci-dessous l'accès à nos documents et communiqués de presse à destination des journalistes.
+  </p>
+
+  <p class="mt-4">
+    <%= link_to "Documents et communiqués de presse", "https://drive.google.com/drive/folders/1G0yXXJTtp8RaVpoz2lm7PbJLnS26-Gou?usp=sharing", class: "btn btn-primary", target: "_blank", rel: "noopener" %>
+  </p>
+</div>
