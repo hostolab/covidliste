@@ -81,9 +81,7 @@
               </div>
 
               <%= f.invisible_captcha :subtitle, honeypots: true %>
-              <div class="form-actions">
-                <%= f.button :submit, "S’inscrire", id: "create-new-partner", class: "btn btn-primary", data: { disable_with: "Validation...", confirm: "Vous êtes bien professionnel de santé ?" } %>
-              </div>
+              <%= f.button :submit, "S’inscrire", id: "create-new-partner", class: "btn btn-primary", data: { disable_with: "Validation...", confirm: "Vous êtes bien professionnel de santé ?" } %>
             <% end %>
           </div>
         </div>
