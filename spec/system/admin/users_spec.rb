@@ -56,7 +56,7 @@ RSpec.describe "Admin Users", type: :system do
         it "does allow to delete a user" do
           subject
           expect(page).to have_selector(:id, dom_id(user, :delete))
-          accept_confirm do
+          accept_confirm_modal do
             find_by_id(dom_id(user, :delete)).click
           end
           expect(page).to have_text "l'utilisateur a été supprimé."
