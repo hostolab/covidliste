@@ -112,7 +112,6 @@ const handleConfirm = (event) => {
 
     // First click, we need to spawn the modal
   } else {
-    console.log("create");
     createConfirmModal(event.target);
     return false;
   }
