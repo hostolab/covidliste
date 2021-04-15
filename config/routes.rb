@@ -66,6 +66,9 @@ Rails.application.routes.draw do
   ## Partners
 
   resources :partners, only: [:new, :create]
+  get "/partners/profile" => "partners#show", :as => :partners_profile
+  put "/partners/profile" => "partners#update", :as => ""
+  delete "/partners/profile" => "users#delete", :as => ""
   get "/partenaires", to: redirect("/partenaires/inscription", status: 302)
   get "/partenaires/inscription" => "partners#new", :as => :partenaires_inscription
 

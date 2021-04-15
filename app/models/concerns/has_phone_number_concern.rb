@@ -5,10 +5,16 @@ module HasPhoneNumberConcern
 
   included do
     before_validation :format_phone_number, if: :phone_number?
-    validates :phone_number, phone: {
-      types: %i[mobile],
-      allow_blank: false
-    }
+  end
+
+  class_methods do
+    def has_phone_number_types(types)
+      phone_params = {
+        types: types,
+        allow_blank: false
+      }
+      validates :phone_number, phone: phone_params
+    end
   end
 
   def human_friendly_phone_number

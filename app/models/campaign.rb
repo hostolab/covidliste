@@ -32,7 +32,7 @@ class Campaign < ApplicationRecord
           match.user.firstname || "Anonymous",
           match.user.lastname,
           match.user.birthdate,
-          match.user.phone_number,
+          match.user.human_friendly_phone_number,
           match.confirmed_at
         ]
       end

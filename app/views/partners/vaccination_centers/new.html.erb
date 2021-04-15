@@ -15,6 +15,10 @@
         membre d’un centre de vaccination, cabinet de médecine libérale, hôpital, pharmacie...
       </p>
 
+      <p>
+        Nous prendrons contact avec vous pour valider la création du lieu.
+      </p>
+
       <% if @vaccination_center.persisted? %>
         <div class="alert alert-success mt-2">
           <p>
@@ -25,7 +29,7 @@
           </p>
           <p>
             Vous pourrez suivre l’état de la demande sur votre
-             <%= link_to "profil professionnel de santé assurant la vaccination", partners_vaccination_centers_path %>.
+             <%= link_to "espace  professionnel de santé assurant la vaccination", partners_vaccination_centers_path %>.
           </p>
         </div>
       <% else %>
@@ -42,6 +46,11 @@
           <%= f.input :name, label: "Nom du lieu de vaccination", error: "Nom requis", placeholder: "Centre de vaccination Marseille", required: true %>
           <%= f.input :description, label: "Description", error: "Description requise", placeholder: "Description du lieu de vaccination", required: true %>
           <%= f.input :kind, label: "Type de lieu de vaccination", collection: VaccinationCenter::Kinds::ALL %>
+          <p class="small text-primary">
+            <%= icon("fas", "info-circle", class: "text-secondary") %>
+            Vous ne trouvez pas le type de lieu de vaccination qui vous correspond ?<br />
+            Choisissez la valeur qui s'en approche le plus et ajoutez vore type de lieu comme préfixe dans le champ "Nom" ou "Description" ci-dessus.
+          </p>
 
           <p class="mt-2">
             Type(s) de vaccins disponibles
