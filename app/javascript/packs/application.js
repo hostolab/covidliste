@@ -10,6 +10,7 @@ import "controllers";
 import "channels";
 import "bootstrap";
 import "bootstrap-select";
+import "../components/confirmation";
 
 Rails.start();
 Turbolinks.start();
