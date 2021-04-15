@@ -1,31 +1,25 @@
-# frozen_string_literal: true
-
 module Admin
   class BaseController < ApplicationController
     include AdminHelper
     include Pagy::Backend
-    before_action :require_role!
+
     layout "/admin_application"
 
     rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
     private
 
-    def require_role!
-      authenticate_user!
-      unless current_user.admin?
-        flash[:alert] = "Vous n'êtes pas autorisé à accéder à cette page !"
-        redirect_to(root_path)
-      end
-    end
-
-    def skip_pundit?
-      # TODO add a real policy
-      true
-    end
-
     def user_not_authorized
-      redirect_to admin_path, notice: "Vous n'êtes pas autorisé à faire cette action"
+      redirect_to(root_path, notice: "Vous n'êtes pas autorisé à faire cette action")
+    end
+
+    # Redefine pundit specific methods to handle :admin namespace properly
+    def policy_scope(scope)
+      super([:admin, scope])
+    end
+
+    def authorize(record, query = nil)
+      super([:admin, record], query)
     end
   end
 end
