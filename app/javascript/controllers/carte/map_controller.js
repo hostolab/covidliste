@@ -25,7 +25,7 @@ const TERRITOIRES = {
     zoom: 6.0,
   },
   GUADELOUPE: {
-    label: "Gadeloupe",
+    label: "Guadeloupe",
     lon: -61.5,
     lat: 16.176021024448076,
     zoom: 8.5,
