@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_10_084648) do
+ActiveRecord::Schema.define(version: 2021_04_13_143101) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -201,8 +201,8 @@ ActiveRecord::Schema.define(version: 2021_04_10_084648) do
     t.string "city"
     t.string "geo_citycode"
     t.string "geo_context"
-    t.boolean "statement", default: false
     t.datetime "anonymized_at"
+    t.boolean "statement", default: false
     t.index ["city"], name: "index_users_on_city"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token"
     t.index ["email_bidx"], name: "index_users_on_email_bidx", unique: true
@@ -236,6 +236,7 @@ ActiveRecord::Schema.define(version: 2021_04_10_084648) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "confirmer_id"
+    t.datetime "deactivated_at"
     t.index ["confirmer_id"], name: "index_vaccination_centers_on_confirmer_id"
   end
 
