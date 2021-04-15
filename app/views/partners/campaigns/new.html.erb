@@ -1,92 +1,92 @@
 <div class="container">
   <div class="row">
-    <div class="col-12 col-md-8 offset md-2">
+    <div class="col-12 col-md-9 offset-md-1">
       <%= link_to icon("fas", "arrow-left", "Retour"), partners_vaccination_center_path(@vaccination_center) %>
+
+      <h4 class="mt-3">
+        Nouvelle Campagne pour <%= @vaccination_center.name %>
+      </h4>
+
+      <%= simple_form_for([:partners, @vaccination_center, @campaign], data: {controller: "new-campaign", new_campaign_simulate_path_value: simulate_reach_partners_vaccination_center_campaigns_path(@vaccination_center), new_campaign_max_distance_in_km_value: Campaign::MAX_DISTANCE_IN_KM }) do |f| %>
+        <div class="row">
+          <div class="col col-8">
+            <%= f.input :available_doses,
+                        label: "Nombre de doses à écouler",
+                        as: :integer,
+                        input_html: { min: "1", max: Campaign::MAX_DOSES , data: { new_campaign_target: "availableDoses"} },
+                        hint: "200 max. Vous avez plus de doses ? Créez plusieurs campagnes successives !" %>
+          </div>
+
+          <div class="col col-4">
+            <%= f.input :vaccine_type,
+                        label: "Type de vaccin",
+                        collection: Vaccine::Brands::ALL,
+                        label_method: :capitalize,
+                        input_html: { data: { new_campaign_target: "vaccineType"}} %>
+          </div>
+        </div>
+
+        <h5>
+          Plage horaire de disponibilité des vaccins
+        </h5>
+
+        <div class="alert alert-primary">
+          La campagne aura lieu
+          <strong>aujourd’hui <%=l Date.today, format: "%e %B" %></strong> :
+          il n’est pas encore possible de planifier plus loin.
+        </div>
+
+        <div class="row">
+          <div class="col-6">
+            <%= f.input :starts_at, as: :time, label: "Début" %>
+          </div>
+
+          <div class="col-6">
+            <%= f.input :ends_at, as: :time, label: "Fin" %>
+          </div>
+        </div>
+
+        <%= f.input :extra_info,
+                    label: "Informations supplémentaires pour les volontaires",
+                    hint: "Accès, modalités... Les volontaires verront cette information avant de confirmer leur rendez-vous." %>
+
+
+        <h5>
+          Critères de sélection des volontaires
+        </h5>
+
+        <div class="row">
+          <div class="col-4">
+            <%= f.input :min_age,
+                        label: "Âge minimum (inclus)",
+                        input_html: { min: "18", max: "130", data: { new_campaign_target: "minAge" } },
+                        hint: "18 ans min" %>
+          </div>
+
+          <div class="col-4">
+            <%= f.input :max_age,
+                        label: "Âge maximum (inclus)",
+                        input_html: { min: "18", max: "130", data: { new_campaign_target: "maxAge" } },
+                        hint: "max ⩾ min" %>
+          </div>
+
+          <div class="col-4">
+            <%= f.input :max_distance_in_meters,
+                        label: "Distance maximum (en km)",
+                        input_html: { min: "1", max: Campaign::MAX_DISTANCE_IN_KM, data: { new_campaign_target: "maxDistance" } },
+                        hint: "#{Campaign::MAX_DISTANCE_IN_KM} km max" %>
+          </div>
+        </div>
+
+        <%= button_tag "Simuler", type: :button, data: { new_campaign_target: "simulateButton", action: "click->new-campaign#simulate" }, class: "btn btn-secondary" %>
+
+        <%= content_tag :p, "", data: { new_campaign_target: "simulationResult" }, class: "d-inline-block" %>
+
+        <%= f.button :submit, "Envoyer les SMS aux volontaires !",
+                     class: "btn btn-primary d-none mt-3",
+                     disabled: true,
+                     data: { new_campaign_target: "submitButton", confirm: "Êtes-vous sûr(e) ?", disable_with: "Création de la campagne et envoi..." } %>
+      <% end %>
     </div>
-
-    <h4 class="mt-3">
-      Nouvelle Campagne pour <%= vaccination_center.name %>
-    </h4>
-
-    <%= simple_form_for([:partners, @vaccination_center, @campaign], data: {controller: "new-campaign", new_campaign_simulate_path_value: simulate_reach_partners_vaccination_center_campaigns_path(@vaccination_center), new_campaign_max_distance_in_km_value: Campaign::MAX_DISTANCE_IN_KM }) do |f| %>
-      <div class="row">
-        <div class="col col-8">
-          <%= f.input :available_doses,
-                      label: "Nombre de doses à écouler",
-                      as: :integer,
-                      input_html: { min: "1", max: Campaign::MAX_DOSES , data: { new_campaign_target: "availableDoses"} },
-                      hint: "200 max. Vous avez plus de doses ? Créez plusieurs campagnes successives !" %>
-        </div>
-
-        <div class="col col-4">
-          <%= f.input :vaccine_type,
-                      label: "Type de vaccin",
-                      collection: Vaccine::Brands::ALL,
-                      label_method: :capitalize,
-                      input_html: { data: { new_campaign_target: "vaccineType"}} %>
-        </div>
-      </div>
-
-      <h5>
-        Plage horaire de disponibilité des vaccins
-      </h5>
-
-      <div class="alert alert-primary">
-        La campagne aura lieu
-        <strong>aujourd’hui <%=l Date.today, format: "%e %B" %></strong> :
-        il n’est pas encore possible de planifier plus loin.
-      </div>
-
-      <div class="row">
-        <div class="col-6">
-          <%= f.input :starts_at, as: :time, label: "Début" %>
-        </div>
-
-        <div class="col-6">
-          <%= f.input :ends_at, as: :time, label: "Fin" %>
-        </div>
-      </div>
-
-      <%= f.input :extra_info,
-                  label: "Informations supplémentaires pour les volontaires",
-                  hint: "Accès, modalités... Les volontaires verront cette information avant de confirmer leur rendez-vous." %>
-
-
-      <h5>
-        Critères de sélection des volontaires
-      </h5>
-
-      <div class="row">
-        <div class="col-4">
-          <%= f.input :min_age,
-                      label: "Âge minimum (inclus)",
-                      input_html: { min: "18", max: "130", data: { new_campaign_target: "minAge" } },
-                      hint: "18 ans min" %>
-        </div>
-
-        <div class="col-4">
-          <%= f.input :max_age,
-                      label: "Âge maximum (inclus)",
-                      input_html: { min: "18", max: "130", data: { new_campaign_target: "maxAge" } },
-                      hint: "max ⩾ min" %>
-        </div>
-
-        <div class="col-4">
-          <%= f.input :max_distance_in_meters,
-                      label: "Distance maximum (en km)",
-                      input_html: { min: "1", max: Campaign::MAX_DISTANCE_IN_KM, data: { new_campaign_target: "maxDistance" } },
-                      hint: "#{Campaign::MAX_DISTANCE_IN_KM} km max" %>
-        </div>
-      </div>
-
-      <%= button_tag "Simuler", type: :button, data: { new_campaign_target: "simulateButton", action: "click->new-campaign#simulate" } %>
-
-      <%= content_tag :p, "", data: { new_campaign_target: "simulationResult" }, class: "d-inline-block" %>
-
-      <%= f.button :submit, "Envoyer les SMS aux volontaires !",
-                   class: "btn btn-primary d-none mt-3",
-                   disabled: true,
-                   data: { new_campaign_target: "submitButton", confirm: "Êtes-vous sûr(e) ?", disable_with: "Création de la campagne et envoi..." } %>
-    <% end %>
   </div>
 </div>

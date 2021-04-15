@@ -1,0 +1,152 @@
+<div class="container">
+  <h2 class="mt-4">
+    Espace professionnels de santé
+  </h2>
+
+  <p class="mt-3 font-weight-bold">
+    Bonjour <%= current_partner.name %>
+  </p>
+
+  <p>
+    Bienvenue dans l’espace <strong>réservé aux professionnels de santé assurant la vaccination</strong>.
+    <br>
+    Merci de nous avoir rejoint et merci pour ce que vous faites pour aider à la vaccination du plus grand nombre !
+  </p>
+
+  <% if @vaccination_centers.any? %>
+    <p class="mt-4">
+      Vous avez accès aux lieux de vaccination suivants :
+    </p>
+
+    <div class="table-responsive">
+      <table class="table table-bordered table-sm">
+        <thead class="thead-light">
+          <tr>
+            <th> Nom </th>
+            <th> Coordonnées </th>
+            <th> Vaccins </th>
+            <th class="text-center"> Actions </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @vaccination_centers.each do |vaccination_center| %>
+            <tr>
+              <td>
+                <strong>
+                  <%= link_to vaccination_center.name, partners_vaccination_center_path(vaccination_center.id) %>
+                </strong>
+                <br>
+                <i><%= vaccination_center.kind %></i>
+                <br>
+                <%= vaccination_center.description %>
+              </td>
+
+              <td>
+                <%= icon("fas", "phone", vaccination_center.phone_number) %>
+                <br>
+                <%= vaccination_center.address %>
+              </td>
+
+              <td>
+                <% if vaccination_center.pfizer %>
+                  <span class="mr-1"> <%= Vaccine::Brands::PFIZER.capitalize %> </span>
+                <% end %>
+                <% if vaccination_center.moderna %>
+                  <span class="mr-1"> <%= Vaccine::Brands::MODERNA.capitalize %> </span>
+                <% end %>
+                <% if vaccination_center.astrazeneca %>
+                  <span class="mr-1"> <%= Vaccine::Brands::ASTRAZENECA.capitalize %> </span>
+                <% end %>
+                <% if vaccination_center.janssen %>
+                  <span class="mr-1"> <%= Vaccine::Brands::JANSSEN.capitalize %> </span>
+                <% end %>
+              </td>
+
+              <td class="text-center">
+                <%= link_to "Voir / Gérer les campagnes", partners_vaccination_center_path(vaccination_center.id) %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
+
+  <% if @unconfirmed_vaccination_centers.any? %>
+    <p class="mt-4">
+      Vos lieux de vaccination en attente de validation :
+    </p>
+
+    <div class="table-responsive">
+      <table class="table table-bordered table-sm">
+        <thead class="thead-light">
+        <tr>
+          <th> Nom </th>
+          <th> Coordonnées </th>
+          <th> Vaccins </th>
+          <th> État </th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <% @vaccination_centers.each do |vaccination_center| %>
+          <tr>
+            <td>
+              <strong>
+                <%= link_to vaccination_center.name, partners_vaccination_center_path(vaccination_center.id) %>
+              </strong>
+              <br>
+              <i><%= vaccination_center.kind %></i>
+              <br>
+              <%= vaccination_center.description %>
+            </td>
+
+            <td>
+              <%= icon("fas", "phone", vaccination_center.phone_number) %>
+              <br>
+              <%= vaccination_center.address %>
+            </td>
+
+            <td>
+              <% if vaccination_center.pfizer %>
+                <span class="mr-1"> <%= Vaccine::Brands::PFIZER.capitalize %> </span>
+              <% end %>
+              <% if vaccination_center.moderna %>
+                <span class="mr-1"> <%= Vaccine::Brands::MODERNA.capitalize %> </span>
+              <% end %>
+              <% if vaccination_center.astrazeneca %>
+                <span class="mr-1"> <%= Vaccine::Brands::ASTRAZENECA.capitalize %> </span>
+              <% end %>
+              <% if vaccination_center.janssen %>
+                <span class="mr-1"> <%= Vaccine::Brands::JANSSEN.capitalize %> </span>
+              <% end %>
+            </td>
+
+            <td>
+              En attente de validation
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
+
+  <p class="mt-4">
+    Vous n’avez actuellement accès à aucun lieu de vaccination.
+  </p>
+
+  <p>
+    <%= link_to "Demander la création d’un nouveau lieu de vaccination", new_partners_vaccination_center_path, class: "btn btn-primary btn-sm" %>
+  </p>
+
+  <p class="mt-4 small">
+    Si vous souhaitez rejoindre un centre déjà existant sur Covidliste, contactez-nous sur
+    <%=  link_to "hello@covidliste.com", "mailto:hello@covidliste.com" %>.
+  </p>
+
+  <hr>
+
+  <%= link_to "Se déconnecter", destroy_partner_session_path, method: :delete, class: "btn btn-warning" %>
+</div>
