@@ -18,8 +18,8 @@ const TERRITOIRES = {
     lat: 46.5,
     zoom: 4.5,
   },
-  GUYANNE: {
-    label: "Guyanne",
+  GUYANE: {
+    label: "Guyane",
     lon: -53.02730090442361,
     lat: 4,
     zoom: 6.0,
