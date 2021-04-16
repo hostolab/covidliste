@@ -64,7 +64,7 @@ docker-compose run --no-deps --rm web bin/rails db:migrate
 Run the test suite by running:
 
 ```bash
-docker-compose run -e RAILS_ENV=test --no-deps --rm web bash -c "bin/rspec"
+docker-compose run --no-deps --rm migration_test bash -c "bin/rspec"
 ```
 
 #### Bash

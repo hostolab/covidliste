@@ -5,9 +5,7 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile
-    entrypoint: ./docker/entrypoints/migration-entrypoint.sh
-    tty: true
-    stdin_open: true
+    command: "bin/rails db:migrate"
     depends_on:
       - db
     volumes:
@@ -18,11 +16,28 @@ services:
     environment:
       ENABLE_BOOTSNAP: "false"
 
+  migration_test:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    command: "bin/rails db:migrate"
+    depends_on:
+      - db_test
+      - redis
+      - webpacker
+    volumes:
+      - .:/usr/src/app
+    env_file:
+      - docker/environments/db.test.env
+      - docker/environments/web.env
+    environment:
+      ENABLE_BOOTSNAP: "false"
+
   web:
     build:
       context: .
       dockerfile: docker/Dockerfile
-    entrypoint: ./docker/entrypoints/web-entrypoint.sh
+    command: "rm -f tmp/pids/server.pid && bin/rails s -b 0.0.0.0"
     tty: true
     stdin_open: true
     depends_on:
@@ -47,7 +62,7 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile
-    entrypoint: ./docker/entrypoints/webpacker-entrypoint.sh
+    command: "bin/webpack-dev-server"
     volumes:
       - .:/usr/src/app
       - gems:/usr/local/bundle
@@ -62,7 +77,7 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile
-    entrypoint: ./docker/entrypoints/sidekiq-entrypoint.sh
+    command: "bin/sidekiq"
     depends_on:
       - db
       - migration
@@ -85,9 +100,16 @@ services:
       - "5433:5432"
     volumes:
       - database_data:/var/lib/postgresql/data:delegated
-      - ./docker/init.sql:/docker-entrypoint-initdb.d/init.sql
     env_file:
       - docker/environments/db.env
+
+  db_test:
+    image: postgres
+    restart: always
+    ports:
+      - "5434:5432"
+    env_file:
+      - docker/environments/db.test.env
 
   redis:
     image: redis:5-alpine
