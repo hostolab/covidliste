@@ -17,7 +17,7 @@ class UserPolicy < ApplicationPolicy
 
   def update?
     if user.matches.confirmed.any?
-      raise Pundit::NotAuthorizedError, "Vous ne ne pouvez plus modifier vos imformations car vous avez déjà confirmé un rendez-vous."
+      raise Pundit::NotAuthorizedError, "Vous ne ne pouvez plus modifier vos informations car vous avez déjà confirmé un rendez-vous."
     else
       user.confirmed? && user == record
     end
