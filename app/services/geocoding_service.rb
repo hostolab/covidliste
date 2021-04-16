@@ -6,7 +6,7 @@ class GeocodingService
     @address = address
   end
 
-  def geocode
+  def call
     first_result = self.class.get("/search", query: {q: @address, limit: 1}).dig("features")&.first
     return nil if first_result.nil?
 

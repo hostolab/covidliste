@@ -25,6 +25,7 @@ class VaccinationCenter < ApplicationRecord
   scope :confirmed, -> { where.not(confirmed_at: nil) }
 
   after_commit :push_to_slack, on: :create
+  after_commit :geocode_address, if: -> { saved_change_to_address? }
 
   def active?
     confirmed? && !disabled?
@@ -42,6 +43,10 @@ class VaccinationCenter < ApplicationRecord
     return true if user&.admin?
 
     partners.include?(partner)
+  end
+
+  def geocode_address
+    GeocodeResourceJob.perform_later(self)
   end
 
   def self.to_csv

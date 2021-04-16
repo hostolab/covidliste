@@ -1,5 +1,9 @@
 ---
 fr:
+  pundit:
+    default: Vous n'êtes pas authorisé à faire cette action.
+    user_policy:
+      update?: Vous ne pouvez pas modifier vos informations
   activerecord:
     models:
       campaign:
