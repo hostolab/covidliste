@@ -9,7 +9,7 @@
     <%= f.input :name, label: 'Nom du centre', error: 'Nom requis', placeholder: 'Centre de vaccination Marseille' %>
     <%= f.input :description, label: 'Description', error: 'Description requise', placeholder: 'Description du lieu de vaccination' %>
     <%= f.input :kind, label: 'Type de centre de vaccination', collection: VaccinationCenter::Kinds::ALL %>
-    <p class="mtop2">
+    <p class="mt-3">
       Type(s) de vaccins disponibles
     </p>
     <%= f.input :pfizer, as: :boolean, label: Vaccine::Brands::PFIZER.capitalize, checked_value: true, unchecked_value: false, class: 'form-check-inline' %>
