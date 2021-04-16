@@ -134,7 +134,5 @@ RSpec.describe "Users", type: :system do
         expect(user.firstname).not_to eq("new value")
       end
     end
-
-
   end
 end
