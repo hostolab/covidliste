@@ -1,5 +1,4 @@
 class UserPolicy < ApplicationPolicy
-  include Pundit
 
   class Scope < Scope
     def resolve
