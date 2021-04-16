@@ -57,9 +57,9 @@ gem "pundit", "~> 2.1"
 gem "rack-attack"
 gem "invisible_captcha"
 
-group :production do
-  gem "ddtrace", require: false
-end
+# group :production do
+#   gem "ddtrace", require: false
+# end
 
 group :development, :test do
   gem "dotenv-rails", "2.7.6"
