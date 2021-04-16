@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   before_action :authenticate_user!, except: %i[new create]
   before_action :sign_out_if_anonymized!
   invisible_captcha only: [:create], honeypot: :subtitle
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   def new
     skip_authorization
@@ -84,4 +85,13 @@ class UsersController < ApplicationController
       redirect_to root_path
     end
   end
+
+  def user_not_authorized(exception)
+    policy_name = exception.policy.class.to_s.underscore
+    message = exception.message ? exception.message : (t "#{policy_name}.#{exception.query}", scope: "pundit", default: :default)
+    flash[:error] = message
+    redirect_to(request.referrer || root_path)
+  end
+
+
 end

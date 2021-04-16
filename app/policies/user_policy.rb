@@ -1,4 +1,6 @@
 class UserPolicy < ApplicationPolicy
+  include Pundit
+
   class Scope < Scope
     def resolve
       scope.none
@@ -14,7 +16,11 @@ class UserPolicy < ApplicationPolicy
   end
 
   def update?
-    user.confirmed? && user == record
+    if user.matches.confirmed.any?
+      raise Pundit::NotAuthorizedError, "Vous ne ne pouvez plus modifier vos imformations car vous avez déjà confirmé un rendez-vous."
+    else
+      user.confirmed? && user == record
+    end
   end
 
   def delete?
