@@ -56,9 +56,9 @@ gem "lefthook"
 gem "pundit", "~> 2.1"
 gem "rack-attack"
 gem "invisible_captcha"
-gem "ddtrace"
 gem "lograge"
 gem "lograge-sql"
+gem "ddtrace", "0.35.2"
 
 group :development, :test do
   gem "dotenv-rails", "2.7.6"
