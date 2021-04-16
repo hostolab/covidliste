@@ -24,12 +24,10 @@
   },
   "addons": [
     {
-      "addon_provider_id": "postgresql",
-      "plan_id": "postgresql-sandbox"
+      "plan": "postgresql:postgresql-sandbox"
     },
     {
-      "addon_provider_id": "redis",
-      "plan_id": "redis-sandbox"
+      "plan": "redis:redis-sandbox"
     }
   ],
   "formation": {
