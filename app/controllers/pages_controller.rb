@@ -15,6 +15,10 @@ class PagesController < ApplicationController
   def privacy
   end
 
+  def algorithme
+    @faq_item = FaqItem.find_by(title: "Comment fonctionne la sélection des volontaires ?")
+  end
+
   def faq
     @faq_items = FaqItem.all
   end

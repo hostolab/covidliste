@@ -29,20 +29,24 @@ Covidliste makes it easy to manage waiting lists for vaccination centers.
 If you don't already have them :
 
 - Install ruby 2.7.3 `rbenv install 2.7.3 && rbenv global 2.7.3`
-- Install bundler 2.2.15 `gem install bundler:2.2.15`
+- Install NodeJS (version 12, you may use [nvm](https://github.com/nvm-sh/nvm) if you have several versions)
 - Install yarn `npm i -g yarn`
-- Install redis `brew install redis`
-- Install postgresql `brew install postgresql`
+
+Install Redis and PostgreSQL:
+
+- Using your favorite package manager (e.g. `brew install redis && brew install postgresql` on macOS).
+- Using docker-compose (see "Docker" section below).
 
 ### Dependencies
 
 Setup the project's dependencies :
 
 ```bash
-bundle install
-yarn
+bin/setup
 bin/lefthook install
 ```
+
+This installs bundler, runs yarn and setup the database.
 
 Create the `.env` file:
 
@@ -52,9 +56,8 @@ echo "LOCKBOX_MASTER_KEY=0000000000000000000000000000000000000000000000000000000
 
 ### Database / Cache
 
-1. Create a database called `covidliste_development` using your favorite postgresql GUI or CLI.
-2. Then run the migrations : `bin/rails db:migrate RAILS_ENV=development`
-3. Run redis if it's not already running : `redis-server /usr/local/etc/redis.conf`
+- Run the migrations : `bin/rails db:migrate RAILS_ENV=development`
+- Run the db services according to your installation
 
 ### Running
 
@@ -62,7 +65,8 @@ echo "LOCKBOX_MASTER_KEY=0000000000000000000000000000000000000000000000000000000
 bin/rails s
 ```
 
-If you need Sidekiq background workers or Webpacker development server, you can start them all using [`overmind`](https://github.com/DarthSim/overmind)
+If you need Sidekiq background workers or Webpacker development server, you can
+start them all using [`overmind`](https://github.com/DarthSim/overmind)
 
 ```bash
 overmind s
@@ -87,10 +91,8 @@ A handbook is available [in the `doc` directory](doc/handbook.md).
 Launch the Docker environment:
 
 ```bash
-docker-compose up
+docker-compose up -d
 ```
-
-Visit http://localhost:3000
 
 # Contributing
 
@@ -104,17 +106,19 @@ Visit https://github.com/hostolab/covidliste/blob/master/CONTRIBUTING.md
 
 # Code formatting
 
-In order for the pipeline to be successful, you must ensure that you respect the linting made using
+In order for the pipeline to be successful, you must ensure that you respect
+the linting made using
 
 ```bash
 bin/standardrb --fix
 bin/yarn prettier --write .
 ```
 
-If some errors are printed it means that some of the different issues can not be corrected automatically.
-Then you will need to correct them manually.
+Both these commands fix errors if possible. They will print errors if they
+can't.
 
-In rubymine, please follow this procedure to add the formatter / linter directly in the editor tabs:
+In rubymine, please follow this procedure to add the formatter / linter
+directly in the editor tabs:
 https://www.jetbrains.com/help/ruby/rubocop.html#prerequisites
 
 # Testing
@@ -127,7 +131,8 @@ bin/rspec
 # open coverage/index.html
 ```
 
-If you want to debug System Tests in the browser, add the following Ruby line as a debugger in your `spec/system/...` file:
+If you want to debug System Tests in the browser, add the following Ruby line
+as a debugger in your `spec/system/...` file:
 
 ```ruby
 page.driver.debug(binding)
@@ -139,4 +144,6 @@ Then launch the test with:
 INSPECTOR=true bin/rspec spec/system/THE_FILE_spec.rb
 ```
 
-It should automatically open **Chrome** and allow you to inspect the DOM, queries, etc. You can `next` and `continue` in the Terminal as if you had a `binding.pry` debugging session.
+It should automatically open **Chrome** and allow you to inspect the DOM,
+queries, etc. You can `next` and `continue` in the Terminal as if you had a
+`binding.pry` debugging session.

@@ -6,7 +6,7 @@ FactoryBot.define do
     firstname { generate(:firstname) }
     lastname { generate(:lastname) }
     password { generate(:password) }
-    phone_number { generate(:french_phone_number) }
+    phone_number { "0606060606" }
 
     confirmed_at { Time.zone.now }
 

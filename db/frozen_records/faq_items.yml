@@ -58,6 +58,33 @@
 # FONCTIONNEMENT #
 ##################
 
+# The title is used to select this item in app/controllers/pages_controller.rb
+# and render it in app/views/pages/algorithme.html.erb. Be careful when
+# changing it.
+- title: Comment fonctionne la sélection des volontaires ?
+  category: Fonctionnement
+  body_md_erb: |
+    Le centre de vaccination choisit, lors de la création de la campagne, les paramètres suivants :
+
+      * la distance en km par rapport au centre de vaccination,
+      * la tranche d’âge des volontaires,
+      * le nombre de doses disponibles.
+
+    Les volontaires sélectionné(e)s doivent remplir les critères suivants :
+
+      * Le compte du volontaire doit être confirmé.
+      * L’adresse déclarée par le volontaire doit se trouver à une distance inférieure à la distance choisie par le centre de vaccination.
+      * L’âge déclaré du volontaire doit être dans la tranche d’âge choisie par le centre de vaccination.
+      * Le volontaire ne doit pas avoir été contacté depuis 1 jour.
+
+    Les volontaires sélectionné(e)s sont ensuite ordonné(e)s par ordre d’inscription (les premiers inscrit(e)s seront les premiers sélectionné(e)s).
+
+    Nous rentrons en contact avec chaque volontaire sélectionné(e) à hauteur des doses disponibles plus un facteur dit "d’overbooking" jusqu’à ce que toutes les doses disponibles soient réservées.
+
+    Si vous êtes développeur, et que vous souhaitez consulter l’algorithme utilisé,
+    celui-ci est disponible sur le
+    <%= link_to "GitHub du projet", "https://github.com/hostolab/covidliste", target: "_blank", rel: "noopener" %>.
+
 - title: Par quel moyen vais-je être contacté ?
   category: Fonctionnement
   body_md_erb: |
@@ -340,7 +367,7 @@
     <%= link_to "vous inscrire", partenaires_inscription_path %>.
 
     Si vous avez besoin d’accompagnement, nous vous invitons à contacter
-    <%= link_to "partenaires@covidliste.com", "mailto:partenaires@covidliste.com" %>.
+    <%= mail_to "partenaires@covidliste.com" %>.
 
 ############################
 # Collaboration et contact #
@@ -364,12 +391,12 @@
     Nous essayons de travailler au maximum avec des entreprises ou associations françaises ou européennes.
 
     Si vous pensez pouvoir nous aider, vous pouvez nous contacter sur
-    <%= link_to "hello@covidliste.com", "mailto:hello@covidliste.com", rel: "noopener" %>.
+    <%= mail_to "hello@covidliste.com", rel: "noopener" %>.
 
 - title: Je suis journaliste et souhaite réaliser une interview ou obtenir des informations.
   category: Collaboration et contact
   body_md_erb: |
-    Nous vous invitons à nous contacter sur <%= link_to "presse@covidliste.com", "mailto:presse@covidliste.com", rel: "noopener" %>.
+    Nous vous invitons à nous contacter sur <%= mail_to "presse@covidliste.com", rel: "noopener" %>.
 
 - title: Je suis un professionnel de santé en charge de la vaccination et j’ai une question
   category: Collaboration et contact
@@ -380,7 +407,7 @@
     <%= link_to "vous inscrire", partenaires_inscription_path %>.
 
     Si vous avez besoin d’accompagnement, nous vous invitons à contacter
-    <%= link_to "partenaires@covidliste.com", "mailto:partenaires@covidliste.com" %>.
+    <%= mail_to "partenaires@covidliste.com" %>.
 
 - title: J’ai une question qui n’est pas dans la FAQ ou je souhaite vous contacter.
   category: Collaboration et contact
@@ -392,4 +419,4 @@
     Pour éviter d’allonger les délais de réponse, vérifiez bien que la réponse à votre question n’est pas présente
     dans la Foire aux questions avant de nous contacter.
 
-    Si ce n’est pas le cas, nous somme disponibles sur <%= link_to "hello@covidliste.com", "mailto:hello@covidliste.com", rel: "noopener" %>.
+    Si ce n’est pas le cas, nous somme disponibles sur <%= mail_to "hello@covidliste.com", rel: "noopener" %>.
