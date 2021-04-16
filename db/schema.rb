@@ -236,7 +236,7 @@ ActiveRecord::Schema.define(version: 2021_04_13_143101) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "confirmer_id"
-    t.datetime "deactivated_at"
+    t.datetime "disabled_at"
     t.index ["confirmer_id"], name: "index_vaccination_centers_on_confirmer_id"
   end
 
