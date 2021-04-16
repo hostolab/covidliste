@@ -1,7 +1,7 @@
 module Admin
   class StatsPolicy < ApplicationPolicy
     def stats?
-      user.admin?
+      user.has_role?(:admin)
     end
   end
 end
