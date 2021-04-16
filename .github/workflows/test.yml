@@ -10,7 +10,6 @@ jobs:
     env:
       RAILS_ENV: test
       NODE_ENV: test
-      DD_TRACE_ENABLED: false
       # CI: 'true'
     runs-on: ubuntu-latest # runner
     services:
