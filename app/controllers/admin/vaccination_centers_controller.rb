@@ -67,7 +67,9 @@ module Admin
 
     def validate
       if @vaccination_center.confirmed_at.nil?
-        if @vaccination_center.update(confirmed_at: Time.now.utc, confirmer: current_user)
+        @vaccination_center.confirmed_at = Time.now.utc
+        @vaccination_center.confirmer = current_user
+        if @vaccination_center.save(context: :validation_by_admin)
           flash[:success] = "Ce centre a bien été validé"
         else
           flash[:alert] = "Une erreur est survenue : #{@vaccination_center.errors.full_messages.join(", ")}"

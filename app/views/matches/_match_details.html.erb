@@ -8,7 +8,7 @@
   <div>
     <i class="fas fa-clock"></i>
     <strong> Créneau horaire </strong>
-    <p> Entre <%= match.campaign.starts_at.strftime('%Hh%M') %> et <%=  @match.campaign.ends_at.strftime('%Hh%M')%></p>
+    <p> Entre <%= match.campaign.starts_at.strftime('%Hh%M') %> et <%= @match.campaign.ends_at.strftime('%Hh%M')%></p>
   </div>
 
   <% user = match.user %>
