@@ -11,7 +11,6 @@ import "controllers/application";
 import "bootstrap";
 import "bootstrap-select";
 import "../components/confirmation";
-import "../components/toggle_password_visibility";
 
 Rails.start();
 Turbolinks.start();
@@ -19,11 +18,12 @@ Turbolinks.start();
 
 import { placesAutocomplete } from "../plugins/places_autocomplete";
 import { leafletMap } from "../plugins/leaflet_map";
-
+import { togglePasswordVisibility } from "../components/toggle_password_visibility";
 document.addEventListener("turbolinks:load", () => {
   const appId = process.env.PLACES_APP_ID;
   const apiKey = process.env.PLACES_API_KEY;
   placesAutocomplete(appId, apiKey);
   leafletMap();
+  togglePasswordVisibility();
   $('[data-toggle="tooltip"]').tooltip();
 });
