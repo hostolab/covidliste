@@ -367,7 +367,7 @@
     <%= link_to "vous inscrire", partenaires_inscription_path %>.
 
     Si vous avez besoin d’accompagnement, nous vous invitons à contacter
-    <%= link_to "partenaires@covidliste.com", "mailto:partenaires@covidliste.com %>.
+    <%= link_to "partenaires@covidliste.com", "mailto:partenaires@covidliste.com" %>.
 
 ############################
 # Collaboration et contact #
