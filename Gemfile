@@ -56,6 +56,9 @@ gem "lefthook"
 gem "pundit", "~> 2.1"
 gem "rack-attack"
 gem "invisible_captcha"
+gem "lograge"
+gem "lograge-sql"
+gem "logstash-event"
 gem "ddtrace", "0.35.2"
 
 group :development, :test do
