@@ -1,43 +1,11 @@
 version: '3.9'
 
 services:
-  migration:
-    build:
-      context: .
-      dockerfile: docker/Dockerfile
-    command: "bin/rails db:migrate"
-    depends_on:
-      - db
-    volumes:
-      - .:/usr/src/app
-    env_file:
-      - docker/environments/db.env
-      - docker/environments/web.env
-    environment:
-      ENABLE_BOOTSNAP: "false"
-
-  migration_test:
-    build:
-      context: .
-      dockerfile: docker/Dockerfile
-    command: "bin/rails db:migrate"
-    depends_on:
-      - db_test
-      - redis
-      - webpacker
-    volumes:
-      - .:/usr/src/app
-    env_file:
-      - docker/environments/db.test.env
-      - docker/environments/web.env
-    environment:
-      ENABLE_BOOTSNAP: "false"
-
   web:
     build:
       context: .
-      dockerfile: docker/Dockerfile
-    command: "rm -f tmp/pids/server.pid && bin/rails s -b 0.0.0.0"
+      dockerfile: docker/dev.Dockerfile
+    command: bash -c "rm -f tmp/pids/server.pid && bin/rails s -b '0.0.0.0'"
     tty: true
     stdin_open: true
     depends_on:
@@ -56,12 +24,12 @@ services:
       - docker/environments/db.env
       - docker/environments/web.env
     environment:
-      ENABLE_BOOTSNAP: "false"
+      ENABLE_BOOTSNAP: "true"
 
   webpacker:
     build:
       context: .
-      dockerfile: docker/Dockerfile
+      dockerfile: docker/dev.Dockerfile
     command: "bin/webpack-dev-server"
     volumes:
       - .:/usr/src/app
@@ -76,7 +44,7 @@ services:
   worker:
     build:
       context: .
-      dockerfile: docker/Dockerfile
+      dockerfile: docker/dev.Dockerfile
     command: "bin/sidekiq"
     depends_on:
       - db
@@ -91,7 +59,7 @@ services:
       - docker/environments/db.env
       - docker/environments/web.env
     environment:
-      ENABLE_BOOTSNAP: "false"
+      ENABLE_BOOTSNAP: "true"
 
   db:
     image: postgres
@@ -103,20 +71,27 @@ services:
     env_file:
       - docker/environments/db.env
 
-  db_test:
-    image: postgres
-    restart: always
-    ports:
-      - "5434:5432"
-    env_file:
-      - docker/environments/db.test.env
-
   redis:
     image: redis:5-alpine
     ports:
       - "6380:6379"
     volumes:
       - "redis_data:/data"
+
+  migration:
+    build:
+      context: .
+      dockerfile: docker/dev.Dockerfile
+    command: "bin/rails db:migrate"
+    depends_on:
+      - db
+    volumes:
+      - .:/usr/src/app
+    env_file:
+      - docker/environments/db.env
+      - docker/environments/web.env
+    environment:
+      ENABLE_BOOTSNAP: "true"
 
 volumes:
   database_data:

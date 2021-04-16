@@ -10,4 +10,7 @@ default: &default
 
 development:
   <<: *default
+
+test:
+  <<: *default
   database: covidliste_test

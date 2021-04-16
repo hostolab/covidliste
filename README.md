@@ -34,7 +34,7 @@ These instructions are designed for setting up The Rails Port using [Docker](htt
 To build local Docker images run from the root directory of the repository:
 
 ```bash
-docker build --no-cache -f docker/Dockerfile .
+docker build --no-cache -f docker/dev.Dockerfile .
 ```
 
 If this is your first time running or you have removed cache this will take some time to complete. Once the Docker images have finished building you can launch the images as containers.

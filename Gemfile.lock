@@ -148,6 +148,7 @@ GEM
       railties (>= 3.2)
     errbase (0.2.1)
     erubi (1.10.0)
+    erubis (2.7.0)
     et-orbi (1.2.4)
       tzinfo
     ethon (0.13.0)
@@ -189,14 +190,26 @@ GEM
     geocoder (1.6.6)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
+    haml (5.2.1)
+      temple (>= 0.8.0)
+      tilt
+    haml-rails (2.0.1)
+      actionpack (>= 5.1)
+      activesupport (>= 5.1)
+      haml (>= 4.0.6, < 6.0)
+      html2haml (>= 1.0.1)
+      railties (>= 5.1)
     hashdiff (1.0.1)
+    html2haml (2.2.0)
+      erubis (~> 2.7.0)
+      haml (>= 4.0, < 6)
+      nokogiri (>= 1.6.0)
+      ruby_parser (~> 3.5)
     httparty (0.18.1)
       mime-types (~> 3.0)
       multi_xml (>= 0.5.2)
     i18n (1.8.10)
       concurrent-ruby (~> 1.0)
-    invisible_captcha (2.0.0)
-      rails (>= 5.0)
     jbuilder (2.11.2)
       activesupport (>= 5.0.0)
     json (2.5.1)
@@ -367,6 +380,8 @@ GEM
       rubocop-ast (>= 0.4.0)
     ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.4)
+    ruby_parser (3.15.1)
+      sexp_processor (~> 4.9)
     rubyzip (2.3.0)
     safely_block (0.3.0)
       errbase (>= 0.1.1)
@@ -384,6 +399,7 @@ GEM
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
     semantic_range (3.0.0)
+    sexp_processor (4.15.2)
     sib-api-v3-sdk (7.4.0)
       json (~> 2.1, >= 2.1.0)
       typhoeus (~> 1.0, >= 1.0.1)
@@ -419,6 +435,7 @@ GEM
     standard (1.0.4)
       rubocop (= 1.11.0)
       rubocop-performance (= 1.10.1)
+    temple (0.8.2)
     thor (1.1.0)
     tilt (2.0.10)
     turbolinks (5.2.1)
@@ -489,8 +506,8 @@ DEPENDENCIES
   font-awesome-sass
   frozen_record
   geocoder
+  haml-rails (~> 2.0)
   httparty
-  invisible_captcha
   jbuilder (~> 2.7)
   kramdown
   lefthook
@@ -540,4 +557,4 @@ RUBY VERSION
    ruby 2.7.3p183
 
 BUNDLED WITH
-   2.2.16
+   2.2.15
