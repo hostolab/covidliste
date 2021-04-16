@@ -38,11 +38,6 @@ const placesAutocomplete = (appId, apiKey) => {
       language: "fr",
       countries: ["fr"],
     });
-    p.on("change", function (e) {
-      let latlng = e.suggestion.latlng;
-      centerLatInput.value = latlng["lat"];
-      centerLonInput.value = latlng["lng"];
-    });
   }
 };
 

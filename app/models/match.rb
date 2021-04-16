@@ -16,6 +16,7 @@ class Match < ApplicationRecord
   before_create :save_user_info
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
+  scope :pending, -> { where(confirmed_at: nil).where("expires_at >= now()") }
 
   def save_user_info
     self.age = user.age

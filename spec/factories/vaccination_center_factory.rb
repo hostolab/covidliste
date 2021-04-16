@@ -3,8 +3,6 @@ FactoryBot.define do
     address { generate(:french_address) }
     description { generate(:description) }
     kind { VaccinationCenter::Kinds::ALL.sample }
-    lat { generate(:lat) }
-    lon { generate(:lon) }
     name { generate(:company_name) }
     phone_number { generate(:french_phone_number) }
 

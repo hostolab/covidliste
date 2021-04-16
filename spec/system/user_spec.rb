@@ -108,5 +108,31 @@ RSpec.describe "Users", type: :system do
         end
       end.to change { User.count }.by(0)
     end
+
+    context "with a confirmed match" do
+      let(:campaign) { build(:campaign) }
+      let!(:match) { create(:match, campaign: campaign, confirmed_at: Time.now, user: user) }
+
+      it "it doest not allow me to edit personal information " do
+        fill_in "user_firstname", with: "new value"
+        click_on "Je modifie mes informations"
+        expect(page).not_to have_text("Modifications enregistrées.")
+        user.reload
+        expect(user.firstname).not_to eq("new value")
+      end
+    end
+
+    context "with a pending match" do
+      let(:campaign) { build(:campaign) }
+      let!(:match) { create(:match, campaign: campaign, confirmed_at: nil, expires_at: 10.minutes.since, user: user) }
+
+      it "it doest not allow me to edit personal information " do
+        fill_in "user_firstname", with: "new value"
+        click_on "Je modifie mes informations"
+        expect(page).not_to have_text("Modifications enregistrées.")
+        user.reload
+        expect(user.firstname).not_to eq("new value")
+      end
+    end
   end
 end
