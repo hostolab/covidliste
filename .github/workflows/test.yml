@@ -35,7 +35,7 @@ jobs:
         uses: ruby/setup-ruby@v1 # short for https://github.com/ruby/setup-ruby
         with:
           # runs 'bundle install' and caches installed gems automatically
-          bundler-cache: false
+          bundler-cache: true
       - name: Bundle install
         run: |
           gem install bundle
