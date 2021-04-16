@@ -35,8 +35,9 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1 # short for https://github.com/ruby/setup-ruby
         with:
-          # runs 'bundle install' and caches installed gems automatically
           bundler-cache: false
+      - name: Bundle install
+        run: bundle install --without production
       - name: Set up .env
         run: echo "LOCKBOX_MASTER_KEY=0000000000000000000000000000000000000000000000000000000000000000" > .env
       - name: Get Node.js version
