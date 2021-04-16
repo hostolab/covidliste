@@ -56,7 +56,9 @@
 
 <p>
   <small>
-    Une fois votre présence confirmée, vos coordonnées sont transmises au centre de vaccination. Votre compte et vos informations seront alors définitivement supprimés de Covidliste sous 7 jours, et vous ne recevrez plus de notifications.
+    Une fois votre présence confirmée, vos coordonnées sont transmises au centre de vaccination. Votre compte et vos informations seront alors définitivement supprimés de Covidliste sous 
+    <%= AnonymizeConfirmedMatchedUsersJob::DELAY_AFTER_MATCH_CONFIRMATION.parts.map { |unit, n| I18n.t unit, count: n, scope: 'duration' }.to_sentence %>
+    , et vous ne recevrez plus de notifications.
   </small>
 </p>
 

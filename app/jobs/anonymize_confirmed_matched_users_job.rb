@@ -1,6 +1,8 @@
 class AnonymizeConfirmedMatchedUsersJob < ActiveJob::Base
   queue_as :default
 
+  DELAY_AFTER_MATCH_CONFIRMATION = 3.days
+
   def perform
     users_to_anonymize.map(&:anonymize!)
   end
@@ -9,7 +11,7 @@ class AnonymizeConfirmedMatchedUsersJob < ActiveJob::Base
 
   def users_to_anonymize
     a_month_ago = Date.today - 1.month
-    three_days_ago = Date.today - 3.days
+    three_days_ago = Date.today - DELAY_AFTER_MATCH_CONFIRMATION
 
     User.distinct
       .joins("JOIN matches ON matches.user_id = users.id")
