@@ -20,7 +20,6 @@ const togglePasswordVisibility = () => {
         input.setAttribute("type", "text");
         icon.classList.add("fa-eye");
         icon.classList.remove("fa-eye-slash");
-        g;
       }
     });
 };
