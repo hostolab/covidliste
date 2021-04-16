@@ -12,7 +12,8 @@ class VaccinationCenter < ApplicationRecord
   include PgSearch::Model
   pg_search_scope :global_search, against: [:name, :description, :kind, :address]
 
-  validates_presence_of :name, :address, :lat, :lon, :phone_number
+  validates :name, :address, :phone_number, presence: true
+  validates :lat, :lon, presence: true, on: :validation_by_admin
   validates :kind, inclusion: {in: VaccinationCenter::Kinds::ALL}
 
   has_many :partner_vaccination_centers
@@ -24,6 +25,14 @@ class VaccinationCenter < ApplicationRecord
   scope :confirmed, -> { where.not(confirmed_at: nil) }
 
   after_commit :push_to_slack, on: :create
+
+  def active?
+    confirmed? && !disabled?
+  end
+
+  def disabled?
+    disabled_at.present?
+  end
 
   def confirmed?
     confirmed_at.present?

@@ -67,7 +67,9 @@ module Admin
 
     def validate
       if @vaccination_center.confirmed_at.nil?
-        if @vaccination_center.update(confirmed_at: Time.now.utc, confirmer: current_user)
+        @vaccination_center.confirmed_at = Time.now.utc
+        @vaccination_center.confirmer = current_user
+        if @vaccination_center.save(context: :validation_by_admin)
           flash[:success] = "Ce centre a bien été validé"
         else
           flash[:alert] = "Une erreur est survenue : #{@vaccination_center.errors.full_messages.join(", ")}"
@@ -76,6 +78,32 @@ module Admin
         flash[:alert] = "Ce centre a déjà été validé !"
       end
       redirect_to admin_vaccination_center_path(@vaccination_center)
+    end
+
+    def enable
+      @center = VaccinationCenter.find(params[:id])
+
+      if @center.update(disabled_at: nil)
+        flash[:success] = "Ce centre est maintenant activé"
+      else
+        error = @center.errors.full_messages.join(", ")
+        flash[:alert] = "Une erreur est survenue: #{error}"
+      end
+
+      redirect_to admin_vaccination_center_path(@center)
+    end
+
+    def disable
+      @center = VaccinationCenter.find(params[:id])
+
+      if @center.update(disabled_at: Time.now.utc)
+        flash[:success] = "Ce centre est maintenant désactivé"
+      else
+        error = @center.errors.full_messages.join(", ")
+        flash[:alert] = "Une erreur est survenue: #{error}"
+      end
+
+      redirect_to admin_vaccination_center_path(@center)
     end
 
     def edit
