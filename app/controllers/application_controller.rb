@@ -31,7 +31,6 @@ class ApplicationController < ActionController::Base
         payload[:level] = "WARN"
       else
         payload[:level] = "ERROR"
-      end
     end
   end
 
