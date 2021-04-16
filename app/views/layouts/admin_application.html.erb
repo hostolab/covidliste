@@ -9,7 +9,7 @@
     <meta content="noindex;nofollow" name="robots"/>
     <%= yield(:append_to_head) %>
     <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track": "reload" %>
-    <%= javascript_pack_tag "application", "data-turbolinks-track": "reload", defer: true %>
+    <%= javascript_pack_tag "application", "data-turbolinks-track": "reload", defer: true, nonce: true %>
   </head>
   <body>
     <%= render "layouts/admin_navbar" %>
