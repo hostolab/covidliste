@@ -26,5 +26,4 @@ document.addEventListener("turbolinks:load", () => {
   leafletMap();
   togglePasswordVisibility();
   $('[data-toggle="tooltip"]').tooltip();
-  console.log('Hello from webpacker 1!')
 });
