@@ -33,11 +33,6 @@ jobs:
         uses: actions/checkout@v2 # short for https://github.com/actions/checkout
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1 # short for https://github.com/ruby/setup-ruby
-      - name: Bundle install
-        run: |
-          gem install bundle
-          bundle update --bundler
-          bundle install --jobs 4 --retry 3 --path 'vendor/bundle' --without development production
       - name: Set up .env
         run: echo "LOCKBOX_MASTER_KEY=0000000000000000000000000000000000000000000000000000000000000000" > .env
       - name: Get Node.js version
@@ -57,6 +52,11 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
       - name: Yarn install
         run: yarn install --frozen-lockfile
+      - name: Bundle install
+        run: |
+          gem install bundle
+          bundle update --bundler
+          bundle install --jobs 4 --retry 3 --path 'vendor/bundle' --without development production      
       - name: Prepare DB
         run: |
           cp config/database.github.yml config/database.yml
