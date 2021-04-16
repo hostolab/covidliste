@@ -9,11 +9,7 @@ ARG BUNDLER_VERSION=2.2.16
 # Install build packages
 ARG BUILD_PACKAGES="build-essential git build-essential curl libcurl3-dev libgit2-dev git cmake gnupg2 pkg-config python-pip python-dev unzip"
 RUN apt update -yqq \
- && DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends $BUILD_PACKAGES \
- && apt-get clean \
- && rm -rf /var/cache/apt/archives/* \
- && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
- && truncate -s 0 /var/log/*log
+ && DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends $BUILD_PACKAGES
 
 # Add NodeJS to sources list
 RUN curl -sL https://deb.nodesource.com/setup_$NODE_MAJOR.x | bash -
@@ -25,11 +21,7 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
 # Install required packages
 ARG REQUIRED_PACKAGES="nodejs libpq-dev yarn=$YARN_VERSION-1"
 RUN apt-get update -qq \
- && DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends $REQUIRED_PACKAGES \
- && apt-get clean \
- && rm -rf /var/cache/apt/archives/* \
- && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
- && truncate -s 0 /var/log/*log
+ && DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends $REQUIRED_PACKAGES
 
 # Install Chrome WebDriver
 RUN CHROMEDRIVER_VERSION=`curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE` \
@@ -40,7 +32,7 @@ RUN CHROMEDRIVER_VERSION=`curl -sS chromedriver.storage.googleapis.com/LATEST_RE
  && chmod +x /opt/chromedriver-$CHROMEDRIVER_VERSION/chromedriver \
  && ln -fs /opt/chromedriver-$CHROMEDRIVER_VERSION/chromedriver /usr/local/bin/chromedriver
 
-# Install Google Chrome
+# Install Google Chrome 
 RUN curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
     echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list && \
     apt-get -yqq update && \

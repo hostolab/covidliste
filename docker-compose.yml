@@ -14,7 +14,7 @@ services:
       - redis
       - webpacker
     ports:
-      - "3000:3000"
+      - 3000:3000
     volumes:
       - .:/usr/src/app
       - gems:/usr/local/bundle
@@ -37,7 +37,7 @@ services:
       - node_modules:/usr/src/app/node_modules
       - packs:/usr/src/app/public/packs
     ports:
-      - "3035:3035"
+      - 3035:3035
     env_file:
       - docker/environments/web.env
 
@@ -62,10 +62,10 @@ services:
       ENABLE_BOOTSNAP: "true"
 
   db:
-    image: postgres
+    image: postgres:alpine
     restart: always
     ports:
-      - "5433:5432"
+      - 5433:5432
     volumes:
       - database_data:/var/lib/postgresql/data:delegated
     env_file:
@@ -74,7 +74,7 @@ services:
   redis:
     image: redis:5-alpine
     ports:
-      - "6380:6379"
+      - 6380:6379
     volumes:
       - "redis_data:/data"
 
@@ -92,17 +92,6 @@ services:
       - docker/environments/web.env
     environment:
       ENABLE_BOOTSNAP: "true"
-
-  datadog-agent:
-    image: datadog/agent:latest
-    environment:
-      - DD_DOGSTATSD_NON_LOCAL_TRAFFIC=true
-      - DD_APM_ENABLED=true
-      - DD_APM_NON_LOCAL_TRAFFIC=true
-    ports:
-      - 8126:8126
-    links:
-      - web
 
 volumes:
   database_data:
