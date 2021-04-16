@@ -40,6 +40,7 @@
                             type: :password,
                             class: "form-control",
                             required: true,
+                            pattern: ".{" + Devise.password_length.min.to_s + ",}",
                             input_html: { autocomplete: "new-password" } %>
 
           <div class="input-group-append">
