@@ -9,10 +9,12 @@ class ApplicationController < ActionController::Base
     content_security_policy do |policy|
       policy.default_src :self, :https
       policy.font_src :self, :data, :https
-      policy.img_src :self, :data, :https
+      policy.img_src :self, :data, :https, :blob
       policy.object_src :none
       policy.script_src :strict_dynamic
       policy.style_src :self, :https, :unsafe_inline
+      policy.worker_src :blob
+      policy.child_src :blob
     end
   end
 

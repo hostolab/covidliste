@@ -36,7 +36,12 @@
         <label for="user_password"> Mot de passe </label>
 
         <div class="input-group" data-behavior="toggle-password-visibility">
-          <input class="form-control" id="user_password" name="user[password]" autocomplete="new-password" required type="password" pattern=".{<%= Devise.password_length.min %>,}">
+          <%= f.input_field :password,
+                            type: :password,
+                            class: "form-control",
+                            required: true,
+                            pattern: ".{" + Devise.password_length.min.to_s + ",}",
+                            input_html: { autocomplete: "new-password" } %>
 
           <div class="input-group-append">
             <span class="input-group-text"> <%= link_to icon("fas", "eye") %> </span>

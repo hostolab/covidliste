@@ -5,16 +5,16 @@
 
 import Rails from "@rails/ujs";
 import Turbolinks from "turbolinks";
-import * as ActiveStorage from "@rails/activestorage";
-import "controllers";
-import "channels";
+// import * as ActiveStorage from "@rails/activestorage";
+import "controllers/application";
+// import "channels";
 import "bootstrap";
 import "bootstrap-select";
 import "../components/confirmation";
 
 Rails.start();
 Turbolinks.start();
-ActiveStorage.start();
+// ActiveStorage.start();
 
 import { placesAutocomplete } from "../plugins/places_autocomplete";
 import { leafletMap } from "../plugins/leaflet_map";
