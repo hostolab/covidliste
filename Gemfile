@@ -57,8 +57,8 @@ gem "pundit", "~> 2.1"
 gem "rack-attack"
 gem "invisible_captcha"
 gem "ddtrace"
-gem 'lograge'
-gem 'lograge-sql'
+gem "lograge"
+gem "lograge-sql"
 
 group :development, :test do
   gem "dotenv-rails", "2.7.6"
