@@ -367,7 +367,7 @@
     <%= link_to "vous inscrire", partenaires_inscription_path %>.
 
     Si vous avez besoin d’accompagnement, nous vous invitons à contacter
-    <%= mail_to "partenaires@covidliste.com" %>.
+    <%= link_to "partenaires@covidliste.com", "mailto:partenaires@covidliste.com" %>.
 
 ############################
 # Collaboration et contact #
@@ -391,12 +391,12 @@
     Nous essayons de travailler au maximum avec des entreprises ou associations françaises ou européennes.
 
     Si vous pensez pouvoir nous aider, vous pouvez nous contacter sur
-    <%= mail_to "hello@covidliste.com", rel: "noopener" %>.
+    <%= link_to "hello@covidliste.com", "mailto:hello@covidliste.com", rel: "noopener" %>.
 
 - title: Je suis journaliste et souhaite réaliser une interview ou obtenir des informations.
   category: Collaboration et contact
   body_md_erb: |
-    Nous vous invitons à nous contacter sur <%= mail_to "presse@covidliste.com", rel: "noopener" %>.
+    Nous vous invitons à nous contacter sur <%= link_to "presse@covidliste.com", "mailto:presse@covidliste.com", rel: "noopener" %>.
 
 - title: Je suis un professionnel de santé en charge de la vaccination et j’ai une question
   category: Collaboration et contact
@@ -407,7 +407,7 @@
     <%= link_to "vous inscrire", partenaires_inscription_path %>.
 
     Si vous avez besoin d’accompagnement, nous vous invitons à contacter
-    <%= mail_to "partenaires@covidliste.com" %>.
+    <%= link_to "partenaires@covidliste.com", "mailto:partenaires@covidliste.com" %>.
 
 - title: J’ai une question qui n’est pas dans la FAQ ou je souhaite vous contacter.
   category: Collaboration et contact
@@ -419,4 +419,4 @@
     Pour éviter d’allonger les délais de réponse, vérifiez bien que la réponse à votre question n’est pas présente
     dans la Foire aux questions avant de nous contacter.
 
-    Si ce n’est pas le cas, nous somme disponibles sur <%= mail_to "hello@covidliste.com", rel: "noopener" %>.
+    Si ce n’est pas le cas, nous somme disponibles sur <%= link_to "hello@covidliste.com", "mailto:hello@covidliste.com", rel: "noopener" %>.
