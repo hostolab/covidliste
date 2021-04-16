@@ -45,7 +45,6 @@ const placesAutocomplete = (appId, apiKey) => {
       countries: ["fr"],
     });
     p.on("change", function (e) {
-      console.log(e.suggestion);
       let latlng = e.suggestion.latlng;
       centerLatInput.value = latlng["lat"];
       centerLonInput.value = latlng["lng"];
