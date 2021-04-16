@@ -22,9 +22,7 @@ Covidliste makes it easy to manage waiting lists for vaccination centers.
 
 # Local Development
 
-## Installation
-
-### Through Docker and Docker Compose
+## Installation [Method 1] Docker and Docker Compose
 
 These instructions are designed for setting up The Rails Port using [Docker](https://www.docker.com/). This will allow you to install the application and all its dependencies in Docker images and then run them in containers, almost with a single command. You will need to install Docker and docker-compose on your development machine:
 
@@ -89,7 +87,7 @@ Similarly, if you want to `exec` in the db container use:
 docker-compose exec db bash
 ```
 
-### Otherwise on local machine itself
+## Installation [Method 2] Manual setup on local host machine
 
 #### Prerequisites
 
@@ -152,14 +150,6 @@ user.add_role(:admin)
 ## Documentation
 
 A handbook is available [in the `doc` directory](doc/handbook.md).
-
-## Docker
-
-Launch the Docker environment:
-
-```bash
-docker-compose up -d
-```
 
 # Contributing
 
