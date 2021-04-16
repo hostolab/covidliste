@@ -12,15 +12,7 @@ class UsersController < ApplicationController
       redirect_to profile_path
     else
       @user = User.new(birthdate: Date.today.change(year: 1961))
-      @users_count = Rails.cache.fetch(:users_count, expires_in: 1.minute) do
-        number_with_delimiter(User.count, locale: :fr).gsub(" ", "&nbsp;").html_safe
-      end
-      @matched_users_count = Rails.cache.fetch(:matched_users_count, expires_in: 1.minute) do
-        number_with_delimiter(Match.confirmed.count, locale: :fr).gsub(" ", "&nbsp;").html_safe
-      end
-      @vaccination_centers_count = Rails.cache.fetch(:vaccination_centers_count, expires_in: 1.minute) do
-        number_with_delimiter(VaccinationCenter.confirmed.count, locale: :fr).gsub(" ", "&nbsp;").html_safe
-      end
+      set_counters
     end
   end
 
@@ -67,6 +59,21 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def set_counters
+    @users_count = Rails.cache.fetch(:users_count, expires_in: 5.minute) do
+      number_with_delimiter(User.count, locale: :fr).gsub(" ", "&nbsp;").html_safe
+    end
+    @matched_users_count = Rails.cache.fetch(:matched_users_count, expires_in: 5.minute) do
+      number_with_delimiter(Match.distinct.count("user_id"), locale: :fr).gsub(" ", "&nbsp;").html_safe
+    end
+    @confirmed_matched_users_count = Rails.cache.fetch(:confirmed_matched_users_count, expires_in: 5.minute) do
+      number_with_delimiter(Match.confirmed.count, locale: :fr).gsub(" ", "&nbsp;").html_safe
+    end
+    @vaccination_centers_count = Rails.cache.fetch(:vaccination_centers_count, expires_in: 5.minute) do
+      number_with_delimiter(VaccinationCenter.confirmed.count, locale: :fr).gsub(" ", "&nbsp;").html_safe
+    end
+  end
 
   def prepare_phone_number
     human_friendly_phone_number = @user.human_friendly_phone_number
