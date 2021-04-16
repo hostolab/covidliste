@@ -17,7 +17,7 @@ COPY . .
 
 RUN sed -i 's|port ENV.fetch("PORT", 3000)|bind "tcp://0.0.0.0:#{ENV["PORT"] \|\| 3000}"|g' config/puma.rb
 
-RUN gem install bundler:2.2.15
+RUN gem install bundler:2.2.16
 
 RUN npm i -g yarn
 

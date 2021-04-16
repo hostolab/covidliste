@@ -3,7 +3,6 @@ name: Test
 # triggers on
 on:
   - push
-  - pull_request_target
 
 jobs:
   test:
@@ -36,6 +35,11 @@ jobs:
         with:
           # runs 'bundle install' and caches installed gems automatically
           bundler-cache: true
+      - name: Bundle install
+        run: |
+          gem install bundle
+          bundle update --bundler
+          bundle install --jobs 4 --retry 3 --path 'vendor/bundle' --without development production
       - name: Set up .env
         run: echo "LOCKBOX_MASTER_KEY=0000000000000000000000000000000000000000000000000000000000000000" > .env
       - name: Get Node.js version
@@ -60,15 +64,11 @@ jobs:
           cp config/database.github.yml config/database.yml
           bundle exec rails db:create db:migrate
       - name: Run tests
-        run: bundle exec rspec --format RspecJunitFormatter --out rspec.xml
-      # - name: Codecov
-      #   uses: codecov/codecov-action@v1.3.2
+        run: bundle exec rspec
+      # - name: Publish Unit Test Results
+      #   uses: EnricoMi/publish-unit-test-result-action@v1
+      #   if: always()
       #   with:
-      #     token: ${{ secrets.CODECOV_TOKEN }}
-      - name: Publish Unit Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v1
-        if: always()
-        with:
-          files: rspec.xml
+      #     files: rspec.xml
       - name: Brakeman action
         uses: artplan1/brakeman-action@v1.2.1
