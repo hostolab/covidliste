@@ -11,7 +11,7 @@ class UsersController < ApplicationController
     elsif current_user
       redirect_to profile_path
     else
-      @user = User.new
+      @user = User.new(birthdate: Date.today.change(year: 1961))
       @users_count = Rails.cache.fetch(:users_count, expires_in: 1.minute) do
         number_with_delimiter(User.count, locale: :fr).gsub(" ", "&nbsp;").html_safe
       end
