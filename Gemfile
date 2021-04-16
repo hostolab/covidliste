@@ -56,7 +56,11 @@ gem "lefthook"
 gem "pundit", "~> 2.1"
 gem "rack-attack"
 gem "invisible_captcha"
-# gem "ddtrace", require: false
+
+
+group :production do
+  gem "ddtrace", require: false
+end
 
 group :development, :test do
   gem "dotenv-rails", "2.7.6"
