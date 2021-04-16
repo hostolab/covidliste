@@ -20,9 +20,3 @@ class AnonymizeConfirmedMatchedUsersJob < ActiveJob::Base
       .where(anonymized_at: nil)
   end
 end
-
-Sidekiq::Cron::Job.create(
-  name: "Anonymize all users with confirmed match from 3 days ago and more",
-  cron: "0 3 * * *",
-  class: "AnonymizeConfirmedMatchedUsersJob"
-)

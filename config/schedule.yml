@@ -17,3 +17,8 @@ blazer_checks_1_day:
   cron: "* * * * *"
   class: "Blazer::RunBlazerChecksJob"
   args: { shedule: "1 day" }
+
+anonynise_confirmed_mathced_users:
+  cron: "0 3 * * *"
+  class: "AnonymizeConfirmedMatchedUsersJob"
+  description: Anonymize all users with confirmed match from 3 days ago and more
