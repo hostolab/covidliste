@@ -1,3 +1,0 @@
--- CREATE USER IF NOT EXISTS 'covidliste'@'db';
--- CREATE USER covidliste;
--- ALTER USER covidliste WITH SUPERUSER;
