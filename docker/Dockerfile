@@ -45,3 +45,4 @@ COPY package.json yarn.lock ./
 RUN yarn install --check-files
 
 COPY . ./
+COPY docker/config/database.yml ./config/database.yml
