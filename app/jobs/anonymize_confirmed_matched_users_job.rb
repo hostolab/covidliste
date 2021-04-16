@@ -11,7 +11,7 @@ class AnonymizeConfirmedMatchedUsersJob < ActiveJob::Base
 
   def users_to_anonymize
     a_month_ago = Date.today - 1.month
-    three_days_ago = Date.today - DELAY_AFTER_MATCH_CONFIRMATION
+    three_days_ago = DELAY_AFTER_MATCH_CONFIRMATION.ago
 
     User.distinct
       .joins("JOIN matches ON matches.user_id = users.id")
