@@ -93,6 +93,17 @@ services:
     environment:
       ENABLE_BOOTSNAP: "true"
 
+  datadog-agent:
+    image: datadog/agent:latest
+    environment:
+      - DD_DOGSTATSD_NON_LOCAL_TRAFFIC=true
+      - DD_APM_ENABLED=true
+      - DD_APM_NON_LOCAL_TRAFFIC=true
+    ports:
+      - 8126:8126
+    links:
+      - web
+
 volumes:
   database_data:
   redis_data:
