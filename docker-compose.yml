@@ -1,27 +1,104 @@
-version: "3.9"
+version: '3.9'
 
 services:
+  migration:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    entrypoint: ./docker/entrypoints/migration-entrypoint.sh
+    tty: true
+    stdin_open: true
+    depends_on:
+      - db
+    volumes:
+      - .:/usr/src/app
+    env_file:
+      - docker/environments/db.env
+      - docker/environments/web.env
+    environment:
+      ENABLE_BOOTSNAP: "false"
+
+  web:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    entrypoint: ./docker/entrypoints/web-entrypoint.sh
+    tty: true
+    stdin_open: true
+    depends_on:
+      - db
+      - migration
+      - redis
+      - webpacker
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/usr/src/app
+      - gems:/usr/local/bundle
+      - node_modules:/usr/src/app/node_modules
+      - packs:/usr/src/app/public/packs
+    env_file:
+      - docker/environments/db.env
+      - docker/environments/web.env
+    environment:
+      ENABLE_BOOTSNAP: "false"
+
+  webpacker:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    entrypoint: ./docker/entrypoints/webpacker-entrypoint.sh
+    volumes:
+      - .:/usr/src/app
+      - gems:/usr/local/bundle
+      - node_modules:/usr/src/app/node_modules
+      - packs:/usr/src/app/public/packs
+    ports:
+      - "3035:3035"
+    env_file:
+      - docker/environments/web.env
+
+  worker:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    entrypoint: ./docker/entrypoints/sidekiq-entrypoint.sh
+    depends_on:
+      - db
+      - migration
+      - redis
+    volumes:
+      - .:/usr/src/app
+      - gems:/usr/local/bundle
+      - node_modules:/usr/src/app/node_modules
+      - packs:/usr/src/app/public/packs
+    env_file:
+      - docker/environments/db.env
+      - docker/environments/web.env
+    environment:
+      ENABLE_BOOTSNAP: "false"
+
   db:
     image: postgres
     restart: always
     ports:
-      - "5432:5432"
-    environment:
-      POSTGRES_PASSWORD: covidliste
-      POSTGRES_USER: covidliste
-      POSTGRES_DB: covidliste_development
+      - "5433:5432"
     volumes:
-      - "postgres-data:/var/lib/postgresql"
+      - database_data:/var/lib/postgresql/data:delegated
+      - ./docker/init.sql:/docker-entrypoint-initdb.d/init.sql
+    env_file:
+      - docker/environments/db.env
+
   redis:
-    image: "redis:5-alpine"
-    command: redis-server
+    image: redis:5-alpine
     ports:
-      - "6379:6379"
+      - "6380:6379"
     volumes:
-      - "redis-data:/data"
+      - "redis_data:/data"
 
 volumes:
-  postgres-data:
-    driver: local
-  redis-data:
-    driver: local
+  database_data:
+  redis_data:
+  gems:
+  node_modules:
+  packs:

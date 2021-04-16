@@ -36,7 +36,7 @@
 yarn-debug.log*
 .yarn-integrity
 # Ignore .env file containing credentials.
-.env*
+/.env*
 
 # Ignore Mac and Linux file system files
 *.swp
@@ -46,3 +46,9 @@ yarn-debug.log*
 *.dump
 .idea/*
 coverage/*
+
+# volumes dockers
+/database_data
+/redis_data
+/bundle_cache
+/node_modules
