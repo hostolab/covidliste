@@ -13,9 +13,10 @@ module Admin
       redirect_to(root_path, notice: "Vous n'êtes pas autorisé à faire cette action")
     end
 
-    # Redefine pundit specific methods to handle :admin namespace properly
+    # Redefine pundit specific methods to handle :admin namespace properly.
     def policy_scope(scope)
-      super([:admin, scope])
+      # Flatten the scope to handle sub namespace (e.g. [:power_users, User]).
+      super([:admin, scope].flatten)
     end
 
     def authorize(record, query = nil)
