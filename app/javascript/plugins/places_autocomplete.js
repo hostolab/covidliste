@@ -8,11 +8,19 @@ const placesAutocomplete = (appId, apiKey) => {
       container: addressInput,
       appId: appId,
       apiKey: apiKey,
+      templates: {
+        value: (suggestion) => {
+          // overide Algolia default address formating that includes French region but not the Zip code.
+          // french region can confuse the address geocoding API
+          return `${suggestion.name}, ${suggestion.postcode} ${suggestion.city}, ${suggestion.country}`;
+        },
+      },
     }).configure({
       language: "fr",
       countries: ["fr"],
     });
   }
+  // 3 Rue de la Paix, 75002 Paris 2e Arrondissement, undefined
 
   // Vaccination Center Signup Form
   const centerAddressInput = document.getElementById(
@@ -25,11 +33,19 @@ const placesAutocomplete = (appId, apiKey) => {
       container: centerAddressInput,
       appId: appId,
       apiKey: apiKey,
+      templates: {
+        value: (suggestion) => {
+          // overide Algolia default address formating that includes French region but not the Zip code.
+          // french region can confuse the address geocoding API
+          return `${suggestion.name}, ${suggestion.postcode} ${suggestion.city}, ${suggestion.country}`;
+        },
+      },
     }).configure({
       language: "fr",
       countries: ["fr"],
     });
     p.on("change", function (e) {
+      console.log(e.suggestion);
       let latlng = e.suggestion.latlng;
       centerLatInput.value = latlng["lat"];
       centerLonInput.value = latlng["lng"];
