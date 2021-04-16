@@ -90,7 +90,7 @@
         </thead>
 
         <tbody>
-        <% @vaccination_centers.each do |vaccination_center| %>
+        <% @unconfirmed_vaccination_centers.each do |vaccination_center| %>
           <tr>
             <td>
               <strong>
@@ -133,9 +133,11 @@
     </div>
   <% end %>
 
-  <p class="mt-4">
-    Vous n’avez actuellement accès à aucun lieu de vaccination.
-  </p>
+  <% if @vaccination_centers.empty? && @unconfirmed_vaccination_centers.empty? %>
+    <p class="mt-4">
+      Vous n’avez actuellement accès à aucun lieu de vaccination.
+    </p>
+  <% end %>
 
   <p>
     <%= link_to "Demander la création d’un nouveau lieu de vaccination", new_partners_vaccination_center_path, class: "btn btn-primary btn-sm" %>
@@ -143,7 +145,7 @@
 
   <p class="mt-4 small">
     Si vous souhaitez rejoindre un centre déjà existant sur Covidliste, contactez-nous sur
-    <%=  link_to "hello@covidliste.com", "mailto:hello@covidliste.com" %>.
+    <%= mail_to "hello@covidliste.com" %>.
   </p>
 
   <hr>
