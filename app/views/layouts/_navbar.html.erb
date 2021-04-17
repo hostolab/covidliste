@@ -17,7 +17,7 @@
         <li class="<% action_name == "faq" ? "nav-item active" : "nav-item" %>">
           <%= link_to "Foire aux questions", :faq, class: "nav-link" %>
         </li>
-        <li class="<% action_name == "partenaires" ? "nav-item active" : "nav-item" %>">
+        <li class="<%= action_name == "partenaires" ? "nav-item active" : "nav-item" %>">
           <%= link_to "Professionnels de santé", :partenaires, class: "nav-link" %>
         </li>
         <li class="<%= action_name == "benevoles" ? "nav-item active" : "nav-item" %>">
