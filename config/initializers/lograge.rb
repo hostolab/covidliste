@@ -8,7 +8,7 @@ Rails.application.configure do
 
   config.lograge.custom_options = lambda do |event|
     {
-      ddsource: 'ruby',
+      ddsource: "ruby",
       time: Time.now,
       params: event.payload[:params],
       level: event.payload[:level],
