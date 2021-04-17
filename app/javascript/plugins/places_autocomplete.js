@@ -9,8 +9,8 @@ const placesAutocomplete = (appId, apiKey) => {
       appId: appId,
       apiKey: apiKey,
       templates: {
-        value: formattedValue,
-        suggestion: formattedSuggestion,
+        value: formattedAdress,
+        suggestion: formattedAdress,
       },
     }).configure({
       language: "fr",
@@ -31,8 +31,8 @@ const placesAutocomplete = (appId, apiKey) => {
       appId: appId,
       apiKey: apiKey,
       templates: {
-        value: formattedValue,
-        suggestion: formattedSuggestion,
+        value: formattedAdress,
+        suggestion: formattedAdress,
       },
     }).configure({
       language: "fr",
@@ -41,14 +41,9 @@ const placesAutocomplete = (appId, apiKey) => {
   }
 };
 
-function formattedValue(reponse) {
+function formattedAdress(reponse) {
   // overide Algolia default address formating that includes French region but not the Zip code.
   // french region can confuse the address geocoding API
-  return `${reponse.name}, ${reponse.postcode} ${reponse.city}, ${reponse.country}`;
-}
-
-function formattedSuggestion(reponse) {
-  // overide Algolia default address formating suggestion that includes French region but not the Zip code.
   return [reponse.name, reponse.postcode, reponse.city, reponse.country]
     .filter((e) => e !== "undefined")
     .join(" ");
