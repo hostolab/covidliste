@@ -9,6 +9,7 @@ Rails.application.configure do
   config.lograge.custom_options = lambda do |event|
     {
       params: event.payload[:params],
+      ddsource: ["rails"],
       level: event.payload[:level],
       exception: event.payload[:exception],
       exception_object: event.payload[:exception_object]
