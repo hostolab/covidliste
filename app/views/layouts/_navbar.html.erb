@@ -20,7 +20,7 @@
         <li class="<% action_name == "partenaires" ? "nav-item active" : "nav-item" %>">
           <%= link_to "Professionnels de santé", :partenaires, class: "nav-link" %>
         </li>
-        <li class="<% action_name == "benevoles" ? "nav-item active" : "nav-item" %>">
+        <li class="<%= action_name == "benevoles" ? "nav-item active" : "nav-item" %>">
           <%= link_to "Bénévoles", :benevoles, class: "nav-link" %>
         </li>
       <% end %>
