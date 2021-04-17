@@ -42,6 +42,11 @@
           <%= f.input :name, label: "Nom du lieu de vaccination", error: "Nom requis", placeholder: "Centre de vaccination Marseille", required: true %>
           <%= f.input :description, label: "Description", error: "Description requise", placeholder: "Description du lieu de vaccination", required: true %>
           <%= f.input :kind, label: "Type de lieu de vaccination", collection: VaccinationCenter::Kinds::ALL %>
+          <p class="small text-primary">
+            <%= icon("fas", "info-circle", class: "text-secondary") %>
+            Vous ne trouvez pas le type de lieu de vaccination qui vous correspond ?<br />
+            Choisissez la valeur qui s'en approche le plus et ajoutez vore type de lieu comme préfixe dans le champ "Nom" ou "Description" ci-dessus.
+          </p>
 
           <p class="mt-2">
             Type(s) de vaccins disponibles
