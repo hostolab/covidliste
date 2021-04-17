@@ -15,6 +15,10 @@
         membre d’un centre de vaccination, cabinet de médecine libérale, hôpital, pharmacie...
       </p>
 
+      <p>
+        Nous prendrons contact avec vous pour valider la création du lieu.
+      </p>
+
       <% if @vaccination_center.persisted? %>
         <div class="alert alert-success mt-2">
           <p>
@@ -25,7 +29,7 @@
           </p>
           <p>
             Vous pourrez suivre l’état de la demande sur votre
-             <%= link_to "profil professionnel de santé assurant la vaccination", partners_vaccination_centers_path %>.
+             <%= link_to "espace professionnel de santé assurant la vaccination", partners_vaccination_centers_path %>.
           </p>
         </div>
       <% else %>
