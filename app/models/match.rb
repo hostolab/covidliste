@@ -17,6 +17,7 @@ class Match < ApplicationRecord
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
   scope :refused, -> { where.not(refused_at: nil) }
+  scope :pending, -> { where(confirmed_at: nil).where("expires_at >= now()") }
 
   def save_user_info
     self.age = user.age

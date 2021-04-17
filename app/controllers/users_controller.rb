@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   before_action :authenticate_user!, except: %i[new create]
   before_action :sign_out_if_anonymized!
   invisible_captcha only: [:create], honeypot: :subtitle
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   def new
     skip_authorization
@@ -11,16 +12,8 @@ class UsersController < ApplicationController
     elsif current_user
       redirect_to profile_path
     else
-      @user = User.new
-      @users_count = Rails.cache.fetch(:users_count, expires_in: 1.minute) do
-        number_with_delimiter(User.count, locale: :fr).gsub(" ", "&nbsp;").html_safe
-      end
-      @matched_users_count = Rails.cache.fetch(:matched_users_count, expires_in: 1.minute) do
-        number_with_delimiter(Match.confirmed.count, locale: :fr).gsub(" ", "&nbsp;").html_safe
-      end
-      @vaccination_centers_count = Rails.cache.fetch(:vaccination_centers_count, expires_in: 1.minute) do
-        number_with_delimiter(VaccinationCenter.confirmed.count, locale: :fr).gsub(" ", "&nbsp;").html_safe
-      end
+      @user = User.new(birthdate: Date.today.change(year: 1961))
+      set_counters
     end
   end
 
@@ -68,6 +61,21 @@ class UsersController < ApplicationController
 
   private
 
+  def set_counters
+    @users_count = Rails.cache.fetch(:users_count, expires_in: 5.minute) do
+      number_with_delimiter(User.count, locale: :fr).gsub(" ", "&nbsp;").html_safe
+    end
+    @matched_users_count = Rails.cache.fetch(:matched_users_count, expires_in: 5.minute) do
+      number_with_delimiter(Match.distinct.count("user_id"), locale: :fr).gsub(" ", "&nbsp;").html_safe
+    end
+    @confirmed_matched_users_count = Rails.cache.fetch(:confirmed_matched_users_count, expires_in: 5.minute) do
+      number_with_delimiter(Match.confirmed.count, locale: :fr).gsub(" ", "&nbsp;").html_safe
+    end
+    @vaccination_centers_count = Rails.cache.fetch(:vaccination_centers_count, expires_in: 5.minute) do
+      number_with_delimiter(VaccinationCenter.confirmed.count, locale: :fr).gsub(" ", "&nbsp;").html_safe
+    end
+  end
+
   def prepare_phone_number
     human_friendly_phone_number = @user.human_friendly_phone_number
     @user.phone_number = human_friendly_phone_number unless human_friendly_phone_number.nil?
@@ -83,5 +91,13 @@ class UsersController < ApplicationController
       sign_out
       redirect_to root_path
     end
+  end
+
+  def user_not_authorized(exception)
+    policy_name = exception
+      .policy.class.to_s.underscore
+    message = exception.message || (t "#{policy_name}.#{exception.query}", scope: "pundit", default: :default)
+    flash[:error] = message
+    redirect_to(request.referrer || root_path)
   end
 end

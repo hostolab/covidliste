@@ -47,7 +47,7 @@ module Partners
 
     def vaccination_center_params
       params.require(:vaccination_center).permit(:name, :description, :address, :kind, :pfizer, :moderna, :astrazeneca,
-        :janssen, :phone_number, :lat, :lon)
+        :janssen, :phone_number)
     end
 
     def sort_column
