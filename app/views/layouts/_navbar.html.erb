@@ -10,7 +10,7 @@
 
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav ml-auto">
-      <li class="<% action_name == "carte" ? "nav-item active" : "nav-item" %>">
+      <li class="<%= action_name == "carte" ? "nav-item active" : "nav-item" %>">
         <%= link_to "Carte", :carte, class: "nav-link" %>
       </li>
       <% if !current_partner %>
