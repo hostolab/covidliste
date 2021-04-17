@@ -52,11 +52,11 @@
   <div class="col-12 mb-2">
     <button class="btn btn-primary" type="submit">Je suis disponible</button>
   </div>
+  <div class="btn btn-warning m-2">
+    <%= link_to 'Pas disponible/Refuser le RDV', match_path(match_confirmation_token: @match.match_confirmation_token), method: :delete, class: 'btn btn-warning btn-block' %>
+  </div>
 </form>
 
-<div class="btn btn-warning m-2">
-  <%= link_to 'Pas disponible/Refuser le RDV', match_path(match_confirmation_token: @match.match_confirmation_token), method: :delete, class: 'btn btn-warning btn-block' %>
-</div>
 
 <p>
   <small>
