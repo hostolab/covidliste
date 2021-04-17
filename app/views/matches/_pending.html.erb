@@ -3,7 +3,7 @@
 
 <p class="mt-4">
   Bonne nouvelle ! Une dose est disponible près de chez vous.
-  <strong> Vous avez jusqu'à <%= @match.expires_at.strftime('%Hh%M')%>  pour confirmer votre venue au centre de vaccination au créneau horaire proposé </strong>.
+  <strong> Vous avez <%= time_ago_in_words(@match.expires_at, include_seconds: true) %> pour confirmer votre venue au centre de vaccination au créneau horaire proposé </strong>.
   Passé ce délai, la dose sera attribuée à un autre de volontaire.
 </p>
 
@@ -56,7 +56,9 @@
 
 <p>
   <small>
-    Une fois votre présence confirmée, vos coordonnées sont transmises au centre de vaccination. Votre compte et vos informations seront alors définitivement supprimés de Covidliste sous 7 jours, et vous ne recevrez plus de notifications.
+    Une fois votre présence confirmée, vos coordonnées sont transmises au centre de vaccination. Votre compte et vos informations seront alors définitivement supprimés de Covidliste sous 
+    <%= AnonymizeConfirmedMatchedUsersJob::DELAY_AFTER_MATCH_CONFIRMATION.parts.map { |unit, n| I18n.t unit, count: n, scope: 'duration' }.to_sentence %>
+    , et vous ne recevrez plus de notifications.
   </small>
 </p>
 

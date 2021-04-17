@@ -3,14 +3,21 @@
     Espace professionnels de santé
   </h2>
 
-  <p class="mt-3 font-weight-bold">
+  <p class="mt-4 mb-1 font-weight-bold">
     Bonjour <%= current_partner.name %>
+  </p>
+
+  <p class="small">
+    <%= icon("fas", "phone", current_partner.human_friendly_phone_number) %>
   </p>
 
   <p>
     Bienvenue dans l’espace <strong>réservé aux professionnels de santé assurant la vaccination</strong>.
     <br>
     Merci de nous avoir rejoint et merci pour ce que vous faites pour aider à la vaccination du plus grand nombre !
+    <br />
+    Un problème, une question ? Contactez-nous sur
+    <%= link_to "partenaires@covidliste.com", "mailto:partenaires@covidliste.com" %>
   </p>
 
   <% if @vaccination_centers.any? %>
@@ -50,16 +57,16 @@
 
               <td>
                 <% if vaccination_center.pfizer %>
-                  <span class="mr-1"> <%= Vaccine::Brands::PFIZER.capitalize %> </span>
+                  <span class="mr-1"> <%= Vaccine::Brands::PFIZER.capitalize %> </span><br />
                 <% end %>
                 <% if vaccination_center.moderna %>
-                  <span class="mr-1"> <%= Vaccine::Brands::MODERNA.capitalize %> </span>
+                  <span class="mr-1"> <%= Vaccine::Brands::MODERNA.capitalize %> </span><br />
                 <% end %>
                 <% if vaccination_center.astrazeneca %>
-                  <span class="mr-1"> <%= Vaccine::Brands::ASTRAZENECA.capitalize %> </span>
+                  <span class="mr-1"> <%= Vaccine::Brands::ASTRAZENECA.capitalize %> </span><br />
                 <% end %>
                 <% if vaccination_center.janssen %>
-                  <span class="mr-1"> <%= Vaccine::Brands::JANSSEN.capitalize %> </span>
+                  <span class="mr-1"> <%= Vaccine::Brands::JANSSEN.capitalize %> </span><br />
                 <% end %>
               </td>
 
@@ -71,11 +78,24 @@
         </tbody>
       </table>
     </div>
+  <% else %>
+    <p class="mt-4">
+      Vous n’avez actuellement accès à aucun lieu de vaccination.
+    </p>
   <% end %>
 
   <% if @unconfirmed_vaccination_centers.any? %>
     <p class="mt-4">
       Vos lieux de vaccination en attente de validation :
+    <div class="alert alert-primary" role="alert" style="position: inherit">
+      Nous allons vous contacter dans les prochaines heures ou les prochains jours pour valider vos lieux de vaccination en attente.
+      <br />
+      Vérifiez vos informations, et particulièrement votre numéro de téléphone portable :
+      <strong><%= current_partner.human_friendly_phone_number %></strong>
+      <br />
+      Numéro incorrect ? Contactez-nous sur
+      <%= link_to "partenaires@covidliste.com", "mailto:partenaires@covidliste.com" %>
+    </div>
     </p>
 
     <div class="table-responsive">
@@ -110,16 +130,16 @@
 
             <td>
               <% if vaccination_center.pfizer %>
-                <span class="mr-1"> <%= Vaccine::Brands::PFIZER.capitalize %> </span>
+                <span class="mr-1"> <%= Vaccine::Brands::PFIZER.capitalize %> </span><br />
               <% end %>
               <% if vaccination_center.moderna %>
-                <span class="mr-1"> <%= Vaccine::Brands::MODERNA.capitalize %> </span>
+                <span class="mr-1"> <%= Vaccine::Brands::MODERNA.capitalize %> </span><br />
               <% end %>
               <% if vaccination_center.astrazeneca %>
-                <span class="mr-1"> <%= Vaccine::Brands::ASTRAZENECA.capitalize %> </span>
+                <span class="mr-1"> <%= Vaccine::Brands::ASTRAZENECA.capitalize %> </span><br />
               <% end %>
               <% if vaccination_center.janssen %>
-                <span class="mr-1"> <%= Vaccine::Brands::JANSSEN.capitalize %> </span>
+                <span class="mr-1"> <%= Vaccine::Brands::JANSSEN.capitalize %> </span><br />
               <% end %>
             </td>
 
@@ -133,19 +153,13 @@
     </div>
   <% end %>
 
-  <% if @vaccination_centers.empty? && @unconfirmed_vaccination_centers.empty? %>
-    <p class="mt-4">
-      Vous n’avez actuellement accès à aucun lieu de vaccination.
-    </p>
-  <% end %>
-
   <p>
     <%= link_to "Demander la création d’un nouveau lieu de vaccination", new_partners_vaccination_center_path, class: "btn btn-primary btn-sm" %>
   </p>
 
   <p class="mt-4 small">
     Si vous souhaitez rejoindre un centre déjà existant sur Covidliste, contactez-nous sur
-    <%= link_to "hello@covidliste.com", "mailto:hello@covidliste.com" %>.
+    <%= link_to "partenaires@covidliste.com", "mailto:partenaires@covidliste.com" %>.
   </p>
 
   <hr>
