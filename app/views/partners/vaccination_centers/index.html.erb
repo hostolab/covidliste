@@ -148,6 +148,63 @@
     <%= link_to "hello@covidliste.com", "mailto:hello@covidliste.com" %>.
   </p>
 
+  <% if @vaccination_centers.any? %>
+    <div class="mt-5 mb-5">
+      <p>
+        Êtes-vous satisfait de Covidliste ?
+        <button class="btn btn-sm btn-success mx-3" type="button"
+                data-toggle="collapse" data-target="#collapseRecommend"
+                aria-expanded="false" aria-controls="collapseRecommend">
+          Recommandez le service à un confrère
+        </button>
+      </p>
+      <div id="collapseRecommend" class="collapse mt-4">
+        <div class="row">
+          <div class="col-12 col-lg-6">
+            <p class="mt-4">
+              Si vous êtes satisfait de Covidliste, nous avons préparé pour vous un exemple de mail simple et
+              prêt à l'emploi pour recommander le service à un confrère en un clic :
+            </p>
+            <p>
+              <%= link_to icon("fas", "envelope") + " Recommander par mail", "mailto:?cc=partenaires@covidliste.com&subject=Je%20vous%20recommande%20Covidliste%20pour%20trouver%20des%20volontaires%20%C3%A0%20la%20vaccination&body=Cher%20confr%C3%A8re%2C%0D%0A%0D%0AJe%20souhaite%20vous%20faire%20part%20de%20l'existence%20de%20Covidliste%2C%20une%20plateforme%20sur%20laquelle%20je%20suis%20inscrit%2C%20qui%20permet%20aux%20professionnels%20de%20sant%C3%A9%20de%20trouver%20des%20volontaires%20%C3%A0%20la%20vaccination%20en%20cas%20de%20doses%20de%20vaccin%20surnum%C3%A9raires.%0D%0A%0D%0AVoici%20l'adresse%20pour%20s'inscrire%20en%20tant%20que%20professionnel%20%3A%20https%3A%2F%2Fwww.covidliste.com%2Fpartenaires%2F%0D%0A%0D%0AL'%C3%A9quipe%20de%20Covidliste%20est%20en%20copie%20de%20ce%20mail%20pour%20toute%20question%20ou%20besoin%20d'accompagnement.%0D%0A%0D%0ACordialement", class: "btn btn-sm btn-outline-primary", target: "_blank", rel: "noopener" %>
+            </p>
+            <p class="text-center text-muted font-italic my-4">
+              ou
+            </p>
+            <p>
+              Nous mettons à votre disposition ci-contre un exemple de contenu mail utilisable pour
+              recommander Covidliste à un confrère
+            </p>
+          </div>
+          <div class="col-12 col-lg-6">
+            <div class="card">
+              <div class="card-body small">
+                <p>
+                  Cc : <em><%=  link_to "partenaires@covidliste.com", "mailto:partenaires@covidliste.com" %></em><br />
+                  Sujet : <em>Je vous recommande Covidliste pour trouver des volontaires à la vaccination</em>
+                </p>
+                <p>
+                  Cher confrère,<br />
+                  <br />
+                  Je souhaite vous faire part de l'existence de Covidliste, une plateforme sur laquelle je suis
+                  inscrit, qui permet aux professionnels de santé de trouver des volontaires à la vaccination
+                  en cas de doses de vaccin surnuméraires.<br />
+                  <br />
+                  Voici l'adresse pour s'inscrire en tant que professionnel : https://www.covidliste.com/partenaires/<br />
+                  <br />
+                  L'équipe de Covidliste est en copie de ce mail pour toute question ou besoin d'accompagnement.<br />
+                  <br />
+                  Cordialement
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+
   <hr>
 
   <%= link_to "Se déconnecter", destroy_partner_session_path, method: :delete, class: "btn btn-warning" %>
