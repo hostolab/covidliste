@@ -24,7 +24,7 @@
           <li class="<%= action_name == "faq" ? "nav-item active" : "nav-item" %>">
             <%= link_to "Foire aux questions", :faq, class: "nav-link" %>
           </li>
-          <li class="<%= action_name == "partenaires" ? "nav-item active" : "nav-item" %>">
+          <li class="<%= action_name == "partenaires" || current_page?(partenaires_inscription_path) ? "nav-item active" : "nav-item" %>">
             <%= link_to "Professionnels de santé", :partenaires, class: "nav-link" %>
           </li>
           <li class="<%= action_name == "benevoles" ? "nav-item active" : "nav-item" %>">
@@ -64,7 +64,7 @@
             </div>
           </li>
         <% else %>
-          <li class="nav-item dropdown">
+          <li class="nav-item dropdown<%= current_page?(new_user_session_path) || current_page?(new_partner_session_path) ? " active" : ""%>">
             <%= link_to "", class: "nav-link dropdown-toggle", id: "dropdown11", "aria-expanded": "false", "aria-haspopup": "true", "data-toggle": "dropdown" do %>
               Se connecter
             <% end %>
