@@ -18,6 +18,11 @@ class Campaign < ApplicationRecord
   validate :min_age_lesser_than_max_age
   validate :starts_at_lesser_than_ends_at
 
+  def canceled!
+    update_attribute(:canceled_at, Time.now.utc)
+    super
+  end
+
   def remaining_slots
     available_doses - matches.confirmed.size
   end
