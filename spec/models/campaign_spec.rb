@@ -10,7 +10,7 @@ RSpec.describe Campaign, type: :model do
 
     it "it includes information about confirmed matches" do
       expect(campaign.to_csv).to include(
-        "#{match.user.firstname},#{match.user.lastname},#{match.user.birthdate},#{match.user.phone_number},#{match.confirmed_at}"
+        "#{match.user.firstname},#{match.user.lastname},#{match.user.birthdate},#{match.user.human_friendly_phone_number},#{match.confirmed_at}"
       )
     end
 

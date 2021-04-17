@@ -1,5 +1,6 @@
 class Partner < ApplicationRecord
   include HasPhoneNumberConcern
+  has_phone_number_types %i[mobile]
 
   devise :database_authenticatable,
     :recoverable,

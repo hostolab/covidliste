@@ -24,7 +24,12 @@ module Partners
       @partner_vaccination_center = PartnerVaccinationCenter.new(partner: current_partner,
                                                                  vaccination_center: @vaccination_center)
       @partner_vaccination_center.save
+      prepare_phone_number
       render action: :new
+    end
+
+    def prepare_phone_number
+      @vaccination_center.phone_number = @vaccination_center.human_friendly_phone_number
     end
 
     private

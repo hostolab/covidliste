@@ -1,4 +1,6 @@
 class VaccinationCenter < ApplicationRecord
+  include HasPhoneNumberConcern
+  has_phone_number_types %i[fixed_line mobile voip]
   module Kinds
     CABINET_MEDICAL = "Cabinet médical"
     CENTRE_VACCINATION = "Centre de vaccination"
@@ -78,11 +80,11 @@ class VaccinationCenter < ApplicationRecord
           vaccination_center.name,
           vaccination_center.kind,
           vaccination_center.address,
-          vaccination_center.phone_number,
+          vaccination_center.human_friendly_phone_number,
           vaccin_types,
           vaccination_center.partners&.first&.name,
           vaccination_center.partners&.first&.email,
-          vaccination_center.partners&.first&.phone_number,
+          vaccination_center.partners&.first&.human_friendly_phone_number,
           confirmed
         ]
         if confirmed
