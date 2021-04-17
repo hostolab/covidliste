@@ -14,7 +14,10 @@ class PartnersController < ApplicationController
     # @partner.password = Devise.friendly_token.first(12)
     # @partner.skip_confirmation! if ENV["SKIP_EMAIL_CONFIRMATION"] == 'true'
     @partner.save
-    render action: :new
+    respond_to do |format|
+      format.html { render action: :new }
+      format.js { }
+    end
   end
 
   private

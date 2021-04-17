@@ -1,0 +1,33 @@
+$navbar-padding-y:                  0.5rem;
+$navbar-brand-padding-y:            1rem;
+$navbar-nav-link-padding-x:         1.0rem;
+$navbar-brand-font-size:            1.6rem;
+
+// $navbar-toggler-padding-y:          .25rem;
+// $navbar-toggler-padding-x:          .75rem;
+// $navbar-toggler-font-size:          $font-size-lg;
+// $navbar-toggler-border-radius:      $btn-border-radius;
+// $navbar-toggler-focus-width:        $btn-focus-width;
+// $navbar-toggler-transition:         box-shadow .15s ease-in-out;
+
+$navbar-dark-brand-color:           $purple200;
+$navbar-dark-brand-hover-color:     darken($purple200, 5);
+$navbar-dark-color:                 rgba(#fff, .70) !default;
+$navbar-dark-hover-color:           rgba(#fff, .90) !default;
+$navbar-dark-active-color:          #fff !default;
+$navbar-dark-disabled-color:        rgba(#fff, .20) !default;
+$navbar-dark-toggler-icon-bg:       url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'><path stroke='#{$navbar-dark-color}' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/></svg>") !default;
+$navbar-dark-toggler-border-color:  rgba(#fff, .1) !default;
+
+// $navbar-default-bg:                    linear-gradient(90deg, $purple700, $purple900);
+// $navbar-light-bg:                    linear-gradient(90deg, $purple700, $purple900);
+// $navbar-dark-bg:                    linear-gradient(90deg, $purple700, $purple900);
+// $navbar-dark-color:                 rgba(#ffffff, .55);
+// $navbar-dark-hover-color:           rgba(#ffffff, .75);
+// $navbar-dark-active-color:          #ffffff;
+// $navbar-dark-disabled-color:        rgba(#ffffff, .25);
+// $navbar-dark-toggler-icon-bg:       url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'><path stroke='#{$navbar-dark-color}' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/></svg>");
+// $navbar-dark-toggler-border-color:  rgba(#ffffff, .1);
+
+
+

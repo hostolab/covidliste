@@ -1,50 +1,49 @@
-<footer class="bg-light text-lg-start mt-5">
+<footer class="navbar navbar-dark bg-gradient-theme text-lg-start">
   <div class="container p-4">
-    <div class="row">
+    <div class="row w-100">
       <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
-        <h5>Covidliste</h5>
-
-        <p>
-          Une initiative citoyenne portée par des<br />
-          <%= link_to "bénévoles", :benevoles %>
-          dans le but d'accélerer la<br />
-          compagne vaccinale contre la COVID-19<br />
-          #aucunedoseperdue
+        <div class="d-flex align-items-center mb-4">
+          <%= image_tag "covidliste-logo.png", height: 40, loading: "lazy", class: "mr-3", alt: "logo covidliste" %>
+          <div class="h5 text-light mb-0">Covidliste</div>
+        </div>
+        <p class="text-light" style="max-width: 400px">
+          Une initiative citoyenne portée par des <%= link_to "bénévoles", :benevoles, class: "text-light text-decoration-underline" %>
+          dans le but d'accélerer la compagne vaccinale contre la COVID-19 <strong>#aucunedoseperdue</strong>          
         </p>
       </div>
 
-      <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-        <ul class="list-unstyled mb-0 mt-3">
+      <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
+        <ul class="list-unstyled mb-0">
           <li>
-            <%= link_to "Presse", :presse, class: "text-dark" %>
+            <%= link_to "Presse", :presse, class: "text-light text-decoration-underline d-inline-flex" %>
           </li>
           <li>
-            <%= link_to "Mentions légales", :mentions_legales, class: "text-dark" %>
+            <%= link_to "Mentions légales", :mentions_legales, class: "text-light text-decoration-underline mt-2 d-inline-flex" %>
           </li>
           <li>
-            <%= link_to "Algorithme de sélection", :algorithme, class: "text-dark" %>
+            <%= link_to "Algorithme de sélection", :algorithme, class: "text-light text-decoration-underline mt-2 d-inline-flex" %>
           </li>
           <li>
-            <%= link_to "Protection des données", :privacy, class: "text-dark" %>
+            <%= link_to "Protection des données", :privacy, class: "text-light text-decoration-underline mt-2 d-inline-flex" %>
           </li>
           <li>
-            <%= link_to "Foire aux questions", :faq, class: "text-dark" %>
+            <%= link_to "Foire aux questions", :faq, class: "text-light text-decoration-underline mt-2 d-inline-flex" %>
           </li>
           <li>
-            <%= link_to "Contact", :contact, class: "text-dark" %>
+            <%= link_to "Contact", :contact, class: "text-light text-decoration-underline mt-2 d-inline-flex" %>
           </li>
         </ul>
       </div>
 
-      <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-        <ul class="list-unstyled mt-3">
+      <div class="col-lg-2 col-md-6 mt-3 mt-md-0">
+        <ul class="list-unstyled mb-0">
           <li>
-            <%= icon("fab", "github") %>
-            <%= link_to "GitHub", "https://github.com/hostolab/covidliste", class: "text-dark", target: "_blank", rel: "noopener" %>
+            <%= icon("fab", "github", class: "text-white mr-2") %>
+            <%= link_to "GitHub", "https://github.com/hostolab/covidliste", class: "text-light text-decoration-underline d-inline-flex", target: "_blank", rel: "noopener" %>
           </li>
           <li>
-            <%= icon("fab", "twitter", class: "text-info") %>
-            <%= link_to "Twitter", "https://twitter.com/covidliste", class: "text-dark", target: "_blank", rel: "noopener" %>
+            <%= icon("fab", "twitter", class: "text-info mr-2") %>
+            <%= link_to "Twitter", "https://twitter.com/covidliste", class: "text-light text-decoration-underline mt-2 d-inline-flex", target: "_blank", rel: "noopener" %>
           </li>
         </ul>
       </div>

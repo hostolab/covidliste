@@ -1,4 +1,12 @@
 class PagesController < ApplicationController
+  include ActionView::Helpers::NumberHelper
+
+  def home
+    @users_count = Rails.cache.fetch(:users_count, expires_in: 5.minute) do
+      number_with_delimiter(User.count, locale: :fr).gsub(" ", "&nbsp;").html_safe
+    end
+  end
+
   def benevoles
   end
 

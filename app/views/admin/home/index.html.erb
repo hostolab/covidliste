@@ -1,13 +1,5 @@
-<div class="container">
-  <h2 class="mt-4">
-    Espace admin
-  </h2>
-
-  <p class="mt-4">
-    <strong>
-      Bonjour <%= current_user.full_name %> 👋
-    </strong>
-  </p>
+<div class="container mt-4">
+  <h2>Bonjour sur votre espace admin <%= current_user.full_name %> 👋</h2>
 
   <p>
     Utilisez la barre de navigation pour parcourir les différentes pages.
@@ -17,8 +9,8 @@
     Vous possèdez les rôles suivants :
     <% if current_user.roles.any? %>
       <ul>
-        <% current_user.roles.each do |role| %>
-          <li><%= role.name %></li>
+        <% current_user.roles.pluck(:name).each do |role| %>
+          <li><span class="badge badge-info text-larger"><%= role %></span></li>
         <% end %>
       </ul>
     <% else %>

@@ -1,0 +1,96 @@
+<%= content_for(:append_to_head) do %>
+  <meta content="index;follow" name="robots"/>
+<% end %>
+
+<div class="row position-relative bg-gradient-theme" style="z-index: 1; padding-top: 80px; padding-bottom: 400px">
+  <div class="container">
+    <div class="text-center">
+      <h1 class="h2 font-weight-bold mb-3 text-yellow">Covidliste est une application gratuite permettant d'être alerté lorsqu'une dose de vaccin est disponible près de chez vous.</h1>
+      <p class="h4 font-weight-normal text-light"><%= @users_count %> volontaires sont déjà inscrits.</p>
+    </div>
+  </div>
+</div>
+
+<div class="row position-relative" style="margin-top: -330px; z-index: 2">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-md-6">
+        <div class="card card-theme text-center">
+          <div class="card-body position-relative" style="z-index: 3">
+            <%= image_tag "home/particuliers.png", alt: "Particuliers", class: "d-block mx-auto", loading: "lazy", height: 196 %>
+            <div class="card-title font-weight-bold h4 my-3">Vous êtes un particulier et souhaitez être alerté si une dose est disponible</div>
+            <div><%= link_to "S'inscrire en tant que volontaire au vaccin", new_user_path, class: "btn btn-primary py-3 px-4 font-weight-bold", role: "button" %></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6 mt-4 mt-md-0">
+        <div class="card card-theme text-center">
+          <div class="card-body position-relative" style="z-index: 3">
+            <%= image_tag "home/centre-vaccination.png", alt: "Centre de vaccination", class: "d-block mx-auto", loading: "lazy", height: 196 %>
+            <div class="card-title font-weight-bold h4 my-3">Vous êtes un centre de vaccination et souhaitez trouver des volontaires</div>
+            <div><%= link_to "Proposer des doses", new_partner_path, class: "btn btn-primary py-3 px-4 font-weight-bold", role: "button" %></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row bg-white">
+  <div class="container">
+    <div class="mt-4 pt-5">
+      <h2 class="h3 font-weight-bold mb-4 text-primary text-center">Covidliste, comment ça marche ?</h2>
+      <div class="row">
+        <div class="col-12 col-sm-6 col-md-3 mt-4">
+          <div class="card card-theme h-100">
+            <div class="card-body text-center">
+              <div class="d-inline-block bg-light rounded p-3 mb-3">
+                <%= icon("fas", "bullhorn", class: "text-primary fa-2x") %>
+              </div>
+              <div class="card-text font-weight-normal h6"><strong>Un membre de centre de vaccination crée une campagne</strong> avec un nombre de doses non attribués</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-md-3 mt-4">
+          <div class="card card-theme h-100">
+            <div class="card-body text-center">
+              <div class="d-inline-block bg-light rounded p-3 mb-3">
+                <%= icon("fas", "sms", class: "text-primary fa-2x") %>
+              </div>
+              <div class="card-text font-weight-normal h6"><strong>Covidliste notifie les inscrits éligibles</strong> selon les critères définis par le centre</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-md-3 mt-4">
+          <div class="card card-theme h-100">
+            <div class="card-body text-center">
+              <div class="d-inline-block bg-light rounded p-3 mb-3">
+                <%= icon("fas", "calendar-check", class: "text-primary fa-2x") %>
+              </div>
+              <div class="card-text font-weight-normal h6"><strong>Les volontaires notifiés confirment leur disponibilité</strong></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-md-3 mt-4">
+          <div class="card card-theme h-100">
+            <div class="card-body text-center">
+              <div class="d-inline-block bg-light rounded p-3 mb-3">
+                <%= icon("fas", "phone-volume", class: "text-primary fa-2x") %>
+              </div>
+              <div class="card-text font-weight-normal h6"><strong>Le centre contacte les volontaires</strong> pour fixer le rendez-vous</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="my-5 w-100 d-flex align-items-start justify-content-center">
+          <%= icon("fas", "syringe", class: "h3 text-success mr-3") %>
+          <h3 class="h4 font-weight-bold text-success mb-0">La vaccination peut avoir lieu !</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -66,6 +66,7 @@ Rails.application.routes.draw do
   ## Partners
 
   resources :partners, only: [:new, :create]
+  get "/partners", to: redirect("/partenaires/inscription", status: 302)
   get "/partenaires", to: redirect("/partenaires/inscription", status: 302)
   get "/partenaires/inscription" => "partners#new", :as => :partenaires_inscription
 
@@ -94,5 +95,5 @@ Rails.application.routes.draw do
   ## robots.txt
   get "/robots.txt", to: "pages#robots"
 
-  root to: "users#new"
+  root to: "pages#home"
 end

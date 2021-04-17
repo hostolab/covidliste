@@ -2,27 +2,23 @@
   <meta content="index;follow" name="robots"/>
 <% end %>
 
-<div id="#devise">
-  <div class="container">
-    <div class="row mt-5">
-      <div class="col-12 col-sm-6 offset-sm-3">
-        <p>
-          <strong>
-            Connexion - Espace professionnels de santé
-          </strong>
-        </p>
+<div id="devise">
+  <div class="container mt-5">
+    <h1>Connexion - Espace professionnels de santé</h1>
 
-        <p class="mb-4">
-          Cet espace concerne concerne <strong>uniquement le personnel médical assurant la vaccination</strong> :
-          membre d’un centre de vaccination, cabinet de médecine libérale, hôpital, pharmacie...
-          <br>
-          Pour se connecter en tant que volontaire à la vaccination, merci de vous rendre
-          <%= link_to "sur cette page", new_user_session_path %>.
-        </p>
+    <p class="mb-4">
+      Cet espace concerne concerne <strong><u>uniquement le personnel médical assurant la vaccination</u></strong> :<br>
+      membre d’un centre de vaccination, cabinet de médecine libérale, hôpital, pharmacie...
+      <br>
+      Pour se connecter en tant que volontaire à la vaccination, merci de vous rendre
+      <%= link_to "sur cette page", new_user_session_path %>.
+    </p>
 
+    <div class="card card-theme my-4">
+      <div class="card-body">
         <%= simple_form_for resource, as: resource_name, url: session_path(resource_name) do |f| %>
-          <%= f.input :email, autocomplete: "off", autofocus: true, required: true, id: "inputEmail", placeholder: "Adresse email" %>
-          <%= f.input :password, autocomplete: "off", required: true, id: "inputPassword", placeholder: "Mot de passe" %>
+          <%= f.input :email, autocomplete: "off", autofocus: true, required: true, id: "inputEmail", placeholder: "Adresse email", input_html: { style: "width: 300px" } %>
+          <%= f.input :password, autocomplete: "off", required: true, id: "inputPassword", placeholder: "Mot de passe", input_html: { style: "width: 300px" } %>
 
           <% if devise_mapping.rememberable? %>
             <p>
@@ -33,24 +29,24 @@
             </p>
           <% end %>
 
-          <%= f.submit "Connexion", class: "btn btn-primary mb-2" %>
+          <%= f.submit "Connexion", class: "btn btn-primary mb-3" %>
 
           <% if devise_mapping.recoverable? && controller_name != "passwords" && controller_name != "registrations" %>
-            <p>
+            <div>
               <%= link_to "Mot de passe oublié ?", new_password_path(resource_name) %>
-            </p>
+            </div>
           <% end %>
 
           <% if devise_mapping.confirmable? && controller_name != "confirmations" %>
-            <p>
+            <div>
               <%= link_to "Redemander l’email de confirmation", new_confirmation_path(resource_name) %>
-            </p>
+            </div>
           <% end %>
 
           <% if controller_name == "sessions" %>
-            <p>
+            <div>
               <%= link_to "S’inscrire en tant que professionnel de santé", partenaires_inscription_path %>
-            </p>
+            </div>
           <% end %>
         <% end %>
       </div>

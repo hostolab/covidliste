@@ -64,8 +64,7 @@
         <% else %>
           <tr>
             <td colspan="3" class="text-center text-muted font-italic">
-              Aucun utilisateur trouvé avec cette adresse
-              <%= @user.email %>
+              <%= icon("fas", "info-circle", "Aucun utilisateur trouvé avec cette adresse : #{@user.email}", class: "mr-1") %>
             </td>
           </tr>
         <% end %>
@@ -102,7 +101,7 @@
           <% elsif params.fetch(:user, {}).permit(:email).blank? %>
             <tr>
               <td colspan="6" class="text-center text-muted font-italic">
-                Aucun email envoyé trouvé avec l'adresse : <%= @user.email %>
+                <%= icon("fas", "info-circle", "Aucun email envoyé trouvé avec l'adresse : #{@user.email}", class: "mr-1") %>
               </td>
             </tr>
           <% end %>

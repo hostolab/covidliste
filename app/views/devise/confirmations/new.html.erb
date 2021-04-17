@@ -1,11 +1,11 @@
 <div id="devise">
-  <div class="container">
-    <div class="row mt-5">
-      <div class="col-12 col-sm-6 offset-sm-3">
-        <p>
-          <strong>Demande de renvoi de l’email de confirmation</strong>
-        </p>
-
+  <div class="container mt-5">
+    <h1>Demande de renvoi de l’email de confirmation</h1>
+    <p>
+      Si vous n’avez pas encore pu valider votre inscription, veuillez saisir votre adresse email afin de recevoir un email de confirmation.
+    </p>
+    <div class="card card-theme my-4">
+      <div class="card-body">
         <% if resource.errors.any? %>
           <div class="alert alert-danger" role="alert" style="position: inherit">
             <% resource.errors.full_messages.each do |msg| %>
@@ -13,13 +13,8 @@
             <% end %>
           </div>
         <% end %>
-
-        <p>
-          Si vous n’avez pas encore pu valider votre inscription, veuillez saisir votre adresse email afin de recevoir un email de confirmation.
-        </p>
-
         <%= simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post, class: "form-signin" }) do |f| %>
-          <%= f.input :email, autofocus: true, required: true, placeholder: "jean@dupont.com", id: "inputEmail", class: "form-control" %>
+          <%= f.input :email, autofocus: true, required: true, placeholder: "jean@dupont.com", id: "inputEmail", class: "form-control", input_html: { style: "max-width: 300px" } %>
           <%= f.submit "C’est parti !", class: "btn btn-primary" %>
         <% end %>
       </div>

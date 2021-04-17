@@ -1,11 +1,9 @@
 <div id="devise">
-  <div class="container">
-    <div class="row mt-5">
-      <div class="col-12 col-sm-6 offset-sm-3">
-        <p>
-          <strong>Choisir un mot de passe</strong>
-        </p>
+  <div class="container mt-5">
+    <h1>Choisir un mot de passe</h1>
 
+    <div class="card card-theme my-4">
+      <div class="card-body">
         <% if resource.errors.any? %>
           <div class="alert alert-danger" role="alert" style="position: inherit">
             <% resource.errors.full_messages.each do |msg| %>
@@ -16,8 +14,8 @@
 
         <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
           <%= f.hidden_field :reset_password_token %>
-          <%= f.input :password, autofocus: true, required: true, id: "inputPassword", autocomplete: "off" %>
-          <%= f.input :password_confirmation, autofocus: true, required: true, id: "inputPasswordConfirmation", autocomplete: "off" %>
+          <%= f.input :password, autofocus: true, required: true, id: "inputPassword", autocomplete: "off", input_html: { style: "max-width: 300px" } %>
+          <%= f.input :password_confirmation, autofocus: true, required: true, id: "inputPasswordConfirmation", autocomplete: "off", input_html: { style: "max-width: 300px" } %>
           <%= f.submit "C’est parti !", class: "btn btn-primary" %>
         <% end %>
       </div>

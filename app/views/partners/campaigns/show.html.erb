@@ -8,7 +8,7 @@
 
 <div class="container">
   <p class="mb-2">
-    <%= link_to "← Retour", partners_vaccination_center_path(@campaign.vaccination_center) %>
+    <%= link_to icon("fas", "arrow-left", "Retour", class: "mr-1"), partners_vaccination_center_path(@campaign.vaccination_center) %>
   </p>
 
   <h1 class="mb-4">
@@ -75,7 +75,7 @@
     </p>
 
     <div class="table-responsive">
-      <table class="table table-bordered table-sm">
+      <table class="table table-bordered table-sm mb-0">
         <thead class="thead-light">
         <tr>
           <th> Nom </th>

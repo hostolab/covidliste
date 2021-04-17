@@ -154,13 +154,21 @@ export default class extends Controller {
 
     // Render territories selection
     const btnContainer = document.getElementById("territoire-container");
-    Object.keys(TERRITOIRES).forEach((k) => {
+    Object.keys(TERRITOIRES).forEach((k, i) => {
       const el = document.createElement("a");
       el.setAttribute("href", "");
       el.className = "btn-sm btn btn-link small";
+      if (i == 0) {
+        el.className += " text-decoration-underline";
+      }
       const t = TERRITOIRES[k];
       el.innerHTML = t.label;
       el.onclick = () => {
+        const active = btnContainer.querySelector(".text-decoration-underline");
+        if (active) {
+          active.classList.remove("text-decoration-underline");
+        }
+        el.classList.add("text-decoration-underline")
         deckgl.setProps({
           initialViewState: {
             ...INITIAL_VIEW_STATE,

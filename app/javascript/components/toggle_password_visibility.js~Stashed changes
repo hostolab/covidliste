@@ -6,9 +6,12 @@ const togglePasswordVisibility = () => {
     "[data-behavior='toggle-password-visibility'] i"
   );
 
-  document
-    .querySelector("[data-behavior='toggle-password-visibility'] a")
-    .addEventListener("click", function (e) {
+  const passwordInput = document.querySelector(
+    "[data-behavior='toggle-password-visibility'] a"
+  );
+
+  if (passwordInput) {
+    passwordInput.addEventListener("click", function (e) {
       e.preventDefault();
       e.stopPropagation();
 
@@ -22,6 +25,7 @@ const togglePasswordVisibility = () => {
         icon.classList.remove("fa-eye-slash");
       }
     });
+  }
 };
 
 export { togglePasswordVisibility };

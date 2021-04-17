@@ -25,5 +25,5 @@ document.addEventListener("turbolinks:load", () => {
   placesAutocomplete(appId, apiKey);
   leafletMap();
   togglePasswordVisibility();
-  $('[data-toggle="tooltip"]').tooltip();
+  $('[data-toggle="tooltip"]').tooltip({ boundary: 'window' });
 });

@@ -1,15 +1,12 @@
 <div id="devise">
-  <div class="container">
-    <div class="row mt-5">
-      <div class="col-12 col-sm-6 offset-sm-3">
-        <p>
-          <strong>Demande de mot de passe</strong>
-        </p>
+  <div class="container mt-5">
+    <h1>Demande de mot de passe</h1>
+    <p>
+      Veuillez saisir votre adresse email afin de recevoir un lien pour créer ou changer votre mot de passe.
+    </p>
 
-        <p>
-          Veuillez saisir votre adresse email afin de recevoir un lien pour créer ou changer votre mot de passe.
-        </p>
-
+    <div class="card card-theme my-4">
+      <div class="card-body">
         <% if resource.errors.any? %>
           <div class="alert alert-danger" role="alert" style="position: inherit">
             <% resource.errors.full_messages.each do |msg| %>
@@ -19,7 +16,7 @@
         <% end %>
 
         <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-          <%= f.input :email, autofocus: true, required: true, id: "inputEmail" %>
+          <%= f.input :email, autofocus: true, required: true, id: "inputEmail", input_html: { style: "max-width: 300px" } %>
           <%= f.submit "Recevoir le lien", class: "btn btn-primary" %>
         <% end %>
       </div>

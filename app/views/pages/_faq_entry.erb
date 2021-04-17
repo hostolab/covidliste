@@ -1,7 +1,7 @@
-<div class="card">
-  <div class="card-header">
+<div class="card card-theme mt-2">
+  <div class="card-header bg-white border-bottom-0 p-0">
     <h3 class="mb-0">
-      <button class="btn btn-link"
+      <button class="px-3 py-3 btn btn-link w-100 text-left"
               data-toggle="collapse"
               data-target="#<%= faq_item.id %>"
               aria-expanded="false"
@@ -14,7 +14,7 @@
   <div id="<%= faq_item.id %>"
        class="collapse"
        aria-labelledby="<%= faq_item.id %>">
-    <div class="card-body">
+    <div class="card-body faq-entry border-top border-light">
       <%= faq_item.body %>
     </div>
   </div>

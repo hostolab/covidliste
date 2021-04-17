@@ -1,66 +1,84 @@
-<div class="container">
-  <h2 class="mt-4">
-    Statistiques des volontaires
-  </h2>
+<div class="container my-4">
+  <h1>Statistiques des volontaires</h1>
 
-  <div class="row mt-4">
-    <div class="col-12 col-md-6">
-      <h4>
-        Critères de recherche
-      </h4>
+  <div class="row">
+    <div class="col-12 col-md-6 mt-3">
+      <div class="card card-theme">
+        <div class="card-body">
+          <h4>Critères de recherche</h4>
 
-      <%= simple_form_for "", url: admin_stats_path, method: :get do |f| %>
-        <%= f.input :address, label: "Adresse", input_html: { value: @address } %>
+          <%= simple_form_for "", url: admin_stats_path, method: :get do |f| %>
+            <%= f.input :address, label: "Adresse", input_html: { value: @address } %>
 
-        <div class="row">
-          <div class="col-6">
-            <%= f.input :min_age, label: "Âge Minimum", as: :integer, input_html: { value: @min_age } %>
-          </div>
+            <div class="row">
+              <div class="col-6">
+                <%= f.input :min_age, label: "Âge Minimum", as: :integer, input_html: { value: @min_age } %>
+              </div>
 
-          <div class="col-6">
-            <%= f.input :max_age, label: "Âge Maximum", as: :integer, input_html: { value: @max_age } %>
-          </div>
+              <div class="col-6">
+                <%= f.input :max_age, label: "Âge Maximum", as: :integer, input_html: { value: @max_age } %>
+              </div>
+            </div>
+
+            <%= f.input :max_distance, label: "Distance Maximum (km)", as: :numeric, input_html: { value: @max_distance } %>
+
+            <%= f.submit "Cherchez !", class: "btn btn-primary w-100" %>
+          <% end %>
         </div>
-
-        <%= f.input :max_distance, label: "Distance Maximum (km)", as: :numeric, input_html: { value: @max_distance } %>
-
-        <%= f.submit "Cherchez !", class: "btn btn-primary w-100" %>
-      <% end %>
+      </div>
     </div>
 
-    <div class="col-12 col-md-6">
-      <h4>
-        Résultats
-      </h4>
+    <div class="col-12 col-md-6 mt-3">
+      <div class="card card-theme">
+        <div class="card-body">
+          <h4>Résultats</h4>
 
-      <p>
-        <%= @total_count %> volontaires trouvés
-      </p>
+          <p><%= @total_count %> volontaires trouvés</p>
 
-      <div class="table-responsive">
-        <table class="table table-sm">
-          <tr>
-            <th> Âge </th>
-            <th> # Volontaires </th>
-          </tr>
-        <% @count_by_age.each do |k| %>
-          <td> <%= k[0] %> </td>
-          <td> <%= k[1] %> </td>
-        <% end %>
-        </table>
+          <div class="table-responsive">
+            <table class="table table-hover table-bordered table-sm mb-0">
+              <thead class="thead-light">
+                <tr>
+                  <th>Âge</th>
+                  <th># Volontaires</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% if @count_by_age.present? %>
+                  <% @count_by_age.each do |k| %>
+                    <tr>
+                      <td><%= k[0] %></td>
+                      <td><%= k[1] %></td>
+                    </tr>
+                  <% end %>
+                <% else %>
+                  <tr>
+                    <td colspan="2" class="text-center text-muted font-italic">
+                      <%= icon("fas", "info-circle", "Aucun volontaire", class: "mr-1") %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="mt-4" id="leaflet_map" style="height: 600px;" data-lat="<%= @lat %>" data-lng="<%= @lon %>" data-address="<%= @address %>" data-icon="<%= asset_path("map/markers/firstaid.png") %>">
-    <div id="leaflet_markers" class="d-none">
-      <% @results.each do |user| %>
-        <div class="leaflet-marker" data-lat="<%= user.lat %>" data-lng="<%= user.lon %>" data-icon="<%= user.age && user.age >= 0 && user.age < 150 ? asset_path("map/markers/number_" + user.age.to_s+".png") : asset_path("map/markers/symbol_inter.png") %>">
-          <strong>
-            id <%= user.id %>
-          </strong>
+  <div class="card card-theme mt-4">
+    <div class="card-body">
+      <div id="leaflet_map" style="height: 600px;" data-lat="<%= @lat %>" data-lng="<%= @lon %>" data-address="<%= @address %>" data-icon="<%= asset_path("map/markers/firstaid.png") %>">
+        <div id="leaflet_markers" class="d-none">
+          <% @results.each do |user| %>
+            <div class="leaflet-marker" data-lat="<%= user.lat %>" data-lng="<%= user.lon %>" data-icon="<%= user.age && user.age >= 0 && user.age < 150 ? asset_path("map/markers/number_" + user.age.to_s+".png") : asset_path("map/markers/symbol_inter.png") %>">
+              <strong>
+                id <%= user.id %>
+              </strong>
+            </div>
+          <% end %>
         </div>
-      <% end %>
+      </div>
     </div>
   </div>
 </div>

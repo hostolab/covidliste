@@ -1,175 +1,211 @@
-<div class="container">
-  <p class="mb-2">
-    <%= link_to "← Retour à la liste des centres", admin_vaccination_centers_path %>
-  </p>
+<div class="container mt-5 mb-4">
 
-  <h3>
-    <%= @vaccination_center.name %>
-    <span class="badge badge-success text-uppercase text-white">
-      <%= @vaccination_center.kind %>
-    </span>
-  </h3>
-
-  <p class="small mb-2">
-    <% if @vaccination_center.confirmed? %>
-      <%= icon("fas", "check", class: "text-success") %>
-      Validé par
-      <strong><%= @vaccination_center.confirmer&.full_name %></strong>
-      le <%= l @vaccination_center.confirmed_at %>
-
-    <% else %>
-      <%= icon("fas", "times", class: "text-danger") %>
-      Non validé
-      <%= link_to "Valider ce centre",
-                  validate_admin_vaccination_center_path(@vaccination_center),
-                  method: :patch,
-                  class: "btn btn-sm btn-primary",
-                  "data-confirm": "Êtes-vous sûr(e)?" %>
-    <% end %>
-  </p>
-
-  <p class="small mb-2">
-    <% if @vaccination_center.disabled? %>
-      <%= icon("fas", "times", class: "text-danger") %>
-      Désactivé
-      <%= link_to "Activer ce centre",
-                  enable_admin_vaccination_center_path(@vaccination_center),
-                  method: :patch,
-                  class: "btn btn-sm btn-primary",
-                  "data-confirm": "Êtes-vous sûr(e)?" %>
-    <% else %>
-      <%= icon("fas", "check", class: "text-success") %>
-      Activé
-      <%= link_to "Désactiver ce centre",
-                  disable_admin_vaccination_center_path(@vaccination_center),
-                  method: :patch,
-                  class: "btn btn-sm btn-primary",
-                  "data-confirm": "Êtes-vous sûr(e)?" %>
-    <% end %>
-  </p>
-
-  <p class="mb-2">
-    <%= @vaccination_center.address %>
-    <br>
-    <%= @vaccination_center.description %>
-  </p>
-
-  <p class="mb-2">
-    <%= icon("fas", "phone", @vaccination_center.phone_number) %>
-  </p>
-
-  <p>
-    Vaccins :
-  </p>
-  <ul>
-    <% if @vaccination_center.pfizer %>
-      <li> <%= Vaccine::Brands::PFIZER.capitalize %> </li>
-    <% end %>
-    <% if @vaccination_center.moderna %>
-      <li> <%= Vaccine::Brands::MODERNA.capitalize %> </li>
-    <% end %>
-    <% if @vaccination_center.astrazeneca %>
-      <li> <%= Vaccine::Brands::ASTRAZENECA.capitalize %> </li>
-    <% end %>
-    <% if @vaccination_center.janssen %>
-      <li> <%= Vaccine::Brands::JANSSEN.capitalize %> </li>
-    <% end %>
-  </ul>
-
-  <h5 class="mt-4">
-    Ajouter un professionnel de santé
-  </h5>
-
-  <%= simple_form_for :new_partner_email,
-                      url: add_partner_admin_vaccination_center_path(@vaccination_center),
-                      method: :post,
-                      wrapper: :inline_form,
-                      html: { class: "form-inline" } do |f| %>
-
-    <%= f.input :email, type: :email, label: false, placeholder: "jean.dupont@email.com", required: true %>
-    <%= f.submit "Ajouter ce professionnel de santé", class: "ml-3 btn btn-primary" %>
-  <% end %>
-
-  <h5 class="mt-4">
-    Campagnes réalisées
-  </h5>
-
-  <% if @vaccination_center.campaigns.present? %>
-    <div class="table-responsive">
-      <table class="table table-bordered table-sm">
-        <thead class="thead-light">
-          <tr>
-            <th> # </th>
-            <th> Date </th>
-            <th> Type de vaccin </th>
-            <th> Nombre de doses </th>
-            <th> Âge min. </th>
-            <th> Âge max. </th>
-            <th> Distance max. (km) </th>
-            <th> Nombre de matchs </th>
-            <th> Rdv confirmés </th>
-            <th> Statut </th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <% @vaccination_center.campaigns.order(id: :desc).each do |campaign| %>
-            <tr>
-              <td class="text-right"> <%= campaign.id %> </td>
-              <td> <%= campaign.created_at.strftime('%d-%m-%Y') %> </td>
-              <td> <%= campaign.vaccine_type %> </td>
-              <td> <%= campaign.available_doses %> </td>
-              <td> <%= campaign.min_age %> </td>
-              <td> <%= campaign.max_age %> </td>
-              <td> <%= campaign.max_distance_in_meters / 1000 %> </td>
-              <td> <%= campaign.matches.count %> </td>
-              <td> <%= campaign.matches.confirmed.count %> </td>
-              <td> <%= campaign.status %> </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
+  <%= link_to "← Retour à la liste des centres", admin_vaccination_centers_path %>
+  
+  <div class="d-flex align-items-center justify-content-between mb-4">
+    <h1 class="mb-0"><%= @vaccination_center.name %></h1>
+    <div>
+      <%= link_to icon("fas", "edit", "Editer ce centre", class: "mr-1"), edit_admin_vaccination_center_path(@vaccination_center), class: "btn btn-primary mr-2" %>
+      <%= link_to icon("fas", "trash", "Supprimer ce centre", class: "mr-1"), admin_vaccination_center_path(@vaccination_center), class: "btn btn-danger", method: :delete, data: { confirm: "Êtes-vous sûr(e) de vouloir supprimer ce centre ?" } %>
     </div>
-  <% end %>
+  </div>
 
-  <h5 class="mt-4">
-    Professionnels de santé liés
-  </h5>
+  <div class="card card-theme">
+    <div class="card-body small">
+      <% if @vaccination_center.confirmed? %>
+        <%= icon("fas", "check", class: "text-success") %>
+        Validé par
+        <strong><%= @vaccination_center.confirmer&.full_name %></strong>
+        le <%= l @vaccination_center.confirmed_at %>
 
-  <% if @vaccination_center.partners.present? %>
-    <div class="table-responsive">
-      <table class="table table-bordered table-sm">
-        <thead class="thead-light">
-          <tr>
-            <th class="text-right"> # </th>
-            <th> Nom </th>
-            <th> Email </th>
-            <th> Téléphone </th>
-            <th class="text-center"> Confirmé ? </th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <% @vaccination_center.partners.order(id: :desc).each do |partner| %>
-            <tr>
-              <td class="text-right"> <%= partner.id %> </td>
-              <td> <%= partner.name %> </td>
-              <td> <%= partner.email %> </td>
-              <td> <%= partner.phone_number %> </td>
-              <td class="text-center" title="<%= partner.confirmed_at.present? ? "Confirmé le #{l(partner.confirmed_at)}" : "" %>">
-                <%= humanize_boolean partner.confirmed_at.present? %>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
+      <% else %>
+        <%= icon("fas", "times", class: "text-danger mr-1") %>
+        Non validé
+        <%= link_to "Valider ce centre",
+                    validate_admin_vaccination_center_path(@vaccination_center),
+                    method: :patch,
+                    class: "ml-2 btn btn-sm btn-primary",
+                    "data-confirm": "Êtes-vous sûr(e) de vouloir valider ce centre ?" %>
+      <% end %>
     </div>
-  <% else %>
-    <p>
-      <%= icon("fas", "info-circle") %>
-      Aucun professionnel de santé lié
-    </p>
-  <% end %>
+  </div>
 
-  <%= link_to icon("fas", "edit", "Editer (ou supprimer) ce centre"), edit_admin_vaccination_center_path(@vaccination_center) %>
+  <div class="card card-theme mt-2">
+    <div class="card-body small">
+      <% if @vaccination_center.disabled? %>
+        <%= icon("fas", "times", class: "text-danger") %>
+        Désactivé
+        <%= link_to "Activer ce centre",
+                    enable_admin_vaccination_center_path(@vaccination_center),
+                    method: :patch,
+                    class: "btn btn-sm btn-primary",
+                    "data-confirm": "Êtes-vous sûr(e) de vouloir activer ce centre ?" %>
+      <% else %>
+        <%= icon("fas", "check", class: "text-success") %>
+        Activé
+        <%= link_to "Désactiver ce centre",
+                    disable_admin_vaccination_center_path(@vaccination_center),
+                    method: :patch,
+                    class: "ml-2 btn btn-sm btn-primary",
+                    "data-confirm": "Êtes-vous sûr(e) de vouloir désactiver ce centre ?" %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col col-md-6">
+      <div class="card card-theme mt-2">
+        <div class="card-body small">
+
+          <div class="mb-2">
+            <div class="font-weight-bold">Type de centre de vaccination :</div>
+            <span class="badge badge-success text-uppercase text-white"><%= @vaccination_center.kind %></span>
+          </div>
+
+          <div class="mb-2">
+            <div class="font-weight-bold">Adresse :</div>
+            <p class="mb-0"><%= @vaccination_center.address %></p>
+          </div>
+
+          <div class="mb-2">
+            <div class="font-weight-bold">Téléphone :</div>
+            <p class="mb-0"><%= @vaccination_center.phone_number %></p>
+          </div>
+
+          <div class="mb-2">
+            <div class="font-weight-bold">Description :</div>
+            <p class="mb-0"><%= @vaccination_center.description %></p>
+          </div>
+
+          <div class="mb-2">
+            <div class="font-weight-bold">Vaccins :</div>
+            <ul class="mb-0">
+              <% if @vaccination_center.pfizer %>
+                <li> <%= Vaccine::Brands::PFIZER.capitalize %> </li>
+              <% end %>
+              <% if @vaccination_center.moderna %>
+                <li> <%= Vaccine::Brands::MODERNA.capitalize %> </li>
+              <% end %>
+              <% if @vaccination_center.astrazeneca %>
+                <li> <%= Vaccine::Brands::ASTRAZENECA.capitalize %> </li>
+              <% end %>
+              <% if @vaccination_center.janssen %>
+                <li> <%= Vaccine::Brands::JANSSEN.capitalize %> </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col col-md-6">
+      <div class="card card-theme mt-2">
+        <div class="card-body small">
+          <h6>Ajouter un professionnel de santé</h6>
+
+          <%= simple_form_for :new_partner_email,
+                              url: add_partner_admin_vaccination_center_path(@vaccination_center),
+                              method: :post,
+                              wrapper: :inline_form,
+                              html: { class: "form-inline" } do |f| %>
+
+            <%= f.input :email, type: :email, label: false, placeholder: "jean.dupont@email.com", required: true, hint: "Le professionnel de santé doit d’abord avoir créer un compte." %>
+            <%= f.submit "Ajouter ce professionnel de santé", class: "mt-2 btn btn-primary" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card card-theme mt-2">
+    <div class="card-body small">
+      <h5>Campagnes réalisées</h5>
+
+      <div class="table-responsive mt-3">
+        <table class="table table-bordered table-sm mb-0">
+          <thead class="thead-light">
+            <tr>
+              <th> # </th>
+              <th> Date </th>
+              <th> Type de vaccin </th>
+              <th> Nombre de doses </th>
+              <th> Âge min. </th>
+              <th> Âge max. </th>
+              <th> Distance max. (km) </th>
+              <th> Nombre de matchs </th>
+              <th> Rdv confirmés </th>
+              <th> Statut </th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% if @vaccination_center.campaigns.present? %>
+              <% @vaccination_center.campaigns.order(id: :desc).each do |campaign| %>
+                <tr>
+                  <td class="text-right"> <%= campaign.id %> </td>
+                  <td> <%= campaign.created_at.strftime('%d-%m-%Y') %> </td>
+                  <td> <%= campaign.vaccine_type %> </td>
+                  <td> <%= campaign.available_doses %> </td>
+                  <td> <%= campaign.min_age %> </td>
+                  <td> <%= campaign.max_age %> </td>
+                  <td> <%= campaign.max_distance_in_meters / 1000 %> </td>
+                  <td> <%= campaign.matches.count %> </td>
+                  <td> <%= campaign.matches.confirmed.count %> </td>
+                  <td> <%= campaign.status %> </td>
+                </tr>
+              <% end %>
+            <% else %>
+              <tr>
+                <td colspan="10" class="text-center text-muted font-italic">
+                  <%= icon("fas", "info-circle", "Aucune campagne réalisée", class: "mr-1") %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card card-theme mt-2">
+    <div class="card-body small">
+      <h5>Professionnels de santé liés</h5>
+
+      <div class="table-responsive mt-3">
+        <table class="table table-bordered table-sm mb-0">
+          <thead class="thead-light">
+            <tr>
+              <th class="text-right"> # </th>
+              <th> Nom </th>
+              <th> Email </th>
+              <th> Téléphone </th>
+              <th class="text-center"> Confirmé ? </th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% if @vaccination_center.partners.present? %>
+              <% @vaccination_center.partners.order(id: :desc).each do |partner| %>
+                <tr>
+                  <td class="text-right"> <%= partner.id %> </td>
+                  <td> <%= partner.name %> </td>
+                  <td> <%= partner.email %> </td>
+                  <td> <%= partner.phone_number %> </td>
+                  <td class="text-center" title="<%= partner.confirmed_at.present? ? "Confirmé le #{l(partner.confirmed_at)}" : "" %>">
+                    <%= humanize_boolean partner.confirmed_at.present? %>
+                  </td>
+                </tr>
+              <% end %>
+            <% else %>
+              <tr>
+                <td colspan="5" class="text-center text-muted font-italic">
+                  <%= icon("fas", "info-circle", "Aucun professionnel de santé lié", class: "mr-1") %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>

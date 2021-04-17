@@ -1,10 +1,8 @@
-<div class="container">
-  <h2 class="mt-4">
-    Espace professionnels de santé
-  </h2>
+<div class="container mt-5">
+  <h1>Espace professionnels de santé</h1>
 
-  <p class="mt-4 mb-1 font-weight-bold">
-    Bonjour <%= current_partner.name %>
+  <p class="font-weight-bold">
+    Bonjour <%= current_partner.name %>,
   </p>
 
   <p class="small">
@@ -157,12 +155,8 @@
     <%= link_to "Demander la création d’un nouveau lieu de vaccination", new_partners_vaccination_center_path, class: "btn btn-primary btn-sm" %>
   </p>
 
-  <p class="mt-4 small">
+  <p class="mt-3 small">
     Si vous souhaitez rejoindre un centre déjà existant sur Covidliste, contactez-nous sur
     <%= link_to "partenaires@covidliste.com", "mailto:partenaires@covidliste.com" %>.
   </p>
-
-  <hr>
-
-  <%= link_to "Se déconnecter", destroy_partner_session_path, method: :delete, class: "btn btn-warning" %>
 </div>

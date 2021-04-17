@@ -1,26 +1,24 @@
-<div class="container">
-  <div class="row">
-    <div class="col-12 col-md-8 offset-md-2">
-      <p class="mt-2">
-        <%= link_to "← Retour", partners_vaccination_centers_path %>
-      </p>
+<div class="container mt-5">
+  <%= link_to icon("fas", "arrow-left", "Retour", class: "mr-1"), partners_vaccination_centers_path %>
 
-      <p class="font-weight-bold">
-        Demande de création d’un lieu de vaccination
-      </p>
+  <h1>
+    Demande de création d’un lieu de vaccination
+  </h1>
 
-      <p>
-        La création d’un nouveau lieu de vaccination est
-        <strong>réservé aux professionnels de santé assurant la vaccination</strong> :
-        membre d’un centre de vaccination, cabinet de médecine libérale, hôpital, pharmacie...
-      </p>
+  <p>
+    La création d’un nouveau lieu de vaccination est
+    <strong><u>réservé aux professionnels de santé assurant la vaccination</u></strong> :<br>
+    membre d’un centre de vaccination, cabinet de médecine libérale, hôpital, pharmacie...
+  </p>
 
-      <p>
-        Nous prendrons contact avec vous pour valider la création du lieu.
-      </p>
+  <p>
+    Nous prendrons contact avec vous pour valider la création du lieu.
+  </p>
 
+  <div class="card card-theme mb-4">
+    <div class="card-body">
       <% if @vaccination_center.persisted? %>
-        <div class="alert alert-success mt-2">
+        <div class="alert alert-success mb-0">
           <p>
             Votre demande de création du lieu de vaccination <%= @vaccination_center.name %> a bien été enregistrée.
           </p>
@@ -34,10 +32,9 @@
         </div>
       <% else %>
         <% if @vaccination_center.errors.present? %>
-          <div class="alert alert-danger mt-2">
+          <div class="alert alert-danger">
             <% @vaccination_center.errors.full_messages.each do |msg| %>
-              <%= msg %>
-              <br>
+              <div><%= msg %></div>
             <% end %>
           </div>
         <% end %>

@@ -1,86 +1,100 @@
-<div class="container">
-  <p class="mb-2">
-    <%= link_to "← Retour", partners_vaccination_centers_path %>
-  </p>
+<div class="container mt-5 mb-4">
+  
+  <%= link_to icon("fas", "arrow-left", "Retour", class: "mr-1"), partners_vaccination_centers_path %>
 
-  <div class="d-flex">
-    <div class="flex-fill">
-      <h3>
-        <%= @vaccination_center.name %>
-        <span class="text-muted font-italic small">
-          <%= @vaccination_center.kind %>
-        </span>
-      </h3>
+  <div class="d-flex align-items-center justify-content-between mb-4">
+    <h1 class="mb-0"><%= @vaccination_center.name %></h1>
+  </div>
 
-      <p class="mb-2">
-        <%= @vaccination_center.address %>
-        <br>
-        <%= @vaccination_center.description %>
-      </p>
+  <div class="card card-theme mt-2">
+    <div class="card-body small">
 
-      <p class="mb-2 small">
-        <%= icon("fas", "phone", @vaccination_center.phone_number) %>
-      </p>
+      <div class="mb-2">
+        <div class="font-weight-bold">Type de centre de vaccination :</div>
+        <span class="badge badge-success text-uppercase text-white"><%= @vaccination_center.kind %></span>
+      </div>
 
-      <p>
-        Vaccins :
-      </p>
-      <ul>
-        <% if @vaccination_center.pfizer %>
-          <li> <%= Vaccine::Brands::PFIZER.capitalize %> </li>
-        <% end %>
-        <% if @vaccination_center.moderna %>
-          <li> <%= Vaccine::Brands::MODERNA.capitalize %> </li>
-        <% end %>
-        <% if @vaccination_center.astrazeneca %>
-          <li> <%= Vaccine::Brands::ASTRAZENECA.capitalize %> </li>
-        <% end %>
-        <% if @vaccination_center.janssen %>
-          <li> <%= Vaccine::Brands::JANSSEN.capitalize %> </li>
-        <% end %>
-      </ul>
+      <div class="mb-2">
+        <div class="font-weight-bold">Adresse :</div>
+        <p class="mb-0"><%= @vaccination_center.address %></p>
+      </div>
+
+      <div class="mb-2">
+        <div class="font-weight-bold">Téléphone :</div>
+        <p class="mb-0"><%= @vaccination_center.phone_number %></p>
+      </div>
+
+      <div class="mb-2">
+        <div class="font-weight-bold">Description :</div>
+        <p class="mb-0"><%= @vaccination_center.description %></p>
+      </div>
+
+      <div class="mb-2">
+        <div class="font-weight-bold">Vaccins :</div>
+        <ul class="mb-0">
+          <% if @vaccination_center.pfizer %>
+            <li> <%= Vaccine::Brands::PFIZER.capitalize %> </li>
+          <% end %>
+          <% if @vaccination_center.moderna %>
+            <li> <%= Vaccine::Brands::MODERNA.capitalize %> </li>
+          <% end %>
+          <% if @vaccination_center.astrazeneca %>
+            <li> <%= Vaccine::Brands::ASTRAZENECA.capitalize %> </li>
+          <% end %>
+          <% if @vaccination_center.janssen %>
+            <li> <%= Vaccine::Brands::JANSSEN.capitalize %> </li>
+          <% end %>
+        </ul>
+      </div>
     </div>
   </div>
 
-  <p>
-    <%= link_to "Créer une nouvelle campagne", new_partners_vaccination_center_campaign_path(@vaccination_center), class: "btn btn-primary" %>
-  </p>
+  <div class="card card-theme mt-4">
+    <div class="card-body small">
+      <div class="d-flex align-items-start align-items-md-center flex-column flex-md-row">
+        <h5>Campagnes</h5>
+        <%= link_to "Créer une nouvelle campagne", new_partners_vaccination_center_campaign_path(@vaccination_center), class: "btn btn-primary ml-md-4 mt-1 mt-md-0" %>
+      </div>
 
-  <% if @vaccination_center.campaigns.present? %>
-    <h5 class="mt-2">
-      Campagnes
-    </h5>
+      <div class="table-responsive mt-3">
+        <table class="table table-bordered table-sm mb-0">
+          <thead class="thead-light">
+            <tr>
+              <th> # </th>
+              <th> Statut </th>
+              <th> Volontaires confirmés </th>
+              <th> Doses disponibles </th>
+              <th> Vaccin </th>
+              <th> Date et heure </th>
+              <th> Âge </th>
+              <th> Distance </th>
+            </tr>
+          </thead>
 
-    <div class="table-responsive">
-      <table class="table table-bordered table-sm">
-        <thead class="thead-light">
-          <tr>
-            <th> # </th>
-            <th> Statut </th>
-            <th> Volontaires confirmés </th>
-            <th> Doses disponibles </th>
-            <th> Vaccin </th>
-            <th> Date et heure </th>
-            <th> Âge </th>
-            <th> Distance </th>
-          </tr>
-        </thead>
-
-        <tbody>
-        <% @vaccination_center.campaigns.order(id: :desc).each do |campaign| %>
-          <tr>
-            <th> <%= link_to campaign.id, partners_campaign_path(campaign) %> </th>
-            <td> <%= french_status(campaign) %> </td>
-            <td> <%= campaign.matches.confirmed.size %> </td>
-            <td> <%= campaign.available_doses %> </td>
-            <td> <%= campaign.vaccine_type.capitalize %> </td>
-            <td> <%= l campaign.starts_at %> </td>
-            <td> <%= campaign.min_age %>-<%= campaign.max_age %> ans</td>
-            <td> <%= campaign.max_distance_in_meters/1000 %> km</td>
-          </tr>
-        <% end %>
-        </tbody>
-      </table>
+          <tbody>
+            <% if @vaccination_center.campaigns.present? %>
+              <% @vaccination_center.campaigns.order(id: :desc).each do |campaign| %>
+                <tr>
+                  <th> <%= link_to campaign.id, partners_campaign_path(campaign) %> </th>
+                  <td> <%= french_status(campaign) %> </td>
+                  <td> <%= campaign.matches.confirmed.size %> </td>
+                  <td> <%= campaign.available_doses %> </td>
+                  <td> <%= campaign.vaccine_type.capitalize %> </td>
+                  <td> <%= l campaign.starts_at %> </td>
+                  <td> <%= campaign.min_age %>-<%= campaign.max_age %> ans</td>
+                  <td> <%= campaign.max_distance_in_meters/1000 %> km</td>
+                </tr>
+              <% end %>
+            <% else %>
+              <tr>
+                <td colspan="8" class="text-center text-muted font-italic">
+                  <%= icon("fas", "info-circle", "Aucune campagne", class: "mr-1") %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
     </div>
-  <% end %>
+  </div>
 </div>
