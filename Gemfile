@@ -43,7 +43,7 @@ gem "pg_search"
 gem "pghero"
 gem "phonelib"
 gem "rolify"
-gem 'sidekiq'
+gem "sidekiq"
 gem "sidekiq-cron"
 gem "sidekiq-failures"
 gem "sib-api-v3-sdk"
