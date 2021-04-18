@@ -3,6 +3,8 @@ class Match < ApplicationRecord
 
   class AlreadyConfirmedError < StandardError; end
 
+  NO_MORE_THAN_ONE_MATCH_PER_PERIOD = 24.hours
+
   has_secure_token :match_confirmation_token
 
   belongs_to :vaccination_center
@@ -13,6 +15,7 @@ class Match < ApplicationRecord
   encrypts :match_confirmation_token
   blind_index :match_confirmation_token
 
+  validate :no_recent_match, on: :create
   before_create :save_user_info
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
@@ -62,5 +65,11 @@ class Match < ApplicationRecord
 
   def expired?
     !confirmed? && Time.now.utc > expires_at
+  end
+
+  def no_recent_match
+    if user.matches.where("created_at >= ?", Match::NO_MORE_THAN_ONE_MATCH_PER_PERIOD.ago).any?
+      errors.add(:base, "Cette personne a déjà été matchée récemment")
+    end
   end
 end
