@@ -250,3 +250,25 @@ fr:
       long: "%A %d %B %Y %Hh%M"
       short: "%d %b %Hh%M"
     pm: pm
+  duration:
+    years:
+      one: "%{count} an"
+      other: "%{count} années"
+    months:
+      one: "%{count} mois"
+      other: "%{count} mois"
+    weeks:
+      one: "%{count} semaine"
+      other: "%{count} semaines"
+    days:
+      one: "%{count} jour"
+      other: "%{count} jours"
+    hours:
+      one: "%{count} heure"
+      other: "%{count} heures"
+    minutes:
+      one: "%{count} minute"
+      other: "%{count} minutes"
+    seconds:
+      one: "%{count} seconde"
+      other: "%{count} secondes"

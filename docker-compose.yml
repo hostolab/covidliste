@@ -1,27 +1,101 @@
 version: "3.9"
 
 services:
+  web:
+    build:
+      context: .
+      dockerfile: docker/dev.Dockerfile
+    command: bash -c "rm -f tmp/pids/server.pid && bin/rails s -b '0.0.0.0'"
+    tty: true
+    stdin_open: true
+    depends_on:
+      - db
+      - migration
+      - redis
+      - webpacker
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/usr/src/app
+      - gems:/usr/local/bundle
+      - node_modules:/usr/src/app/node_modules
+      - packs:/usr/src/app/public/packs
+    env_file:
+      - docker/environments/db.env
+      - docker/environments/web.env
+    environment:
+      ENABLE_BOOTSNAP: "true"
+
+  webpacker:
+    build:
+      context: .
+      dockerfile: docker/dev.Dockerfile
+    command: "bin/webpack-dev-server"
+    volumes:
+      - .:/usr/src/app
+      - gems:/usr/local/bundle
+      - node_modules:/usr/src/app/node_modules
+      - packs:/usr/src/app/public/packs
+    ports:
+      - 3035:3035
+    env_file:
+      - docker/environments/web.env
+
+  worker:
+    build:
+      context: .
+      dockerfile: docker/dev.Dockerfile
+    command: "bin/sidekiq"
+    depends_on:
+      - db
+      - migration
+      - redis
+    volumes:
+      - .:/usr/src/app
+      - gems:/usr/local/bundle
+      - node_modules:/usr/src/app/node_modules
+      - packs:/usr/src/app/public/packs
+    env_file:
+      - docker/environments/db.env
+      - docker/environments/web.env
+    environment:
+      ENABLE_BOOTSNAP: "true"
+
   db:
-    image: postgres
+    image: postgres:alpine
     restart: always
     ports:
-      - "5432:5432"
-    environment:
-      POSTGRES_PASSWORD: covidliste
-      POSTGRES_USER: covidliste
-      POSTGRES_DB: covidliste_development
+      - 5433:5432
     volumes:
-      - "postgres-data:/var/lib/postgresql"
+      - database_data:/var/lib/postgresql/data:delegated
+    env_file:
+      - docker/environments/db.env
+
   redis:
-    image: "redis:5-alpine"
-    command: redis-server
+    image: redis:5-alpine
     ports:
-      - "6379:6379"
+      - 6380:6379
     volumes:
-      - "redis-data:/data"
+      - "redis_data:/data"
+
+  migration:
+    build:
+      context: .
+      dockerfile: docker/dev.Dockerfile
+    command: "bin/rails db:migrate"
+    depends_on:
+      - db
+    volumes:
+      - .:/usr/src/app
+    env_file:
+      - docker/environments/db.env
+      - docker/environments/web.env
+    environment:
+      ENABLE_BOOTSNAP: "true"
 
 volumes:
-  postgres-data:
-    driver: local
-  redis-data:
-    driver: local
+  database_data:
+  redis_data:
+  gems:
+  node_modules:
+  packs:

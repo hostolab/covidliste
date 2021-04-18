@@ -2,7 +2,8 @@
 
 <p class="mt-4">
   Nous sommes heureux de vous permettre d'accéder à la vaccination plus rapidement. <br>
-  <strong><%= @match.vaccination_center.name %> (<%= @match.vaccination_center.kind %>) vous attend à partir de <%= match.campaign.starts_at.strftime('%Hh%M') %>.</strong>
+  <br/>
+  <strong><%= @match.vaccination_center.name %> (<%= @match.vaccination_center.kind %>) vous attend le <%= l(match.campaign.starts_at, format: '%A %e %B %Y')%>.</strong>
 </p>
 
 <%= render 'match_details', match: @match %>
