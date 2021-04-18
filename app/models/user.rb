@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   include HasPhoneNumberConcern
+  has_phone_number_types %i[mobile]
   rolify
 
   devise :database_authenticatable,

@@ -63,7 +63,7 @@
               </td>
               <td><%= vaccination_center.kind %></td>
               <td><%= vaccination_center.address %></td>
-              <td><%= vaccination_center.phone_number %></td>
+              <td><%= vaccination_center.human_friendly_phone_number %></td>
               <td>
                 <% if vaccination_center.pfizer %>
                   <span class="mr-1"><%= Vaccine::Brands::PFIZER.capitalize %></span>
