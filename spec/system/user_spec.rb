@@ -12,7 +12,7 @@ RSpec.describe "Users", type: :system do
         fill_in :user_address, with: Faker::Address.full_address
         fill_in :user_phone_number, with: generate(:french_phone_number)
         fill_in :user_email, with: "hello+#{(rand * 10000).to_i}@covidliste.com" # needs valid email here
-        fill_in :user_password, with: Faker::Internet.password
+        fill_in :user_password, with: "1G09_!9s08vUsa"
         check :user_statement
         check :user_toc
         click_on "Je m’inscris"
@@ -29,7 +29,7 @@ RSpec.describe "Users", type: :system do
         fill_in :user_address, with: Faker::Address.full_address
         fill_in :user_phone_number, with: generate(:french_phone_number)
         fill_in :user_email, with: user.email # not unique
-        fill_in :user_password, with: Faker::Internet.password
+        fill_in :user_password, with: "1G09_!9s08vUsa"
         check :user_statement
         check :user_toc
         click_on "Je m’inscris"
