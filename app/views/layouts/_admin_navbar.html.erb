@@ -1,5 +1,9 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <%= link_to "Covidliste Admin", "/admin", class: "navbar-brand" %>
+<nav class="navbar navbar-expand-xl navbar-dark bg-gradient-theme">
+  <%= link_to admin_path, class: "navbar-brand font-weight-bolder" do %>
+    <%= image_tag "covidliste-logo.png", height: 40, loading: "lazy", class: "mr-2", alt: "logo covidliste" %>
+    <span>Covidliste</span>
+    <span class="ml-1 font-weight-light">Admin</span>
+  <% end %>
 
   <button class="navbar-toggler" type="button" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation" data-target="#navbarNavDropdown" data-toggle="collapse">
     <span class="navbar-toggler-icon"></span>
@@ -8,7 +12,7 @@
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav ml-auto">
       <% if current_user.admin? %>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown<%= controller_name == "power_users" || controller_name == "users" ? " active" : "" %>">
           <%= link_to "Outils support", "", class: "nav-link dropdown-toggle", id: "dropdownSuper", "aria-expanded": "false", "aria-haspopup": "true", "data-toggle": "dropdown" %>
 
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownSuper">
@@ -20,7 +24,7 @@
           </div>
         </li>
 
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown<%= controller_name == "vaccination_centers" || controller_name == "stats" ? " active" : "" %>">
           <%= link_to "Outils supply", "", class: "nav-link dropdown-toggle", id: "dropdownSuper", "aria-expanded": "false", "aria-haspopup": "true", "data-toggle": "dropdown" %>
 
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownSuper">
@@ -33,7 +37,7 @@
           <%= link_to "Outils DataScience", "", class: "nav-link dropdown-toggle", id: "dropdownData", "aria-expanded": "false", "aria-haspopup": "true", "data-toggle": "dropdown" %>
 
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownData">
-            <%= link_to "Blazer", admin_blazer_path, class: "dropdown-item" %>
+            <%= link_to icon("fas", "external-link-alt", "Blazer", class: "mr-1"), admin_blazer_path, class: "dropdown-item" %>
           </div>
         </li>
 
@@ -41,22 +45,22 @@
           <%= link_to "Outils Dev", "", class: "nav-link dropdown-toggle", id: "dropdownDev", "aria-expanded": "false", "aria-haspopup": "true", "data-toggle": "dropdown" %>
 
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownDev">
-            <%= link_to "PgHero", pg_hero_path, class: "dropdown-item", target: "_blank", rel: "noopener" %>
-            <%= link_to "Sidekiq", sidekiq_web_path, class: "dropdown-item", target: "_blank", rel: "noopener" %>
-            <%= link_to "Flipper", "/admin/flipper", class: "dropdown-item", target: "_blank", rel: "noopener" %>
+            <%= link_to icon("fas", "external-link-alt", "PgHero", class: "mr-1"), pg_hero_path, class: "dropdown-item", target: "_blank", rel: "noopener" %>
+            <%= link_to icon("fas", "external-link-alt", "Sidekiq", class: "mr-1"), sidekiq_web_path, class: "dropdown-item", target: "_blank", rel: "noopener" %>
+            <%= link_to icon("fas", "external-link-alt", "Flipper", class: "mr-1"), "/admin/flipper", class: "dropdown-item", target: "_blank", rel: "noopener" %>
           </div>
         </li>
       <% end %>
 
       <% if current_user %>
         <li class="nav-item dropdown">
-          <%= link_to "", class: "nav-link dropdown-toggle", id: "dropdownProfil", "aria-expanded": "false", "aria-haspopup": "true", "data-toggle": "dropdown" do %>
+          <%= link_to "", class: "nav-link text-white font-weight-bold dropdown-toggle", id: "dropdownProfil", "aria-expanded": "false", "aria-haspopup": "true", "data-toggle": "dropdown" do %>
             <%= current_user.full_name %>
             <span class="badge badge-danger"> Admin </span>
           <% end %>
 
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownProfil">
-            <%= link_to "Profil", profile_path, class: "dropdown-item" %>
+            <%= link_to icon("fas", "external-link-alt", "Profil", class: "mr-1"), profile_path, class: "dropdown-item" %>
             <%= link_to "Déconnexion", destroy_user_session_path, class: "dropdown-item", method: :delete %>
           </div>
         </li>

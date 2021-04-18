@@ -1,6 +1,7 @@
 // Covidliste colors
 
 $purple900: #2c1b2d;
+$purple700: #573a59;
 $purple500: #8c588f;
 $purple200: #ede2ee;
 
@@ -25,3 +26,9 @@ $warning: $yellow500;
 
 // Override specific bootstrap colors
 $body-bg: white;
+$dark: $purple900;
+$light: $purple200;
+
+$theme-colors: (
+  "yellow": $yellow500,
+);

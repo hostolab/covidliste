@@ -1,7 +1,10 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-xl navbar-dark bg-gradient-theme">
   <%= link_to root_path, class: "navbar-brand" do %>
-    <%= image_tag "covidliste.png", height: 40, width: 40, alt: "logo covidliste" %>
-    Covidliste
+    <%= image_tag "covidliste-logo.png", height: 40, loading: "lazy", class: "mr-2", alt: "logo covidliste" %>
+    <span>Covidliste</span>
+    <% if current_partner %>
+      <span class="ml-1 font-weight-light">Partenaires</span>
+    <% end %>    
   <% end %>
 
   <button class="navbar-toggler" type="button" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation" data-target="#navbarNavDropdown" data-toggle="collapse">
