@@ -115,7 +115,7 @@ class User < ApplicationRecord
 
   def password_complexity
     return if password.nil? || password =~ /#{User::PASSWORD_REGEX}/o
-    errors.add :password, "pas assez robute. #{User::PASSWORD_HINT}."
+    errors.add :password, "pas assez robuste. #{User::PASSWORD_HINT}."
   end
 
   protected
