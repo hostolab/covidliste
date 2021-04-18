@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-xl navbar-dark bg-gradient-theme">
   <%= link_to root_path, class: "navbar-brand" do %>
     <%= image_tag "covidliste-logo.png", height: 40, loading: "lazy", class: "mr-2", alt: "logo covidliste" %>
-    <span>Covidliste</span>
+    <span class="font-weight-bolder">Covidliste</span>
     <% if current_partner %>
       <span class="ml-1 font-weight-light">Partenaires</span>
     <% end %>    
@@ -30,7 +30,7 @@
 
       <% if current_partner %>
         <li class="nav-item dropdown">
-          <%= link_to "", class: "nav-link dropdown-toggle", id: "dropdown09", "aria-expanded": "false", "aria-haspopup": "true", "data-toggle": "dropdown" do %>
+          <%= link_to "", class: "nav-link text-white font-weight-bold dropdown-toggle", id: "dropdown09", "aria-expanded": "false", "aria-haspopup": "true", "data-toggle": "dropdown" do %>
             <%= current_partner.name %>
             <span class="badge badge-primary">
               Professionnel
@@ -43,7 +43,7 @@
         </li>
       <% elsif current_user %>
         <li class="nav-item dropdown">
-          <%= link_to "", class: "nav-link dropdown-toggle", id: "dropdown09", "aria-expanded": "false", "aria-haspopup": "true", "data-toggle": "dropdown" do %>
+          <%= link_to "", class: "nav-link text-white font-weight-bold dropdown-toggle", id: "dropdown09", "aria-expanded": "false", "aria-haspopup": "true", "data-toggle": "dropdown" do %>
             <%= current_user.full_name %>
           <% end %>
 
@@ -56,7 +56,7 @@
           </div>
         </li>
       <% else %>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown<%= current_page?(new_user_session_path) || current_page?(new_partner_session_path) ? " active" : ""%>">
           <%= link_to "", class: "nav-link dropdown-toggle", id: "dropdown11", "aria-expanded": "false", "aria-haspopup": "true", "data-toggle": "dropdown" do %>
             Se connecter
           <% end %>
