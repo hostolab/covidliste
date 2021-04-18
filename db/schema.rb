@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_13_143101) do
+ActiveRecord::Schema.define(version: 2021_04_16_120347) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -130,6 +130,8 @@ ActiveRecord::Schema.define(version: 2021_04_13_143101) do
     t.string "city"
     t.string "geo_citycode"
     t.string "geo_context"
+    t.boolean "refused", default: false
+    t.datetime "refused_at"
     t.index ["campaign_batch_id"], name: "index_matches_on_campaign_batch_id"
     t.index ["campaign_id"], name: "index_matches_on_campaign_id"
     t.index ["match_confirmation_token_bidx"], name: "index_matches_on_match_confirmation_token_bidx", unique: true

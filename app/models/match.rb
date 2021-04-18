@@ -16,6 +16,7 @@ class Match < ApplicationRecord
   before_create :save_user_info
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
+  scope :refused, -> { where.not(refused_at: nil) }
   scope :pending, -> { where(confirmed_at: nil).where("expires_at >= now()") }
 
   def save_user_info
@@ -48,7 +49,15 @@ class Match < ApplicationRecord
   end
 
   def confirmable?
-    !confirmed? && campaign.remaining_slots > 0
+    !confirmed? && campaign.remaining_slots > 0 && !refused?
+  end
+
+  def refuse!
+    update(refused_at: Time.now.utc)
+  end
+
+  def refused?
+    !refused_at.nil?
   end
 
   def expired?

@@ -57,6 +57,14 @@
         <%= @campaign.matches.confirmed.size %> volontaires confirmés
       </h3>
     </div>
+
+    <div class="col-4 flex-column d-flex align-items-center">
+      <%= icon("fas", "user-times", style: "font-size: 2rem;") %>
+
+      <h3 class="text-center mt-2">
+        <%= @campaign.matches.refused.size %> volontaires ayant refusé
+      </h3>
+    </div>
   </div>
 
   <h2 class="mb-4">
