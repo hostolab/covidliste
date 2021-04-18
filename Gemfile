@@ -5,7 +5,7 @@ ruby ::File.read(::File.expand_path(".ruby-version", __dir__))
 
 gem "rails", "~> 6.1.1"
 
-gem "bootsnap", ">= 1.4.4", require: false
+gem "bootsnap", github: "Shopify/bootsnap", branch: "handle-race-conditions"
 gem "jbuilder", "~> 2.7"
 gem "pg", "~> 1.1"
 gem "puma", "~> 5.0"
@@ -43,7 +43,7 @@ gem "pg_search"
 gem "pghero"
 gem "phonelib"
 gem "rolify"
-gem "sidekiq"
+gem 'sidekiq'
 gem "sidekiq-cron"
 gem "sidekiq-failures"
 gem "sib-api-v3-sdk"

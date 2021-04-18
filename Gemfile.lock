@@ -1,4 +1,12 @@
 GIT
+  remote: https://github.com/Shopify/bootsnap.git
+  revision: 503e9d50805769e9fc5034ed175062810e8f8f54
+  branch: handle-race-conditions
+  specs:
+    bootsnap (1.7.3)
+      msgpack (~> 1.0)
+
+GIT
   remote: https://github.com/faker-ruby/faker.git
   revision: 08cd44c88f0e5579be557acca4633e25a64ffe55
   branch: master
@@ -92,8 +100,6 @@ GEM
     blind_index (2.2.0)
       activesupport (>= 5)
       argon2-kdf (>= 0.1.1)
-    bootsnap (1.7.3)
-      msgpack (~> 1.0)
     bootstrap (5.0.0.beta2)
       autoprefixer-rails (>= 9.1.0)
       popper_js (>= 2.8.6, < 3)
@@ -470,7 +476,7 @@ DEPENDENCIES
   binding_of_caller
   blazer
   blind_index
-  bootsnap (>= 1.4.4)
+  bootsnap!
   bootstrap (~> 5.0.0.beta2)
   brakeman
   bullet
