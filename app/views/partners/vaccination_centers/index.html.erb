@@ -29,10 +29,11 @@
       <table class="table table-bordered table-sm">
         <thead class="thead-light">
           <tr>
-            <th> Nom </th>
-            <th> Coordonnées </th>
-            <th> Vaccins </th>
-            <th class="text-center"> Actions </th>
+            <th scope="col"> Nom </th>
+            <th scope="col"> Coordonnées </th>
+            <th scope="col"> Vaccins </th>
+            <th scope="col"> Collaborateurs </th>
+            <th scope="col" class="text-center"> Actions </th>
           </tr>
         </thead>
 
@@ -67,6 +68,13 @@
                 <% end %>
                 <% if vaccination_center.janssen %>
                   <span class="mr-1"> <%= Vaccine::Brands::JANSSEN.capitalize %> </span><br />
+                <% end %>
+              </td>
+
+              <td>
+                <% vaccination_center.partners.each do |partner| %>
+                  <%= partner.name %>
+                  <br>
                 <% end %>
               </td>
 
