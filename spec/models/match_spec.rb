@@ -30,7 +30,7 @@ RSpec.describe Match, type: :model do
     context "user has already a recent match" do
       let(:user) { create(:user) }
       before do
-        match = create(:match, user: user)
+        create(:match, user: user)
       end
       it "should not create a second match" do
         expect { create(:match, user: user) }.to raise_error(ActiveRecord::RecordInvalid, "La validation a échoué : Cette personne a déjà été matchée récemment")
