@@ -118,4 +118,31 @@ RSpec.describe User, type: :model do
       expect(user.age).to eq(20)
     end
   end
+
+  describe "password" do
+    it "is invalid if length below 8" do
+      user.password = "1!Pp"
+      expect(user).to_not be_valid
+    end
+
+    it "is invalid no special character" do
+      user.password = "1234567Pp"
+      expect(user).to_not be_valid
+    end
+
+    it "is invalid no lowercase" do
+      user.password = "1234567!PP"
+      expect(user).to_not be_valid
+    end
+
+    it "is invalid no uppercase" do
+      user.password = "1234567!pp"
+      expect(user).to_not be_valid
+    end
+
+    it "is valid" do
+      user.password = "1234567!pP"
+      expect(user).to be_valid
+    end
+  end
 end

@@ -8,7 +8,7 @@ FactoryBot.define do
   sequence(:lat) { Faker::Address.latitude }
   sequence(:lon) { Faker::Address.longitude }
   sequence(:name) { Faker::Name.name }
-  sequence(:password) { Faker::Lorem.characters(number: 10) }
+  sequence(:password) { "1G09_!9s08vUsa" } # make sure password is valid
   sequence(:french_phone_number) do
     # Faker generates cell phones that are not valid
     # because not yet attributed
