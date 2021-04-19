@@ -13,18 +13,18 @@
 
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav ml-auto">
-      <li class="<%= action_name == "carte" ? "nav-item active" : "nav-item" %>">
-        <%= link_to "Carte", :carte, class: "nav-link" %>
+      <li class="<%= class_names("nav-item", active: current_page?(carte_path)) %>">
+        <%= link_to "Carte", carte_path, class: "nav-link" %>
       </li>
       <% if !current_partner %>
-        <li class="<% action_name == "faq" ? "nav-item active" : "nav-item" %>">
-          <%= link_to "Foire aux questions", :faq, class: "nav-link" %>
+        <li class="<%= class_names("nav-item", active: current_page?(faq_path)) %>">
+          <%= link_to "Foire aux questions", faq_path, class: "nav-link" %>
         </li>
-        <li class="<%= action_name == "partenaires" ? "nav-item active" : "nav-item" %>">
-          <%= link_to "Professionnels de santé", :partenaires, class: "nav-link" %>
+        <li class="<%= class_names("nav-item", active: current_page?(partenaires_inscription_path)) %>">
+          <%= link_to "Professionnels de santé", partenaires_inscription_path, class: "nav-link" %>
         </li>
-        <li class="<%= action_name == "benevoles" ? "nav-item active" : "nav-item" %>">
-          <%= link_to "Bénévoles", :benevoles, class: "nav-link" %>
+        <li class="<%= class_names("nav-item", active: current_page?(benevoles_path)) %>">
+          <%= link_to "Bénévoles", benevoles_path, class: "nav-link" %>
         </li>
       <% end %>
 
@@ -56,7 +56,7 @@
           </div>
         </li>
       <% else %>
-        <li class="nav-item dropdown<%= current_page?(new_user_session_path) || current_page?(new_partner_session_path) ? " active" : ""%>">
+        <li class="<%= class_names("nav-item", "dropdown", active: current_page?(new_user_session_path) || current_page?(new_partner_session_path)) %>">
           <%= link_to "", class: "nav-link dropdown-toggle", id: "dropdown11", "aria-expanded": "false", "aria-haspopup": "true", "data-toggle": "dropdown" do %>
             Se connecter
           <% end %>
