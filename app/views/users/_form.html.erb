@@ -40,7 +40,7 @@
                   start_year: Date.today.year - 120,
                   end_year: Date.today.year - 18,
                   order: [:day, :month, :year] %>
-      
+
       <p class="text-primary small">
         Vérifiez bien vos nom, prénom et date de naissance. En cas d'erreur, la vaccination ne sera pas possible !
       </p>
@@ -65,7 +65,7 @@
                   required: true,
                   input_html: { autocomplete: "email" } %>
 
-      <div class="form-group">
+      <div class="form-group" data-controller="password-strength">
         <label for="user_password"> Mot de passe </label>
 
         <div class="input-group" data-behavior="toggle-password-visibility">
@@ -73,14 +73,20 @@
                             type: :password,
                             class: "form-control",
                             required: true,
-                            input_html: { autocomplete: "new-password" } %>
+                            autocomplete: "new-password",
+                            data: {
+                              action: "input->password-strength#display"
+                            } %>
 
           <div class="input-group-append">
             <span class="input-group-text"> <%= link_to icon("fas", "eye") %> </span>
           </div>
         </div>
+        <div class="progress" class="mt-1" style="height: 3px;margin-top: 0.15rem">
+          <div class="progress-bar" data-password-strength-target="progress" role="progressbar" style="width: 0" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
 
-        <small class="form-text text-muted"> 
+        <small class="form-text text-muted">
           <%= "#{User::PASSWORD_HINT}" %>
         </small>
       </div>
