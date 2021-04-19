@@ -36,4 +36,9 @@ module ApplicationHelper
       icon("fas", "times", class: "text-danger")
     end
   end
+
+  def pretty_number(number)
+    return "" if number.blank?
+    ActionController::Base.helpers.number_with_delimiter(number, locale: :fr).gsub(" ", "&nbsp;").html_safe
+  end
 end

@@ -20,7 +20,7 @@ namespace :populate do
       user.skip_confirmation!
       user.save!
       user.update_columns(confirmed_at: Time.now.utc)
-      GeocodeUserJob.perform_now(user.id)
+      GeocodeResourceJob.perform_now(user)
       user.reload
       puts "#{i + 1}. #{user.full_name}, #{user.age} ans - #{user.address} (#{user.lat}, #{user.lon})"
     end

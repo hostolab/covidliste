@@ -1,5 +1,3 @@
-require "lograge/sql/extension"
-
 Rails.application.configure do
   # Lograge config
   config.lograge.enabled = true
@@ -10,7 +8,6 @@ Rails.application.configure do
     {
       ddsource: "ruby",
       time: Time.now,
-      params: event.payload[:params],
       level: event.payload[:level],
       exception: event.payload[:exception],
       exception_object: event.payload[:exception_object]
