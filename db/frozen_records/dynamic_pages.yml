@@ -1,0 +1,176 @@
+# Precautions
+# -----------
+# - Do not to override an existing top-level
+#   route with the slug.
+#
+# How to use
+# ----------
+# - Add an entry with the following attributes:
+#   - `slug`: will be used to generate the route
+#   - `body_md_erb`: markdown content that will be processed by
+#     ERB renderer
+# - `slug` should be a valid URL path item but it will be
+#   parameterized to generate the route and underscored for
+#   the PagesController actions.
+
+- slug: cgu_volontaires
+  body_md_erb: |
+    # CONDITIONS GÉNÉRALES D’UTILISATION – VOLONTAIRES NON VACCINÉS
+
+    Dernière mise à jour : 17 avril 2021
+
+    Le site internet www.covidliste.com (ci-après le « **Site** »), édité par l’association Hostolab (ci-après « **Hostolab** » ou « **nous** ») est un site de mise en relation entre des établissements de vaccination Covid-19, participant à l’initiative Covidliste, qui disposent de vaccins non utilisés et des volontaires non vaccinés aux fins de réduction du taux de perte de doses vaccinales. 
+
+    L’accès, la consultation, la navigation et/ou l’utilisation du Site et de ses services vaut acceptation pleine et entière des présentes conditions générales d’utilisation (ci-après « **CGU** ») qui ont pour objet de définir les modalités d’utilisation du Site et de ses services par toute personne accédant, consultant, naviguant et/ou utilisant tout ou partie du Site et de ses services (ci-après « **Utilisateur** »). 
+
+    En conséquence, avant toute utilisation du Site et de ses services, l’Utilisateur est invité à prendre connaissance des présentes CGU, et pour toute création d’un espace personnel sur le Site, l’Utilisateur doit accepter les présentes CGU. Si l’Utilisateur refuse, tout ou partie, de l’une quelconque des stipulations des présentes CGU, il est prié de ne pas utiliser le Site et ses services.
+
+    Les présentes CGU sont accessibles à tout moment sur le Site et prévaudront, le cas échéant, sur toute autre version ou tout autre document contradictoire.
+
+    Au besoin, **vous pouvez poser toutes vos questions directement à Hostolab**
+    en envoyant un email à l’adresse suivante : [hello@covidliste.com](mailto:hello@covidliste.com).
+
+    # 1.	ACCÈS AU SITE ET AUX SERVICES
+    L’accès au Site et à ses services est techniquement possible vingt-quatre (24) heures sur vingt-quatre (24) et sept (7) jours sur sept (7), sous réserve de la survenance d’un cas de force majeure, de pannes éventuelles ou de toute opération de maintenance nécessaire au bon fonctionnement du Site et de ses services.
+
+    En tout état de cause, l’Utilisateur reconnaît disposer de la compétence et des moyens nécessaires pour accéder et utiliser le Site et ses services. A ce titre, l’Utilisateur doit disposer d’un ordinateur, d’un téléphone portable ou de tout autre appareil bénéficiant d’une connexion internet, dont les paramétrages permettent un bon fonctionnement du Site et de ses services.
+
+    D’une manière générale, l’Utilisateur déclare connaître les risques liés à la navigation sur des sites internet et à l’utilisation des services en ligne et les accepter. L’Utilisateur reconnaît notamment que les informations qui y transitent ou y sont stockées peuvent être interceptées ou altérées indépendamment de la volonté de Hostolab.
+
+    A ce titre, il est fortement recommandé à l’Utilisateur de prendre toutes les précautions nécessaires afin de se prémunir contre les effets d’éventuels piratages informatiques, notamment en adoptant une configuration informatique sécurisée et adaptée de son ordinateur, de son téléphone portable ou de tout autre appareil utilisé (par exemple, par la mise en place d’un logiciel de détection de virus régulièrement mis à jour). 
+
+    # 2.	SERVICES PROPOSÉS SUR LE SITE
+    ## 2.1. Conditions d’accès aux services du Site
+
+    Pour bénéficier des services proposés sur le Site, l’Utilisateur doit : 
+
+    - être majeur ; 
+    - avoir la capacité et la qualité requise pour bénéficier des Sites et des services ; 
+    - utiliser le Site et ses services conformément aux présentes CGU. 
+
+    ## 2.2. Création d’un espace personnel 
+
+    Pour être mis en relation avec les établissements de vaccination Covid-19 participant à l’initiative Covidliste, l’Utilisateur doit préalablement créer son espace personnel sur le Site.
+
+    Pour créer son espace personnel sur le Site, l’Utilisateur doit remplir tous les champs obligatoires du formulaire d’inscription en tant que vololontaire à la vaccination Covid-19. **Pour en savoir plus sur l’utilisation de ses informations personnelles par Hostolab, l’Utilisateur est invité à consulter la [politique de protection des données personnelles](TODO:lien_privacy_volontaire).**
+
+    L’utilisation d’un mot de passe fort est une condition essentielle pour la protection de l’espace personnel de l’Utilisateur. L’Utilisateur doit choisir un mot de passe conforme aux exigences de Hostolab en matière de sécurité, composé de caractères alphanumériques, comprenant au moins huit (8) caractères, dont trois (3) caractères spéciaux (lettres majuscules, lettres minuscules, chiffres et caractères spéciaux).
+
+    Les identifiant de connexion et mot de passe sont personnels, confidentiels et non transmissibles à des tiers. L’Utilisateur doit garantir la confidentialité et la sécurité de ceux-ci et demander, sans délai, la réinitialisation du mot de passe sur le Site en cas de perte, oubli et/ou vol. Hostolab ne saurait être tenue responsable de toute utilisation de son espace personnel par un tiers qui aurait eu accès à l’identifiant et/ou au mot de passe de l’Utilisateur, quelle qu’en soit la cause.
+    Hostolab se réserve le droit, à tout moment et sous réserve d’en informer l’Utilisateur, de modifier ou supprimer un identifiant de connexion et/ou un mot de passe si ceux-ci sont considérés comme illicites, offensants, menaçants, diffamatoires, obscènes ou s'ils portent atteinte aux droits de propriété intellectuelle de tiers, ainsi qu’aux présentes CGU.
+    Dans le cadre de son inscription, l’Utilisateur garantit : 
+    - qu’il n’a reçu aucune dose vaccinale Covid-19 ; 
+    - qu’il ne crée pas d’espace personnel sous une fausse identité ou en usurpant l’identité d’un tiers ; 
+    - que toutes les informations qu’il communique sont complètes et exactes ; 
+    - qu’il ne crée pas plusieurs espaces personnels en utilisant plusieurs adresses email et numéros de téléphone portable ; 
+    - qu’il mettra immédiatement à jour les informations dans son espace personnel au besoin. 
+
+    L’Utilisateur est averti qu’en cas d’erreur dans les informations communiquées lors de la création de son espace personnel, il ne pourra pas être vacciné par l’établissement de vaccination Covid-19 l’ayant sélectionné le cas échéant. 
+
+    Dans l'hypothèse où Hostolab constaterait que l'Utilisateur a fourni des informations fausses, inexactes, obsolètes, incomplètes ou, de manière plus générale, contraires aux présentes CGU ou à la réglementation, Hostolab se réserve le droit de mettre fin à la présente relation contractuelle, de plein droit, sans préavis ni indemnité, de supprimer l’espace personnel de l’Utilisateur, ainsi que de bloquer tout accès futur de l’Utilisateur à tout ou partie du Site et de ses services.
+
+    Un email est envoyé à l'adresse email renseignée par l’Utilisateur dans le formulaire, afin qu’il confirme son inscription en tant que vololontaire à la vaccination Covid-19. A défaut de confirmation de sa part, l’Utilisateur ne pourra finaliser la création de son espace personnel sur le Site. 
+
+    ## 2.3. Mise en relation avec les établissements de vaccination Covid-19 
+    Une fois son inscription confirmée, l’Utilisateur est ajouté aux listes des volontaires non vaccinés communiquées aux établissements de vaccination Covid-19, participant à l’initiative Covidliste, qui disposent de vaccins non utilisés.
+
+    Lorsqu’un établissement de vaccination Covid-19 constate que des doses de vaccins risquent de ne pas être utilisées, il peut créer une campagne pour trouver des volontaires non vaccinés qu’il sélectionne selon ses propres critères parmi lesquels la localisation, l’âge et le nombre de vaccins disponibles. Hostolab n’est en aucun cas impliquée dans la détermination des critères de sélection, ainsi que dans la sélection des volontaires non vaccinés. Hostolab communique uniquement à l’établissement de vaccination Covid-19 la liste des volontaires non vaccinés répondant aux critères qui lui ont été communiqués par l’établissement au moment du lancement de la campagne.
+
+    Les volontaires non vaccinés sélectionnés par l’établissement de vaccination Covid-19 sont ensuite classés par ordre d’inscription (les premiers inscrits seront les premiers sélectionnés). Hostolab entre en contact avec chaque volontaire non vacciné sélectionné à hauteur des doses de vaccins disponibles, augmenté d’un facteur dit d’overbooking, jusqu’à ce que toutes les doses disponibles soient réservées.
+
+    Si l’Utilisateur fait partie des volontaires non vaccinés sélectionnés par l’établissement de vaccination de Covid-19, Hostolab lui enverra donc un email et un sms afin de le prévenir. L’Utilisateur disposera alors d’un délai limité (6 minutes à la date de rédaction de cette version des CGU) pour confirmer son intérêt et sa disponibilité. Si l’Utilisateur confirme la prise de rendez-vous de vaccination, Hostolab lui communiquera les informations nécessaires pour se rendre sur le lieu de vaccination et confirmera sa disponibilité à l’établissement de vaccination Covid-19. 
+
+    Si l’Utilisateur est indisponible ou ne répond pas dans le délai prévu, un autre volontaire non vacciné sélectionné par l’établissement de vaccination Covid-19 pourra être contacté par Hostolab. A la discrétion de l’établissement de vaccination Covid-19, la campagne se termine lorsque tous les vaccins disponibles ont trouvé preneur.
+
+    Le service fourni par Hostolab via le Site se limite à la mise en relation entre les établissements de vaccination Covid-19, participant à l’initiative Covidliste, qui disposent de vaccins non utilisés et des volontaires non vaccinés aux fins de réduction du taux de perte de doses vaccinales. Une fois que l’Utilisateur est entré dans le protocole de vaccination, seul l’établissement de vaccination Covid-19, qui aura proposé à l’Utilisateur la première dose vaccinale, suivra son dossier vaccinal.
+
+    ## 2.4. Candidature pour être bénévole
+
+    L’Utilisateur peut candidater pour être bénévole au sein de l’initiative Covidliste en remplissant tous les champs obligatoires du formulaire de candidature sur le Site. L’Utilisateur sera alors recontacté par Hostolab si son profil et ses disponibilités correspondent aux besoins de l’association. **Pour en savoir plus sur l’utilisation de ses informations personnelles par Hostolab, l’Utilisateur est invité à consulter la [politique de protection des données personnelles du Site](TODO:lien_privacy_volontaires)**.
+
+    # 3.	OBLIGATIONS GÉNÉRALES DE L’UTILISATEUR
+
+    L’Utilisateur s’engage à utiliser le Site et ses services de façon conforme aux présentes CGU et à la réglementation, et notamment à ne pas les utiliser à des fins commerciales, de prospection, de sollicitation ou de publicité. 
+
+    L’Utilisateur s’interdit notamment :
+
+    - tout comportement de nature à porter atteinte à l’intégrité, au fonctionnement ou à la sécurité du système d’information à la base du fonctionnement du Site et de ses services ; 
+    - toute intrusion ou tentative d’intrusion dans les systèmes d’information de Hostolab ; 
+    - toute atteinte ou tentative d’atteinte aux mesures d’authentification et autres mesures de sécurité du Site ;
+    - toute collecte, extraction ou utilisation, de quelque façon que ce soit, des informations présentes sur le Site ; 
+    - et plus généralement, tout acte de nature à porter atteinte aux droits et intérêts de Hostolab ou de tiers.
+
+    En cas de manquement aux présentes CGUs ou à la réglementation, y compris de toute utilisation non autorisée du Site et de ses services constaté par Hostolab, cette dernière se réserve le droit de mettre fin à la présente relation contractuelle, de plein droit, sans préavis ni indemnité, de supprimer l’espace personnel de l’Utilisateur, ainsi que de bloquer tout accès futur de l’Utilisateur à tout ou partie du Site et de ses services.
+
+    # 4.	PROPRIÉTÉ INTELLECTUELLE
+
+    Le Site et tous les éléments qui le composent ou qui sont mis à disposition des Utilisateurs, notamment les marques, logos, photographies, programmes, codes sources, codes objets, données, base de données, images animées ou non, sons, dessins, graphismes, vidéos, textes, agencement, apparence, structure, ainsi que tout autre élément non lié à des liens hypertextes vers des sites tiers, sont la propriété de Hostolab ou font l’objet d’une licence accordée à son profit par tout titulaire des droits de propriété intellectuelle. 
+
+    Tous ces éléments sont soumis aux dispositions de la réglementation française et internationale applicable en matière de propriété intellectuelle, notamment le code de la propriété intellectuelle et, par conséquent, sont protégés contre toute utilisation non autorisée par la loi ou les présentes CGU sous peine – en cas de manquement – de poursuites judiciaires. 
+
+    Hostolab accorde à l’Utilisateur à titre personnel, non-exclusif et gratuit un droit de consultation et d’utilisation du Site et de ses services pour son usage propre et dans le strict cadre des opérations autorisées aux termes des présentes CGU. 
+
+    Sous réserve des droits d’utilisation consentis à l’Utilisateur par Hostolab, l’utilisation du Site et de ses services n’emporte aucune licence, ni aucune cession des droits afférents aux éléments du Site au profit de l’Utilisateur. En particulier, toute copie, reproduction, représentation, adaptation, modification, diffusion intégrale ou partielle du Site, ainsi que tout ou partie de son contenu, par quelque procédé que ce soit et sur quelque support que ce soit, est illicite sauf autorisation préalable, expresse et écrite de Hostolab ou du titulaire des droits de propriété intellectuelle.
+
+    Le non-respect de ces stipulations, notamment à des fins d’exploitation commerciale, pourra faire l’objet de poursuites sur la base d’une action en contrefaçon et/ou d’une action en concurrence déloyale et/ou en parasitisme de la part des titulaires des droits en cause. Ceci est sans préjudice des autres droits de Hostolab, notamment celui d’obtenir réparation des préjudices subis.
+
+    # 5.	RESPONSABILITÉ
+
+    Le Site est fourni à l’Utilisateur à titre gratuit. Bien que Hostolab s’efforce de fournir un Site fiable, Hostolab ne garantit pas qu’il est exempt d’erreurs, d’inexactitudes ou d’omissions, de périodes d’indisponibilités, de failles ou de défauts. Par ailleurs, Hostolab ne garantit pas l’exactitude, la qualité, la licéité ou l’adéquation à un usage particulier du Site, des services qui y sont proposés et des contenus qui y sont publiés En conséquence, l’Utilisateur reconnaît se servir du Site, des services proposés et des contenus qui y sont publiés sous sa responsabilité exclusive. 
+
+    L’Utilisateur reconnaît avoir pris connaissance des présentes CGU et s’engage à les respecter. L’Utilisateur est seul responsable de l’usage qu’il entend faire du Site et de ses services, ainsi que de la préservation de la sécurité et de l’intégrité de ses données, de son matériel et de ses logiciels lorsqu’il utilise de quelque façon que ce soit le Site ou ses services. 
+
+    Ainsi, Hostolab ne saurait être tenue pour responsable des dommages directs ou indirects qui pourraient résulter : 
+    - d’un quelconque dysfonctionnement ou contamination de l’ordinateur, du téléphone portale ou de tout autre équipement utilisé par l’Utilisateur au cours ou après la navigation sur le Site, impossibilité d’accès ou mauvaise condition d’utilisation imputable à ces équipements, au fournisseur d’accès internet, à l’encombrement du réseau internet, ou à toute autre raison extérieure à Hostolab ;
+    - des frais de communications électroniques ou téléphoniques qu’induit l’utilisation de ces équipements et qui sont à la charge exclusive de l’Utilisateur et ne seront pas supportés par Hostolab ;
+    - de toute interruption, temporaire ou permanente, de tout ou partie des fonctionnalités du Site notamment en cas de maintenance, modification ou mise à jour du Site, en cas d’incident technique et, plus généralement, en cas d’évènement extérieur au contrôle de Hostolab ;
+    - de toute conséquence qui pourrait survenir du fait des contenus des sites internet tiers vers lesquels renvoient les liens hypertextes pouvant être présents sur le Site ;
+    - des éventuels préjudices indirects qui seraient subis par l’Utilisateur ; 
+    - de tout préjudice subi par l’Utilisateur ou un tiers qui résulterait d’une utilisation du Site non conforme aux présentes CGU ; 
+    - de tout manquement aux obligations prévues aux présentes CGU qui serait dû ou trouverait son origine dans un cas fortuit ou un cas de force majeure tel que défini par l’article 1218 du code civil.
+
+    Dans l’hypothèse où Hostolab serait tenue pour responsable d’un dommage non prévu au présent article, sa responsabilité sera limitée aux dommages certains, réels et directs.
+
+    Par la suite, en aucun cas Hostolab, ses représentants, ses bénévoles et ses partenaires ne sauraient être tenus responsables des dommages indirects résultant de l’utilisation du Site, des services qui y sont proposés ainsi que des contenus qui y sont publiés, et notamment du manque à gagner, de la perte de profit, de la perte de chance ou des dommages découlant de la perte de données causée par l’impossibilité d’utiliser le Site et ses services. 
+
+    # 6.	MODIFICATION
+
+    Les présentes CGU sont datées de manière précise et pourront être modifiées et mises à jour par Hostolab à tout moment, notamment en cas d’évolution du Site ou de la réglementation applicable 
+
+    Les CGU applicables sont celles publiées sur le Site au moment de l’accès au Site par l’Utilisateur. Par conséquent, l’Utilisateur est invité à consulter les CGU à chaque nouvel accès au Site.
+
+    La présente version des CGU remplace toutes les versions antérieures.
+
+    # 7.	CESSATION DU SITE 
+
+    Hostolab se réserve le droit d’interrompre, temporairement ou définitivement, l’accès à tout ou partie du Site ou des services qui y sont proposés, notamment en cas de cessation de l’activité liée à la mise à disposition du Site ou en cas de procédure collective.
+
+    # 8.	CESSION 
+
+    Sous réserve de la loi applicable, l’Utilisateur consent à ce que les présentes CGU le liant à Hostolab puissent être cédées, transférées ou apportées, de quelque façon que ce soit. Dans le cadre du transfert de l’association à un tiers, les présentes CGU liant l’Utilisateur à Hostolab seront automatiquement transférées au cessionnaire.
+
+    # 9.	LIENS HYPERTEXTES 
+
+    Le Site peut inclure des liens hypertextes vers des sites ou sources externes, autres que ceux édités par Hostolab. Dans la mesure où Hostolab ne peut contrôler ces sites et ces sources externes, Hostolab ne peut être tenue pour responsable de la mise à disposition de ces sites et sources externes, et décline ainsi toute responsabilité quant aux contenus, publicités, produits, services ou tout autre matériel disponible sur ou à partir de ces sites ou sources externes. Aussi, la décision d’activer les liens hypertextes  appartient exclusivement à l’Utilisateur.
+
+    Hostolab rappelle à l’Utilisateur que les sites ou sources externes non-affiliés sont soumis à leurs propres conditions générales d’utilisation.
+
+    Si l’Utilisateur souhaite créer un lien hypertexte renvoyant vers le Site, il doit obtenir l’autorisation écrite et préalable de Hostolab en envoyant un email à l’adresse suivante : [hello@covidliste.com](mailto:hello@covidliste.com).
+
+    Hostolab peut, à son entière discrétion, accepter ou rejeter toute demande qui lui ait adressée à cette fin. Hostolab n’a aucune obligation d’accepter une telle demande, ni de fournir toute raison pour rejeter une telle demande le cas échéant. 
+
+    # 10.	VALIDITÉ DES CGU
+
+    Chacun des articles des présentes CGU s’applique séparément. Toute modification de la réglementation applicable en vigueur, ou toute décision d’un tribunal ou d’une autorité compétente invalidant un ou plusieurs articles des présentes CGU ne saurait affecter la validité de l’intégralité des CGU. Une telle modification ou décision n’autorise en aucun cas l’Utilisateur à méconnaître les dispositions valides des présentes CGU.
+
+    # 11.	LANGUE
+
+    Les présentes CGU sont rédigées en langue française. Dans le cas où elles seraient traduites en une ou plusieurs langues, seul le texte français ferait foi en cas de litige.
+
+    # 12.	LOI APPLICABLE / ATTRIBUTION DE JURIDICTION
+
+    Les présentes CGU et les opérations qui en découlent sont régies, interprétées et appliquées conformément au droit français.
+
+    En cas de différend relatif à leur interprétation ou leur exécution, Hostolab et l’Utilisateur rechercheront, avant toute action contentieuse, un accord amiable et se communiqueront à cet effet tous les éléments d’information nécessaires. 
+
+    A défaut d'accord amiable entre Hostolab et l’Utilisateur dans un délai de deux (2) mois à compter de la notification du litige à l’autre partie, compétence expresse est donnée aux tribunaux de Paris.

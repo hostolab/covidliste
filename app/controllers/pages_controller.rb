@@ -27,6 +27,13 @@ class PagesController < ApplicationController
     render "pages/robots", layout: false, content_type: "text/plain"
   end
 
+  DynamicPage.all.each do |page|
+    define_method page.slug.underscore do
+      @body = page.body
+      render "pages/dynamic"
+    end
+  end
+
   private
 
   def skip_pundit?

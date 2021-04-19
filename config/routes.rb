@@ -81,7 +81,7 @@ Rails.application.routes.draw do
   ## matches
   resources :matches, only: [:show, :update, :destroy], param: :match_confirmation_token
 
-  ## pages
+  ## Pages
   get "/carte" => "pages#carte", :as => :carte
   get "/benevoles" => "pages#benevoles", :as => :benevoles
   get "/contact" => "pages#contact", :as => :contact
@@ -90,6 +90,11 @@ Rails.application.routes.draw do
   get "/presse" => "pages#presse", :as => :presse
   get "/privacy" => "pages#privacy", :as => :privacy
   get "/faq" => "pages#faq", :as => :faq
+
+  ## Pages from frozen_records/dynamic_pages.yml
+  DynamicPage.all.each do |page|
+    get page.slug.parameterize => "pages##{page.slug.parameterize}", :as => page.slug.parameterize.to_sym
+  end
 
   ## robots.txt
   get "/robots.txt", to: "pages#robots"
