@@ -20,7 +20,7 @@ class PartnersController < ApplicationController
   private
 
   def partner_params
-    params.require(:partner).permit(:name, :email, :password, :phone_number)
+    params.require(:partner).permit(:name, :email, :password, :phone_number, :statement)
   end
 
   def vaccination_center_params

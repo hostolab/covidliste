@@ -11,6 +11,7 @@ class Partner < ApplicationRecord
   validates :name, presence: true
   validates :phone_number, presence: true
   validates :email, email: {mx: true, message: "Email invalide"}
+  validates :statement, presence: true, acceptance: true, unless: proc { |p| p.reset_password_token.present? }
 
   encrypts :email
   encrypts :phone_number
