@@ -90,8 +90,8 @@ Rails.application.routes.draw do
   get "/faq" => "pages#faq", :as => :faq
 
   ## Pages from frozen_records/dynamic_pages.yml
-  DynamicPage.all.each do |page|
-    get page.slug.underscore => "pages##{page.slug.underscore}", :as => page.slug.underscore.to_sym
+  DynamicPage.pluck(:slug).each do |slug|
+    get slug.underscore => "pages##{slug.underscore}", :as => slug.underscore.to_sym
   end
 
   ## robots.txt
