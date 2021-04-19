@@ -11,6 +11,7 @@ class PartnersController < ApplicationController
   def create
     @partner = Partner.new(partner_params)
     authorize @partner
+    @partner.statement_accepted_at if @partner.statement
     # @partner.password = Devise.friendly_token.first(12)
     # @partner.skip_confirmation! if ENV["SKIP_EMAIL_CONFIRMATION"] == 'true'
     @partner.save

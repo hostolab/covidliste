@@ -42,6 +42,8 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    @user.statement_accepted_at = Time.now if @user.statement
+    @user.toc_accepted_at = Time.now if @user.toc
     authorize @user
     @user.save
     prepare_phone_number
