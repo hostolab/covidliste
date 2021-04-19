@@ -114,12 +114,7 @@ class User < ApplicationRecord
 
   protected
 
-  # Devise override
-  def password_required?
-    confirmed? ? super : false
-  end
-
   def skip_password_complexity?
-    true if persisted? # skip if user is already created
+    true unless encrypted_password_changed?
   end
 end
