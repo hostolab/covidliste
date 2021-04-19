@@ -46,7 +46,7 @@ class User < ApplicationRecord
   scope :between_age, ->(min, max) { where("birthdate between ? and ?", max.years.ago, min.years.ago) }
   scope :with_roles, -> { joins(:roles) }
 
-  PASSWORD_REGEX = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-£`€+=°(){}[]]).{#{Devise.password_length.min},#{Devise.password_length.max}}$"
+  PASSWORD_REGEX = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-£`€+=°{}]).{#{Devise.password_length.min},#{Devise.password_length.max}}$"
   PASSWORD_HINT = "#{Devise.password_length.min} caractères minimum avec au moins 1 chiffre, au moins 1 caractère spécial, au moins 1 lettre minuscule et au moins 1 lettre majuscule."
   LATLNG_DECIMALS = 3
 
