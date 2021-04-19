@@ -128,6 +128,7 @@ RSpec.describe User, type: :model do
     it "is too weak" do
       user.password = "123456789"
       expect(user).to_not be_valid
+    end
 
     it "is valid" do
       user.password = "snipe.HACKSAW.fish"
