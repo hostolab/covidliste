@@ -1,14 +1,14 @@
-<div>
-  <p><strong>Qu’est-ce que Covidliste ?</strong></p>
+<div class="mt-md-3">
+  <h3 class="h6 font-weight-bolder text-primary mb-3">Qu’est-ce que Covidliste ?</h3>
 
   <p>
     A l’initiative de bénévoles, Covidliste est un site de mise en relation en temps réel entre les établissements et professionnels de santé qui disposent de doses de vaccins non utilisées, et des volontaires non vaccinés.
   </p>
 
   <p>
-    Aujourd’hui <strong><%= @users_count %> volontaires </strong> sont inscrits. 
-    <strong><%= @matched_users_count %></strong> personnes ont déjà été contactées par Covidliste pour une dose de vaccin disponible.
-    <strong><%= @confirmed_matched_users_count %></strong> d’entre eux ont confirmé leur rendez-vous avec l’un de nos <strong><%= @vaccination_centers_count %> centres et professionnels de santé</strong> inscrits !
+    Aujourd’hui <span class="text-primary font-weight-bold"><%= pretty_number(@users_count) %> volontaires</span> sont inscrits.
+    <span class="text-primary font-weight-bold"><%= pretty_number(@matched_users_count) %></span> personnes ont déjà été contactées par Covidliste pour une dose de vaccin disponible.
+    <span class="text-primary font-weight-bold"><%= pretty_number(@confirmed_matched_users_count) %></span> d’entre eux ont confirmé leur rendez-vous avec l’un de nos <span class="text-primary font-weight-bold"><%= pretty_number(@vaccination_centers_count) %></span> <span class="font-weight-bold">centres et professionnels de santé</span> inscrits !
   </p>
 
   <p>
@@ -27,7 +27,7 @@
     Centres de vaccination et professionnels de santé, <%= link_to 'rejoignez-nous !', new_partner_path %>
   </p>
 
-  <p><strong>Pourquoi ce projet ?</strong></p>
+  <h4 class="h6 font-weight-bolder text-primary mb-3">Pourquoi ce projet ?</h3>
 
   <p>
     La vocation de Covidliste est de permettre à toutes les doses de vaccin disponibles d’être utilisées, en premier lieu par les publics prioritaires identifiés dans le cadre de la
@@ -37,7 +37,7 @@
   </p>
 
 
-  <p><strong>Comment ça marche ?</strong></p>
+  <h5 class="h6 font-weight-bolder text-primary mb-3">Comment ça marche ?</h3>
 
   <p>
     <ul>
@@ -53,7 +53,7 @@
     </ul>
   </p>
 
-  <p><strong>Qui est derrière Covidliste ?</strong></p>
+  <h6 class="h6 font-weight-bolder text-primary mb-3">Qui est derrière Covidliste ?</h3>
 
   <p>
     <%= link_to "Martin Daniel", "https://twitter.com/martindaniel4", target: "_blank", rel: "noopener" %>

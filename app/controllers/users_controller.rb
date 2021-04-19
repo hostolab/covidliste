@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-  include ActionView::Helpers::NumberHelper
   before_action :authenticate_user!, except: %i[new create]
   before_action :sign_out_if_anonymized!
   invisible_captcha only: [:create], honeypot: :subtitle
@@ -63,18 +62,10 @@ class UsersController < ApplicationController
   private
 
   def set_counters
-    @users_count = Rails.cache.fetch(:users_count, expires_in: 5.minute) do
-      number_with_delimiter(User.count, locale: :fr).gsub(" ", "&nbsp;").html_safe
-    end
-    @matched_users_count = Rails.cache.fetch(:matched_users_count, expires_in: 5.minute) do
-      number_with_delimiter(Match.distinct.count("user_id"), locale: :fr).gsub(" ", "&nbsp;").html_safe
-    end
-    @confirmed_matched_users_count = Rails.cache.fetch(:confirmed_matched_users_count, expires_in: 5.minute) do
-      number_with_delimiter(Match.confirmed.count, locale: :fr).gsub(" ", "&nbsp;").html_safe
-    end
-    @vaccination_centers_count = Rails.cache.fetch(:vaccination_centers_count, expires_in: 5.minute) do
-      number_with_delimiter(VaccinationCenter.confirmed.count, locale: :fr).gsub(" ", "&nbsp;").html_safe
-    end
+    @users_count = Rails.cache.fetch(:users_count, expires_in: 5.minutes) { User.count }
+    @confirmed_matched_users_count = Rails.cache.fetch(:confirmed_matched_users_count, expires_in: 5.minutes) { Match.confirmed.count }
+    @matched_users_count = Rails.cache.fetch(:matched_users_count, expires_in: 5.minutes) { Match.distinct.count("user_id") + Match.where(user_id: nil).count }
+    @vaccination_centers_count = Rails.cache.fetch(:vaccination_centers_count, expires_in: 5.minutes) { VaccinationCenter.confirmed.count }
   end
 
   def prepare_phone_number
