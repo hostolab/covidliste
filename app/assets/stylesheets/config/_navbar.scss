@@ -1,0 +1,12 @@
+$navbar-padding-y:                  0.5rem;
+$navbar-brand-padding-y:            1rem;
+$navbar-nav-link-padding-x:         1.0rem;
+$navbar-brand-font-size:            1.6rem;
+$navbar-dark-brand-color:           $purple200;
+$navbar-dark-brand-hover-color:     darken($purple200, 5);
+$navbar-dark-color:                 rgba(#fff, .70) !default;
+$navbar-dark-hover-color:           rgba(#fff, .90) !default;
+$navbar-dark-active-color:          #fff !default;
+$navbar-dark-disabled-color:        rgba(#fff, .20) !default;
+$navbar-dark-toggler-icon-bg:       url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'><path stroke='#{$navbar-dark-color}' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/></svg>") !default;
+$navbar-dark-toggler-border-color:  rgba(#fff, .1) !default;
