@@ -27,10 +27,10 @@ class PagesController < ApplicationController
     render "pages/robots", layout: false, content_type: "text/plain"
   end
 
-  DynamicPage.all.each do |page|
+  StaticPage.all.each do |page|
     define_method page.slug.underscore do
       @body = page.body
-      render "pages/dynamic"
+      render "pages/static"
     end
   end
 

@@ -89,10 +89,13 @@ Rails.application.routes.draw do
   get "/presse" => "pages#presse", :as => :presse
   get "/faq" => "pages#faq", :as => :faq
 
-  ## Pages from frozen_records/dynamic_pages.yml
-  DynamicPage.pluck(:slug).each do |slug|
-    get slug.underscore => "pages##{slug.underscore}", :as => slug.underscore.to_sym
-  end
+  ## Pages from frozen_records/static_pages.yml
+  get "/mentions_legales" => "pages#mentions_legales", :as => :mentions_legales
+  get "/cgu_volontaires" => "pages#cgu_volontaires", :as => :cgu_volontaires
+  get "/cgu_pro" => "pages#cgu_pro", :as => :cgu_pro
+  get "/privacy_volontaires" => "pages#privacy_volontaires", :as => :privacy_volontaires
+  get "/privacy_pro" => "pages#privacy_pro", :as => :privacy_pro
+  get "/cookies" => "pages#cookies", :as => :cookies
 
   ## robots.txt
   get "/robots.txt", to: "pages#robots"

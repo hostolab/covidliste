@@ -1,6 +1,9 @@
-class DynamicPage < FrozenRecord::Base
+class StaticPage < FrozenRecord::Base
   include ActionView::Helpers::UrlHelper
   include Rails.application.routes.url_helpers
+
+  include ActiveModel::Validations
+  validates :body_md_erb, :slug, presence: true
 
   add_index :slug, unique: true
 
