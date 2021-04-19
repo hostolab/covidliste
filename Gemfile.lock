@@ -227,9 +227,6 @@ GEM
       activesupport (>= 4)
       railties (>= 4)
       request_store (~> 1.0)
-    lograge-sql (1.3.1)
-      activerecord (>= 4, < 7.0)
-      lograge (~> 0.4)
     logstash-event (1.2.02)
     loofah (2.9.0)
       crass (~> 1.0.2)
@@ -505,7 +502,6 @@ DEPENDENCIES
   listen (~> 3.3)
   lockbox
   lograge
-  lograge-sql
   logstash-event
   pagy
   pg (~> 1.1)
@@ -528,7 +524,7 @@ DEPENDENCIES
   sass-rails (>= 6)
   selenium-webdriver
   sib-api-v3-sdk
-  sidekiq
+  sidekiq (= 5.2.5)
   sidekiq-cron
   sidekiq-failures
   simple_form
