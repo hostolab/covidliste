@@ -21,7 +21,10 @@ class PagesController < ApplicationController
   end
 
   def faq
-    @faq_items = FaqItem.all
+    @search_term = params.permit(:search)[:search]
+    @faq_items = FaqItem.search(@search_term)
+    @faq_items_count = @faq_items.count
+    @faq_items = FaqItem.all if @search_term.present? && @faq_items_count == 0
   end
 
   def robots
