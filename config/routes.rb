@@ -97,6 +97,9 @@ Rails.application.routes.draw do
   get "/privacy_pro" => "pages#privacy_pro", :as => :privacy_pro
   get "/cookies" => "pages#cookies", :as => :cookies
 
+  ## Redirections
+  get "/privacy" => redirect("/privacy_volontaires") # 301
+
   ## robots.txt
   get "/robots.txt", to: "pages#robots"
 
