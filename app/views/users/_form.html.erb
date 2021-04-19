@@ -96,21 +96,9 @@
       Pour en savoir plus sur l’utilisation de vos données personnelles, veuillez consulter la <%= link_to "politique de protection des données personnelles", privacy_volontaires_path %>.
       </p>
 
-      <%= f.input :statement,
-                  as: :boolean,
-                  label: "J’accepte sans réserve les #{link_to "CGU", cgu_volontaires_path} et, notamment, certifie sur l’honneur que les informations communiquées ci-dessus sont exactes.".html_safe,
-                  checked_value: true,
-                  unchecked_value: false,
-                  error: "Vous devez cocher cette case pour valider votre inscription",
-                  required: true %>
+      <%= render partial: "input_statement", locals: {f: f} %>
+      <%= render partial: "input_toc", locals: {f: f}%>
 
-      <%= f.input :toc,
-                  as: :boolean,
-                  label: "J’accepte que mes données soient traitées aux fins de la mise en relation avec les établissements de vaccination Covid-19 participant à l’initiative Covidliste.",
-                  checked_value: true,
-                  unchecked_value: false,
-                  error: "Vous devez cocher cette case pour valider votre inscription",
-                  required: true %>
       <%= f.invisible_captcha :subtitle %>
       <%= f.button :submit, "Je m’inscris", class: "btn btn-primary", data: { disable_with: "Inscription en cours..." } %>
     <% end %>

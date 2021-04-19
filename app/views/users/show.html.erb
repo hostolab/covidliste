@@ -40,7 +40,9 @@
         <%= f.input :address, label: "Adresse", error: "Adresse requise", placeholder: "5 rue larue, 13600 Marseille" %>
         <%= f.input :email, disabled: true, label: "Email", error: f.error(:email), placeholder: "jean@dupont.com" %>
         <%= f.input :phone_number, label: "Numéro de téléphone", error: "", placeholder: "06 06 06 06 06" %>
-        <%= f.input :statement, as: :boolean, label: "Je certifie sur l'honneur que les informations communiquées ci-dessus sont exactes.", error: "Vous devez cocher cette case pour modifier vos informations.", checked_value: true, unchecked_value: false, required: true %>
+
+        <%= render partial: "input_statement", locals: {f: f} %>
+
         <%= f.button :submit, "Je modifie mes informations", class: "btn btn-primary", data: { disable_with: "Validation..." } %>
       <% end %>
 
