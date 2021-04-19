@@ -93,7 +93,7 @@ Rails.application.routes.draw do
 
   ## Pages from frozen_records/dynamic_pages.yml
   DynamicPage.all.each do |page|
-    get page.slug.parameterize => "pages##{page.slug.parameterize}", :as => page.slug.parameterize.to_sym
+    get page.slug.underscore => "pages##{page.slug.underscore}", :as => page.slug.underscore.to_sym
   end
 
   ## robots.txt

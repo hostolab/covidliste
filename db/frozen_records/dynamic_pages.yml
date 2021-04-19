@@ -10,7 +10,7 @@
 #   - `body_md_erb`: markdown content that will be processed by
 #     ERB renderer
 # - `slug` should be a valid URL path item but it will be
-#   parameterized to generate the route and underscored for
+#   underscored to generate the route and underscored for
 #   the PagesController actions.
 
 - slug: cgu_volontaires
