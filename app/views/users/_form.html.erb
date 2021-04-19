@@ -65,7 +65,7 @@
                   required: true,
                   input_html: { autocomplete: "email" } %>
 
-      <div class="form-group">
+      <div class="form-group" data-controller="password">
         <label for="user_password"> Mot de passe </label>
 
         <div class="input-group" data-behavior="toggle-password-visibility">
@@ -73,7 +73,8 @@
                             type: :password,
                             class: "form-control",
                             required: true,
-                            input_html: { autocomplete: "new-password" } %>
+                            input_html: { autocomplete: "new-password" },
+                            data: {password_target: 'password', action: 'input->password#check'} %>
 
           <div class="input-group-append">
             <span class="input-group-text"> <%= link_to icon("fas", "eye") %> </span>
@@ -82,6 +83,8 @@
 
         <small class="form-text text-muted"> 
           <%= "#{User::PASSWORD_HINT}" %>
+          <br/>
+          <%= content_tag :span, "", data: { password_target: "passwordCheck" }, class: "d-inline-block" %>
         </small>
       </div>
 

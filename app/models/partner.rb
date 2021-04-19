@@ -6,7 +6,8 @@ class Partner < ApplicationRecord
     :recoverable,
     :rememberable,
     :validatable,
-    :confirmable
+    :confirmable,
+    :zxcvbnable
 
   validates :name, presence: true
   validates :phone_number, presence: true
@@ -31,5 +32,9 @@ class Partner < ApplicationRecord
 
   def full_name
     name
+  end
+
+  def skip_password_complexity?
+    false
   end
 end
