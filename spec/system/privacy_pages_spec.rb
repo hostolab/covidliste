@@ -31,3 +31,13 @@ RSpec.describe "Privacy Page for Pros", type: :system do
     expect(page).to have_text("privacy@covidliste.com")
   end
 end
+
+RSpec.describe "Legacy /privacy route should redirect to /privacy_volontaires", type: :system do
+  before(:each) do
+    visit "/privacy"
+  end
+
+  it "loads the volunteers' privacy page" do
+    expect(page).to have_text("Politique de protection des données personnelles - Volontaires non vaccinés")
+  end
+end
