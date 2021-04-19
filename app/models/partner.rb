@@ -6,7 +6,8 @@ class Partner < ApplicationRecord
     :recoverable,
     :rememberable,
     :validatable,
-    :confirmable
+    :confirmable,
+    :lockable
 
   validates :name, presence: true
   validates :phone_number, presence: true

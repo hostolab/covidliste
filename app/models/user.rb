@@ -7,7 +7,8 @@ class User < ApplicationRecord
     :recoverable,
     :rememberable,
     :validatable,
-    :confirmable
+    :confirmable,
+    :lockable
 
   has_many :matches, dependent: :nullify
 

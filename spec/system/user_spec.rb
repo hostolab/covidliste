@@ -135,4 +135,48 @@ RSpec.describe "Users", type: :system do
       end
     end
   end
+
+  context "login" do
+    before do
+      user.save!
+    end
+
+    it "it warns the user that the account will be lock" do
+      visit new_user_session_path
+      (DEVISE_MAXIMUM_LOGIN_ATTEMPS - 1).times do
+        fill_in :user_email, with: user.email
+        fill_in :user_password, with: "wrong"
+        click_on "Connexion"
+      end
+      expect(page).to have_text("Il vous reste une chance avant que votre compte soit bloqué.")
+    end
+
+    it "it locks the account" do
+      visit new_user_session_path
+
+      DEVISE_MAXIMUM_LOGIN_ATTEMPS.times do
+        fill_in :user_email, with: user.email
+        fill_in :user_password, with: "wrong"
+        click_on "Connexion"
+      end
+      expect(page).to have_text("Votre compte est verrouillé.")
+    end
+
+    it "After a period of time it is unlocked" do
+      visit new_user_session_path
+
+      DEVISE_MAXIMUM_LOGIN_ATTEMPS.times do
+        fill_in :user_email, with: user.email
+        fill_in :user_password, with: "wrong"
+        click_on "Connexion"
+      end
+
+      travel DEVISE_UNLOCK_IN + 1.second
+
+      fill_in :user_email, with: user.email
+      fill_in :user_password, with: user.password
+      click_on "Connexion"
+      expect(page).to have_text("Connecté(e).")
+    end
+  end
 end
