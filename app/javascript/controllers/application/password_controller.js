@@ -1,7 +1,7 @@
 import { Controller } from "stimulus";
 var zxcvbn = require("zxcvbn");
 
-const passordScores = {
+const passwordScores = {
   0: { message: "Très faible", color: "red" },
   1: { message: "Faible", color: "red" },
   2: { message: "Moyen", color: "orange" },
@@ -21,7 +21,7 @@ export default class extends Controller {
       color = "red";
     } else {
       let score = zxcvbn(password).score;
-      let scoreInfo = passordScores[score];
+      let scoreInfo = passwordScores[score];
       message = scoreInfo.message;
       color = scoreInfo.color;
     }
