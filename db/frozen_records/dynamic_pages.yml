@@ -6,7 +6,7 @@
 # How to use
 # ----------
 # Add an entry with the following attributes:
-# 
+#
 # - `slug`: will be used to generate the route.
 #   Should be a valid URL path item but it will be
 #   underscored to generate the route and the PagesController action.
@@ -40,7 +40,7 @@
 
     ## Crédits : 
 
-    Design et développement du site internet par Hostolab. 
+    Design et développement du site internet par Hostolab.
 
 - slug: cgu_volontaires
   body_md_erb: |
@@ -506,7 +506,7 @@
     Au besoin, vous pouvez **introduire une réclamation auprès la Commission Nationale Informatique et Libertés (CNIL)** *via* son [site internet](https://www.cnil.fr/fr/plaintes) ou par courrier : 3, place de Fontenoy - TSA 80715 - 75334 PARIS CEDEX 07. Ce droit peut être exercé à tout moment gratuitement, mis à part les frais du courrier le cas échéant, et les frais éventuels d’assistance ou de représentation si vous choisissez de vous faire aider dans cette procédure par un tiers.
 
     # 8. MISE À JOUR DE LA PRÉSENTE POLITIQUE DE PROTECTION DES DONNÉES PERSONNELLES
-    La politique de protection des données personnelles est datée de manière précise et pourra être modifiée et mise à jour par Hostolab à tout moment, notamment en cas d’évolution des services proposés sur le Site ou de la réglementation applicable. Par conséquent, nous vous recommandons de consulter la présente politique à chaque nouvel accès au Site. 
+    La politique de protection des données personnelles est datée de manière précise et pourra être modifiée et mise à jour par Hostolab à tout moment, notamment en cas d’évolution des services proposés sur le Site ou de la réglementation applicable. Par conséquent, nous vous recommandons de consulter la présente politique à chaque nouvel accès au Site.
 
 - slug: privacy_pro
   body_md_erb: |
@@ -634,7 +634,7 @@
     Au besoin, vous pouvez **introduire une réclamation auprès la Commission Nationale Informatique et Libertés (CNIL)** *via* son [site internet](https://www.cnil.fr/fr/plaintes) ou par courrier : 3, place de Fontenoy - TSA 80715 - 75334 PARIS CEDEX 07. Ce droit peut être exercé à tout moment gratuitement, mis à part les frais du courrier le cas échéant, et les frais éventuels d’assistance ou de représentation si vous choisissez de vous faire aider dans cette procédure par un tiers.
 
     # 8. MISE À JOUR DE LA PRÉSENTE POLITIQUE DE PROTECTION DES DONNÉES PERSONNELLES
-    La politique de protection des données personnelles est datée de manière précise et pourra être modifiée et mise à jour par Hostolab à tout moment, notamment en cas d’évolution des services proposés sur le Site ou de la réglementation applicable. Par conséquent, nous vous recommandons de consulter la présente politique à chaque nouvel accès au Site. 
+    La politique de protection des données personnelles est datée de manière précise et pourra être modifiée et mise à jour par Hostolab à tout moment, notamment en cas d’évolution des services proposés sur le Site ou de la réglementation applicable. Par conséquent, nous vous recommandons de consulter la présente politique à chaque nouvel accès au Site.
 
 - slug: cookies
   body_md_erb: |
