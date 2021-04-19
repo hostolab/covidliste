@@ -7,7 +7,8 @@ class User < ApplicationRecord
     :recoverable,
     :rememberable,
     :validatable,
-    :confirmable
+    :confirmable,
+    :zxcvbnable
 
   has_many :matches, dependent: :nullify
 
@@ -37,7 +38,6 @@ class User < ApplicationRecord
       message: "Email invalide"
     },
     if: :email_changed?
-  validate :password_complexity
 
   after_commit :geocode_address, if: -> { saved_change_to_address? && anonymized_at.nil? }
   before_save :approximate_coords
@@ -46,8 +46,7 @@ class User < ApplicationRecord
   scope :between_age, ->(min, max) { where("birthdate between ? and ?", max.years.ago, min.years.ago) }
   scope :with_roles, -> { joins(:roles) }
 
-  PASSWORD_REGEX = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-£`€+=°{}]).{#{Devise.password_length.min},#{Devise.password_length.max}}$"
-  PASSWORD_HINT = "#{Devise.password_length.min} caractères minimum avec au moins 1 chiffre, au moins 1 caractère spécial, au moins 1 lettre minuscule et au moins 1 lettre majuscule."
+  PASSWORD_HINT = "#{Devise.password_length.min} caractères minimum. Idéalement plus long en mélangeant des minuscules, des majuscules et des chiffres."
   LATLNG_DECIMALS = 3
 
   def approximate_coords
@@ -113,15 +112,14 @@ class User < ApplicationRecord
     end
   end
 
-  def password_complexity
-    return if password.nil? || password =~ /#{User::PASSWORD_REGEX}/o
-    errors.add :password, "pas assez robuste. #{User::PASSWORD_HINT}."
-  end
-
   protected
 
   # Devise override
   def password_required?
     confirmed? ? super : false
+  end
+
+  def skip_password_complexity?
+    true if persisted? # skip if user is already created
   end
 end
