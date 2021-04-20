@@ -118,4 +118,21 @@ RSpec.describe User, type: :model do
       expect(user.age).to eq(20)
     end
   end
+
+  describe "password" do
+    it "is invalid if length below 8" do
+      user.password = "1234"
+      expect(user).to_not be_valid
+    end
+
+    it "is too weak" do
+      user.password = "123456789"
+      expect(user).to_not be_valid
+    end
+
+    it "is valid" do
+      user.password = "snipe.HACKSAW.fish"
+      expect(user).to be_valid
+    end
+  end
 end
