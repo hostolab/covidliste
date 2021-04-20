@@ -35,6 +35,6 @@ class Partner < ApplicationRecord
   end
 
   def skip_password_complexity?
-    true unless encrypted_password_changed?
+    !encrypted_password_changed?
   end
 end
