@@ -13,7 +13,7 @@ module HasPhoneNumberConcern
         types: types,
         allow_blank: false
       }
-      validates :phone_number, phone: phone_params, unless: proc { |u| u.reset_password_token.present? }
+      validates :phone_number, phone: phone_params, unless: proc { |u| u.try(:reset_password_token).present? }
     end
   end
 
