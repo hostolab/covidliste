@@ -64,7 +64,7 @@
               <%= f.input :phone_number, label: "Téléphone portable", placeholder: "06 .... (votre téléphone professionnel - pas de ligne fixe)", hint: "Ce numéro ne sera jamais communiqué aux volontaires. " %>
               <%= f.input :email, required: true, placeholder: "votre_email@du_centre_de_vaccination.fr", input_html: { autocomplete: "email" }, hint: "Cet email ne sera jamais communiqué aux volontaires." %>
 
-              <div class="form-group">
+              <div class="form-group" data-controller="password">
                 <label for="partner_password"> Mot de passe </label>
 
                 <div class="input-group" data-behavior="toggle-password-visibility">
@@ -72,12 +72,18 @@
                                     type: :password,
                                     class: "form-control",
                                     required: true,
-                                    input_html: { autocomplete: "new-password" } %>
+                                    input_html: { autocomplete: "new-password" },
+                                    data: {password_target: 'password', action: 'input->password#check'} %>
 
                   <div class="input-group-append">
                     <span class="input-group-text"> <%= link_to icon("fas", "eye") %> </span>
                   </div>
 
+                  <small class="form-text text-muted"> 
+                    <%= User::PASSWORD_HINT.to_s %>
+                    <br/>
+                    <%= content_tag :span, "", data: { password_target: "passwordCheck" }, class: "d-inline-block" %>
+                  </small>
                   <small class="form-text text-muted">
                     Un email de confirmation de création de compte vous sera envoyé. Cliquez sur le lien pour activer votre compte.
                   </small>

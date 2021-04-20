@@ -59,6 +59,7 @@ gem "invisible_captcha"
 gem "lograge"
 gem "logstash-event"
 gem "ddtrace", "0.35.2"
+gem "devise_zxcvbn"
 
 group :development, :test do
   gem "dotenv-rails", "2.7.6"

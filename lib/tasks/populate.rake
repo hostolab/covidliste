@@ -12,7 +12,7 @@ namespace :populate do
         email: Faker::Internet.unique.email(domain: "covidliste.com"),
         birthdate: Faker::Date.between(from: 100.years.ago, to: 18.years.ago),
         address: Faker::Address.full_address,
-        password: Faker::Internet.password,
+        password: "1G09_!9s08vUsa",
         phone_number: "06 01 02 03 04",
         toc: true,
         statement: true
@@ -33,7 +33,7 @@ namespace :populate do
       name: Faker::Name.name,
       email: Faker::Internet.email,
       phone_number: Faker::PhoneNumber.phone_number,
-      password: Faker::Internet.password
+      password: "1G09_!9s08vUsa"
     )
     partner.save!(validate: false) # Bypass MX validation
 
