@@ -9,7 +9,17 @@
 
   <p>Nous avons besoin de bénévoles pour venir renforcer nos rangs 💪</p>
 
-  <%= render partial: "users/mentions", locals: { local_privacy_path: privacy_volontaires_path, local_hide_first: true } %>
+  <p class="text-primary small">
+  Tous les champs du formulaire comportant un astérisque (*) sont obligatoires car nécessaires à Hostolab, en tant que responsable de traitement, pour l’examen de votre candidature. A défaut de les remplir, nous ne pourrons pas traiter votre candidature.
+  </p>
+
+  <p class="text-primary small">
+  Conformément à la réglementation applicable, vous disposez d’un droit d’accès, de rectification, de suppression et, le cas échéant, de portabilité de vos données personnelles. Vous pouvez également vous opposer au traitement de vos données et, le cas échéant, en demander la limitation. Vous pouvez enfin définir des directives relatives au sort de vos données en cas de décès. Ces droits peuvent être exercés directement auprès de Hostolab par email à l’adresse suivante : <%= mail_to "privacy@covidliste.com" %>. Au besoin, vous bénéficiez du droit d’introduire une réclamation auprès de la CNIL.
+  </p>
+
+  <p class="text-primary small">
+  Pour en savoir plus sur l’utilisation de vos données personnelles, veuillez consulter la <%= link_to "politique de protection des données personnelles", privacy_volontaires_path %>.
+  </p>
 
   <p class="my-4">
     <%= link_to "Postuler pour devenir bénévole", "https://bit.ly/recrutement-covidliste", class: "btn btn-primary", target: "_blank", rel: "noopener" %>

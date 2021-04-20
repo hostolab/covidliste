@@ -90,7 +90,7 @@
                 </div>
               </div>
 
-              <%= render partial: "users/mentions", locals: { local_privacy_path: privacy_pro_path, local_hide_first: false } %>
+              <%= render partial: "users/mentions", locals: { local_privacy_path: privacy_pro_path } %>
               <%= render partial: "users/input_statement", locals: { f: f, local_cgu_path: cgu_pro_path } %>
 
               <%= f.invisible_captcha :subtitle, honeypots: true %>
