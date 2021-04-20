@@ -81,15 +81,24 @@ Rails.application.routes.draw do
   ## matches
   resources :matches, only: [:show, :update, :destroy], param: :match_confirmation_token
 
-  ## pages
+  ## Pages
   get "/carte" => "pages#carte", :as => :carte
   get "/benevoles" => "pages#benevoles", :as => :benevoles
   get "/contact" => "pages#contact", :as => :contact
-  get "/mentions_legales" => "pages#mentions_legales", :as => :mentions_legales
   get "/algorithme" => "pages#algorithme", :as => :algorithme
   get "/presse" => "pages#presse", :as => :presse
-  get "/privacy" => "pages#privacy", :as => :privacy
   get "/faq" => "pages#faq", :as => :faq
+
+  ## Pages from frozen_records/static_pages.yml
+  get "/mentions_legales" => "pages#mentions_legales", :as => :mentions_legales
+  get "/cgu_volontaires" => "pages#cgu_volontaires", :as => :cgu_volontaires
+  get "/cgu_pro" => "pages#cgu_pro", :as => :cgu_pro
+  get "/privacy_volontaires" => "pages#privacy_volontaires", :as => :privacy_volontaires
+  get "/privacy_pro" => "pages#privacy_pro", :as => :privacy_pro
+  get "/cookies" => "pages#cookies", :as => :cookies
+
+  ## Redirections
+  get "/privacy" => redirect("/privacy_volontaires") # 301
 
   ## robots.txt
   get "/robots.txt", to: "pages#robots"

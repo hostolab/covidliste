@@ -1,0 +1,713 @@
+# Precautions
+# -----------
+# - Do not to override an existing top-level
+#   route with the slug.
+#
+# How to use
+# ----------
+# Add an entry with the following attributes:
+#
+# - `slug`: will be used to generate the route.
+#   Should be a valid URL path item but it will be
+#   underscored to generate the route and the PagesController action.
+# - `body_md_erb`: markdown content that will be processed by
+#   ERB renderer
+
+- slug: mentions_legales
+  body_md_erb: |
+    # MENTIONS LÉGALES 
+
+    ## Editeur du site internet : 
+
+    **HOSTOLAB**, association à but non lucratif régie par la loi du 1er juillet 1901
+
+    **Siège social** : 120 rue Saint Maur 75 011 Paris 11
+
+    **RNA** : [à compléter]
+
+    **Email** : [hello@covidliste.com](mailto:hello@covidliste.com)
+
+
+    Directeur de la publication : Martin DANIEL
+
+    ## Hébergeur du site internet : 
+
+    **SCALINGO SAS**
+
+    **Siège social** : 15, avenue du Rhin - 67100 Strasbourg
+
+    **Lieu d’hébergement** : France 
+
+    **Email** : hello@scalingo.com 
+
+    ## Crédits : 
+
+    Design et développement du site internet par Hostolab.
+
+- slug: cgu_volontaires
+  body_md_erb: |
+    # CONDITIONS GÉNÉRALES D’UTILISATION – VOLONTAIRES NON VACCINÉS
+
+    Dernière mise à jour : 17 avril 2021
+
+    Le site internet www.covidliste.com (ci-après le « **Site** »), édité par l’association Hostolab (ci-après « **Hostolab** » ou « **nous** ») est un site de mise en relation entre des établissements de vaccination Covid-19, participant à l’initiative Covidliste, qui disposent de vaccins non utilisés et des volontaires non vaccinés aux fins de réduction du taux de perte de doses vaccinales. 
+
+    L’accès, la consultation, la navigation et/ou l’utilisation du Site et de ses services vaut acceptation pleine et entière des présentes conditions générales d’utilisation (ci-après « **CGU** ») qui ont pour objet de définir les modalités d’utilisation du Site et de ses services par toute personne accédant, consultant, naviguant et/ou utilisant tout ou partie du Site et de ses services (ci-après « **Utilisateur** »). 
+
+    En conséquence, avant toute utilisation du Site et de ses services, l’Utilisateur est invité à prendre connaissance des présentes CGU, et pour toute création d’un espace personnel sur le Site, l’Utilisateur doit accepter les présentes CGU. Si l’Utilisateur refuse, tout ou partie, de l’une quelconque des stipulations des présentes CGU, il est prié de ne pas utiliser le Site et ses services.
+
+    Les présentes CGU sont accessibles à tout moment sur le Site et prévaudront, le cas échéant, sur toute autre version ou tout autre document contradictoire.
+
+    Au besoin, **vous pouvez poser toutes vos questions directement à Hostolab**
+    en envoyant un email à l’adresse suivante : [hello@covidliste.com](mailto:hello@covidliste.com).
+
+    ## 1. ACCÈS AU SITE ET AUX SERVICES
+
+    L’accès au Site et à ses services est techniquement possible vingt-quatre (24) heures sur vingt-quatre (24) et sept (7) jours sur sept (7), sous réserve de la survenance d’un cas de force majeure, de pannes éventuelles ou de toute opération de maintenance nécessaire au bon fonctionnement du Site et de ses services.
+
+    En tout état de cause, l’Utilisateur reconnaît disposer de la compétence et des moyens nécessaires pour accéder et utiliser le Site et ses services. A ce titre, l’Utilisateur doit disposer d’un ordinateur, d’un téléphone portable ou de tout autre appareil bénéficiant d’une connexion internet, dont les paramétrages permettent un bon fonctionnement du Site et de ses services.
+
+    D’une manière générale, l’Utilisateur déclare connaître les risques liés à la navigation sur des sites internet et à l’utilisation des services en ligne et les accepter. L’Utilisateur reconnaît notamment que les informations qui y transitent ou y sont stockées peuvent être interceptées ou altérées indépendamment de la volonté de Hostolab.
+
+    A ce titre, il est fortement recommandé à l’Utilisateur de prendre toutes les précautions nécessaires afin de se prémunir contre les effets d’éventuels piratages informatiques, notamment en adoptant une configuration informatique sécurisée et adaptée de son ordinateur, de son téléphone portable ou de tout autre appareil utilisé (par exemple, par la mise en place d’un logiciel de détection de virus régulièrement mis à jour). 
+
+    ## 2. SERVICES PROPOSÉS SUR LE SITE
+
+    ### 2.1. Conditions d’accès aux services du Site
+
+    Pour bénéficier des services proposés sur le Site, l’Utilisateur doit : 
+
+    - être majeur ; 
+    - avoir la capacité et la qualité requise pour bénéficier des Sites et des services ; 
+    - utiliser le Site et ses services conformément aux présentes CGU. 
+
+    ### 2.2. Création d’un espace personnel 
+
+    Pour être mis en relation avec les établissements de vaccination Covid-19 participant à l’initiative Covidliste, l’Utilisateur doit préalablement créer son espace personnel sur le Site.
+
+    Pour créer son espace personnel sur le Site, l’Utilisateur doit remplir tous les champs obligatoires du formulaire d’inscription en tant que vololontaire à la vaccination Covid-19. **Pour en savoir plus sur l’utilisation de ses informations personnelles par Hostolab, l’Utilisateur est invité à consulter la [politique de protection des données personnelles](/privacy_volontaire).**
+
+    L’utilisation d’un mot de passe fort est une condition essentielle pour la protection de l’espace personnel de l’Utilisateur. L’Utilisateur doit choisir un mot de passe conforme aux exigences de Hostolab en matière de sécurité, composé de caractères alphanumériques, comprenant au moins huit (8) caractères, dont trois (3) caractères spéciaux (lettres majuscules, lettres minuscules, chiffres et caractères spéciaux).
+
+    Les identifiant de connexion et mot de passe sont personnels, confidentiels et non transmissibles à des tiers. L’Utilisateur doit garantir la confidentialité et la sécurité de ceux-ci et demander, sans délai, la réinitialisation du mot de passe sur le Site en cas de perte, oubli et/ou vol. Hostolab ne saurait être tenue responsable de toute utilisation de son espace personnel par un tiers qui aurait eu accès à l’identifiant et/ou au mot de passe de l’Utilisateur, quelle qu’en soit la cause.
+    Hostolab se réserve le droit, à tout moment et sous réserve d’en informer l’Utilisateur, de modifier ou supprimer un identifiant de connexion et/ou un mot de passe si ceux-ci sont considérés comme illicites, offensants, menaçants, diffamatoires, obscènes ou s'ils portent atteinte aux droits de propriété intellectuelle de tiers, ainsi qu’aux présentes CGU.
+
+    Dans le cadre de son inscription, l’Utilisateur garantit : 
+
+    - qu’il n’a reçu aucune dose vaccinale Covid-19 ; 
+    - qu’il ne crée pas d’espace personnel sous une fausse identité ou en usurpant l’identité d’un tiers ; 
+    - que toutes les informations qu’il communique sont complètes et exactes ; 
+    - qu’il ne crée pas plusieurs espaces personnels en utilisant plusieurs adresses email et numéros de téléphone portable ; 
+    - qu’il mettra immédiatement à jour les informations dans son espace personnel au besoin. 
+
+    L’Utilisateur est averti qu’en cas d’erreur dans les informations communiquées lors de la création de son espace personnel, il ne pourra pas être vacciné par l’établissement de vaccination Covid-19 l’ayant sélectionné le cas échéant. 
+
+    Dans l'hypothèse où Hostolab constaterait que l'Utilisateur a fourni des informations fausses, inexactes, obsolètes, incomplètes ou, de manière plus générale, contraires aux présentes CGU ou à la réglementation, Hostolab se réserve le droit de mettre fin à la présente relation contractuelle, de plein droit, sans préavis ni indemnité, de supprimer l’espace personnel de l’Utilisateur, ainsi que de bloquer tout accès futur de l’Utilisateur à tout ou partie du Site et de ses services.
+
+    Un email est envoyé à l'adresse email renseignée par l’Utilisateur dans le formulaire, afin qu’il confirme son inscription en tant que vololontaire à la vaccination Covid-19. A défaut de confirmation de sa part, l’Utilisateur ne pourra finaliser la création de son espace personnel sur le Site. 
+
+    ### 2.3. Mise en relation avec les établissements de vaccination Covid-19 
+
+    Une fois son inscription confirmée, l’Utilisateur est ajouté aux listes des volontaires non vaccinés communiquées aux établissements de vaccination Covid-19, participant à l’initiative Covidliste, qui disposent de vaccins non utilisés.
+
+    Lorsqu’un établissement de vaccination Covid-19 constate que des doses de vaccins risquent de ne pas être utilisées, il peut créer une campagne pour trouver des volontaires non vaccinés qu’il sélectionne selon ses propres critères parmi lesquels la localisation, l’âge et le nombre de vaccins disponibles. Hostolab n’est en aucun cas impliquée dans la détermination des critères de sélection, ainsi que dans la sélection des volontaires non vaccinés. Hostolab communique uniquement à l’établissement de vaccination Covid-19 la liste des volontaires non vaccinés répondant aux critères qui lui ont été communiqués par l’établissement au moment du lancement de la campagne.
+
+    Les volontaires non vaccinés sélectionnés par l’établissement de vaccination Covid-19 sont ensuite classés par ordre d’inscription (les premiers inscrits seront les premiers sélectionnés). Hostolab entre en contact avec chaque volontaire non vacciné sélectionné à hauteur des doses de vaccins disponibles, augmenté d’un facteur dit d’overbooking, jusqu’à ce que toutes les doses disponibles soient réservées.
+
+    Si l’Utilisateur fait partie des volontaires non vaccinés sélectionnés par l’établissement de vaccination de Covid-19, Hostolab lui enverra donc un email et un sms afin de le prévenir. L’Utilisateur disposera alors d’un délai limité (6 minutes à la date de rédaction de cette version des CGU) pour confirmer son intérêt et sa disponibilité. Si l’Utilisateur confirme la prise de rendez-vous de vaccination, Hostolab lui communiquera les informations nécessaires pour se rendre sur le lieu de vaccination et confirmera sa disponibilité à l’établissement de vaccination Covid-19. 
+
+    Si l’Utilisateur est indisponible ou ne répond pas dans le délai prévu, un autre volontaire non vacciné sélectionné par l’établissement de vaccination Covid-19 pourra être contacté par Hostolab. A la discrétion de l’établissement de vaccination Covid-19, la campagne se termine lorsque tous les vaccins disponibles ont trouvé preneur.
+
+    Le service fourni par Hostolab via le Site se limite à la mise en relation entre les établissements de vaccination Covid-19, participant à l’initiative Covidliste, qui disposent de vaccins non utilisés et des volontaires non vaccinés aux fins de réduction du taux de perte de doses vaccinales. Une fois que l’Utilisateur est entré dans le protocole de vaccination, seul l’établissement de vaccination Covid-19, qui aura proposé à l’Utilisateur la première dose vaccinale, suivra son dossier vaccinal.
+
+    ### 2.4. Candidature pour être bénévole
+
+    L’Utilisateur peut candidater pour être bénévole au sein de l’initiative Covidliste en remplissant tous les champs obligatoires du formulaire de candidature sur le Site. L’Utilisateur sera alors recontacté par Hostolab si son profil et ses disponibilités correspondent aux besoins de l’association. **Pour en savoir plus sur l’utilisation de ses informations personnelles par Hostolab, l’Utilisateur est invité à consulter la [politique de protection des données personnelles du Site](/privacy_volontaires)**.
+
+    ## 3. OBLIGATIONS GÉNÉRALES DE L’UTILISATEUR
+
+    L’Utilisateur s’engage à utiliser le Site et ses services de façon conforme aux présentes CGU et à la réglementation, et notamment à ne pas les utiliser à des fins commerciales, de prospection, de sollicitation ou de publicité. 
+
+    L’Utilisateur s’interdit notamment :
+
+    - tout comportement de nature à porter atteinte à l’intégrité, au fonctionnement ou à la sécurité du système d’information à la base du fonctionnement du Site et de ses services ; 
+    - toute intrusion ou tentative d’intrusion dans les systèmes d’information de Hostolab ; 
+    - toute atteinte ou tentative d’atteinte aux mesures d’authentification et autres mesures de sécurité du Site ;
+    - toute collecte, extraction ou utilisation, de quelque façon que ce soit, des informations présentes sur le Site ; 
+    - et plus généralement, tout acte de nature à porter atteinte aux droits et intérêts de Hostolab ou de tiers.
+
+    En cas de manquement aux présentes CGUs ou à la réglementation, y compris de toute utilisation non autorisée du Site et de ses services constaté par Hostolab, cette dernière se réserve le droit de mettre fin à la présente relation contractuelle, de plein droit, sans préavis ni indemnité, de supprimer l’espace personnel de l’Utilisateur, ainsi que de bloquer tout accès futur de l’Utilisateur à tout ou partie du Site et de ses services.
+
+    ## 4. PROPRIÉTÉ INTELLECTUELLE
+
+    Le Site et tous les éléments qui le composent ou qui sont mis à disposition des Utilisateurs, notamment les marques, logos, photographies, programmes, codes sources, codes objets, données, base de données, images animées ou non, sons, dessins, graphismes, vidéos, textes, agencement, apparence, structure, ainsi que tout autre élément non lié à des liens hypertextes vers des sites tiers, sont la propriété de Hostolab ou font l’objet d’une licence accordée à son profit par tout titulaire des droits de propriété intellectuelle. 
+
+    Tous ces éléments sont soumis aux dispositions de la réglementation française et internationale applicable en matière de propriété intellectuelle, notamment le code de la propriété intellectuelle et, par conséquent, sont protégés contre toute utilisation non autorisée par la loi ou les présentes CGU sous peine – en cas de manquement – de poursuites judiciaires. 
+
+    Hostolab accorde à l’Utilisateur à titre personnel, non-exclusif et gratuit un droit de consultation et d’utilisation du Site et de ses services pour son usage propre et dans le strict cadre des opérations autorisées aux termes des présentes CGU. 
+
+    Sous réserve des droits d’utilisation consentis à l’Utilisateur par Hostolab, l’utilisation du Site et de ses services n’emporte aucune licence, ni aucune cession des droits afférents aux éléments du Site au profit de l’Utilisateur. En particulier, toute copie, reproduction, représentation, adaptation, modification, diffusion intégrale ou partielle du Site, ainsi que tout ou partie de son contenu, par quelque procédé que ce soit et sur quelque support que ce soit, est illicite sauf autorisation préalable, expresse et écrite de Hostolab ou du titulaire des droits de propriété intellectuelle.
+
+    Le non-respect de ces stipulations, notamment à des fins d’exploitation commerciale, pourra faire l’objet de poursuites sur la base d’une action en contrefaçon et/ou d’une action en concurrence déloyale et/ou en parasitisme de la part des titulaires des droits en cause. Ceci est sans préjudice des autres droits de Hostolab, notamment celui d’obtenir réparation des préjudices subis.
+
+    ## 5. RESPONSABILITÉ
+
+    Le Site est fourni à l’Utilisateur à titre gratuit. Bien que Hostolab s’efforce de fournir un Site fiable, Hostolab ne garantit pas qu’il est exempt d’erreurs, d’inexactitudes ou d’omissions, de périodes d’indisponibilités, de failles ou de défauts. Par ailleurs, Hostolab ne garantit pas l’exactitude, la qualité, la licéité ou l’adéquation à un usage particulier du Site, des services qui y sont proposés et des contenus qui y sont publiés En conséquence, l’Utilisateur reconnaît se servir du Site, des services proposés et des contenus qui y sont publiés sous sa responsabilité exclusive. 
+
+    L’Utilisateur reconnaît avoir pris connaissance des présentes CGU et s’engage à les respecter. L’Utilisateur est seul responsable de l’usage qu’il entend faire du Site et de ses services, ainsi que de la préservation de la sécurité et de l’intégrité de ses données, de son matériel et de ses logiciels lorsqu’il utilise de quelque façon que ce soit le Site ou ses services. 
+
+    Ainsi, Hostolab ne saurait être tenue pour responsable des dommages directs ou indirects qui pourraient résulter : 
+
+    - d’un quelconque dysfonctionnement ou contamination de l’ordinateur, du téléphone portale ou de tout autre équipement utilisé par l’Utilisateur au cours ou après la navigation sur le Site, impossibilité d’accès ou mauvaise condition d’utilisation imputable à ces équipements, au fournisseur d’accès internet, à l’encombrement du réseau internet, ou à toute autre raison extérieure à Hostolab ;
+    - des frais de communications électroniques ou téléphoniques qu’induit l’utilisation de ces équipements et qui sont à la charge exclusive de l’Utilisateur et ne seront pas supportés par Hostolab ;
+    - de toute interruption, temporaire ou permanente, de tout ou partie des fonctionnalités du Site notamment en cas de maintenance, modification ou mise à jour du Site, en cas d’incident technique et, plus généralement, en cas d’évènement extérieur au contrôle de Hostolab ;
+    - de toute conséquence qui pourrait survenir du fait des contenus des sites internet tiers vers lesquels renvoient les liens hypertextes pouvant être présents sur le Site ;
+    - des éventuels préjudices indirects qui seraient subis par l’Utilisateur ; 
+    - de tout préjudice subi par l’Utilisateur ou un tiers qui résulterait d’une utilisation du Site non conforme aux présentes CGU ; 
+    - de tout manquement aux obligations prévues aux présentes CGU qui serait dû ou trouverait son origine dans un cas fortuit ou un cas de force majeure tel que défini par l’article 1218 du code civil.
+
+    Dans l’hypothèse où Hostolab serait tenue pour responsable d’un dommage non prévu au présent article, sa responsabilité sera limitée aux dommages certains, réels et directs.
+
+    Par la suite, en aucun cas Hostolab, ses représentants, ses bénévoles et ses partenaires ne sauraient être tenus responsables des dommages indirects résultant de l’utilisation du Site, des services qui y sont proposés ainsi que des contenus qui y sont publiés, et notamment du manque à gagner, de la perte de profit, de la perte de chance ou des dommages découlant de la perte de données causée par l’impossibilité d’utiliser le Site et ses services. 
+
+    ## 6. MODIFICATION
+
+    Les présentes CGU sont datées de manière précise et pourront être modifiées et mises à jour par Hostolab à tout moment, notamment en cas d’évolution du Site ou de la réglementation applicable 
+
+    Les CGU applicables sont celles publiées sur le Site au moment de l’accès au Site par l’Utilisateur. Par conséquent, l’Utilisateur est invité à consulter les CGU à chaque nouvel accès au Site.
+
+    La présente version des CGU remplace toutes les versions antérieures.
+
+    ## 7. CESSATION DU SITE 
+
+    Hostolab se réserve le droit d’interrompre, temporairement ou définitivement, l’accès à tout ou partie du Site ou des services qui y sont proposés, notamment en cas de cessation de l’activité liée à la mise à disposition du Site ou en cas de procédure collective.
+
+    ## 8. CESSION 
+
+    Sous réserve de la loi applicable, l’Utilisateur consent à ce que les présentes CGU le liant à Hostolab puissent être cédées, transférées ou apportées, de quelque façon que ce soit. Dans le cadre du transfert de l’association à un tiers, les présentes CGU liant l’Utilisateur à Hostolab seront automatiquement transférées au cessionnaire.
+
+    ## 9. LIENS HYPERTEXTES 
+
+    Le Site peut inclure des liens hypertextes vers des sites ou sources externes, autres que ceux édités par Hostolab. Dans la mesure où Hostolab ne peut contrôler ces sites et ces sources externes, Hostolab ne peut être tenue pour responsable de la mise à disposition de ces sites et sources externes, et décline ainsi toute responsabilité quant aux contenus, publicités, produits, services ou tout autre matériel disponible sur ou à partir de ces sites ou sources externes. Aussi, la décision d’activer les liens hypertextes  appartient exclusivement à l’Utilisateur.
+
+    Hostolab rappelle à l’Utilisateur que les sites ou sources externes non-affiliés sont soumis à leurs propres conditions générales d’utilisation.
+
+    Si l’Utilisateur souhaite créer un lien hypertexte renvoyant vers le Site, il doit obtenir l’autorisation écrite et préalable de Hostolab en envoyant un email à l’adresse suivante : [hello@covidliste.com](mailto:hello@covidliste.com).
+
+    Hostolab peut, à son entière discrétion, accepter ou rejeter toute demande qui lui ait adressée à cette fin. Hostolab n’a aucune obligation d’accepter une telle demande, ni de fournir toute raison pour rejeter une telle demande le cas échéant. 
+
+    ## 10.	VALIDITÉ DES CGU
+
+    Chacun des articles des présentes CGU s’applique séparément. Toute modification de la réglementation applicable en vigueur, ou toute décision d’un tribunal ou d’une autorité compétente invalidant un ou plusieurs articles des présentes CGU ne saurait affecter la validité de l’intégralité des CGU. Une telle modification ou décision n’autorise en aucun cas l’Utilisateur à méconnaître les dispositions valides des présentes CGU.
+
+    ## 11.	LANGUE
+
+    Les présentes CGU sont rédigées en langue française. Dans le cas où elles seraient traduites en une ou plusieurs langues, seul le texte français ferait foi en cas de litige.
+
+    ## 12.	LOI APPLICABLE / ATTRIBUTION DE JURIDICTION
+
+    Les présentes CGU et les opérations qui en découlent sont régies, interprétées et appliquées conformément au droit français.
+
+    En cas de différend relatif à leur interprétation ou leur exécution, Hostolab et l’Utilisateur rechercheront, avant toute action contentieuse, un accord amiable et se communiqueront à cet effet tous les éléments d’information nécessaires. 
+
+    A défaut d'accord amiable entre Hostolab et l’Utilisateur dans un délai de deux (2) mois à compter de la notification du litige à l’autre partie, compétence expresse est donnée aux tribunaux de Paris.
+
+- slug: cgu_pro
+  body_md_erb: |
+    # CONDITIONS GÉNÉRALES D’UTILISATION – PROFESSIONNELS DE SANTÉ
+
+    Dernière mise à jour : 17 avril 2021
+
+    Le site internet www.covidliste.com (ci-après le « **Site** »), édité par l’association Hostolab (ci-après « **Hostolab** » ou « **nous** ») est un site de mise en relation entre des établissements de vaccination Covid-19, participant à l’initiative Covidliste, qui disposent de vaccins non utilisés et des volontaires non vaccinés aux fins de réduction du taux de perte de doses vaccinales. 
+
+    L’accès, la consultation, la navigation et/ou l’utilisation du Site et de ses services vaut acceptation pleine et entière des présentes conditions générales d’utilisation (ci-après « **CGU** ») qui ont pour objet de définir les modalités d’utilisation du Site et de ses services par toute personne accédant, consultant, naviguant et/ou utilisant tout ou partie du Site et de ses services (ci-après « **Utilisateur** »).
+
+    En conséquence, avant toute utilisation du Site et de ses services, l’Utilisateur est invité à prendre connaissance des présentes CGU, et pour toute création d’un espace professionnel sur le Site, l’Utilisateur doit accepter les présentes CGU. Si l’Utilisateur refuse, tout ou partie, de l’une quelconque des stipulations des présentes CGU, il est prié de ne pas utiliser le Site et ses services.
+
+    Les présentes CGU sont accessibles à tout moment sur le Site et prévaudront, le cas échéant, sur toute autre version ou tout autre document contradictoire.
+
+    Au besoin, **vous pouvez poser toutes vos questions directement à Hostolab** en envoyant un email à l’adresse suivante : [hello@covidliste.com](mailto:hello@covidliste.com).
+
+    ## 1. ACCÈS AU SITE ET AUX SERVICES
+
+    L’accès au Site et à ses services est techniquement possible vingt-quatre (24) heures sur vingt-quatre (24) et sept (7) jours sur sept (7), sous réserve de la survenance d’un cas de force majeure, de pannes éventuelles ou de toute opération de maintenance nécessaire au bon fonctionnement du Site et de ses services.
+
+    En tout état de cause, l’Utilisateur reconnaît disposer de la compétence et des moyens nécessaires pour accéder et utiliser le Site et ses services. A ce titre, l’Utilisateur doit disposer d’un ordinateur, d’un téléphone portable ou de tout autre appareil bénéficiant d’une connexion internet, dont les paramétrages permettent un bon fonctionnement du Site et de ses services.
+
+    D’une manière générale, l’Utilisateur déclare connaître les risques liés à la navigation sur des sites internet et à l’utilisation des services en ligne et les accepter. L’Utilisateur reconnaît notamment que les informations qui y transitent ou y sont stockées peuvent être interceptées ou altérées indépendamment de la volonté de Hostolab.
+
+    A ce titre, il est fortement recommandé à l’Utilisateur de prendre toutes les précautions nécessaires afin de se prémunir contre les effets d’éventuels piratages informatiques, notamment en adoptant une configuration informatique sécurisée et adaptée de son ordinateur, de son téléphone portable ou de tout autre appareil utilisé (par exemple, par la mise en place d’un logiciel de détection de virus régulièrement mis à jour). 
+
+    ## 2. SERVICES PROPOSÉS SUR LE SITE
+
+    ### 2.1. Conditions d’accès aux services du Site
+
+    Pour bénéficier des services proposés sur le Site, l’Utilisateur doit : 
+
+    - être majeur ; 
+    - avoir la capacité et la qualité requise pour bénéficier des services ; 
+    - utiliser le Site et ses services conformément aux présentes CGU. 
+
+    ### 2.2. Création d’un espace professionnel
+
+    Pour enregistrer l’établissement de vaccination Covid-19 dans lequel il exerce parmi les établissements participant à l’initiative Covidliste, l’Utilisateur doit préalablement créer son espace professionnel sur le Site.
+
+    Pour créer son espace professionnel sur le Site, l’Utilisateur doit remplir tous les champs obligatoires du formulaire d’inscription en tant que professionnel de santé assurant la vaccination Covid-19. **Pour en savoir plus sur l’utilisation de ses informations personnelles par Hostolab, l’Utilisateur est invité à consulter la [politique de protection des données personnelles](/privacy_pro)**.
+
+    L’utilisation d’un mot de passe fort est une condition essentielle pour la protection de l’espace professionnel de l’Utilisateur. L’Utilisateur doit choisir un mot de passe conforme aux exigences de Hostolab en matière de sécurité, composé de caractères alphanumériques, comprenant au moins huit (8) caractères, dont trois (3) caractères spéciaux (lettres majuscules, lettres minuscules, chiffres et caractères spéciaux).
+
+    Les identifiant de connexion et mot de passe sont personnels, confidentiels et non transmissibles à des tiers. L’Utilisateur doit garantir la confidentialité et la sécurité de ceux-ci et demander, sans délai, la réinitialisation du mot de passe sur le Site en cas de perte, oubli et/ou vol. Hostolab ne saurait être tenue responsables de toute utilisation de son espace professionnel par un tiers qui aurait eu accès à l’identifiant et/ou au mot de passe de l’Utilisateur, quelle qu’en soit la cause.
+
+    Hostolab se réserve le droit, à tout moment et sous réserve d’en informer l’Utilisateur, de modifier ou supprimer un identifiant de connexion et/ou un mot de passe si ceux-ci sont considérés comme illicites, offensants, menaçants, diffamatoires, obscènes ou s'ils portent atteinte aux droits de propriété intellectuelle de tiers, ainsi qu’aux présentes CGU.
+
+    Dans le cadre de son inscription, l’Utilisateur garantit : 
+
+    - qu’il est un professionnel de santé assurant la vaccination Covid-19 ; 
+    - qu’il est autorisé et habilité à enregistrer l’établissement de vaccination Covid-19 dans lequel il exerce, afin qu’il fasse partie des établissements participant à l’initiative Covidliste ; 
+    - qu’il ne crée pas d’espace professionnel sous une fausse identité ou en usurpant l’identité d’un tiers ; 
+    - qu’il ne crée pas plusieurs espaces professionnels en utilisant plusieurs adresses email et numéros de téléphone portable ; 
+    - qu’il n’enregistre pas un faux établissement de vaccination Covid-19 ou un établissement de vaccination Covid-19 tiers dans lequel il n’exercerait pas ; 
+    - que toutes les informations qu’il communique sont complètes et exactes ; 
+    - qu’il mettra immédiatement à jour les informations dans son espace professionnel au besoin. 
+
+    L’Utilisateur est averti qu’en cas d’erreur dans les informations communiquées lors de la création de son espace professionnel, il ne pourra pas procéder à l’enregistrement de l’établissement de vaccination Covid-19 dans lequel il exerce afin qu’il fasse partie des établissements participant à l’initiative Covidliste. 
+
+    Dans l'hypothèse où Hostolab constaterait que l'Utilisateur a fourni des informations fausses, inexactes, obsolètes, incomplètes ou, de manière plus générale, contraires aux présentes CGU ou à la réglementation, Hostolab se réserve le droit de mettre fin à la présente relation contractuelle, de plein droit, sans préavis ni indemnité, de supprimer l’espace professionnel de l’Utilisateur, ainsi que de bloquer tout accès futur de l’Utilisateur à tout ou partie du Site et de ses services.
+
+    Un email est envoyé à l'adresse email renseignée par l’Utilisateur dans le formulaire, afin qu’il confirme son inscription en tant que professionnel de santé assurant la vaccination Covid-19. A défaut de confirmation de sa part, l’Utilisateur ne pourra finaliser la création de son espace professionnel sur le Site. 
+
+    ### 2.3. Mise en relation avec les volontaires non vaccinés
+
+    Une fois son inscription confirmée, l’Utilisateur peut enregistrer l’établissement de vaccination Covid-19 dans lequel il exerce, afin qu’il fasse partie des établissements participant à l’initiative Covidliste. A cette fin, l’Utilisateur doit remplir tous les champs obligatoires du formulaire de création d’un nouveau lieu de vaccination. La demande de création est ensuite examinée par Hostolab.
+
+    Si la demande de création est validée par Hostolab, l’Utilisateur pourra lancer des campagnes pour trouver des volontaires non vaccinés lorsque l’établissement de vaccination Covid-19 dans lequel il exerce constate que des doses de vaccins risquent de ne pas être utilisées. Au moment du lancement d’une campagne, l’Utilisateur transmettra à Hostolab les critères de sélection fixés par l’établissement de vaccination Covid-19. Hostolab n’est en aucun cas impliquée dans la détermination des critères de sélection, ainsi que dans la sélection des volontaires non vaccinés. Hostolab communiquera uniquement à l’Utilisateur la liste des volontaires non vaccinés répondant aux critères fournis par l’Utilisateur à Hostolab. 
+
+    Une fois la liste reçue, l’Utilisateur communiquera à Hostolab la liste des volontaires non vaccinés sélectionnés par l’établissement de vaccination Covid-19. Les volontaires non vaccinés sélectionnés sont ensuite classés par ordre d’inscription (les premiers inscrits seront les premiers sélectionnés). Hostolab entre en contact avec chaque volontaire non vacciné sélectionné à hauteur des vaccins disponibles, augmenté d’un facteur dit d’overbooking, jusqu’à ce que toutes les doses disponibles soient réservées.
+
+    Si les volontaires non vaccinés sélectionnés confirment la prise de rendez-vous de vaccination, Hostolab leur communiquera les informations nécessaires pour se rendre sur le lieu de vaccination et confirmera leur disponibilité à l’établissement de vaccination Covid-19.
+
+    Si l’un des volontaires non vaccinés sélectionnés est indisponible ou ne répond pas dans le délai prévu, un autre volontaire non vacciné sélectionné par l’établissement de vaccination Covid-19 sera contacté par Hostolab.
+
+    Le service fourni par Hostolab via le Site se limite à la mise en relation entre les établissements de vaccination Covid-19, participant à l’initiative Covidliste, qui disposent de vaccins non utilisés et des volontaires non vaccinés aux fins de réduction du taux de perte de doses vaccinales. Une fois que le volontaire est entré dans le protocole de vaccination, seul l’établissement de vaccination Covid-19, qui aura proposé à l’Utilisateur la première dose vaccinale, qui suivra son dossier vaccinal.
+
+    ### 2.4. Candidature pour être bénévole 
+
+    L’Utilisateur peut candidater pour être bénévole au sein de l’initiative Covidliste en remplissant tous les champs obligatoires du formulaire de candidature sur le Site. L’Utilisateur sera alors recontacté par Hostolab si son profil et ses disponibilités correspondent aux besoins de l’association. **Pour en savoir plus sur l’utilisation de ses informations personnelles par Hostolab, l’Utilisateur est invité à consulter la [politique de protection des données personnelles du Site](/privacy_pro)**.
+
+    ## 3.	PROTECTION DES DONNÉES PERSONNELLES
+
+    Hostolab et l’établissement de vaccination Covid-19, représenté par l’Utilisateur, reconnaissent avoir pleine et entière connaissance des obligations issues de la réglementation en vigueur relative à la protection des données personnelles c’est-à-dire toute disposition de nature législative ou réglementaire, européenne ou nationale, résultant en particulier du règlement (UE) 2016/679 du 27 avril 2016 relatif à la protection des personnes physiques à l'égard du traitement des données à caractère personnel et à la libre circulation de ces données (RGPD), ainsi que toute autre réglementation applicable en la matière, venant s’y ajouter ou s’y substituer ultérieurement, qui s’appliquent à elles, selon les qualifications suivantes :
+
+    - Hostolab et l’établissement de vaccination Covid-19 sont responsables indépendants des traitements des données personnelles relatifs à la gestion de leur relation l’un avec l’autre ; 
+    - Hostolab est responsable indépendant des traitements relatifs à la gestion administrative, opérationnelle et technique du Site et de ses services, incluant notamment la création et la gestion des espaces personnels et professionnels, la mise en relation entre les établissements de vaccination Covid-19 et les volontaires non vaccinés, le traitement des demandes de contact/d’information ;
+    - l’établissement de vaccination Covid-19 est responsable indépendant des traitements des données personnelles relatifs à la sélection et à la prise en charge des volontaires non vaccinés sélectionnés, qu’il reçoit de Hostolab.
+
+    Hostolab et l’établissement de vaccination Covid-19 s’engagent notamment à mettre en œuvre les mesures techniques et organisationnelles nécessaires au maintien de la sécurité, l’intégrité et la confidentialité des données personnelles transmises et d’empêcher qu’elles soient déformées, endommagées, perdues ou que des tiers non autorisés y aient accès, de quelque manière que ce soit.
+
+    ## 4.	OBLIGATIONS GÉNÉRALES DE L’UTILISATEUR
+
+    L’Utilisateur s’engage à utiliser le Site et ses services de façon conforme aux présentes CGU et notamment à ne pas les utiliser à des fins commerciales, de prospection, de sollicitation ou de publicité.
+
+    L’Utilisateur s’interdit notamment :
+
+    - tout comportement de nature à porter atteinte à l’intégrité, au fonctionnement ou à la sécurité du système d’information à la base du fonctionnement du Site et de ses services ; 
+    - toute intrusion ou tentative d’intrusion dans les systèmes d’information de Hostolab ; 
+    - toute atteinte ou tentative d’atteinte aux mesures d’authentification et autres mesures de sécurité du Site ;
+    - toute collecte, extraction ou utilisation, de quelque façon que ce soit, des informations présentes sur le Site ; 
+    - et plus généralement, tout acte de nature à porter atteinte aux droits et intérêts de Hostolab.
+
+    En cas de manquement ou d’une utilisation frauduleuse du Site et de ses services constaté par Hostolab, cette dernière se réserve le droit de mettre fin à la présente relation contractuelle, de plein droit, sans préavis ni indemnité, de supprimer l’espace personnel de l’Utilisateur, ainsi que de bloquer tout accès futur de l’Utilisateur à tout ou partie du Site et de ses services.
+
+    ## 5. PROPRIÉTÉ INTELLECTUELLE
+
+    Le Site et tous les éléments qui le composent ou qui sont mis à disposition des Utilisateurs, notamment les marques, logos, photographies, programmes, codes sources, codes objets, données, base de données, images animées ou non, sons, dessins, graphismes, vidéos, textes, agencement, apparence, structure, ainsi que tout autre élément non lié à des liens hypertextes vers des sites tiers, sont la propriété de Hostolab ou font l’objet d’une licence accordée à son profit par tout titulaire des droits de propriété intellectuelle.
+
+    Tous ces éléments sont soumis aux dispositions de la réglementation française et internationale applicable en matière de propriété intellectuelle, notamment le code de la propriété intellectuelle et, par conséquent, sont protégés contre toute utilisation non autorisée par la loi ou les présentes CGU sous peine – en cas de manquement – de poursuites judiciaires.
+
+    Hostolab accorde à l’Utilisateur à titre personnel, non-exclusif et gratuit un droit de consultation et d’utilisation du Site et de ses services pour son usage propre et dans le strict cadre des opérations autorisées aux termes des présentes CGU.
+
+    Sous réserve des droits d’utilisation consentis à l’Utilisateur par Hostolab, l’utilisation du Site et de ses services n’emporte aucune licence, ni aucune cession des droits afférents aux éléments du Site au profit de l’Utilisateur. En particulier, toute copie, reproduction, représentation, adaptation, modification, diffusion intégrale ou partielle du Site, ainsi que tout ou partie de son contenu, par quelque procédé que ce soit et sur quelque support que ce soit, est illicite sauf autorisation préalable, expresse et écrite de Hostolab ou du titulaire des droits de propriété intellectuelle.
+
+    Le non-respect de ces stipulations, notamment à des fins d’exploitation commerciale, pourra faire l’objet de poursuites sur la base d’une action en contrefaçon et/ou d’une action en concurrence déloyale et/ou en parasitisme de la part des titulaires des droits en cause. Ceci est sans préjudice des autres droits de Hostolab, notamment celui d’obtenir réparation des préjudices subis.
+
+    ## 6. RESPONSABILITÉ
+
+    Le Site est fourni à l’Utilisateur à titre gratuit. Bien que Hostolab s’efforce de fournir un Site fiable, il ne garantit pas qu’il est exempt d’erreurs, d’inexactitudes ou d’omissions, de périodes d’indisponibilités, de failles ou de défauts. Par ailleurs, Hostolab ne garantit pas l’exactitude, la qualité, la licéité ou l’adéquation à un usage particulier du Site, des services qui y sont proposés et des contenus qui y sont publiés En conséquence, l’Utilisateur reconnaît se servir du Site, des services proposés et des contenus qui y sont publiés sous sa responsabilité exclusive.
+
+    L’Utilisateur reconnaît avoir pris connaissance des présentes CGU et s’engage à les respecter. L’Utilisateur est seul responsable de l’usage qu’il entend faire du Site et de ses services, ainsi que de la préservation de la sécurité et de l’intégrité de ses données, de son matériel et de ses logiciels lorsqu’il utilise de quelque façon que ce soit le Site ou ses services.
+
+    Ainsi, Hostolab ne saurait être tenue pour responsable des dommages directs ou indirects qui pourraient résulter : 
+
+    - d’un quelconque dysfonctionnement ou contamination de l’ordinateur, du téléphone portale ou de tout autre équipement utilisé par l’Utilisateur au cours ou après la navigation sur le Site, impossibilité d’accès ou mauvaise condition d’utilisation imputable à ces équipements, au fournisseur d’accès internet, à l’encombrement du réseau internet, ou à toute autre raison extérieure à Hostolab ;
+    - des frais de communications électroniques ou téléphoniques qu’induit l’utilisation de ces équipements et qui sont à la charge exclusive de l’Utilisateur et ne seront pas supportés par Hostolab ;
+    - de toute interruption, temporaire ou permanente, de tout ou partie des fonctionnalités du Site notamment en cas de maintenance, modification ou mise à jour du Site, en cas d’incident technique et, plus généralement, en cas d’évènement extérieur au contrôle de Hostolab ;
+    - de toute conséquence qui pourrait survenir du fait des contenus des sites internet tiers vers lesquels renvoient les liens hypertextes pouvant être présents sur le Site ;
+    - des éventuels préjudices indirects qui seraient subis par l’Utilisateur ; 
+    - de tout préjudice subi par l’Utilisateur ou un tiers qui résulterait d’une utilisation du Site non conforme aux présentes CGU ; 
+    - de tout manquement aux obligations prévues aux présentes CGU qui serait dû ou trouverait son origine dans un cas fortuit ou un cas de force majeure tel que défini par l’article 1218 du code civil.
+
+    Dans l’hypothèse où Hostolab serait tenue pour responsable d’un dommage non prévu au présent article, sa responsabilité sera limitée aux dommages certains, réels et directs.
+
+    Par la suite, en aucun cas Hostolab, ses représentants, ses bénévoles et ses partenaires ne sauraient être tenus responsables des dommages indirects résultant de l’utilisation du Site, des services qui y sont proposés ainsi que des contenus qui y sont publiés, et notamment du manque à gagner, de la perte de profit, de la perte de chance ou des dommages découlant de la perte de données causée par l’impossibilité d’utiliser le Site et ses services. 
+
+    ## 7. MODIFICATION
+
+    Les présentes CGU sont datées de manière précise et pourront être modifiées et mises à jour par Hostolab à tout moment, notamment en cas d’évolution du Site ou de la réglementation applicable 
+
+    Les CGU applicables sont celles publiées sur le Site au moment de l’accès au Site par l’Utilisateur. Par conséquent, l’Utilisateur est invité à consulter les CGU à chaque nouvel accès au Site.
+
+    La présente version des CGU remplace toutes les versions antérieures.
+
+    ## 8. CESSATION DU SITE
+
+    Hostolab se réserve le droit d’interrompre, temporairement ou définitivement, l’accès à tout ou partie du Site ou des services qui y sont proposés, notamment en cas de cessation de l’activité liée à la mise à disposition du Site ou en cas de procédure collective.
+
+    ## 9. CESSION 
+
+    Sous réserve de la loi applicable, l’Utilisateur consent à ce que les présentes CGU le liant à Hostolab puissent être cédées, transférées ou apportées, de quelque façon que ce soit. Dans le cadre du transfert de l’association à un tiers, les présentes CGU liant l’Utilisateur à Hostolab seront automatiquement transférées au cessionnaire.
+
+    ## 10. LIENS HYPERTEXTES 
+
+    Le Site peut inclure des liens hypertextes vers des sites ou sources externes, autres que ceux édités par Hostolab. Dans la mesure où Hostolab ne peut contrôler ces sites et ces sources externes, Hostolab ne peut être tenue pour responsable de la mise à disposition de ces sites et sources externes, et décline ainsi toute responsabilité quant aux contenus, publicités, produits, services ou tout autre matériel disponible sur ou à partir de ces sites ou sources externes. Aussi, la décision d’activer les liens hypertextes  appartient exclusivement à l’Utilisateur.
+
+    Hostolab rappelle à l’Utilisateur que les sites ou sources externes non-affiliés sont soumis à leurs propres conditions générales d’utilisation.
+
+    Si l’Utilisateur souhaite créer un lien hypertexte renvoyant vers le Site, il doit obtenir l’autorisation écrite et préalable de Hostolab en envoyant un email à l’adresse suivante : [hello@covidliste.com](mailto:hello@covidliste.com).
+
+    Hostolab peut, à son entière discrétion, accepter ou rejeter toute demande qui lui ait adressée à cette fin. Hostolab n’a aucune obligation d’accepter une telle demande, ni de fournir toute raison pour rejeter une telle demande le cas échéant.
+
+    ## 11. VALIDITÉ DES CGU
+    Chacun des articles des présentes CGU s’applique séparément. Toute modification de la réglementation applicable en vigueur, ou toute décision d’un tribunal ou d’une autorité compétente invalidant un ou plusieurs articles des présentes CGU ne saurait affecter la validité de l’intégralité des CGU. Une telle modification ou décision n’autorise en aucun cas l’Utilisateur à méconnaître les dispositions valides des présentes CGU.
+
+    ## 12. LANGUE
+
+    Les présentes CGU sont rédigées en langue française. Dans le cas où elles seraient traduites en une ou plusieurs langues, seul le texte français ferait foi en cas de litige.
+
+    ## 13. LOI APPLICABLE / ATTRIBUTION DE JURIDICTION
+
+    Les présentes CGU et les opérations qui en découlent sont régies, interprétées et appliquées conformément au droit français.
+
+    En cas de différend relatif à leur interprétation ou leur exécution, Hostolab et l’Utilisateur rechercheront, avant toute action contentieuse, un accord amiable et se communiqueront à cet effet tous les éléments d’information nécessaires.
+
+    A défaut d'accord amiable entre Hostolab et l’Utilisateur dans un délai de deux (2) mois à compter de la notification du litige à l’autre partie, compétence expresse est donnée aux tribunaux de Paris.
+
+- slug: privacy_volontaires
+  body_md_erb: |
+    # POLITIQUE DE PROTECTION DES DONNÉES PERSONNELLES – VOLONTAIRES NON VACCINÉS
+
+    Dernière mise à jour : 17 avril 2021
+
+    Le site internet www.covidliste.com (ci-après le « **Site** »), édité par l’association Hostolab (ci-après « **Hostolab** » ou « **nous** ») est un site de mise en relation entre des établissements de vaccination Covid-19, participant à l’initiative Covidliste, qui disposent de vaccins non utilisés et des volontaires non vaccinés aux fins de réduction du taux de perte de doses vaccinales. 
+
+    Dans le cadre de l’accès, la consultation, la navigation et l’utilisation du Site et des services qu’il propose, vous êtes amené à communiquer à Hostolab des données personnelles vous concernant.
+
+    Ces données font l’objet d’une protection par la loi. Pour cette raison, **Hostolab, en sa qualité de responsable de traitement, a mis en place des mesures de sécurité adaptées afin de protéger vos données personnelles.**
+
+    Nous vous remercions de bien vouloir **prendre connaissance de la présente politique**, vous expliquant **comment vos données personnelles sont utilisées par Hostolab**. Cette politique vient compléter tout document ou mention d’information renvoyant à la politique.
+
+    Au besoin, vous pouvez poser toutes vos questions directement à Hostolab en envoyant un email à l’adresse suivante : [privacy@covidliste.com](mailto:privacy@covidliste.com).
+
+    ## 1. QUELLES DONNÉES PERSONNELLES SONT TRAITÉES PAR HOSTOLAB ?
+
+    Toutes les données que vous saisissez sur le Site ou lorsque vous communiquez avec Hostolab, à savoir  :
+
+    | Catégories de données | Exemples de données |
+    | :-------------------- | :----------------- |
+    | **Données d’identification** |	Nom, prénom, date de naissance |
+    | **Coordonnées** | Adresse postale, adresse email, numéro de téléphone portable |
+    | **Données relatives à votre mise en relation avec l’établissement de vaccination Covid-19** | Date, horaire et lieu du rendez-vous de vaccination, informations sur l’établissement de vaccination concerné (nom, description, type, adresse, numéro de téléphone), type de vaccin proposé |
+    | **Données relatives à votre candidature pour être bénévole** (rubrique « Bénévoles ») | Profil LinkedIn ou Github, disponibilités pour le bénévolat |
+
+
+    Par ailleurs, certaines données sont automatiquement collectées par le Site via des cookies/traceurs, à savoir :
+
+    | Catégories de données | Exemples de données | Finalités |
+    | :-- | :-- | :-- |
+    | **Données de connexion et de navigation** | Date et heure de connexion, adresse IP, terminal, navigateur, système d’exploitation | Ces données sont nécessaires au bon fonctionnement technique du Site et des services qu’il propose. Pour plus d’informations sur les cookies/traceurs présents sur le Site, veuillez consulter la [Politique de gestion des cookies](/cookies). |
+    | **Données de la zone de localisation de votre domicile** | Données de la zone de localisation administrative de votre domicile (sur la base de coordonnées GPS approximées, à l’exclusion de tout suivi de géolocalisation) | Ces données sont uniquement collectées et traitées avec votre consentement préalable aux fins d’identifier la zone de localisation administrative où se situe votre domicile (sur la base de coordonnées GPS approximées, à l’exclusion de tout suivi de géolocalisation) |
+
+    **Certaines de ces données sont obligatoires, d’autres facultatives** pour pouvoir bénéficier des services proposés sur le Site. Le caractère obligatoire ou facultatif des données à renseigner est signalé sur les formulaires de collecte du Site. Si vous refusez de fournir les données obligatoires demandées, Hostolab ne sera pas en mesure de traiter votre demande (création de votre espace personnel, mise en relation avec les établissements de vaccination Covid-19 participant à l’initiative Covidliste, traitement de votre candidature pour être bénévole, etc.).
+
+    ## 2. POURQUOI HOSTOLAB UTILISE VOS DONNÉES PERSONNELLES ?
+
+    Hostolab traite vos données personnelles uniquement pour les raisons suivantes :
+
+    | Finalités | Exemples d’utilisation de vos données personnelles | Fondements juridiques |
+    | :-- | :-- | :-- |
+    | **Création et gestion de votre espace personnel** | •	pour créer votre espace personnel <br />•	pour vous permettre de vous authentifier sur le Site et bénéficier de ses services <br />•	pour vous permettre de mettre à jour votre espace personnel au besoin | **Exécution des [CGU](/cgu_volontaires)** |
+    | **Mise en relation avec les établissements de vaccination Covid-19 participant à l’initiative Covidliste** | •	pour établir des listes de volontaires non vaccinés à destination des établissements de vaccination Covid-19 <br /> •	pour transmettre les listes de volontaires non vaccinés aux établissements de vaccination Covid-19 <br /> •	pour vous communiquer les disponibilités proposées par les établissements de vaccination Covid-19 <br /> •	pour vous permettre de prendre un rendez-vous de vaccination auprès d’un établissement de vaccination Covid-19 | **Consentement** |
+    | **Répondre à vos demandes de contact/d’information** | •	pour traiter votre demande de contact/d’information <br /> •	pour vous recontacter au besoin | **Intérêt légitime** de Hostolab à répondre aux demandes de contact/d’information qui lui sont adressées |
+    | **Traitement de votre candidature pour être bénévole**                  (rubrique « Bénévoles ») | •	pour examiner votre candidature <br /> •	pour vous recontacter au besoin | **Mesures précontractuelles** |
+    | **Réalisation de statistiques agrégées** (ne contenant aucune donnée personnelle) | •	pour rendre public le nombre de volontaires non vaccinés inscrits <br /> •	pour rendre public le nombre de mise en relation entre les établissements de vaccination Covid-19 et les volontaires non vaccinés |	**Intérêt légitime** de Hostolab à réalisation des statisques agrégées à des fins de communication au public |
+    | **Amélioration du Site et ses services, ainsi que de votre expérience utilisateur sur le Site** | •	pour permettre le bon fonctionnement du Site et des services qu’il propose <br /> •	pour faciliter votre navigation sur le Site <br /> •	pour garantir la sécurité du Site |	**Intérêt légitime** de Hostolab à améliorer le Site et ses services, ainsi que votre expérience utilisateur sur le Site |
+    | **Gestion d’un précontentieux ou d’un contentieux** |	•	pour gérer tout différend ou litige | **Intérêt légitime** de Hostolab à défendre ses droits et intérêts |
+    | Respect des obligations légales et réglementaires | •	pour respecter les obligations légales et réglementaires applicables <br /> •	pour répondre à vos demandes d’exercice des droits | **Obligations légales et règlementaires** s’imposant à Hostolab
+
+    ## 3. QUI PEUT AVOIR ACCÈS À VOS DONNÉES PERSONNELLES ?
+
+    Dans le cadre de l’accès, la consultation, la navigation et l’utilisation du Site et des services qu’il propose, vos données personnelles sont communiquées aux destinataires suivants : 
+
+    | Destinataires | Finalités |
+    | :-- | :-- |
+    | **Hostolab et ses bénévoles autorisés** | Aux fins de gestion du Site et des services qu’il propose |
+    | **Etablissements de vaccination Covid-19 participant à l’initiative Covidliste et son personnel autorisé** | Aux fins de mise en relation entre vous et les établissement de vaccination Covid-19 participant à l’initiative Covidliste |
+    | **Sous-traitants de Hostolab (hébergeur, prestataire de maintenance informatique, prestataire d’envois d’emails et de SMS, etc.)** | A des fins exclusivement techniques, logistiques ou opérationnelle dans le cadre de la gestion du Site et des services qu’il propose |
+    | **Autorités administratives ou judiciaires** | Uniquement dans l’hypothèse d’une demande expresse et motivée de leur part ou en cas d’infraction avérée à des dispositions légales ou réglementaires |
+    | **Conseils externes** | Uniquement dans le cadre de la gestion d’éventuels différends, litiges ou de tout autre sujet juridique le cas échéant |
+
+    ## 4. VOS DONNÉES PERSONNELLES SONT-ELLES TRANSFÉRÉES EN DEHORS DE L’UNION EUROPÉENNE/L’ESPACE ECONOMIQUE EUROPÉEN ? 
+
+    **Dans la mesure du possible, vos données sont traitées au sein de l’Union européenne (UE)/l’Espace économique européen (EEE)**. Toutefois, certains des prestataires de Hostolab étant situés dans des pays en dehors de l’UE/EEE, vos données personnelles peuvent être amenées à être traitées dans ces pays. 
+
+    Dans l’hypothèse où le pays destinataire en question n’assurerait pas un niveau de protection des données personnelles équivalent à celui de l’Union européenne, Hostolab s’engage, à défaut de décision d’adéquation, et après avoir procédé à une évaluation du niveau de protection de vos droits sur le territoire du pays tiers où est établi le destinataire de vos données personnelles, à prendre toutes les mesures nécessaires pour assurer la protection de vos données personnelles sur la base de garanties appropriées (notamment des clauses contractuelles types). **Leur communication pourra être directement obtenue auprès de Hostolab** en envoyant un email à l’adresse suivante : [privacy@covidliste.com](mailto:privacy@covidliste.com).
+
+    | Nom du destinaire | Pays tiers | Garantie adoptée |
+    | :-- | :-- | :-- |
+    | Twilio | États-Unis d’Amérique | Clauses contractuelles types |
+
+    ## 5. COMMENT HOSTOLAB PROTÈGE VOS DONNÉES PERSONNELLES ?
+
+    Hostolab a mis en place des mesures techniques et organisationnelles afin de protéger vos données personnelles, notamment contre d’éventuelles violations susceptibles d’entraîner, de manière accidentelle ou illicite, la destruction, la perte, l’altération, l’accès ou la divulgation non autorisée de vos données personnelles. Ces mesures assurent un niveau de sécurité approprié des données et tiennent compte de l’état des connaissances, des coûts de mise en œuvre par rapport aux risques et de la nature des données à protéger. 
+
+    Hostolab garantit par ailleurs que ses bénévoles et toutes autres personnes amenées à traiter vos données personnelles respectent les règles et procédures internes relatives à la protection des données personnelles, notamment les mesures de sécurité techniques et organisationnelles mises en place pour protéger vos données personnelles. Dans ce cadre, les pratiques de Hostolab sont régulièrement revues et mises à jour, afin d’assurer la protection et la confidentialité de vos données personnelles et veiller à ce que les règles et procédures internes soient respectées.
+
+    **Si vous trouvez une vulnérabilité ou si vous voulez signaler un incident de sécurité**, nous vous invitons à vous envoyer un email à [ssi@covidliste.com](mailto:ssi@covidliste.com).
+
+    ## 6. COMBIEN DE TEMPS VOS DONNÉES PERSONNELLES SONT CONSERVÉES ?
+
+    De façon générale, vos données personnelles ne seront conservées que pendant la période nécessaire pour atteindre les finalités pour lesquelles ces données ont été collectées, ce qui signifie plus particulièrement que : 
+
+    - les **données prises sur le Site** (comprenant les données relatives à votre mise en relation avec un établissement de vaccination Covid-19) sont **conservées en base active jusqu’à la confirmation de votre rendez-vous de vaccination auprès de l’établissement de vaccination Covid-19 concerné** et, au-delà, sont **archivées pendant trois(3) jours à compter de cette confirmation avant d’être supprimées**, sauf demande de suppression de votre espace personnel intervenant avant les délais susmentionnés ;  
+    - les **données collectées dans le cadre d’une demande de contact/d’information** sont conservées **jusqu’au traitement complet de celle-ci** avant d’être supprimées ; 
+    - les **données collectées dans le cadre de votre candidature pour être bénévole** sont conservées **pendant deux (2) ans à compter de votre dernier contact** avec Hostolab, sauf demande de destruction de votre dossier ; 
+    - les **données de connexion et de navigation** sont conservées **pendant treize (13) mois**. 
+
+    ## 7. QUELS SONT VOS DROITS SUR VOS DONNÉES PERSONNELLES ?
+
+    Conformément à la réglementation relative à la protection des données personnelles, vous disposez des droits suivants sur vos données personnelles :
+
+    - **un droit d'accès** à vos données personnelles vous permettant d’obtenir des **informations claires, transparentes et compréhensibles** sur la façon dont Hostolab utilise vos données personnelles et sur vos droits (telles que fournies dans la présente politique), ainsi qu’une **copie de vos données personnelles**. 
+    - **un droit de rectification** de vos données personnelles vous permettant d’obtenir la modification de vos données personnelles si elles sont **obsolètes, inexactes ou incomplètes**. 
+    - **un droit d’opposition** au traitement de vos données personnelles lorsqu’il est fondé sur l’intérêt légitime de Hostolab. Ainsi, **Hostolab cessera le traitement, sauf s’il existe des motifs légitimes et impérieux qui prévalent sur vos intérêts, droits et libertés**, tels que le respect d’une obligation légale (telle que l’obligation qui pèserait sur Hostolab de conserver certaines données personnelles) ou encore la constatation, l’exercice ou la défense d’un droit en justice. 
+    - **un droit à la limitation temporaire** du traitement de vos données personnelles notamment en vue de **procéder à des vérifications**, à savoir : 
+      - lorsque vous contestez l’exactitude de vos données personnelles, le temps que nous puissions vérifier qu’elles sont correctes ;
+      - si le traitement est illicite et, plutôt que demander leur effacement, vous préférez limiter leur utilisation ;
+      - si Hostolab n’a plus besoin de vos données personnelles pour le traitement mais qu’elles restent nécessaires pour vous permettre de constater, exercer ou défendre un droit en justice ;
+      - si vous vous opposez au traitement en application de votre droit d’opposition, pendant la durée de vérification ayant pour objet de confirmer que les motifs légitimes poursuivis par Hostolab prévalent sur les vôtres.
+
+    - **un droit de retirer votre consentement**, à tout moment, pour les finalités pour lesquelles nous avons collecté votre consentement.
+    - **un droit à la portabilité** de vos données personnelles vous permettant de recevoir les données personnelles que vous nous avez fournies, **dans un format informatique structuré, couramment utilisé**, et à ce qu’elles soient **transmises à un tiers** si cela est techniquement possible. **Ce droit ne s’exerce pas en toutes circonstances**, il ne s’applique qu’à condition qu’il **remplisse toutes les conditions suivantes** :
+      - il porte uniquement sur vos données personnelles, excluant toutes les données anonymes ou celles de tiers ;
+      - il ne porte pas atteinte aux droits et libertés des tiers, et notamment ceux de Hostolab (en particulier de propriété intellectuelle) ;
+      - il concerne des données personnelles traitées de manière automatisée (les fichiers papiers ne sont donc pas concernés) ;
+      - le traitement est fondé sur votre consentement ou l’exécution d’un contrat vous liant Hostolab (pour le vérifier, vous pouvez vous reporter à l’article 2 de la présente politique).
+
+    - **un droit à l’effacement** de vos données personnelles (ou droit à l’oubli) lorsque l’un des motifs suivants s’applique : 
+      - vous vous opposez au traitement de vos données personnelles et il n’existe pas de motif légitime impérieux justifiant le maintien de ce traitement (telle que l’obligation qui pèserait sur Hostolab de conserver certaines données personnelles) ; 
+      - vous décidez de retirer votre consentement sur lequel est fondé le traitement ;
+      - lorsque vos données personnelles ne sont plus utiles aux finalités initiales qui ont justifié leur collecte ou un autre type de traitement ;
+      - l’utilisation qui est faite de vos données n’est pas conforme aux dispositions législatives ou réglementaires applicables. 
+
+    - **un droit de définir des directives**, soit générales, soit particulières, **s’agissant de vos données personnelles dans l’hypothèse de votre décès** (par exemple, leur suppression ou leur transmission à toute personne de votre choix). Vous pouvez révoquer vos directives à tout moment.
+
+    Il est précisé que l’exercice de ces droits est fonction de la base légale du traitement, comme précisé dans le tableau ci-dessous :
+
+    | | Accès | Rectification | Effacement | Limitation | Portabilité | Opposition |
+    | :--: | :--: | :--: | :--: | :--: | :--: | :--: |
+    | Consentement | **Oui** | **Oui** | **Oui** | **Oui** | **Oui** | Retrait du consentement |
+    | Mesures précontractuelles | **Oui** | **Oui** | **Oui** | **Oui** | **Oui** | *Non* |
+    | Contrat | **Oui** | **Oui** | **Oui** | **Oui** | **Oui** | *Non* |
+    | Intérêt légitime | **Oui** | **Oui** | **Oui** | **Oui** | *Non* | **Oui** |
+    | Obligations légales | **Oui** | **Oui** | *Non* | **Oui** | *Non* | *Non* |
+
+    Dans certaines circonstances, Hostolab pourra être amenée à vous **demander des informations spécifiques, afin de confirmer votre identité** et garantir l’exercice de vos droits. Il s’agit d’une autre mesure de sécurité appropriée pour s’assurer que les données personnelles ne sont pas divulguées à une personne qui n’a pas le droit de les recevoir.
+
+    **Pour toute question et pour exercer vos droits**, vous pouvez **directement contacter Hostolab** en envoyant un email à l’adresse suivante : [privacy@covidliste.com](mailto:privacy@covidliste.com).
+
+    Au besoin, vous pouvez **introduire une réclamation auprès la Commission Nationale Informatique et Libertés (CNIL)** *via* son [site internet](https://www.cnil.fr/fr/plaintes) ou par courrier : 3, place de Fontenoy - TSA 80715 - 75334 PARIS CEDEX 07. Ce droit peut être exercé à tout moment gratuitement, mis à part les frais du courrier le cas échéant, et les frais éventuels d’assistance ou de représentation si vous choisissez de vous faire aider dans cette procédure par un tiers.
+
+    ## 8. MISE À JOUR DE LA PRÉSENTE POLITIQUE DE PROTECTION DES DONNÉES PERSONNELLES
+
+    La politique de protection des données personnelles est datée de manière précise et pourra être modifiée et mise à jour par Hostolab à tout moment, notamment en cas d’évolution des services proposés sur le Site ou de la réglementation applicable. Par conséquent, nous vous recommandons de consulter la présente politique à chaque nouvel accès au Site.
+
+- slug: privacy_pro
+  body_md_erb: |
+    # POLITIQUE DE PROTECTION DES DONNÉES PERSONNELLES – PROFESSIONNELS DE SANTÉ
+
+    Dernière mise à jour : 17 avril 2021
+
+    Le site internet www.covidliste.com (ci-après le « **Site** »), édité par l’association Hostolab (ci-après « **Hostolab** » ou « **nous** ») est un site de mise en relation entre des établissements de vaccination Covid-19, participant à l’initiative Covidliste, qui disposent de vaccins non utilisés et des volontaires non vaccinés aux fins de réduction du taux de perte de doses vaccinales. 
+
+    Dans le cadre de l’accès, la consultation, la navigation et l’utilisation du Site et des services qu’il propose, vous êtes amené à communiquer à Hostolab des données personnelles vous concernant.
+
+    Ces données font l’objet d’une protection par la loi. Pour cette raison, **Hostolab, en sa qualité de responsable de traitement, a mis en place des mesures de sécurité adaptées afin de protéger vos données personnelles.**
+
+    Nous vous remercions de bien vouloir **prendre connaissance de la présente politique**, vous expliquant **comment vos données personnelles sont utilisées par Hostolab**. Cette politique vient compléter tout document ou mention d’information renvoyant à la politique.
+
+    Au besoin, vous pouvez poser toutes vos questions directement à Hostolab en envoyant un email à l’adresse suivante : [privacy@covidliste.com](mailto:privacy@covidliste.com).
+
+    ## 1. QUELLES DONNÉES PERSONNELLES SONT TRAITÉES PAR HOSTOLAB ?
+
+    Toutes les données que vous saisissez sur le Site ou lorsque vous communiquez avec Hostolab, à savoir  :
+
+    | Catégories de données | Exemples de données |
+    | :-------------------- | :----------------- |
+    | **Données d’identification** |	Nom, prénom, date de naissance |
+    | **Coordonnées** | Adresse postale, adresse email, numéro de téléphone portable |
+    | **Données relatives à l’établissement de vaccination Covid-19 dans lequel vous exercez** | Nom de l’établissement, description de l’établissement, type d’établissement (cabinet médical, centre de vaccination, ehpad, hôpital, pharmacie), adresse de l’établissement, numéro de téléphone de l’établissement, type(s) de vaccins proposé(s) |
+    | **Données relatives à votre candidature pour être bénévole** (rubrique « Bénévoles ») | Profil LinkedIn ou Github, disponibilités pour le bénévolat |
+
+
+    Par ailleurs, certaines données sont automatiquement collectées par le Site via des cookies/traceurs, à savoir :
+
+    | Catégories de données | Exemples de données | Finalités |
+    | :-- | :-- | :-- |
+    | **Données de connexion et de navigation** | Date et heure de connexion, adresse IP, terminal, navigateur, système d’exploitation | Ces données sont nécessaires au bon fonctionnement technique du Site et des services qu’il propose. Pour plus d’informations sur les cookies/traceurs présents sur le Site, veuillez consulter la [Politique de gestion des cookies](/cookies). |
+
+    **Certaines de ces données sont obligatoires, d’autres facultatives** pour pouvoir bénéficier des services proposés sur le Site. Le caractère obligatoire ou facultatif des données à renseigner est signalé sur les formulaires de collecte du Site. Si vous refusez de fournir les données obligatoires demandées, Hostolab ne sera pas en mesure de traiter votre demande (création de votre espace professionnel, enregistrement de l’établissement de vaccination Covid-19 dans lequel vous exercez en vue d’une mise en relation avec les volontaires non vaccinés, traitement de votre candidature pour être bénévole, etc.).
+
+    ## 2. POURQUOI HOSTOLAB UTILISE VOS DONNÉES PERSONNELLES ?
+
+    Hostolab traite vos données personnelles uniquement pour les raisons suivantes :
+
+    | Finalités | Exemples d’utilisation de vos données personnelles | Fondements juridiques |
+    | :-- | :-- | :-- |
+    | **Création et gestion de votre espace professionnel** | •	pour créer votre espace professionnel <br />•	pour vous permettre de vous authentifier sur le Site et bénéficier de ses services <br />•	pour vous permettre de mettre à jour votre espace professionnel au besoin | **Exécution des [CGU](/cgu_pro)** |
+    | **Mise en relation avec les volontaires non vaccinés** | •	pour enregistrer l’établissement de vaccination Covid-19 dans lequel vous exercez parmi les établissements participant à l’initiative Covidliste <br /> •	pour communiquer aux volontaires non vaccinés les disponibilités proposées par l’établissement de vaccination Covid-19 dans lequel vous exercez <br /> •	pour communiquer à l’établissement de vaccination Covid-19 dans lequel vous exercez les rendez-vous de vaccination pris par les volontaires non vaccinés | **Exécution des [CGU](/cgu_pro)** |
+    | **Répondre à vos demandes de contact/d’information** | •	pour traiter votre demande de contact/d’information <br /> •	pour vous recontacter au besoin | **Intérêt légitime** de Hostolab à répondre aux demandes de contact/d’information qui lui sont adressées |
+    | **Traitement de votre candidature pour être bénévole**                  (rubrique « Bénévoles ») | •	pour examiner votre candidature <br /> •	pour vous recontacter au besoin | **Mesures précontractuelles** |
+    | **Réalisation de statistiques agrégées** (ne contenant aucune donnée personnelle) | •	pour rendre public le nombre d’établissements de vaccination Covid-19 participant à l’initiative Covidliste <br /> •	pour rendre public le nombre de mise en relation entre les établissements de vaccination Covid-19 et les volontaires non vaccinés 
+    |	**Intérêt légitime** de Hostolab à réalisation des statisques agrégées à des fins de communication au public |
+    | **Amélioration du Site et ses services, ainsi que de votre expérience utilisateur sur le Site** | •	pour permettre le bon fonctionnement du Site et des services qu’il propose <br /> •	pour faciliter votre navigation sur le Site <br /> •	pour garantir la sécurité du Site |	**Intérêt légitime** de Hostolab à améliorer le Site et ses services, ainsi que votre expérience utilisateur sur le Site |
+    | **Gestion d’un précontentieux ou d’un contentieux** |	•	pour gérer tout différend ou litige | **Intérêt légitime** de Hostolab à défendre ses droits et intérêts |
+    | Respect des obligations légales et réglementaires | •	pour respecter les obligations légales et réglementaires applicables <br /> •	pour répondre à vos demandes d’exercice des droits | **Obligations légales et règlementaires** s’imposant à Hostolab
+
+    ## 3. QUI PEUT AVOIR ACCÈS À VOS DONNÉES PERSONNELLES ?
+
+    Dans le cadre de l’accès, la consultation, la navigation et l’utilisation du Site et des services qu’il propose, vos données personnelles sont communiquées aux destinataires suivants : 
+
+    | Destinataires | Finalités |
+    | :-- | :-- |
+    | **Hostolab et ses bénévoles autorisés** | Aux fins de gestion du Site et des services qu’il propose |
+    | **Volontaires non vaccinés** | Aux fins de mise en relation entre l’établissement de vaccination Covid-19 dans lequel vous exercez et les volontaires non vaccinés |
+    | **Sous-traitants de Hostolab (hébergeur, prestataire de maintenance informatique, prestataire d’envois d’emails et de SMS, etc.)** | A des fins exclusivement techniques, logistiques ou opérationnelle dans le cadre de la gestion du Site et des services qu’il propose |
+    | **Autorités administratives ou judiciaires** | Uniquement dans l’hypothèse d’une demande expresse et motivée de leur part ou en cas d’infraction avérée à des dispositions légales ou réglementaires |
+    | **Conseils externes** | Uniquement dans le cadre de la gestion d’éventuels différends, litiges ou de tout autre sujet juridique le cas échéant |
+
+    ## 4. VOS DONNÉES PERSONNELLES SONT-ELLES TRANSFÉRÉES EN DEHORS DE L’UNION EUROPÉENNE/L’ESPACE ECONOMIQUE EUROPÉEN ? 
+
+    **Dans la mesure du possible, vos données sont traitées au sein de l’Union européenne (UE)/l’Espace économique européen (EEE)**. Toutefois, certains des prestataires de Hostolab étant situés dans des pays en dehors de l’UE/EEE, vos données personnelles peuvent être amenées à être traitées dans ces pays. 
+
+    Dans l’hypothèse où le pays destinataire en question n’assurerait pas un niveau de protection des données personnelles équivalent à celui de l’Union européenne, Hostolab s’engage, à défaut de décision d’adéquation, et après avoir procédé à une évaluation du niveau de protection de vos droits sur le territoire du pays tiers où est établi le destinataire de vos données personnelles, à prendre toutes les mesures nécessaires pour assurer la protection de vos données personnelles sur la base de garanties appropriées (notamment des clauses contractuelles types). **Leur communication pourra être directement obtenue auprès de Hostolab** en envoyant un email à l’adresse suivante : [privacy@covidliste.com](mailto:privacy@covidliste.com).
+
+    | Nom du destinaire | Pays tiers | Garantie adoptée |
+    | :-- | :-- | :-- |
+    | Twilio | États-Unis d’Amérique | Clauses contractuelles types |
+
+    ## 5. COMMENT HOSTOLAB PROTÈGE VOS DONNÉES PERSONNELLES ?
+
+    Hostolab a mis en place des mesures techniques et organisationnelles afin de protéger vos données personnelles, notamment contre d’éventuelles violations susceptibles d’entraîner, de manière accidentelle ou illicite, la destruction, la perte, l’altération, l’accès ou la divulgation non autorisée de vos données personnelles. Ces mesures assurent un niveau de sécurité approprié des données et tiennent compte de l’état des connaissances, des coûts de mise en œuvre par rapport aux risques et de la nature des données à protéger. 
+
+    Hostolab garantit par ailleurs que ses bénévoles et toutes autres personnes amenées à traiter vos données personnelles respectent les règles et procédures internes relatives à la protection des données personnelles, notamment les mesures de sécurité techniques et organisationnelles mises en place pour protéger vos données personnelles. Dans ce cadre, les pratiques de Hostolab sont régulièrement revues et mises à jour, afin d’assurer la protection et la confidentialité de vos données personnelles et veiller à ce que les règles et procédures internes soient respectées.
+
+    ## 6. COMBIEN DE TEMPS VOS DONNÉES PERSONNELLES SONT CONSERVÉES ?
+
+    De façon générale, vos données personnelles ne seront conservées que pendant la période nécessaire pour atteindre les finalités pour lesquelles ces données ont été collectées, ce qui signifie plus particulièrement que : 
+
+    - les **données relatives à votre espace professionnel** sont conservées **jusqu’à la suppression de votre espace professionnel ou, à défaut, jusqu’à la fin de l’initiative Covidliste** avant d’être supprimées ;
+    - les **données collectées dans le cadre d’une demande de contact/d’information** sont conservées **jusqu’au traitement complet de celle-ci** avant d’être supprimées ; 
+    - les **données collectées dans le cadre de votre candidature pour être bénévole** sont conservées **pendant deux (2) ans à compter de votre dernier contact** avec Hostolab, sauf demande de destruction de votre dossier ; 
+    - les **données de connexion et de navigation** sont conservées **pendant treize (13) mois**. 
+
+    ## 7. QUELS SONT VOS DROITS SUR VOS DONNÉES PERSONNELLES ?
+
+    Conformément à la réglementation relative à la protection des données personnelles, vous disposez des droits suivants sur vos données personnelles :
+
+    - **un droit d'accès** à vos données personnelles vous permettant d’obtenir des **informations claires, transparentes et compréhensibles** sur la façon dont Hostolab utilise vos données personnelles et sur vos droits (telles que fournies dans la présente politique), ainsi qu’une **copie de vos données personnelles**. 
+    - **un droit de rectification** de vos données personnelles vous permettant d’obtenir la modification de vos données personnelles si elles sont **obsolètes, inexactes ou incomplètes**. 
+    - **un droit d’opposition** au traitement de vos données personnelles lorsqu’il est fondé sur l’intérêt légitime de Hostolab. Ainsi, **Hostolab cessera le traitement, sauf s’il existe des motifs légitimes et impérieux qui prévalent sur vos intérêts, droits et libertés**, tels que le respect d’une obligation légale (telle que l’obligation qui pèserait sur Hostolab de conserver certaines données personnelles) ou encore la constatation, l’exercice ou la défense d’un droit en justice. 
+    - **un droit à la limitation temporaire** du traitement de vos données personnelles notamment en vue de **procéder à des vérifications**, à savoir : 
+      - lorsque vous contestez l’exactitude de vos données personnelles, le temps que nous puissions vérifier qu’elles sont correctes ;
+      - si le traitement est illicite et, plutôt que demander leur effacement, vous préférez limiter leur utilisation ;
+      - si Hostolab n’a plus besoin de vos données personnelles pour le traitement mais qu’elles restent nécessaires pour vous permettre de constater, exercer ou défendre un droit en justice ;
+      - si vous vous opposez au traitement en application de votre droit d’opposition, pendant la durée de vérification ayant pour objet de confirmer que les motifs légitimes poursuivis par Hostolab prévalent sur les vôtres.
+
+    - **un droit de retirer votre consentement**, à tout moment, pour les finalités pour lesquelles nous avons collecté votre consentement.
+    - **un droit à la portabilité** de vos données personnelles vous permettant de recevoir les données personnelles que vous nous avez fournies, **dans un format informatique structuré, couramment utilisé**, et à ce qu’elles soient **transmises à un tiers** si cela est techniquement possible. **Ce droit ne s’exerce pas en toutes circonstances**, il ne s’applique qu’à condition qu’il **remplisse toutes les conditions suivantes** :
+      - il porte uniquement sur vos données personnelles, excluant toutes les données anonymes ou celles de tiers ;
+      - il ne porte pas atteinte aux droits et libertés des tiers, et notamment ceux de Hostolab (en particulier de propriété intellectuelle) ;
+      - il concerne des données personnelles traitées de manière automatisée (les fichiers papiers ne sont donc pas concernés) ;
+      - le traitement est fondé sur votre consentement ou l’exécution d’un contrat vous liant Hostolab (pour le vérifier, vous pouvez vous reporter à l’article 2 de la présente politique).
+
+    - **un droit à l’effacement** de vos données personnelles (ou droit à l’oubli) lorsque l’un des motifs suivants s’applique : 
+      - vous vous opposez au traitement de vos données personnelles et il n’existe pas de motif légitime impérieux justifiant le maintien de ce traitement (telle que l’obligation qui pèserait sur Hostolab de conserver certaines données personnelles) ; 
+      - vous décidez de retirer votre consentement sur lequel est fondé le traitement ;
+      - lorsque vos données personnelles ne sont plus utiles aux finalités initiales qui ont justifié leur collecte ou un autre type de traitement ;
+      - l’utilisation qui est faite de vos données n’est pas conforme aux dispositions législatives ou réglementaires applicables. 
+
+    - **un droit de définir des directives**, soit générales, soit particulières, **s’agissant de vos données personnelles dans l’hypothèse de votre décès** (par exemple, leur suppression ou leur transmission à toute personne de votre choix). Vous pouvez révoquer vos directives à tout moment.
+
+    Il est précisé que l’exercice de ces droits est fonction de la base légale du traitement, comme précisé dans le tableau ci-dessous :
+
+    | | Accès | Rectification | Effacement | Limitation | Portabilité | Opposition |
+    | :--: | :--: | :--: | :--: | :--: | :--: | :--: |
+    | Consentement | **Oui** | **Oui** | **Oui** | **Oui** | **Oui** | Retrait du consentement |
+    | Mesures précontractuelles | **Oui** | **Oui** | **Oui** | **Oui** | **Oui** | *Non* |
+    | Contrat | **Oui** | **Oui** | **Oui** | **Oui** | **Oui** | *Non* |
+    | Intérêt légitime | **Oui** | **Oui** | **Oui** | **Oui** | *Non* | **Oui** |
+    | Obligations légales | **Oui** | **Oui** | *Non* | **Oui** | *Non* | *Non* |
+
+    Dans certaines circonstances, Hostolab pourra être amenée à vous **demander des informations spécifiques, afin de confirmer votre identité** et garantir l’exercice de vos droits. Il s’agit d’une autre mesure de sécurité appropriée pour s’assurer que les données personnelles ne sont pas divulguées à une personne qui n’a pas le droit de les recevoir.
+
+    **Pour toute question et pour exercer vos droits**, vous pouvez **directement contacter Hostolab** en envoyant un email à l’adresse suivante : [privacy@covidliste.com](mailto:privacy@covidliste.com).
+
+    Au besoin, vous pouvez **introduire une réclamation auprès la Commission Nationale Informatique et Libertés (CNIL)** *via* son [site internet](https://www.cnil.fr/fr/plaintes) ou par courrier : 3, place de Fontenoy - TSA 80715 - 75334 PARIS CEDEX 07. Ce droit peut être exercé à tout moment gratuitement, mis à part les frais du courrier le cas échéant, et les frais éventuels d’assistance ou de représentation si vous choisissez de vous faire aider dans cette procédure par un tiers.
+
+    ## 8. MISE À JOUR DE LA PRÉSENTE POLITIQUE DE PROTECTION DES DONNÉES PERSONNELLES
+
+    La politique de protection des données personnelles est datée de manière précise et pourra être modifiée et mise à jour par Hostolab à tout moment, notamment en cas d’évolution des services proposés sur le Site ou de la réglementation applicable. Par conséquent, nous vous recommandons de consulter la présente politique à chaque nouvel accès au Site.
+
+- slug: cookies
+  body_md_erb: |
+    # POLITIQUE DE GESTION DES COOKIES
+
+    Dernière mise à jour : 17 avril 2021
+
+    L’association Hostolab (ci-après « **Hostolab** » ou « **nous** ») estime qu’il est important de vous informer de manière claire et transparente sur l’utilisation des cookies et autres traceurs présents sur le site internet www.covidliste.com (ci-après le « **Site** ») préalablement à votre navigation sur celui-ci. 
+
+    ## 1. QU’EST-CE QU’UN COOKIE ?
+
+    Les cookies et autres traceurs (ci-après « Cookies ») sont des technologies qui stockent ou récupèrent des informations relatives à votre navigateur ou votre terminal (ordinateur, téléphone mobile, tablette, etc.). 
+
+    Ils peuvent être déposés et/ou lus, par exemple lors de la consultation d'un site internet, d’une application mobile, ou encore de l'installation ou de l'utilisation d'un logiciel et ce, quel que soit le type de terminal utilisé. 
+
+    Les Cookies ne permettent pas de vous identifier nominativement, mais seulement d’identifier le terminal utilisé. 
+
+    **Pour toute question, vous pouvez vous adresser directement à Hostolab** en envoyant un email à l’adresse suivante : [privacy@covidliste.com](mailto:privacy@covidliste.com).
+
+    ## 2. QUELS SONT LES COOKIES UTILISÉS SUR LE SITE ? 
+    Le tableau ci-dessous détaille les Cookies présents sur le Site. Seuls des Cookies techniques sont présents sur le Site. Ce tableau est régulièrement mis à jour.
+
+    > **Cookies techniques**
+    > 
+    > Les Cookies techniques sont nécessaires au bon fonctionnement du Site. Vous pouvez désactiver ces Cookies en paramétrant votre navigateur comme indiqué à l’article 4 de la présente politique, au risque cependant de ne plus être en mesure de bénéficier de toutes les fonctionnalités du Site.
+
+    Nous utilisons les Cookies techniques suivants :
+
+    | Nom | Opérateur | Finalité | Durée | Type |
+    | :-- | :-- | :-- | :--: | :--: |
+    | `_covidliste_session` | `www.covidliste.com` | identifiant unique pour les interactions client/serveur | Session | Cookie	|
+
+    ## 3. COMMENT CONFIGURER VOTRE NAVIGATEUR POUR REFUSER LE DÉPÔT DES COOKIES ?
+
+    La plupart des navigateurs acceptent le dépôt des Cookies par défaut. Toutefois, vous pouvez configurer votre navigateur de manière à ce que les Cookies ne puissent pas être déposés sur votre terminal.  
+
+    Vous pouvez également configurer votre navigateur pour être notifié à chaque demande de placement de Cookies, refuser tous les Cookies ou n’autoriser le placement que de certaines catégories de Cookies. Si vous refusez les Cookies, vous pouvez toujours utiliser le Site, au risque cependant de ne plus être en mesure de bénéficier de toutes les fonctionnalités du Site.
+
+    Selon le navigateur que vous utilisez, vous devez suivre les instructions disponibles sur les sites listés ci-dessous :
+
+    - [Navigateur Safari](https://support.apple.com/fr-fr/guide/safari/sfri11471/12.0/mac/10.14)
+    - [Navigateur Google Chrome](https://support.google.com/chrome/answer/95647?co=GENIE.Platform%3DDesktop&hl=fr&oco=1)
+    - [Navigateur Microsoft Edge](https://support.microsoft.com/fr-fr/help/4468242/microsoft-edge-browsing-data-and-privacy)
+    - [Navigateur Internet Explorer](https://support.microsoft.com/fr-fr/help/17442/windows-internet-explorer-delete-manage-cookies)
+    - [Navigateur Firefox](https://support.mozilla.org/fr/kb/cookies-informations-sites-enregistrent#w_parametres-des-cookies)
