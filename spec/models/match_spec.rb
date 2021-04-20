@@ -3,9 +3,9 @@
 require "rails_helper"
 
 RSpec.describe Match, type: :model do
-  let(:campaign) { create(:campaign) }
-  let(:campaign_batch) { create(:campaign_batch) }
-  let(:match) { create(:match, campaign_batch: campaign_batch, campaign: campaign) }
+  let!(:campaign) { create(:campaign) }
+  let!(:campaign_batch) { create(:campaign_batch) }
+  let!(:match) { create(:match, campaign_batch: campaign_batch, campaign: campaign) }
   let(:confirmed_match) { create(:match, :confirmed, campaign_batch: campaign_batch) }
   let(:now_utc) { Time.now.utc }
   let(:now) { double }

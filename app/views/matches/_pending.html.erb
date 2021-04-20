@@ -50,10 +50,12 @@
     </p>
   </div>
   <div class="col-12 mb-2">
-    <button class="btn btn-primary" type="submit">Je suis disponible</button>
-  </div>
-  <div class="btn btn-warning m-2">
-    <%= link_to 'Refuser le RDV', match_path(match_confirmation_token: @match.match_confirmation_token), method: :delete, class: 'btn btn-warning btn-block' %>
+    <div class="row">
+      <div class="col">
+        <button class="btn btn-primary mr-5" type="submit">Je suis disponible</button>
+        <%= link_to 'Refuser le RDV', match_path(match_confirmation_token: @match.match_confirmation_token), method: :delete, class: 'btn btn-danger ml-5', "data-confirm": "Souhaitez-vous vraiment refuser ce RDV ?" %>
+      </div>
+    </div>
   </div>
 </form>
 
