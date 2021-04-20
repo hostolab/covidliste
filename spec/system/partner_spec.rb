@@ -1,5 +1,9 @@
 require "rails_helper"
 
+def robust_password
+  "1G09_!9s08vUsa"
+end
+
 def display_partner_signup
   visit partenaires_inscription_path
   expect(page).to have_selector(:id, "health-professionnal")
@@ -11,7 +15,7 @@ def fill_valid_partner
   fill_in :partner_name, with: Faker::Name.last_name
   fill_in :partner_phone_number, with: generate(:french_phone_number)
   fill_in :partner_email, with: "hello+#{(rand * 10000).to_i}@covidliste.com" # needs valid email here
-  fill_in :partner_password, with: Faker::Internet.password
+  fill_in :partner_password, with: robust_password
   check :partner_statement
 end
 
@@ -47,6 +51,7 @@ RSpec.describe "Partners", type: :system do
           fill_valid_partner
           click_on "create-new-partner"
         end
+      end.to change { Partner.count }.by(1)
 
       partner = Partner.last
       expect(partner.statement_accepted_at).not_to be_nil
