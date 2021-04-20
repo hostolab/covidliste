@@ -21,7 +21,7 @@
         </small>
         <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
           <%= f.hidden_field :reset_password_token %>
-          <%= f.input :password, autofocus: true, required: true, id: "inputPassword", autocomplete: "off", input_html: { data: { target: "password.password", action: "input->password#check"} } %>
+          <%= f.input :password, autofocus: true, required: true, id: "inputPassword", autocomplete: "off", input_html: { data: { password_target: "password", action: "input->password#check"} } %>
           <%= f.input :password_confirmation, autofocus: true, required: true, id: "inputPasswordConfirmation", autocomplete: "off" %>
           <%= f.submit "C’est parti !", class: "btn btn-primary" %>
         <% end %>
