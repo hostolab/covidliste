@@ -101,6 +101,7 @@ ActiveRecord::Schema.define(version: 2021_04_19_230614) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "max_age"
     t.integer "status", default: 0
+    t.datetime "canceled_at"
     t.index ["partner_id"], name: "index_campaigns_on_partner_id"
     t.index ["status"], name: "index_campaigns_on_status"
     t.index ["vaccination_center_id"], name: "index_campaigns_on_vaccination_center_id"
@@ -204,10 +205,10 @@ ActiveRecord::Schema.define(version: 2021_04_19_230614) do
     t.string "city"
     t.string "geo_citycode"
     t.string "geo_context"
-    t.datetime "anonymized_at"
     t.boolean "statement", default: false
     t.datetime "statement_accepted_at"
     t.datetime "toc_accepted_at"
+    t.datetime "anonymized_at"
     t.index ["city"], name: "index_users_on_city"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token"
     t.index ["email_bidx"], name: "index_users_on_email_bidx", unique: true

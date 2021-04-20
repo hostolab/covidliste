@@ -7,7 +7,8 @@ class User < ApplicationRecord
     :recoverable,
     :rememberable,
     :validatable,
-    :confirmable
+    :confirmable,
+    :zxcvbnable
 
   has_many :matches, dependent: :nullify
 
@@ -45,6 +46,7 @@ class User < ApplicationRecord
   scope :between_age, ->(min, max) { where("birthdate between ? and ?", max.years.ago, min.years.ago) }
   scope :with_roles, -> { joins(:roles) }
 
+  PASSWORD_HINT = "#{Devise.password_length.min} caractères minimum. Idéalement plus long en mélangeant des minuscules, des majuscules et des chiffres."
   LATLNG_DECIMALS = 3
 
   def approximate_coords
@@ -112,8 +114,7 @@ class User < ApplicationRecord
 
   protected
 
-  # Devise override
-  def password_required?
-    confirmed? ? super : false
+  def skip_password_complexity?
+    true unless encrypted_password_changed?
   end
 end
