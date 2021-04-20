@@ -80,7 +80,7 @@
                   </div>
 
                   <small class="form-text text-muted"> 
-                    <%= "#{User::PASSWORD_HINT}" %>
+                    <%= User::PASSWORD_HINT.to_s %>
                     <br/>
                     <%= content_tag :span, "", data: { password_target: "passwordCheck" }, class: "d-inline-block" %>
                   </small>
