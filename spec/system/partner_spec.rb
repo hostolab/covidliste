@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.describe "Partners", type: :system do
   context "sign up" do
     let(:partner) { build(:partner) }
+
     it "can sign up" do
       expect do
         visit partenaires_inscription_path
@@ -17,6 +18,7 @@ RSpec.describe "Partners", type: :system do
           fill_in :partner_phone_number, with: generate(:french_phone_number)
           fill_in :partner_email, with: "hello+#{(rand * 10000).to_i}@covidliste.com" # needs valid email here
           fill_in :partner_password, with: Faker::Internet.password
+          check :partner_statement
           click_on "create-new-partner"
         end
       end.to change { Partner.count }.by(1)
