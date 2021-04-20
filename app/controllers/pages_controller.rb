@@ -21,10 +21,14 @@ class PagesController < ApplicationController
   end
 
   def faq
-    @search_term = params.permit(:search)[:search]
-    @faq_items = FaqItem.search(@search_term)
-    @faq_items_count = @faq_items.count
-    @faq_items = FaqItem.all if @search_term.present? && @faq_items_count == 0
+    respond_to do |format|
+      format.html do
+        @faq_items = Rails.cache.fetch("faq_items", expires_in: 2.hours) { FaqItem.all }
+      end
+      format.json do
+        render json: Rails.cache.fetch("faq_items_json", expires_in: 2.hours) { FaqItem.all.to_json }
+      end
+    end
   end
 
   def robots

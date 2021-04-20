@@ -9,27 +9,17 @@
     Vous trouverez sur cette page un ensemble de réponses aux questions les plus posées, regroupées par thème.
   </p>
 
-  <%= form_tag(faq_path, method: "get") do %>
-    <%= search_field_tag :search, params[:search], placeholder: "Saisissez un mot-clé pour trouver votre réponse", class: 'form-control string required' %>
+  <div id="fuzzy-search" data-fuzzy-search-source="<%= faq_path(format: :json) %>" data-fuzzy-search-input="#search" data-fuzzy-search-none="#no-results" data-fuzzy-search-item-category=".faq-category" data-fuzzy-search-item=".faq-item" data-fuzzy-search-item-title=".faq-item--title">
+    <%= search_field_tag :search, params[:search], placeholder: "Saisissez un mot-clé pour trouver votre réponse", class: 'form-control string required', autocomplete: "off" %>
     <small class="form-text text-muted my-1">liste d’attente, type de vaccin, données personnelles</small>
-    <div class="d-flex align-items-center">
-      <%= submit_tag 'Rechercher', name: nil, class: "btn btn-dark", data: { disable_with: 'Recherche en cours...' } %>
-      <% if @search_term.present? %>
-        <%= link_to "Annuler", faq_path, class: 'btn btn-link ml-1' %>
+    <div id="no-results" class="d-none alert alert-warning mt-2">Nous n’avons pas trouvé de réponse avec ces mots clefs, néanmois la réponse peut se trouver ci-dessous.</div>
+    <div id="accordion" class="d-flex flex-column">
+      <% @faq_items.group_by(&:category).each do |category, faq_items| %>
+        <h2 class="mt-4 mb-3 h4"><%= category %></h2>
+        <% faq_items.each do |faq_item| %>
+          <%= render "faq_entry", faq_item: faq_item %>
+        <% end %>
       <% end %>
     </div>
-  <% end %>
-
-  <% if @search_term.present? && @faq_items_count == 0 %>
-    <div class="alert alert-warning mt-2">Nous n’avons pas trouvé de réponse avec ces mots clefs, néanmois la réponse peut se trouver ci-dessous.</div>
-  <% end %>
-
-  <div id="accordion" role="tablist">
-    <% @faq_items.group_by(&:category).each do |category, faq_items| %>
-      <h2 class="mt-4 mb-3 h4" role="tab"><%= category %></h2>
-      <% faq_items.each do |faq_item| %>
-        <%= render "faq_entry", faq_item: faq_item %>
-      <% end %>
-    <% end %>
   </div>
 </div>

@@ -15,14 +15,6 @@ class FaqItem < FrozenRecord::Base
     end
   end
 
-  def self.search(search_term)
-    if search_term
-      FaqItem.all.select { |faq_item| faq_item.body_md_erb.include?(search_term) }
-    else
-      FaqItem.all
-    end
-  end
-
   private
 
   def controller

@@ -20,6 +20,7 @@ import { placesAutocomplete } from "../plugins/places_autocomplete";
 import { leafletMap } from "../plugins/leaflet_map";
 import { userMap } from "../plugins/user_map";
 import { togglePasswordVisibility } from "../components/toggle_password_visibility";
+
 document.addEventListener("turbolinks:load", () => {
   const appId = process.env.PLACES_APP_ID;
   const apiKey = process.env.PLACES_API_KEY;
@@ -28,4 +29,9 @@ document.addEventListener("turbolinks:load", () => {
   userMap();
   togglePasswordVisibility();
   $('[data-toggle="tooltip"]').tooltip();
+
+  // webpack will load this JS async
+  if (document.getElementById("fuzzy-search")) {
+    import("../plugins/fuzzy_search")
+  }
 });

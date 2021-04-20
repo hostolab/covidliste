@@ -1,22 +1,22 @@
-<div class="card mt-1">
+<div class="card mt-1 faq-item">
   <div class="card-header py-1">
     <h3 class="mb-0">
-      <button class="btn btn-link collapsed"
+      <button class="btn btn-link collapsed faq-item--title"
               data-toggle="collapse"
               data-target="#<%= faq_item.id %>"
-              aria-expanded="<%= @search_term.present? && @faq_items_count > 0 ? 'true' : 'false' %>"
+              aria-expanded="false"
               aria-controls="<%= faq_item.id %>">
-        <%= highlight faq_item.title, @search_term %>
+        <%= faq_item.title %>
       </button>
     </h3>
   </div>
 
   <div id="<%= faq_item.id %>"
-       class="<%= class_names("collapse", show: @search_term.present? && @faq_items_count > 0) %>"
+       class="collapse"
        aria-labelledby="<%= faq_item.id %>"
        data-parent="#accordion">
     <div class="card-body">
-      <%= highlight faq_item.body, @search_term %>
+      <%= faq_item.body %>
     </div>
   </div>
 </div>

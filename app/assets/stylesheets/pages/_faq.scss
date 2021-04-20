@@ -1,4 +1,12 @@
 #faq {
+  #fuzzy-search {
+    &.search-done {
+      h2 {
+        display: none !important;
+      }
+    }
+  }
+
   h3 button {
     padding-left: 0;
     width: 100%;
