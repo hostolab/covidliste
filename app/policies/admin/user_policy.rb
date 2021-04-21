@@ -1,19 +1,19 @@
-class Admin::UserPolicy < ApplicationPolicy
-  class Scope < Scope
-    def resolve
-      if user.admin?
+module Admin
+  class Admin::UserPolicy < ApplicationPolicy
+    class Scope < Scope
+      def resolve
+        raise Pundit::NotAuthorizedError unless user.admin?
+
         scope.all
-      else
-        raise Pundit::NotAuthorizedError
       end
     end
-  end
 
-  def resend_confirmation?
-    user.admin?
-  end
+    def resend_confirmation?
+      user.admin?
+    end
 
-  def destroy?
-    user.super_admin?
+    def destroy?
+      user.super_admin?
+    end
   end
 end
