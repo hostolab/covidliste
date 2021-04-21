@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_16_120347) do
+ActiveRecord::Schema.define(version: 2021_04_19_230614) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -101,6 +101,7 @@ ActiveRecord::Schema.define(version: 2021_04_16_120347) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "max_age"
     t.integer "status", default: 0
+    t.datetime "canceled_at"
     t.index ["partner_id"], name: "index_campaigns_on_partner_id"
     t.index ["status"], name: "index_campaigns_on_status"
     t.index ["vaccination_center_id"], name: "index_campaigns_on_vaccination_center_id"
@@ -130,7 +131,6 @@ ActiveRecord::Schema.define(version: 2021_04_16_120347) do
     t.string "city"
     t.string "geo_citycode"
     t.string "geo_context"
-    t.boolean "refused", default: false
     t.datetime "refused_at"
     t.index ["campaign_batch_id"], name: "index_matches_on_campaign_batch_id"
     t.index ["campaign_id"], name: "index_matches_on_campaign_id"
@@ -163,6 +163,8 @@ ActiveRecord::Schema.define(version: 2021_04_16_120347) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string "email_bidx"
+    t.boolean "statement", default: false
+    t.datetime "statement_accepted_at"
     t.index ["confirmation_token"], name: "index_partners_on_confirmation_token", unique: true
     t.index ["email_bidx"], name: "index_partners_on_email_bidx", unique: true
     t.index ["email_ciphertext"], name: "index_partners_on_email_ciphertext", unique: true
@@ -205,6 +207,8 @@ ActiveRecord::Schema.define(version: 2021_04_16_120347) do
     t.string "geo_context"
     t.datetime "anonymized_at"
     t.boolean "statement", default: false
+    t.datetime "statement_accepted_at"
+    t.datetime "toc_accepted_at"
     t.index ["city"], name: "index_users_on_city"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token"
     t.index ["email_bidx"], name: "index_users_on_email_bidx", unique: true

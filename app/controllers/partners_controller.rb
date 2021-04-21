@@ -11,6 +11,7 @@ class PartnersController < ApplicationController
   def create
     @partner = Partner.new(partner_params)
     authorize @partner
+    @partner.statement_accepted_at = Time.zone.now if @partner.statement
     # @partner.password = Devise.friendly_token.first(12)
     # @partner.skip_confirmation! if ENV["SKIP_EMAIL_CONFIRMATION"] == 'true'
     @partner.save
@@ -20,7 +21,7 @@ class PartnersController < ApplicationController
   private
 
   def partner_params
-    params.require(:partner).permit(:name, :email, :password, :phone_number)
+    params.require(:partner).permit(:name, :email, :password, :phone_number, :statement)
   end
 
   def vaccination_center_params

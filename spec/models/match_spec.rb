@@ -3,9 +3,9 @@
 require "rails_helper"
 
 RSpec.describe Match, type: :model do
-  let(:campaign) { create(:campaign) }
-  let(:campaign_batch) { create(:campaign_batch) }
-  let(:match) { create(:match, campaign_batch: campaign_batch, campaign: campaign) }
+  let!(:campaign) { create(:campaign) }
+  let!(:campaign_batch) { create(:campaign_batch) }
+  let!(:match) { create(:match, campaign_batch: campaign_batch, campaign: campaign) }
   let(:confirmed_match) { create(:match, :confirmed, campaign_batch: campaign_batch) }
   let(:now_utc) { Time.now.utc }
   let(:now) { double }
@@ -25,6 +25,16 @@ RSpec.describe Match, type: :model do
       expect(match.city).to eq "Paris"
       expect(match.geo_citycode).to eq "75001"
       expect(match.geo_context).to eq "GEO_CONTEXT"
+    end
+
+    context "user has already a recent match" do
+      let(:user) { create(:user) }
+      before do
+        create(:match, user: user)
+      end
+      it "should not create a second match" do
+        expect { create(:match, user: user) }.to raise_error(ActiveRecord::RecordInvalid, "La validation a échoué : Cette personne a déjà été matchée récemment")
+      end
     end
   end
 

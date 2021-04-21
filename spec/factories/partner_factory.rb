@@ -4,6 +4,7 @@ FactoryBot.define do
     name { generate(:name) }
     phone_number { "0606060606" }
     password { generate(:password) }
+    statement { true }
 
     confirmed_at { Time.zone.now }
   end

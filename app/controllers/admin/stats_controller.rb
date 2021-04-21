@@ -1,5 +1,7 @@
 module Admin
   class StatsController < BaseController
+    before_action -> { authorize(:stats) }
+
     def stats
       @age_bin = 10
       @lat = params[:lat]
