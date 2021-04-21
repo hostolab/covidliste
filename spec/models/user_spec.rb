@@ -44,7 +44,7 @@ RSpec.describe User, type: :model do
         it "is invalid" do
           new_user = build(:user, address: "21 Rue Bergère")
           expect(new_user).not_to be_valid
-          expect(new_user.errors[:address]).to include("doit être composé d’un code postale")
+          expect(new_user.errors[:address]).to include(I18n.t("errors.messages.missing_zipcode"))
         end
       end
     end

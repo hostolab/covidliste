@@ -28,7 +28,7 @@ RSpec.describe VaccinationCenter, type: :model do
         it "is invalid" do
           new_vaccination_center = build(:vaccination_center, address: "21 Rue Bergère")
           expect(new_vaccination_center).not_to be_valid
-          expect(new_vaccination_center.errors[:address]).to include("doit être composé d’un code postale")
+          expect(new_vaccination_center.errors[:address]).to include(I18n.t("errors.messages.missing_zipcode"))
         end
       end
     end

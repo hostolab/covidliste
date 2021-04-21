@@ -146,6 +146,7 @@ fr:
   errors:
     format: "%{attribute} %{message}"
     messages:
+      missing_zipcode: doit comporter un code postal
       accepted: doit être accepté(e)
       blank: doit être rempli(e)
       confirmation: ne concorde pas avec %{attribute}
