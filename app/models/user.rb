@@ -24,7 +24,6 @@ class User < ApplicationRecord
   validates :password, presence: true, on: :create
   validates :firstname, presence: true
   validates :lastname, presence: true
-  validates :address, presence: true
   validates :birthdate, presence: true
   validates :toc, presence: true, acceptance: true
   validates :statement, presence: true, acceptance: true, unless: proc { |u| u.reset_password_token.present? }
@@ -39,7 +38,7 @@ class User < ApplicationRecord
     },
     if: :email_changed?
 
-  after_commit :geocode_address, if: -> { saved_change_to_address? && anonymized_at.nil? }
+  after_commit :reverse_geocode_address, if: -> { (saved_change_to_lat? || saved_change_to_lon?) && anonymized_at.nil? }
   before_save :approximate_coords
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
@@ -56,7 +55,13 @@ class User < ApplicationRecord
     self.lon = lon.round(LATLNG_DECIMALS)
   end
 
-  def geocode_address
+  def reverse_geocode
+    ReverseGeocodeResourceJob.perform_later(self)
+  end
+
+  def geocode
+    # fallback in case lat and lon are missing
+    return if lat.present? && lon.present?
     GeocodeResourceJob.perform_later(self)
   end
 

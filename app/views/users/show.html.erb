@@ -38,6 +38,8 @@
         </div>
 
         <%= f.input :address, label: "Adresse", error: "Adresse requise", placeholder: "5 rue larue, 13600 Marseille" %>
+        <%= f.input_field :lat, as: :hidden %>
+        <%= f.input_field :lon, as: :hidden %>
         <%= f.input :email, disabled: true, label: "Email", error: f.error(:email), placeholder: "jean@dupont.com" %>
         <%= f.input :phone_number, label: "Numéro de téléphone", error: "", placeholder: "06 06 06 06 06" %>
         <%= f.input :statement, as: :boolean, label: "Je certifie sur l'honneur que les informations communiquées ci-dessus sont exactes.", error: "Vous devez cocher cette case pour modifier vos informations.", checked_value: true, unchecked_value: false, required: true %>
