@@ -1,4 +1,4 @@
-class GeocodeResourceJob < ApplicationJob
+class ReverseGeocodeResourceJob < ApplicationJob
   queue_as :low
 
   def perform(resource)

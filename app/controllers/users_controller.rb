@@ -42,6 +42,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    @user.ensure_lat_lon(params[:user][:address]) # fallback in case lat/lon are not returning from client
     authorize @user
     @user.save
     prepare_phone_number
@@ -73,7 +74,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:firstname, :lastname, :email, :phone_number, :toc, :lat, :lon, :address, :birthdate, :password, :statement)
+    params.require(:user).permit(:firstname, :lastname, :email, :phone_number, :toc, :lat, :lon, :birthdate, :password, :statement)
   end
 
   def sign_out_if_anonymized!

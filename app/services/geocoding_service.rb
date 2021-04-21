@@ -14,6 +14,8 @@ class GeocodingService
 
     coordinates = first_result.dig("geometry", "coordinates")
     {
+      lat: coordinates.second,
+      lon: coordinates.first,
       zipcode: first_result.dig("properties", "postcode"),
       city: first_result.dig("properties", "city"),
       geo_citycode: first_result.dig("properties", "citycode"),
