@@ -19,10 +19,8 @@ class PostalAddressValidator < ActiveModel::EachValidator
   end
 
   def validate_each(record, attribute, value)
-    unless @with_zipcode.nil?
-      unless value.match?(REGEX_ZIPCODE)
-        record.errors.add(attribute, (options[:message] || I18n.t("errors.messages.missing_zipcode")))
-      end
+    unless @with_zipcode.nil? || value.match?(REGEX_ZIPCODE)
+      record.errors.add(attribute, (options[:message] || I18n.t("errors.messages.missing_zipcode")))
     end
   end
 end
