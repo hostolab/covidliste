@@ -17,6 +17,21 @@ RSpec.describe VaccinationCenter, type: :model do
         end
       end
     end
+
+    context "when it has incomplete address without zipcode" do
+      context "on persistent context" do
+        it "is valid" do
+          expect(vaccination_center).to be_valid
+        end
+      end
+      context "on new context" do
+        it "is invalid" do
+          new_vaccination_center = build(:vaccination_center, address: "21 Rue Bergère")
+          expect(new_vaccination_center).not_to be_valid
+          expect(new_vaccination_center.errors[:address]).to include("doit être composé d’un code postale")
+        end
+      end
+    end
   end
 
   describe "#reachable_users_query" do

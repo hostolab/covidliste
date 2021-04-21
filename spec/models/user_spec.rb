@@ -32,6 +32,22 @@ RSpec.describe User, type: :model do
       user.email = nil
       expect(user).to_not be_valid
     end
+
+    context "when he has incomplete address without zipcode" do
+      context "on persistent context" do
+        it "is valid" do
+          user.address = generate(:french_address)
+          expect(user).to be_valid
+        end
+      end
+      context "on new context" do
+        it "is invalid" do
+          new_user = build(:user, address: "21 Rue Bergère")
+          expect(new_user).not_to be_valid
+          expect(new_user.errors[:address]).to include("doit être composé d’un code postale")
+        end
+      end
+    end
   end
 
   describe "Email format" do

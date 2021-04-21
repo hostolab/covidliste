@@ -17,6 +17,7 @@ class VaccinationCenter < ApplicationRecord
   validates :name, :address, :phone_number, presence: true
   validates :lat, :lon, presence: true, on: :validation_by_admin
   validates :kind, inclusion: {in: VaccinationCenter::Kinds::ALL}
+  validates :address, format: { with: /(?:[0-8]\d|9[0-8])\d{3}/, message: "doit être composé d’un code postale"}, on: :create
 
   has_many :partner_vaccination_centers
   has_many :partners, through: :partner_vaccination_centers
