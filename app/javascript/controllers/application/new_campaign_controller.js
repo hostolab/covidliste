@@ -54,6 +54,18 @@ export default class extends Controller {
       return;
     }
 
+    const form = document.getElementById("new_campaign");
+    if (
+      form.checkValidity &&
+      !form.checkValidity() &&
+      form.reportValidity &&
+      form.reportValidity() === false
+    ) {
+      this.simulationResultTarget.innerHTML =
+        "Simulation impossible, certaines valeurs du formulaire sont incorrectes.";
+      return;
+    }
+
     fetch(this.simulatePathValue, {
       method: "POST",
       credentials: "same-origin",
