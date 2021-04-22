@@ -20,9 +20,9 @@ def fill_valid_partner
 end
 
 RSpec.describe "Partners", type: :system do
-  context "sign up" do
-    let(:partner) { build(:partner) }
+  let(:partner) { build(:partner) }
 
+  context "sign up" do
     it "can sign up" do
       expect do
         display_partner_signup
@@ -85,6 +85,63 @@ RSpec.describe "Partners", type: :system do
 
         expect(page).to have_current_path(new_partner_session_path)
       end
+    end
+  end
+
+  context "profile logged-in" do
+    before do
+      partner.save!
+
+      visit new_partner_session_path
+      fill_in :partner_email, with: partner.email
+      fill_in :partner_password, with: partner.password
+      click_on "Connexion"
+
+      expect(page).to have_text("Connecté(e).")
+
+      visit partners_path
+    end
+
+    it "it allows me to edit personal information " do
+      new_attributes = {
+        name: Faker::Name.name,
+        phone_number: generate(:french_phone_number)
+      }
+
+      new_attributes.each do |key, new_value|
+        fill_in "partner_#{key}", with: new_value
+      end
+
+      click_on "Je modifie mes informations"
+      expect(page).to have_text("Modifications enregistrées.")
+
+      partner.reload
+
+      new_attributes.each do |key, value|
+        if key == :phone_number
+          expect(partner.phone_number).to end_with(new_attributes[:phone_number][1..].delete(" "))
+        else
+          expect(partner.public_send(key)).to eq value
+        end
+      end
+    end
+
+    it "it allows me to delete my account" do
+      expect do
+        accept_confirm_modal do
+          click_on "Supprimer mon compte"
+        end
+      end.to change { Partner.count }.by(-1)
+
+      expect(page).to have_text("Votre compte a bien été supprimé.")
+    end
+
+    it "it allows me to decline the delete" do
+      expect do
+        decline_confirm_modal do
+          click_on "Supprimer mon compte"
+        end
+      end.to change { Partner.count }.by(0)
     end
   end
 end
