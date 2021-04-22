@@ -17,7 +17,7 @@ class PartnerPolicy < ApplicationPolicy
     user.confirmed? && user == record
   end
 
-  def delete?
-    user.confirmed? && user == record
+  def destroy?
+    user == record
   end
 end

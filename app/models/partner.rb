@@ -42,4 +42,12 @@ class Partner < ApplicationRecord
   def skip_password_complexity?
     !encrypted_password_changed?
   end
+
+  def to_csv
+    columns = %w[created_at updated_at email name phone_number]
+    CSV.generate(headers: true) do |csv|
+      csv << columns
+      csv << columns.map { |column| public_send(column) }
+    end
+  end
 end
