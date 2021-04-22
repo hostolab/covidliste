@@ -24,8 +24,6 @@ class User < ApplicationRecord
   geocoded_by :address, latitude: :lat, longitude: :lon
 
   validates :password, presence: true, on: :create
-  validates :firstname, presence: true
-  validates :lastname, presence: true
   validates :lat, presence: true, unless: proc { |u| u.persisted? }
   validates :lon, presence: true, unless: proc { |u| u.persisted? }
   validates :birthdate, presence: true

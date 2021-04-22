@@ -10,12 +10,12 @@ RSpec.describe User, type: :model do
 
     it "is invalid without a first_name" do
       user.firstname = nil
-      expect(user).to_not be_valid
+      expect(user).to be_valid
     end
 
     it "is invalid without a last_name" do
       user.lastname = nil
-      expect(user).to_not be_valid
+      expect(user).to be_valid
     end
 
     it "is invalid without lat or lon" do
