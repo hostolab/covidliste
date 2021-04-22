@@ -34,5 +34,8 @@ FactoryBot.define do
         user.add_role(:super_admin)
       end
     end
+
+    after(:build) { |u| u.skip_confirmation! }
+    after(:create) { |u| u.confirm }
   end
 end

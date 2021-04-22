@@ -17,5 +17,9 @@ FactoryBot.define do
       lat { "45.75620064462772" }
       lon { "4.8319385046869945" }
     end
+
+    trait :confirmed do
+      confirmed_at { Time.zone.now }
+    end
   end
 end
