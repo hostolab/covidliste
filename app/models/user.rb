@@ -22,8 +22,6 @@ class User < ApplicationRecord
   blind_index :email
 
   validates :password, presence: true, on: :create
-  validates :firstname, presence: true
-  validates :lastname, presence: true
   validates :lat, presence: true, unless: proc { |u| u.persisted? }
   validates :lon, presence: true, unless: proc { |u| u.persisted? }
   validates :birthdate, presence: true
@@ -68,7 +66,23 @@ class User < ApplicationRecord
   end
 
   def full_name
-    anonymized_at.nil? ? "#{firstname} #{lastname}" : "Anonymous"
+    if anonymized_at.nil?
+      "#{firstname} #{lastname}"
+    else
+      "Anonymous"
+    end
+  end
+
+  def to_s
+    if anonymized_at.nil?
+      if missing_identity?
+        email
+      else
+        full_name
+      end
+    else
+      "Anonymous"
+    end
   end
 
   def age
@@ -78,6 +92,10 @@ class User < ApplicationRecord
 
   def confirmed?
     confirmed_at.present?
+  end
+
+  def missing_identity?
+    firstname.blank? || lastname.blank?
   end
 
   def super_admin?

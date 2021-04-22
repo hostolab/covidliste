@@ -35,6 +35,10 @@ class Partner < ApplicationRecord
     name
   end
 
+  def to_s
+    full_name
+  end
+
   def skip_password_complexity?
     !encrypted_password_changed?
   end

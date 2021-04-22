@@ -76,7 +76,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:firstname, :lastname, :email, :phone_number, :toc, :lat, :lon, :birthdate, :password, :statement)
+    params.require(:user).permit(:email, :phone_number, :toc, :lat, :lon, :birthdate, :password, :statement)
   end
 
   def sign_out_if_anonymized!

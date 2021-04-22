@@ -19,6 +19,25 @@ RSpec.describe MatchesController, type: :system do
         expect(page).to have_text("Une dose est disponible")
         expect(page).to have_text("Je suis disponible")
         expect(page).to have_text(center.address)
+        expect(page).to have_field("firstname", with: user.firstname)
+        expect(page).to have_field("lastname", with: user.lastname)
+
+        fill_in :firstname, with: user.firstname
+        fill_in :lastname, with: ""
+        click_on("Je suis disponible")
+        expect(page).to have_text("Vous devez renseigner votre identité")
+
+        fill_in :firstname, with: ""
+        fill_in :lastname, with: user.lastname
+        click_on("Je suis disponible")
+        expect(page).to have_text("Vous devez renseigner votre identité")
+
+        fill_in :firstname, with: user.firstname
+        fill_in :lastname, with: user.lastname
+        click_on("Je suis disponible")
+        expect(page).not_to have_text("Vous devez renseigner votre identité")
+        expect(page).to have_text("Votre disponibilité est confirmée")
+        expect(page).to have_text(center.address)
       end
     end
 
@@ -85,6 +104,8 @@ RSpec.describe MatchesController, type: :system do
         # while I'm browsing the match show page
         create(:match, :confirmed, campaign: campaign)
 
+        fill_in :firstname, with: generate(:firstname)
+        fill_in :lastname, with: generate(:lastname)
         click_on("Je suis disponible")
         expect(page).to have_text("La dose n'est plus disponible 😢")
       end
