@@ -22,7 +22,7 @@
       <label class="form-check-label w-75" for="firstname">
         Prénom
       </label>
-      <input class="form-control" placeholder="Jean" type="text" value="" name="firstname" id="firstname" autocomplete="given-name" required>
+      <input class="form-control" placeholder="Jean" type="text" value="<%= user.firstname %>" name="firstname" id="firstname" autocomplete="given-name" required>
       <div class="invalid-feedback w-100">
         Vous devez renseigner votre prénom.
       </div>
@@ -33,7 +33,7 @@
       <label class="form-check-label w-75" for="lastname">
         Nom
       </label>
-      <input class="form-control" placeholder="Dupont" type="text" value="" name="lastname" id="lastname" autocomplete="family-name" required>
+      <input class="form-control" placeholder="Dupont" type="text" value="<%= user.lastname %>" name="lastname" id="lastname" autocomplete="family-name" required>
       <div class="invalid-feedback w-100">
         Vous devez renseigner votre nom.
       </div>
