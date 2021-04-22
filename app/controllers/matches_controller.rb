@@ -7,7 +7,7 @@ class MatchesController < ApplicationController
   end
 
   def destroy
-    @match.refuse!
+    @match.refuse!(params[:s])
     redirect_back(fallback_location: root_path)
   end
 
@@ -17,7 +17,7 @@ class MatchesController < ApplicationController
       firstname: form_match_params[:firstname],
       lastname: form_match_params[:lastname]
     )
-    @match.confirm!
+    @match.confirm!(params[:s])
   rescue Match::AlreadyConfirmedError, Match::DoseOverbookingError, Match::MissingNamesError, ActiveRecord::RecordInvalid => e
     flash.now[:error] = e.message
   ensure

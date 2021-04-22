@@ -10,7 +10,7 @@ RSpec.describe MatchesController, type: :system do
   let!(:match_confirmation_token) { "abcd" }
   let!(:match) { create(:match, campaign_batch: batch, user: user, vaccination_center: center, match_confirmation_token: match_confirmation_token, expires_at: 1.hour.since, campaign: campaign) }
 
-  subject { visit "/matches/#{match_confirmation_token}" }
+  subject { visit match_path(match_confirmation_token) }
 
   describe "GET show" do
     context "with a valid match" do
@@ -64,7 +64,7 @@ RSpec.describe MatchesController, type: :system do
 
     context "with an invalid token" do
       it "redirects to root" do
-        visit "/matches/invalid-token"
+        visit match_path("invalid-token")
         expect(page).to have_current_path(root_path)
       end
     end
@@ -78,7 +78,7 @@ RSpec.describe MatchesController, type: :system do
       end
 
       it "handle the user's disappointment gracefully" do
-        visit "/matches/#{match_confirmation_token}"
+        visit match_path(match_confirmation_token)
 
         expect(page).to have_text("La dose n'est plus disponible 😢")
         expect(page).to have_text("Nous sommes désolés, un autre volontaire a été plus rapide que vous.")
@@ -98,7 +98,7 @@ RSpec.describe MatchesController, type: :system do
       end
 
       it "handle the user's disappointment gracefully" do
-        visit "/matches/#{match_confirmation_token}"
+        visit match_path(match_confirmation_token)
 
         # A volunteer confirms a few seconds before me
         # while I'm browsing the match show page
