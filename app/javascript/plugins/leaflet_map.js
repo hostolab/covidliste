@@ -8,11 +8,15 @@ const leafletMap = () => {
     let lon = leafletMap.getAttribute("data-lon") || 2.3488;
     let address = leafletMap.getAttribute("data-address") || "";
     let icon = leafletMap.getAttribute("data-icon");
+    let maxZoom = leafletMap.getAttribute("data-max-zoom");
     var lmap = L.map(leafletMap).setView([lat, lon], zoom);
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution:
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> & <a href="https://mapicons.mapsmarker.com">Maps Icons Collection</a>',
     }).addTo(lmap);
+    if (maxZoom) {
+      lmap.setMaxZoom(parseInt(maxZoom));
+    }
     if (icon) {
       let centerIcon = new L.icon({
         iconUrl: icon,
@@ -21,8 +25,6 @@ const leafletMap = () => {
         popupAnchor: [0, -37],
       });
       L.marker([lat, lon], { icon: centerIcon }).addTo(lmap).bindPopup(address);
-    } else {
-      L.marker([lat, lon]).addTo(lmap).bindPopup(address);
     }
     let border = leafletMap.getAttribute("data-border");
     if (border) {
@@ -56,6 +58,27 @@ const leafletMap = () => {
         }
       }
     }
+    document
+      .querySelectorAll(".leaflet_fly_btn")
+      .forEach(function (leafletFlyBtn) {
+        let elemLat = leafletFlyBtn.getAttribute("data-lat");
+        let elemLon = leafletFlyBtn.getAttribute("data-lon");
+        let elemZoom = leafletFlyBtn.getAttribute("data-zoom") || zoom;
+        let elemSmooth = leafletFlyBtn.getAttribute("data-smooth");
+        if (elemLat && elemLon) {
+          leafletFlyBtn.addEventListener(
+            "click",
+            function () {
+              if (elemSmooth) {
+                lmap.flyTo([elemLat, elemLon], elemZoom);
+              } else {
+                lmap.setView([elemLat, elemLon], elemZoom);
+              }
+            },
+            false
+          );
+        }
+      });
   }
 };
 
