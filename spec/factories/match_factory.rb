@@ -8,5 +8,9 @@ FactoryBot.define do
     trait :confirmed do
       confirmed_at { Time.zone.now }
     end
+
+    trait :available do
+      expires_at { 1.hours.from_now }
+    end
   end
 end

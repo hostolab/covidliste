@@ -10,16 +10,16 @@ RSpec.describe User, type: :model do
 
     it "is invalid without a first_name" do
       user.firstname = nil
-      expect(user).to_not be_valid
+      expect(user).to be_valid
     end
 
     it "is invalid without a last_name" do
       user.lastname = nil
-      expect(user).to_not be_valid
+      expect(user).to be_valid
     end
 
-    it "is invalid without an address" do
-      user.address = nil
+    it "is invalid without lat or lon" do
+      user.lat = nil
       expect(user).to_not be_valid
     end
 
@@ -77,6 +77,24 @@ RSpec.describe User, type: :model do
       user = create(:user)
       user.anonymize!
       expect(user.full_name).to eq("Anonymous")
+    end
+  end
+
+  describe "to_s" do
+    it "should return email" do
+      user = User.new(email: "test@coviliste.com")
+      expect(user.to_s).to eq("test@coviliste.com")
+    end
+
+    it "should return firstname + lastname" do
+      user = User.new(firstname: "George", lastname: "Abitbol")
+      expect(user.to_s).to eq("George Abitbol")
+    end
+
+    it "should return Anonymous" do
+      user = create(:user)
+      user.anonymize!
+      expect(user.to_s).to eq("Anonymous")
     end
   end
 

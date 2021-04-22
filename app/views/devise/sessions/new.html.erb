@@ -14,9 +14,7 @@
           <% if devise_mapping.rememberable? %>
             <p>
               <%= f.check_box :remember_me %>
-              <span>
-                Se souvenir de moi
-              </span>
+              <%= f.label :remember_me %>
             </p>
           <% end %>
 

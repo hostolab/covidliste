@@ -5,9 +5,7 @@ def robust_password
 end
 
 def fill_valid_user
-  fill_in :user_firstname, with: Faker::Name.first_name
-  fill_in :user_lastname, with: Faker::Name.last_name
-  fill_in :user_address, with: Faker::Address.full_address
+  fill_in :user_address, with: generate(:french_address)
   fill_in :user_phone_number, with: generate(:french_phone_number)
   fill_in :user_email, with: "hello+#{(rand * 10000).to_i}@covidliste.com" # needs valid email here
   fill_in :user_password, with: robust_password
@@ -21,6 +19,13 @@ end
 
 RSpec.describe "Users", type: :system do
   let(:user) { build(:user) }
+
+  before do
+    allow_any_instance_of(GeocodingService).to receive(:call).and_return({
+      lat: 48.12345,
+      lon: 2.12345
+    })
+  end
 
   context "sign up" do
     it "can sign up" do
@@ -103,9 +108,6 @@ RSpec.describe "Users", type: :system do
 
     it "it allows me to edit personal information " do
       new_attributes = {
-        firstname: Faker::Name.first_name,
-        lastname: Faker::Name.last_name,
-        address: Faker::Address.full_address,
         phone_number: generate(:french_phone_number)
       }
 
@@ -150,11 +152,9 @@ RSpec.describe "Users", type: :system do
       let!(:match) { create(:match, campaign: campaign, confirmed_at: Time.now, user: user) }
 
       it "it doest not allow me to edit personal information " do
-        fill_in "user_firstname", with: "new value"
         click_on "Je modifie mes informations"
         expect(page).not_to have_text("Modifications enregistrées.")
-        user.reload
-        expect(user.firstname).not_to eq("new value")
+        expect(page).to have_text("Vous ne ne pouvez plus modifier vos informations car vous avez déjà confirmé un rendez-vous.")
       end
     end
 
@@ -163,11 +163,9 @@ RSpec.describe "Users", type: :system do
       let!(:match) { create(:match, campaign: campaign, confirmed_at: nil, expires_at: 10.minutes.since, user: user) }
 
       it "it doest not allow me to edit personal information " do
-        fill_in "user_firstname", with: "new value"
         click_on "Je modifie mes informations"
         expect(page).not_to have_text("Modifications enregistrées.")
-        user.reload
-        expect(user.firstname).not_to eq("new value")
+        expect(page).to have_text("Vous ne ne pouvez plus modifier vos informations car vous avez un rendez vous en cours.")
       end
     end
   end

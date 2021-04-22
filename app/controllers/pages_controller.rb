@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
   def benevoles
+    @volunteers = Volunteer.where(anon: false).order(sort_name: :asc) + Volunteer.where(anon: true).order(sort_name: :asc)
   end
 
   def contact

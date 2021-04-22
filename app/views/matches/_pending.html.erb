@@ -19,9 +19,31 @@
   <input type="hidden" name="_method" value="PATCH">
   <div class="col-12 mb-2">
     <div class="form-check flex-wrap">
+      <label class="form-check-label w-75" for="firstname">
+        Prénom
+      </label>
+      <input class="form-control" placeholder="Jean" type="text" value="<%= user.firstname %>" name="firstname" id="firstname" autocomplete="given-name" required>
+      <div class="invalid-feedback w-100">
+        Vous devez renseigner votre prénom.
+      </div>
+    </div>
+  </div>
+  <div class="col-12 mb-2">
+    <div class="form-check flex-wrap">
+      <label class="form-check-label w-75" for="lastname">
+        Nom
+      </label>
+      <input class="form-control" placeholder="Dupont" type="text" value="<%= user.lastname %>" name="lastname" id="lastname" autocomplete="family-name" required>
+      <div class="invalid-feedback w-100">
+        Vous devez renseigner votre nom.
+      </div>
+    </div>
+  </div>
+  <div class="col-12 mb-2">
+    <div class="form-check flex-wrap">
       <input class="form-check-input" type="checkbox" value="" id="confirm_name" required>
       <label class="form-check-label w-75" for="confirm_name">
-        Je confirme avoir une pièce d'identité au nom de <strong><%= user.full_name %></strong>
+        Je confirme avoir une pièce d'identité au nom renseigné ci-dessus.
       </label>
       <div class="invalid-feedback w-100">
         Vous devez confirmer votre nom. <br>
@@ -33,7 +55,7 @@
     <div class="form-check flex-wrap">
       <input class="form-check-input" type="checkbox" value="" id="confirm_age" required>
       <label class="form-check-label w-75" for="confirm_age">
-        Je confirme avoir une pièce d'identité portant la date de naissance <strong><%= user.birthdate %></strong>
+        Je confirme avoir une pièce d'identité portant la date de naissance <strong><%= user.birthdate.strftime("%d/%m/%Y") %></strong>
       </label>
       <div class="invalid-feedback w-100">
         Vous devez confirmer votre date de naissance. <br>

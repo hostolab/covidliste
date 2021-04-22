@@ -1,8 +1,6 @@
 <%= f.input :statement,
   as: :boolean,
-  label: "J’accepte sans réserve les #{link_to "CGU", local_cgu_path} et, notamment, certifie sur l’honneur que les informations communiquées ci-dessus sont exactes.".html_safe,
-  checked_value: true,
-  unchecked_value: false,
+  label: "J’accepte les #{link_to "CGU", local_cgu_path} et certifie sur l’honneur que les informations ci-dessus sont exactes.".html_safe,
   error: "Vous devez cocher cette case pour valider votre inscription",
   required: true 
 %>
