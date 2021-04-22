@@ -33,7 +33,7 @@ RSpec.describe Admin::VaccinationCentersController, type: :controller do
 
     context "visitor is not logged at all" do
       it "redirects to login" do
-        expect(subject).to redirect_to new_user_session_path
+        expect(subject).to redirect_to root_path
       end
     end
   end

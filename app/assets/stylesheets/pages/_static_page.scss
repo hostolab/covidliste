@@ -1,0 +1,29 @@
+// Styles copied from Bootstrap to match the table styling
+// for tables generated from Markdown where we can't add
+// Bootstrap classes.
+
+.static-page {
+  table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #2c1b2d;
+    border-collapse: collapse;
+  }
+
+  table thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
+  }
+
+  table th,
+  table td {
+    padding: 0.75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+  }
+
+  table td {
+    vertical-align: middle;
+    padding: 0.5rem;
+  }
+}

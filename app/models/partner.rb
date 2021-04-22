@@ -6,11 +6,13 @@ class Partner < ApplicationRecord
     :recoverable,
     :rememberable,
     :validatable,
-    :confirmable
+    :confirmable,
+    :zxcvbnable
 
   validates :name, presence: true
   validates :phone_number, presence: true
   validates :email, email: {mx: true, message: "Email invalide"}
+  validates :statement, presence: true, acceptance: true, unless: :reset_password_token?
 
   encrypts :email
   encrypts :phone_number
@@ -31,5 +33,9 @@ class Partner < ApplicationRecord
 
   def full_name
     name
+  end
+
+  def skip_password_complexity?
+    !encrypted_password_changed?
   end
 end

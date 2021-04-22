@@ -112,8 +112,8 @@ Rails.application.configure do
   config.force_ssl = true
   config.ssl_options = {hsts: {subdomains: true, preload: true, expires: 1.year}}
 
-  config.action_controller.default_url_options = {host: "www.covidliste.com"}
-  config.action_controller.asset_host = "www.covidliste.com"
+  config.action_controller.default_url_options = {host: (ENV["PLATFORM_URL"] || "www.covidliste.com")}
+  config.action_controller.asset_host = ENV["PLATFORM_URL"] || "www.covidliste.com"
 
   # Inserts middleware to perform automatic connection switching.
   # The `database_selector` hash is used to pass options to the DatabaseSelector
