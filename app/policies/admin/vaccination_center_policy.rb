@@ -2,7 +2,7 @@ module Admin
   class VaccinationCenterPolicy < ApplicationPolicy
     class Scope < Scope
       def resolve
-        raise Pundit::NotAuthorizedError unless user.admin?
+        raise Pundit::NotAuthorizedError unless user&.admin?
 
         scope.all
       end

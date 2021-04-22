@@ -16,7 +16,7 @@ RSpec.describe "Admin Power Users", type: :system do
 
       scenario "try to acces the page" do
         visit admin_power_users_path
-        expect(page).to have_current_path admin_path
+        expect(page).to_not have_current_path admin_power_users_path
       end
     end
 
