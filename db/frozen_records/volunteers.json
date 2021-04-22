@@ -503,11 +503,11 @@
   {
     "anon": false,
     "bio": "Product Design",
-    "firstname": "",
+    "firstname": "William",
     "github": "williambout",
     "id": "bf41e1349983e4ca4ff2039231878f53",
     "identity": "",
-    "lastname": "",
+    "lastname": "Bout",
     "linkedin": "https://www.linkedin.com/in/williambout/",
     "nickname": "",
     "picture": "volunteer-bf41e1349983e4ca4ff2039231878f53.jpg",
@@ -895,18 +895,19 @@
     "twitter": "martindaniel4"
   },
   {
-    "anon": true,
-    "bio": "",
-    "firstname": "",
-    "github": "",
+    "anon": false,
+    "bio": "Machine Learning @ Instacart",
+    "firstname": "Mathieu ",
+    "github": "mathieuripert",
     "id": "0b116b5f800331c1c04a3a6dcc192881",
     "identity": "",
-    "lastname": "",
-    "linkedin": "",
+    "lastname": "Ripert",
+    "linkedin": "https://www.linkedin.com/in/mathieuripert/",
     "nickname": "",
+    "picture": "volunteer-0b116b5f800331c1c04a3a6dcc192881.jpg",
     "role": "",
-    "specialty": "",
-    "twitter": ""
+    "specialty": "Machine Learning + Web",
+    "twitter": "mathieurip"
   },
   {
     "anon": false,
