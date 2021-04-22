@@ -89,21 +89,10 @@
         </small>
       </div>
 
-      <%= f.input :statement,
-                  as: :boolean,
-                  label: "Je certifie sur l'honneur que les informations communiquées ci-dessus sont exactes.",
-                  checked_value: true,
-                  unchecked_value: false,
-                  error: "Vous devez cocher cette case pour valider votre inscription",
-                  required: true %>
+      <%= render partial: "mentions", locals: {local_privacy_path: privacy_volontaires_path} %>
+      <%= render partial: "input_statement", locals: {f: f, local_cgu_path: cgu_volontaires_path} %>
+      <%= render partial: "input_toc", locals: {f: f}%>
 
-      <%= f.input :toc,
-                  as: :boolean,
-                  label: "J’accepte que mes données soient partagées avec les centres de vaccination inscrits sur Covidliste.",
-                  checked_value: true,
-                  unchecked_value: false,
-                  error: "Vous devez cocher cette case pour valider votre inscription",
-                  required: true %>
       <%= f.invisible_captcha :subtitle %>
       <%= f.button :submit, "Je m’inscris", class: "btn btn-primary", data: { disable_with: "Inscription en cours..." } %>
     <% end %>

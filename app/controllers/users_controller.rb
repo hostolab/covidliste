@@ -43,6 +43,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     @user.ensure_lat_lon(params[:user][:address]) # fallback in case lat/lon are not returning from client
+    @user.statement_accepted_at = Time.zone.now if @user.statement
+    @user.toc_accepted_at = Time.zone.now if @user.toc
     authorize @user
     @user.save
     prepare_phone_number

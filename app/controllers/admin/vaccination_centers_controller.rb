@@ -1,13 +1,13 @@
 module Admin
   class VaccinationCentersController < BaseController
-    before_action :set_vaccination_center, only: %i[show validate edit update destroy add_partner]
+    before_action :set_vaccination_center, except: [:index, :new, :create]
     before_action :search_params, only: [:index]
     before_action :set_filters, only: [:index]
 
     helper_method :sort_column, :sort_direction
 
     def index
-      vaccination_centers = VaccinationCenter.all
+      vaccination_centers = policy_scope(VaccinationCenter).all
 
       ## Query
       query = params.dig(:centers_search, :query)&.first
@@ -56,10 +56,14 @@ module Admin
     end
 
     def new
+      authorize(VaccinationCenter)
+
       @vaccination_center = VaccinationCenter.new
     end
 
     def create
+      authorize(VaccinationCenter)
+
       @vaccination_center = VaccinationCenter.new(vaccination_center_params)
       @vaccination_center.save
       render action: :new
@@ -81,29 +85,25 @@ module Admin
     end
 
     def enable
-      @center = VaccinationCenter.find(params[:id])
-
-      if @center.update(disabled_at: nil)
+      if @vaccination_center.update(disabled_at: nil)
         flash[:success] = "Ce centre est maintenant activé"
       else
-        error = @center.errors.full_messages.join(", ")
+        error = @vaccination_center.errors.full_messages.join(", ")
         flash[:alert] = "Une erreur est survenue: #{error}"
       end
 
-      redirect_to admin_vaccination_center_path(@center)
+      redirect_to admin_vaccination_center_path(@vaccination_center)
     end
 
     def disable
-      @center = VaccinationCenter.find(params[:id])
-
-      if @center.update(disabled_at: Time.now.utc)
+      if @vaccination_center.update(disabled_at: Time.now.utc)
         flash[:success] = "Ce centre est maintenant désactivé"
       else
-        error = @center.errors.full_messages.join(", ")
+        error = @vaccination_center.errors.full_messages.join(", ")
         flash[:alert] = "Une erreur est survenue: #{error}"
       end
 
-      redirect_to admin_vaccination_center_path(@center)
+      redirect_to admin_vaccination_center_path(@vaccination_center)
     end
 
     def edit
@@ -153,7 +153,10 @@ module Admin
     private
 
     def set_vaccination_center
+      # TODO: go for @vaccination_center = authorize(VaccinationCenter.find(params[:id])) when
+      # https://github.com/varvet/pundit/issues/666 is fixed.
       @vaccination_center = VaccinationCenter.find(params[:id])
+      authorize(@vaccination_center)
     end
 
     def vaccination_center_params
