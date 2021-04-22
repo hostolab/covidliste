@@ -42,7 +42,7 @@ class User < ApplicationRecord
     },
     if: :email_changed?
 
-  before_save :randomize_lat_lon
+  before_save :randomize_lat_lon, if: -> { (saved_change_to_lat? || saved_change_to_lon?) }
   after_commit :reverse_geocode, if: -> { (saved_change_to_lat? || saved_change_to_lon?) && anonymized_at.nil? }
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
