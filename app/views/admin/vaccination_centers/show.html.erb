@@ -130,8 +130,8 @@
               <td title="<%= campaign.matches.confirmed.size %> confirmés / <%= campaign.matches.count %> matchés" data-toggle="tooltip">
                 <%= campaign.matches.confirmed.size %> / <%= campaign.matches.count %>
               </td>
-              <td title="<%= l campaign.starts_at %> par <%= campaign.partner.name %>" data-toggle="tooltip">
-                <%= l campaign.starts_at %>
+              <td title="<%= l campaign.created_at %> par <%= campaign.partner.name %>" data-toggle="tooltip">
+                <%= l campaign.created_at %>
               </td>
             </tr>
           <% end %>
