@@ -25,7 +25,7 @@ class Partner < ApplicationRecord
                                                where(confirmed_at: nil)
                                              }, through: :partner_vaccination_centers, source: :vaccination_center
   has_many :messages, class_name: "Ahoy::Message", as: :partner
-  
+
   scope :confirmed, -> { where.not(confirmed_at: nil) }
 
   def confirmed?
