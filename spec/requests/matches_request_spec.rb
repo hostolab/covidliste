@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "Matches", type: :request do
-  let!(:match) { create(:match, :available, match_confirmation_token: match_confirmation_token) }
+  let!(:match) { create(:match, :available) }
 
   describe "update" do
     it "it will confirm a valid match" do

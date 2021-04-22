@@ -149,8 +149,6 @@ RSpec.describe "Users", type: :system do
         click_on "Je modifie mes informations"
         expect(page).not_to have_text("Modifications enregistrées.")
         expect(page).to have_text("Vous ne ne pouvez plus modifier vos informations car vous avez déjà confirmé un rendez-vous.")
-        user.reload
-        expect(user.phone_number).not_to eq(phone_number)
       end
     end
 
@@ -162,8 +160,6 @@ RSpec.describe "Users", type: :system do
         click_on "Je modifie mes informations"
         expect(page).not_to have_text("Modifications enregistrées.")
         expect(page).to have_text("Vous ne ne pouvez plus modifier vos informations car vous avez un rendez vous en cours.")
-        user.reload
-        expect(user.phone_number).not_to eq(phone_number)
       end
     end
   end

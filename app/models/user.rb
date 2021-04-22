@@ -96,7 +96,11 @@ class User < ApplicationRecord
     self.birthdate = nil
     self.anonymized_at = Time.now.utc
 
-    matches.confirmed.update_all(firstname: "Anonymous", lastname: "Anonymous")
+    matches.confirmed.each do |match|
+      match.firstname = "Anonymous"
+      match.lastname = "Anonymous"
+      match.save(validate: false)
+    end
 
     save(validate: false)
   end
