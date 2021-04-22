@@ -62,12 +62,11 @@
         <%= f.input_field :lon, as: :hidden %>
         <%= f.input :email, disabled: true, label: "Email", error: f.error(:email), placeholder: "jean@dupont.com" %>
         <%= f.input :phone_number, label: "Numéro de téléphone", error: "", placeholder: "06 06 06 06 06" %>
-
-        <%= render partial: "mentions", locals: { local_privacy_path: privacy_volontaires_path } %>
         <%= render partial: "input_statement", locals: {f: f, local_cgu_path: cgu_volontaires_path} %>
 
         <%= f.button :submit, "Je modifie mes informations", class: "btn btn-primary", data: { disable_with: "Validation..." } %>
       <% end %>
+      <%= render partial: "mentions" %>
 
       <p class="mt-4">
         Vous souhaitez vérifier vos données personnelles ?
