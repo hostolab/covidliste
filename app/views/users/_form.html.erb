@@ -20,20 +20,6 @@
     <% end %>
 
     <%= simple_form_for @user do |f| %>
-      <%= f.input :firstname,
-                  label: "Prénom",
-                  error: "Prénom requis",
-                  placeholder: "Jean",
-                  required: true,
-                  input_html: { autocomplete: "given-name" } %>
-
-      <%= f.input :lastname,
-                  label: "Nom",
-                  error: "Nom requis",
-                  placeholder: "Dupont",
-                  required: true,
-                  input_html: { autocomplete: "family-name" } %>
-
       <%= f.input :birthdate,
                   as: :date,
                   label: "Date de naissance",
@@ -42,7 +28,7 @@
                   order: [:day, :month, :year] %>
       
       <p class="text-primary small">
-        Vérifiez bien vos nom, prénom et date de naissance. En cas d'erreur, la vaccination ne sera pas possible !
+        Vérifiez bien votre date de naissance. En cas d'erreur, la vaccination ne sera pas possible !
       </p>
       <%= f.input :address,
                   label: "Adresse",

@@ -12,8 +12,6 @@ class User < ApplicationRecord
 
   has_many :matches, dependent: :nullify
 
-  encrypts :firstname
-  encrypts :lastname
   encrypts :address
   encrypts :phone_number
   encrypts :email
@@ -22,8 +20,6 @@ class User < ApplicationRecord
   geocoded_by :address, latitude: :lat, longitude: :lon
 
   validates :password, presence: true, on: :create
-  validates :firstname, presence: true
-  validates :lastname, presence: true
   validates :address, presence: true
   validates :birthdate, presence: true
   validates :toc, presence: true, acceptance: true
@@ -61,7 +57,7 @@ class User < ApplicationRecord
   end
 
   def full_name
-    anonymized_at.nil? ? "#{firstname} #{lastname}" : "Anonymous"
+    anonymized_at.nil? ? email : "Anonymous"
   end
 
   def distance(lat, lon)
@@ -89,8 +85,6 @@ class User < ApplicationRecord
     return unless anonymized_at.nil?
 
     self.email = "anonymous#{id}+#{rand(100_000_000)}@null"
-    self.firstname = nil
-    self.lastname = nil
     self.address = nil
     self.lat = nil
     self.lon = nil

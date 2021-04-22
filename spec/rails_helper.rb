@@ -23,7 +23,7 @@ Capybara.register_driver(:cuprite) do |app|
     app,
     window_size: [1440, 900],
     js_errors: false,
-    # headless: !(ENV["PREVIEW"] == "true"),
+    headless: !ENV["HEADLESS"].in?(%w[n 0 no false]),
     inspector: (ENV["INSPECTOR"] == "true"),
     process_timeout: 30,
     timeout: 60,

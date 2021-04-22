@@ -39,9 +39,18 @@ RSpec.describe Match, type: :model do
   end
 
   describe "#confirm!" do
+    context "When the match itself has no identity filled" do
+      subject { match.confirm! }
+      it "raises Match::MissingNamesError" do
+        expect { subject }.to raise_error(Match::MissingNamesError)
+      end
+    end
+
     it "should flag the match as confirmed" do
       user = create(:user)
       match = create(:match, user: user)
+      match.firstname = generate(:firstname)
+      match.lastname = generate(:lastname)
       match.confirm!
       expect(match.confirmed?).to be true
     end
@@ -54,7 +63,11 @@ RSpec.describe Match, type: :model do
     end
 
     context "When the match campaign has no #remaining_slots" do
-      subject { match.confirm! }
+      subject do
+        match.firstname = generate(:firstname)
+        match.lastname = generate(:lastname)
+        match.confirm!
+      end
       it "raises Match::DoseOverbookingError" do
         allow(campaign).to receive(:remaining_slots).and_return 0
         expect { subject }.to raise_error(Match::DoseOverbookingError)
@@ -62,7 +75,11 @@ RSpec.describe Match, type: :model do
     end
 
     context "When the match campaign has at least 1 #remaining_slots" do
-      subject { match.confirm! }
+      subject do
+        match.firstname = generate(:firstname)
+        match.lastname = generate(:lastname)
+        match.confirm!
+      end
       it "updates the confirmed_at" do
         allow(campaign).to receive(:remaining_slots).and_return 1
         allow(now).to receive(:utc).and_return(now_utc)

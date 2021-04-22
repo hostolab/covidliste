@@ -10,8 +10,6 @@ fr:
         one: campagne
     attributes:
       user:
-        firstname: Prénom
-        lastname: Nom
         birthdate: Date de naissance
         address: Adresse
         phone_number: Numéro de téléphone
@@ -32,6 +30,9 @@ fr:
         kind: Type de lieu de vaccination
         lat: Latitude
         lon: Longitude
+      match:
+        firstname: Prénom
+        lastname: Nom
     errors:
       messages:
         record_invalid: "La validation a échoué : %{errors}"

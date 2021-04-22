@@ -3,8 +3,6 @@ FactoryBot.define do
     address { generate(:french_address) }
     birthdate { generate(:birthdate) }
     email { generate(:unique_email) }
-    firstname { generate(:firstname) }
-    lastname { generate(:lastname) }
     password { generate(:password) }
     phone_number { "0606060606" }
 

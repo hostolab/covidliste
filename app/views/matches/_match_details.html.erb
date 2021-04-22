@@ -27,7 +27,7 @@
     <div>
       <i class="fas fa-user-lock"></i>
       <p>
-        Réservé pour <strong><%= user.full_name %></strong><br>
+        Réservé pour <strong><%= [match.firstname, match.lastname, "(#{user.email})"].compact.join(" ") %></strong><br>
         Né le <strong><%= user.birthdate.strftime('%d/%m/%Y') %></strong><br>
         Réservation strictement nominative. <br>
         <strong>Date de naissance et nom seront vérifiés</strong> (pensez à vous munir d'une pièce d'identité)<br>

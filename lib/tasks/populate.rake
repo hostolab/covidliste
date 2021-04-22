@@ -3,12 +3,10 @@ namespace :populate do
   task users: :environment do
     puts "How many users do you want? (~1s / user)"
     print "> "
-    count = gets.chomp.to_i
+    count = 100
     puts "Generating #{count} users..."
     count.times do |i|
       user = User.new(
-        firstname: Faker::Name.first_name,
-        lastname: Faker::Name.last_name,
         email: Faker::Internet.unique.email(domain: "covidliste.com"),
         birthdate: Faker::Date.between(from: 100.years.ago, to: 18.years.ago),
         address: Faker::Address.full_address,
@@ -22,7 +20,7 @@ namespace :populate do
       user.update_columns(confirmed_at: Time.now.utc)
       GeocodeResourceJob.perform_now(user)
       user.reload
-      puts "#{i + 1}. #{user.full_name}, #{user.age} ans - #{user.address} (#{user.lat}, #{user.lon})"
+      puts "#{i + 1}. #{user.email}, #{user.age} ans - #{user.address} (#{user.lat}, #{user.lon})"
     end
     puts "Done."
   end

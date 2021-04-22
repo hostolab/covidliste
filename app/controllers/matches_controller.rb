@@ -1,11 +1,9 @@
 class MatchesController < ApplicationController
   before_action :set_match, only: [:show, :update, :destroy]
+  before_action :verify_age, only: [:show, :update]
+  before_action :verify_expiration, only: [:update]
 
   def show
-    if @match.age != @match.user.age
-      flash[:error] = "Désolé, votre âge a changé depuis l'envoi de la notification. Pas d'inquiétude, vous restez dans notre liste de volontaires ! Vous serez contacté dès qu'une dose est à nouveau disponible près de chez vous."
-      redirect_to root_path
-    end
   end
 
   def destroy
@@ -14,29 +12,43 @@ class MatchesController < ApplicationController
   end
 
   def update
-    if @match.age != @match.user.age
-      flash[:error] = "Désolé, votre âge a changé depuis l'envoi de la notification. Pas d'inquiétude, vous restez dans notre liste de volontaires ! Vous serez contacté dès qu'une dose est à nouveau disponible près de chez vous."
-      redirect_to root_path
-    end
-    if @match.expired?
-      flash[:error] = "Désolé, votre invitation a expiré."
-    else
-      @match.confirm!
-    end
-  rescue Match::AlreadyConfirmedError, Match::DoseOverbookingError => e
-    flash[:error] = e.message
+    form_match_params = match_params
+    @match.firstname = form_match_params[:firstname]
+    @match.lastname = form_match_params[:lastname]
+    @match.confirm!
+  rescue Match::AlreadyConfirmedError, Match::DoseOverbookingError, Match::MissingNamesError, ActiveRecord::RecordInvalid => e
+    flash.now[:error] = e.message
   ensure
-    render action: "show"
+    render action: "show", status: flash[:error].present? ? :unprocessable_entity : :ok
   end
 
   private
 
+  def match_params
+    params.permit(:firstname, :lastname)
+  end
+
+  def verify_age
+    unless @match.age == @match.user.age
+      flash[:error] = "Désolé, votre âge a changé depuis l’envoi de la notification. Pas d’inquiétude, vous restez dans notre liste de volontaires ! Vous serez contacté dès qu’une dose est à nouveau disponible près de chez vous."
+      redirect_to root_path
+    end
+  end
+
+  def verify_expiration
+    if @match.expired?
+      flash.now[:error] = "Désolé, votre invitation a expiré."
+      render action: "show", status: :unprocessable_entity
+    end
+  end
+
   def set_match
     @match = Match.find_by(match_confirmation_token: params[:match_confirmation_token])
-    return unless @match.nil?
 
-    flash[:error] = "Désolé, ce lien d'invitation n'est pas valide."
-    redirect_to root_path
+    if @match.blank?
+      flash[:error] = "Désolé, ce lien d’invitation n’est pas valide."
+      redirect_to root_path
+    end
   end
 
   def skip_pundit?
