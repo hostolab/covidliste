@@ -32,6 +32,7 @@ class Match < ApplicationRecord
     self.zipcode = user.zipcode
     self.geo_citycode = user.geo_citycode
     self.geo_context = user.geo_context
+    self
   end
 
   def confirmed?
