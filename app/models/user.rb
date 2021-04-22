@@ -3,6 +3,8 @@ class User < ApplicationRecord
   has_phone_number_types %i[mobile]
   rolify
 
+  attr_accessor :address
+
   devise :database_authenticatable,
     :recoverable,
     :rememberable,
