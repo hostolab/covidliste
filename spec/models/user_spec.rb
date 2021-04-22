@@ -70,13 +70,13 @@ RSpec.describe User, type: :model do
   describe "Full name" do
     it "should return firstname + lastname" do
       user = User.new(firstname: "George", lastname: "Abitbol")
-      expect(user.full_name).to eq("George Abitbol")
+      expect(user).to eq("George Abitbol")
     end
 
     it "should return Anonymous" do
       user = create(:user)
       user.anonymize!
-      expect(user.full_name).to eq("Anonymous")
+      expect(user).to eq("Anonymous")
     end
   end
 

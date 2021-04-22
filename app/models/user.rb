@@ -67,8 +67,16 @@ class User < ApplicationRecord
     ReverseGeocodeResourceJob.perform_later(self)
   end
 
-  def full_name
-    anonymized_at.nil? ? "#{firstname} #{lastname}" : "Anonymous"
+  def to_s
+    if anonymized_at.nil?
+      if missing_identity?
+        email
+      else
+        "#{firstname} #{lastname}"
+      end
+    else
+      "Anonymous"
+    end
   end
 
   def distance(lat, lon)

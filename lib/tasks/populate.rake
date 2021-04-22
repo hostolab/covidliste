@@ -22,7 +22,7 @@ namespace :populate do
       user.update_columns(confirmed_at: Time.now.utc)
       GeocodeResourceJob.perform_now(user)
       user.reload
-      puts "#{i + 1}. #{user.full_name}, #{user.age} ans - #{user.address} (#{user.lat}, #{user.lon})"
+      puts "#{i + 1}. #{user}, #{user.age} ans - #{user.address} (#{user.lat}, #{user.lon})"
     end
     puts "Done."
   end

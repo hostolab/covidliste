@@ -55,7 +55,7 @@
       <% if current_user %>
         <li class="nav-item dropdown">
           <%= link_to "", class: "nav-link text-white font-weight-bold dropdown-toggle", id: "dropdownProfil", "aria-expanded": "false", "aria-haspopup": "true", "data-toggle": "dropdown" do %>
-            <%= current_user.full_name %>
+            <%= current_user %>
             <span class="badge badge-danger"> Admin </span>
           <% end %>
 
