@@ -78,6 +78,11 @@ GEM
       zeitwerk (~> 2.3)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
+    ahoy_email (2.0.3)
+      actionmailer (>= 5)
+      addressable (>= 2.3.2)
+      nokogiri
+      safely_block (>= 0.1.1)
     appsignal (3.0.2)
       rack
     argon2-kdf (0.1.6)
@@ -472,6 +477,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  ahoy_email
   appsignal
   autoprefixer-rails
   better_errors
