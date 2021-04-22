@@ -63,6 +63,7 @@ gem "devise_zxcvbn"
 
 group :development, :test do
   gem "dotenv-rails", "2.7.6"
+  gem "factory_bot_rails"
   gem "faker", git: "https://github.com/faker-ruby/faker.git", branch: "master"
   gem "pry-byebug"
   gem "pry-rails"
@@ -83,7 +84,6 @@ group :test do
   gem "codecov", require: false
   gem "cuprite"
   gem "database_cleaner-active_record"
-  gem "factory_bot_rails"
   gem "rails-controller-testing"
   gem "rspec-rails", "~> 4.0.0"
   gem "rspec-sidekiq"
