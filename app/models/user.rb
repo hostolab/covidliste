@@ -16,12 +16,10 @@ class User < ApplicationRecord
 
   encrypts :firstname
   encrypts :lastname
-  encrypts :address
   encrypts :phone_number
   encrypts :email
 
   blind_index :email
-  geocoded_by :address, latitude: :lat, longitude: :lon
 
   validates :password, presence: true, on: :create
   validates :lat, presence: true, unless: proc { |u| u.persisted? }
@@ -85,10 +83,6 @@ class User < ApplicationRecord
     else
       "Anonymous"
     end
-  end
-
-  def distance(lat, lon)
-    Geocoder::Calculations.distance_between([lat, lon], [self.lat, self.lon]).round(1)
   end
 
   def age
