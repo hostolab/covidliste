@@ -47,7 +47,7 @@ class Match < ApplicationRecord
     raise DoseOverbookingError, "La dose de vaccin a déjà été réservée" unless confirmable?
 
     self.confirmed_at = Time.now.utc
-    self.source       = source
+    self.source = source
 
     # temporary hack until all matches have the user data at creation
     self.age = user.age if age.nil?

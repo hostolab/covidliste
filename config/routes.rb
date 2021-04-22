@@ -88,7 +88,7 @@ Rails.application.routes.draw do
 
   ## matches
   resources :matches, path: :m, only: [:show, :update, :destroy], param: :match_confirmation_token
-  
+
   ## Pages
   get "/carte" => "pages#carte", :as => :carte
   get "/benevoles" => "pages#benevoles", :as => :benevoles
