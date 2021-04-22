@@ -42,16 +42,16 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    @user.ensure_lat_lon(params[:user][:address]) # fallback in case lat/lon are not returning from client
+    @user.ensure_lat_lon # fallback in case lat/lon are not returning from client
     @user.statement_accepted_at = Time.zone.now if @user.statement
     @user.toc_accepted_at = Time.zone.now if @user.toc
     authorize @user
-    @user.save
+    @user.save!
     prepare_phone_number
-    render action: :new
-  rescue ActiveRecord::RecordNotUnique
+    render action: :new, status: :ok
+  rescue ActiveRecord::RecordNotUnique, ActiveRecord::RecordInvalid
     flash.now[:error] = "Une erreur s’est produite."
-    render action: :new
+    render action: :new, status: :unprocessable_entity
   end
 
   def delete
@@ -76,7 +76,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:email, :phone_number, :toc, :lat, :lon, :birthdate, :password, :statement)
+    params.require(:user).permit(:email, :phone_number, :toc, :address, :lat, :lon, :birthdate, :password, :statement)
   end
 
   def sign_out_if_anonymized!
