@@ -3,8 +3,10 @@ import places from "places.js";
 const placesAutocomplete = (appId, apiKey) => {
   // User Form
   const addressInput = document.getElementById("user_address");
+  const userLatInput = document.getElementById("user_lat");
+  const userLonInput = document.getElementById("user_lon");
   if (addressInput) {
-    places({
+    const p = places({
       container: addressInput,
       appId: appId,
       apiKey: apiKey,
@@ -15,6 +17,11 @@ const placesAutocomplete = (appId, apiKey) => {
     }).configure({
       language: "fr",
       countries: ["fr"],
+    });
+    p.on("change", function (e) {
+      let latlng = e.suggestion.latlng;
+      userLatInput.value = latlng["lat"];
+      userLonInput.value = latlng["lng"];
     });
   }
   // 3 Rue de la Paix, 75002 Paris 2e Arrondissement, undefined

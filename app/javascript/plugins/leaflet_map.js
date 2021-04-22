@@ -6,7 +6,7 @@ const leafletMap = () => {
     let zoom = leafletMap.getAttribute("data-zoom") || 13;
     let lat = leafletMap.getAttribute("data-lat") || 48.8534;
     let lon = leafletMap.getAttribute("data-lon") || 2.3488;
-    let address = leafletMap.getAttribute("data-address") || "Paris, France";
+    let address = leafletMap.getAttribute("data-address") || "";
     let icon = leafletMap.getAttribute("data-icon");
     var lmap = L.map(leafletMap).setView([lat, lon], zoom);
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
