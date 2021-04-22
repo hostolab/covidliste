@@ -67,12 +67,20 @@ class User < ApplicationRecord
     ReverseGeocodeResourceJob.perform_later(self)
   end
 
+  def full_name
+    if anonymized_at.nil?
+      "#{firstname} #{lastname}"
+    else
+      "Anonymous"
+    end
+  end
+
   def to_s
     if anonymized_at.nil?
       if missing_identity?
         email
       else
-        "#{firstname} #{lastname}"
+        full_name
       end
     else
       "Anonymous"

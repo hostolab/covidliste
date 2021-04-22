@@ -14,7 +14,7 @@
     <% if @vaccination_center.confirmed? %>
       <%= icon("fas", "check", class: "text-success") %>
       Validé par
-      <strong><%= @vaccination_center.confirmer&.full_name %></strong>
+      <strong><%= @vaccination_center.confirmer %></strong>
       le <%= l @vaccination_center.confirmed_at %>
 
     <% else %>
