@@ -86,6 +86,10 @@ class User < ApplicationRecord
     confirmed_at.present?
   end
 
+  def missing_identity?
+    firstname.blank? || lastname.blank?
+  end
+
   def super_admin?
     has_role?(:super_admin)
   end

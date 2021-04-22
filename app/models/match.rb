@@ -3,6 +3,8 @@ class Match < ApplicationRecord
 
   class AlreadyConfirmedError < StandardError; end
 
+  class MissingNamesError < StandardError; end
+
   NO_MORE_THAN_ONE_MATCH_PER_PERIOD = 24.hours
 
   has_secure_token :match_confirmation_token
@@ -11,6 +13,8 @@ class Match < ApplicationRecord
   belongs_to :campaign
   belongs_to :campaign_batch
   belongs_to :user
+
+  accepts_nested_attributes_for :user
 
   encrypts :match_confirmation_token
   blind_index :match_confirmation_token
@@ -35,20 +39,22 @@ class Match < ApplicationRecord
   end
 
   def confirm!
+    raise MissingNamesError, "Vous devez renseigner votre identité" if user.missing_identity?
+
     raise AlreadyConfirmedError, "Vous avez déjà confirmé votre disponibilité" if confirmed?
 
     raise DoseOverbookingError, "La dose de vaccin a déjà été réservée" unless confirmable?
 
-    update(confirmed_at: Time.now.utc)
+    self.confirmed_at = Time.now.utc
 
     # temporary hack until all matches have the user data at creation
-    if age.nil? || zipcode.nil? || city.nil?
-      update(age: user.age,
-             zipcode: user.zipcode,
-             city: user.city,
-             geo_citycode: user.geo_citycode,
-             geo_context: user.geo_context)
-    end
+    self.age = user.age if age.nil?
+    self.zipcode = user.zipcode if zipcode.nil?
+    self.city = user.city if city.nil?
+    self.geo_citycode = user.geo_citycode if geo_citycode.nil?
+    self.geo_context = user.geo_context if geo_context.nil?
+
+    save!
   end
 
   def confirmable?
