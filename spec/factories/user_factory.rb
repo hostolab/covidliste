@@ -1,6 +1,8 @@
 FactoryBot.define do
   factory :user do
     address { generate(:french_address) }
+    lat { 48.1 }
+    lon { 2.3 }
     birthdate { generate(:birthdate) }
     email { generate(:unique_email) }
     firstname { generate(:firstname) }
