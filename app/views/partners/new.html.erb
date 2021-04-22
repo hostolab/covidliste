@@ -90,6 +90,9 @@
                 </div>
               </div>
 
+              <%= render partial: "users/mentions", locals: { local_privacy_path: privacy_pro_path } %>
+              <%= render partial: "users/input_statement", locals: { f: f, local_cgu_path: cgu_pro_path } %>
+
               <%= f.invisible_captcha :subtitle, honeypots: true %>
               <%= f.button :submit, "S’inscrire", id: "create-new-partner", class: "btn btn-primary", data: { disable_with: "Validation...", confirm: "Vous êtes bien professionnel de santé ?" } %>
             <% end %>

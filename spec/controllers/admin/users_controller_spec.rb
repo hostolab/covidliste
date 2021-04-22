@@ -72,7 +72,7 @@ RSpec.describe Admin::UsersController, type: :controller do
       before { sign_in admin }
 
       it "does not allow to destroy the ressource" do
-        expect(subject).to redirect_to(admin_path)
+        expect(subject).to redirect_to(root_path)
       end
     end
 
