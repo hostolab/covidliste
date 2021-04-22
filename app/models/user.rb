@@ -95,6 +95,9 @@ class User < ApplicationRecord
     self.phone_number = nil
     self.birthdate = nil
     self.anonymized_at = Time.now.utc
+
+    matches.confirmed.update_all(firstname: "Anonymous", lastname: "Anonymous")
+
     save(validate: false)
   end
 

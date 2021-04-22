@@ -20,7 +20,6 @@ class Match < ApplicationRecord
   blind_index :match_confirmation_token
 
   validate :no_recent_match, on: :create
-  validates :firstname, :lastname, presence: true, on: :validation_when_confirm
   validates :firstname, :lastname, presence: true, if: -> { saved_change_to_confirmed_at? }
 
   validates :firstname, :lastname, presence: true, on: :validation_when_confirm
@@ -48,7 +47,7 @@ class Match < ApplicationRecord
   end
 
   def confirm!
-    raise MissingNamesError, "Vous devez renseigné votre identité" if missing_identity?
+    raise MissingNamesError, "Vous devez renseigner votre identité" if missing_identity?
     raise AlreadyConfirmedError, "Vous avez déjà confirmé votre disponibilité" if confirmed?
     raise DoseOverbookingError, "La dose de vaccin a déjà été réservée" unless confirmable?
 

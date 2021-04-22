@@ -14,9 +14,13 @@ FactoryBot.define do
     # because not yet attributed
     # (Example : 0729999999 and lower are not attributed, 0730000000 and higher are)
     # We're looping until Faker generates a valid number
-    phone_number = Faker::PhoneNumber.cell_phone
-    until Phonelib.valid?(phone_number)
+    phone_number = nil
+    loop do
       phone_number = Faker::PhoneNumber.cell_phone
+      if phone_number.gsub(/\s/, "").length == 9 && phone_number[0] != "0"
+        phone_number = "0#{phone_number}"
+      end
+      break if Phonelib.valid?(phone_number)
     end
     phone_number
   end

@@ -9,13 +9,16 @@ class MoveNameFieldsFromUsersToMatches < ActiveRecord::Migration[6.1]
   def up
     add_column :matches, :firstname_ciphertext, :text
     add_column :matches, :lastname_ciphertext, :text
-    Match.reset_column_information
-    Object.send(:remove_const, "Match")
-    User.find_each do |user|
-      user.matches.update_all(
-        firstname_ciphertext: user.firstname_ciphertext,
-        lastname_ciphertext: user.lastname_ciphertext
-      )
+
+    if column_exists?(:users, :firstname_ciphertext) && column_exists?(:users, :lastname_ciphertext)
+      Match.reset_column_information
+      Object.send(:remove_const, "Match")
+      User.find_each do |user|
+        user.matches.update_all(
+          firstname_ciphertext: user.firstname_ciphertext,
+          lastname_ciphertext: user.lastname_ciphertext
+        )
+      end
     end
   end
 

@@ -20,16 +20,16 @@ RSpec.describe MatchesController, type: :system do
         expect(page).to have_text(center.address)
 
         click_on("Je suis disponible")
-        expect(page).to have_text("Vous devez renseigné votre identité")
+        expect(page).to have_text("Vous devez renseigner votre identité")
 
         fill_in :firstname, with: Faker::Name.first_name
         click_on("Je suis disponible")
-        expect(page).to have_text("Vous devez renseigné votre identité")
+        expect(page).to have_text("Vous devez renseigner votre identité")
 
         fill_in :firstname, with: Faker::Name.first_name
         fill_in :lastname, with: Faker::Name.last_name
         click_on("Je suis disponible")
-        expect(page).not_to have_text("Vous devez renseigné votre identité")
+        expect(page).not_to have_text("Vous devez renseigner votre identité")
         expect(page).to have_text("Votre disponibilité est confirmée")
         expect(page).to have_text(center.address)
       end

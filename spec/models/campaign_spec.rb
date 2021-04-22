@@ -6,7 +6,7 @@ RSpec.describe Campaign, type: :model do
   describe "#to_csv" do
     let(:campaign) { build(:campaign) }
     let!(:match) { create(:match, campaign: campaign, confirmed_at: Time.now) }
-    let!(:unconfirmed_match) { create(:match, campaign: campaign, confirmed_at: nil) }
+    let!(:unconfirmed_match) { create(:match, :available, campaign: campaign, firstname: generate(:firstname), lastname: generate(:lastname)) }
 
     it "it includes information about confirmed matches" do
       expect(campaign.to_csv).to include(
