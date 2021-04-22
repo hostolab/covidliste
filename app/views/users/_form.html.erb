@@ -88,12 +88,12 @@
         </small>
       </div>
 
-      <%= render partial: "mentions", locals: {local_privacy_path: privacy_volontaires_path} %>
       <%= render partial: "input_statement", locals: {f: f, local_cgu_path: cgu_volontaires_path} %>
       <%= render partial: "input_toc", locals: {f: f}%>
 
       <%= f.invisible_captcha :subtitle %>
       <%= f.button :submit, "Je m’inscris", class: "btn btn-primary", data: { disable_with: "Inscription en cours..." } %>
     <% end %>
+    <%= render partial: "mentions" %>
   <% end %>
 </div>
