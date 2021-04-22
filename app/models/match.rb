@@ -39,7 +39,7 @@ class Match < ApplicationRecord
     !confirmed_at.nil?
   end
 
-  def confirm!(source=nil)
+  def confirm!(source = nil)
     raise MissingNamesError, "Vous devez renseigner votre identité" if user.missing_identity?
 
     raise AlreadyConfirmedError, "Vous avez déjà confirmé votre disponibilité" if confirmed?
@@ -63,7 +63,7 @@ class Match < ApplicationRecord
     !confirmed? && campaign.remaining_slots > 0 && !refused?
   end
 
-  def refuse!(source=nil)
+  def refuse!(source = nil)
     update(refused_at: Time.now.utc, source: source)
   end
 
