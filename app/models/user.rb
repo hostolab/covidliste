@@ -3,6 +3,8 @@ class User < ApplicationRecord
   has_phone_number_types %i[mobile]
   rolify
 
+  attr_accessor :address
+
   devise :database_authenticatable,
     :recoverable,
     :rememberable,
@@ -24,7 +26,8 @@ class User < ApplicationRecord
   validates :password, presence: true, on: :create
   validates :firstname, presence: true
   validates :lastname, presence: true
-  validates :address, presence: true
+  validates :lat, presence: true, unless: proc { |u| u.persisted? }
+  validates :lon, presence: true, unless: proc { |u| u.persisted? }
   validates :birthdate, presence: true
   validates :toc, presence: true, acceptance: true
   validates :statement, presence: true, acceptance: true, unless: proc { |u| u.reset_password_token.present? }
@@ -39,25 +42,31 @@ class User < ApplicationRecord
     },
     if: :email_changed?
 
-  after_commit :geocode_address, if: -> { saved_change_to_address? && anonymized_at.nil? }
-  before_save :approximate_coords
+  before_save :randomize_lat_lon, if: -> { (saved_change_to_lat? || saved_change_to_lon?) }
+  after_commit :reverse_geocode, if: -> { (saved_change_to_lat? || saved_change_to_lon?) && anonymized_at.nil? }
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
   scope :between_age, ->(min, max) { where("birthdate between ? and ?", max.years.ago, min.years.ago) }
   scope :with_roles, -> { joins(:roles) }
 
   PASSWORD_HINT = "#{Devise.password_length.min} caractères minimum. Idéalement plus long en mélangeant des minuscules, des majuscules et des chiffres."
-  LATLNG_DECIMALS = 3
 
-  def approximate_coords
+  def randomize_lat_lon
     return if lat.nil? || lon.nil?
-
-    self.lat = lat.round(LATLNG_DECIMALS)
-    self.lon = lon.round(LATLNG_DECIMALS)
+    results = ::RandomizeCoordinatesService.new(lat, lon).call
+    self.lat = results[:lat]
+    self.lon = results[:lon]
   end
 
-  def geocode_address
-    GeocodeResourceJob.perform_later(self)
+  def ensure_lat_lon(address)
+    return unless lat.nil? || lon.nil?
+    results = GeocodingService.new(address).call
+    self.lat = results[:lat]
+    self.lon = results[:lon]
+  end
+
+  def reverse_geocode
+    ReverseGeocodeResourceJob.perform_later(self)
   end
 
   def full_name

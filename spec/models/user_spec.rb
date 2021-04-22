@@ -18,8 +18,8 @@ RSpec.describe User, type: :model do
       expect(user).to_not be_valid
     end
 
-    it "is invalid without an address" do
-      user.address = nil
+    it "is invalid without lat or lon" do
+      user.lat = nil
       expect(user).to_not be_valid
     end
 

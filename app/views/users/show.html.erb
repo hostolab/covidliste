@@ -37,7 +37,32 @@
           </div>
         </div>
 
-        <%= f.input :address, label: "Adresse", error: "Adresse requise", placeholder: "5 rue larue, 13600 Marseille" %>
+        <%= f.input :address, label: "Adresse", error: "Adresse requise", placeholder: "Choisir une nouvelle adresse" %>
+      
+        <small class="form-text text-muted mb-2"> 
+          Pour des raisons de protection des données personnelles, nous ne stockons pas votre adresse. Nous gardons seulement une représentation de votre adresse sous la forme d'une coordonnée GPS (latitude/longitude), randomisée à +/- 100 mètres.
+          <br/>
+          Si vous souhaitez modifier cette donnée, entrez une nouvelle adresse et cliquez sur "Je modifie mes informations".
+        </small>
+
+        <%- if @user.lat.nil? || @user.lon.nil? %>
+          <div class="alert alert-danger mb-4 small" role="alert" style="position: inherit">
+            Nous n'avons pas pu géolocaliser l'adresse que vous avez renseignée lors de votre inscription.
+            Sans cette information, il nous sera impossible de vous mettre en relation avec l'un de nos centres partenaires à proximité.
+            Merci de renseigner votre addresse une nouvelle fois.
+          </div>
+        <% else %>
+          <div class="mt-4 mb-4" 
+              id="user_map" 
+              style="height: 250px;" 
+              data-lat="<%= @user.lat %>" 
+              data-lon="<%= @user.lon %>"
+              >
+          </div>
+        <% end %>
+
+        <%= f.input_field :lat, as: :hidden %>
+        <%= f.input_field :lon, as: :hidden %>
         <%= f.input :email, disabled: true, label: "Email", error: f.error(:email), placeholder: "jean@dupont.com" %>
         <%= f.input :phone_number, label: "Numéro de téléphone", error: "", placeholder: "06 06 06 06 06" %>
 

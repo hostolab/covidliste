@@ -22,6 +22,13 @@ end
 RSpec.describe "Users", type: :system do
   let(:user) { build(:user) }
 
+  before do
+    allow_any_instance_of(GeocodingService).to receive(:call).and_return({
+      lat: 48.12345,
+      lon: 2.12345
+    })
+  end
+
   context "sign up" do
     it "can sign up" do
       expect do
@@ -105,7 +112,6 @@ RSpec.describe "Users", type: :system do
       new_attributes = {
         firstname: Faker::Name.first_name,
         lastname: Faker::Name.last_name,
-        address: Faker::Address.full_address,
         phone_number: generate(:french_phone_number)
       }
 
