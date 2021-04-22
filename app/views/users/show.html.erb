@@ -23,9 +23,6 @@
       <% end %>
 
       <%= simple_form_for(@user, url: :profile, method: :put, wrapper: :horizontal_form) do |f| %>
-        <%= f.input :firstname, label: "Prénom", placeholder: "Jean", valid_class: "" %>
-        <%= f.input :lastname, label: "Nom", error: "Nom requis", placeholder: "Dupont" %>
-
         <div class="row">
           <div class="col-12 col-sm-3">
             <label class="col-form-label">
