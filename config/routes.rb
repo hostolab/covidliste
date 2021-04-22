@@ -72,8 +72,8 @@ Rails.application.routes.draw do
   get "/users" => "users#new"
 
   ## Partners
-
   resources :partners, only: [:new, :create]
+  resource :partners, only: [:show, :update, :destroy]
   get "/partenaires", to: redirect("/partenaires/inscription", status: 302)
   get "/partenaires/inscription" => "partners#new", :as => :partenaires_inscription
 

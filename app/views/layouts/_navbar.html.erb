@@ -38,6 +38,8 @@
           <% end %>
 
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown09">
+            <%= link_to "Lieux de vaccination", partners_vaccination_centers_path, class: "dropdown-item" %>
+            <%= link_to "Profil", partners_path, class: "dropdown-item" %>
             <%= link_to "Déconnexion", destroy_partner_session_path, method: :delete, class: "dropdown-item" %>
           </div>
         </li>
