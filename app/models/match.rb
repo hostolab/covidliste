@@ -21,6 +21,7 @@ class Match < ApplicationRecord
 
   validate :no_recent_match, on: :create
   before_create :save_user_info
+  after_create_commit :notify_by_email, :notify_by_sms
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
   scope :refused, -> { where.not(refused_at: nil) }
@@ -78,5 +79,13 @@ class Match < ApplicationRecord
     if user.matches.where("created_at >= ?", Match::NO_MORE_THAN_ONE_MATCH_PER_PERIOD.ago).any?
       errors.add(:base, "Cette personne a déjà été matchée récemment")
     end
+  end
+
+  def notify_by_email
+    SendMatchEmailJob.perform_later(self)
+  end
+
+  def notify_by_sms
+    SendMatchSmsJob.perform_later(self)
   end
 end

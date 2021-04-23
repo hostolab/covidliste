@@ -44,16 +44,16 @@
   },
   {
     "anon": false,
-    "bio": "",
+    "bio": "Chef de projet @Caravane",
     "firstname": "Anouck",
     "github": "",
     "id": "94a64c84997b9a87882543878ee92195",
     "identity": "Femme",
     "lastname": "Toulemonde",
-    "linkedin": "",
+    "linkedin": "https://www.linkedin.com/in/anoucktoulemonde/",
     "nickname": "",
-    "picture": "",
-    "role": "",
+    "picture": "volunteer-94a64c84997b9a87882543878ee92195.jpg",
+    "role": "Supply Vetting",
     "specialty": "",
     "twitter": ""
   },
@@ -74,7 +74,7 @@
   },
   {
     "anon": false,
-    "bio": "Fondateur du studio digital et cr\u00e9atif Kokoshka (kokoshka.fr & @studiokokoshka sur Twitter)",
+    "bio": "Fondateur du studio digital et cr\u00e9atif Kokoshka",
     "firstname": "Assen",
     "github": "",
     "id": "ff3b8c8b3cdb53a2b9c7e490f168a5aa",
@@ -89,17 +89,17 @@
   },
   {
     "anon": false,
-    "bio": "Ma\u00eetre de conf\u00e9rences @Universit\u00e9 Clermont Auvergne",
+    "bio": "",
     "firstname": "Amalia",
     "github": "",
     "id": "d369de4531b0ab7dfee6c60c1bc48c2f",
     "identity": "Femme",
     "lastname": "",
-    "linkedin": "https://www.linkedin.com/in/amalia-trousson-71125b21/",
+    "linkedin": "",
     "nickname": "",
     "picture": "",
     "role": "",
-    "specialty": "Biologie, Physiologie animale",
+    "specialty": "",
     "twitter": ""
   },
   {
@@ -115,6 +115,21 @@
     "picture": "",
     "role": "Je fais la v\u00e9rification de la liste partenaires, et du lien avec l'AP HP",
     "specialty": "R\u00e9seau de sant\u00e9",
+    "twitter": ""
+  },
+  {
+    "anon": false,
+    "bio": "R\u00e9dacteur freelance",
+    "firstname": "Aymeric",
+    "github": "",
+    "id": "10d0d441541f00ff1857a2d4c8119a88",
+    "identity": "Homme",
+    "lastname": "Lorent\u00e9",
+    "linkedin": "",
+    "nickname": "",
+    "picture": "volunteer-10d0d441541f00ff1857a2d4c8119a88.jpg",
+    "role": "",
+    "specialty": "",
     "twitter": ""
   },
   {
@@ -145,6 +160,21 @@
     "role": "",
     "specialty": "Scale de nouveaux produits",
     "twitter": "BertrandBurdet"
+  },
+  {
+    "anon": false,
+    "bio": "Etudiant \u00e0 l'Essec, pas mal de dispo :) ",
+    "firstname": "Barth\u00e9lemy ",
+    "github": "",
+    "id": "df769b9b4a312d776e9bb03d159e7472",
+    "identity": "Homme",
+    "lastname": "Verkindere",
+    "linkedin": "https://www.linkedin.com/in/barth%C3%A9lemy-verkindere-0b1690133/",
+    "nickname": "",
+    "picture": "",
+    "role": "",
+    "specialty": "",
+    "twitter": ""
   },
   {
     "anon": true,
@@ -249,6 +279,21 @@
   },
   {
     "anon": false,
+    "bio": "",
+    "firstname": "Doriane",
+    "github": "",
+    "id": "7af11543c1d2779503aae26b07216231",
+    "identity": "Femme",
+    "lastname": "M",
+    "linkedin": "https://www.linkedin.com/in/doriane-margery/",
+    "nickname": "",
+    "picture": "",
+    "role": "",
+    "specialty": "",
+    "twitter": ""
+  },
+  {
+    "anon": false,
     "bio": "Profil Ops en start-up/scale-up (Side, Manomano)",
     "firstname": "Agn\u00e8s",
     "github": "",
@@ -275,6 +320,21 @@
     "picture": "",
     "role": "",
     "specialty": "enseignement, g\u00e9ologie",
+    "twitter": ""
+  },
+  {
+    "anon": false,
+    "bio": "",
+    "firstname": "Elodie",
+    "github": "",
+    "id": "54bf4dc6d1eb921e9c31feb653a84266",
+    "identity": "Femme",
+    "lastname": "Poumet",
+    "linkedin": "",
+    "nickname": "",
+    "picture": "",
+    "role": "",
+    "specialty": "",
     "twitter": ""
   },
   {
@@ -320,6 +380,21 @@
     "role": "",
     "specialty": "Op\u00e9rations, support",
     "twitter": "etlabaume"
+  },
+  {
+    "anon": false,
+    "bio": "Avocat fiscaliste",
+    "firstname": "Florian",
+    "github": "",
+    "id": "abfadb0a9cad825ecde2f33e0f2adac2",
+    "identity": "Homme",
+    "lastname": "Burnat",
+    "linkedin": "https://www.linkedin.com/in/florian-burnat/",
+    "nickname": "",
+    "picture": "volunteer-abfadb0a9cad825ecde2f33e0f2adac2.jpg",
+    "role": "",
+    "specialty": "",
+    "twitter": "fburnat"
   },
   {
     "anon": false,
@@ -426,18 +501,34 @@
     "twitter": ""
   },
   {
-    "anon": true,
-    "bio": "",
-    "firstname": "",
-    "github": "",
+    "anon": false,
+    "bio": "Product Design",
+    "firstname": "William",
+    "github": "williambout",
     "id": "bf41e1349983e4ca4ff2039231878f53",
     "identity": "",
-    "lastname": "",
-    "linkedin": "",
+    "lastname": "Bout",
+    "linkedin": "https://www.linkedin.com/in/williambout/",
     "nickname": "",
-    "role": "",
+    "picture": "volunteer-bf41e1349983e4ca4ff2039231878f53.jpg",
+    "role": "Setup FrontApp",
     "specialty": "",
-    "twitter": ""
+    "twitter": "@williambout"
+  },
+  {
+    "anon": false,
+    "bio": "Product Design",
+    "firstname": "Ardjo",
+    "github": "ardjo-s",
+    "id": "e528217d3d0845f57c2d53501fd7df57",
+    "identity": "Homme",
+    "lastname": "Shahadat",
+    "linkedin": "https://www.linkedin.com/in/ardjo-shahadat/",
+    "nickname": "",
+    "picture": "volunteer-e528217d3d0845f57c2d53501fd7df57.jpg",
+    "role": "",
+    "specialty": "Product Design, Product Mgnt, (et un peu de growth)",
+    "twitter": "rdjooo"
   },
   {
     "anon": false,
@@ -497,6 +588,21 @@
     "twitter": ""
   },
   {
+    "anon": false,
+    "bio": "",
+    "firstname": "Julia",
+    "github": "",
+    "id": "36275433a411856d40bf44e75e40a229",
+    "identity": "Femme",
+    "lastname": "Liguori",
+    "linkedin": "https://www.linkedin.com/in/julialiguori/",
+    "nickname": "",
+    "picture": "",
+    "role": "",
+    "specialty": "",
+    "twitter": ""
+  },
+  {
     "anon": true,
     "bio": "",
     "firstname": "",
@@ -538,6 +644,21 @@
     "role": "Relations avec les pouvois publics et les collectivit\u00e9s, toutes, ind\u00e9pendament de leur taille (\u2764\ufe0f les communes rurales)",
     "specialty": "Relations avec les pouvoirs publics, les collectivit\u00e9s, et tous ceux qui nous gouvernent!",
     "twitter": "julanglais"
+  },
+  {
+    "anon": false,
+    "bio": "",
+    "firstname": "K\u00e9vin",
+    "github": "",
+    "id": "5d9ab35a6d1ed7e19f30d5d09d322552",
+    "identity": "Homme",
+    "lastname": "Travaill\u00e9",
+    "linkedin": "https://www.linkedin.com/in/k%C3%A9vin-travaill%C3%A9-9a81a8187/",
+    "nickname": "",
+    "picture": "volunteer-5d9ab35a6d1ed7e19f30d5d09d322552.jpg",
+    "role": "",
+    "specialty": "",
+    "twitter": "keke21110"
   },
   {
     "anon": true,
@@ -583,6 +704,21 @@
   },
   {
     "anon": false,
+    "bio": "",
+    "firstname": "Laurie",
+    "github": "LauriePremel",
+    "id": "7fa0ba4de68febe6699721504b395277",
+    "identity": "Femme",
+    "lastname": "Pr\u00e9mel-Cabic",
+    "linkedin": "https://www.linkedin.com/in/lauriepremelcabic/",
+    "nickname": "",
+    "picture": "volunteer-7fa0ba4de68febe6699721504b395277.jpg",
+    "role": "",
+    "specialty": "",
+    "twitter": ""
+  },
+  {
+    "anon": false,
     "bio": "Entrepreneur \u00e0 la recherche d'une PME \u00e0 reprendre",
     "firstname": "Laurent",
     "github": "",
@@ -595,6 +731,36 @@
     "role": "Supply Vetting",
     "specialty": "",
     "twitter": "lwaks"
+  },
+  {
+    "anon": false,
+    "bio": "Etudiant 42 / Operateur attraction Walibi Rhone Alpes ",
+    "firstname": "Lucas",
+    "github": "",
+    "id": "306cbc32a7d1aebebb4a7138c54d4893",
+    "identity": "Homme",
+    "lastname": "Francois Saint Cyr",
+    "linkedin": "https://www.linkedin.com/in/lucas-francois-saint-cyr-296596150/",
+    "nickname": "",
+    "picture": "volunteer-306cbc32a7d1aebebb4a7138c54d4893.jpg",
+    "role": "",
+    "specialty": "",
+    "twitter": ""
+  },
+  {
+    "anon": false,
+    "bio": "",
+    "firstname": "Lucile",
+    "github": "LucileCha",
+    "id": "5b3dadbae73a36397f24b4275ade791b",
+    "identity": "Femme",
+    "lastname": "Chanel",
+    "linkedin": "https://www.linkedin.com/in/lucile-chanel/",
+    "nickname": "",
+    "picture": "volunteer-5b3dadbae73a36397f24b4275ade791b.jpg",
+    "role": "",
+    "specialty": "",
+    "twitter": ""
   },
   {
     "anon": true,
@@ -670,6 +836,21 @@
     "twitter": ""
   },
   {
+    "anon": false,
+    "bio": "",
+    "firstname": "Lou",
+    "github": "",
+    "id": "b9fc59c5a962340c905b7915dd95c720",
+    "identity": "Femme",
+    "lastname": "D",
+    "linkedin": "",
+    "nickname": "",
+    "picture": "",
+    "role": "",
+    "specialty": "",
+    "twitter": ""
+  },
+  {
     "anon": true,
     "bio": "",
     "firstname": "",
@@ -716,7 +897,7 @@
   {
     "anon": false,
     "bio": "Machine Learning @ Instacart",
-    "firstname": "Mathieu",
+    "firstname": "Mathieu ",
     "github": "mathieuripert",
     "id": "0b116b5f800331c1c04a3a6dcc192881",
     "identity": "",
@@ -725,7 +906,7 @@
     "nickname": "",
     "picture": "volunteer-0b116b5f800331c1c04a3a6dcc192881.jpg",
     "role": "",
-    "specialty": "",
+    "specialty": "Machine Learning + Web",
     "twitter": "mathieurip"
   },
   {
@@ -834,18 +1015,19 @@
     "twitter": "raphaelrevah"
   },
   {
-    "anon": true,
-    "bio": "",
-    "firstname": "",
+    "anon": false,
+    "bio": "Ex CTO/VP Engineering @ JobTeaser, now with Martin in Climate Tech",
+    "firstname": "Romain",
     "github": "",
     "id": "149d5158a029c457b53fb79bad084fae",
     "identity": "",
-    "lastname": "",
-    "linkedin": "",
+    "lastname": "Champourlier",
+    "linkedin": "https://linkedin.com/rchampourlier",
     "nickname": "",
+    "picture": "volunteer-149d5158a029c457b53fb79bad084fae.jpg",
     "role": "",
-    "specialty": "",
-    "twitter": ""
+    "specialty": "Dev / Orga & Ops",
+    "twitter": "rchampourlier"
   },
   {
     "anon": true,
@@ -891,17 +1073,18 @@
     "twitter": "sa_arrad"
   },
   {
-    "anon": true,
-    "bio": "",
-    "firstname": "",
+    "anon": false,
+    "bio": "Market Manager @Airbnb France",
+    "firstname": "Sarah ",
     "github": "",
     "id": "66565f96ef618f3088766bf0b6394769",
-    "identity": "",
-    "lastname": "",
-    "linkedin": "",
+    "identity": "Femme",
+    "lastname": "Poupineau",
+    "linkedin": "https://www.linkedin.com/in/sarahpoupineau/",
     "nickname": "",
+    "picture": "volunteer-66565f96ef618f3088766bf0b6394769.jpg",
     "role": "",
-    "specialty": "",
+    "specialty": "Supply",
     "twitter": ""
   },
   {

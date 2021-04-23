@@ -9,6 +9,9 @@
 
   <p class="small">
     <%= icon("fas", "phone", current_partner.human_friendly_phone_number) %>
+    <br />
+    Informations incorrectes ?
+    <%= link_to "Modifiez votre profil", partners_path %>
   </p>
 
   <p>
@@ -95,16 +98,17 @@
   <% if @unconfirmed_vaccination_centers.any? %>
     <p class="mt-4">
       Vos lieux de vaccination en attente de validation :
+    </p>
+
     <div class="alert alert-primary" role="alert" style="position: inherit">
       Nous allons vous contacter dans les prochaines heures ou les prochains jours pour valider vos lieux de vaccination en attente.
       <br />
       Vérifiez vos informations, et particulièrement votre numéro de téléphone portable :
       <strong><%= current_partner.human_friendly_phone_number %></strong>
       <br />
-      Numéro incorrect ? Contactez-nous sur
-      <%= link_to "partenaires@covidliste.com", "mailto:partenaires@covidliste.com" %>
+      Numéro incorrect ?
+      <%= link_to "Modifiez-le sur votre page profil", partners_path %>
     </div>
-    </p>
 
     <div class="table-responsive">
       <table class="table table-bordered table-sm">
