@@ -8,7 +8,6 @@ def fill_valid_user
   fill_in :user_address, with: generate(:french_address)
   fill_in :user_phone_number, with: generate(:french_phone_number)
   fill_in :user_email, with: "hello+#{(rand * 10000).to_i}@covidliste.com" # needs valid email here
-  fill_in :user_password, with: robust_password
   check :user_statement
   check :user_toc
 end
@@ -97,10 +96,8 @@ RSpec.describe "Users", type: :system do
     before do
       user.save!
 
-      visit "/login"
-      fill_in :user_email, with: user.email
-      fill_in :user_password, with: user.password
-      click_on "Connexion"
+      token = Devise::Passwordless::LoginToken.encode(user)
+      visit users_magic_link_url(Hash["user", {email: user.email, token: token}])
 
       expect(page).to have_text("Connecté(e).")
       expect(page).to have_text("Vos informations")

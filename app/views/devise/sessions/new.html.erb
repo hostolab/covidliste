@@ -22,7 +22,7 @@
             </p>
           <% end %>
 
-          <%= f.submit "Recevoir un lien de connexion", class: "btn btn-primary" %>
+          <%= f.submit "Recevoir un lien de connexion", class: "btn btn-primary", id: :sign_in %>
 
           <% if devise_mapping.confirmable? && controller_name != "confirmations" %>
             <p class="mt-3">
