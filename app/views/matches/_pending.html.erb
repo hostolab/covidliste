@@ -15,7 +15,7 @@
   l'horaire communiqué.
 </div>
 
-<form action="<%= match_path(match_confirmation_token: @match.match_confirmation_token, s: params[:s]) %>" method="POST" class="needs-validation row" novalidate>
+<form action="<%= match_path(match_confirmation_token: @match.match_confirmation_token) %>" method="POST" class="needs-validation row" novalidate>
   <input type="hidden" name="_method" value="PATCH">
   <div class="col-12 mb-2">
     <div class="form-check flex-wrap">
@@ -75,7 +75,7 @@
     <div class="row">
       <div class="col">
         <button class="btn btn-primary mr-5" type="submit">Je suis disponible</button>
-        <%= link_to 'Refuser le RDV', match_path(match_confirmation_token: @match.match_confirmation_token, s: params[:s]), method: :delete, class: 'btn btn-danger ml-5', "data-confirm": "Souhaitez-vous vraiment refuser ce RDV ?" %>
+        <%= link_to 'Refuser le RDV', match_path(match_confirmation_token: @match.match_confirmation_token), method: :delete, class: 'btn btn-danger ml-5', "data-confirm": "Souhaitez-vous vraiment refuser ce RDV ?" %>
       </div>
     </div>
   </div>

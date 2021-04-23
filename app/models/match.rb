@@ -39,7 +39,7 @@ class Match < ApplicationRecord
     !confirmed_at.nil?
   end
 
-  def confirm!(source = nil)
+  def confirm!
     raise MissingNamesError, "Vous devez renseigner votre identité" if user.missing_identity?
 
     raise AlreadyConfirmedError, "Vous avez déjà confirmé votre disponibilité" if confirmed?
@@ -47,7 +47,6 @@ class Match < ApplicationRecord
     raise DoseOverbookingError, "La dose de vaccin a déjà été réservée" unless confirmable?
 
     self.confirmed_at = Time.now.utc
-    self.source = source
 
     # temporary hack until all matches have the user data at creation
     self.age = user.age if age.nil?
@@ -63,8 +62,8 @@ class Match < ApplicationRecord
     !confirmed? && campaign.remaining_slots > 0 && !refused?
   end
 
-  def refuse!(source = nil)
-    update(refused_at: Time.now.utc, source: source)
+  def refuse!
+    update(refused_at: Time.now.utc)
   end
 
   def refused?

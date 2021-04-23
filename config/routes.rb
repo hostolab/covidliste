@@ -87,7 +87,10 @@ Rails.application.routes.draw do
   end
 
   ## matches
-  resources :matches, path: :m, only: [:show, :update, :destroy], param: :match_confirmation_token
+  get "/matches/:match_confirmation_token(/:source)" => "matches#show" # temporary to make sure existing matches work
+  get "/m/:match_confirmation_token(/:source)" => "matches#show", :as => :match
+  patch "/m/:match_confirmation_token(/:source)" => "matches#update"
+  delete "/m/:match_confirmation_token(/:source)" => "matches#destroy"
 
   ## Pages
   get "/carte" => "pages#carte", :as => :carte
