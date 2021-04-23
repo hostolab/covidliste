@@ -6,7 +6,7 @@
   <p>
     Un vaccin est disponible près de chez vous. <br>
     Pour le réserver, suivez les instructions avant <%= @match.expires_at.strftime("%Hh%M") %> en cliquant sur ce lien :
-    <%= link_to "Vaccin disponible", match_url(@match, match_confirmation_token: @match_confirmation_token, source: 'email') %>
+    <%= link_to "Vaccin disponible", match_url(match_confirmation_token: @match_confirmation_token, source: 'email') %>
   </p>
   <p>
     Si vous ne le réservez pas avant <%= @match.expires_at.strftime("%Hh%M") %>,
@@ -16,7 +16,7 @@
   </p>
   <p>
     Si le lien ne fonctionne pas, copiez et collez l’adresse suivante dans votre navigateur : <br>
-    <%= match_url(@match, match_confirmation_token: @match_confirmation_token, source: 'email') %>
+    <%= match_url(match_confirmation_token: @match_confirmation_token, source: 'email') %>
   </p>
 
   <%= render "mailer/footer" %>
