@@ -166,6 +166,13 @@
     Afin de vous désinscrire, connectez-vous sur votre
     <%= link_to "espace personnel", :new_user_session %>
     puis cliquez sur « Supprimer mon compte ».
+- title: Pourquoi ne puis-je plus me connecter avec le mot de passe choisi, en tant que volontaire non-vacciné ?
+  category: Fonctionnement
+  body_md_erb: |
+    Toujours sensible à améliorer le niveau de sécurité de notre application, nous avons fait le choix de basculer la connexion des volontaires non-vaccinés sur un mode de connexion dit « PasswordLess ».
+    Ce mode se base sur l’envoi d’un e-mail sécurisé sur votre adresse personnelle. Cet e-mail contient un lien avec un code unique infalsifiable qui vous permettra, en le suivant, de vous connecter à l’application.
+
+    Ce mode nous permet de déléguer la sécurité de votre connexion au fournisseur de mails dans lequel vous avez déjà placé votre confiance.
 
 ###########
 # VACCINS #
