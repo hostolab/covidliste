@@ -15,13 +15,6 @@
                 id: 'inputEmail',
                 placeholder: 'E-mail' %>
 
-          <% if devise_mapping.rememberable? %>
-            <p>
-              <%= f.check_box :remember_me %>
-              <%= f.label :remember_me %>
-            </p>
-          <% end %>
-
           <%= f.submit "Recevoir un lien de connexion", class: "btn btn-primary", id: :sign_in %>
 
           <% if devise_mapping.confirmable? && controller_name != "confirmations" %>

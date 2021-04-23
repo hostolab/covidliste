@@ -4,7 +4,7 @@
 
 <p>Vous pouvez vous connecter en utilisant le lien ci-dessous:</p>
 
-<p><%= link_to "Me connecter à mon compte", send("#{@scope_name.to_s.pluralize}_magic_link_url", Hash[@scope_name, {email: @resource.email, token: @token, remember_me: @remember_me}]) %></p>
+<p><%= link_to "Me connecter à mon compte", send("#{@scope_name.to_s.pluralize}_magic_link_url", Hash[@scope_name, {email: @resource.email, token: @token}]) %></p>
 
 <p>Ce lien est valable <%= Devise.passwordless_login_within.inspect %>.</p>
 
