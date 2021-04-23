@@ -29,15 +29,16 @@ class SendCampaignJob < ApplicationJob
     )
 
     users.each do |user|
-      the_match = Match.create(
-        campaign: campaign,
-        campaign_batch: batch,
-        vaccination_center: campaign.vaccination_center,
-        user: user
-      )
-
-      SendMatchSmsJob.perform_later(the_match)
-      SendMatchEmailJob.perform_later(the_match)
+      REDIS_LOCK.lock!("create_match_for_user_id_#{user.id}", 2000) do
+        Match.create(
+          campaign: campaign,
+          campaign_batch: batch,
+          vaccination_center: campaign.vaccination_center,
+          user: user
+        )
+      end
+    rescue Redlock::LockError
+      Rails.logger.warning("Could not obtain lock to create match for user_id #{user.id}")
     end
 
     # Prepare for next campaign batch

@@ -13,10 +13,10 @@
 
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav ml-auto">
-      <li class="<%= class_names("nav-item", active: current_page?(carte_path)) %>">
-        <%= link_to "Carte", carte_path, class: "nav-link" %>
-      </li>
       <% if !current_partner %>
+        <li class="<%= class_names("nav-item", active: current_page?(carte_path)) %>">
+          <%= link_to "Carte", carte_path, class: "nav-link" %>
+        </li>
         <li class="<%= class_names("nav-item", active: current_page?(faq_path)) %>">
           <%= link_to "Foire aux questions", faq_path, class: "nav-link" %>
         </li>
@@ -29,6 +29,9 @@
       <% end %>
 
       <% if current_partner %>
+        <li class="<%= class_names("nav-item", active: current_page?(partners_vaccination_centers_path)) %>">
+          <%= link_to "Espace partenaire", partners_vaccination_centers_path, class: "nav-link" %>
+        </li>
         <li class="nav-item dropdown">
           <%= link_to "", class: "nav-link text-white font-weight-bold dropdown-toggle", id: "dropdown09", "aria-expanded": "false", "aria-haspopup": "true", "data-toggle": "dropdown" do %>
             <%= current_partner.name %>
