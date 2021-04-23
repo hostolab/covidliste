@@ -21,7 +21,7 @@ class Match < ApplicationRecord
 
   validate :no_recent_match, on: :create
   before_create :save_user_info
-  after_create :notify_by_email, :notify_by_sms
+  after_create_commit :notify_by_email, :notify_by_sms
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
   scope :refused, -> { where.not(refused_at: nil) }
