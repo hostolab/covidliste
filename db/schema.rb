@@ -10,10 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_22_152656) do
+ActiveRecord::Schema.define(version: 2021_04_22_185031) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "ahoy_clicks", force: :cascade do |t|
+    t.string "campaign"
+    t.string "token"
+    t.index ["campaign"], name: "index_ahoy_clicks_on_campaign"
+  end
+
+  create_table "ahoy_messages", force: :cascade do |t|
+    t.string "user_type"
+    t.bigint "user_id"
+    t.text "to_ciphertext"
+    t.string "to_bidx"
+    t.string "mailer"
+    t.text "subject"
+    t.datetime "sent_at"
+    t.string "campaign"
+    t.index ["campaign"], name: "index_ahoy_messages_on_campaign"
+    t.index ["to_bidx"], name: "index_ahoy_messages_on_to_bidx"
+    t.index ["user_type", "user_id"], name: "index_ahoy_messages_on_user"
+  end
 
   create_table "blazer_audits", force: :cascade do |t|
     t.bigint "user_id"
