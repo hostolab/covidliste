@@ -1,18 +1,23 @@
-<h2>Une dose de vaccin vous attend !</h2>
-<h2>Confirmez votre disponibilité. </h2>
+<h2>Une dose de vaccin est disponible ! Réservez-la dès maintenant. </h2>
 
 <p class="mt-4">
-  Bonne nouvelle ! Une dose est disponible près de chez vous.
-  <strong> Vous avez <%= time_ago_in_words(@match.expires_at, include_seconds: true) %> pour confirmer votre venue au centre de vaccination au créneau horaire proposé </strong>.
-  Passé ce délai, la dose sera attribuée à un autre de volontaire.
+  Bonne nouvelle ! Une dose est disponible près de chez vous. <br>
+  <strong>
+    Une confirmation de votre part dans un délai de <%= time_ago_in_words(@match.expires_at, include_seconds: true) %>
+    est indispensable pour réserver votre dose. <br>
+  </strong>
+  Passé ce délai, la dose sera attribuée à un autre volontaire.
 </p>
 
 <%= render 'match_details', match: @match %>
 <% user = match.user %>
 
-<div class="alert alert-primary" role="alert">
-  Merci de confirmer votre présence <strong>uniquement</strong> si vous pouvez vous rendre au centre de vaccination à
-  l'horaire communiqué.
+<div class="alert alert-danger" role="alert">
+  Ne réservez votre dose que si vous pouvez vous rendre au centre de vaccination
+  entre <%= l(match.campaign.starts_at, format: '%Hh%M') %>
+  et <%= l(match.campaign.ends_at, format: '%Hh%M') %> aujourd'hui. <br>
+  <strong>Si vous ne réservez pas votre dose, elle sera attribuée à un autre volontaire et vous ne pourrez vous faire
+    vacciner.</strong>
 </div>
 
 <form action="<%= match_path(match_confirmation_token: @match.match_confirmation_token) %>" method="POST" class="needs-validation row" novalidate>
@@ -55,7 +60,8 @@
     <div class="form-check flex-wrap">
       <input class="form-check-input" type="checkbox" value="" id="confirm_age" required>
       <label class="form-check-label w-75" for="confirm_age">
-        Je confirme avoir une pièce d'identité portant la date de naissance <strong><%= user.birthdate.strftime("%d/%m/%Y") %></strong>
+        Je confirme avoir une pièce d'identité portant la date de naissance
+        <strong><%= user.birthdate.strftime("%d/%m/%Y") %></strong>
       </label>
       <div class="invalid-feedback w-100">
         Vous devez confirmer votre date de naissance. <br>
@@ -70,39 +76,36 @@
       </small>
     </p>
   </div>
-  <div class="col-12 mb-2">
-    <div class="row">
-      <div class="col">
-        <button class="btn btn-primary mr-5" type="submit">Je suis disponible</button>
-        <%= link_to 'Refuser le RDV', match_path(match_confirmation_token: @match.match_confirmation_token), method: :delete, class: 'btn btn-danger ml-5', "data-confirm": "Souhaitez-vous vraiment refuser ce RDV ?" %>
-      </div>
-    </div>
+  <div class="col-12 d-flex flex-wrap">
+    <button class="btn btn-primary mr-2 btn-lg mb-3" type="submit">Je réserve la dose</button>
+    <%= link_to 'Refuser le RDV', match_path(match_confirmation_token: @match.match_confirmation_token), method: :delete, class: 'btn btn-danger btn-lg mb-3', "data-confirm": "Souhaitez-vous vraiment refuser ce RDV ?" %>
   </div>
 </form>
 
 
 <p>
   <small>
-    Une fois votre présence confirmée, vos coordonnées sont transmises au centre de vaccination. Votre compte et vos informations seront alors définitivement supprimés de Covidliste sous 
+    Une fois votre présence confirmée, vos coordonnées sont transmises au centre de vaccination. Votre compte et vos
+    informations seront alors définitivement supprimés de Covidliste sous
     <%= AnonymizeConfirmedMatchedUsersJob::DELAY_AFTER_MATCH_CONFIRMATION.parts.map { |unit, n| I18n.t unit, count: n, scope: 'duration' }.to_sentence %>
     , et vous ne recevrez plus de notifications.
   </small>
 </p>
 
 <script>
-// Script from https://getbootstrap.com/docs/5.0/forms/validation/
-(function () {
-  var forms = document.querySelectorAll('.needs-validation')
-  Array.prototype.slice.call(forms)
-    .forEach(function (form) {
-      form.addEventListener('submit', function (event) {
-        if (!form.checkValidity()) {
-          event.preventDefault()
-          event.stopPropagation()
-        }
+    // Script from https://getbootstrap.com/docs/5.0/forms/validation/
+    (function () {
+        var forms = document.querySelectorAll('.needs-validation')
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
 
-        form.classList.add('was-validated')
-      }, false)
-    })
-})()
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
 </script>
