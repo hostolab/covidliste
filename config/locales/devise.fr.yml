@@ -102,7 +102,7 @@ fr:
         message: Votre compte a été bloqué suite à un nombre d'essais de connexions manquées trop important.
         subject: Instructions pour déverrouiller le compte
       magic_link:
-        user_subject: Voici votre lien de connexion magique USER ✨
+        user_subject: Voici votre lien de connexion magique à Covidliste ✨
     omniauth_callbacks:
       failure: "Nous ne pouvons pas vous authentifier depuis %{kind} pour la raison suivante : '%{reason}'."
       success: Autorisé par votre compte %{kind}.
