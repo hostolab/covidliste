@@ -29,7 +29,7 @@ class SendCampaignJob < ApplicationJob
     )
 
     users.each do |user|
-      match = REDIS_LOCK.lock!("create_match_for_user_id_#{user.id}", 2000) do
+      REDIS_LOCK.lock!("create_match_for_user_id_#{user.id}", 2000) do
         Match.create(
           campaign: campaign,
           campaign_batch: batch,
