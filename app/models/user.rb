@@ -5,12 +5,7 @@ class User < ApplicationRecord
 
   attr_accessor :address
 
-  devise :database_authenticatable,
-    :recoverable,
-    :rememberable,
-    :validatable,
-    :confirmable,
-    :zxcvbnable
+  devise :magic_link_authenticatable, :confirmable, :validatable
 
   has_many :matches, dependent: :nullify
   has_many :messages, class_name: "Ahoy::Message", as: :user
@@ -22,7 +17,6 @@ class User < ApplicationRecord
 
   blind_index :email
 
-  validates :password, presence: true, on: :create
   validates :lat, presence: true, unless: proc { |u| u.persisted? }
   validates :lon, presence: true, unless: proc { |u| u.persisted? }
   validates :birthdate, presence: true

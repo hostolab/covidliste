@@ -26,7 +26,7 @@
                   start_year: Date.today.year - 120,
                   end_year: Date.today.year - 18,
                   order: [:day, :month, :year] %>
-      
+
       <p class="text-primary small">
         Vérifiez bien votre date de naissance. En cas d'erreur, la vaccination ne sera pas possible !
       </p>
@@ -51,29 +51,6 @@
                   hint: "Une adresse email ne peut être utilisée que par une seule personne. 2 personnes = 2 adresses email différentes.",
                   required: true,
                   input_html: { autocomplete: "email" } %>
-
-      <div class="form-group" data-controller="password">
-        <label for="user_password"> Mot de passe </label>
-
-        <div class="input-group" data-behavior="toggle-password-visibility">
-          <%= f.input_field :password,
-                            type: :password,
-                            class: "form-control",
-                            required: true,
-                            input_html: { autocomplete: "new-password" },
-                            data: {password_target: 'password', action: 'input->password#check'} %>
-
-          <div class="input-group-append">
-            <span class="input-group-text"> <%= link_to icon("fas", "eye") %> </span>
-          </div>
-        </div>
-
-        <small class="form-text text-muted"> 
-          <%= "#{User::PASSWORD_HINT}" %>
-          <br/>
-          <%= content_tag :span, "", data: { password_target: "passwordCheck" }, class: "d-inline-block" %>
-        </small>
-      </div>
 
       <%= render partial: "input_statement", locals: {f: f, local_cgu_path: cgu_volontaires_path} %>
       <%= render partial: "input_toc", locals: {f: f}%>

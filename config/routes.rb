@@ -42,16 +42,16 @@ Rails.application.routes.draw do
   ## devise users
   devise_for :users,
     path_names: {sign_in: "login", sign_out: "logout"},
-    skip: %i[sessions registrations],
+    path: "",
+    skip: %i[registrations],
     controllers: {
+      sessions: "devise/passwordless/sessions",
       confirmations: "confirmations"
     }
 
   # TODO FIXME Legacy hardcoced login/logout routes, we should use the routes from devise instead
   devise_scope :user do
-    get "login", to: "devise/sessions#new", as: :new_user_session
-    post "login", to: "devise/sessions#create", as: :user_session
-    delete "logout", to: "devise/sessions#destroy", as: :destroy_user_session
+    get "/users/magic_link", to: "devise/passwordless/magic_links#show", as: "users_magic_link"
   end
 
   ## devise partners

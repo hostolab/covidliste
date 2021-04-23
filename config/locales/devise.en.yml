@@ -1,5 +1,4 @@
-# Additional translations at https://github.com/heartcombo/devise/wiki/I18n
-
+---
 en:
   devise:
     confirmations:
@@ -16,6 +15,7 @@ en:
       timeout: "Your session expired. Please sign in again to continue."
       unauthenticated: "You need to sign in or sign up before continuing."
       unconfirmed: "You have to confirm your email address before continuing."
+      magic_link_invalid: "Invalid or expired login link."
     mailer:
       confirmation_instructions:
         subject: "Confirmation instructions"
@@ -27,6 +27,8 @@ en:
         subject: "Email Changed"
       password_change:
         subject: "Password Changed"
+      magic_link:
+        subject: "Here's your magic login link ✨"
     omniauth_callbacks:
       failure: 'Could not authenticate you from %{kind} because "%{reason}".'
       success: "Successfully authenticated from %{kind} account."
@@ -53,6 +55,9 @@ en:
       send_instructions: "You will receive an email with instructions for how to unlock your account in a few minutes."
       send_paranoid_instructions: "If your account exists, you will receive an email with instructions for how to unlock it in a few minutes."
       unlocked: "Your account has been unlocked successfully. Please sign in to continue."
+    passwordless:
+      not_found_in_database: "Could not find a user for that email address"
+      magic_link_sent: "A login link has been sent to your email address. Please follow the link to log in to your account."
   errors:
     messages:
       already_confirmed: "was already confirmed, please try signing in"

@@ -7,7 +7,6 @@ FactoryBot.define do
     email { generate(:unique_email) }
     firstname { generate(:firstname) }
     lastname { generate(:lastname) }
-    password { generate(:password) }
     phone_number { "0606060606" }
 
     confirmed_at { Time.zone.now }
