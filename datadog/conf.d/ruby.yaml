@@ -1,0 +1,5 @@
+logs:
+  - type: file
+    path: /app/log/lograge_production.log
+    source: ruby
+    service: ruby
