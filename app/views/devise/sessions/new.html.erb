@@ -24,8 +24,8 @@
 
           <%= f.submit "Recevoir un lien de connexion", class: "btn btn-primary" %>
 
-          <% if devise_mapping.confirmable? && controller_name != "confirmations" && !resource.is_a?(User) %>
-            <p>
+          <% if devise_mapping.confirmable? && controller_name != "confirmations" %>
+            <p class="mt-3">
               <%= link_to "Redemander l’email de confirmation", new_confirmation_path(resource_name) %>
             </p>
           <% end %>
