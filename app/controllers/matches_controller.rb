@@ -4,6 +4,7 @@ class MatchesController < ApplicationController
   before_action :verify_expiration, only: [:update]
 
   def show
+    track_click
   end
 
   def destroy
@@ -54,6 +55,16 @@ class MatchesController < ApplicationController
       flash[:error] = "Désolé, ce lien d’invitation n’est pas plus valide. L’utilisateur a été supprimé."
       redirect_to root_path
     end
+  end
+
+  def track_click
+    source = params[:source]
+    if source == "email"
+      @match.email_first_clicked_at ||= Time.now.utc
+    elsif source == "sms"
+      @match.sms_first_clicked_at ||= Time.now.utc
+    end
+    @match.save
   end
 
   def skip_pundit?

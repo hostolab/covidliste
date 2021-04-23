@@ -22,6 +22,6 @@ class SendMatchSmsJob < ApplicationJob
   private
 
   def cta_url(match)
-    Rails.application.routes.url_helpers.match_url(match_confirmation_token: match.match_confirmation_token)
+    Rails.application.routes.url_helpers.match_url(match_confirmation_token: match.match_confirmation_token, source: "sms")
   end
 end
