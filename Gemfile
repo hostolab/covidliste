@@ -60,6 +60,7 @@ gem "lograge"
 gem "logstash-event"
 gem "ddtrace", "0.35.2"
 gem "devise_zxcvbn"
+gem "ahoy_email"
 gem "redlock"
 
 group :development, :test do
