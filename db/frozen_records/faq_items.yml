@@ -8,9 +8,7 @@
     Vérifiez que le mail n’est pas présent dans vos courriers indésirables, ou boîte _SPAM_.
 
     S’il n’est pas présent, vous pouvez faire une nouvelle demande
-    <%= link_to "d’email de confirmation", new_user_confirmation_path %>
-    ou de
-    <%= link_to "changement de mot de passe", new_user_password_path %>.
+    <%= link_to "d’email de confirmation", new_user_confirmation_path %>.
 
     Attendez quelques minutes, vérifiez vos courriers indésirables ou boîte _SPAM_.
 
