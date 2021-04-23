@@ -3,12 +3,12 @@
 class Devise::Passwordless::SessionsController < Devise::SessionsController
   def create
     self.resource = resource_class.find_by(email: create_params[:email])
-    if resource
-      resource.send_magic_link(create_params[:remember_me])
-      set_flash_message(:notice, :magic_link_sent, now: true)
-    else
-      set_flash_message(:alert, :not_found_in_database, now: true)
-    end
+
+    resource&.send_magic_link(create_params[:remember_me])
+
+    # always send a success message to prevent leaking information
+    # about the presence or not of a user in our database
+    set_flash_message(:notice, :magic_link_sent, now: true, email: create_params[:email])
 
     self.resource = resource_class.new(create_params)
     render :new
