@@ -123,7 +123,7 @@ class User < ApplicationRecord
     columns = %w[created_at updated_at email firstname lastname birthdate phone_number address lat lon zipcode city geo_citycode geo_context]
     CSV.generate(headers: true) do |csv|
       csv << columns
-      csv << columns.map { |column| send(column) }
+      csv << columns.map { |column| public_send(column) }
     end
   end
 
