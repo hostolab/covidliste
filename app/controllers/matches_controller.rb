@@ -17,7 +17,7 @@ class MatchesController < ApplicationController
     @match.user.update_attribute("firstname", form_match_params[:firstname])
     @match.user.update_attribute("lastname", form_match_params[:lastname])
     @match.confirm!
-  rescue => e
+  rescue Match::AlreadyConfirmedError, Match::DoseOverbookingError, Match::MissingNamesError, ActiveRecord::RecordInvalid => e
     flash.now[:error] = e.message
   ensure
     render action: "show", status: flash[:error].present? ? :unprocessable_entity : :ok
