@@ -14,10 +14,8 @@ class MatchesController < ApplicationController
 
   def update
     form_match_params = match_params
-    @match.user.assign_attributes(
-      firstname: form_match_params[:firstname],
-      lastname: form_match_params[:lastname]
-    )
+    @match.user.update_attribute("firstname", form_match_params[:firstname])
+    @match.user.update_attribute("lastname", form_match_params[:lastname])
     @match.confirm!
   rescue Match::AlreadyConfirmedError, Match::DoseOverbookingError, Match::MissingNamesError, ActiveRecord::RecordInvalid => e
     flash.now[:error] = e.message
