@@ -14,7 +14,7 @@
     <% if @vaccination_center.confirmed? %>
       <%= icon("fas", "check", class: "text-success") %>
       Validé par
-      <strong><%= @vaccination_center.confirmer&.full_name %></strong>
+      <strong><%= @vaccination_center.confirmer %></strong>
       le <%= l @vaccination_center.confirmed_at %>
 
     <% else %>
@@ -130,8 +130,8 @@
               <td title="<%= campaign.matches.confirmed.size %> confirmés / <%= campaign.matches.count %> matchés" data-toggle="tooltip">
                 <%= campaign.matches.confirmed.size %> / <%= campaign.matches.count %>
               </td>
-              <td title="<%= l campaign.starts_at %> par <%= campaign.partner.name %>" data-toggle="tooltip">
-                <%= l campaign.starts_at %>
+              <td title="<%= l campaign.created_at %> par <%= campaign.partner.name %>" data-toggle="tooltip">
+                <%= l campaign.created_at %>
               </td>
             </tr>
           <% end %>

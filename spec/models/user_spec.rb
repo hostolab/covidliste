@@ -10,16 +10,16 @@ RSpec.describe User, type: :model do
 
     it "is invalid without a first_name" do
       user.firstname = nil
-      expect(user).to_not be_valid
+      expect(user).to be_valid
     end
 
     it "is invalid without a last_name" do
       user.lastname = nil
-      expect(user).to_not be_valid
+      expect(user).to be_valid
     end
 
-    it "is invalid without an address" do
-      user.address = nil
+    it "is invalid without lat or lon" do
+      user.lat = nil
       expect(user).to_not be_valid
     end
 
@@ -80,6 +80,24 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe "to_s" do
+    it "should return email" do
+      user = User.new(email: "test@coviliste.com")
+      expect(user.to_s).to eq("test@coviliste.com")
+    end
+
+    it "should return firstname + lastname" do
+      user = User.new(firstname: "George", lastname: "Abitbol")
+      expect(user.to_s).to eq("George Abitbol")
+    end
+
+    it "should return Anonymous" do
+      user = create(:user)
+      user.anonymize!
+      expect(user.to_s).to eq("Anonymous")
+    end
+  end
+
   describe "Anonymisation" do
     it "anonymise every fields" do
       user = create(:user)
@@ -116,23 +134,6 @@ RSpec.describe User, type: :model do
       today = Time.now.utc.to_date
       user.birthdate = today - 20.years - 1.day
       expect(user.age).to eq(20)
-    end
-  end
-
-  describe "password" do
-    it "is invalid if length below 8" do
-      user.password = "1234"
-      expect(user).to_not be_valid
-    end
-
-    it "is too weak" do
-      user.password = "123456789"
-      expect(user).to_not be_valid
-    end
-
-    it "is valid" do
-      user.password = "snipe.HACKSAW.fish"
-      expect(user).to be_valid
     end
   end
 end

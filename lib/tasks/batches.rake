@@ -71,7 +71,7 @@ namespace :batches do
           response = client.messages.create(
             from: "COVIDLISTE",
             to: match.user.phone_number,
-            body: "Bonne nouvelle ! Un vaccin #{batch.campaign.vaccine_type} est disponible. Réservez-le avant #{match.expires_at.strftime("%Hh%M")} en cliquant ici : https://www.covidliste.com/matches/#{match.match_confirmation_token}"
+            body: "Bonne nouvelle ! Un vaccin #{batch.campaign.vaccine_type} est disponible. Réservez-le avant #{match.expires_at.strftime("%Hh%M")} en cliquant ici : https://www.covidliste.com/m/#{match.match_confirmation_token}"
           )
           puts response.body
           match.update(sms_sent_at: Time.now.utc)

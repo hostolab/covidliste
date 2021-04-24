@@ -11,7 +11,10 @@ RSpec.describe "Matches", type: :request do
   describe "update" do
     it "it will confirm a valid match" do
       expect {
-        patch "/matches/#{match_confirmation_token}"
+        patch match_path(match_confirmation_token), params: {
+          firstname: "Jean",
+          lastname: "Dupont"
+        }
       }.to change { match.reload.confirmed_at }
     end
 
@@ -19,7 +22,10 @@ RSpec.describe "Matches", type: :request do
       match.update_column("expires_at", 5.minutes.ago)
 
       expect {
-        put "/matches/#{match_confirmation_token}"
+        patch match_path(match_confirmation_token), params: {
+          firstname: "Jean",
+          lastname: "Dupont"
+        }
       }.not_to change { match.reload.confirmed_at }
     end
   end

@@ -20,36 +20,23 @@
     <% end %>
 
     <%= simple_form_for @user do |f| %>
-      <%= f.input :firstname,
-                  label: "Prénom",
-                  error: "Prénom requis",
-                  placeholder: "Jean",
-                  required: true,
-                  input_html: { autocomplete: "given-name" } %>
-
-      <%= f.input :lastname,
-                  label: "Nom",
-                  error: "Nom requis",
-                  placeholder: "Dupont",
-                  required: true,
-                  input_html: { autocomplete: "family-name" } %>
-
       <%= f.input :birthdate,
                   as: :date,
                   label: "Date de naissance",
                   start_year: Date.today.year - 120,
                   end_year: Date.today.year - 18,
                   order: [:day, :month, :year] %>
-      
+
       <p class="text-primary small">
-        Vérifiez bien vos nom, prénom et date de naissance. En cas d'erreur, la vaccination ne sera pas possible !
+        Vérifiez bien votre date de naissance. En cas d'erreur, la vaccination ne sera pas possible !
       </p>
       <%= f.input :address,
                   label: "Adresse",
                   error: "Adresse requise",
                   placeholder: "5 rue Larue, 13600 Marseille",
                   required: true %>
-
+      <%= f.input_field :lat, as: :hidden %>
+      <%= f.input_field :lon, as: :hidden %>
       <%= f.input :phone_number,
                   label: "Numéro de téléphone portable",
                   error: "Numéro de téléphone invalide",
@@ -65,35 +52,12 @@
                   required: true,
                   input_html: { autocomplete: "email" } %>
 
-      <div class="form-group" data-controller="password">
-        <label for="user_password"> Mot de passe </label>
-
-        <div class="input-group" data-behavior="toggle-password-visibility">
-          <%= f.input_field :password,
-                            type: :password,
-                            class: "form-control",
-                            required: true,
-                            input_html: { autocomplete: "new-password" },
-                            data: {password_target: 'password', action: 'input->password#check'} %>
-
-          <div class="input-group-append">
-            <span class="input-group-text"> <%= link_to icon("fas", "eye") %> </span>
-          </div>
-        </div>
-
-        <small class="form-text text-muted"> 
-          <%= "#{User::PASSWORD_HINT}" %>
-          <br/>
-          <%= content_tag :span, "", data: { password_target: "passwordCheck" }, class: "d-inline-block" %>
-        </small>
-      </div>
-
-      <%= render partial: "mentions", locals: {local_privacy_path: privacy_volontaires_path} %>
       <%= render partial: "input_statement", locals: {f: f, local_cgu_path: cgu_volontaires_path} %>
       <%= render partial: "input_toc", locals: {f: f}%>
 
       <%= f.invisible_captcha :subtitle %>
       <%= f.button :submit, "Je m’inscris", class: "btn btn-primary", data: { disable_with: "Inscription en cours..." } %>
     <% end %>
+    <%= render partial: "mentions" %>
   <% end %>
 </div>

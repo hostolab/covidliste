@@ -10,15 +10,36 @@ RSpec.describe MatchesController, type: :system do
   let!(:match_confirmation_token) { "abcd" }
   let!(:match) { create(:match, campaign_batch: batch, user: user, vaccination_center: center, match_confirmation_token: match_confirmation_token, expires_at: 1.hour.since, campaign: campaign) }
 
-  subject { visit "/matches/#{match_confirmation_token}" }
+  subject { visit match_path(match_confirmation_token, source: "sms") }
 
   describe "GET show" do
     context "with a valid match" do
       it "it says une dose dispo" do
         subject
         expect(page).to have_text("Une dose est disponible")
-        expect(page).to have_text("Je suis disponible")
+        expect(page).to have_text("Je réserve la dose")
         expect(page).to have_text(center.address)
+        expect(page).to have_field("firstname", with: user.firstname)
+        expect(page).to have_field("lastname", with: user.lastname)
+
+        fill_in :firstname, with: user.firstname
+        fill_in :lastname, with: ""
+        click_on("Je réserve la dose")
+        expect(page).to have_text("Vous devez renseigner votre identité")
+
+        fill_in :firstname, with: ""
+        fill_in :lastname, with: user.lastname
+        click_on("Je réserve la dose")
+        expect(page).to have_text("Vous devez renseigner votre identité")
+
+        fill_in :firstname, with: user.firstname
+        fill_in :lastname, with: user.lastname
+        click_on("Je réserve la dose")
+        expect(page).not_to have_text("Vous devez renseigner votre identité")
+        expect(page).to have_text("Votre disponibilité est confirmée")
+        expect(page).to have_text(center.address)
+        match.reload
+        expect(match.sms_first_clicked_at).to_not eq(nil)
       end
     end
 
@@ -45,7 +66,7 @@ RSpec.describe MatchesController, type: :system do
 
     context "with an invalid token" do
       it "redirects to root" do
-        visit "/matches/invalid-token"
+        visit match_path("invalid-token")
         expect(page).to have_current_path(root_path)
       end
     end
@@ -59,14 +80,14 @@ RSpec.describe MatchesController, type: :system do
       end
 
       it "handle the user's disappointment gracefully" do
-        visit "/matches/#{match_confirmation_token}"
+        visit match_path(match_confirmation_token)
 
         expect(page).to have_text("La dose n'est plus disponible 😢")
         expect(page).to have_text("Nous sommes désolés, un autre volontaire a été plus rapide que vous.")
         expect(page).to have_text("Pour qu'aucune dose ne soit perdue, nous contactons quand c'est possible plusieurs volontaires.")
         expect(page).to have_text("Dans de rares cas, il arrive que toutes les doses soient prises.")
         expect(page).not_to have_text("Une dose est disponible")
-        expect(page).not_to have_text("Je suis disponible")
+        expect(page).not_to have_text("Je réserve la dose")
       end
     end
 
@@ -79,13 +100,15 @@ RSpec.describe MatchesController, type: :system do
       end
 
       it "handle the user's disappointment gracefully" do
-        visit "/matches/#{match_confirmation_token}"
+        visit match_path(match_confirmation_token)
 
         # A volunteer confirms a few seconds before me
         # while I'm browsing the match show page
         create(:match, :confirmed, campaign: campaign)
 
-        click_on("Je suis disponible")
+        fill_in :firstname, with: generate(:firstname)
+        fill_in :lastname, with: generate(:lastname)
+        click_on("Je réserve la dose")
         expect(page).to have_text("La dose n'est plus disponible 😢")
       end
     end

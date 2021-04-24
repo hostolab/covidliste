@@ -1,0 +1,6 @@
+.leaflet-pane {
+  img:not([alt]),
+  img[alt=""] {
+    border: 0 !important;
+  }
+}

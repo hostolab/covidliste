@@ -42,16 +42,16 @@ Rails.application.routes.draw do
   ## devise users
   devise_for :users,
     path_names: {sign_in: "login", sign_out: "logout"},
-    skip: %i[sessions registrations],
+    path: "",
+    skip: %i[registrations],
     controllers: {
+      sessions: "devise/passwordless/sessions",
       confirmations: "confirmations"
     }
 
   # TODO FIXME Legacy hardcoced login/logout routes, we should use the routes from devise instead
   devise_scope :user do
-    get "login", to: "devise/sessions#new", as: :new_user_session
-    post "login", to: "devise/sessions#create", as: :user_session
-    delete "logout", to: "devise/sessions#destroy", as: :destroy_user_session
+    get "/users/magic_link", to: "devise/passwordless/magic_links#show", as: "users_magic_link"
   end
 
   ## devise partners
@@ -72,8 +72,8 @@ Rails.application.routes.draw do
   get "/users" => "users#new"
 
   ## Partners
-
   resources :partners, only: [:new, :create]
+  resource :partners, only: [:show, :update, :destroy]
   get "/partenaires", to: redirect("/partenaires/inscription", status: 302)
   get "/partenaires/inscription" => "partners#new", :as => :partenaires_inscription
 
@@ -87,7 +87,10 @@ Rails.application.routes.draw do
   end
 
   ## matches
-  resources :matches, only: [:show, :update, :destroy], param: :match_confirmation_token
+  get "/m/:match_confirmation_token(/:source)" => "matches#show", :as => :match
+  patch "/m/:match_confirmation_token(/:source)" => "matches#update"
+  delete "/m/:match_confirmation_token(/:source)" => "matches#destroy"
+  get "/matches/:match_confirmation_token(/:source)" => "matches#show" # temporary to make sure existing matches work
 
   ## Pages
   get "/carte" => "pages#carte", :as => :carte

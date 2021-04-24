@@ -1,11 +1,12 @@
 FactoryBot.define do
   factory :user do
     address { generate(:french_address) }
+    lat { 48.1 }
+    lon { 2.3 }
     birthdate { generate(:birthdate) }
     email { generate(:unique_email) }
     firstname { generate(:firstname) }
     lastname { generate(:lastname) }
-    password { generate(:password) }
     phone_number { "0606060606" }
 
     confirmed_at { Time.zone.now }

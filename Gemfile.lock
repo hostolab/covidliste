@@ -78,6 +78,11 @@ GEM
       zeitwerk (~> 2.3)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
+    ahoy_email (2.0.3)
+      actionmailer (>= 5)
+      addressable (>= 2.3.2)
+      nokogiri
+      safely_block (>= 0.1.1)
     appsignal (3.0.2)
       rack
     argon2-kdf (0.1.6)
@@ -146,6 +151,8 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    devise-passwordless (0.5.0)
+      devise
     devise_zxcvbn (5.1.0)
       devise
       zxcvbn-js (~> 4.4.1)
@@ -327,6 +334,8 @@ GEM
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     redis (4.2.5)
+    redlock (1.2.1)
+      redis (>= 3.0.0, < 5.0)
     regexp_parser (2.1.1)
     request_store (1.5.0)
       rack (>= 1.4)
@@ -472,6 +481,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  ahoy_email
   appsignal
   autoprefixer-rails
   better_errors
@@ -488,6 +498,7 @@ DEPENDENCIES
   database_cleaner-active_record
   ddtrace (= 0.35.2)
   devise
+  devise-passwordless
   devise_zxcvbn
   dotenv-rails (= 2.7.6)
   factory_bot_rails
@@ -523,6 +534,7 @@ DEPENDENCIES
   rack-mini-profiler (~> 2.0)
   rails (~> 6.1.1)
   rails-controller-testing
+  redlock
   rolify
   rspec-rails (~> 4.0.0)
   rspec-sidekiq

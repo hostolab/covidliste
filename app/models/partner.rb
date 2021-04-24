@@ -26,6 +26,7 @@ class Partner < ApplicationRecord
   has_many :unconfirmed_vaccination_centers, lambda {
                                                where(confirmed_at: nil)
                                              }, through: :partner_vaccination_centers, source: :vaccination_center
+  has_many :messages, class_name: "Ahoy::Message", as: :partner
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
 
@@ -37,7 +38,19 @@ class Partner < ApplicationRecord
     name
   end
 
+  def to_s
+    full_name
+  end
+
   def skip_password_complexity?
     !encrypted_password_changed?
+  end
+
+  def to_csv
+    columns = %w[created_at updated_at email name phone_number]
+    CSV.generate(headers: true) do |csv|
+      csv << columns
+      csv << columns.map { |column| public_send(column) }
+    end
   end
 end

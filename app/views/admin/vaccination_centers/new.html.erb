@@ -21,10 +21,10 @@
       <p class="mt-3">
         Type(s) de vaccins disponibles
       </p>
-      <%= f.input :pfizer, as: :boolean, label: Vaccine::Brands::PFIZER.capitalize, checked_value: true, unchecked_value: false, class: 'form-check-inline' %>
-      <%= f.input :moderna, as: :boolean, label: Vaccine::Brands::MODERNA.capitalize, checked_value: true, unchecked_value: false, class: 'form-check-inline' %>
-      <%= f.input :astrazeneca, as: :boolean, label: Vaccine::Brands::ASTRAZENECA.capitalize, checked_value: true, unchecked_value: false, class: 'form-check-inline' %>
-      <%= f.input :janssen, as: :boolean, label: Vaccine::Brands::JANSSEN.capitalize, checked_value: true, unchecked_value: false %>
+      <%= f.input :pfizer, as: :boolean, label: Vaccine::Brands::PFIZER.capitalize, class: 'form-check-inline' %>
+      <%= f.input :moderna, as: :boolean, label: Vaccine::Brands::MODERNA.capitalize, class: 'form-check-inline' %>
+      <%= f.input :astrazeneca, as: :boolean, label: Vaccine::Brands::ASTRAZENECA.capitalize, class: 'form-check-inline' %>
+      <%= f.input :janssen, as: :boolean, label: Vaccine::Brands::JANSSEN.capitalize %>
       <%= f.input :address, label: 'Adresse', error: 'Adresse requise', placeholder: '5 rue larue, 13600 Marseille' %>
       <%= f.input :lat, :as => :hidden %>
       <%= f.input :lon, :as => :hidden %>
