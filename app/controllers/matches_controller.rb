@@ -14,19 +14,18 @@ class MatchesController < ApplicationController
 
   def update
     form_match_params = match_params
-    @match.user.assign_attributes(
-      firstname: form_match_params[:firstname],
-      lastname: form_match_params[:lastname],
-      statement: true,
-      statement_accepted_at: Time.zone.now,
-      toc_accepted_at: Time.zone.now
-    )
-    @match.user.save!
+
+    user = @match.user
+    user.assign_attributes(form_match_params)
+    user.statement_accepted_at = Time.now.utc if form_match_params["statement"]
+    user.toc_accepted_at = Time.now.utc if form_match_params["toc"]
+    user.save!
+
     @match.confirm!
   rescue Match::AlreadyConfirmedError, Match::DoseOverbookingError, Match::MissingNamesError, ActiveRecord::RecordInvalid => e
     flash.now[:error] = e.message
   ensure
-    render action: "show", status: flash || flash[:error].present? ? :unprocessable_entity : :ok
+    render action: "show", status: flash[:error].present? ? :unprocessable_entity : :ok
   end
 
   private
