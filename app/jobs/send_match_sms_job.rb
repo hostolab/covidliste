@@ -5,10 +5,9 @@ class SendMatchSmsJob < ApplicationJob
   def perform(match)
     return if match.user.nil? ||
       match.user.phone_number.blank? ||
-      match.sms_sent_at.present? ||
-      (match.expires_at && match.expires_at < Time.now.utc)
+      match.sms_sent_at.present? || match.expired?
 
-    match.update(expires_at: Time.now.utc + match.campaign_batch.duration_in_minutes.minutes) if match.expires_at.nil?
+    match.set_expiration!
 
     client = Twilio::REST::Client.new
     client.messages.create(

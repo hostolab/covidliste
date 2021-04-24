@@ -1,8 +1,7 @@
 class SendCampaignJob < ApplicationJob
   queue_as :critical
 
-  BATCH_EXPIRE_IN_MINUTES = 6
-
+  BATCH_EXPIRE_IN_MINUTES = 30
   STOP_SENDING_BEFORE_CAMPAIGN_ENDS_AT = 10.minutes
 
   def perform(campaign, partner = nil)
