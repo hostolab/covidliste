@@ -31,11 +31,11 @@ class Campaign < ApplicationRecord
     User.confirmed.active
       .where("EXTRACT(YEAR FROM AGE(birthdate))::int BETWEEN ? AND ?", min_age, max_age)
       .where("SQRT(((? - lat)*110.574)^2 + ((? - lon)*111.320*COS(lat::float*3.14159/180))^2) < ?", vaccination_center.lat, vaccination_center.lon, max_distance_in_meters / 1000)
-      .where("""id not in (
+      .where("id not in (
         select user_id from matches
         where user_id is not null
         and ((created_at >= now() - interval '24 hours') or (confirmed_at is not null))
-        )""") # exclude user_id that have been matched in the last 24 hours, or confirmed
+        )") # exclude user_id that have been matched in the last 24 hours, or confirmed
       .order("RANDOM()")
       .limit(limit)
   end
