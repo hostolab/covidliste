@@ -1,0 +1,10 @@
+<div class="container py-5">
+  <div class="d-flex align-items-center justify-content-between mb-4">
+    <h2 class="mb-0" id="page-title">
+      Création d'article
+    </h2>
+    <%= link_to "← Retour", admin_seo_pages_path, class: "ml-3" %>
+  </div>
+
+  <%= render 'form', seo_page: @seo_page %>
+</div>

@@ -1,0 +1,8 @@
+<%= content_for(:append_to_head) do %>
+  <meta name="robots" content="<%= (@seo_page.indexable? ? "index" : "noindex") + ", " + (@seo_page.crawlable? ? "follow" : "nofollow") %>" />
+<% end %>
+
+<h1><%= @seo_page.title %></h1>
+<pre>
+<%= @seo_page.to_json %>
+</pre>
