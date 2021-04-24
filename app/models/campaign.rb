@@ -28,14 +28,15 @@ class Campaign < ApplicationRecord
   end
 
   def reachable_users_query(limit: nil)
-    User.confirmed.active.distinct
+    User.confirmed.active
       .where("EXTRACT(YEAR FROM AGE(birthdate))::int BETWEEN ? AND ?", min_age, max_age)
-      .where("SQRT(((? - lat)*110.574)^2 + ((? - lon)*111.320*COS(lat::float*3.14159/180))^2) < ?", lat, lon, max_distance_in_meters / 1000)
-      .joins("LEFT JOIN matches ON matches.user_id = users.id")
-      .where("matches.confirmed_at IS NULL")
-      .where("(matches.id IS NULL) OR (matches.created_at = (SELECT MAX(matches.created_at) FROM matches WHERE users.id = matches.user_id))")
-      .where("(matches.id IS NULL) OR (matches.created_at + interval '1' day < now())")
-      .order(Arel.sql("RANDOM()"))
+      .where("SQRT(((? - lat)*110.574)^2 + ((? - lon)*111.320*COS(lat::float*3.14159/180))^2) < ?", vaccination_center.lat, vaccination_center.lon, max_distance_in_meters / 1000)
+      .where("""id not in (
+        select user_id from matches
+        where user_id is not null
+        and ((created_at >= now() - interval '24 hours') or (confirmed_at is not null))
+        )""") # exclude user_id that have been matched in the last 24 hours, or confirmed
+      .order("RANDOM()")
       .limit(limit)
   end
 
