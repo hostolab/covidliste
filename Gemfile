@@ -63,6 +63,7 @@ gem "devise_zxcvbn"
 gem "devise-passwordless"
 gem "ahoy_email"
 gem "redlock"
+gem "rails-i18n"
 
 group :development, :test do
   gem "dotenv-rails", "2.7.6"

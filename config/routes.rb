@@ -20,6 +20,8 @@ Rails.application.routes.draw do
       end
 
       resources :power_users, only: [:index]
+
+      resources :seo_pages, path: "blog", except: [:show]
     end
 
     # It is not possible to use pundit policies to restrict access based on
@@ -38,6 +40,9 @@ Rails.application.routes.draw do
   end
 
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
+
+  ## SEO Pages
+  resources :seo_pages, only: [:show], path: "blog"
 
   ## devise users
   devise_for :users,

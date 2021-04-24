@@ -1,0 +1,66 @@
+<div class="container py-5">
+  <div class="d-flex align-items-center mb-4">
+    <h2 class="mb-0" id="page-title">
+      Liste d'articles
+    </h2>
+    <%= link_to "Ajouter un article", new_admin_seo_page_path, class: "btn btn-primary ml-4" %>
+  </div>
+
+  <% if @seo_pages.present? %>
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover" aria-describedby="articles">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col" class="text-right" width="70">ID</th>
+            <th scope="col" class="text-left">Article</th>
+            <th scope="col" class="text-left">Status</th>
+            <th scope="col" class="text-left">Google</th>
+            <th scope="col" class="text-left">SEO</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @seo_pages.each do |seo_page| %>
+            <tr>
+              <td class="text-right"><%= seo_page.id %></td>
+              <td class="text-left">
+                <div class="d-flex align-items-center">
+                  <% if seo_page.online? %>
+                    <div class="badge badge-success badge-pill">&nbsp;</div>
+                  <% else %>
+                    <div class="badge badge-secondary badge-pill">&nbsp;</div>
+                  <% end %>
+                  <div class="ml-2">
+                    <div>
+                      <span class="font-weight-bold"><%= seo_page.title %></span>
+                      <%= link_to edit_admin_seo_page_path(seo_page), class: "ml-2 small text-info" do %>
+                        <%= icon("fas", "edit", "Éditer") %>
+                      <% end %>
+                    <div>
+                    <div class="font-weight-light small text-muted"><%= seo_page_path(seo_page) %></div>
+                  </div>
+              </td>
+              <td>
+                <%= seo_page.status %>
+              </td>
+              <td>
+                <%= seo_page.crawlable? ? "OUI" : "NON" %>
+              </td>
+              <td>
+                <div class="font-weight-bold">
+                  <%= seo_page.seo_title %>
+                </div>
+                <div class="font-weight-normal">
+                  <%= seo_page.seo_description %>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% else %>
+    <div class="text-muted">
+      Aucun article pour le moment
+    </div>
+  <% end %>
+</div>

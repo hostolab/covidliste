@@ -9,6 +9,15 @@ fr:
       campaign:
         one: campagne
     attributes:
+      seo_page:
+        title: Titre de l'article
+        status: Status
+        slug: Slug url
+        indexable: Indéxable
+        crawlable: Crawlable
+        seo_title: Titre SEO
+        seo_description: Description SEO
+        body: Contenu de l'article
       user:
         firstname: Prénom
         lastname: Nom

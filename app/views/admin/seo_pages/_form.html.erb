@@ -1,0 +1,17 @@
+<%= simple_form_for([:admin, @seo_page]) do |f| %>
+    <%= f.error_notification %>
+    <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+    <%= f.input :status, label: 'État', collection: SeoPage::Statuses::ALL %>
+    <%= f.input :title, label: "Titre de l'article", required: false %>
+    <%= f.input :slug, label: "Lien dans l'url sans la partie /blog/", required: false %>
+    <div class="border px-3 py-3 mb-3">
+        <div class="text-primary mb-2">Google</div>
+        <%= f.input :seo_title, label: "Titre dans les moteurs de recherche", hint: "70 caractères de long maximum (espaces compris)" %>
+        <%= f.input :seo_description, label: "Description dans les moteurs de recherche", hint: "150 caractères de long maximum (espaces compris)" %>
+        <div class="small">
+            <%= f.input :indexable, as: :boolean, label: "Indique de ne pas être indexée dans les résultats de recherche.", class: 'form-check-inline' %>
+            <%= f.input :crawlable, as: :boolean, label: "Indique de ne pas suivre les pages liées sous forme de lien présent dans cette page.", class: 'form-check-inline small' %>
+        </div>
+    </div>
+    <%= f.button :submit, @seo_page.persisted? ? "Modifier l'article" : "Créer l'article", class: 'btn btn-primary', data: { disable_with: 'Veuillez patientez...' } %>
+<% end %>

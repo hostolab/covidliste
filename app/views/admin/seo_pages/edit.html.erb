@@ -1,0 +1,16 @@
+<div class="container py-5">
+  <div class="d-flex align-items-center justify-content-between mb-4">
+    <h2 class="mb-0" id="page-title">
+      Modification d'article
+    </h2>
+    <%= link_to "← Retour", admin_seo_pages_path, class: "ml-3" %>
+  </div>
+
+  <%= render 'form', seo_page: @seo_page %>
+
+  <div class="mt-3">
+    <%= link_to admin_seo_page_path(@seo_page), method: :delete, class: "small text-danger", data: { confirm: "Êtes-vous sûr(e) ?" } do %>
+      <%= icon("fas", "trash", "Supprimer") %>
+    <% end %>
+  </div>
+</div>
