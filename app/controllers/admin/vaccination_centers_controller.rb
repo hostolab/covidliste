@@ -65,7 +65,7 @@ module Admin
       authorize(VaccinationCenter)
 
       @vaccination_center = VaccinationCenter.new(vaccination_center_params)
-      @vaccination_center.save
+      @vaccination_center.save(context: with_phone_number_change)
       render action: :new
     end
 
@@ -110,13 +110,14 @@ module Admin
     end
 
     def update
-      if @vaccination_center.update(vaccination_center_params)
+      @vaccination_center.assign_attributes(vaccination_center_params)
+      if @vaccination_center.save(context: :with_phone_number_change)
         flash[:success] = "Ce centre a bien été modifié"
+        redirect_to admin_vaccination_center_path(@vaccination_center)
       else
-        flash[:alert] = "Une erreur est survenue : #{@vaccination_center.errors.full_messages.join(", ")}"
+        flash.now[:error] = "Une erreur est survenue : #{@vaccination_center.errors.full_messages.join(", ")}"
+        render :edit
       end
-
-      redirect_to admin_vaccination_center_path(@vaccination_center)
     end
 
     def destroy

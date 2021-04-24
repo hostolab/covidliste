@@ -13,18 +13,19 @@ RSpec.shared_examples "has phone number" do |param|
   end
 
   describe "without validation context" do
+    let(:phone_number) { "1234567" }
+
     it "is not validated" do
-      let(:phone_number) { "1234567" }
-      expect { subject.valid }.to be_true
+      expect(subject.valid).to be_true
     end
   end
 
-  describe "with :user_or_partner_creation_or_edition context" do
+  describe "with :create_or_update_user context" do
     context "when the phone number is not possible" do
       let(:phone_number) { "1234567" }
 
       it "is not valid" do
-        expect { subject.valid(:user_or_partner_creation_or_edition) }.to be_false
+        expect(subject.valid(:with_phone_number_change)).to be_false
       end
     end
 
@@ -32,7 +33,7 @@ RSpec.shared_examples "has phone number" do |param|
       let(:phone_number) { Faker::PhoneNumber.phone_number }
 
       it "is not valid" do
-        expect { subject.valid(:user_or_partner_creation_or_edition) }.to be_false
+        expect(subject.valid(:with_phone_number_change)).to be_false
       end
     end
 
@@ -40,7 +41,7 @@ RSpec.shared_examples "has phone number" do |param|
       let(:phone_number) { "06 12 34 56 78" }
 
       it "is valid" do
-        expect { subject.valid(:user_or_partner_creation_or_edition) }.to be_true
+        expect(subject.valid(:with_phone_number_change)).to be_false
       end
     end
 
@@ -48,7 +49,7 @@ RSpec.shared_examples "has phone number" do |param|
       let(:phone_number) { "07 12 34 56 78" }
 
       it "is not valid" do
-        expect { subject.valid(:user_or_partner_creation_or_edition) }.to be_false
+        expect(subject.valid(:with_phone_number_change)).to be_false
       end
     end
 
@@ -56,7 +57,7 @@ RSpec.shared_examples "has phone number" do |param|
       let(:phone_number) { "+49-162-5555-223" }
 
       it "is valid" do
-        expect { subject.valid(:user_or_partner_creation_or_edition) }.to be_true
+        expect(subject.valid(:with_phone_number_change)).to be_false
       end
     end
   end

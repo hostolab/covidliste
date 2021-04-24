@@ -13,7 +13,7 @@ module HasPhoneNumberConcern
         types: types,
         allow_blank: false
       }
-      validates :phone_number, phone: phone_params, on: :user_or_partner_creation_or_edition
+      validates :phone_number, phone: phone_params, on: :with_phone_number_change
     end
   end
 
