@@ -27,7 +27,7 @@ class Campaign < ApplicationRecord
     available_doses - matches.confirmed.size
   end
 
-  def reachable_users_query(min_age:, max_age:, max_distance_in_meters:, limit: nil)
+  def reachable_users_query(limit: nil)
     User.confirmed.active.distinct
       .where("EXTRACT(YEAR FROM AGE(birthdate))::int BETWEEN ? AND ?", min_age, max_age)
       .where("SQRT(((? - lat)*110.574)^2 + ((? - lon)*111.320*COS(lat::float*3.14159/180))^2) < ?", lat, lon, max_distance_in_meters / 1000)
@@ -35,7 +35,7 @@ class Campaign < ApplicationRecord
       .where("matches.confirmed_at IS NULL")
       .where("(matches.id IS NULL) OR (matches.created_at = (SELECT MAX(matches.created_at) FROM matches WHERE users.id = matches.user_id))")
       .where("(matches.id IS NULL) OR (matches.created_at + interval '1' day < now())")
-      .order(Arel.sql('RANDOM()'))
+      .order(Arel.sql("RANDOM()"))
       .limit(limit)
   end
 

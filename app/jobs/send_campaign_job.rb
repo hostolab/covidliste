@@ -11,12 +11,7 @@ class SendCampaignJob < ApplicationJob
 
     limit = (campaign.remaining_slots * Vaccine.overbooking_factor(campaign.vaccine_type)).floor
 
-    users = campaign.reachable_users_query(
-      min_age: campaign.min_age,
-      max_age: campaign.max_age,
-      max_distance_in_meters: campaign.max_distance_in_meters,
-      limit: limit
-    )
+    users = campaign.reachable_users_query(limit: limit)
 
     return campaign.completed! if users.none?
 
