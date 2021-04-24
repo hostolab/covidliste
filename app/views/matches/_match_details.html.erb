@@ -10,8 +10,9 @@
     <strong> Créneau horaire </strong>
     <% starts_at = match.campaign.starts_at %>
     <% ends_at = match.campaign.ends_at %>
-    <p> 
-      <%= l(starts_at, format: '%A %e %B %Y') %> entre <%= l(starts_at, format: '%Hh%M') %> et <%= l(ends_at, format: '%Hh%M') %>
+    <p>
+      <%= l(starts_at, format: '%A %e %B %Y').capitalize %> entre <%= l(starts_at, format: '%Hh%M') %>
+      et <%= l(ends_at, format: '%Hh%M') %>
     </p>
   </div>
 
@@ -22,16 +23,16 @@
       <i class="fas fa-minus-circle"></i>
       <p>L’utilisateur a supprimé son compte.</p>
     </div>
-  <%# elsif user.anonymized_at #TODO PR #197 %>
+    <%# elsif user.anonymized_at #TODO PR #197 %>
   <% else %>
     <div>
       <i class="fas fa-user-lock"></i>
+      <strong> Informations personnelles </strong>
       <p>
-        Réservé pour <strong><%= user %></strong><br>
-        Né le <strong><%= user.birthdate.strftime('%d/%m/%Y') %></strong><br>
-        Réservation strictement nominative. <br>
-        <strong>Date de naissance et nom seront vérifiés</strong> (pensez à vous munir d'une pièce d'identité)<br>
-        <em>N'oubliez pas votre carte Vitale (ou votre attestation de droits).</em>
+        Date de naissance : <strong><%= user.birthdate.strftime('%d/%m/%Y') %></strong><br>
+        <strong>Date de naissance et nom seront vérifiés.</strong> <br>
+        Munissez-vous d'une pièce d'identité et de votre
+        carte vitale.<br>
       </p>
     </div>
   <% end %>
