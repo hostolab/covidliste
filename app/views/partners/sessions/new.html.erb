@@ -2,21 +2,25 @@
   <meta content="index;follow" name="robots"/>
 <% end %>
 
-<div id="#devise">
+<div id="devise">
   <div class="container">
     <div class="row mt-5">
-      <div class="col-12 col-sm-6 offset-sm-3">
-        <p>
-          <strong>
-            Connexion - Espace professionnels de santé
-          </strong>
+      <div class="col-12 col-lg-6 offset-lg-1 mb-5">
+        <div class="d-flex align-items-center">
+          <div class="rounded p-3 bg-light text-primary mr-3 h2">
+            <%= icon("fas", "hospital-user") %>
+          </div>
+          <h3>
+            Vous êtes un professionnel de santé assurant la vaccination
+          </h3>
+        </div>
+
+        <p class="mt-4 h4">
+          Espace professionnels de santé
         </p>
 
         <p class="mb-4">
-          Cet espace concerne concerne <strong>uniquement le personnel médical assurant la vaccination</strong> :
-          membre d’un centre de vaccination, cabinet de médecine libérale, hôpital, pharmacie...
-          <br>
-          Pour se connecter en tant que volontaire à la vaccination, merci de vous rendre
+          Espace <strong>réservé aux professionnels</strong>, si vous êtes un particulier volontaire à la vaccination, rendez-vous sur
           <%= link_to "sur cette page", new_user_session_path %>.
         </p>
 
@@ -51,6 +55,20 @@
             </p>
           <% end %>
         <% end %>
+      </div>
+      <div class="col-12 col-lg-3 offset-lg-1 d-flex align-items-center border rounded">
+        <div class="text-center px-2">
+          <div class="mt-4">
+            <%= icon("fas", "user-plus", class: "rounded p-3 bg-light text-primary h2") %>
+          </div>
+          <p class="mt-2">
+            Vous êtes un un particulier volontaire à la vaccination ?
+          </p>
+          <p class="mt-4">
+            Rendez-vous sur
+            <%= link_to "l'espace volontaires à la vaccination", new_user_session_path %>
+          </p>
+        </div>
       </div>
     </div>
   </div>
