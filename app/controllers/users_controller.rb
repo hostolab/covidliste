@@ -31,7 +31,8 @@ class UsersController < ApplicationController
   def update
     @user = current_user
     authorize @user
-    if @user.update(user_params)
+    @user.attributes = user_params
+    if @user.save(context: :user_or_partner_creation_or_edition)
       flash.now[:success] = "Modifications enregistrées."
     else
       flash.now[:error] = "Impossible d'enregistrer vos modifications."
@@ -46,7 +47,7 @@ class UsersController < ApplicationController
     @user.statement_accepted_at = Time.zone.now if @user.statement
     @user.toc_accepted_at = Time.zone.now if @user.toc
     authorize @user
-    @user.save
+    @user.save(context: :user_or_partner_creation_or_edition)
     prepare_phone_number
     render action: :new
   rescue ActiveRecord::RecordNotUnique

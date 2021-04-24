@@ -30,7 +30,8 @@ class PartnersController < ApplicationController
   def update
     @partner = current_partner
     authorize @partner
-    if @partner.update(partner_params)
+    @partner.attributes = partner_params
+    if @partner.save(context: :user_or_partner_creation_or_edition)
       flash.now[:success] = "Modifications enregistrées."
     else
       flash.now[:error] = "Impossible d'enregistrer vos modifications."
@@ -45,7 +46,7 @@ class PartnersController < ApplicationController
     @partner.statement_accepted_at = Time.zone.now if @partner.statement
     # @partner.password = Devise.friendly_token.first(12)
     # @partner.skip_confirmation! if ENV["SKIP_EMAIL_CONFIRMATION"] == 'true'
-    @partner.save
+    @partner.save(context: :user_or_partner_creation_or_edition)
     prepare_phone_number
     render action: :new
   rescue ActiveRecord::RecordNotUnique
