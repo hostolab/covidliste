@@ -12,35 +12,52 @@ RSpec.shared_examples "has phone number" do |param|
     subject.phone_number = phone_number
   end
 
-  describe "validating the phone number" do
+  describe "without validation context" do
+    it "is not validated" do
+      let(:phone_number) { "1234567" }
+      expect { subject.valid }.to be_true
+    end
+  end
+
+  describe "with :user_or_partner_creation_or_edition context" do
     context "when the phone number is not possible" do
       let(:phone_number) { "1234567" }
 
-      it { is_expected.not_to be_valid }
+      it "is not valid" do
+        expect { subject.valid(:user_or_partner_creation_or_edition) }.to be_false
+      end
     end
 
     context "when the phone number is not a mobile phone" do
       let(:phone_number) { Faker::PhoneNumber.phone_number }
 
-      it { is_expected.not_to be_valid }
+      it "is not valid" do
+        expect { subject.valid(:user_or_partner_creation_or_edition) }.to be_false
+      end
     end
 
     context "when the phone number is a French mobile phone" do
       let(:phone_number) { "06 12 34 56 78" }
 
-      it { is_expected.to be_valid }
+      it "is valid" do
+        expect { subject.valid(:user_or_partner_creation_or_edition) }.to be_true
+      end
     end
 
     context "when the phone number is a non-attributed French mobile phone" do
       let(:phone_number) { "07 12 34 56 78" }
 
-      it { is_expected.not_to be_valid }
+      it "is not valid" do
+        expect { subject.valid(:user_or_partner_creation_or_edition) }.to be_false
+      end
     end
 
     context "when the phone number is a valid foreign mobile phone" do
       let(:phone_number) { "+49-162-5555-223" }
 
-      it { is_expected.to be_valid }
+      it "is valid" do
+        expect { subject.valid(:user_or_partner_creation_or_edition) }.to be_true
+      end
     end
   end
 
