@@ -11,8 +11,6 @@ const userMap = () => {
       attribution:
         'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
       maxZoom: 14,
-      tileSize: 512,
-      zoomOffset: -1,
     }).addTo(lmap);
     lmap.panTo(new L.LatLng(lat, lon));
     L.circle([lat, lon], {
