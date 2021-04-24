@@ -57,7 +57,7 @@ class Campaign < ApplicationRecord
 
   def min_age_lesser_than_max_age
     if (min_age || 0) >= (max_age || 0)
-      errors.add(:max_age, "doit être supérieur à l’âge minimum")
+      errors.add(:max_age, "doit être supérieur à lâge minimum")
     end
   end
 
@@ -69,7 +69,7 @@ class Campaign < ApplicationRecord
 
   def sms_sent_count_lesser_or_equal_than_sms_max_count
     if sms_sent_count > sms_max_count
-      errors.add(:base, "a atteint son doit être postérieur à la date de début")
+      errors.add(:base, "La limite maximale d’envoi de SMS a été atteinte")
     end
   end
 
