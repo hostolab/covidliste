@@ -7,7 +7,7 @@ class SendMatchEmailJob < ApplicationJob
 
     match.set_expiration!
 
-    MatchMailer.match_confirmation_instructions(match).deliver_now
+    MatchMailer.with(match: match).match_confirmation_instructions.deliver_now
     match.update(mail_sent_at: Time.now.utc)
   end
 end

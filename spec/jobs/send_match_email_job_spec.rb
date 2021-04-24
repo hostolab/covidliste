@@ -11,7 +11,7 @@ describe SendMatchEmailJob do
   context "match is new" do
     it "sends the email" do
       mail = double(:mail)
-      allow(MatchMailer).to receive(:match_confirmation_instructions).with(match).and_return(mail)
+      allow(MatchMailer).to receive_message_chain("with.match_confirmation_instructions").and_return(mail)
       expect(mail).to receive(:deliver_now)
       subject
     end
@@ -33,7 +33,7 @@ describe SendMatchEmailJob do
     end
     it "does not send the email" do
       mail = double(:mail)
-      allow(MatchMailer).to receive(:match_confirmation_instructions).with(match).and_return(mail)
+      allow(MatchMailer).to receive_message_chain("with.match_confirmation_instructions").and_return(mail)
       expect(mail).to_not receive(:deliver_now)
       subject
     end
