@@ -33,7 +33,7 @@ RSpec.describe User, type: :model do
       expect(user).to_not be_valid
     end
 
-    context "when he has incomplete address without zipcode" do
+    context "when the user has incomplete address without zipcode" do
       context "on persistent context" do
         it "is valid" do
           user.address = generate(:french_address)
