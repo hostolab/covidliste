@@ -123,18 +123,28 @@
         </thead>
 
         <tbody>
-          <% @campaign.matches.confirmed.order(:confirmed_at).reject { |m| m.user.blank? }.each do |match| %>
+          <% @campaign.matches.confirmed.order(:confirmed_at).each do |match| %>
             <% user = match.user %>
 
             <tr>
-              <% if user.anonymized_at %>
-                <td> <em> Anonymized </em> </td>
-                <td> - </td>
-                <td> - </td>
+              <% if user.nil? %>
+                <td colspan="3">
+                  <em class="text-muted">
+                    Ce volontaire à confirmé le RDV puis à supprimé son compte.
+                  </em>
+                </td>
               <% else %>
-                <td> <%= user %> </td>
-                <td> <%= user.human_friendly_phone_number %> </td>
-                <td> <%= user.birthdate.strftime("%d/%m/%Y") %> </td>
+                <% if user.anonymized_at %>
+                  <td colspan="3">
+                    <em class="text-muted">
+                      Ce volontaire à été anonymisé quelques jours après le RDV.
+                    </em>
+                  </td>
+                <% else %>
+                  <td> <%= user %> </td>
+                  <td> <%= user.human_friendly_phone_number %> </td>
+                  <td> <%= user.birthdate.strftime("%d/%m/%Y") %> </td>
+                <% end %>
               <% end %>
 
               <td> <%= l match.confirmed_at %> </td>
