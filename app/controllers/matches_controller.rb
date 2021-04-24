@@ -15,13 +15,21 @@ class MatchesController < ApplicationController
   def update
     form_match_params = match_params
 
+    # This is specific to ensure the validation of the user
+    # won't prevent the match confirmation is other attributes
+    # than the ones edited here are invalid.
     user = @match.user
+    user.reload # ensure it's fresh and unmodified
     user.assign_attributes(form_match_params)
     user.statement_accepted_at = Time.now.utc if form_match_params["statement"]
     user.toc_accepted_at = Time.now.utc if form_match_params["toc"]
-    user.save!
 
-    @match.confirm!
+    if user.valid_attributes?(:statement, :toc)
+      user.save(validate: false)
+      @match.confirm!
+    else
+      raise ActiveRecord::RecordInvalid.new(user)
+    end
   rescue Match::AlreadyConfirmedError, Match::DoseOverbookingError, Match::MissingNamesError, ActiveRecord::RecordInvalid => e
     flash.now[:error] = e.message
 

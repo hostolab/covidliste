@@ -128,6 +128,16 @@ class User < ApplicationRecord
     end
   end
 
+  # Enables to only validate specific attributes of the model
+  def valid_attributes?(*attributes)
+    attributes.each do |attribute|
+      self.class.validators_on(attribute).each do |validator|
+        validator.validate_each(self, attribute, send(attribute))
+      end
+    end
+    errors.none?
+  end
+
   protected
 
   def skip_password_complexity?
