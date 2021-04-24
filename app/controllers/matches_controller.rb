@@ -32,7 +32,7 @@ class MatchesController < ApplicationController
   private
 
   def match_params
-    params.permit(:firstname, :lastname)
+    params.permit(:firstname, :lastname, :statement, :toc)
   end
 
   def verify_age
