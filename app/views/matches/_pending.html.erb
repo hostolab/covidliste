@@ -70,6 +70,28 @@
       </div>
     </div>
   </div>
+  <div class="col-12 mb-2">
+    <div class="form-check flex-wrap">
+      <input class="form-check-input" type="checkbox" value="" id="confirm_name" required>
+      <label class="form-check-label w-75" for="confirm_name">
+        J’accepte les <%= link_to "CGU", cgu_volontaires_path %> et certifie sur l’honneur que les informations ci-dessus sont exactes.
+      </label>
+      <div class="invalid-feedback w-100">
+        Vous devez accepter les CGU
+      </div>
+    </div>
+  </div>
+  <div class="col-12 mb-2">
+    <div class="form-check flex-wrap">
+      <input class="form-check-input" type="checkbox" value="" id="confirm_name" required>
+      <label class="form-check-label w-75" for="confirm_name">
+        J’accepte que mes données soient traitées aux fins de la mise en relation avec les établissements de vaccination Covid-19 participant à l’initiative Covidliste.
+      </label>
+      <div class="invalid-feedback w-100">
+        Vous devez accepter la politique des données
+      </div>
+    </div>
+  </div>
   <div class="col-12">
     <p>
       <small>
