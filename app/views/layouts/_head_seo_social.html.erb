@@ -1,12 +1,18 @@
-<title>Covidliste - Sauvons nos doses de vaccin 💉</title>
-<meta name="description" content="Soyez alertés si une dose est disponible près de chez vous."/>
+<%- page_title = content_for?(:page_title) ? yield(:page_title) : "Covidliste - Sauvons nos doses de vaccin 💉" %>
+<%- meta_url = content_for?(:meta_url) ? yield(:meta_url) : "https://www.covidliste.com" %>
+<%- meta_title = content_for?(:meta_title) ? yield(:meta_title) : "Covidliste - Sauvons nos doses de vaccin 💉" %>
+<%- meta_description = content_for?(:meta_description) ? yield(:meta_description) : "Soyez alertés si une dose est disponible près de chez vous." %>
+<%- meta_image_url = content_for?(:meta_image_url) ? yield(:meta_image_url) : image_url("covidliste-card.jpg") %>
+
+<title><%= page_title %></title>
+<meta name="description" content="<%= meta_description %>"/>
 <meta property="og:type" content="website"/>
-<meta property="og:url" content="https://www.covidliste.com"/>
-<meta property="og:title" content="Covidliste - Sauvons nos doses de vaccin 💉"/>
-<meta property="og:description" content="Soyez alertés si une dose est disponible près de chez vous."/>
-<meta property="og:image" content=<%= image_url("covidliste-card.jpg") %>/>
+<meta property="og:url" content="<%= meta_url %>"/>
+<meta property="og:title" content="<%= meta_title %>"/>
+<meta property="og:description" content="<%= meta_description %>"/>
+<meta property="og:image" content="<%= meta_image_url %>"/>
 <meta property="twitter:card" content="summary_large_image"/>
-<meta property="twitter:url" content="https://www.covidliste.com"/>
-<meta property="twitter:title" content="Covidliste - Sauvons nos doses de vaccin 💉"/>
-<meta property="twitter:description" content="Soyez alertés si une dose est disponible près de chez vous."/>
-<meta property="twitter:image" content=<%= image_url("covidliste-card.jpg") %>/>
+<meta property="twitter:url" content="<%= meta_url %>"/>
+<meta property="twitter:title" content="<%= meta_title %>"/>
+<meta property="twitter:description" content="<%= meta_description %>"/>
+<meta property="twitter:image" content="<%= meta_description %>"/>

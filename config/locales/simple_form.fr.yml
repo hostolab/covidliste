@@ -11,9 +11,6 @@ en:
       html: ""
     error_notification:
       default_message: "Erreur, veuillez vérifier vos réponses:"
-    labels:
-      seo_page:
-        title: "Titre"
     # Examples
     # labels:
     #   defaults:

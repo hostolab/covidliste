@@ -1,3 +1,6 @@
+<%= content_for(:page_title) { @seo_page.title } %>
+<%= content_for(:meta_title) { @seo_page.seo_title } %>
+<%= content_for(:meta_description) { @seo_page.seo_description } %>
 <%= content_for(:append_to_head) do %>
   <meta name="robots" content="<%= (@seo_page.indexable? ? "index" : "noindex") + ", " + (@seo_page.crawlable? ? "follow" : "nofollow") %>" />
 <% end %>
