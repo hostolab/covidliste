@@ -8,7 +8,6 @@ class CreateSeoPages < ActiveRecord::Migration[6.1]
       t.boolean :crawlable, default: false, null: false
       t.string :seo_title
       t.string :seo_description
-      t.text :body
       t.timestamps
       t.check_constraint("status IN ('draft', 'review', 'ready', 'online', 'archive')", name: "status_is_a_known_status")
     end

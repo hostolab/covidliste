@@ -4,6 +4,7 @@
     <%= f.input :status, label: 'État', collection: SeoPage::Statuses::ALL %>
     <%= f.input :title, label: "Titre de l'article", required: false %>
     <%= f.input :slug, label: "Lien dans l'url sans la partie /blog/", required: false %>
+    <%= f.input :content, as: :rich_text_area, label: "Contenu de l'article", required: false %>
     <div class="border px-3 py-3 mb-3">
         <div class="text-primary mb-2">Google</div>
         <%= f.input :seo_title, label: "Titre dans les moteurs de recherche", hint: "70 caractères de long maximum (espaces compris)" %>

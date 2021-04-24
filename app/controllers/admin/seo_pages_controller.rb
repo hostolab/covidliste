@@ -50,12 +50,12 @@ module Admin
     private
 
     def set_seo_page
-      @seo_page = SeoPage.find_by!(slug: params[:id])
+      @seo_page = SeoPage.with_rich_text_content_and_embeds.find_by!(slug: params[:id])
       authorize(@seo_page)
     end
 
     def seo_page_params
-      params.require(:seo_page).permit(:status, :title, :slug, :seo_title, :seo_description, :crawlable, :indexable)
+      params.require(:seo_page).permit(:status, :title, :slug, :content, :seo_title, :seo_description, :crawlable, :indexable)
     end
   end
 end
