@@ -30,6 +30,7 @@ class PartnersController < ApplicationController
   def update
     @partner = current_partner
     authorize @partner
+    @partner.statement_accepted_at = Time.now.utc if !@partner.statement && partner_params["statement"] == "1"
     @partner.attributes = partner_params
     if @partner.save(context: :user_or_partner_creation_or_edition)
       flash.now[:success] = "Modifications enregistrées."
