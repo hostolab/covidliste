@@ -75,6 +75,12 @@ class Match < ApplicationRecord
     !confirmed? && Time.now.utc > expires_at
   end
 
+  def set_expiration!
+    return unless expires_at.nil?
+    self.expires_at = [Time.now.utc + campaign_batch.duration_in_minutes.minutes, campaign.ends_at].min
+    save
+  end
+
   def no_recent_match
     if user.matches.where("created_at >= ?", Match::NO_MORE_THAN_ONE_MATCH_PER_PERIOD.ago).any?
       errors.add(:base, "Cette personne a déjà été matchée récemment")
