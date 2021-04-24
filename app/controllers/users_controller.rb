@@ -31,7 +31,7 @@ class UsersController < ApplicationController
   def update
     @user = current_user
     authorize @user
-    @user.statement_accepted_at = Time.now.utc if !@user.statement && uuser_params["statement"] && ser_params["statement"] == "1"
+    @user.statement_accepted_at = Time.now.utc if !@user.statement && ActiveRecord::Type::Boolean.new.cast(user_params["statement"])
     @user.attributes = user_params
     if @user.save(context: :user_or_partner_creation_or_edition)
       flash.now[:success] = "Modifications enregistrées."
