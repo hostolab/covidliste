@@ -24,11 +24,14 @@ class MatchesController < ApplicationController
     @match.confirm!
   rescue Match::AlreadyConfirmedError, Match::DoseOverbookingError, Match::MissingNamesError, ActiveRecord::RecordInvalid => e
     flash.now[:error] = e.message
-    @match.reload
 
     # Updating the match's confirmation_failed_at to indicate it failed.
     # This should help with detecting critical bugs.
     @match.update_column(:confirmation_failed_at, Time.now.utc)
+
+    # Reloading @match so it's back to the previous state, in particular
+    # confirmed_at is nil again.
+    @match.reload
   ensure
     render action: "show", status: flash[:error].present? ? :unprocessable_entity : :ok
   end
