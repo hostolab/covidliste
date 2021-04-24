@@ -139,7 +139,7 @@ export default class extends Controller {
       mapStyle: null,
       canvas: "deck-canvas",
       initialViewState: INITIAL_VIEW_STATE,
-      controller: false,
+      controller: true,
       onViewStateChange: ({ viewState }) => {
         map.jumpTo({
           center: [viewState.longitude, viewState.latitude],
