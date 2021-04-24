@@ -48,7 +48,7 @@ module Partners
       vaccine_type = payload.delete(:vaccine_type)
       available_doses = payload.delete(:available_doses)
 
-      reach = @vaccination_center.reachable_users_query(**payload).count
+      reach = @campaign.reachable_users_query(**payload).count
       render json: {
         reach: Rails.env.production? ? reach : 1,
         enough: reach >= (Vaccine.minimum_reach_to_dose_ratio(vaccine_type) * available_doses)
