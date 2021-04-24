@@ -24,6 +24,7 @@ class MatchesController < ApplicationController
     @match.confirm!
   rescue Match::AlreadyConfirmedError, Match::DoseOverbookingError, Match::MissingNamesError, ActiveRecord::RecordInvalid => e
     flash.now[:error] = e.message
+    @match.reload
   ensure
     render action: "show", status: flash[:error].present? ? :unprocessable_entity : :ok
   end
