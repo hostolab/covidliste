@@ -65,7 +65,7 @@ module Admin
       authorize(VaccinationCenter)
 
       @vaccination_center = VaccinationCenter.new(vaccination_center_params)
-      @vaccination_center.save(context: with_phone_number_change)
+      @vaccination_center.save
       render action: :new
     end
 
@@ -111,7 +111,7 @@ module Admin
 
     def update
       @vaccination_center.assign_attributes(vaccination_center_params)
-      if @vaccination_center.save(context: :with_phone_number_change)
+      if @vaccination_center.save
         flash[:success] = "Ce centre a bien été modifié"
         redirect_to admin_vaccination_center_path(@vaccination_center)
       else

@@ -33,7 +33,7 @@ class UsersController < ApplicationController
     authorize @user
     @user.statement_accepted_at = Time.now.utc if !@user.statement && ActiveRecord::Type::Boolean.new.cast(user_params["statement"])
     @user.assign_attributes(user_params)
-    if @user.save(context: :with_phone_number_change)
+    if @user.save
       flash.now[:success] = "Modifications enregistrées."
     else
       flash.now[:error] = "Impossible d'enregistrer vos modifications."
@@ -48,7 +48,7 @@ class UsersController < ApplicationController
     @user.statement_accepted_at = Time.zone.now if @user.statement
     @user.toc_accepted_at = Time.zone.now if @user.toc
     authorize @user
-    @user.save(context: :with_phone_number_change)
+    @user.save
     prepare_phone_number
     render action: :new
   rescue ActiveRecord::RecordNotUnique

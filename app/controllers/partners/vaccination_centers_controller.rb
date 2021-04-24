@@ -20,7 +20,7 @@ module Partners
 
     def create
       @vaccination_center = VaccinationCenter.new(vaccination_center_params)
-      @vaccination_center.save!(context: :with_phone_number_change)
+      @vaccination_center.save!
       @partner_vaccination_center = PartnerVaccinationCenter.new(
         partner: current_partner,
         vaccination_center: @vaccination_center
