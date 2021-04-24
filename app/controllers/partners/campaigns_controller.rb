@@ -48,7 +48,7 @@ module Partners
       campaign = Campaign.new(simulate_params.merge({vaccination_center: @vaccination_center}))
       reach = campaign.reachable_users_query.count
       render json: {
-        reach: Rails.env.production? ? reach : 1
+        reach: Rails.env.production? ? reach : 1,
         enough: reach >= (Vaccine.minimum_reach_to_dose_ratio(vaccine_type) * available_doses)
       }
     end
