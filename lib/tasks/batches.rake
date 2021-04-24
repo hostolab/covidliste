@@ -74,7 +74,7 @@ namespace :batches do
             body: "Bonne nouvelle ! Un vaccin #{batch.campaign.vaccine_type} est disponible. Réservez-le avant #{match.expires_at.strftime("%Hh%M")} en cliquant ici : https://www.covidliste.com/m/#{match.match_confirmation_token}"
           )
           puts response.body
-          match.update(sms_sent_at: Time.now.utc)
+          match.sms_sent!
         rescue => e
           puts e.class
           puts e.message

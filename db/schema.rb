@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_23_073642) do
+ActiveRecord::Schema.define(version: 2021_04_24_110052) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -122,6 +122,8 @@ ActiveRecord::Schema.define(version: 2021_04_23_073642) do
     t.integer "max_age"
     t.integer "status", default: 0
     t.datetime "canceled_at"
+    t.integer "sms_max_count", default: 0, null: false
+    t.integer "sms_sent_count", default: 0, null: false
     t.index ["partner_id"], name: "index_campaigns_on_partner_id"
     t.index ["status"], name: "index_campaigns_on_status"
     t.index ["vaccination_center_id"], name: "index_campaigns_on_vaccination_center_id"
@@ -130,6 +132,7 @@ ActiveRecord::Schema.define(version: 2021_04_23_073642) do
     t.check_constraint "(vaccine_type)::text = ANY ((ARRAY['pfizer'::character varying, 'moderna'::character varying, 'astrazeneca'::character varying, 'janssen'::character varying])::text[])", name: "vaccine_type_is_a_known_brand"
     t.check_constraint "max_distance_in_meters > 0", name: "max_distance_in_meters_gt_zero"
     t.check_constraint "min_age > 0", name: "min_age_gt_zero"
+    t.check_constraint "sms_sent_count <= sms_max_count", name: "sms_sent_count_lt_eq_sms_max_count"
     t.check_constraint "starts_at < ends_at", name: "starts_at_lt_ends_at"
   end
 

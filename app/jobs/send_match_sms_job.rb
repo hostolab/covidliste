@@ -3,9 +3,10 @@ class SendMatchSmsJob < ApplicationJob
   queue_as :critical
 
   def perform(match)
-    return if match.user.nil? ||
+    return if match.sms_sent_at.present? ||
+      match.campaign.sms_exhausted? ||
+      match.user.nil? ||
       match.user.phone_number.blank? ||
-      match.sms_sent_at.present? ||
       (match.expires_at && match.expires_at < Time.now.utc)
 
     match.update(expires_at: Time.now.utc + match.campaign_batch.duration_in_minutes.minutes) if match.expires_at.nil?
@@ -16,7 +17,7 @@ class SendMatchSmsJob < ApplicationJob
       to: match.user.phone_number,
       body: "Un vaccin est disponible près de chez vous. Pour le réserver, suivez les instructions avant #{match.expires_at.strftime("%Hh%M")} : #{cta_url(match)}"
     )
-    match.update(sms_sent_at: Time.now.utc)
+    match.sms_sent!
   end
 
   private

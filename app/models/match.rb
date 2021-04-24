@@ -59,6 +59,10 @@ class Match < ApplicationRecord
     save!
   end
 
+  def sms_sent!
+    Campaign.increment_counter(:sms_sent_count, 1) if update(sms_sent_at: Time.now.utc)
+  end
+
   def confirmable?
     !confirmed? && campaign.remaining_slots > 0 && !refused?
   end

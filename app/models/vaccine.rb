@@ -25,4 +25,13 @@ class Vaccine < ApplicationRecord
       2
     end
   end
+
+  def self.average_sms_count_cost_per_dose(vaccine)
+    case vaccine
+    when Brands::ASTRAZENECA
+      100
+    else
+      90
+    end
+  end
 end
