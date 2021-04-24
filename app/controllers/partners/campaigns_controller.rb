@@ -43,12 +43,10 @@ module Partners
     end
 
     def simulate_reach
-      # TODO: we should validate params here before running simulation
-      payload = simulate_params.to_h.symbolize_keys
-      vaccine_type = payload.delete(:vaccine_type)
-      available_doses = payload.delete(:available_doses)
-
-      reach = @vaccination_center.reachable_users_query(**payload).count
+      vaccine_type = simulate_params[:vaccine_type]
+      available_doses = simulate_params[:available_doses]
+      campaign = Campaign.new(simulate_params.merge({vaccination_center: @vaccination_center}))
+      reach = campaign.reachable_users_query.count
       render json: {
         reach: Rails.env.production? ? reach : 1,
         enough: reach >= (Vaccine.minimum_reach_to_dose_ratio(vaccine_type) * available_doses)
