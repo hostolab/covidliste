@@ -75,8 +75,8 @@
   <% unless @match.user.statement %>
     <div class="col-12 mb-2">
       <div class="form-check flex-wrap">
-        <input class="form-check-input" type="checkbox" value="" id="confirm_statement" required>
-        <label class="form-check-label w-75" for="confirm_statement">
+        <input class="form-check-input" type="checkbox" value="1" id="statement" name="statement" required>
+        <label class="form-check-label w-75" for="statement">
           J’accepte les <%= link_to "CGU", cgu_volontaires_path %> et certifie sur l’honneur que les informations ci-dessus sont exactes.
         </label>
         <div class="invalid-feedback w-100">
@@ -90,8 +90,8 @@
   <% unless @match.user.toc %>
     <div class="col-12 mb-2">
       <div class="form-check flex-wrap">
-        <input class="form-check-input" type="checkbox" value="" id="confirm_toc" required>
-        <label class="form-check-label w-75" for="confirm_toc">
+        <input class="form-check-input" type="checkbox" value="1" id="toc" name="toc" required>
+        <label class="form-check-label w-75" for="toc">
           J’accepte que mes données soient traitées aux fins de la mise en relation avec les établissements de vaccination Covid-19 participant à l’initiative Covidliste.
         </label>
         <div class="invalid-feedback w-100">
