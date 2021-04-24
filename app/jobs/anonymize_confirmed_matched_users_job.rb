@@ -4,7 +4,7 @@ class AnonymizeConfirmedMatchedUsersJob < ActiveJob::Base
   DELAY_AFTER_MATCH_CONFIRMATION = 3.days
 
   def perform
-    users_to_anonymize.each do |user|
+    users_to_anonymize.find_each do |user|
       user.anonymize!
       MatchMailer.with(match: user.matches.first).send_anonymisation_notice.deliver_later
     end
