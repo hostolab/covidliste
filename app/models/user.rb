@@ -21,7 +21,7 @@ class User < ApplicationRecord
   validates :lon, presence: true, unless: proc { |u| u.persisted? }
   validates :birthdate, presence: true
   validates :toc, presence: true, acceptance: true
-  validates :statement, presence: true, acceptance: true, unless: proc { |u| u.reset_password_token.present? }
+  # validates :statement, presence: true, acceptance: true, unless: proc { |u| u.reset_password_token.present? }
   validates :email,
     email: {
       mx: true,
