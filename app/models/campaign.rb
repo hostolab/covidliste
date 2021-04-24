@@ -12,7 +12,7 @@ class Campaign < ApplicationRecord
   enum status: {running: 0, completed: 1, canceled: 2}
 
   validates :available_doses, numericality: {greater_than: 0, less_than_or_equal_to: MAX_DOSES}
-  validates :sms_sent_count, :sms_max_count, numericality: {greater_than_or_equal_to: 0}
+  validates :sms_sent_count, :sms_max_count, numericality: {greater_than_or_equal_to: 0, only_integer: true}
   validates :vaccine_type, presence: true
   validates :min_age, numericality: {greater_than: 17}
   validates :max_age, numericality: {greater_than: 17}
@@ -69,7 +69,7 @@ class Campaign < ApplicationRecord
 
   def sms_sent_count_lesser_or_equal_than_sms_max_count
     if sms_sent_count > sms_max_count
-      errors.add(:base, "La limite maximale d’envoi de SMS a été atteinte")
+      errors.add(:base, "a atteint le nombre maximal de SMS autorisé")
     end
   end
 

@@ -10,7 +10,7 @@ class Vaccine < ApplicationRecord
 
   def self.minimum_reach_to_dose_ratio(vaccine)
     case vaccine
-    when Brands::ASTRAZENECA
+    when Vaccine::Brands::ASTRAZENECA
       20
     else
       5
@@ -19,7 +19,7 @@ class Vaccine < ApplicationRecord
 
   def self.overbooking_factor(vaccine)
     case vaccine
-    when Brands::ASTRAZENECA
+    when Vaccine::Brands::ASTRAZENECA
       3
     else
       2
@@ -28,7 +28,7 @@ class Vaccine < ApplicationRecord
 
   def self.average_sms_count_cost_per_dose(vaccine)
     case vaccine
-    when Brands::ASTRAZENECA
+    when Vaccine::Brands::ASTRAZENECA
       100
     else
       90
