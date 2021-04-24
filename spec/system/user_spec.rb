@@ -151,7 +151,7 @@ RSpec.describe "Users", type: :system do
       it "it doest not allow me to edit personal information " do
         click_on "Je modifie mes informations"
         expect(page).not_to have_text("Modifications enregistrées.")
-        expect(page).to have_text("Vous ne ne pouvez plus modifier vos informations car vous avez déjà confirmé un rendez-vous.")
+        expect(page).to have_text("Vous ne pouvez pas modifier vos informations actuellement car vous avez confirmé un rendez-vous de vaccination.")
       end
     end
 
@@ -162,7 +162,7 @@ RSpec.describe "Users", type: :system do
       it "it doest not allow me to edit personal information " do
         click_on "Je modifie mes informations"
         expect(page).not_to have_text("Modifications enregistrées.")
-        expect(page).to have_text("Vous ne ne pouvez plus modifier vos informations car vous avez un rendez vous en cours.")
+        expect(page).to have_text("Vous ne pouvez pas modifier vos informations actuellement car vous avez une proposition rendez vous de vaccination en cours.")
       end
     end
   end
