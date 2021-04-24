@@ -7,56 +7,57 @@
   </div>
 
   <% if @seo_pages.present? %>
-    <div class="table-responsive">
-      <table class="table table-bordered table-hover" aria-describedby="articles">
-        <thead class="thead-light">
-          <tr>
-            <th scope="col" class="text-right" width="70">ID</th>
-            <th scope="col" class="text-left">Article</th>
-            <th scope="col" class="text-left">Status</th>
-            <th scope="col" class="text-left">Google</th>
-            <th scope="col" class="text-left">SEO</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @seo_pages.each do |seo_page| %>
-            <tr>
-              <td class="text-right"><%= seo_page.id %></td>
-              <td class="text-left">
-                <div class="d-flex align-items-center">
-                  <% if seo_page.online? %>
-                    <div class="badge badge-success badge-pill">&nbsp;</div>
-                  <% else %>
-                    <div class="badge badge-secondary badge-pill">&nbsp;</div>
-                  <% end %>
-                  <div class="ml-2">
-                    <div>
-                      <span class="font-weight-bold"><%= seo_page.title %></span>
-                      <%= link_to edit_admin_seo_page_path(seo_page), class: "ml-2 small text-info" do %>
-                        <%= icon("fas", "edit", "Éditer") %>
-                      <% end %>
-                    <div>
-                    <div class="font-weight-light small text-muted"><%= seo_page_path(seo_page) %></div>
+    <div class="row">
+      <% @seo_pages.each do |seo_page| %>
+        <div class="col-12 mb-4">
+          <div class="card">
+            <div class="card-header">
+              <div class="d-flex align-items-center justify-content-between">
+                <div>
+                  <div class="font-weight-bold"><%= seo_page.title %></div>
+                  <div class="font-weight-light small text-muted">
+                    <%= link_to seo_page_url(seo_page), target: "blank" do %>
+                      <%= icon("fas", "external-link-alt", seo_page_url(seo_page), class: "mr-1") %>
+                    <% end %>
                   </div>
-              </td>
-              <td>
-                <%= seo_page.status %>
-              </td>
-              <td>
-                <%= seo_page.crawlable? ? "OUI" : "NON" %>
-              </td>
-              <td>
-                <div class="font-weight-bold">
-                  <%= seo_page.seo_title %>
                 </div>
-                <div class="font-weight-normal">
-                  <%= seo_page.seo_description %>
+                <div>
+                  <%= link_to edit_admin_seo_page_path(seo_page), class: "btn btn-primary" do %>
+                    <%= icon("fas", "edit") %>
+                  <% end %>
+                  <%= link_to admin_seo_page_path(seo_page), method: :delete, class: "btn btn-danger", data: { confirm: "Êtes-vous sûr(e) ?" } do %>
+                    <%= icon("fas", "trash") %>
+                  <% end %>
                 </div>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="d-flex align-items-center">
+                <% if seo_page.online? %>
+                  <div class="badge badge-success px-3 py-2 text-white badge-pill">En ligne</div>
+                <% elsif seo_page.archive? %>
+                  <div class="badge badge-danger badge-pill">Archivé</div>
+                <% else %>
+                  <div class="badge badge-secondary px-3 py-2 badge-pill"><%= seo_page.status %></div>
+                <% end %>
+                <% if seo_page.crawlable? %>
+                  <div class="badge badge-info px-3 py-2 badge-pill mx-1">SEO crawlable</div>
+                <% end %>
+                <% if seo_page.indexable? %>
+                  <div class="badge badge-info px-3 py-2 badge-pill mx-1">SEO indexé</div>
+                <% end %>
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="d-flex align-items-center justify-content-between">
+                <div class="text-right">
+                  <div class="small text-muted">Dernière modification: <%= time_ago_in_words(seo_page.updated_at, include_seconds: true) %></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
     </div>
   <% else %>
     <div class="text-muted">

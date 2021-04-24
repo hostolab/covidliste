@@ -7,10 +7,4 @@
   </div>
 
   <%= render 'form', seo_page: @seo_page %>
-
-  <div class="mt-3">
-    <%= link_to admin_seo_page_path(@seo_page), method: :delete, class: "small text-danger", data: { confirm: "Êtes-vous sûr(e) ?" } do %>
-      <%= icon("fas", "trash", "Supprimer") %>
-    <% end %>
-  </div>
 </div>

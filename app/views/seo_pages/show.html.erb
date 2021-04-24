@@ -2,7 +2,12 @@
   <meta name="robots" content="<%= (@seo_page.indexable? ? "index" : "noindex") + ", " + (@seo_page.crawlable? ? "follow" : "nofollow") %>" />
 <% end %>
 
-<h1><%= @seo_page.title %></h1>
-<pre>
-<%= @seo_page.to_json %>
-</pre>
+<div class="container">
+  <div class="mt-5 pb-3">
+    <h1><%= @seo_page.title %></h1>
+    <div class="mt-4 px-4 py-3 border">
+      <%= @seo_page.content %>
+    </div>
+  </div>
+</div>
+  

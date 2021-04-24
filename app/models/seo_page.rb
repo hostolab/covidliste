@@ -9,6 +9,8 @@ class SeoPage < ApplicationRecord
     ALL = [DRAFT, REVIEW, READY, ONLINE, ARCHIVE].freeze
   end
 
+  has_rich_text :content
+
   scope :draft, -> { where(status: SeoPage::Statuses::DRAFT) }
   scope :review, -> { where(status: SeoPage::Statuses::REVIEW) }
   scope :ready, -> { where(status: SeoPage::Statuses::READY) }

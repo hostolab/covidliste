@@ -5,6 +5,8 @@
 
 import Rails from "@rails/ujs";
 import Turbolinks from "turbolinks";
+require("trix");
+require("@rails/actiontext");
 // import * as ActiveStorage from "@rails/activestorage";
 import "controllers/application";
 // import "channels";
