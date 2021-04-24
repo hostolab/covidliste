@@ -1,11 +1,17 @@
+<%- magic_link_url = send("#{@scope_name.to_s.pluralize}_magic_link_url", Hash[@scope_name, {email: @resource.email, token: @token}]) %>
+
 <p>
   Bonjour,
+  <br>
+  <br>
+  Vous pouvez vous connecter en utilisant le lien ci-dessous, il est valable uniquement <%= Devise.passwordless_login_within.inspect %> :
+  <br>
+  <%= link_to "Me connecter à mon compte", magic_link_url %>
+  <br>
+  <br>
+  Si le lien ne fonctionne pas, copiez et collez l’adresse suivante dans votre navigateur :
+  <br>
+  <%= magic_link_url %>
 </p>
-
-<p>Vous pouvez vous connecter en utilisant le lien ci-dessous:</p>
-
-<p><%= link_to "Me connecter à mon compte", send("#{@scope_name.to_s.pluralize}_magic_link_url", Hash[@scope_name, {email: @resource.email, token: @token}]) %></p>
-
-<p>Ce lien est valable <%= Devise.passwordless_login_within.inspect %>.</p>
 
 <%= render "mailer/footer" %>
