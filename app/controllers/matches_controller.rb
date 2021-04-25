@@ -1,4 +1,6 @@
 class MatchesController < ApplicationController
+  class MissingConfirmation < StandardError; end
+
   before_action :set_match, only: [:show, :update, :destroy]
   before_action :verify_age, only: [:show, :update]
   before_action :verify_expiration, only: [:update]
@@ -13,22 +15,41 @@ class MatchesController < ApplicationController
   end
 
   def update
-    form_match_params = match_params
-    @match.user.assign_attributes(
-      firstname: form_match_params[:firstname],
-      lastname: form_match_params[:lastname]
-    )
-    @match.confirm!
-  rescue Match::AlreadyConfirmedError, Match::DoseOverbookingError, Match::MissingNamesError, ActiveRecord::RecordInvalid => e
+    check_age_and_name_confirmed!
+
+    # This is specific to ensure the validation of the user
+    # won't prevent the match confirmation is other attributes
+    # than the ones edited here are invalid.
+    user = @match.user
+    user.reload # ensure it's fresh and unmodified
+    user.assign_attributes(user_params)
+    user.statement_accepted_at = Time.now.utc if user_params["statement"]
+    user.toc_accepted_at = Time.now.utc if user_params["toc"]
+
+    if user.valid_attributes?(:statement, :toc)
+      user.save(validate: false)
+      @match.confirm!
+    else
+      raise ActiveRecord::RecordInvalid.new(user)
+    end
+  rescue Match::AlreadyConfirmedError, Match::DoseOverbookingError, Match::MissingNamesError, ActiveRecord::RecordInvalid, MissingConfirmation => e
     flash.now[:error] = e.message
+
+    # Updating the match's confirmation_failed_at to indicate it failed.
+    # This should help with detecting critical bugs.
+    @match.update_column(:confirmation_failed_at, Time.now.utc)
+
+    # Reloading @match so it's back to the previous state, in particular
+    # confirmed_at is nil again.
+    @match.reload
   ensure
     render action: "show", status: flash[:error].present? ? :unprocessable_entity : :ok
   end
 
   private
 
-  def match_params
-    params.permit(:firstname, :lastname)
+  def user_params
+    params.require(:user).permit(:firstname, :lastname, :statement, :toc)
   end
 
   def verify_age
@@ -70,5 +91,12 @@ class MatchesController < ApplicationController
   def skip_pundit?
     # TODO add a real policy
     true
+  end
+
+  def check_age_and_name_confirmed!
+    unless ActiveRecord::Type::Boolean.new.cast(params["confirm_age"]) &&
+        ActiveRecord::Type::Boolean.new.cast(params["confirm_name"])
+      raise MissingConfirmation, "Vous devez confirmer votre âge et votre nom"
+    end
   end
 end

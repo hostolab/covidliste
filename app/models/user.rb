@@ -21,7 +21,7 @@ class User < ApplicationRecord
   validates :lon, presence: true, unless: proc { |u| u.persisted? }
   validates :birthdate, presence: true
   validates :toc, presence: true, acceptance: true
-  validates :statement, presence: true, acceptance: true, unless: proc { |u| u.reset_password_token.present? }
+  validates :statement, presence: true, acceptance: true, unless: :reset_password_token?
   validates :email,
     email: {
       mx: true,
@@ -37,6 +37,7 @@ class User < ApplicationRecord
   after_commit :reverse_geocode, if: -> { (saved_change_to_lat? || saved_change_to_lon?) && anonymized_at.nil? }
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
+  scope :active, -> { where(anonymized_at: nil) }
   scope :between_age, ->(min, max) { where("birthdate between ? and ?", max.years.ago, min.years.ago) }
   scope :with_roles, -> { joins(:roles) }
 
@@ -133,6 +134,16 @@ class User < ApplicationRecord
       csv << columns
       csv << columns.map { |column| public_send(column) }
     end
+  end
+
+  # Enables to only validate specific attributes of the model
+  def valid_attributes?(*attributes)
+    attributes.each do |attribute|
+      self.class.validators_on(attribute).each do |validator|
+        validator.validate_each(self, attribute, send(attribute))
+      end
+    end
+    errors.none?
   end
 
   protected

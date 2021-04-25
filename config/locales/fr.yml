@@ -24,6 +24,14 @@ fr:
       partner:
         name: Nom
         phone_number: Numéro de téléphone
+      campaign:
+        starts_at: Date de début
+        ends_at: Date de fin
+        vaccine_type: Type de vaccin
+        available_doses: Nombre de doses
+        min_age: Âge minimum
+        max_age: Âge maximum
+        max_distance_in_meters: Distance maximum
       vaccination_center:
         name: Nom
         birthdate: Date de naissance
