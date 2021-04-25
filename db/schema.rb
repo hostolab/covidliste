@@ -154,6 +154,7 @@ ActiveRecord::Schema.define(version: 2021_04_25_075657) do
     t.datetime "refused_at"
     t.datetime "email_first_clicked_at"
     t.datetime "sms_first_clicked_at"
+    t.datetime "confirmation_failed_at"
     t.index ["campaign_batch_id"], name: "index_matches_on_campaign_batch_id"
     t.index ["campaign_id"], name: "index_matches_on_campaign_id"
     t.index ["match_confirmation_token_bidx"], name: "index_matches_on_match_confirmation_token_bidx", unique: true

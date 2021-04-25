@@ -21,7 +21,7 @@ class User < ApplicationRecord
   validates :lon, presence: true, unless: proc { |u| u.persisted? }
   validates :birthdate, presence: true
   validates :toc, presence: true, acceptance: true
-  # validates :statement, presence: true, acceptance: true, unless: proc { |u| u.reset_password_token.present? }
+  validates :statement, presence: true, acceptance: true, unless: :reset_password_token?
   validates :email,
     email: {
       mx: true,
@@ -127,6 +127,16 @@ class User < ApplicationRecord
       csv << columns
       csv << columns.map { |column| public_send(column) }
     end
+  end
+
+  # Enables to only validate specific attributes of the model
+  def valid_attributes?(*attributes)
+    attributes.each do |attribute|
+      self.class.validators_on(attribute).each do |validator|
+        validator.validate_each(self, attribute, send(attribute))
+      end
+    end
+    errors.none?
   end
 
   protected
