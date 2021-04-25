@@ -22,7 +22,7 @@ describe SendCampaignJob do
   subject { SendCampaignJob.new.perform(campaign) }
 
   before do
-    allow_any_instance_of(VaccinationCenter).to receive(:reachable_users_query).and_return(reachable_users_query)
+    allow_any_instance_of(Campaign).to receive(:reachable_users_query).and_return(reachable_users_query)
   end
 
   context "with one reachable user" do

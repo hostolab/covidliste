@@ -85,10 +85,10 @@ export default class extends Controller {
     })
       .then((data) => data.json())
       .then((result) => {
-        this.simulationResultTarget.innerHTML = `Nous avons trouvé ${result.reach} volontaires avec ces critères d'âge et de distance au centre.`;
+        this.simulationResultTarget.innerHTML = `Nous avons trouvé <span class="h4">${result.reach} volontaires</span> avec ces critères d'âge et de distance au centre.`;
 
         if (!result.enough) {
-          this.simulationResultTarget.innerHTML += `<br/> Au vu du nombre de volontaires trouvés et du nombre de doses de vaccin, nous vous conseillons d'élargir vos critères de sélections (âge et/ou distance).`;
+          this.simulationResultTarget.innerHTML += `<br/><div class="alert alert-warning mt-3">Au vu du nombre de volontaires trouvés et du nombre de doses de vaccin, nous vous conseillons d'élargir vos critères de sélections (âge et/ou distance).</div>`;
         }
 
         if (result.reach > 0) {

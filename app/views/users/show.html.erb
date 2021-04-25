@@ -46,7 +46,7 @@
           <div class="alert alert-danger mb-4 small" role="alert" style="position: inherit">
             Nous n'avons pas pu géolocaliser l'adresse que vous avez renseignée lors de votre inscription.
             Sans cette information, il nous sera impossible de vous mettre en relation avec l'un de nos centres partenaires à proximité.
-            Merci de renseigner votre addresse une nouvelle fois.
+            Merci de renseigner votre adresse une nouvelle fois.
           </div>
         <% else %>
           <div class="mt-4 mb-4" 
@@ -80,6 +80,61 @@
       <% end %>
       <%= render partial: "mentions" %>
 
+      <%- @matches = @user.matches.includes(:campaign).order(id: :desc) %>
+      <% if @matches.any? %>
+        <hr class="my-4" />
+
+        <p class="mt-4">
+          <strong>Vos propositions de RDV</strong>
+        </p>
+
+        <div class="table-responsive">
+          <table class="table table-bordered table-sm small" aria-describedby="Vos propositions de RDV">
+            <thead class="thead-light">
+            <tr>
+              <th scope="col"> Vaccin </th>
+              <th scope="col"> Notification email </th>
+              <th scope="col"> Notification SMS </th>
+              <th scope="col"> État </th>
+            </tr>
+            </thead>
+            <tbody>
+            <% @matches.order(id: :desc).each do |match| %>
+              <tr>
+                <td> <%= match.campaign&.vaccine_type.capitalize %> </td>
+                <td>
+                  <% if match.mail_sent_at %>
+                    <%= l match.mail_sent_at %>
+                  <% else %>
+                    <em class="text-muted">Non envoyée ou échec d'envoi</em>
+                  <% end %>
+                </td>
+                <td>
+                  <% if match.sms_sent_at %>
+                    <%= l match.sms_sent_at %>
+                  <% else %>
+                    <em class="text-muted">Non envoyée ou numéro invalide</em>
+                  <% end %>
+                </td>
+                <td>
+                  <% if match.confirmed? %>
+                    <abbr title="RDV confirmé le <%= l match.confirmed_at %>" data-toggle="tooltip">Confirmée</abbr>
+                  <% elsif match.refused? %>
+                    <abbr title="RDV refusée le <%= l match.refused_at %>" data-toggle="tooltip">Refusée</abbr>
+                  <% elsif match.expired? %>
+                    <abbr title="Proposition de RDV expirée le <%= l match.expires_at %>" data-toggle="tooltip">Expirée</abbr>
+                  <% elsif !match.confirmable? %>
+                    <abbr title="Proposition de RDV expirée" data-toggle="tooltip">Expirée</abbr>
+                  <% elsif !match.expired? %>
+                    <abbr title="Proposition de RDV en attente de réponse" data-toggle="tooltip">En attente</abbr>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      <% end %>
       <hr class="my-4" />
 
       <p class="mt-4">
