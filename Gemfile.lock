@@ -333,6 +333,13 @@ GEM
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
+    react_on_rails (12.2.0)
+      addressable
+      connection_pool
+      execjs (~> 2.5)
+      rails (>= 3.2)
+      rainbow (~> 3.0)
+      webpacker (>= 4.0)
     redis (4.2.5)
     redlock (1.2.1)
       redis (>= 3.0.0, < 5.0)
@@ -534,6 +541,7 @@ DEPENDENCIES
   rack-mini-profiler (~> 2.0)
   rails (~> 6.1.1)
   rails-controller-testing
+  react_on_rails (= 12.2.0)
   redlock
   rolify
   rspec-rails (~> 4.0.0)
