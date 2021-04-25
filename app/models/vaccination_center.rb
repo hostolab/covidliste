@@ -42,7 +42,7 @@ class VaccinationCenter < ApplicationRecord
   end
 
   def can_be_accessed_by?(user, partner)
-    return true if user&.admin?
+    return true if user&.has_role?(:admin)
 
     partners.include?(partner)
   end

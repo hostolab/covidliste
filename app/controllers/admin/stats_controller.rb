@@ -19,8 +19,9 @@ module Admin
         end
       end
 
-      @results = User.select(:lat, :lon, :id, :birthdate).between_age(@min_age, @max_age).near([@lat, @lon],
-        @max_distance, unit: :km)
+      @results = User.select(:lat, :lon, :id, :birthdate)
+        .between_age(@min_age, @max_age)
+        .where("SQRT(((? - lat)*110.574)^2 + ((? - lon)*111.320*COS(lat::float*3.14159/180))^2) < ?", @lat, @lon, @max_distance)
       @total_count = @results.size
       @count_by_age = @results.group_by do |x|
                         @age_bin * (x.age / @age_bin).to_i

@@ -37,5 +37,11 @@ FactoryBot.define do
         user.add_role(:super_admin)
       end
     end
+
+    trait :support_member do
+      after(:create) do |user|
+        user.add_role(:support_member)
+      end
+    end
   end
 end

@@ -54,8 +54,8 @@
 
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown09">
             <%= link_to "Profil", profile_path, class: "dropdown-item" %>
-            <% if current_user.admin? %>
-              <%= link_to "Admin", admin_path, class: "dropdown-item" %>
+            <% if current_user.has_role?(:volunteer) %>
+              <%= link_to icon("fas", "external-link-alt", "Espace bénévoles", class: "mr-1"), admin_path, class: "dropdown-item" %>
             <% end %>
             <%= link_to "Déconnexion", destroy_partner_session_path, method: :delete, class: "dropdown-item" %>
           </div>

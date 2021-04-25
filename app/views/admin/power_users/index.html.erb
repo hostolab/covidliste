@@ -1,24 +1,44 @@
 <div class="container">
   <h2 class="my-5" id="page-title">
-    Utilisateurs avec privilèges
+    Gestion des rôles
   </h2>
 
   <div class="table-responsive">
     <table class="table table-bordered table-hover" aria-describedby="users with roles">
       <thead class="thead-light">
         <tr>
-          <th scope="col">email</th>
-          <th scope="col">roles</th>
+          <th scope="col">Nom</th>
+          <th scope="col">
+            Roles
+            <span class="ml-3">
+              (
+              Légende :
+              <span class="badge badge-primary">
+                Possédé
+              </span>
+              <span class="badge badge-info">
+                Hérité
+              </span>
+              <span class="badge badge-secondary">
+                Non possédé
+              </span>
+              <span class="badge badge-danger">
+                Possédé mais inconnu
+              </span>
+              )
+            </span>
+          </th>
         </tr>
       </thead>
       <tbody>
         <% @users.each do |user| %>
           <tr>
-            <td><%= user.email %></td>
             <td>
-              <% user.roles.pluck(:name).each do |role| %>
-                <span class="badge badge-info text-larger"><%= role %></span>
-              <% end %>
+              <%= user.full_name %><br />
+              <%= user.email %>
+            </td>
+            <td>
+              <%= render partial: "admin/users/user_roles", locals: { user: user } %>
             </td>
           </tr>
         <% end %>

@@ -5,7 +5,6 @@ class Campaign < ApplicationRecord
   belongs_to :vaccination_center
   belongs_to :partner
 
-  has_many :campaign_batches
   has_many :matches
 
   enum status: {running: 0, completed: 1, canceled: 2}
