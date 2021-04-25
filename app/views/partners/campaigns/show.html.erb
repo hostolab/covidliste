@@ -19,7 +19,7 @@
         <%= link_to "Interrompre",
                     partners_campaign_path(@campaign, cancel: true),
                     method: :patch,
-                    data: { confirm: "Êtes-vous sûr de vouloir interrompre la recherche de volontaires pour cette campagne ? Attention l'interruption n'est pas immédiate et prendra environ #{SendCampaignJob::BATCH_EXPIRE_IN_MINUTES+1} minutes." },
+                    data: { confirm: "Êtes-vous sûr de vouloir interrompre la recherche de volontaires pour cette campagne ? Attention l'interruption n'est pas immédiate et prendra environ #{Match::EXPIRE_IN_MINUTES + 1} minutes." },
                     class: "btn btn-sm btn-danger" %>
       </span>
     <% end %>
