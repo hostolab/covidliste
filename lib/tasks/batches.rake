@@ -20,7 +20,7 @@ namespace :batches do
     puts "Batch #{batch.id} created"
 
     # Looking for users to match
-    users = batch.vaccination_center.reachable_users_query(
+    users = batch.campaign.reachable_users_query(
       min_age: campaign.min_age,
       max_age: campaign.max_age,
       max_distance_in_meters: campaign.max_distance_in_meters,

@@ -72,7 +72,13 @@ class Match < ApplicationRecord
   end
 
   def expired?
-    !confirmed? && Time.now.utc > expires_at
+    !confirmed? && expires_at && Time.now.utc > expires_at
+  end
+
+  def set_expiration!
+    return unless expires_at.nil?
+    self.expires_at = [Time.now.utc + campaign_batch.duration_in_minutes.minutes, campaign.ends_at].min
+    save
   end
 
   def no_recent_match
