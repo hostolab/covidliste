@@ -32,6 +32,10 @@ Capybara.register_driver(:cuprite) do |app|
 end
 
 RSpec.configure do |config|
+  # Ensure that if we are running js tests, we are using latest webpack assets
+  # This will use the defaults of :js and :server_rendering meta tags
+  ReactOnRails::TestHelper.configure_rspec_to_compile_assets(config)
+
   config.prepend_before :each, type: :system do
     driven_by :cuprite
     DatabaseCleaner.allow_remote_database_url = true
