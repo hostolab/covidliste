@@ -25,10 +25,10 @@
   <input type="hidden" name="_method" value="PATCH">
   <div class="col-12 mb-2">
     <div class="form-check flex-wrap">
-      <label class="form-check-label w-75" for="firstname">
+      <label class="form-check-label w-75" for="user_firstname">
         Prénom
       </label>
-      <input class="form-control" placeholder="Jean" type="text" value="<%= user.firstname %>" name="firstname" id="firstname" autocomplete="given-name" required>
+      <input class="form-control" placeholder="Jean" type="text" value="<%= user.firstname %>" name="user[firstname]" id="user_firstname" autocomplete="given-name" required>
       <div class="invalid-feedback w-100">
         Vous devez renseigner votre prénom.
       </div>
@@ -39,7 +39,7 @@
       <label class="form-check-label w-75" for="lastname">
         Nom
       </label>
-      <input class="form-control" placeholder="Dupont" type="text" value="<%= user.lastname %>" name="lastname" id="lastname" autocomplete="family-name" required>
+      <input class="form-control" placeholder="Dupont" type="text" value="<%= user.lastname %>" name="user[lastname]" id="user_lastname" autocomplete="family-name" required>
       <div class="invalid-feedback w-100">
         Vous devez renseigner votre nom.
       </div>
@@ -47,7 +47,7 @@
   </div>
   <div class="col-12 mb-2">
     <div class="form-check flex-wrap">
-      <input class="form-check-input" type="checkbox" value="" id="confirm_name" required>
+      <input class="form-check-input" type="checkbox" value="1" id="confirm_name" name="confirm_name" required>
       <label class="form-check-label w-75" for="confirm_name">
         Je confirme avoir une pièce d'identité au nom renseigné ci-dessus.
       </label>
@@ -59,7 +59,7 @@
   </div>
   <div class="col-12 mb-2">
     <div class="form-check flex-wrap">
-      <input class="form-check-input" type="checkbox" value="" id="confirm_age" required>
+      <input class="form-check-input" type="checkbox" value="1" id="confirm_age" name="confirm_age" required>
       <label class="form-check-label w-75" for="confirm_age">
         Je confirme avoir une pièce d'identité portant la date de naissance
         <strong><%= user.birthdate.strftime("%d/%m/%Y") %></strong>
@@ -70,6 +70,37 @@
       </div>
     </div>
   </div>
+
+  <% # Requiring acceptation of statement if not already %>
+  <% unless @match.user.statement %>
+    <div class="col-12 mb-2">
+      <div class="form-check flex-wrap">
+        <input class="form-check-input" type="checkbox" value="1" id="user_statement" name="user[statement]" required>
+        <label class="form-check-label w-75" for="statement">
+          J’accepte les <%= link_to "CGU", cgu_volontaires_path %> et certifie sur l’honneur que les informations ci-dessus sont exactes.
+        </label>
+        <div class="invalid-feedback w-100">
+          Vous devez accepter les CGU pour confirmer votre réservation.
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <% # Requiring acceptation of toc if not already %>
+  <% unless @match.user.toc %>
+    <div class="col-12 mb-2">
+      <div class="form-check flex-wrap">
+        <input class="form-check-input" type="checkbox" value="1" id="user_toc" name="user[toc]" required>
+        <label class="form-check-label w-75" for="toc">
+          J’accepte que mes données soient traitées aux fins de la mise en relation avec les établissements de vaccination Covid-19 participant à l’initiative Covidliste.
+        </label>
+        <div class="invalid-feedback w-100">
+          Vous devez accepter le traitement de vos données personnelles pour confirmer votre réservation.
+        </div>
+      </div>
+    </div>
+  <% end %>
+
   <div class="col-12">
     <p>
       <small>

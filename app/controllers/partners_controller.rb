@@ -30,7 +30,9 @@ class PartnersController < ApplicationController
   def update
     @partner = current_partner
     authorize @partner
-    if @partner.update(partner_params)
+    @partner.statement_accepted_at = Time.now.utc if !@partner.statement && ActiveRecord::Type::Boolean.new.cast(partner_params["statement"])
+    @partner.assign_attributes(partner_params)
+    if @partner.save
       flash.now[:success] = "Modifications enregistrées."
     else
       flash.now[:error] = "Impossible d'enregistrer vos modifications."
