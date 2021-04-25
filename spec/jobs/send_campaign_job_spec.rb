@@ -28,7 +28,6 @@ describe SendCampaignJob do
   context "with one reachable user" do
     it "should create a batch and a match" do
       subject
-      expect(campaign.campaign_batches.count).to eq(1)
       expect(campaign.matches.count).to eq(1)
     end
 
@@ -46,15 +45,8 @@ describe SendCampaignJob do
 
     context "and with an already confirmed match" do
       before do
-        batch = campaign.campaign_batches.create!(
-          vaccination_center: center,
-          size: 1,
-          partner: partner,
-          duration_in_minutes: 6
-        )
         Match.create!(
           campaign: campaign,
-          campaign_batch: batch,
           vaccination_center: center,
           user: user,
           confirmed_at: Time.now.utc
@@ -84,7 +76,6 @@ describe SendCampaignJob do
     end
     it "should not create any batch or match" do
       subject
-      expect(campaign.campaign_batches.any?).to eq(false)
       expect(campaign.matches.any?).to eq(false)
     end
   end

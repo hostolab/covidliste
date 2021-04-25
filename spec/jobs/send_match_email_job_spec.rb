@@ -3,8 +3,7 @@ require "rails_helper"
 describe SendMatchEmailJob do
   let!(:user) { create(:user) }
   let!(:campaign) { create(:campaign) }
-  let!(:campaign_batch) { create(:campaign_batch) }
-  let!(:match) { create(:match, user: user, campaign_batch: campaign_batch, campaign: campaign) }
+  let!(:match) { create(:match, user: user, campaign: campaign) }
 
   subject { SendMatchEmailJob.new.perform(match) }
 
