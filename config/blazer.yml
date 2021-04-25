@@ -39,8 +39,6 @@ data_sources:
       center_id: "SELECT id, name FROM vaccination_centers WHERE id IN {value}"
       campaign_id: "SELECT id, name FROM campaigns WHERE id IN {value}"
 
-
-
 # create audits
 audit: true
 
