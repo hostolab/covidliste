@@ -228,6 +228,7 @@ GEM
       actionmailer (>= 3.2)
       letter_opener (~> 1.0)
       railties (>= 3.2)
+    libv8-node (15.14.0.0)
     listen (3.5.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -250,6 +251,8 @@ GEM
     mime-types-data (3.2021.0225)
     mini_mime (1.0.3)
     mini_portile2 (2.5.0)
+    mini_racer (0.4.0)
+      libv8-node (~> 15.14.0.0)
     minitest (5.14.4)
     msgpack (1.4.2)
     multi_xml (0.6.0)
@@ -527,6 +530,7 @@ DEPENDENCIES
   lockbox
   lograge
   logstash-event
+  mini_racer
   pagy
   pg (~> 1.1)
   pg_query (>= 0.9.0)
