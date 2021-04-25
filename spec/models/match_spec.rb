@@ -38,6 +38,29 @@ RSpec.describe Match, type: :model do
     end
   end
 
+  describe "#set_expiration!" do
+    before do
+      travel_to Time.parse("2021-04-01 14:00:00")
+    end
+    after do
+      travel_back
+    end
+    it "should set correct expiration" do
+      match.set_expiration!
+      match.reload
+      expect(match.expires_at).to eq(Time.now.utc + campaign_batch.duration_in_minutes.minutes)
+    end
+
+    context "campaign ending now" do
+      before do
+        campaign.update(ends_at: Time.now.utc)
+        match.set_expiration!
+        match.reload
+        expect(match.expires_at).to eq(Time.now.utc)
+      end
+    end
+  end
+
   describe "#confirm!" do
     it "should flag the match as confirmed" do
       user = create(:user)
