@@ -4,9 +4,8 @@ require "rails_helper"
 
 RSpec.describe Match, type: :model do
   let!(:campaign) { create(:campaign) }
-  let!(:campaign_batch) { create(:campaign_batch) }
-  let!(:match) { create(:match, campaign_batch: campaign_batch, campaign: campaign) }
-  let(:confirmed_match) { create(:match, :confirmed, campaign_batch: campaign_batch) }
+  let!(:match) { create(:match, campaign: campaign) }
+  let(:confirmed_match) { create(:match, :confirmed) }
   let(:now_utc) { Time.now.utc }
   let(:now) { double }
 
@@ -48,7 +47,7 @@ RSpec.describe Match, type: :model do
     it "should set correct expiration" do
       match.set_expiration!
       match.reload
-      expect(match.expires_at).to eq(Time.now.utc + campaign_batch.duration_in_minutes.minutes)
+      expect(match.expires_at).to eq(Time.now.utc + Match::EXPIRE_IN_MINUTES.minutes)
     end
 
     context "campaign ending now" do

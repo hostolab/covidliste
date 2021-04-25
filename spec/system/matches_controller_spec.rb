@@ -6,9 +6,8 @@ RSpec.describe MatchesController, type: :system do
   let!(:partner) { create(:partner) }
   let!(:center) { create(:vaccination_center) }
   let!(:campaign) { create(:campaign, vaccination_center: center) }
-  let!(:batch) { create(:campaign_batch, campaign: campaign, vaccination_center: center) }
   let!(:match_confirmation_token) { "abcd" }
-  let!(:match) { create(:match, campaign_batch: batch, user: user, vaccination_center: center, match_confirmation_token: match_confirmation_token, expires_at: 1.hour.since, campaign: campaign) }
+  let!(:match) { create(:match, user: user, vaccination_center: center, match_confirmation_token: match_confirmation_token, expires_at: 1.hour.since, campaign: campaign) }
 
   subject { visit match_path(match_confirmation_token, source: "sms") }
 
