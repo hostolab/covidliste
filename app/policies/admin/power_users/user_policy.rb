@@ -3,14 +3,13 @@ module Admin
     class UserPolicy < ApplicationPolicy
       class Scope < Scope
         def resolve
-          raise Pundit::NotAuthorizedError unless user.super_admin?
-
-          scope.with_roles
+          raise Pundit::NotAuthorizedError unless user.has_role?(:admin)
+          scope.with_roles.distinct
         end
-      end
 
-      def index?
-        user.super_admin?
+        def index?
+          raise Pundit::NotAuthorizedError unless user.has_role?(:admin)
+        end
       end
     end
   end
