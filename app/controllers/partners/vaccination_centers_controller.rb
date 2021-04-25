@@ -20,17 +20,12 @@ module Partners
 
     def create
       @vaccination_center = VaccinationCenter.new(vaccination_center_params)
-      @vaccination_center.save!
-      @partner_vaccination_center = PartnerVaccinationCenter.new(
-        partner: current_partner,
-        vaccination_center: @vaccination_center
-      )
-      @partner_vaccination_center.save!
+      @vaccination_center.save
+      @partner_vaccination_center = PartnerVaccinationCenter.new(partner: current_partner,
+                                                                 vaccination_center: @vaccination_center)
+      @partner_vaccination_center.save
       prepare_phone_number
-    rescue ActiveRecord::RecordInvalid => e
-      flash.now[:error] = e.message
-    ensure
-      render action: :new, status: flash[:error].present? ? :unprocessable_entity : :ok
+      render action: :new
     end
 
     def prepare_phone_number
