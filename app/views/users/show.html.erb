@@ -68,6 +68,7 @@
       <% end %>
       <%= render partial: "mentions" %>
 
+      <%- @matches = @user.matches.includes(:campaign).order(id: :desc) %>
       <% if @matches.any? %>
         <hr class="my-4" />
 
