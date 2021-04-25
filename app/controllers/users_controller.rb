@@ -20,6 +20,7 @@ class UsersController < ApplicationController
     @user = current_user
     authorize @user
     prepare_phone_number
+    @matches = @user.matches.includes(:campaign).order(id: :desc)
     respond_to do |format|
       format.html
       format.csv do

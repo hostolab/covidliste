@@ -68,7 +68,7 @@
       <% end %>
       <%= render partial: "mentions" %>
 
-      <% if @user.matches.any? %>
+      <% if @matches.any? %>
         <hr class="my-4" />
 
         <p class="mt-4">
@@ -86,7 +86,7 @@
             </tr>
             </thead>
             <tbody>
-            <% @user.matches.order(id: :desc).each do |match| %>
+            <% @matches.order(id: :desc).each do |match| %>
               <tr>
                 <td> <%= match.campaign&.vaccine_type.capitalize %> </td>
                 <td>
