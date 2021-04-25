@@ -15,7 +15,7 @@ module Partners
     end
 
     def new
-      @campaign = @vaccination_center.campaigns.build(ends_at: 1.hour.from_now)
+      @campaign = @vaccination_center.campaigns.build(starts_at: Time.now, ends_at: 1.hour.from_now)
     end
 
     def create
