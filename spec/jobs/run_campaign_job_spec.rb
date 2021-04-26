@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe SendCampaignJob do
+describe RunCampaignJob do
   let!(:user) { create(:user) }
   let!(:partner) { create(:partner) }
   let!(:center) { create(:vaccination_center) }
