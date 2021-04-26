@@ -47,6 +47,7 @@ class UsersController < ApplicationController
     @user.toc_accepted_at = Time.zone.now if @user.toc
     authorize @user
     @user.save!
+    set_counters
     prepare_phone_number
     render action: :new, status: :ok
   rescue ActiveRecord::RecordNotUnique, ActiveRecord::RecordInvalid
