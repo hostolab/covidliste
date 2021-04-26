@@ -29,7 +29,7 @@ class Campaign < ApplicationRecord
 
   def target_matches_count
     # number of people to target at any point in time
-    remaining_doses * Vaccine.overbooking_factor(vaccine_type)
+    remaining_doses * Vaccine.overbooking_factor_v2(vaccine_type)
   end
 
   def sms_budget_remaining
