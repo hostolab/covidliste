@@ -41,4 +41,19 @@ module ApplicationHelper
     return "" if number.blank?
     ActionController::Base.helpers.number_with_delimiter(number, locale: :fr).gsub(" ", "&nbsp;").html_safe
   end
+
+  def distance_delta(p1, p2)
+    distance = Geocoder::Calculations.distance_between([p1[:lat], p1[:lon]], [p2[:lat], p2[:lon]], { unit: :km })
+    if distance < 1
+      distance = (distance.round(3) * 1000).round(-1)
+      distance_in_words = "#{distance} m"
+    else
+      distance = distance.round(-1) if distance > 10
+      distance_in_words = "#{distance.round(1)} km"
+    end
+    {
+      delta: distance,
+      delta_in_words: distance_in_words,
+    }
+  end
 end
