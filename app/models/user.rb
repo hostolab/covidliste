@@ -17,6 +17,7 @@ class User < ApplicationRecord
 
   blind_index :email
 
+  validates :address, presence: true, postal_address: {with_zipcode: true}, on: :create
   validates :lat, presence: true, unless: proc { |u| u.persisted? }
   validates :lon, presence: true, unless: proc { |u| u.persisted? }
   validates :birthdate, presence: true
@@ -50,7 +51,9 @@ class User < ApplicationRecord
     self.lon = results[:lon]
   end
 
-  def ensure_lat_lon(address)
+  def ensure_lat_lon
+    validate # trigger validations
+    return if errors[:address].present?
     return unless lat.nil? || lon.nil?
     results = GeocodingService.new(address).call
     self.lat = results[:lat]

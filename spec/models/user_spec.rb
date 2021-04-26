@@ -8,12 +8,12 @@ RSpec.describe User, type: :model do
       expect(user).to be_valid
     end
 
-    it "is invalid without a first_name" do
+    it "is valid without a first_name" do
       user.firstname = nil
       expect(user).to be_valid
     end
 
-    it "is invalid without a last_name" do
+    it "is valid without a last_name" do
       user.lastname = nil
       expect(user).to be_valid
     end
@@ -31,6 +31,34 @@ RSpec.describe User, type: :model do
     it "is invalid without an email" do
       user.email = nil
       expect(user).to_not be_valid
+    end
+
+    context "when the user has incomplete address without zipcode" do
+      context "on persistent context" do
+        it "is always valid" do
+          persistent_user = create(:user)
+          persistent_user.address = "21 Rue Bergère"
+          expect(persistent_user).to be_valid
+          persistent_user.address = "21 Rue Bergère 75009 Paris"
+          expect(persistent_user).to be_valid
+        end
+      end
+      context "on new context" do
+        it "is valid" do
+          user.address = generate(:french_address)
+          expect(user).to be_valid
+          user.address = "21 Rue Bergère 75009 Paris"
+          expect(user).to be_valid
+        end
+        it "is invalid" do
+          user.address = "21 Rue Bergère Paris"
+          expect(user).not_to be_valid
+          expect(user.errors[:address]).to include(I18n.t("errors.messages.missing_zipcode"))
+          user.address = "21 Rue Bergère Paris France"
+          expect(user).not_to be_valid
+          expect(user.errors[:address]).to include(I18n.t("errors.messages.missing_zipcode"))
+        end
+      end
     end
   end
 
