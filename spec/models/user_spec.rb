@@ -137,20 +137,28 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe "password" do
-    it "is invalid if length below 8" do
-      user.password = "1234"
-      expect(user).to_not be_valid
+  describe "Roles" do
+    context "super admin" do
+      before { user.add_role(:super_admin) }
+      it "should have all roles" do
+        expect(user.has_role?(:admin)).to eq(true)
+        expect(user.has_role?(:dev_admin)).to eq(true)
+        expect(user.has_role?(:supply_admin)).to eq(true)
+        expect(user.has_role?(:supply_member)).to eq(true)
+        expect(user.has_role?(:support_admin)).to eq(true)
+        expect(user.has_role?(:support_member)).to eq(true)
+        expect(user.has_role?(:volunteer)).to eq(true)
+      end
     end
 
-    it "is too weak" do
-      user.password = "123456789"
-      expect(user).to_not be_valid
-    end
-
-    it "is valid" do
-      user.password = "snipe.HACKSAW.fish"
-      expect(user).to be_valid
+    context "support member" do
+      before { user.add_role(:support_member) }
+      it "should not have admin roles" do
+        expect(user.has_role?(:admin)).to eq(false)
+        expect(user.has_role?(:super_admin)).to eq(false)
+        expect(user.has_role?(:supply_admin)).to eq(false)
+        expect(user.has_role?(:support_admin)).to eq(false)
+      end
     end
   end
 end

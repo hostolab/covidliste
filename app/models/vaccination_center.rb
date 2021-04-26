@@ -2,13 +2,14 @@ class VaccinationCenter < ApplicationRecord
   include HasPhoneNumberConcern
   has_phone_number_types %i[fixed_line mobile voip]
   module Kinds
+    CABINET_INFIRMIER = "Cabinet infirmier"
     CABINET_MEDICAL = "Cabinet médical"
     CENTRE_VACCINATION = "Centre de vaccination"
     EHPAD = "Ehpad"
     HOPITAL = "Hôpital"
     PHARMACIE = "Pharmacie"
 
-    ALL = [CABINET_MEDICAL, CENTRE_VACCINATION, EHPAD, HOPITAL, PHARMACIE].freeze
+    ALL = [CABINET_INFIRMIER, CABINET_MEDICAL, CENTRE_VACCINATION, EHPAD, HOPITAL, PHARMACIE].freeze
   end
 
   include PgSearch::Model
@@ -42,7 +43,7 @@ class VaccinationCenter < ApplicationRecord
   end
 
   def can_be_accessed_by?(user, partner)
-    return true if user&.admin?
+    return true if user&.has_role?(:admin)
 
     partners.include?(partner)
   end
@@ -93,20 +94,6 @@ class VaccinationCenter < ApplicationRecord
         csv << line
       end
     end
-  end
-
-  def reachable_users_query(min_age:, max_age:, max_distance_in_meters:, limit: nil)
-    User.distinct
-      .where.not(confirmed_at: nil)
-      .where(anonymized_at: nil)
-      .where("EXTRACT(YEAR FROM AGE(birthdate))::int BETWEEN ? AND ?", min_age, max_age)
-      .where("SQRT(((? - lat)*110.574)^2 + ((? - lon)*111.320*COS(lat::float*3.14159/180))^2) < ?", lat, lon, max_distance_in_meters / 1000)
-      .joins("LEFT JOIN matches ON matches.user_id = users.id")
-      .where("matches.confirmed_at IS NULL")
-      .where("(matches.id IS NULL) OR (matches.created_at = (SELECT MAX(matches.created_at) FROM matches WHERE users.id = matches.user_id))")
-      .where("(matches.id IS NULL) OR (matches.created_at + interval '1' day < now())")
-      .order(id: :asc)
-      .limit(limit)
   end
 
   private

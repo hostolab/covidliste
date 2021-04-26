@@ -1,0 +1,32 @@
+default: &default
+  admin_roles:
+    super_admin:
+      name: "Super Admin"
+    admin:
+      name: "Core Team"
+      parent_role: super_admin
+    supply_admin:
+      name: "Supply Lead"
+      parent_role: admin
+    supply_member:
+      name: "Supply Member"
+      parent_role: supply_admin
+    ds_admin:
+      name: "Data Science Lead"
+      parent_role: admin
+    dev_admin:
+      name: "Dev Lead"
+      parent_role: admin
+    support_admin:
+      name: "Support Lead"
+      parent_role: admin
+    support_member:
+      name: "Support Member"
+      parent_role: support_admin
+
+development:
+  <<: *default
+test:
+  <<: *default
+production:
+  <<: *default

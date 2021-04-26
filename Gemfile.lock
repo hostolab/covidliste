@@ -151,6 +151,8 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    devise-passwordless (0.5.0)
+      devise
     devise_zxcvbn (5.1.0)
       devise
       zxcvbn-js (~> 4.4.1)
@@ -226,6 +228,7 @@ GEM
       actionmailer (>= 3.2)
       letter_opener (~> 1.0)
       railties (>= 3.2)
+    libv8-node (15.14.0.0)
     listen (3.5.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -248,6 +251,8 @@ GEM
     mime-types-data (3.2021.0225)
     mini_mime (1.0.3)
     mini_portile2 (2.5.0)
+    mini_racer (0.4.0)
+      libv8-node (~> 15.14.0.0)
     minitest (5.14.4)
     msgpack (1.4.2)
     multi_xml (0.6.0)
@@ -331,6 +336,13 @@ GEM
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
+    react_on_rails (12.2.0)
+      addressable
+      connection_pool
+      execjs (~> 2.5)
+      rails (>= 3.2)
+      rainbow (~> 3.0)
+      webpacker (>= 4.0)
     redis (4.2.5)
     redlock (1.2.1)
       redis (>= 3.0.0, < 5.0)
@@ -496,6 +508,7 @@ DEPENDENCIES
   database_cleaner-active_record
   ddtrace (= 0.35.2)
   devise
+  devise-passwordless
   devise_zxcvbn
   dotenv-rails (= 2.7.6)
   factory_bot_rails
@@ -517,6 +530,7 @@ DEPENDENCIES
   lockbox
   lograge
   logstash-event
+  mini_racer
   pagy
   pg (~> 1.1)
   pg_query (>= 0.9.0)
@@ -531,6 +545,7 @@ DEPENDENCIES
   rack-mini-profiler (~> 2.0)
   rails (~> 6.1.1)
   rails-controller-testing
+  react_on_rails (= 12.2.0)
   redlock
   rolify
   rspec-rails (~> 4.0.0)

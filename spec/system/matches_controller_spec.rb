@@ -6,35 +6,40 @@ RSpec.describe MatchesController, type: :system do
   let!(:partner) { create(:partner) }
   let!(:center) { create(:vaccination_center) }
   let!(:campaign) { create(:campaign, vaccination_center: center) }
-  let!(:batch) { create(:campaign_batch, campaign: campaign, vaccination_center: center) }
   let!(:match_confirmation_token) { "abcd" }
-  let!(:match) { create(:match, campaign_batch: batch, user: user, vaccination_center: center, match_confirmation_token: match_confirmation_token, expires_at: 1.hour.since, campaign: campaign) }
+  let!(:match) { create(:match, user: user, vaccination_center: center, match_confirmation_token: match_confirmation_token, expires_at: 1.hour.since, campaign: campaign) }
 
   subject { visit match_path(match_confirmation_token, source: "sms") }
 
   describe "GET show" do
     context "with a valid match" do
-      it "it says une dose dispo" do
+      it "confirms the match only when all inputs are filled" do
         subject
         expect(page).to have_text("Une dose est disponible")
-        expect(page).to have_text("Je suis disponible")
+        expect(page).to have_text("Je réserve la dose")
         expect(page).to have_text(center.address)
-        expect(page).to have_field("firstname", with: user.firstname)
-        expect(page).to have_field("lastname", with: user.lastname)
+        expect(page).to have_field("user_firstname", with: user.firstname)
+        expect(page).to have_field("user_lastname", with: user.lastname)
 
-        fill_in :firstname, with: user.firstname
-        fill_in :lastname, with: ""
-        click_on("Je suis disponible")
+        fill_in :user_firstname, with: user.firstname
+        fill_in :user_lastname, with: ""
+        check :confirm_age
+        check :confirm_name
+        click_on("Je réserve la dose")
         expect(page).to have_text("Vous devez renseigner votre identité")
 
-        fill_in :firstname, with: ""
-        fill_in :lastname, with: user.lastname
-        click_on("Je suis disponible")
+        fill_in :user_firstname, with: ""
+        fill_in :user_lastname, with: user.lastname
+        check :confirm_age
+        check :confirm_name
+        click_on("Je réserve la dose")
         expect(page).to have_text("Vous devez renseigner votre identité")
 
-        fill_in :firstname, with: user.firstname
-        fill_in :lastname, with: user.lastname
-        click_on("Je suis disponible")
+        fill_in :user_firstname, with: user.firstname
+        fill_in :user_lastname, with: user.lastname
+        check :confirm_age
+        check :confirm_name
+        click_on("Je réserve la dose")
         expect(page).not_to have_text("Vous devez renseigner votre identité")
         expect(page).to have_text("Votre disponibilité est confirmée")
         expect(page).to have_text(center.address)
@@ -58,6 +63,7 @@ RSpec.describe MatchesController, type: :system do
       before do
         match.update_column("expires_at", 5.minutes.ago)
       end
+
       it "it says delai dépassé" do
         subject
         expect(page).to have_text("Le délai de confirmation est dépassé")
@@ -87,7 +93,7 @@ RSpec.describe MatchesController, type: :system do
         expect(page).to have_text("Pour qu'aucune dose ne soit perdue, nous contactons quand c'est possible plusieurs volontaires.")
         expect(page).to have_text("Dans de rares cas, il arrive que toutes les doses soient prises.")
         expect(page).not_to have_text("Une dose est disponible")
-        expect(page).not_to have_text("Je suis disponible")
+        expect(page).not_to have_text("Je réserve la dose")
       end
     end
 
@@ -100,16 +106,20 @@ RSpec.describe MatchesController, type: :system do
       end
 
       it "handle the user's disappointment gracefully" do
+        already_confirmed_count = Match.where(confirmation_failed_reason: "Match::AlreadyConfirmedError").count
         visit match_path(match_confirmation_token)
 
         # A volunteer confirms a few seconds before me
         # while I'm browsing the match show page
         create(:match, :confirmed, campaign: campaign)
 
-        fill_in :firstname, with: generate(:firstname)
-        fill_in :lastname, with: generate(:lastname)
-        click_on("Je suis disponible")
+        fill_in :user_firstname, with: generate(:firstname)
+        fill_in :user_lastname, with: generate(:lastname)
+        check :confirm_age
+        check :confirm_name
+        click_on("Je réserve la dose")
         expect(page).to have_text("La dose n'est plus disponible 😢")
+        Match.where(confirmation_failed_reason: "Match::AlreadyConfirmedError").count == already_confirmed_count + 1
       end
     end
   end

@@ -22,7 +22,7 @@ class Vaccine < ApplicationRecord
     when Brands::ASTRAZENECA
       3
     else
-      2
+      4
     end
   end
 end

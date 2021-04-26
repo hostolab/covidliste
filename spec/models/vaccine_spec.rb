@@ -30,20 +30,20 @@ RSpec.describe Vaccine, type: :model do
       expect(Vaccine.overbooking_factor(Vaccine::Brands::ASTRAZENECA)).to eq 3
     end
 
-    it "returns 2 for JANSSEN" do
-      expect(Vaccine.overbooking_factor(Vaccine::Brands::JANSSEN)).to eq 2
+    it "returns 4 for JANSSEN" do
+      expect(Vaccine.overbooking_factor(Vaccine::Brands::JANSSEN)).to eq 4
     end
 
-    it "returns 2 for PFIZER" do
-      expect(Vaccine.overbooking_factor(Vaccine::Brands::PFIZER)).to eq 2
+    it "returns 4 for PFIZER" do
+      expect(Vaccine.overbooking_factor(Vaccine::Brands::PFIZER)).to eq 4
     end
 
-    it "returns 2 for JANSSEN" do
-      expect(Vaccine.overbooking_factor(Vaccine::Brands::JANSSEN)).to eq 2
+    it "returns 4 for JANSSEN" do
+      expect(Vaccine.overbooking_factor(Vaccine::Brands::JANSSEN)).to eq 4
     end
 
-    it "returns 2 for other" do
-      expect(Vaccine.overbooking_factor("other")).to eq 2
+    it "returns 4 for other" do
+      expect(Vaccine.overbooking_factor("other")).to eq 4
     end
   end
 end

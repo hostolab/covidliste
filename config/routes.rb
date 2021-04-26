@@ -2,38 +2,55 @@ require "sidekiq/web"
 
 Rails.application.routes.draw do
   namespace :admin do
-    authenticate :user do
+    authenticate :user, lambda { |u| u.has_role?(:volunteer) } do
       get "/" => "home#index"
 
-      get "/stats" => "stats#stats"
-      post "/stats" => "stats#stats"
-
-      resources :vaccination_centers do
-        patch :validate, on: :member
-        patch :disable, on: :member
-        patch :enable, on: :member
-        post :add_partner, on: :member
+      authenticate :user, lambda { |u| u.has_role?(:supply_member) } do
+        # Supply
+        resources :vaccination_centers do
+          authenticate :user, lambda { |u| u.has_role?(:supply_admin) } do
+            # Supply Admin
+            patch :validate, on: :member
+            patch :disable, on: :member
+            patch :enable, on: :member
+            post :add_partner, on: :member
+          end
+        end
       end
 
-      resources :users, only: [:index, :destroy] do
-        post :resend_confirmation, on: :member
+      authenticate :user, lambda { |u| u.has_role?(:supply_admin) } do
+        # Supply admin
+        get "/stats" => "stats#stats"
+        post "/stats" => "stats#stats"
       end
 
-      resources :power_users, only: [:index]
-    end
+      authenticate :user, lambda { |u| u.has_role?(:support_member) } do
+        # Support
+        resources :users, only: [:index, :destroy] do
+          post :resend_confirmation, on: :member
+        end
+      end
 
-    # It is not possible to use pundit policies to restrict access based on
-    # roles with engines.
-    authenticate :user, lambda(&:admin?) do
-      # admin tools
-      mount Blazer::Engine, at: "/blazer"
-      mount Flipper::UI.app(Flipper), at: "/flipper"
-    end
+      authenticate :user, lambda { |u| u.has_role?(:ds_admin) } do
+        # DataScience admin
+        mount Blazer::Engine, at: "/blazer"
+      end
 
-    authenticate :user, lambda(&:super_admin?) do
-      # super admin tools
-      mount PgHero::Engine, at: "/pghero"
-      mount Sidekiq::Web => "/sidekiq"
+      authenticate :user, lambda { |u| u.has_role?(:dev_admin) } do
+        # Dev admin
+        mount Flipper::UI.app(Flipper), at: "/flipper", as: :flipper_ui
+      end
+
+      authenticate :user, lambda { |u| u.has_role?(:admin) } do
+        # Core Team
+        resources :power_users, only: [:index]
+      end
+
+      authenticate :user, lambda { |u| u.has_role?(:super_admin) } do
+        # Super Admin
+        mount PgHero::Engine, at: "/pghero"
+        mount Sidekiq::Web => "/sidekiq"
+      end
     end
   end
 
@@ -42,16 +59,16 @@ Rails.application.routes.draw do
   ## devise users
   devise_for :users,
     path_names: {sign_in: "login", sign_out: "logout"},
-    skip: %i[sessions registrations],
+    path: "",
+    skip: %i[registrations],
     controllers: {
+      sessions: "devise/passwordless/sessions",
       confirmations: "confirmations"
     }
 
   # TODO FIXME Legacy hardcoced login/logout routes, we should use the routes from devise instead
   devise_scope :user do
-    get "login", to: "devise/sessions#new", as: :new_user_session
-    post "login", to: "devise/sessions#create", as: :user_session
-    delete "logout", to: "devise/sessions#destroy", as: :destroy_user_session
+    get "/users/magic_link", to: "devise/passwordless/magic_links#show", as: "users_magic_link"
   end
 
   ## devise partners

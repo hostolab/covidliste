@@ -8,7 +8,6 @@ def fill_valid_user
   fill_in :user_address, with: generate(:french_address)
   fill_in :user_phone_number, with: generate(:french_phone_number)
   fill_in :user_email, with: "hello+#{(rand * 10000).to_i}@covidliste.com" # needs valid email here
-  fill_in :user_password, with: robust_password
   check :user_statement
   check :user_toc
 end
@@ -97,10 +96,8 @@ RSpec.describe "Users", type: :system do
     before do
       user.save!
 
-      visit "/login"
-      fill_in :user_email, with: user.email
-      fill_in :user_password, with: user.password
-      click_on "Connexion"
+      token = Devise::Passwordless::LoginToken.encode(user)
+      visit users_magic_link_url(Hash["user", {email: user.email, token: token}])
 
       expect(page).to have_text("Connecté(e).")
       expect(page).to have_text("Vos informations")
@@ -154,7 +151,7 @@ RSpec.describe "Users", type: :system do
       it "it doest not allow me to edit personal information " do
         click_on "Je modifie mes informations"
         expect(page).not_to have_text("Modifications enregistrées.")
-        expect(page).to have_text("Vous ne ne pouvez plus modifier vos informations car vous avez déjà confirmé un rendez-vous.")
+        expect(page).to have_text("Vous ne pouvez pas modifier vos informations actuellement car vous avez confirmé un rendez-vous de vaccination.")
       end
     end
 
@@ -165,7 +162,35 @@ RSpec.describe "Users", type: :system do
       it "it doest not allow me to edit personal information " do
         click_on "Je modifie mes informations"
         expect(page).not_to have_text("Modifications enregistrées.")
-        expect(page).to have_text("Vous ne ne pouvez plus modifier vos informations car vous avez un rendez vous en cours.")
+        expect(page).to have_text("Vous ne pouvez pas modifier vos informations actuellement car vous avez une proposition rendez vous de vaccination en cours.")
+      end
+    end
+  end
+
+  describe "Login using password less link" do
+    before { user.save! }
+    context "expired link" do
+      scenario "it notifies the user" do
+        token = Devise::Passwordless::LoginToken.encode(user)
+        magic_link = users_magic_link_url(Hash["user", {email: user.email, token: token}])
+
+        travel Devise.passwordless_login_within + 2.minutes
+        visit magic_link
+
+        expect(page).to_not have_current_path(profile_path)
+        expect(page).to have_text(I18n.t("devise.failure.user.magic_link_invalid"))
+      end
+    end
+
+    context "invalid link (remove last character)" do
+      scenario "it notifies the user" do
+        token = Devise::Passwordless::LoginToken.encode(user)[0...-1]
+        magic_link = users_magic_link_url(Hash["user", {email: user.email, token: token}])
+
+        visit magic_link
+
+        expect(page).to_not have_current_path(profile_path)
+        expect(page).to have_text(I18n.t("devise.failure.user.magic_link_invalid"))
       end
     end
   end

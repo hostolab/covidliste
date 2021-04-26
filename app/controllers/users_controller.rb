@@ -31,7 +31,9 @@ class UsersController < ApplicationController
   def update
     @user = current_user
     authorize @user
-    if @user.update(user_params)
+    @user.statement_accepted_at = Time.now.utc if !@user.statement && ActiveRecord::Type::Boolean.new.cast(user_params["statement"])
+    @user.assign_attributes(user_params)
+    if @user.save
       flash.now[:success] = "Modifications enregistrées."
     else
       flash.now[:error] = "Impossible d'enregistrer vos modifications."

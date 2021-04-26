@@ -4,9 +4,8 @@ require "rails_helper"
 
 RSpec.describe Match, type: :model do
   let!(:campaign) { create(:campaign) }
-  let!(:campaign_batch) { create(:campaign_batch) }
-  let!(:match) { create(:match, campaign_batch: campaign_batch, campaign: campaign) }
-  let(:confirmed_match) { create(:match, :confirmed, campaign_batch: campaign_batch) }
+  let!(:match) { create(:match, campaign: campaign) }
+  let(:confirmed_match) { create(:match, :confirmed) }
   let(:now_utc) { Time.now.utc }
   let(:now) { double }
 
@@ -34,6 +33,29 @@ RSpec.describe Match, type: :model do
       end
       it "should not create a second match" do
         expect { create(:match, user: user) }.to raise_error(ActiveRecord::RecordInvalid, "La validation a échoué : Cette personne a déjà été matchée récemment")
+      end
+    end
+  end
+
+  describe "#set_expiration!" do
+    before do
+      travel_to Time.parse("2021-04-01 14:00:00")
+    end
+    after do
+      travel_back
+    end
+    it "should set correct expiration" do
+      match.set_expiration!
+      match.reload
+      expect(match.expires_at).to eq(Time.now.utc + Match::EXPIRE_IN_MINUTES.minutes)
+    end
+
+    context "campaign ending now" do
+      before do
+        campaign.update(ends_at: Time.now.utc)
+        match.set_expiration!
+        match.reload
+        expect(match.expires_at).to eq(Time.now.utc)
       end
     end
   end

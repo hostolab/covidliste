@@ -4,6 +4,10 @@ class ConfirmationsController < ::Devise::ConfirmationsController
     yield resource if block_given?
     if resource.errors.empty?
       set_flash_message!(:notice, :confirmed)
+
+      # PasswordLess specific behaviour after confirmation there is a direct sign in
+      sign_in(resource) if resource.is_a?(User)
+
       respond_with_navigational(resource) { redirect_to after_confirmation_path_for(resource_name, resource) }
     elsif resource.confirmed?
       set_flash_message!(:notice, :already_confirmed)
@@ -17,9 +21,8 @@ class ConfirmationsController < ::Devise::ConfirmationsController
     if resource.is_a?(Partner)
       # NOTE(ssaunier): We already have a valid password at sign up
       partners_vaccination_centers_path
-    elsif resource.encrypted_password.blank?
-      token = resource.send(:set_reset_password_token)
-      edit_password_url(resource, reset_password_token: token)
+    elsif resource.is_a?(User)
+      profile_path
     else
       new_user_session_path
     end

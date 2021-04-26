@@ -7,7 +7,6 @@ FactoryBot.define do
     email { generate(:unique_email) }
     firstname { generate(:firstname) }
     lastname { generate(:lastname) }
-    password { generate(:password) }
     phone_number { "0606060606" }
 
     confirmed_at { Time.zone.now }
@@ -36,6 +35,12 @@ FactoryBot.define do
     trait :super_admin do
       after(:create) do |user|
         user.add_role(:super_admin)
+      end
+    end
+
+    trait :support_member do
+      after(:create) do |user|
+        user.add_role(:support_member)
       end
     end
   end

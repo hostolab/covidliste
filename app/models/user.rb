@@ -5,12 +5,7 @@ class User < ApplicationRecord
 
   attr_accessor :address
 
-  devise :database_authenticatable,
-    :recoverable,
-    :rememberable,
-    :validatable,
-    :confirmable,
-    :zxcvbnable
+  devise :magic_link_authenticatable, :confirmable, :validatable
 
   has_many :matches, dependent: :nullify
   has_many :messages, class_name: "Ahoy::Message", as: :user
@@ -22,12 +17,11 @@ class User < ApplicationRecord
 
   blind_index :email
 
-  validates :password, presence: true, on: :create
   validates :lat, presence: true, unless: proc { |u| u.persisted? }
   validates :lon, presence: true, unless: proc { |u| u.persisted? }
   validates :birthdate, presence: true
   validates :toc, presence: true, acceptance: true
-  validates :statement, presence: true, acceptance: true, unless: proc { |u| u.reset_password_token.present? }
+  validates :statement, presence: true, acceptance: true
   validates :email,
     email: {
       mx: true,
@@ -43,6 +37,7 @@ class User < ApplicationRecord
   after_commit :reverse_geocode, if: -> { (saved_change_to_lat? || saved_change_to_lon?) && anonymized_at.nil? }
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
+  scope :active, -> { where(anonymized_at: nil) }
   scope :between_age, ->(min, max) { where("birthdate between ? and ?", max.years.ago, min.years.ago) }
   scope :with_roles, -> { joins(:roles) }
 
@@ -99,12 +94,19 @@ class User < ApplicationRecord
     firstname.blank? || lastname.blank?
   end
 
-  def super_admin?
-    has_role?(:super_admin)
-  end
-
-  def admin?
-    has_role?(:admin) || super_admin?
+  def has_role?(role_name, resource = nil)
+    if role_name == :volunteer
+      roles = Rails.application.config.x.covidliste["admin_roles"].keys
+      roles.any? { |role| has_role?(role) }
+    else
+      role_config = Rails.application.config.x.covidliste["admin_roles"].fetch(role_name)
+      parent_role = role_config[:parent_role]
+      if parent_role.nil? || (role_name == parent_role)
+        super(:"#{role_name}", resource)
+      else
+        super(:"#{role_name}", resource) || has_role?(:"#{parent_role}")
+      end
+    end
   end
 
   def anonymize!
@@ -132,6 +134,16 @@ class User < ApplicationRecord
       csv << columns
       csv << columns.map { |column| public_send(column) }
     end
+  end
+
+  # Enables to only validate specific attributes of the model
+  def valid_attributes?(*attributes)
+    attributes.each do |attribute|
+      self.class.validators_on(attribute).each do |validator|
+        validator.validate_each(self, attribute, send(attribute))
+      end
+    end
+    errors.none?
   end
 
   protected

@@ -1,43 +1,65 @@
+<%= content_for(:append_to_head) do %>
+  <meta content="index;follow" name="robots"/>
+<% end %>
+
 <div id="devise">
   <div class="container">
     <div class="row mt-5">
-      <div class="col-12 col-sm-6 offset-sm-3">
+      <div class="col-12 col-lg-6 offset-lg-1 mb-5">
+        <div class="d-flex align-items-center">
+          <div class="rounded p-3 bg-light text-primary mr-3 h2">
+            <%= icon("fas", "user-plus") %>
+          </div>
+          <h3>
+            Vous êtes un particulier volontaire à la vaccination
+          </h3>
+        </div>
 
-        <p>
-          <strong>Connexion - Espace personnel pour les volontaires inscrits</strong>
+        <p class="mt-4 h4">
+          Espace volontaires à la vaccination
+        </p>
+
+        <p class="mb-4">
+          Si vous êtes un professionnel de santé assurant la vaccination, rendez-vous sur
+          <%= link_to "sur cette page", new_partner_session_path %>.
         </p>
 
         <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-          <%= f.input :email, autocomplete: 'off', autofocus: true, required: true, id: 'inputEmail', placeholder: 'E-mail' %>
-          <%= f.input :password, autocomplete: 'off', required: true, id: 'inputPassword', placeholder: 'Mot de passe' %>
+          <%= f.input :email,
+                      autocomplete: 'off',
+                      autofocus: true,
+                      required: true,
+                      id: 'inputEmail',
+                      placeholder: 'E-mail' %>
 
-          <% if devise_mapping.rememberable? %>
-            <p>
-              <%= f.check_box :remember_me %>
-              <%= f.label :remember_me %>
-            </p>
-          <% end %>
+          <%= f.submit "Recevoir un lien de connexion", class: "btn btn-primary", id: :sign_in %>
 
-          <%= f.submit "Connexion", class: "btn btn-primary" %>
-
-          <% if devise_mapping.recoverable? && controller_name != "passwords" && controller_name != "registrations"  %>
+          <% if devise_mapping.confirmable? && controller_name != "confirmations" %>
             <p class="mt-3">
-              <%= link_to "Création du mot de passe / Mot de passe oublié ?", new_password_path(resource_name) %>
-            </p>
-          <% end %>
-
-          <% if devise_mapping.confirmable? && controller_name != "confirmations"  %>
-            <p>
               <%= link_to "Redemander l’email de confirmation", new_confirmation_path(resource_name) %>
             </p>
           <% end %>
 
           <% if controller_name == "sessions"  %>
-            <p>
+            <p class="mt-3">
               <%= link_to "S’inscrire en tant que volontaire", users_path %>
             </p>
           <% end %>
         <% end %>
+      </div>
+      <div class="col-12 col-lg-3 offset-lg-1 d-flex align-items-center border rounded">
+        <div class="text-center px-2">
+          <div class="mt-4">
+            <%= icon("fas", "hospital-user", class: "rounded p-3 bg-light text-primary h2") %>
+          </div>
+          <p class="mt-2">
+            Vous êtes un professionnel de santé assurant la vaccination ?
+          </p>
+          <p class="mt-4">
+            Rendez-vous sur
+            <%= link_to "l'espace professionnels de santé", new_partner_session_path %>
+          </p>
+        </div>
       </div>
     </div>
   </div>

@@ -6,12 +6,12 @@ class Match < ApplicationRecord
   class MissingNamesError < StandardError; end
 
   NO_MORE_THAN_ONE_MATCH_PER_PERIOD = 24.hours
+  EXPIRE_IN_MINUTES = 30
 
   has_secure_token :match_confirmation_token
 
   belongs_to :vaccination_center
   belongs_to :campaign
-  belongs_to :campaign_batch
   belongs_to :user
 
   accepts_nested_attributes_for :user
@@ -72,7 +72,13 @@ class Match < ApplicationRecord
   end
 
   def expired?
-    !confirmed? && Time.now.utc > expires_at
+    !confirmed? && expires_at && Time.now.utc > expires_at
+  end
+
+  def set_expiration!
+    return unless expires_at.nil?
+    self.expires_at = [Time.now.utc + Match::EXPIRE_IN_MINUTES.minutes, campaign.ends_at].min
+    save
   end
 
   def no_recent_match
