@@ -15,6 +15,7 @@
     "bootstrap-select": "^1.13.18",
     "d3-scale": "^3.2.4",
     "deck.gl": "^8.4.12",
+    "fuse.js": "^6.4.6",
     "is-svg": "^4.2.2",
     "jquery": "^3.6.0",
     "leaflet": "^1.7.1",

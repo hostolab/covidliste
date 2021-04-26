@@ -21,7 +21,14 @@ class PagesController < ApplicationController
   end
 
   def faq
-    @faq_items = FaqItem.all
+    respond_to do |format|
+      format.html do
+        @faq_items = Rails.cache.fetch("faq_items", expires_in: 2.hours) { FaqItem.all }
+      end
+      format.json do
+        render json: Rails.cache.fetch("faq_items_json", expires_in: 2.hours) { FaqItem.all.to_json }
+      end
+    end
   end
 
   def robots

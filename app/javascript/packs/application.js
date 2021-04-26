@@ -28,4 +28,9 @@ document.addEventListener("turbolinks:load", () => {
   userMap();
   togglePasswordVisibility();
   $('[data-toggle="tooltip"]').tooltip();
+
+  // webpack will load this JS async
+  if (document.getElementById("fuzzy-search")) {
+    import("../plugins/fuzzy_search")
+  }
 });
