@@ -66,6 +66,10 @@ class Campaign < ApplicationRecord
     end
   end
 
+  def matching_algo_v2?
+    Flipper.enabled?(:matching_algo_v2, self.vaccination_center)
+  end
+
   private
 
   def min_age_lesser_than_max_age
