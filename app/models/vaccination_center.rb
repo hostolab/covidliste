@@ -2,13 +2,14 @@ class VaccinationCenter < ApplicationRecord
   include HasPhoneNumberConcern
   has_phone_number_types %i[fixed_line mobile voip]
   module Kinds
+    CABINET_INFIRMIER = "Cabinet infirmier"
     CABINET_MEDICAL = "Cabinet médical"
     CENTRE_VACCINATION = "Centre de vaccination"
     EHPAD = "Ehpad"
     HOPITAL = "Hôpital"
     PHARMACIE = "Pharmacie"
 
-    ALL = [CABINET_MEDICAL, CENTRE_VACCINATION, EHPAD, HOPITAL, PHARMACIE].freeze
+    ALL = [CABINET_INFIRMIER, CABINET_MEDICAL, CENTRE_VACCINATION, EHPAD, HOPITAL, PHARMACIE].freeze
   end
 
   include PgSearch::Model
