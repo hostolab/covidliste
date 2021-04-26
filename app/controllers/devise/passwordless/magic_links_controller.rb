@@ -16,7 +16,8 @@ class Devise::Passwordless::MagicLinksController < DeviseController
   protected
 
   def auth_options
-    {scope: resource_name, recall: "#{resource_name.to_s.pluralize}/sessions#new"}
+    mapping = Devise.mappings[resource_name]
+    { scope: resource_name, recall: "#{mapping.controllers[:sessions]}#new" }
   end
 
   def translation_scope
