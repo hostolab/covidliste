@@ -5,8 +5,6 @@ class NotifyMatchesBySmsJob < ApplicationJob
 
   def perform(campaign)
     return unless campaign.running?
-    return campaign.completed! if campaign.remaining_slots <= 0
-    return campaign.completed! if Time.now.utc > campaign.ends_at
     return if campaign.ends_at > LEAD_TIME_HOURS.hours.from_now # do not send any SMS 2 hours before campaign ends
     return if campaign.sms_budget_remaining <= 0
 
