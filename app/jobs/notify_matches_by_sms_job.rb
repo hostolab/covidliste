@@ -11,7 +11,7 @@ class NotifyMatchesBySmsJob < ApplicationJob
     # get users who should get notified by SMS
     minutes_until_end = ((campaign.ends_at - Time.now.utc) / 60).to_i
     limit = (campaign.sms_budget_remaining / minutes_until_end).to_i
-    campaign.matches.pending.email_only.no_email_click.limit(limit).each do |match|
+    campaign.matches.pending.email_only.no_email_click.order(created_at: :asc).limit(limit).each do |match|
       match.notify_by_sms
     end
   end
