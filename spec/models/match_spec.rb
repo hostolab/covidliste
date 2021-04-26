@@ -118,9 +118,11 @@ RSpec.describe Match, type: :model do
 
     context "with matching v2" do
       before do
+        travel_to Time.parse("2021-04-01 14:00:00")
         Flipper.enable(:matching_algo_v2)
       end
       after do
+        travel_back
         Flipper.disable(:matching_algo_v2)
       end
 
