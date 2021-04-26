@@ -82,7 +82,7 @@ class Match < ApplicationRecord
 
   def set_expiration!
     return unless expires_at.nil?
-    self.expires_at = if matching_algo_v2
+    self.expires_at = if matching_algo_v2?
       campaign.ends_at
     else
       [Time.now.utc + Match::EXPIRE_IN_MINUTES.minutes, campaign.ends_at].min
