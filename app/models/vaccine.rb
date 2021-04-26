@@ -21,9 +21,4 @@ class Vaccine < ApplicationRecord
     return 3 if vaccine == Brands::ASTRAZENECA
     4
   end
-
-  def self.overbooking_factor_v2(vaccine)
-    return 10 if vaccine == Brands::ASTRAZENECA
-    20
-  end
 end

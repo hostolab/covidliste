@@ -2,6 +2,7 @@ class Campaign < ApplicationRecord
   MAX_DOSES = 200
   MAX_DISTANCE_IN_KM = 50
   MAX_SMS_BUDGET_BY_DOSE = 20
+  OVERBOOKING_FACTOR = 20
 
   belongs_to :vaccination_center
   belongs_to :partner
@@ -29,7 +30,7 @@ class Campaign < ApplicationRecord
 
   def target_matches_count
     # number of people to target at any point in time
-    remaining_doses * Vaccine.overbooking_factor_v2(vaccine_type)
+    remaining_doses * OVERBOOKING_FACTOR
   end
 
   def sms_budget_remaining
