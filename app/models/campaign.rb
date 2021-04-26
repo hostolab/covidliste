@@ -67,7 +67,7 @@ class Campaign < ApplicationRecord
   end
 
   def matching_algo_v2?
-    Flipper.enabled?(:matching_algo_v2, self.vaccination_center)
+    Flipper.enabled?(:matching_algo_v2, vaccination_center)
   end
 
   private

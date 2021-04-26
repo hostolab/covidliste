@@ -82,10 +82,10 @@ class Match < ApplicationRecord
 
   def set_expiration!
     return unless expires_at.nil?
-    if matching_algo_v2
-      self.expires_at = campaign.ends_at
+    self.expires_at = if matching_algo_v2
+      campaign.ends_at
     else
-      self.expires_at = [Time.now.utc + Match::EXPIRE_IN_MINUTES.minutes, campaign.ends_at].min
+      [Time.now.utc + Match::EXPIRE_IN_MINUTES.minutes, campaign.ends_at].min
     end
     save
   end
@@ -110,7 +110,6 @@ class Match < ApplicationRecord
   end
 
   def matching_algo_v2?
-    Flipper.enabled?(:matching_algo_v2, self.vaccination_center)
+    Flipper.enabled?(:matching_algo_v2, vaccination_center)
   end
-
 end
