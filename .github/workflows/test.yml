@@ -1,8 +1,7 @@
 name: Test
 
 # triggers on
-on:
-  - push
+on: [push, pull_request]
 
 jobs:
   test:
