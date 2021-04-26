@@ -25,9 +25,9 @@ class Match < ApplicationRecord
   scope :confirmed, -> { where.not(confirmed_at: nil) }
   scope :refused, -> { where.not(refused_at: nil) }
   scope :pending, -> { where(confirmed_at: nil, refused_at: nil).where("expires_at >= now()") }
-  scope :email_only -> { where(sms_sent_at: nil).where.not(mail_sent_at: nil) }
-  scope :with_sms -> { where.not(sms_sent_at: nil) }
-  scope :no_email_click -> { where(email_first_clicked_at: nil) }
+  scope :email_only, -> { where(sms_sent_at: nil).where.not(mail_sent_at: nil) }
+  scope :with_sms, -> { where.not(sms_sent_at: nil) }
+  scope :no_email_click, -> { where(email_first_clicked_at: nil) }
 
   def save_user_info
     self.age = user.age
