@@ -5,6 +5,7 @@ class RunCampaignJob < ApplicationJob
   # This job creates the matches.
 
   def perform(campaign)
+    Rails.logger.info("Run RunCampaignJob for campaign_id #{campaign.id}")
     return unless campaign.running?
     return campaign.completed! if campaign.remaining_slots <= 0
     return campaign.completed! if Time.now.utc >= campaign.ends_at
