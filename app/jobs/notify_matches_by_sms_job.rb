@@ -1,5 +1,5 @@
 class NotifyMatchesBySmsJob < ApplicationJob
-  # Job to decide which matches users to be notified by SMS
+  # Job to decide which matched users to be notified by SMS
 
   LEAD_TIME_HOURS = 2 # we start sending sms two hours before campaign ends
 
