@@ -30,7 +30,7 @@ describe RunCampaignJob do
     allow_any_instance_of(Campaign).to receive(:reachable_users_query).and_return(reachable_users_query)
   end
 
-  after do 
+  after do
     Flipper.disable(:matching_algo_v2)
   end
 
