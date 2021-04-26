@@ -29,7 +29,7 @@ class Match < ApplicationRecord
   scope :email_only, -> { where(sms_sent_at: nil).where.not(mail_sent_at: nil) }
   scope :with_sms, -> { where.not(sms_sent_at: nil) }
   scope :no_email_click, -> { where(email_first_clicked_at: nil) }
-  scope :alive, -> { where("created_at > ", DEAD_AFTER.ago) }
+  scope :alive, -> { where("created_at >= ?", DEAD_AFTER.ago) }
 
   def save_user_info
     self.age = user.age
