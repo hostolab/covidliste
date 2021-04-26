@@ -82,7 +82,8 @@ Rails.application.routes.draw do
       confirmations: "partners/confirmations",
       passwords: "partners/passwords",
       sessions: "partners/sessions",
-      unlocks: "partners/unlocks"
+      unlocks: "partners/unlocks",
+      omniauth_callbacks: "partners/omniauth_callbacks"
     }
 
   ####################
@@ -111,6 +112,7 @@ Rails.application.routes.draw do
       end
     end
     resources :campaigns, only: [:show, :update]
+    resources :partner_external_accounts, only: [:destroy]
   end
 
   ## matches

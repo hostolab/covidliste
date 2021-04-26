@@ -62,7 +62,7 @@
             <div class="mt-4">
               <p>Veuillez remplir le formulaire ci-dessous pour vous inscrire en tant que professionnel de santé.</p>
               <%= simple_form_for @partner do |f| %>
-                <%= f.input :name, label: "Nom et prénom du professionnel de santé", error: "Nom requis", placeholder: "Prénom Nom" %>
+                <%= f.input :name, label: "Nom et prénom du professionnel de santé", error: "Nom et prénom requis", placeholder: "Prénom Nom" %>
                 <%= f.input :phone_number, label: "Téléphone portable", placeholder: "06 .... (votre téléphone professionnel - pas de ligne fixe)", hint: "Ce numéro ne sera jamais communiqué aux volontaires. " %>
                 <%= f.input :email, required: true, placeholder: "votre_email@du_centre_de_vaccination.fr", input_html: {autocomplete: "email"}, hint: "Cet email ne sera jamais communiqué aux volontaires." %>
 

@@ -2,12 +2,6 @@
   <div class="row">
     <div class="col-12 col-sm-8 offset-sm-2">
       <h2>Espace professionnels de santé</h2>
-      <p class="mt-3">
-        Bonjour <%= @partner.name %>,
-      </p>
-      <p>
-        Vous êtes inscrit sur Covidliste depuis le <%= @partner.created_at.strftime("%d/%m/%Y") %>
-      </p>
 
       <p class="mt-3">
         <strong>Vos informations</strong>
@@ -22,13 +16,88 @@
       <% end %>
 
       <%= simple_form_for(@partner, url: :partners, method: :put, wrapper: :horizontal_form) do |f| %>
-        <%= f.input :name, label: "Nom", error: "Nom requis", placeholder: "Jean Dupont" %>
+        <%= f.input :name, label: "Nom et prénom", error: "Nom et prénom requis", placeholder: "Jean Dupont" %>
         <%= f.input :email, disabled: true, label: "Email", error: f.error(:email), placeholder: "jean@dupont.com" %>
-        <%= f.input :phone_number, label: "Numéro de téléphone", error: "", placeholder: "06 06 06 06 06" %>
+        <%= f.input :phone_number, label: "Téléphone portable", error: "", placeholder: "06 .... (votre téléphone professionnel - pas de ligne fixe)", hint: "Ce numéro ne sera jamais communiqué aux volontaires." %>
 
         <%= render partial: "users/input_statement", locals: {f: f, local_cgu_path: cgu_pro_path} %>
 
         <%= f.button :submit, "Je modifie mes informations", class: "btn btn-primary", data: {disable_with: "Validation..."} %>
+      <% end %>
+
+      <% @external_accounts = @partner.partner_external_accounts.order(id: :desc) %>
+      <% if PartnerExternalAccountProvider::Providers::ALL.any? or @external_accounts.any?%>
+        <p class="mt-4 mb-1">
+          <strong>Vos comptes et cartes professionnelles</strong><br />
+          <small>
+            Liez un compte ou une carte professionnelle (CPS ou e-CPS) pour
+            accélérer la validation de vos lieux de vaccination
+            et vous connecter plus facilement à votre espace Covidliste Pro.
+          </small>
+        </p>
+
+        <div class="table-responsive">
+          <table class="table table-bordered table-sm small text-center" aria-describedby="Vos comptes liés">
+            <thead class="thead-light">
+            <tr>
+              <th scope="col">Type de compte</th>
+              <th scope="col">Informations d'identité</th>
+              <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% if @external_accounts.any? %>
+              <% @external_accounts.order(id: :desc).each do |external_account| %>
+                <tr>
+                  <td>
+                    <%= image_tag("openid/#{external_account.provider_id}.png", alt: "#{external_account.service_name}", height: 40) %>
+                  </td>
+                  <td>
+                    <%= external_account.full_name %><br />
+                    <em><%= external_account.identifier %></em>
+                  </td>
+                  <td>
+                    <%= link_to icon("fas", "times", "Délier", class: "text-danger"), partners_partner_external_account_path(external_account.id), method: :delete, data: {confirm: "Êtes-vous sûr de vouloir délier ce compte #{external_account.service_name} ?"} %>
+                  </td>
+                </tr>
+              <% end %>
+            <% end %>
+
+            <% if PartnerExternalAccountProvider::Providers::ALL.any? %>
+              <tr>
+                <td colspan="3">
+                  <button type="button" class="btn btn-sm btn-outline-primary mt-2" data-toggle="modal" data-target="#externalAccountsLink">
+                    Lier une carte CPS, e-CPS ou un compte professionnel
+                  </button>
+                </td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="modal fade" id="externalAccountsLink" tabindex="-1" aria-labelledby="externalAccountsLinkLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="externalAccountsLinkLabel">Choisissez le type de compte à lier</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p class="mb-1 text-center">
+                  <% PartnerExternalAccountProvider::Providers::ALL.each do |provider_id, service_name| %>
+                    <%= link_to image_tag("openid/#{provider_id}.png", alt: "#{service_name}", height: 40), public_send("partner_#{provider_id}_omniauth_authorize_path"), class:"btn btn-outline-light border-primary", method: :post %>
+                  <% end %>
+                </p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Fermer</button>
+              </div>
+            </div>
+          </div>
+        </div>
       <% end %>
 
       <p class="mt-4">
