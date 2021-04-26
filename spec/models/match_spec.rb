@@ -3,8 +3,8 @@
 require "rails_helper"
 
 RSpec.describe Match, type: :model do
-  let!(:campaign) { create(:campaign, ends_at: 2.hours.from_now) }
-  let!(:match) { create(:match, campaign: campaign) }
+  let(:campaign) { create(:campaign, ends_at: 2.hours.from_now) }
+  let(:match) { create(:match, campaign: campaign) }
   let(:confirmed_match) { create(:match, :confirmed) }
   let(:now_utc) { Time.now.utc }
   let(:now) { double }
