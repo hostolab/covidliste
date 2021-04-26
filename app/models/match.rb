@@ -6,6 +6,7 @@ class Match < ApplicationRecord
   class MissingNamesError < StandardError; end
 
   NO_MORE_THAN_ONE_MATCH_PER_PERIOD = 24.hours
+  EXPIRE_IN_MINUTES = 30
   DEAD_AFTER = 2.hours
 
   has_secure_token :match_confirmation_token
@@ -20,8 +21,8 @@ class Match < ApplicationRecord
   blind_index :match_confirmation_token
 
   validate :no_recent_match, on: :create
-  before_create :save_user_info, :set_expiration
-  after_create_commit :notify_by_email
+  before_create :save_user_info
+  after_create_commit :notify
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
   scope :refused, -> { where.not(refused_at: nil) }
@@ -79,14 +80,24 @@ class Match < ApplicationRecord
     !confirmed? && expires_at && Time.now.utc > expires_at
   end
 
-  def set_expiration
-    self.expires_at = campaign.ends_at
+  def set_expiration!
+    return unless expires_at.nil?
+    if matching_algo_v2
+      self.expires_at = campaign.ends_at
+    else
+      self.expires_at = [Time.now.utc + Match::EXPIRE_IN_MINUTES.minutes, campaign.ends_at].min
+    save
   end
 
   def no_recent_match
     if user.matches.where("created_at >= ?", Match::NO_MORE_THAN_ONE_MATCH_PER_PERIOD.ago).any?
       errors.add(:base, "Cette personne a déjà été matchée récemment")
     end
+  end
+
+  def notify
+    notify_by_email
+    notify_by_sms unless matching_algo_v2?
   end
 
   def notify_by_email
@@ -96,4 +107,11 @@ class Match < ApplicationRecord
   def notify_by_sms
     SendMatchSmsJob.perform_later(self)
   end
+
+  def matching_algo_v2?
+    Flipper.enabled?(:matching_algo_v2, self.vaccination_center)
+  end
+
+
+
 end

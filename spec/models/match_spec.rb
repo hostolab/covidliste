@@ -26,10 +26,6 @@ RSpec.describe Match, type: :model do
       expect(match.geo_context).to eq "GEO_CONTEXT"
     end
 
-    it "should have the correct expires_at" do
-      expect(match.expires_at).to eq(campaign.ends_at)
-    end
-
     context "user has already a recent match" do
       let(:user) { create(:user) }
       before do
@@ -94,6 +90,44 @@ RSpec.describe Match, type: :model do
     context "When the match itself is already confirmed" do
       it "is confirmable" do
         expect(confirmed_match.confirmable?).to be false
+      end
+    end
+  end
+
+  describe "#set_expiration!" do
+    before do
+      travel_to Time.parse("2021-04-01 14:00:00")
+    end
+    after do
+      travel_back
+    end
+    it "should set correct expiration" do
+      match.set_expiration!
+      match.reload
+      expect(match.expires_at).to eq(Time.now.utc + Match::EXPIRE_IN_MINUTES.minutes)
+    end
+
+    context "campaign ending now" do
+      before do
+        campaign.update(ends_at: Time.now.utc)
+        match.set_expiration!
+        match.reload
+        expect(match.expires_at).to eq(Time.now.utc)
+      end
+    end
+
+    context "with matching v2" do
+      before do
+        Flipper.enable(:matching_algo_v2)
+      end
+      after do
+        Flipper.disable(:matching_algo_v2)
+      end
+
+      it "should set correct expiration" do
+        match.set_expiration!
+        match.reload
+        expect(match.expires_at).to eq(campaign.ends_at)
       end
     end
   end
