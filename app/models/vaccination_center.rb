@@ -96,7 +96,7 @@ class VaccinationCenter < ApplicationRecord
   end
 
   def flipper_id
-    "VaccinationCenter_#{id}"
+    "#{self.class.name}_#{id}"
   end
 
   private
