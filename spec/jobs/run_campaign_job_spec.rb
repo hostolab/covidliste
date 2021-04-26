@@ -10,16 +10,20 @@ describe SendCampaignJob do
   let(:max_age) { 99 }
   let(:starts_at) { Time.now.utc - 1.hours }
   let(:ends_at) { Time.now.utc + 6.hours }
-
   let!(:campaign) {
     create(:campaign, vaccination_center: center,
-                      available_doses: available_doses, vaccine_type: vaccine_type, min_age: min_age,
-                      max_age: max_age, max_distance_in_meters: 50, starts_at: starts_at, ends_at: ends_at)
+                      available_doses: available_doses,
+                      vaccine_type: vaccine_type,
+                      min_age: min_age,
+                      max_age: max_age,
+                      max_distance_in_meters: 50,
+                      starts_at: starts_at,
+                      ends_at: ends_at)
   }
 
   let(:reachable_users_query) { User.where(id: user.id) }
 
-  subject { SendCampaignJob.new.perform(campaign) }
+  subject { RunCampaignJob.new.perform(campaign) }
 
   before do
     allow_any_instance_of(Campaign).to receive(:reachable_users_query).and_return(reachable_users_query)
@@ -31,16 +35,8 @@ describe SendCampaignJob do
       expect(campaign.matches.count).to eq(1)
     end
 
-    it "should send an sms" do
-      expect { subject }.to have_enqueued_job(SendCampaignJob).exactly(:once)
-    end
-
     it "should send an email" do
       expect { subject }.to have_enqueued_job(SendMatchEmailJob).exactly(:once)
-    end
-
-    it "should re-trigger another campaign job" do
-      expect { subject }.to have_enqueued_job(SendCampaignJob).exactly(:once)
     end
 
     context "and with an already confirmed match" do
@@ -65,8 +61,6 @@ describe SendCampaignJob do
     it "should not create any match and complete the campaign" do
       subject
       expect(campaign.matches.any?).to eq(false)
-      campaign.reload
-      expect(campaign.status).to eq("completed")
     end
   end
 
@@ -80,9 +74,9 @@ describe SendCampaignJob do
     end
   end
 
-  context "when campaign is about to complete" do
+  context "when campaign is complete" do
     before do
-      campaign.update(ends_at: Time.now.utc - 5.minutes)
+      campaign.update(ends_at: Time.now.utc)
     end
     it "should end the campaign" do
       subject

@@ -1,20 +1,20 @@
 blazer_checks_5_minute:
-  cron: "* * * * *"
+  cron: "*/5 * * * *"
   class: "Blazer::RunBlazerChecksJob"
   args: { shedule: "5 minutes" }
 
 blazer_checks_1_hour:
-  cron: "* * * * *"
+  cron: "0 * * * *"
   class: "Blazer::RunBlazerChecksJob"
   args: { shedule: "1 hour" }
 
 blazer_checks_6_hour:
-  cron: "* * * * *"
+  cron: "0 */6 * * *"
   class: "Blazer::RunBlazerChecksJob"
   args: { shedule: "6 hours" }
 
 blazer_checks_1_day:
-  cron: "* * * * *"
+  cron: "0 1 * * *"
   class: "Blazer::RunBlazerChecksJob"
   args: { shedule: "1 day" }
 
@@ -22,3 +22,8 @@ anonynise_confirmed_mathced_users:
   cron: "0 3 * * *"
   class: "AnonymizeConfirmedMatchedUsersJob"
   description: Anonymize all users with confirmed match from 3 days ago and more
+
+run_active_campaigns: # every minute
+  cron: "*/5 * * * *"
+  class: "RunActiveCampaignsJob"
+  description: "Re-evaluate active campaigns"

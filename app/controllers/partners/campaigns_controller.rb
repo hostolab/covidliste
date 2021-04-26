@@ -25,7 +25,6 @@ module Partners
 
       if @campaign.save
         @campaign.update(name: "Campagne ##{@campaign.id} du #{@campaign.created_at.strftime("%d/%m/%Y")}")
-        SendCampaignJob.perform_later(@campaign, current_partner)
         PushNewCampaignToSlackJob.perform_later(@campaign)
         redirect_to partners_campaign_path(@campaign)
       else
@@ -37,7 +36,7 @@ module Partners
     def update
       if params[:cancel] == "true" && @campaign.running?
         @campaign.canceled!
-        flash[:notice] = "La campagne est en cours d'interruption. Attention, des volontaires ont reçu des SMS et peuvent encore confirmer dans les #{Match::EXPIRE_IN_MINUTES + 1} prochaines minutes"
+        flash[:notice] = "La campagne est en cours d'interruption. Attention, des volontaires ont reçu des notifications et peuvent encore confirmer jusqu'à la fin de la campagne."
         redirect_to partners_campaign_path(@campaign)
       end
     end

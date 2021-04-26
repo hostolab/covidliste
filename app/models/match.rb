@@ -6,7 +6,6 @@ class Match < ApplicationRecord
   class MissingNamesError < StandardError; end
 
   NO_MORE_THAN_ONE_MATCH_PER_PERIOD = 24.hours
-  EXPIRE_IN_MINUTES = 30
 
   has_secure_token :match_confirmation_token
 
@@ -20,12 +19,15 @@ class Match < ApplicationRecord
   blind_index :match_confirmation_token
 
   validate :no_recent_match, on: :create
-  before_create :save_user_info
-  after_create_commit :notify_by_email, :notify_by_sms
+  before_create :save_user_info, :set_expiration
+  after_create_commit :notify_by_email
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
   scope :refused, -> { where.not(refused_at: nil) }
-  scope :pending, -> { where(confirmed_at: nil).where("expires_at >= now()") }
+  scope :pending, -> { where(confirmed_at: nil, refused_at: nil).where("expires_at >= now()") }
+  scope :email_only -> { where(sms_sent_at: nil).where.not(mail_sent_at: nil) }
+  scope :with_sms -> { where.not(sms_sent_at: nil) }
+  scope :no_email_click -> { where(email_first_clicked_at: nil) }
 
   def save_user_info
     self.age = user.age
@@ -75,10 +77,8 @@ class Match < ApplicationRecord
     !confirmed? && expires_at && Time.now.utc > expires_at
   end
 
-  def set_expiration!
-    return unless expires_at.nil?
-    self.expires_at = [Time.now.utc + Match::EXPIRE_IN_MINUTES.minutes, campaign.ends_at].min
-    save
+  def set_expiration
+    self.expires_at = campaign.ends_at
   end
 
   def no_recent_match

@@ -26,6 +26,10 @@ RSpec.describe Match, type: :model do
       expect(match.geo_context).to eq "GEO_CONTEXT"
     end
 
+    it "should have the correct expires_at" do
+      expect(match.expires_at).to eq(campaign.ends_at)
+    end
+
     context "user has already a recent match" do
       let(:user) { create(:user) }
       before do
@@ -33,29 +37,6 @@ RSpec.describe Match, type: :model do
       end
       it "should not create a second match" do
         expect { create(:match, user: user) }.to raise_error(ActiveRecord::RecordInvalid, "La validation a échoué : Cette personne a déjà été matchée récemment")
-      end
-    end
-  end
-
-  describe "#set_expiration!" do
-    before do
-      travel_to Time.parse("2021-04-01 14:00:00")
-    end
-    after do
-      travel_back
-    end
-    it "should set correct expiration" do
-      match.set_expiration!
-      match.reload
-      expect(match.expires_at).to eq(Time.now.utc + Match::EXPIRE_IN_MINUTES.minutes)
-    end
-
-    context "campaign ending now" do
-      before do
-        campaign.update(ends_at: Time.now.utc)
-        match.set_expiration!
-        match.reload
-        expect(match.expires_at).to eq(Time.now.utc)
       end
     end
   end

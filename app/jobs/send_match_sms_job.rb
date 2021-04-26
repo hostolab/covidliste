@@ -7,8 +7,6 @@ class SendMatchSmsJob < ApplicationJob
       match.user.phone_number.blank? ||
       match.sms_sent_at.present? || match.expired?
 
-    match.set_expiration!
-
     client = Twilio::REST::Client.new
     client.messages.create(
       from: "COVIDLISTE",
