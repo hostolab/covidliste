@@ -6,6 +6,7 @@ class Match < ApplicationRecord
   class MissingNamesError < StandardError; end
 
   NO_MORE_THAN_ONE_MATCH_PER_PERIOD = 24.hours
+  DEAD_AFTER = 2.hours  
 
   has_secure_token :match_confirmation_token
 
@@ -28,6 +29,7 @@ class Match < ApplicationRecord
   scope :email_only, -> { where(sms_sent_at: nil).where.not(mail_sent_at: nil) }
   scope :with_sms, -> { where.not(sms_sent_at: nil) }
   scope :no_email_click, -> { where(email_first_clicked_at: nil) }
+  scope :alive, -> {where('created_at > ', DEAD_AFTER.ago)}
 
   def save_user_info
     self.age = user.age

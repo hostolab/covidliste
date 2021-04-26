@@ -11,8 +11,7 @@ class RunCampaignJob < ApplicationJob
     return campaign.completed! if Time.now.utc >= campaign.ends_at
 
     # compute how many more users we need to match
-    recent_pending_matches = campaign.matches.pending.where("created_at >= now() - interval '1 hour'")
-    limit = campaign.target_matches_count - recent_pending_matches.count
+    limit = campaign.target_matches_count - campaign.matches.pending.alive.count
     return if limit <= 0
     users = campaign.reachable_users_query(limit: limit)
 
