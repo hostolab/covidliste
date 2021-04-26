@@ -76,10 +76,10 @@ RSpec.describe MatchesController, type: :system do
       end
     end
 
-    context "when the campaign has no #remaining_slots" do
+    context "when the campaign has no #remaining_doses" do
       # confirm all the slots
       before do
-        while campaign.remaining_slots > 0
+        while campaign.remaining_doses > 0
           create(:match, :confirmed, campaign: campaign)
         end
       end
@@ -99,7 +99,7 @@ RSpec.describe MatchesController, type: :system do
     context "when another match has been confirmed while I was already browsing the match page" do
       # confirm all the slots but one
       before do
-        while campaign.remaining_slots > 1
+        while campaign.remaining_doses > 1
           create(:match, :confirmed, campaign: campaign)
         end
       end

@@ -64,7 +64,7 @@ class Match < ApplicationRecord
   end
 
   def confirmable?
-    !confirmed? && campaign.remaining_slots > 0 && !refused?
+    !confirmed? && campaign.remaining_doses > 0 && !refused?
   end
 
   def refuse!

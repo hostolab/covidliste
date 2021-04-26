@@ -7,7 +7,7 @@ class RunCampaignJob < ApplicationJob
   def perform(campaign)
     Rails.logger.info("Run RunCampaignJob for campaign_id #{campaign.id}")
     return unless campaign.running?
-    return campaign.completed! if campaign.remaining_slots <= 0
+    return campaign.completed! if campaign.remaining_doses <= 0
     return campaign.completed! if Time.now.utc >= campaign.ends_at
 
     # compute how many more users we need to match
