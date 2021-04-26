@@ -11,7 +11,7 @@ class ConfirmationsController < ::Devise::ConfirmationsController
       respond_with_navigational(resource) { redirect_to after_confirmation_path_for(resource_name, resource) }
     elsif resource.confirmed?
       set_flash_message!(:notice, :already_confirmed)
-      respond_with_navigational(resource.errors, status: :unprocessable_entity) { redirect_to :new_user_session }
+      respond_with_navigational(resource.errors, status: :unprocessable_entity) { redirect_to resource.is_a?(Partner) ? :new_partner_session : :new_user_session }
     else
       respond_with_navigational(resource.errors, status: :unprocessable_entity) { render :new }
     end
