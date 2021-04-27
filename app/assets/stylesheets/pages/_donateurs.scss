@@ -1,0 +1,26 @@
+.progress-bg {
+	width: 100%;
+  text-align: center;
+	box-shadow: inset 0 0 10px #ccc;
+}
+
+.progress-bar {
+	background-color: #59d1a5; 
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+.progress-bg .raised {
+	color: #fff;
+}
+
+
+body .progress-bg div {
+	animation: progress-bar 1s ease forwards;
+}
+
+@keyframes progress-bar {
+    from { width: 0%; }
+}
+
