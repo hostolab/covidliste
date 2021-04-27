@@ -3,7 +3,7 @@
     <%= image_tag "covidliste-logo.png", height: 40, loading: "lazy", class: "mr-2", alt: "logo covidliste" %>
     <span class="font-weight-bolder">Covidliste</span>
     <% if current_partner %>
-      <span class="ml-1 font-weight-light">Partenaires</span>
+      <span class="ml-1 font-weight-light">Professionnels</span>
     <% end %>    
   <% end %>
 
@@ -29,8 +29,11 @@
       <% end %>
 
       <% if current_partner %>
+        <li class="<%= class_names("nav-item", active: current_page?(partenaires_faq_path)) %>">
+          <%= link_to "FAQ professionnels", partenaires_faq_path, class: "nav-link" %>
+        </li>
         <li class="<%= class_names("nav-item", active: current_page?(partners_vaccination_centers_path)) %>">
-          <%= link_to "Espace partenaire", partners_vaccination_centers_path, class: "nav-link" %>
+          <%= link_to "Espace professionnels", partners_vaccination_centers_path, class: "nav-link" %>
         </li>
         <li class="nav-item dropdown">
           <%= link_to "", class: "nav-link text-white font-weight-bold dropdown-toggle", id: "dropdown09", "aria-expanded": "false", "aria-haspopup": "true", "data-toggle": "dropdown" do %>

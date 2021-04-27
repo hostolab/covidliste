@@ -54,7 +54,11 @@ class PagesController < ApplicationController
   end
 
   def faq
-    @faq_items = FaqItem.all
+    @faq_items = FaqItem.where(area: "main")
+  end
+
+  def faq_pro
+    @faq_items = FaqItem.where(area: "pro")
   end
 
   def robots
