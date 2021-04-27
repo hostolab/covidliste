@@ -96,6 +96,10 @@ class VaccinationCenter < ApplicationRecord
     end
   end
 
+  def flipper_id
+    "#{self.class.name}_#{id}"
+  end
+
   private
 
   def push_to_slack
