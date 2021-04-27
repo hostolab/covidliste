@@ -1,0 +1,269 @@
+<%= content_for(:append_to_head) do %>
+<meta content="index;follow" name="robots"/>
+<% end %>
+
+<style type="text/css">
+  p {
+    text-align: left !important;
+  }
+</style>
+
+<div class="container my-5">
+  <h1 class="mb-3">Donateurs</h1>
+
+  <p>Covidliste est une initiative bénévole et citoyenne qui a vu le jour il y a quelques semaines pour accélérer la campagne nationale de vaccination contre le Covid19 en distribuant les doses sur le point d'être jetées.</p>
+
+  <p>Merci à tous les donateurs sans qui Covidliste ne pourrait pas continuer d'exister !</p>
+
+  <p>
+    Vous voulez nous soutenir ? Faites un don sur <%= link_to "la campagne de financement", @ulule_project["urls"]["web"]["checkout"], target: "_blank", rel: "noopener" %>
+  </p>
+
+  <div class="card mb-3">
+    <div class="card-header">
+      <h2 class="h3"><%= @ulule_project["name"][@ulule_project["lang"]] %></h2>
+      <h3 class="h4 mb-0"><%= @ulule_project["subtitle"][@ulule_project["lang"]] %></h3>
+    </div>
+    <div class="card-body p-3">
+
+    </div>
+    <div class="card-footer">
+
+    </div>
+  </div>
+
+  <p>Merci à tous les donateurs :</p>
+
+  <div class="row my-3">
+    <% @ulule_donors["supporters"].each do |supporter| %>
+      <div class="col-6 col-lg-3 text-center mb-5">
+        <div data-toggle="tooltip" data-placement="top" title="<%= supporter["name"] %>">
+          <div>
+            <%= image_tag supporter["avatar"]["versions"]["128x128"]["url"], height: supporter["avatar"]["versions"]["128x128"]["height"], width: supporter["avatar"]["versions"]["128x128"]["width"], loading: "lazy", class: "rounded-circle border", alt: supporter["name"] %>
+          </div>
+          <div><%= supporter["name"] %></div>
+          <div><%= supporter["username"] %></div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <% if @ulule_project["is_online"] %>
+
+    <% if @ulule_project["finished"] %>
+
+    <% else %>
+
+    <% end %>
+
+    
+
+    <div class="card mb-2">
+      <div class="card-body p-2">
+        <div class="font-weight-bold">comments_count</div>
+        <div class="font-weight-normal">int	</div>
+        <div class="font-weight-light text-left"><%= @ulule_project["comments_count"] %></div>
+      </div>
+    </div>
+
+    <div class="card mb-2">
+      <div class="card-body p-2">
+        <div class="font-weight-bold">amount_raised</div>
+        <div class="font-weight-normal">int	Amount raised in project currency</div>
+        <div class="font-weight-light text-left"><%= [@ulule_project["amount_raised"], @ulule_project["currency"]].join(" ") %></div>
+      </div>
+    </div>
+
+    <div class="card mb-2">
+      <div class="card-body p-2">
+        <div class="font-weight-bold">date_start</div>
+        <div class="font-weight-normal">string	Date at which the funding campaign starts, with RFC 3339 format</div>
+        <div class="font-weight-light text-left"><%= l(@ulule_project["date_start"].to_datetime) %></div>
+      </div>
+    </div>
+
+    <div class="card mb-2">
+      <div class="card-body p-2">
+        <div class="font-weight-bold">date_end</div>
+        <div class="font-weight-normal">string	Date at which the funding campaign ends, with RFC 3339 format</div>
+        <div class="font-weight-light text-left"><%= l(@ulule_project["date_end"].to_datetime) %></div>
+      </div>
+    </div>
+
+    <div class="card mb-2">
+      <div class="card-body p-2">
+        <div class="font-weight-bold">fans_count</div>
+        <div class="font-weight-normal">int	Number of fans</div>
+        <div class="font-weight-light text-left"><%= @ulule_project["fans_count"] %></div>
+      </div>
+    </div>
+    
+    <div class="card mb-2">
+      <div class="card-body p-2">
+        <div class="font-weight-bold">finished</div>
+        <div class="font-weight-normal">bool	True if the funding campaign is finished</div>
+        <div class="font-weight-light text-left"><%= @ulule_project["finished"] %></div>
+      </div>
+    </div>
+  
+    <div class="card mb-2">
+      <div class="card-body p-2">
+        <div class="font-weight-bold">absolute_url</div>
+        <div class="font-weight-normal">string	Link to the project page on the Ulule website</div>
+        <div class="font-weight-light text-left"><%= @ulule_project["absolute_url"] %></div>
+      </div>
+    </div>
+
+    <div class="card mb-2">
+      <div class="card-body p-2">
+        <div class="font-weight-bold">background</div>
+        <div class="font-weight-normal">image resource	Background image or color of the project</div>
+        <div class="font-weight-light text-left"><%= @ulule_project["background"] %></div>
+      </div>
+    </div>
+
+    <div class="card mb-2">
+      <div class="card-body p-2">
+        <div class="font-weight-bold">description</div>
+        <div class="font-weight-normal">i18n object	Main description of the project</div>
+        <div class="font-weight-light text-left"><%= @ulule_project["description"][@ulule_project["lang"]].html_safe %></div>
+      </div>
+    </div>
+    <div class="card mb-2">
+      <div class="card-body p-2">
+        <div class="font-weight-bold">description_funding</div>
+        <div class="font-weight-normal">i18n object	Description of what are funds for</div>
+        <div class="font-weight-light text-left"><%= @ulule_project["description_funding"][@ulule_project["lang"]].html_safe %></div>
+      </div>
+    </div>
+    <div class="card mb-2">
+      <div class="card-body p-2">
+        <div class="font-weight-bold">description_yourself</div>
+        <div class="font-weight-normal">i18n object	Description of the owner of the project</div>
+        <div class="font-weight-light text-left"><%= @ulule_project["description_yourself"][@ulule_project["lang"]].html_safe %></div>
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="card mb-2">
+      <div class="card-body p-2">
+        <div class="font-weight-bold">goal_raised</div>
+        <div class="font-weight-normal">bool	True if the current sum collected is superior to the project goal</div>
+        <div class="font-weight-light text-left"><%= @ulule_project["goal_raised"] %></div>
+      </div>
+    </div>
+    <div class="card mb-2">
+      <div class="card-body p-2">
+        <div class="font-weight-bold">goal</div>
+        <div class="font-weight-normal">int	Goal in the project currency if type is project, or number of pre-orders if type is presale</div>
+        <div class="font-weight-light text-left"><%= @ulule_project["goal"] %></div>
+      </div>
+    </div>
+    <div class="card mb-2">
+      <div class="card-body p-2">
+        <div class="font-weight-bold">is_cancelled</div>
+        <div class="font-weight-normal">bool	True if the project is cancelled</div>
+        <div class="font-weight-light text-left"><%= @ulule_project["is_cancelled"] %></div>
+      </div>
+    </div>
+    <div class="card mb-2">
+      <div class="card-body p-2">
+        <div class="font-weight-bold">is_online</div>
+        <div class="font-weight-normal">bool	True if the project is online</div>
+        <div class="font-weight-light text-left"><%= @ulule_project["is_online"] %></div>
+      </div>
+    </div>
+    <div class="card mb-2">
+      <div class="card-body p-2">
+        <div class="font-weight-bold">main_image</div>
+        <div class="font-weight-normal">i18n object where values are image resources	Main image of the project</div>
+        <div class="font-weight-light text-left"><%= @ulule_project["main_image"][@ulule_project["lang"]] %></div>
+      </div>
+    </div>
+    <div class="card mb-2">
+      <div class="card-body p-2">
+        <div class="font-weight-bold">main_tag</div>
+        <div class="font-weight-normal">tag resource	Main tag of the project</div>
+        <div class="font-weight-light text-left"><%= @ulule_project["main_tag"] %></div>
+      </div>
+    </div>
+    <div class="card mb-2">
+      <div class="card-body p-2">
+        <div class="font-weight-bold">nb_days</div>
+        <div class="font-weight-normal">int	Duration of the funding campaign in days</div>
+        <div class="font-weight-light text-left"><%= @ulule_project["nb_days"] %></div>
+      </div>
+    </div>
+    <div class="card mb-2">
+      <div class="card-body p-2">
+        <div class="font-weight-bold">nb_products_sold</div>
+        <div class="font-weight-normal">int	The number of orders for project of type presale</div>
+        <div class="font-weight-light text-left"><%= @ulule_project["nb_products_sold"] %></div>
+      </div>
+    </div>
+    <div class="card mb-2">
+      <div class="card-body p-2">
+        <div class="font-weight-bold">news_count</div>
+        <div class="font-weight-normal">int	Count of news published</div>
+        <div class="font-weight-light text-left"><%= @ulule_project["news_count"] %></div>
+      </div>
+    </div>
+    <div class="card mb-2">
+      <div class="card-body p-2">
+        <div class="font-weight-bold">owner</div>
+        <div class="font-weight-normal">user resource	Owner of the project</div>
+        <div class="font-weight-light text-left"><%= @ulule_project["owner"] %></div>
+      </div>
+    </div>
+    <div class="card mb-2">
+      <div class="card-body p-2">
+        <div class="font-weight-bold">percent</div>
+        <div class="font-weight-normal">int	Percentage of the goal raised on the goal targeted</div>
+        <div class="font-weight-light text-left"><%= @ulule_project["percent"] %></div>
+      </div>
+    </div>
+    <div class="card mb-2">
+      <div class="card-body p-2">
+        <div class="font-weight-bold">sponsorships_count</div>
+        <div class="font-weight-normal">int	</div>
+        <div class="font-weight-light text-left"><%= @ulule_project["sponsorships_count"] %></div>
+      </div>
+    </div>
+    <div class="card mb-2">
+      <div class="card-body p-2">
+        <div class="font-weight-bold">status</div>
+        <div class="font-weight-normal">string	Status of the project (online, new, pending, pending-owner, validated, refused, waiting, pending-final-validation)</div>
+        <div class="font-weight-light text-left"><%= @ulule_project["status"] %></div>
+      </div>
+    </div>
+    <div class="card mb-2">
+      <div class="card-body p-2">
+        <div class="font-weight-bold">supporters_count</div>
+        <div class="font-weight-normal">int	Number of supporters</div>
+        <div class="font-weight-light text-left"><%= @ulule_project["supporters_count"] %></div>
+      </div>
+    </div>
+    <div class="card mb-2">
+      <div class="card-body p-2">
+        <div class="font-weight-bold">urls</div>
+        <div class="font-weight-normal">urls resource	URLs of the project</div>
+        <div class="font-weight-light text-left"><%= @ulule_project["urls"] %></div>
+      </div>
+    </div>
+    <div class="card mb-2">
+      <div class="card-body p-2">
+        <div class="font-weight-bold">video</div>
+        <div class="font-weight-normal">i18n object where values are video resource	Video of the project</div>
+        <div class="font-weight-light text-left"><%= @ulule_project["video"][@ulule_project["lang"]] %></div>
+      </div>
+    </div>
+    <div class="card mb-2">
+      <div class="card-body p-2">
+        <div class="font-weight-bold">visible</div>
+        <div class="font-weight-normal">bool	</div>
+        <div class="font-weight-light text-left"><%= @ulule_project["visible"] %></div>
+      </div>
+    </div>
+  <% end %>
+</div>

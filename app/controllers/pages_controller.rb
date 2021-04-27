@@ -3,6 +3,13 @@ class PagesController < ApplicationController
     @volunteers = Volunteer.where(anon: false).order(sort_name: :asc) + Volunteer.where(anon: true).order(sort_name: :asc)
   end
 
+  def donateurs
+    ulule_project_slug = "cocktail-truck-zesty-compagnie-"
+    ulule_service = UluleService.new(ulule_project_slug)
+    @ulule_project = ulule_service.project
+    @ulule_donors = ulule_service.supporters
+  end
+
   def contact
     @contact_items = FaqItem.where(category: "Collaboration et contact")
   end
