@@ -8,6 +8,6 @@ module MetaTagsHelper
   end
 
   def meta_image(meta)
-    meta.presence || image_url("meta/covidliste-card.jpg")
+    meta.presence || image_url("meta/main.png")
   end
 end
