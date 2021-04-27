@@ -1,6 +1,6 @@
 # Contributing
 
-We're happy you want to contribute! 🤗
+We're happy you want to contribute! 💜
 
 ## How to become a contributor
 
