@@ -63,6 +63,7 @@ RSpec.describe MatchesController, type: :system do
       before do
         match.update_column("expires_at", 5.minutes.ago)
       end
+
       it "it says delai dépassé" do
         subject
         expect(page).to have_text("Le délai de confirmation est dépassé")
@@ -76,10 +77,10 @@ RSpec.describe MatchesController, type: :system do
       end
     end
 
-    context "when the campaign has no #remaining_slots" do
+    context "when the campaign has no #remaining_doses" do
       # confirm all the slots
       before do
-        while campaign.remaining_slots > 0
+        while campaign.remaining_doses > 0
           create(:match, :confirmed, campaign: campaign)
         end
       end
@@ -99,12 +100,13 @@ RSpec.describe MatchesController, type: :system do
     context "when another match has been confirmed while I was already browsing the match page" do
       # confirm all the slots but one
       before do
-        while campaign.remaining_slots > 1
+        while campaign.remaining_doses > 1
           create(:match, :confirmed, campaign: campaign)
         end
       end
 
       it "handle the user's disappointment gracefully" do
+        already_confirmed_count = Match.where(confirmation_failed_reason: "Match::AlreadyConfirmedError").count
         visit match_path(match_confirmation_token)
 
         # A volunteer confirms a few seconds before me
@@ -117,6 +119,7 @@ RSpec.describe MatchesController, type: :system do
         check :confirm_name
         click_on("Je réserve la dose")
         expect(page).to have_text("La dose n'est plus disponible 😢")
+        Match.where(confirmation_failed_reason: "Match::AlreadyConfirmedError").count == already_confirmed_count + 1
       end
     end
   end

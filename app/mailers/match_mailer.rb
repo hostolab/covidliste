@@ -12,10 +12,11 @@ class MatchMailer < ApplicationMailer
 
   def send_anonymisation_notice
     @match = params[:match]
-    return if @match.user.blank?
+    user_email = params[:user_email] || @match&.user&.email
+    return if user_email.blank?
 
     mail(
-      to: @match.user.email,
+      to: user_email,
       subject: "Merci de nous avoir fait confiance !"
     )
   end

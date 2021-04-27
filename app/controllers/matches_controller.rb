@@ -37,7 +37,7 @@ class MatchesController < ApplicationController
 
     # Updating the match's confirmation_failed_at to indicate it failed.
     # This should help with detecting critical bugs.
-    @match.update_column(:confirmation_failed_at, Time.now.utc)
+    @match.update_columns(confirmation_failed_at: Time.now.utc, confirmation_failed_reason: e.class.to_s)
 
     # Reloading @match so it's back to the previous state, in particular
     # confirmed_at is nil again.
