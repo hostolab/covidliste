@@ -7,7 +7,7 @@ class Match < ApplicationRecord
 
   NO_MORE_THAN_ONE_MATCH_PER_PERIOD = 24.hours
   EXPIRE_IN_MINUTES = 30
-  DEAD_AFTER = 2.hours
+  MATCH_TTL = 45.minutes
 
   has_secure_token :match_confirmation_token
 
@@ -30,7 +30,7 @@ class Match < ApplicationRecord
   scope :email_only, -> { where(sms_sent_at: nil).where.not(mail_sent_at: nil) }
   scope :with_sms, -> { where.not(sms_sent_at: nil) }
   scope :no_email_click, -> { where(email_first_clicked_at: nil) }
-  scope :alive, -> { where("created_at >= ?", DEAD_AFTER.ago) }
+  scope :alive, -> { where("created_at >= ?", MATCH_TTL.ago) }
 
   def save_user_info
     self.age = user.age
