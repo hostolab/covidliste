@@ -166,4 +166,32 @@ RSpec.describe "Users", type: :system do
       end
     end
   end
+
+  describe "Login using password less link" do
+    before { user.save! }
+    context "expired link" do
+      scenario "it notifies the user" do
+        token = Devise::Passwordless::LoginToken.encode(user)
+        magic_link = users_magic_link_url(Hash["user", {email: user.email, token: token}])
+
+        travel Devise.passwordless_login_within + 2.minutes
+        visit magic_link
+
+        expect(page).to_not have_current_path(profile_path)
+        expect(page).to have_text(I18n.t("devise.failure.user.magic_link_invalid"))
+      end
+    end
+
+    context "invalid link (remove last character)" do
+      scenario "it notifies the user" do
+        token = Devise::Passwordless::LoginToken.encode(user)[0...-1]
+        magic_link = users_magic_link_url(Hash["user", {email: user.email, token: token}])
+
+        visit magic_link
+
+        expect(page).to_not have_current_path(profile_path)
+        expect(page).to have_text(I18n.t("devise.failure.user.magic_link_invalid"))
+      end
+    end
+  end
 end
