@@ -19,3 +19,16 @@ RSpec.describe "FAQ Page", type: :system do
     end
   end
 end
+
+RSpec.describe "FAQ PRO Page", type: :system do
+  it "loads properly" do
+    visit "/partenaires/faq"
+    expect(page).to have_text("Foire aux questions pour les professionnels de santé")
+  end
+
+  it "knows the partners email adress at least once" do
+    visit "/partenaires/faq"
+    Capybara.ignore_hidden_elements = false # Email adress is hidden in accordion
+    expect(page).to have_text("partenaires@covidliste.com")
+  end
+end

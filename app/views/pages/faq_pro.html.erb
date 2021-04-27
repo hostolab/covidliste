@@ -5,21 +5,21 @@
 <div class="container my-5" id="faq">
   <div class="d-flex align-items-center mb-4">
     <div class="rounded p-3 bg-light text-primary mr-3 h2">
-      <%= icon("fas", "user-plus") %>
+      <%= icon("fas", "hospital-user") %>
     </div>
     <h3>
-      Foire aux questions
+      Foire aux questions pour les professionnels de santé
     </h3>
   </div>
 
   <p>
-    Vous trouverez sur cette page un ensemble de réponses aux questions les plus posées,
-    regroupées par thème.
+    Vous trouverez sur cette page un ensemble de réponses aux questions les plus posées
+    pour les professionnels de santé, regroupées par thème.
   </p>
 
   <p class="mb-4">
-    Si vous êtes un professionnel de santé assurant la vaccination, consultez la
-    <%= link_to "foire aux questions pour les professionnels de santé", partenaires_faq_path %>.
+    Si vous n'êtes pas un professionnel de santé, consultez la
+    <%= link_to "foire aux questions pour les volontaires à la vaccination", faq_path %>.
   </p>
 
   <div id="accordion">
