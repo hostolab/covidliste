@@ -3,8 +3,9 @@ class PushNewVaccinationCenterToSlackJob < ApplicationJob
 
   SLACK_CHANNEL = "nouveau-centre".freeze
 
-  def perform(vaccination_center)
-    @vaccination_center = vaccination_center
+  def perform(vaccination_center_id)
+    @vaccination_center = VaccinationCenter.find_by(id: vaccination_center_id)
+    return if @vaccination_center.blank?
 
     text = "Un nouveau centre vient d’être créé #{creator} :point_right: #{cta}"
     attachments = [

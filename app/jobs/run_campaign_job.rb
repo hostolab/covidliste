@@ -4,8 +4,10 @@ class RunCampaignJob < ApplicationJob
   # Job that decides users the be matched for a given campaign at a given point in time.
   # This job creates the matches.
 
-  def perform(campaign)
-    Rails.logger.info("Run RunCampaignJob for campaign_id #{campaign.id}")
+  def perform(campaign_id)
+    Rails.logger.info("Run RunCampaignJob for campaign_id #{campaign_id}")
+    campaign = Campaign.find_by(id: campaign_id)
+    return if campaign.blank?
     return unless campaign.matching_algo_v2?
     return unless campaign.running?
     return campaign.completed! if campaign.remaining_doses <= 0

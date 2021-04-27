@@ -5,7 +5,7 @@ describe SendMatchEmailJob do
   let!(:campaign) { create(:campaign) }
   let!(:match) { create(:match, user: user, campaign: campaign) }
 
-  subject { SendMatchEmailJob.new.perform(match) }
+  subject { SendMatchEmailJob.new.perform(match.id) }
 
   context "match is new" do
     it "sends the email" do
