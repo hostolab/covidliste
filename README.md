@@ -6,9 +6,7 @@
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=hostolab_covidliste&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=hostolab_covidliste)
 [![codecov](https://codecov.io/gh/hostolab/covidliste/branch/master/graph/badge.svg?token=Z6SM94ONW9)](https://codecov.io/gh/hostolab/covidliste)
 
-Covidliste makes it easy to manage waiting lists for vaccination centers.
-
-[https://www.covidliste.com](https://www.covidliste.com)
+[Covidliste](https://www.covidliste.com) makes it easy to manage waiting lists for vaccination centers in France.
 
 <img src='https://www.pasteur.fr/sites/default/files/styles/media-wide/public/rubrique_linstitut_pasteur/notre_histoire/alexandre-yersin-institutpasteur_46576.jpg?itok=FL2T1kf4' width='200px'> </img>
 
