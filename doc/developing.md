@@ -9,7 +9,6 @@
 - [Stimulus](https://stimulus.hotwire.dev/)
 - Bootstrap](https://getbootstrap.com/)
 
-
 # Local Development
 
 ## Installation [Method 1] Docker and Docker Compose
