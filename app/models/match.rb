@@ -20,8 +20,10 @@ class Match < ApplicationRecord
   encrypts :match_confirmation_token
   blind_index :match_confirmation_token
 
+  validates :distance_in_meters, numericality: {greater_than_or_equal_to: 0, only_integer: true}, allow_nil: true
   validate :no_recent_match, on: :create
   before_create :save_user_info
+  before_save :cache_distance_in_meters_between_user_and_vaccination_center
   after_create_commit :notify
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
@@ -91,8 +93,22 @@ class Match < ApplicationRecord
   end
 
   def no_recent_match
-    if user.matches.where("created_at >= ?", Match::NO_MORE_THAN_ONE_MATCH_PER_PERIOD.ago).any?
+    if user.present? && user.matches.where("created_at >= ?", Match::NO_MORE_THAN_ONE_MATCH_PER_PERIOD.ago).any?
       errors.add(:base, "Cette personne a déjà été matchée récemment")
+    end
+  end
+
+  def cache_distance_in_meters_between_user_and_vaccination_center
+    if distance_in_meters.nil?
+      if user.present? && user.lat.present? && user.lon.present?
+        if vaccination_center.present? && vaccination_center.lat.present? && vaccination_center.lon.present?
+          self.distance_in_meters = Geocoder::Calculations.distance_between(
+            [user.lat, user.lon],
+            [vaccination_center.lat, vaccination_center.lon],
+            {unit: :m}
+          )
+        end
+      end
     end
   end
 
