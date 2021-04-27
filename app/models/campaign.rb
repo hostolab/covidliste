@@ -19,6 +19,8 @@ class Campaign < ApplicationRecord
   validate :min_age_lesser_than_max_age
   validate :starts_at_lesser_than_ends_at
 
+  before_create :set_algo_version
+
   def canceled!
     update_attribute(:canceled_at, Time.now.utc)
     super
@@ -67,8 +69,15 @@ class Campaign < ApplicationRecord
     end
   end
 
+  def set_algo_version
+    self.algo_version = "v2" if Flipper.enabled?(:matching_algo_v2, vaccination_center)
+    if Flipper.enabled?(:algo_v2_for_high_lead_time) && ends_at > 4.hours.from_now
+      self.algo_version = "v2"
+    end
+  end
+
   def matching_algo_v2?
-    Flipper.enabled?(:matching_algo_v2, vaccination_center)
+    algo_version == "v2"
   end
 
   private
