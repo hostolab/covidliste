@@ -60,6 +60,22 @@
             <em class="small"><%= vaccination_center.address %></em>
             <br />
             <%= icon("fas", "phone") %> <%= vaccination_center.human_friendly_phone_number %>
+            <br />
+            <small>
+              Vaccins :
+              <% vaccination_center.vaccines.each do |vaccine| %>
+                <span class="ml-1"> <%= vaccine.capitalize %> </span>
+              <% end %>
+            </small>
+            <br />
+            <small data-toggle="tooltip" data-html="true"
+                  title="Les coordonnées du lieu (nom, adresse) sont-elles visibles sur le site Covidliste ?">
+                  <%= humanize_boolean vaccination_center.visible_optin_at.present? %> Affiché sur la carte
+            </small>
+            <small data-toggle="tooltip" data-html="true" class="ml-2"
+                  title="L'inscription de ce lieu peut-elle être utilisée dans les communications de Covidliste ?">
+                  <%= humanize_boolean vaccination_center.media_optin_at.present? %> Communication
+            </small>
           </div>
         <% else %>
           <div><%= icon("fas", "times", class: "#{(@external_accounts.any? or params[:bypass_identity_check]) ? "text-danger" : "text-light"} fa-2x my-2") %></div>

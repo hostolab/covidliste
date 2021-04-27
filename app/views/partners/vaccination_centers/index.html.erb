@@ -31,66 +31,11 @@
         Vous avez accès aux lieux de vaccination suivants :
       </p>
 
-      <div class="table-responsive">
-        <table class="table table-bordered table-sm">
-          <thead class="thead-light">
-          <tr>
-            <th scope="col"> Nom</th>
-            <th scope="col"> Coordonnées</th>
-            <th scope="col"><abbr data-toggle="tooltip" title="Collaborateurs">Collab.</abbr></th>
-            <th scope="col" class="text-center"> Actions</th>
-          </tr>
-          </thead>
-
-          <tbody>
-          <% @vaccination_centers.each do |vaccination_center| %>
-            <tr>
-              <td>
-                <strong>
-                  <%= link_to vaccination_center.name, partners_vaccination_center_path(vaccination_center.id) %>
-                </strong>
-                <br>
-                <i><%= vaccination_center.kind %></i>
-                <br>
-                <%= vaccination_center.description %>
-              </td>
-
-              <td class="small">
-                <%= icon("fas", "phone", vaccination_center.human_friendly_phone_number) %>
-                <br>
-                <%= vaccination_center.address %>
-                <br>
-                <% if vaccination_center.pfizer %>
-                  <span class="mr-1"> <%= Vaccine::Brands::PFIZER.capitalize %> </span>
-                <% end %>
-                <% if vaccination_center.moderna %>
-                  <span class="mr-1"> <%= Vaccine::Brands::MODERNA.capitalize %> </span>
-                <% end %>
-                <% if vaccination_center.astrazeneca %>
-                  <span class="mr-1"> <%= Vaccine::Brands::ASTRAZENECA.capitalize %> </span>
-                <% end %>
-                <% if vaccination_center.janssen %>
-                  <span class="mr-1"> <%= Vaccine::Brands::JANSSEN.capitalize %> </span>
-                <% end %>
-              </td>
-
-              <td class="small text-center" data-toggle="tooltip" data-html="true" title="
-                  Collaborateurs : <br>
-                  <% vaccination_center.partners.each do |partner| %>
-                    - <%= partner.name %>
-                    <br>
-                  <% end %>">
-                <%= icon("fas", "user", vaccination_center.partners.count) %>
-              </td>
-
-              <td class="text-center">
-                <%= link_to "Voir / Gérer les campagnes", partners_vaccination_center_path(vaccination_center.id), class: "btn btn-primary btn-sm" %>
-              </td>
-            </tr>
-          <% end %>
-          </tbody>
-        </table>
-      </div>
+      <%= render partial: "partners/vaccination_centers/vaccination_centers_table", locals: {vaccination_centers: @vaccination_centers} %>
+      <p class="small text-muted text-center">
+        Besoin de corriger les informations de ce tableau ? Contactez-nous sur
+        <%= link_to "partenaires@covidliste.com", "mailto:partenaires@covidliste.com" %>.
+      </p>
     <% else %>
       <p class="mt-4">
         Vous n’avez actuellement accès à aucun lieu de vaccination.
@@ -124,74 +69,16 @@
         <% end %>
       <% end %>
 
-      <div class="table-responsive">
-        <table class="table table-bordered table-sm">
-          <thead class="thead-light">
-          <tr>
-            <th scope="col"> Nom</th>
-            <th scope="col"> Coordonnées</th>
-            <th scope="col"><abbr data-toggle="tooltip" title="Collaborateurs">Collab.</abbr></th>
-            <th scope="col"> État</th>
-          </tr>
-          </thead>
+      <%= render partial: "partners/vaccination_centers/vaccination_centers_table", locals: {vaccination_centers: @unconfirmed_vaccination_centers} %>
 
-          <tbody>
-          <% @unconfirmed_vaccination_centers.each do |vaccination_center| %>
-            <tr>
-              <td>
-                <strong>
-                  <%= link_to vaccination_center.name, partners_vaccination_center_path(vaccination_center.id) %>
-                </strong>
-                <br>
-                <i><%= vaccination_center.kind %></i>
-                <br>
-                <%= vaccination_center.description %>
-              </td>
-
-              <td class="small">
-                <%= icon("fas", "phone", vaccination_center.human_friendly_phone_number) %>
-                <br>
-                <%= vaccination_center.address %>
-                <br>
-                <% if vaccination_center.pfizer %>
-                  <span class="mr-1"> <%= Vaccine::Brands::PFIZER.capitalize %> </span>
-                <% end %>
-                <% if vaccination_center.moderna %>
-                  <span class="mr-1"> <%= Vaccine::Brands::MODERNA.capitalize %> </span>
-                <% end %>
-                <% if vaccination_center.astrazeneca %>
-                  <span class="mr-1"> <%= Vaccine::Brands::ASTRAZENECA.capitalize %> </span>
-                <% end %>
-                <% if vaccination_center.janssen %>
-                  <span class="mr-1"> <%= Vaccine::Brands::JANSSEN.capitalize %> </span>
-                <% end %>
-              </td>
-
-              <td class="small text-center" data-toggle="tooltip" data-html="true" title="
-                  Collaborateurs : <br>
-                  <% vaccination_center.partners.each do |partner| %>
-                    - <%= partner.name %>
-                    <br>
-                  <% end %>">
-                <%= icon("fas", "user", vaccination_center.partners.count) %>
-              </td>
-
-              <td>
-                En attente de validation
-              </td>
-            </tr>
-          <% end %>
-          </tbody>
-        </table>
-      </div>
     <% end %>
 
-    <p class="small">
+    <p class="small mt-2">
       Vous gèrez une autre lieu de vaccination ?
       <%= link_to "Demandez la création d’un autre lieu de vaccination", new_partners_vaccination_center_path %>
     </p>
 
-    <p class="mt-4 small">
+    <p class="mt-2 small">
       Si vous souhaitez rejoindre un lieu de vaccination déjà existant sur Covidliste, contactez-nous sur
       <%= link_to "partenaires@covidliste.com", "mailto:partenaires@covidliste.com" %>.
     </p>
