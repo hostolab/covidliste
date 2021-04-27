@@ -3,11 +3,12 @@ class SendCampaignJob < ApplicationJob
 
   STOP_SENDING_BEFORE_CAMPAIGN_ENDS_AT = 10.minutes
 
-  def perform(campaign, partner = nil)
+  def perform(campaign)
+    return if campaign.matching_algo_v2?
     return unless campaign.running?
-    return campaign.completed! if campaign.remaining_slots <= 0 || (campaign.ends_at - STOP_SENDING_BEFORE_CAMPAIGN_ENDS_AT) < Time.now.utc
+    return campaign.completed! if campaign.remaining_doses <= 0 || (campaign.ends_at - STOP_SENDING_BEFORE_CAMPAIGN_ENDS_AT) < Time.now.utc
 
-    limit = (campaign.remaining_slots * Vaccine.overbooking_factor(campaign.vaccine_type)).floor
+    limit = (campaign.remaining_doses * Vaccine.overbooking_factor(campaign.vaccine_type)).floor
     users = campaign.reachable_users_query(limit: limit)
 
     return campaign.completed! if users.none?
@@ -25,6 +26,6 @@ class SendCampaignJob < ApplicationJob
     end
 
     # Prepare for next campaign batch
-    SendCampaignJob.set(wait: Match::EXPIRE_IN_MINUTES.minutes + 1.minute).perform_later(campaign, partner)
+    SendCampaignJob.set(wait: Match::EXPIRE_IN_MINUTES.minutes + 1.minute).perform_later(campaign)
   end
 end
