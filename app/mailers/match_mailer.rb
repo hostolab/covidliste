@@ -6,7 +6,7 @@ class MatchMailer < ApplicationMailer
     @match_confirmation_token = @match.match_confirmation_token
     mail(
       to: @match.user.email,
-      subject: "Un vaccin est disponible près de chez vous, réservez-le au plus vite !"
+      subject: "Une dose de vaccin est disponible, réservez-la vite."
     )
   end
 
