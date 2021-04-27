@@ -11,11 +11,6 @@ They should be able to help you on most part of the application and review your 
 - [@mininao](https://github.com/mininao)
 - [@GuillaumeWrobel](https://github.com/GuillaumeWrobel)
 - [@carsso](https://github.com/carsso)
-
-## Quickly rising contributors
-
-They are contributors on the rise and great reviewers:
-
 - [@adrienpoly](https://github.com/adrienpoly)
 - [@navidemad](https://github.com/navidemad)
 
@@ -30,7 +25,7 @@ Please mention the following people if you have questions or your issue deal wit
 
 ## Admins
 
-They will merge the code:
+These are the people who are able to merge pull requests:
 
 - [@mathieuripert](https://github.com/mathieuripert)
 - [@ssaunier](https://github.com/ssaunier)
