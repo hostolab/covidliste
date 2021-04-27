@@ -32,7 +32,7 @@ data_sources:
 
     linked_columns:
       # user_id: "/admin/users/{value}"
-      center_id: "admin/vaccination_centers/{value}"
+      center_id: "/admin/vaccination_centers/{value}"
 
     smart_columns:
       # user_id: "SELECT id, name FROM users WHERE id IN {value}"
