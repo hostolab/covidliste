@@ -4,7 +4,7 @@ RSpec.describe MatchesController, type: :system do
   let!(:user) { create(:user) }
   let!(:second_user) { create(:user) }
   let!(:partner) { create(:partner) }
-  let!(:center) { create(:vaccination_center) }
+  let!(:center) { create(:vaccination_center, :from_paris) }
   let!(:campaign) { create(:campaign, vaccination_center: center) }
   let!(:match_confirmation_token) { "abcd" }
   let!(:match) { create(:match, user: user, vaccination_center: center, match_confirmation_token: match_confirmation_token, expires_at: 1.hour.since, campaign: campaign) }
@@ -17,7 +17,7 @@ RSpec.describe MatchesController, type: :system do
         subject
         expect(page).to have_text("Une dose est disponible")
         expect(page).to have_text("Je réserve la dose")
-        expect(page).to have_text(center.address)
+        expect(page).to have_text("Distance du centre de vaccination")
         expect(page).to have_field("user_firstname", with: user.firstname)
         expect(page).to have_field("user_lastname", with: user.lastname)
 
@@ -42,6 +42,7 @@ RSpec.describe MatchesController, type: :system do
         click_on("Je réserve la dose")
         expect(page).not_to have_text("Vous devez renseigner votre identité")
         expect(page).to have_text("Votre disponibilité est confirmée")
+        expect(page).to have_text("Adresse du centre de vaccination")
         expect(page).to have_text(center.address)
         match.reload
         expect(match.sms_first_clicked_at).to_not eq(nil)
@@ -55,6 +56,7 @@ RSpec.describe MatchesController, type: :system do
       it "it says dispo confirmée" do
         subject
         expect(page).to have_text("Votre disponibilité est confirmée")
+        expect(page).to have_text("Adresse du centre de vaccination")
         expect(page).to have_text(center.address)
       end
     end
