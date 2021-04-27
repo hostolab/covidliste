@@ -4,7 +4,7 @@
 <div>
   <div>
     <i class="fas fa-map-pin"></i>
-    <% if match.confirmed? || (vaccination_center.lat.blank? && vaccination_center.lon.blank?) %>
+    <% if match.confirmed? || vaccination_center.lat.blank? || vaccination_center.lon.blank? %>
       <strong> Adresse du centre de vaccination </strong>
       <p>
         <%= vaccination_center.address %>
