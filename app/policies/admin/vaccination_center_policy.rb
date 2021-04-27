@@ -2,14 +2,14 @@ module Admin
   class VaccinationCenterPolicy < ApplicationPolicy
     class Scope < Scope
       def resolve
-        raise Pundit::NotAuthorizedError unless user&.admin?
+        raise Pundit::NotAuthorizedError unless user&.has_role?(:admin)
 
         scope.all
       end
     end
 
     def index?
-      user.admin?
+      user.has_role?(:admin)
     end
 
     alias_method :new?, :index?

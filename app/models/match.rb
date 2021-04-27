@@ -6,12 +6,13 @@ class Match < ApplicationRecord
   class MissingNamesError < StandardError; end
 
   NO_MORE_THAN_ONE_MATCH_PER_PERIOD = 24.hours
+  EXPIRE_IN_MINUTES = 30
+  MATCH_TTL = 45.minutes
 
   has_secure_token :match_confirmation_token
 
   belongs_to :vaccination_center
   belongs_to :campaign
-  belongs_to :campaign_batch
   belongs_to :user
 
   accepts_nested_attributes_for :user
@@ -19,13 +20,19 @@ class Match < ApplicationRecord
   encrypts :match_confirmation_token
   blind_index :match_confirmation_token
 
+  validates :distance_in_meters, numericality: {greater_than_or_equal_to: 0, only_integer: true}, allow_nil: true
   validate :no_recent_match, on: :create
   before_create :save_user_info
-  after_create_commit :notify_by_email, :notify_by_sms
+  before_save :cache_distance_in_meters_between_user_and_vaccination_center
+  after_create_commit :notify
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
   scope :refused, -> { where.not(refused_at: nil) }
-  scope :pending, -> { where(confirmed_at: nil).where("expires_at >= now()") }
+  scope :pending, -> { where(confirmed_at: nil, refused_at: nil).where("expires_at >= now()") }
+  scope :email_only, -> { where(sms_sent_at: nil).where.not(mail_sent_at: nil) }
+  scope :with_sms, -> { where.not(sms_sent_at: nil) }
+  scope :no_email_click, -> { where(email_first_clicked_at: nil) }
+  scope :alive, -> { where("created_at >= ?", MATCH_TTL.ago) }
 
   def save_user_info
     self.age = user.age
@@ -60,7 +67,7 @@ class Match < ApplicationRecord
   end
 
   def confirmable?
-    !confirmed? && campaign.remaining_slots > 0 && !refused?
+    !confirmed? && campaign.remaining_doses > 0 && !refused?
   end
 
   def refuse!
@@ -77,14 +84,37 @@ class Match < ApplicationRecord
 
   def set_expiration!
     return unless expires_at.nil?
-    self.expires_at = [Time.now.utc + campaign_batch.duration_in_minutes.minutes, campaign.ends_at].min
+    self.expires_at = if matching_algo_v2?
+      campaign.ends_at
+    else
+      [Time.now.utc + Match::EXPIRE_IN_MINUTES.minutes, campaign.ends_at].min
+    end
     save
   end
 
   def no_recent_match
-    if user.matches.where("created_at >= ?", Match::NO_MORE_THAN_ONE_MATCH_PER_PERIOD.ago).any?
+    if user.present? && user.matches.where("created_at >= ?", Match::NO_MORE_THAN_ONE_MATCH_PER_PERIOD.ago).any?
       errors.add(:base, "Cette personne a déjà été matchée récemment")
     end
+  end
+
+  def cache_distance_in_meters_between_user_and_vaccination_center
+    if distance_in_meters.nil?
+      if user.present? && user.lat.present? && user.lon.present?
+        if vaccination_center.present? && vaccination_center.lat.present? && vaccination_center.lon.present?
+          self.distance_in_meters = Geocoder::Calculations.distance_between(
+            [user.lat, user.lon],
+            [vaccination_center.lat, vaccination_center.lon],
+            {unit: :m}
+          )
+        end
+      end
+    end
+  end
+
+  def notify
+    notify_by_email
+    notify_by_sms unless matching_algo_v2?
   end
 
   def notify_by_email
@@ -93,5 +123,9 @@ class Match < ApplicationRecord
 
   def notify_by_sms
     SendMatchSmsJob.perform_later(self)
+  end
+
+  def matching_algo_v2?
+    campaign.matching_algo_v2?
   end
 end

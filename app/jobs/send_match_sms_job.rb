@@ -13,7 +13,7 @@ class SendMatchSmsJob < ApplicationJob
     client.messages.create(
       from: "COVIDLISTE",
       to: match.user.phone_number,
-      body: "Un vaccin est disponible près de chez vous. Pour le réserver, suivez les instructions avant #{match.expires_at.strftime("%Hh%M")} : #{cta_url(match)}"
+      body: "Bonne nouvelle, une dose de vaccin vient de se libérer près de chez vous. Réservez-la vite sur : #{cta_url(match)}"
     )
     match.update(sms_sent_at: Time.now.utc)
   end

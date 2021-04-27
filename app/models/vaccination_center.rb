@@ -2,13 +2,14 @@ class VaccinationCenter < ApplicationRecord
   include HasPhoneNumberConcern
   has_phone_number_types %i[fixed_line mobile voip]
   module Kinds
+    CABINET_INFIRMIER = "Cabinet infirmier"
     CABINET_MEDICAL = "Cabinet médical"
     CENTRE_VACCINATION = "Centre de vaccination"
     EHPAD = "Ehpad"
     HOPITAL = "Hôpital"
     PHARMACIE = "Pharmacie"
 
-    ALL = [CABINET_MEDICAL, CENTRE_VACCINATION, EHPAD, HOPITAL, PHARMACIE].freeze
+    ALL = [CABINET_INFIRMIER, CABINET_MEDICAL, CENTRE_VACCINATION, EHPAD, HOPITAL, PHARMACIE].freeze
   end
 
   include PgSearch::Model
@@ -43,7 +44,7 @@ class VaccinationCenter < ApplicationRecord
   end
 
   def can_be_accessed_by?(user, partner)
-    return true if user&.admin?
+    return true if user&.has_role?(:admin)
 
     partners.include?(partner)
   end
@@ -94,6 +95,10 @@ class VaccinationCenter < ApplicationRecord
         csv << line
       end
     end
+  end
+
+  def flipper_id
+    "#{self.class.name}_#{id}"
   end
 
   private

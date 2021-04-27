@@ -122,6 +122,7 @@ ActiveRecord::Schema.define(version: 2021_04_27_213636) do
     t.integer "max_age"
     t.integer "status", default: 0
     t.datetime "canceled_at"
+    t.string "algo_version"
     t.index ["partner_id"], name: "index_campaigns_on_partner_id"
     t.index ["status"], name: "index_campaigns_on_status"
     t.index ["vaccination_center_id"], name: "index_campaigns_on_vaccination_center_id"
@@ -155,8 +156,11 @@ ActiveRecord::Schema.define(version: 2021_04_27_213636) do
     t.datetime "email_first_clicked_at"
     t.datetime "sms_first_clicked_at"
     t.datetime "confirmation_failed_at"
+    t.string "confirmation_failed_reason", default: "", null: false
+    t.integer "distance_in_meters"
     t.index ["campaign_batch_id"], name: "index_matches_on_campaign_batch_id"
     t.index ["campaign_id"], name: "index_matches_on_campaign_id"
+    t.index ["confirmation_failed_reason"], name: "index_matches_on_confirmation_failed_reason"
     t.index ["match_confirmation_token_bidx"], name: "index_matches_on_match_confirmation_token_bidx", unique: true
     t.index ["user_id"], name: "index_matches_on_user_id"
     t.index ["vaccination_center_id"], name: "index_matches_on_vaccination_center_id"
@@ -211,9 +215,6 @@ ActiveRecord::Schema.define(version: 2021_04_27_213636) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "toc"
-    t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.string "confirmation_token"
     t.datetime "confirmed_at"
@@ -236,7 +237,6 @@ ActiveRecord::Schema.define(version: 2021_04_27_213636) do
     t.index ["email_bidx"], name: "index_users_on_email_bidx", unique: true
     t.index ["geo_citycode"], name: "index_users_on_geo_citycode"
     t.index ["geo_context"], name: "index_users_on_geo_context"
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["zipcode"], name: "index_users_on_zipcode"
   end
 

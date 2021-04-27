@@ -21,7 +21,7 @@ class User < ApplicationRecord
   validates :lon, presence: true, unless: proc { |u| u.persisted? }
   validates :birthdate, presence: true
   validates :toc, presence: true, acceptance: true
-  validates :statement, presence: true, acceptance: true, unless: :reset_password_token?
+  validates :statement, presence: true, acceptance: true
   validates :email,
     email: {
       mx: true,
@@ -94,12 +94,19 @@ class User < ApplicationRecord
     firstname.blank? || lastname.blank?
   end
 
-  def super_admin?
-    has_role?(:super_admin)
-  end
-
-  def admin?
-    has_role?(:admin) || super_admin?
+  def has_role?(role_name, resource = nil)
+    if role_name == :volunteer
+      roles = Rails.application.config.x.covidliste["admin_roles"].keys
+      roles.any? { |role| has_role?(role) }
+    else
+      role_config = Rails.application.config.x.covidliste["admin_roles"].fetch(role_name)
+      parent_role = role_config[:parent_role]
+      if parent_role.nil? || (role_name == parent_role)
+        super(:"#{role_name}", resource)
+      else
+        super(:"#{role_name}", resource) || has_role?(:"#{parent_role}")
+      end
+    end
   end
 
   def anonymize!

@@ -318,7 +318,7 @@ Devise.setup do |config|
   config.mailer = "Devise::Passwordless::Mailer"
 
   # Time period after a magic login link is sent out that it will be valid for.
-  config.passwordless_login_within = 20.minutes
+  config.passwordless_login_within = 5.minutes
 
   # The secret key used to generate passwordless login tokens. The default value
   # is nil, which means defer to Devise's `secret_key` config value. Changing this
