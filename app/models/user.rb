@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  extend Memoist
   include HasPhoneNumberConcern
   has_phone_number_types %i[mobile]
   rolify
@@ -108,6 +109,7 @@ class User < ApplicationRecord
       end
     end
   end
+  memoize :has_role?
 
   def anonymize!
     return unless anonymized_at.nil?
