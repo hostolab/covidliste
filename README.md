@@ -23,7 +23,7 @@ We aim to minimize vaccine losses by connecting people who wish to be inoculated
 
 ## Audit our security and data-privacy practices 🔒
 
-👉 Feel free to browse the code and raise any security issue using the contact in [security.txt](https://covidliste.com/security.txt).
+If you find a security or data privacy issue, do not open an ticket but contact us directly at security@covidliste.com.
 
 ## Code of conduct 👮
 
