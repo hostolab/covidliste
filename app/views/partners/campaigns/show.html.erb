@@ -68,14 +68,6 @@
   </div>
 
   <% if @campaign.running? %>
-    <p class="mb-5">
-      <strong>Important :</strong> Si vous avez l’impression que la campagne ne se remplit pas, ne créez pas une
-      nouvelle campagne pour les mêmes doses disponibles. <a href="/faq">Nous recontacterons par SMS tous les
-      volontaires proches de votre centre</a> s’il vous reste des doses au cours de la campagne.
-    </p>
-  <% end %>
-
-  <% if @campaign.running? %>
     <div class="alert alert-primary" role="alert">
       <strong>Votre campagne est actuellement en cours.</strong><br/>
       La liste des volontaires ne sera complète que lorsque votre campagne sera terminée ou interrompue.
