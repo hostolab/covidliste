@@ -110,6 +110,6 @@ class Match < ApplicationRecord
   end
 
   def matching_algo_v2?
-    Flipper.enabled?(:matching_algo_v2, vaccination_center)
+    campaign.matching_algo_v2?
   end
 end

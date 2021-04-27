@@ -1,16 +1,16 @@
 require "rails_helper"
 
 describe RunCampaignJob do
-  let!(:user) { create(:user) }
-  let!(:partner) { create(:partner) }
-  let!(:center) { create(:vaccination_center) }
+  let(:user) { create(:user) }
+  let(:partner) { create(:partner) }
+  let(:center) { create(:vaccination_center) }
   let(:available_doses) { 1 }
   let(:vaccine_type) { Vaccine::Brands::PFIZER }
   let(:min_age) { 18 }
   let(:max_age) { 99 }
   let(:starts_at) { Time.now.utc - 1.hours }
   let(:ends_at) { Time.now.utc + 6.hours }
-  let!(:campaign) {
+  let(:campaign) {
     create(:campaign, vaccination_center: center,
                       available_doses: available_doses,
                       vaccine_type: vaccine_type,
