@@ -16,7 +16,7 @@ class MatchMailer < ApplicationMailer
     return if @user.blank?
 
     mail(
-      to: @user.email,
+      to: user_email,
       subject: "Merci de nous avoir fait confiance !"
     )
   end
