@@ -93,11 +93,13 @@
   category: Fonctionnement
   area: main
   body_md_erb: |
-    Si une dose de vaccin est disponible, nous vous enverrons un SMS et un e-mail
-    afin de connaître votre disponibilité.
+    Si une dose de vaccin est disponible près de l’adresse que vous avez renseignée,
+    nous vous enverrons un e-mail afin que vous puissiez confirmer votre disponibilité
+    et réserver le vaccin.
 
-    Si vous êtes disponible, nous vous transmettrons les informations nécessaires
-    pour vous rendre sur le lieu de vaccination.
+    S’il reste des doses non attribuées à la fin de journée, nous vous recontacterons par SMS.
+
+    Soyez donc le plus réactif possible dès que vous recevez un e-mail de notre part.
 
 - title: Comment fonctionne la liste d’attente ?
   category: Fonctionnement
