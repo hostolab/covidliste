@@ -16,12 +16,10 @@ We aim to minimize vaccine losses by connecting people who wish to be inoculated
 - You are a developer, a UI/UX designer, a data sicentist and want to help ? [Contributing](doc/contributing.md) 💪
 - You have other skills and plenty of ideas ? [Volunteering](https://www.covidliste.com/benevoles) 💡
 
-
 ## Discover 🔍
 
 - Read our [handbook](doc/handbook.md)
 - Look at our [roadmap](https://github.com/hostolab/covidliste/projects/1).
-
 
 ## Audit our security and data-privacy practices 🔒
 

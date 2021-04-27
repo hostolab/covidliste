@@ -45,11 +45,11 @@ module ApplicationHelper
   def distance_delta(p1, p2)
     distance = Geocoder::Calculations.distance_between([p1[:lat], p1[:lon]], [p2[:lat], p2[:lon]], {unit: :km})
     if distance < 1
-      distance = (distance.round(2) * 1000).round(-1)
+      distance = (distance.round(2) * 1000).round
       distance_in_words = "#{distance} m"
     else
       distance = distance.round(1)
-      distance_in_words = "#{distance.round(1)} km"
+      distance_in_words = "#{distance} km"
     end
     {
       delta: distance,
