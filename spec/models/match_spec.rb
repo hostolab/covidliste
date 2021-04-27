@@ -120,7 +120,6 @@ RSpec.describe Match, type: :model do
       before do
         travel_to Time.parse("2021-04-01 14:00:00")
         campaign.update(algo_version: "v2")
-
       end
       after do
         travel_back
