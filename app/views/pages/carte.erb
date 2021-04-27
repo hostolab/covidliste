@@ -19,16 +19,44 @@
   }
 </style>
 
+<%
+vaccination_centers = VaccinationCenter.all.filter { |v| v.confirmed? }.map do |v|
+  {
+    'coordinates' => [v.lon, v.lat],
+  }
+end
+users_by_dept = {}
+# users_by_dept = Rails.cache.fetch("users_by_dept", expires_in: 1.hours) do
+#   sql = "
+#     select
+#     case
+#     when substring(geo_citycode, 1, 2) in ('2A', '2B') then substring(geo_citycode, 1, 2)
+#     when substring(geo_citycode, 1, 2)::int <= 95
+#     then substring(geo_citycode, 1, 2)
+#     else substring(geo_citycode, 1, 3) end as key,
+#     count(*) as value
+#     from users
+#     where
+#     confirmed_at is not null
+#     and geo_citycode is not null
+#     group by 1
+#     having count(*) > 100
+#     order by 2 desc
+#     "
+#   Hash[User.connection.select_all(sql).map{ |row| row.values }]
+# end
+%>
+
 <div class="container my-5">
   <h1>Carte des lieux de vaccination inscrits sur Covidliste</h1>
-  <p><%= @vaccination_centers.count %> lieux de vaccination sur Covidliste et des volontaires dans tous les départements</p>
+  <p><%= vaccination_centers.count %> lieux de vaccination sur Covidliste et des volontaires dans tous les d&eacute;partements</p>
 
   <div
     data-controller="map"
     data-map='<%=
       objects = {
-        'vaccinationCenters' => @vaccination_centers,
-        'usersByDept' => @users_by_dept
+        'vaccinationCenters' => vaccination_centers,
+        'usersByDept' => users_by_dept
       }
       objects.to_json
     %>'

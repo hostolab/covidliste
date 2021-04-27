@@ -27,9 +27,6 @@ class VaccinationCenter < ApplicationRecord
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
 
-  after_initialize :approximated_lat_lon
-  attr_reader :approximated_lat, :approximated_lon
-
   after_commit :push_to_slack, on: :create
   after_commit :geocode_address, if: -> { saved_change_to_address? }
 
@@ -104,13 +101,6 @@ class VaccinationCenter < ApplicationRecord
   end
 
   private
-
-  def approximated_lat_lon
-    return if lat.nil? || lon.nil?
-    results = ::RandomizeCoordinatesService.new(lat, lon, 5000).call
-    @approximated_lat = results[:lat]
-    @approximated_lon = results[:lon]
-  end
 
   def push_to_slack
     return unless Rails.env.production?

@@ -59,7 +59,6 @@ const INITIAL_VIEW_STATE = {
   latitude: TERRITOIRES[INIT_TERRITOIRE].lat,
   longitude: TERRITOIRES[INIT_TERRITOIRE].lon,
   zoom: TERRITOIRES[INIT_TERRITOIRE].zoom,
-  maxZoom: 8,
   pitch: 0,
 };
 
@@ -84,19 +83,6 @@ export default class extends Controller {
       return { html };
     };
 
-    const getTooltip = (info) => {
-      if (info.object) {
-        if (info.layer && info.layer.id && info.layer.id === "departements") {
-          //return getDepartmentTooltip(info.object);
-        } else {
-          if (info.object.name) {
-            let html = `<b>${info.object.name}</b><br />${info.object.description}`;
-            return { html };
-          }
-        }
-      }
-    };
-
     const colorScale = scaleLinear()
       .domain([
         0,
@@ -109,14 +95,12 @@ export default class extends Controller {
       .unknown(UNKNOW_DEPT_COLOR);
 
     const departementsLayer = new GeoJsonLayer({
-      id: "departements",
       data: departements,
       pickable: true, // enable tooltip?
-      filled: false,
+      filled: true,
       stroked: true,
-      getLineColor: (d) => colorScale(getDepartmentValue(d.properties.code)),
-      //getFillColor: (d) => colorScale(getDepartmentValue(d.properties.code)),
-      //getLineColor: [150, 150, 150],
+      getFillColor: (d) => colorScale(getDepartmentValue(d.properties.code)),
+      getLineColor: [255, 255, 255],
       getLineWidth: 0.5,
       lineWidthUnits: "pixels",
     });
@@ -126,9 +110,8 @@ export default class extends Controller {
     };
 
     const iconLayer = new IconLayer({
-      id: "lieux-vaccination",
       data: data.vaccinationCenters,
-      pickable: true, // enable tooltip?
+      pickable: false, // enable tooltip?
       // iconAtlas and iconMapping are required
       // getIcon: return a string
       iconAtlas:
@@ -156,7 +139,7 @@ export default class extends Controller {
       mapStyle: null,
       canvas: "deck-canvas",
       initialViewState: INITIAL_VIEW_STATE,
-      controller: true,
+      controller: false,
       onViewStateChange: ({ viewState }) => {
         map.jumpTo({
           center: [viewState.longitude, viewState.latitude],
@@ -165,7 +148,7 @@ export default class extends Controller {
           pitch: viewState.pitch,
         });
       },
-      getTooltip: (object) => object && getTooltip(object),
+      // getTooltip: ({ object }) => object && getDepartmentTooltip(object),
       layers: layers,
     });
 
@@ -194,5 +177,7 @@ export default class extends Controller {
       };
       btnContainer.appendChild(el);
     });
+
+    console.log("Visualisation loaded");
   }
 }
