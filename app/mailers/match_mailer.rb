@@ -12,7 +12,7 @@ class MatchMailer < ApplicationMailer
 
   def send_anonymisation_notice
     @match = params[:match]
-    @user = params[:user] || @match.user
+    user_email = params[:user_email] || @match&.user&.email
     return if @user.blank?
 
     mail(
