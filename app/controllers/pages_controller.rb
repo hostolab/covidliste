@@ -33,7 +33,26 @@ class PagesController < ApplicationController
   end
 
   StaticPage.all.each do |page|
-    define_method page.slug.underscore do
+    page_slug = page.slug.underscore
+
+    define_method page_slug do
+      page_slug_as_string = page_slug.to_s
+
+      case page_slug_as_string
+      when "cookies"
+        @meta_title = "Notre politique liées aux cookies"
+      when "mentions_legales"
+        @meta_title = "Mentions légales - Covidliste"
+      when "cgu_volontaires"
+        @meta_title = "CGU - Volontaires - Covidliste"
+      when "cgu_pro"
+        @meta_title = "CGU - Professionnels de santé - Covidliste"
+      when "privacy_volontaires"
+        @meta_title = "Protection des données - Volontaires - Covidliste"
+      when "privacy_pro"
+        @meta_title = "Protection des données - Professionnels de santé - Covidliste"
+      end
+
       @body = page.body
       render "pages/static"
     end
