@@ -20,6 +20,9 @@ module Partners
 
     def create
       @vaccination_center = VaccinationCenter.new(vaccination_center_params)
+
+      @vaccination_center.visible_option_at = Time.zone.now if @vaccination_center.visible_option
+      @vaccination_center.media_option_at = Time.zone.now if @vaccination_center.media_option
       @vaccination_center.save
       @partner_vaccination_center = PartnerVaccinationCenter.new(partner: current_partner,
                                                                  vaccination_center: @vaccination_center)
@@ -52,7 +55,7 @@ module Partners
 
     def vaccination_center_params
       params.require(:vaccination_center).permit(:name, :description, :address, :kind, :pfizer, :moderna, :astrazeneca,
-        :janssen, :phone_number)
+        :janssen, :phone_number, :visible_option, :media_option)
     end
 
     def sort_column
