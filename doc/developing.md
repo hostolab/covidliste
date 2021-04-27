@@ -3,10 +3,12 @@
 # Stack
 
 - [Ruby on Rails](https://rubyonrails.org/)
-- [Stimulus](https://stimulus.hotwire.dev/)
-- [Bootstrap](https://getbootstrap.com/)
 - [PostgreSQL](https://www.postgresql.org/)
 - [Redis](https://redis.io/)
+- [React](https://reactjs.org/)
+- [Stimulus](https://stimulus.hotwire.dev/)
+- Bootstrap](https://getbootstrap.com/)
+
 
 # Local Development
 
@@ -135,20 +137,6 @@ user = User.find_by(email: <your_email>)
 user.add_role(:admin)
 # user.add_role(:super_admin) # for super admin
 ```
-
-## Documentation
-
-A handbook is available [in the `doc` directory](doc/handbook.md).
-
-# Contributing
-
-Visit https://github.com/hostolab/covidliste/blob/master/CONTRIBUTING.md
-
-# Thanks to all our contributors
-
-<a href="https://github.com/hostolab/covidliste/graphs/contributors">
-  <img src="https://contributors-img.web.app/image?repo=hostolab/covidliste" />
-</a>
 
 # Code formatting
 
