@@ -11,15 +11,17 @@ We aim to minimize vaccine losses by connecting people who wish to be inoculated
 
 <img src='https://www.pasteur.fr/sites/default/files/styles/media-wide/public/rubrique_linstitut_pasteur/notre_histoire/alexandre-yersin-institutpasteur_46576.jpg?itok=FL2T1kf4' width='200px'> </img>
 
+## Contribute 💻
+
+- You are a developer, a UI/UX designer, a data sicentist and want to help ? [Contributing](doc/contributing.md) 💪
+- You have other skills and plenty of ideas ? [Volunteering](https://www.covidliste.com/benevoles) 💡
+
+
 ## Discover 🔍
 
 - Read our [handbook](doc/handbook.md)
 - Look at our [roadmap](https://github.com/hostolab/covidliste/projects/1).
 
-## Contribute 💻
-
-- You are a developer, a UI/UX designer, a data sicentist and want to help ? [Contributing](doc/contributing.md) 💪
-- You have other skills and plenty of ideas ? [Volunteering](https://www.covidliste.com/benevoles) 💡
 
 ## Audit our security and data-privacy practices 🔒
 
