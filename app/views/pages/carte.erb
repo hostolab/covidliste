@@ -1,3 +1,7 @@
+<%= provide(:meta_title, "Où se trouvent les centres Covidliste ?") %>
+<%= provide(:meta_description, "Découvrez la carte des centres partenaires de Covidliste.") %>
+<%= provide(:meta_image, image_url("meta/carte.png")) %>
+
 <%= content_for(:append_to_head) do %>
   <meta content="index;follow" name="robots"/>
   <%= javascript_pack_tag "maps", "data-turbolinks-track": "reload", defer: !Rails.env.test?, nonce: true %>
