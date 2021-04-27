@@ -5,7 +5,7 @@ class AnonymizeConfirmedMatchedUsersJob < ActiveJob::Base
 
   def perform
     users_to_anonymize.find_each do |user_to_anonymize|
-      user = user_to_anonymize.dup
+      user_email = user_to_anonymize.email
       user_to_anonymize.anonymize!
       MatchMailer.with(user: user).send_anonymisation_notice.deliver_later
     end
