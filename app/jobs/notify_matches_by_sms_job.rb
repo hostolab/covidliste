@@ -1,13 +1,13 @@
 class NotifyMatchesBySmsJob < ApplicationJob
   # Job to decide which matched users to be notified by SMS
 
-  LEAD_TIME_HOURS = 2 # we start sending sms two hours before campaign ends
+  LEAD_TIME = 90.minutes # we start sending sms X minutes before campaign ends
 
   def perform(campaign)
     Rails.logger.info("Run NotifyMatchesBySmsJob for campaign_id #{campaign.id}")
     return unless campaign.matching_algo_v2?
     return unless campaign.running?
-    return if campaign.ends_at > LEAD_TIME_HOURS.hours.from_now # do not send any SMS 2 hours before campaign ends
+    return if campaign.ends_at > LEAD_TIME.from_now # do not send any SMS X minutes before campaign ends
     return if campaign.sms_budget_remaining <= 0
 
     # get users who should get notified by SMS
