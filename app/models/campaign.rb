@@ -71,7 +71,7 @@ class Campaign < ApplicationRecord
 
   def set_algo_version
     self.algo_version = "v2" if Flipper.enabled?(:matching_algo_v2, vaccination_center)
-    if Flipper.enabled?(:algo_v2_for_high_lead_time) && ends_at > 4.hours.from_now
+    if Flipper.enabled?(:algo_v2_for_high_lead_time) && ends_at > 2.hours.from_now
       self.algo_version = "v2"
     end
   end
