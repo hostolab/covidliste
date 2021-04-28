@@ -1,0 +1,27 @@
+$spinner-size: 40px;
+.spinner {
+  display: inline-block;
+  width: $spinner-size;
+  height: $spinner-size;
+}
+
+.spinner:after {
+  content: " ";
+  display: block;
+  width: $spinner-size * 0.8;
+  height: $spinner-size * 0.8;
+  margin: $spinner-size * 0.1;
+  border-radius: 50%;
+  border: $spinner-size * 0.12 solid #fff;
+  border-color: #fff transparent #fff transparent;
+  animation: spinner 1.2s linear infinite;
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

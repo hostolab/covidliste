@@ -1,0 +1,43 @@
+.CampaignCreator {
+  font-weight: 500;
+
+  .btn {
+    font-weight: 500;
+  }
+
+  .btn-lg {
+    font-weight: bold;
+
+    i {
+      margin-right: 0.5rem;
+    }
+  }
+
+  h2 {
+    font-weight: bold;
+    font-size: 24px;
+    color: $purple500;
+    margin-bottom: 1rem;
+
+    &:not(:first-of-type) {
+      margin-top: 3rem;
+    }
+
+    i {
+      margin-right: 0.5rem;
+    }
+  }
+
+  form {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+  }
+
+  &MainForm {
+    flex-grow: 1;
+  }
+
+  &Sidebar {
+  }
+}
