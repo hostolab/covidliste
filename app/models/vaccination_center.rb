@@ -103,6 +103,16 @@ class VaccinationCenter < ApplicationRecord
     "#{self.class.name}_#{id}"
   end
 
+  def build_campaign_smart_defaults
+    last_campaign = campaigns.order(:created_at).last
+    if last_campaign
+      last_campaign_slice = last_campaign.as_json.slice("extra_info", "vaccine_type", "min_age", "max_age", "max_distance_in_meters", "available_doses")
+      campaigns.build(last_campaign_slice)
+    else
+      campaigns.build
+    end
+  end
+
   private
 
   def approximated_lat_lon
