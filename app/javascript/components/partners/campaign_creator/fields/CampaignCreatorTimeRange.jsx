@@ -14,8 +14,8 @@ export const CampaignCreatorTimeRange = () => {
       label="Pendant quel créneau les volontaires doivent arriver ?"
       sublabel={
         <>
-          À quelle heure <strong>aujourd’hui</strong> les volontaires
-          doivent-ils se présenter ?
+          Vous les invitez à se présenter <strong>aujourd’hui</strong>, sur
+          cette plage horaire.
         </>
       }
       names={["startsAt", "endsAt"]}

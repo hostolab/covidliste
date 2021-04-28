@@ -41,7 +41,7 @@ export const CampaignCreatorChecks = () => {
           >
             J’ai compris qu’en cliquant sur <strong>Lancer la campagne</strong>,
             les volontaires seront <strong>instantanément notifiés</strong> par
-            email et SMS.
+            email/SMS.
           </label>
         </div>
       </fieldset>
