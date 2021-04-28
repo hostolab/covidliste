@@ -71,6 +71,21 @@
     "twitter": ""
   },
   {
+    "anon": false,
+    "bio": "Senior Data Scientist @Airbnb bas\u00e9 \u00e0 Paris",
+    "firstname": "Alexandre",
+    "github": "",
+    "id": "5f4d2f9ed28852abb92c1f6f6c856d34",
+    "identity": "Homme",
+    "lastname": "Salama",
+    "linkedin": "https://www.linkedin.com/in/alexandre-s-m/",
+    "nickname": "",
+    "picture": "",
+    "role": "",
+    "specialty": "Data Science",
+    "twitter": ""
+  },
+  {
     "anon": true,
     "bio": "",
     "firstname": "",
@@ -232,6 +247,20 @@
     "role": "",
     "specialty": "Scale de nouveaux produits",
     "twitter": "BertrandBurdet"
+  },
+  {
+    "anon": true,
+    "bio": "",
+    "firstname": "",
+    "github": "",
+    "id": "4f97afd5f986e930d7407d3ff8d6bc37",
+    "identity": "",
+    "lastname": "",
+    "linkedin": "",
+    "nickname": "",
+    "role": "",
+    "specialty": "",
+    "twitter": ""
   },
   {
     "anon": false,
@@ -912,15 +941,16 @@
     "twitter": ""
   },
   {
-    "anon": true,
+    "anon": false,
     "bio": "",
-    "firstname": "",
+    "firstname": "Jean-Charles",
     "github": "",
     "id": "cc8c5ab91f956be271fddc7ceaeeca1b",
-    "identity": "",
-    "lastname": "",
+    "identity": "Homme",
+    "lastname": "Dewaele",
     "linkedin": "",
     "nickname": "",
+    "picture": "",
     "role": "",
     "specialty": "",
     "twitter": ""
