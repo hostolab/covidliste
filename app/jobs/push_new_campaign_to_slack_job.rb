@@ -4,8 +4,7 @@ class PushNewCampaignToSlackJob < ApplicationJob
   SLACK_CHANNEL = "nouvelle-campagne".freeze
 
   def perform(campaign_id)
-    campaign = Campaign.find_by(id: campaign_id)
-    return if campaign.blank?
+    campaign = Campaign.find(campaign_id)
 
     text = "Un nouvelle campagne vient d’être lancée#{creator(campaign.partner)}."
 

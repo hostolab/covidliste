@@ -3,8 +3,7 @@ class SendMatchEmailJob < ApplicationJob
   queue_as :critical
 
   def perform(match_id)
-    match = Match.find_by(id: match_id)
-    return if match.blank?
+    match = Match.find(match_id)
 
     return if match.mail_sent_at.present? || match.expired?
     match.set_expiration!
