@@ -10,6 +10,58 @@ class PagesController < ApplicationController
   def presse
   end
 
+  def carte
+    @vaccination_centers = VaccinationCenter.confirmed.map do |v|
+      if v.approximated_lon.present? && v.approximated_lat.present?
+        {
+          "name" => "Lieu de vaccination inscrit",
+          "description" => "La localisation est approximée à quelques kilomètres",
+          "lon" => v.approximated_lon,
+          "lat" => v.approximated_lat
+        }
+      end
+    end
+
+    @map_areas = [
+      {
+        "label" => "France métropolitaine",
+        "lon" => 2.3,
+        "lat" => 47.1,
+        "zoom" => 5.5
+      },
+      {
+        "label" => "Guyane",
+        "lon" => -53.02730090442361,
+        "lat" => 4,
+        "zoom" => 7
+      },
+      {
+        "label" => "Guadeloupe",
+        "lon" => -61.5,
+        "lat" => 16.176021024448076,
+        "zoom" => 10
+      },
+      {
+        "label" => "La Réunion",
+        "lon" => 55.53913649067738,
+        "lat" => -21.153674695744286,
+        "zoom" => 10
+      },
+      {
+        "label" => "Martinique",
+        "lon" => -60.97336870145841,
+        "lat" => 14.632175285699219,
+        "zoom" => 10
+      },
+      {
+        "label" => "Mayotte",
+        "lon" => 45.16242028163609,
+        "lat" => -12.831199035192768,
+        "zoom" => 11
+      }
+    ]
+  end
+
   def mentions_legales
   end
 
