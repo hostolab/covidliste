@@ -34,6 +34,26 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe "latitude/lontidude" do
+    it "randomize lat/lon at user creation" do
+      lat = 48.345
+      lon = 2.123
+      user = create(:user, lat: lat, lon: lon)
+      expect(user.lat).to_not eq(lat)
+      expect(user.lon).to_not eq(lon)
+    end
+
+    it "randomize lat/lon at user update" do
+      lat = 48.345
+      lon = 2.123
+      user = create(:user)
+      user.reload
+      user.update(lat: lat, lon: lon)
+      expect(user.lat).to_not eq(lat)
+      expect(user.lon).to_not eq(lon)
+    end
+  end
+
   describe "Email format" do
     it "is invalid without a fake MX record" do
       user.email = "test@thisisfakesauvonslesvaccins.com"
