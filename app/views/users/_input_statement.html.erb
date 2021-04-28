@@ -1,6 +1,7 @@
 <%= f.input :statement,
   as: :boolean,
-  label: "J’accepte les #{link_to "CGU", local_cgu_path} et certifie sur l’honneur que les informations ci-dessus sont exactes.".html_safe,
+  label_html: { class: "small" },
+  label: "J’accepte les #{link_to "CGU", local_cgu_path} et certifie sur l’honneur que les informations ci-dessus sont exactes ainsi que mes données soient traitées avec les établissements de vaccination Covid-19 participant à l’initiative Covidliste.".html_safe,
   error: "Vous devez cocher cette case pour valider votre inscription",
   required: true 
 %>

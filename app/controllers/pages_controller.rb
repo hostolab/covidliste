@@ -130,9 +130,13 @@ class PagesController < ApplicationController
 
   def set_counters
     @users_count = Rails.cache.fetch(:users_count, expires_in: 5.minutes) { User.count }
+    @users_count = 841160
     @confirmed_matched_users_count = Rails.cache.fetch(:confirmed_matched_users_count, expires_in: 5.minutes) { Match.confirmed.count }
+    @confirmed_matched_users_count = 4009
     @matched_users_count = Rails.cache.fetch(:matched_users_count, expires_in: 5.minutes) { Match.distinct.count("user_id") + Match.confirmed.count }
+    @matched_users_count = 76258
     @vaccination_centers_count = Rails.cache.fetch(:vaccination_centers_count, expires_in: 5.minutes) { VaccinationCenter.confirmed.count }
+    @vaccination_centers_count = 936
   end
 
   def skip_pundit?

@@ -1,0 +1,9 @@
+<div class="bg-theme overflow-hidden">
+  <div class="container py-5 my-3">
+    <div class="text-center">
+      <div class="font-weight-bolder text-light mb-4 h1"><%= title %></div>
+      <p class="text-light mx-auto mb-3" style="max-width: 800px"><%= sanitize text, tags: %w(br) %></p>
+      <a href="<%= cta_href %>" class="btn btn-light btn-large font-weight-bold" role="button"><%= cta_text %></a>
+    </div>
+  </div>
+</div>
