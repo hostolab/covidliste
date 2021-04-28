@@ -112,6 +112,7 @@ Rails.application.routes.draw do
 
   ## Pages
   get "/carte" => "pages#carte", :as => :carte
+  get "/donateurs" => "pages#donateurs", :as => :donateurs
   get "/benevoles" => "pages#benevoles", :as => :benevoles
   get "/contact" => "pages#contact", :as => :contact
   get "/algorithme" => "pages#algorithme", :as => :algorithme

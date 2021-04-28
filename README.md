@@ -13,7 +13,7 @@ We aim to minimize vaccine losses by connecting people who wish to be inoculated
 
 ## Contribute 💻
 
-- You are a developer, a UI/UX designer, a data sicentist and want to help ? [Contributing](doc/contributing.md) 💪
+- You are a developer, a UI/UX designer, a data scientist and want to help ? [Contributing](doc/contributing.md) and [Developing](doc/developing.md) 💪
 - You have other skills and plenty of ideas ? [Volunteering](https://www.covidliste.com/benevoles) 💡
 
 ## Discover 🔍

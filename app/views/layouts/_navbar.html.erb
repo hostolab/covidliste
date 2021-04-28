@@ -23,6 +23,9 @@
         <li class="<%= class_names("nav-item", active: current_page?(partenaires_inscription_path)) %>">
           <%= link_to "Professionnels de santé", partenaires_inscription_path, class: "nav-link" %>
         </li>
+        <li class="<%= class_names("nav-item", active: current_page?(donateurs_path)) %>">
+          <%= link_to "Donateurs", donateurs_path, class: "nav-link" %>
+        </li>
         <li class="<%= class_names("nav-item", active: current_page?(benevoles_path)) %>">
           <%= link_to "Bénévoles", benevoles_path, class: "nav-link" %>
         </li>
