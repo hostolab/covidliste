@@ -9,6 +9,6 @@ RSpec.describe "Carte Page", type: :system do
     visit "/carte"
 
     expect(page).to have_text("France métropolitaine")
-    expect(page).to have_css("#map.mapboxgl-map")
+    expect(page).to have_selector("div.leaflet-pane.leaflet-map-pane")
   end
 end

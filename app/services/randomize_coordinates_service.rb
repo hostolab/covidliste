@@ -1,15 +1,15 @@
 class RandomizeCoordinatesService
   EARTH_RADIUS = 6378.137
-  METERS_RANGE = 100 # randomize within +/- METERS
 
-  def initialize(lat, lon)
+  def initialize(lat, lon, meters_range = 100)
     @lat = lat
     @lon = lon
+    @meters_range = meters_range # randomize within +/- METERS
   end
 
   def call
-    dy = rand(-METERS_RANGE..METERS_RANGE) / 1000.0
-    dx = rand(-METERS_RANGE..METERS_RANGE) / 1000.0
+    dy = rand(-@meters_range..@meters_range) / 1000.0
+    dx = rand(-@meters_range..@meters_range) / 1000.0
 
     new_lat = @lat + (dy / EARTH_RADIUS) * (180 / Math::PI)
     new_lon = @lon + (dx / EARTH_RADIUS) * (180 / Math::PI) / Math.cos(@lat * Math::PI / 180)

@@ -90,11 +90,7 @@ RSpec.describe MatchesController, type: :system do
       it "handle the user's disappointment gracefully" do
         visit match_path(match_confirmation_token)
 
-        expect(page).to have_text("La dose n'est plus disponible 😢")
-        expect(page).to have_text("Nous sommes désolés, un autre volontaire a été plus rapide que vous.")
-        expect(page).to have_text("Pour qu'aucune dose ne soit perdue, nous contactons quand c'est possible plusieurs volontaires.")
-        expect(page).to have_text("Dans de rares cas, il arrive que toutes les doses soient prises.")
-        expect(page).not_to have_text("Une dose est disponible")
+        expect(page).to have_text("Mince 😔, toutes les doses disponibles ont déjà été réservées")
         expect(page).not_to have_text("Je réserve la dose")
       end
     end
@@ -120,7 +116,7 @@ RSpec.describe MatchesController, type: :system do
         check :confirm_age
         check :confirm_name
         click_on("Je réserve la dose")
-        expect(page).to have_text("La dose n'est plus disponible 😢")
+        expect(page).to have_text("Mince 😔, toutes les doses disponibles ont déjà été réservées")
         Match.where(confirmation_failed_reason: "Match::AlreadyConfirmedError").count == already_confirmed_count + 1
       end
     end
