@@ -15,11 +15,13 @@ module Partners
     end
 
     def new
-      @campaign = @vaccination_center.campaigns.build(starts_at: Time.now, ends_at: 1.hour.from_now)
-    end
-
-    def creator
-      @campaign = @vaccination_center.build_campaign_smart_defaults
+      if Flipper.enabled?(:new_campaign_creator, @vaccination_center)
+        @campaign = @vaccination_center.build_campaign_smart_defaults
+        render "creator"
+      else
+        @campaign = @vaccination_center.campaigns.build(starts_at: Time.now, ends_at: 1.hour.from_now)
+        render "new"
+      end
     end
 
     def create
