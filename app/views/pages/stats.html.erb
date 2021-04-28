@@ -1,0 +1,24 @@
+<%= provide(:meta_title, "Quelques statistiques") %>
+<%= provide(:meta_description, "Quelques chiffres clefs concernant l'application Covidliste") %>
+<%= provide(:meta_image, image_url("meta/benevoles.png")) %>
+
+<%= content_for(:append_to_head) do %>
+  <meta content="index;follow" name="robots"/>
+<% end %>
+
+<div class="container my-5">
+  <h1 class="mb-3">Statistiques</h1>
+
+  <p>Covidliste est une initiative bénévole et citoyenne qui a vu le jour il y a quelques semaines pour accélérer la campagne nationale de vaccination contre le Covid19 en distribuant les doses sur le point d'être jetées.</p>
+
+  <p>Depuis le 31 mars 2021, ce sont <%= @users.count %> qui se sont inscrits sur le site dans le but d'être contactés par les <%= @vaccination_centers.count %> centres de vaccination.</p>
+
+    <% sum = 0 %>
+    <% now = Time.now.utc.to_date %>
+    <% @users.each do |user| %>
+      <% sum += now.year - user.birthdate.year - ((now.month > user.birthdate.month || (now.month == user.birthdate.month && now.day >= user.birthdate.day)) ? 0 : 1) %>
+    <% end %>
+    <% age_moyen = (sum / @users.count).truncate %>
+
+  <p>La moyenne d'âge des inscrits en attente d'un vaccin est de <%= age_moyen %> ans.</p>
+</div>
