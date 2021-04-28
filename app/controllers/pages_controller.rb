@@ -1,4 +1,10 @@
 class PagesController < ApplicationController
+  before_action :set_counters, only: [:home]
+
+  def home
+    @user = User.new(birthdate: Date.today.change(year: 1961))
+  end
+
   def benevoles
     @volunteers = Volunteer.where(anon: false).order(sort_name: :asc) + Volunteer.where(anon: true).order(sort_name: :asc)
   end
@@ -121,6 +127,13 @@ class PagesController < ApplicationController
   end
 
   private
+
+  def set_counters
+    @users_count = Rails.cache.fetch(:users_count, expires_in: 5.minutes) { User.count }
+    @confirmed_matched_users_count = Rails.cache.fetch(:confirmed_matched_users_count, expires_in: 5.minutes) { Match.confirmed.count }
+    @matched_users_count = Rails.cache.fetch(:matched_users_count, expires_in: 5.minutes) { Match.distinct.count("user_id") + Match.confirmed.count }
+    @vaccination_centers_count = Rails.cache.fetch(:vaccination_centers_count, expires_in: 5.minutes) { VaccinationCenter.confirmed.count }
+  end
 
   def skip_pundit?
     true

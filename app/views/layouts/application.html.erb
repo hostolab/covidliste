@@ -15,10 +15,8 @@
 <div class="layout">
   <div class="layout__content">
     <%= render "layouts/navbar" %>
-    <div class="container-fluid">
-      <%= render "layouts/alerts" %>
-      <%= yield %>
-    </div>
+    <%= render "layouts/alerts" %>
+    <%= yield %>
   </div>
   <div class="layout__footer">
     <%= render "layouts/footer" %>
