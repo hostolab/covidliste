@@ -11,7 +11,7 @@ module ApplicationHelper
     content_tag(
       "div",
       nil,
-      class: "alert alert-#{type} mb-0 rounded-0",
+      class: "alert alert-#{type}",
       role: "alert",
       style: "position: inherit"
     ) do

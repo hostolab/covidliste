@@ -133,5 +133,5 @@ Rails.application.routes.draw do
   ## robots.txt
   get "/robots.txt", to: "pages#robots"
 
-  root to: "pages#home"
+  root to: "users#new"
 end

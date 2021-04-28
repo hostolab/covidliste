@@ -1,10 +1,24 @@
 
-<% if @user.persisted? %>
+<% if current_user.present? || @user.persisted? %>
 
   <div class="alert alert-success p-3">
-    Merci ! Vous êtes bien enregistré sur Covidliste. Vous allez recevoir dans quelques instants un email de
-    confirmation qui vous permettra de valider votre inscription et accéder à votre espace sécurisé.
-    Le lien de confirmation sera valable pendant 24 heures.
+    <p class="mb-0">
+      <%= icon("fas", "thumbs-up", class: "fa-2x") %>
+      <br>
+      <br>
+      <strong>Merci !</strong>
+      <br>
+      <br>
+      Vous êtes bien enregistré sur Covidliste.
+      <% if current_user.blank? %>
+        <br>
+        <br>
+        Vous allez recevoir dans quelques instants un email de confirmation qui vous permettra de valider votre inscription et accéder à votre espace sécurisé.
+        <br>
+        <br>
+        Le lien de confirmation sera valable pendant 24 heures.
+      <% end %>
+    </p>
   </div>
 
 <% else %>
@@ -33,7 +47,8 @@
                   label: false,
                   error: "Adresse invalide",
                   placeholder: "Adresse",
-                  required: true %>
+                  required: true,
+                  input_html: { class: "pr-5"} %>
       <%= f.input_field :lat, as: :hidden %>
       <%= f.input_field :lon, as: :hidden %>
 
@@ -63,4 +78,5 @@
   <div class="py-1 px-2">
     <%= render partial: "users/mentions" %>
   </div>
+
 <% end %>
