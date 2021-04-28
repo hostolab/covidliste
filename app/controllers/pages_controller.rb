@@ -4,7 +4,7 @@ class PagesController < ApplicationController
   end
 
   def donateurs
-    ulule_project_slug = params[:slug] || "covidliste"
+    ulule_project_slug = "covidliste"
     ulule_service = UluleService.new(ulule_project_slug)
     @ulule_project = ulule_service.project
     @ulule_donors = ulule_service.supporters

@@ -7,7 +7,7 @@ class UluleService
     @project_id = project_id
     @api_key = ENV["ULULE_API_KEY"]
     self.class.default_options.merge!(
-      headers: { 
+      headers: {
         "Authorization" => "APIKey #{@api_key}",
         "Ulule-Version" => "2020-11-10"
       }
@@ -15,11 +15,11 @@ class UluleService
   end
 
   def project
-    self.class.get("/v1/projects/#{@project_id}", query: {limit: 10})
+    self.class.get("/v1/projects/#{@project_id}")
   end
 
   def supporters
-    self.class.get("/v1/projects/#{@project_id}/supporters", query: {limit: 10})
+    self.class.get("/v1/projects/#{@project_id}/supporters", query: {limit: 25})
   end
 
   def orders
