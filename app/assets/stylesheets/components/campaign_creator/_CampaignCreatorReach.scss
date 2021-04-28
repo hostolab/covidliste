@@ -1,0 +1,73 @@
+@mixin campaign-creator-reach-variant($darkColor, $lightColor) {
+  background: linear-gradient(
+      285.19deg,
+      rgba(255, 255, 255, 0.3) 23.49%,
+      rgba(255, 255, 255, 0) 92.85%
+    ),
+    $darkColor;
+  .advice {
+    background-color: $lightColor;
+
+    &::after {
+      display: block;
+      position: absolute;
+      content: "";
+      height: 24px;
+      width: 24px;
+      border-radius: 100%;
+      background-color: $darkColor;
+      top: calc(50% - 12px);
+      left: 16px;
+    }
+  }
+}
+
+.CampaignCreatorReach {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  overflow: hidden;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.16);
+  border-radius: 12px;
+  transition: background-color 0.3s, background 0.3s;
+  margin: 2rem auto;
+  width: 360px;
+  @include campaign-creator-reach-variant($gray-900, $gray-100);
+  @include media-breakpoint-up(lg) {
+    position: sticky;
+    top: 100px;
+    margin: 0;
+  }
+
+  .count {
+    font-weight: bold;
+    text-align: center;
+    font-size: 24px;
+    padding: 20px 20px 30px 20px;
+
+    .countNumber {
+      font-size: 72px;
+    }
+  }
+
+  .advice {
+    margin-bottom: 0;
+    padding: 10px 16px 10px 58px;
+    color: black;
+    position: relative;
+  }
+
+  .spinner {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+  }
+
+  &.success {
+    @include campaign-creator-reach-variant($green900, $green100);
+  }
+
+  &.warning {
+    @include campaign-creator-reach-variant($yellow900, $yellow100);
+  }
+}
