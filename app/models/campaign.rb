@@ -2,7 +2,7 @@ class Campaign < ApplicationRecord
   MAX_DOSES = 200
   MAX_DISTANCE_IN_KM = 50
   MAX_SMS_BUDGET_BY_DOSE = 20
-  OVERBOOKING_FACTOR = 20
+  OVERBOOKING_FACTOR = 40
 
   belongs_to :vaccination_center
   belongs_to :partner
