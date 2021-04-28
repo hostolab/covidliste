@@ -12,10 +12,6 @@
   <%= render "layouts/accesibility_development_warnings" %>
 </head>
 <body>
-  <% if params[:maquette] == "on" %>
-    <div style="position: absolute; pointer-events: none; background: transparent url('<%= asset_path "home/maquette.png" %>') no-repeat top center; width: 100vw; height: 4750px; z-index: 10000; top: 89px; opacity: 0.4; filter: saturate(0);">
-    </div>
-  <% end %>
   <div class="layout">
     <div class="layout__content">
       <%= render "layouts/banner" %>
