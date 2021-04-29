@@ -39,10 +39,16 @@ class User < ApplicationRecord
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
   scope :active, -> { where(anonymized_at: nil) }
-  scope :between_age, ->(min, max) { where("birthdate between ? and ?", max.years.ago, min.years.ago) }
+  scope :between_age, -> (min, max) { where(birthdate: max.years.ago..min.years.ago) }
   scope :with_roles, -> { joins(:roles) }
 
   PASSWORD_HINT = "#{Devise.password_length.min} caractères minimum. Idéalement plus long en mélangeant des minuscules, des majuscules et des chiffres."
+
+  def self.approximated_count
+    query = "SELECT n_live_tup FROM pg_stat_all_tables WHERE relname = 'users';"
+    result = ActiveRecord::Base.connection.execute(query)
+    result.to_a.first.fetch("n_live_tup")
+  end
 
   def randomize_lat_lon
     return if lat.nil? || lon.nil?
