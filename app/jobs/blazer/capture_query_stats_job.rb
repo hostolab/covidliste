@@ -1,4 +1,4 @@
-class Blazer::CaptureQueryStats < ApplicationJob
+class Blazer::CaptureQueryStatsJob < ApplicationJob
   queue_as :low
 
   def perform(args)
