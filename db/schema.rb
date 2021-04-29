@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_29_101154) do
+ActiveRecord::Schema.define(version: 2021_04_29_110625) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -196,6 +196,17 @@ ActiveRecord::Schema.define(version: 2021_04_29_101154) do
     t.index ["email_bidx"], name: "index_partners_on_email_bidx", unique: true
     t.index ["email_ciphertext"], name: "index_partners_on_email_ciphertext", unique: true
     t.index ["reset_password_token"], name: "index_partners_on_reset_password_token", unique: true
+  end
+
+  create_table "pghero_query_stats", force: :cascade do |t|
+    t.text "database"
+    t.text "user"
+    t.text "query"
+    t.bigint "query_hash"
+    t.float "total_time"
+    t.bigint "calls"
+    t.datetime "captured_at"
+    t.index ["database", "captured_at"], name: "index_pghero_query_stats_on_database_and_captured_at"
   end
 
   create_table "roles", force: :cascade do |t|
