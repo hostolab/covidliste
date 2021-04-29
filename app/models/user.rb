@@ -55,8 +55,11 @@ class User < ApplicationRecord
     return unless lat.nil? || lon.nil?
     return if address.blank?
     results = GeocodingService.new(address).call
-    self.lat = results[:lat]
-    self.lon = results[:lon]
+
+    if results.present?
+      self.lat = results[:lat]
+      self.lon = results[:lon]
+    end
   end
 
   def reverse_geocode
