@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_29_110625) do
+ActiveRecord::Schema.define(version: 2021_04_29_122735) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -276,7 +276,15 @@ ActiveRecord::Schema.define(version: 2021_04_29_110625) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "confirmer_id"
     t.datetime "disabled_at"
+    t.string "zipcode"
+    t.string "city"
+    t.string "geo_citycode"
+    t.string "geo_context"
+    t.index ["city"], name: "index_vaccination_centers_on_city"
     t.index ["confirmer_id"], name: "index_vaccination_centers_on_confirmer_id"
+    t.index ["geo_citycode"], name: "index_vaccination_centers_on_geo_citycode"
+    t.index ["geo_context"], name: "index_vaccination_centers_on_geo_context"
+    t.index ["zipcode"], name: "index_vaccination_centers_on_zipcode"
   end
 
   add_foreign_key "campaign_batches", "campaigns"
