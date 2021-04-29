@@ -54,47 +54,63 @@
     </p>
   <% end %>
 
-  <% if @diamond_supporters.any? %>
+  <% if @diamond_orders.any? %>
     <div class="bg-white p-4 shadow-lg mt-4">
       <div class="d-flex align-items-start align-items-lg-center justify-content-start flex-column flex-lg-row font-weight-light text-primary h2 mb-3">
         <span class="mr-lg-3">💎</span>
         <span class="font-weight-bold">Donateurs Diamant</span>
       </div>
-      <%= render 'donateurs_reward', amount: 5000, centers_count: 200, doses_count: 2500 %>
-      <%= render 'donateurs_list', supporters: @diamond_supporters %>
+      <p> Merci à leur don de <span class="text-primary">5000€ et plus.</span> Grâce à chaque contribution :</p>
+      <ul class="mb-0">
+        <li>🤩 Vous permettez le fonctionnement de Covidliste pendant <strong>10 jours entiers !</strong></li>
+        <li>🍻 Vous serez invité à <strong>l'apéro Covidliste</strong> en présence des bénévoles une fois les restrictions sanitaires levées pour que tout Covidliste puisse vous remercier chaleureusement.</li>
+      </ul>
+      <%= render 'pages/donateurs/orders', orders: @diamond_orders %>
     </div>
   <% end %>
 
-  <% if @gold_supporters.any? %>
+  <% if @gold_orders.any? %>
     <div class="bg-white p-4 shadow-lg mt-4">
       <div class="d-flex align-items-start align-items-lg-center justify-content-start flex-column flex-lg-row font-weight-light text-primary h2 mb-3">
         <span class="mr-lg-3">🥇</span>
         <span class="font-weight-bold">Donateurs Or</span>
       </div>
-      <%= render 'donateurs_reward', amount: 1000, centers_count: 40, doses_count: 500 %>
-      <%= render 'donateurs_list', supporters: @gold_supporters %>
+      <p> Merci à leur don de <span class="text-primary">1000€ et plus.</span> Grâce à chaque contribution :</p>
+      <ul class="mb-0">
+        <li>🤩 Vous permettez le fonctionnement de Covidliste pendant <strong>2 jours entiers !</strong></li>
+        <li>🍻 Vous serez invité à <strong>l'apéro Covidliste</strong> en présence des bénévoles une fois les restrictions sanitaires levées pour que tout Covidliste puisse vous remercier chaleureusement.</li>
+      </ul>
+      <%= render 'pages/donateurs/orders', orders: @gold_orders %>
     </div>
   <% end %>
 
-  <% if @silver_supporters.any? %>
+  <% if @silver_orders.any? %>
     <div class="bg-white p-4 shadow-lg mt-4">
       <div class="d-flex align-items-start align-items-lg-center justify-content-start flex-column flex-lg-row font-weight-light text-primary h2 mb-3">
         <span class="mr-lg-3">🥈</span>
         <span class="font-weight-bold">Donateurs Argent</span>
       </div>
-      <%= render 'donateurs_reward', amount: 500, centers_count: 20, doses_count: 250 %>
-      <%= render 'donateurs_list', supporters: @silver_supporters %>
+      <p> Merci à leur don de <span class="text-primary">500€ et plus.</span> Grâce à chaque contribution :</p>
+      <ul class="mb-0">
+        <li>🏥 <strong>20 nouveaux centres</strong> seront équipés de Covidliste</li>
+        <li>💉 <strong>250 doses</strong> pourront être proposées aux volontaires</li>
+      </ul>
+      <%= render 'pages/donateurs/orders', orders: @silver_orders %>
     </div>
   <% end %>
 
-  <% if @bronze_supporters.any? %>
+  <% if @bronze_orders.any? %>
     <div class="bg-white p-4 shadow-lg mt-4">
       <div class="d-flex align-items-start align-items-lg-center justify-content-start flex-column flex-lg-row font-weight-light text-primary h2 mb-3">
         <span class="mr-lg-3">🥉</span>
         <span class="font-weight-bold">Donateurs Bronze</span>
       </div>
-      <%= render 'donateurs_reward', amount: 150, centers_count: 7, doses_count: 25 %>
-      <%= render 'donateurs_list', supporters: @bronze_supporters %>
+      <p> Merci à leur don de <span class="text-primary">150€ et plus.</span> Grâce à chaque contribution :</p>
+      <ul class="mb-0">
+        <li>🏥 <strong>7 nouveaux centres</strong> seront équipés de Covidliste</li>
+        <li>💉 <strong>25 doses</strong> pourront être proposées aux volontaires</li>
+      </ul>
+      <%= render 'pages/donateurs/orders', orders: @bronze_orders %>
   <% end %>
   </div>
 </div>
