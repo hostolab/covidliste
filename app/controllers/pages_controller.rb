@@ -6,12 +6,11 @@ class PagesController < ApplicationController
   def donateurs
     @force = params[:force].present?
     @ulule_buddy_orders = Rails.cache.fetch(:ulule_buddy_orders, expires_in: 1.hour, force: @force) do
-      UluleBuddyOrder.all.each_with_object({}) do |m, e|
+      UluleBuddyOrder.all.each_with_object({}) do |e, m|
         m[e.order_id] = {
           name: e.name,
           picture_path: e.picture_path
         }
-        m
       end
     end
     data = UluleService.new("covidliste", ENV["ULULE_API_KEY"]).data(@force)
