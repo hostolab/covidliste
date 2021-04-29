@@ -6,58 +6,73 @@ class PushNewCampaignToSlackJob < ApplicationJob
   def perform(campaign_id)
     campaign = Campaign.find(campaign_id)
 
-    text = "Un nouvelle campagne vient d’être lancée#{creator(campaign.partner)}."
-
-    attachments = [
+    main_fields = [
       {
-        color: "",
-        fields: [
-          {
-            title: "Doses disponibles",
-            value: campaign.available_doses,
-            short: true
-          },
-          {
-            title: "Vaccin",
-            value: campaign.vaccine_type,
-            short: true
-          },
-          {
-            title: "Âge",
-            value: "#{campaign.min_age} - #{campaign.max_age} ans",
-            short: true
-          },
-          {
-            title: "Distance",
-            value: "#{(campaign.max_distance_in_meters / 1000.0).round(1)} km",
-            short: true
-          },
-          {
-            title: "Centre",
-            value: campaign.vaccination_center.name,
-            short: true
-          },
-          {
-            title: "Type",
-            value: campaign.vaccination_center.kind,
-            short: true
-          },
-          {
-            title: "Adresse",
-            value: campaign.vaccination_center.address
-          },
-          {
-            title: "Informations",
-            value: campaign.extra_info
-          },
-          {
-            title: "Horaires",
-            value: "#{campaign.starts_at.strftime("%Hh%M")} - #{campaign.ends_at.strftime("%Hh%M")}",
-            short: true
-          }
-        ]
+        "type": "mrkdwn",
+        "text": "*Doses:*\n#{campaign.vaccine_type.capitalize} x#{campaign.available_doses}"
+      },
+      {
+        "type": "mrkdwn",
+        "text": "*Critères:*\n#{campaign.min_age} - #{campaign.max_age} ans, #{(campaign.max_distance_in_meters / 1000.0).round(1)} km"
+      },
+      {
+        "type": "mrkdwn",
+        "text": "*Établissement:*\n #{link(campaign.vaccination_center, "#{campaign.vaccination_center.name} ##{campaign.vaccination_center.id}")}"
+      },
+      {
+        "type": "mrkdwn",
+        "text": "*Horaires:*\n#{campaign.starts_at.strftime("%Hh%M")} - #{campaign.ends_at.strftime("%Hh%M")}"
       }
-    ].to_json
+    ]
+
+    context = [
+      {
+        "type": "mrkdwn",
+        "text": "📍 #{campaign.vaccination_center.address}"
+      }
+    ]
+
+    if campaign.extra_info
+      context.append({
+        "type": "mrkdwn",
+        "text": "ℹ️ #{campaign.extra_info}"
+      })
+    end
+
+    blocks = [
+      {
+        "type": "section",
+        "text": {
+          "type": "mrkdwn",
+          "text": "Une campagne vient d'être lancée#{creator(campaign.partner)}."
+        }
+      },
+      {
+        "type": "section",
+        "fields": main_fields
+      },
+      {
+        "type": "context",
+        "elements": context
+      }
+    ]
+
+    if campaign.vaccination_center.zipcode.nil?
+      blocks.append({
+        "type": "header",
+        "text": {
+          "type": "plain_text",
+          "text": "⚠️ Adresse du centre mal géocodée",
+          "emoji": true
+        }
+      }, {
+        "type": "section",
+        "text": {
+          "type": "mrkdwn",
+          "text": "Nous n'avons pas pu faire correspondre l'addresse à un code postal, pour éviter les erreurs de match. Vous devriez pouvoir réparer ça en reprécisant l'adresse du centre. Contactez Maxence Aici pour plus d'infos."
+        }
+      })
+    end
 
     SlackNotifierJob.perform_later(SLACK_CHANNEL, text, attachments)
   end
