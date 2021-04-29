@@ -3,7 +3,7 @@ class UluleService
   base_uri "https://api.ulule.com"
   format :json
 
-  CACHE_TTL = Rails.env.development? ? 10.seconds : 1.hours
+  CACHE_TTL = Rails.env.development? ? 5.minutes : 1.hours
 
   def initialize(project_id)
     @project_id = project_id
@@ -16,8 +16,8 @@ class UluleService
     )
   end
 
-  def data
-    Rails.cache.fetch(:ulule_data, expires_in: CACHE_TTL) {
+  def data(force = false)
+    Rails.cache.fetch(:ulule_data, expires_in: CACHE_TTL, force: force) {
       {
         project: project,
         bronze_supporters: get_supporters(150, 500),
