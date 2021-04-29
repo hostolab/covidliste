@@ -9,8 +9,6 @@
 
   <p class="text-justify text-sm-left">Merci à tous les donateurs qui nous permettent d'améliorer la plateforme, de continuer à former de nouveaux professionnels de santé et surtout d'accélérer la vaccination en France.</p>
 
-<% if !@project.nil? %>
-
   <%= link_to "En savoir plus sur la campagne", @project["absolute_url"], target: "_blank", rel: "noopener", class: "btn btn-info btn-primary mt-2 mt-md-0 " %>
   <% unless @project["finished"] %>
     <% if @project["urls"].present? %>
@@ -81,5 +79,4 @@
     <%= render 'donateurs_list', supporters: @diamond_supporters %>
   <% end %>
 
-<% end %>
 </div>
