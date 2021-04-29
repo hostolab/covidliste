@@ -17,6 +17,8 @@
         <%= distance[:delta_in_words] %> de
         vous<%= ", à #{vaccination_center.human_friendly_geo_area}" if vaccination_center.human_friendly_geo_area %>
       </p>
+      <p class="small">Loin de chez vous ? <br> Si vous avez fait une erreur dans votre addresse, refusez cette dose et
+        changez votre addresse sur votre <%= link_to "espace personnel", :new_user_session %> </p>
     <% end %>
   </div>
 

@@ -111,7 +111,7 @@
   </div>
   <div class="col-12 d-flex flex-wrap">
     <button class="btn btn-primary mr-2 btn-lg mb-3" type="submit">Je réserve la dose</button>
-    <%= link_to 'Refuser le RDV', match_path(match_confirmation_token: @match.match_confirmation_token), method: :delete, class: 'btn btn-danger btn-lg mb-3', "data-confirm": "Souhaitez-vous vraiment refuser ce RDV ?" %>
+    <%= link_to 'Refuser la dose', match_path(match_confirmation_token: @match.match_confirmation_token), method: :delete, class: 'btn btn-link btn-lg mb-3', "data-confirm": "Souhaitez-vous vraiment refuser ce RDV ?" %>
   </div>
 </form>
 
