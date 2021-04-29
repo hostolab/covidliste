@@ -6,7 +6,7 @@
           <%= image_tag @ulule_buddy_orders[order["id"].to_s]&.dig(:picture_path).presence || order["user"]["avatar"]["versions"]["128x128"]["url"], height: order["user"]["avatar"]["versions"]["128x128"]["height"], width: order["user"]["avatar"]["versions"]["128x128"]["width"], loading: "lazy", class: "rounded-circle border", alt: order["user"]["name"] %>
         </div>
         <div class="mt-2 small"><%= @ulule_buddy_orders[order["id"].to_s]&.dig(:name).presence || order["user"]["name"] %></div>
-        <% if @debug_mode %>
+        <% if @debug %>
           <div class="small text-muted">
             <div><%= l(order["created_at"].to_datetime, format: "%d/%m/%Y %H:%M") %></div>
             <div class="small">Order ID <%= order["id"] %></div>

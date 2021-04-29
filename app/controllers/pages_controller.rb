@@ -5,6 +5,7 @@ class PagesController < ApplicationController
 
   def donateurs
     @force = params[:force].present?
+    @debug = params[:debug].present?
     @ulule_buddy_orders = Rails.cache.fetch(:ulule_buddy_orders, expires_in: 1.hour, force: @force) do
       UluleBuddyOrder.all.each_with_object({}) do |e, m|
         m[e.order_id] = {
