@@ -8,7 +8,7 @@
   </h1>
 
   <p class="text-justify text-sm-left">Merci à tous les donateurs qui nous permettent d'améliorer la plateforme,
-   de continuer à former de nouveaux professionnels de santé et surtout d'accélérer la vaccination en France.</p>
+    de continuer à former de nouveaux professionnels de santé et surtout d'accélérer la vaccination en France.</p>
 
   <%= link_to "En savoir plus sur la campagne", @project["absolute_url"], target: "_blank", rel: "noopener", class: "btn btn-info btn-primary mt-2 mt-md-0" %>
   <% unless @project["finished"] %>
@@ -25,13 +25,14 @@
             <span class="badge badge-primary mr-2"><%= distance_of_time_in_words(@project["date_end"].to_time.to_i - Time.zone.now.to_i) %>
               restant</span>
           <% end %>
-          <div class="font-weight-bold text-primary mt-2 mt-sm-0">Objectif : <%= [@project["goal"], @project["currency"]].join(" ") %></div>
+          <div class="font-weight-bold text-primary mt-2 mt-sm-0">Objectif
+            : <%= [@project["goal"], @project["currency"]].join(" ") %></div>
         </div>
         <div class="d-flex align-items-center">
           <span class="text-primary font-weight-bold mr-2"><%= @project["percent"] %>%</span>
           <div class="progress-bg rounded">
             <div class="progress-bar rounded" style="width: <%= @project["percent"] %>%">
-              <div class="raised"><%= [@project["amount_raised"], @project["currency"]].join(" ") %> levée</div>
+              <div class="raised"><%= @project["amount_raised"] %>€ levés</div>
             </div>
           </div>
         </div>
@@ -94,6 +95,6 @@
       </div>
       <%= render 'donateurs_reward', amount: 150, centers_count: 7, doses_count: 25 %>
       <%= render 'donateurs_list', supporters: @bronze_supporters %>
-    <% end %>
+  <% end %>
   </div>
 </div>
