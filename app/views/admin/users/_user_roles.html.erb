@@ -1,0 +1,41 @@
+<% if current_user.roles.any? %>
+  <% Rails.application.config.x.covidliste["admin_roles"].each do |role_name, role_config| %>
+    <% if user.roles.map(&:name).include? "#{role_name}"  %>
+      <span class="badge badge-primary" data-toggle="tooltip" data-placement="top"
+            title="<%= role_name %> (possédé)">
+        <%= role_config[:name] || role_name %>
+      </span>
+    <% elsif user.has_role?(:"#{role_name}") %>
+      <span class="badge badge-info" data-toggle="tooltip" data-placement="top"
+            title="<%= role_name %> (hérité)">
+        <%= role_config[:name] || role_name %>
+      </span>
+    <% else %>
+      <span class="badge badge-secondary" data-toggle="tooltip" data-placement="top"
+            title="<%= role_name %> (non possédé)">
+        <%= role_config[:name] || role_name %>
+      </span>
+    <% end %>
+  <% end %>
+  <% if user.has_role?(:volunteer) %>
+    <span class="badge badge-info" data-toggle="tooltip" data-placement="top"
+          title="volunteer (hérité)">
+      Volontaire
+    </span>
+  <% else %>
+    <span class="badge badge-secondary" data-toggle="tooltip" data-placement="top"
+          title="volunteer (non possédé)">
+      Volontaire
+    </span>
+  <% end %>
+  <% user.roles.map(&:name).each do |role_name| %>
+    <% unless Rails.application.config.x.covidliste["admin_roles"].include? :"#{role_name}"  %>
+      <span class="badge badge-danger" data-toggle="tooltip" data-placement="top"
+            title="<%= role_name %> (possédé inconnu)">
+        <%= role_name %>
+      </span>
+    <% end %>
+  <% end %>
+<% else %>
+  <em>Aucun role</em>
+<% end %>

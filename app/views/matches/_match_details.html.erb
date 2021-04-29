@@ -1,32 +1,49 @@
+<% user = match.user %>
+<% vaccination_center = match.vaccination_center %>
+
 <div>
   <div>
     <i class="fas fa-map-pin"></i>
-    <strong> Adresse du centre de vaccination </strong>
-    <p><%= match.vaccination_center.address %></p>
+    <% if match.confirmed? || vaccination_center.lat.blank? || vaccination_center.lon.blank? %>
+      <strong> Adresse du centre de vaccination </strong>
+      <p>
+        <%= vaccination_center.address %>
+      </p>
+    <% else %>
+      <strong> Distance du centre de vaccination </strong>
+      <p>
+        <% distance = distance_delta({ lat: user.lat, lon: user.lon}, { lat: vaccination_center.lat, lon: vaccination_center.lon }) %>
+        <%= distance[:delta_in_words] %>
+      </p>
+    <% end %>
   </div>
 
   <div>
     <i class="fas fa-clock"></i>
     <strong> Créneau horaire </strong>
-    <p> Entre <%= match.campaign.starts_at.strftime('%Hh%M') %> et <%= @match.campaign.ends_at.strftime('%Hh%M')%></p>
+    <% starts_at = match.campaign.starts_at %>
+    <% ends_at = match.campaign.ends_at %>
+    <p>
+      <%= l(starts_at, format: '%A %e %B %Y').capitalize %> entre <%= l(starts_at, format: '%Hh%M') %>
+      et <%= l(ends_at, format: '%Hh%M') %>
+    </p>
   </div>
-
-  <% user = match.user %>
 
   <% if user.blank? %>
     <div>
       <i class="fas fa-minus-circle"></i>
       <p>L’utilisateur a supprimé son compte.</p>
     </div>
-  <%# elsif user.anonymized_at #TODO PR #197 %>
+    <%# elsif user.anonymized_at #TODO PR #197 %>
   <% else %>
     <div>
       <i class="fas fa-user-lock"></i>
+      <strong> Informations personnelles </strong>
       <p>
-        Réservé pour <strong><%= user.full_name %></strong><br>
-        Né le <strong><%= user.birthdate %></strong><br>
-        Réservation strictement nominative. <br>
-        <strong>Date de naissance et nom seront vérifiés.</strong>   
+        Date de naissance : <strong><%= user.birthdate.strftime('%d/%m/%Y') %></strong><br>
+        <strong>Date de naissance et nom seront vérifiés.</strong> <br>
+        Munissez-vous d'une pièce d'identité et de votre
+        carte vitale.<br>
       </p>
     </div>
   <% end %>

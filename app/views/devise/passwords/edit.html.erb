@@ -1,11 +1,13 @@
 <div id="devise">
   <div class="container">
     <div class="row mt-5">
-      <div class="col-12 col-sm-6 offset-sm-3">
+      <div class="col-12 col-sm-6 offset-sm-3" data-controller="password">
         <p>
           <strong>Choisir un mot de passe</strong>
         </p>
-
+        <small class="form-text text-muted"> 
+          <%= "#{User::PASSWORD_HINT}" %>
+        </small>
         <% if resource.errors.any? %>
           <div class="alert alert-danger" role="alert" style="position: inherit">
             <% resource.errors.full_messages.each do |msg| %>
@@ -14,9 +16,12 @@
           </div>
         <% end %>
 
+        <small class="form-text text-muted"> 
+          <%= content_tag :span, "", data: { password_target: "passwordCheck" }, class: "d-inline-block" %>
+        </small>
         <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
           <%= f.hidden_field :reset_password_token %>
-          <%= f.input :password, autofocus: true, required: true, id: "inputPassword", autocomplete: "off" %>
+          <%= f.input :password, autofocus: true, required: true, id: "inputPassword", autocomplete: "off", input_html: { data: { password_target: "password", action: "input->password#check"} } %>
           <%= f.input :password_confirmation, autofocus: true, required: true, id: "inputPasswordConfirmation", autocomplete: "off" %>
           <%= f.submit "C’est parti !", class: "btn btn-primary" %>
         <% end %>

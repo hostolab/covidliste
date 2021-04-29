@@ -18,12 +18,16 @@ Turbolinks.start();
 
 import { placesAutocomplete } from "../plugins/places_autocomplete";
 import { leafletMap } from "../plugins/leaflet_map";
+import { userMap } from "../plugins/user_map";
 import { togglePasswordVisibility } from "../components/toggle_password_visibility";
+import { smoothScrollAnchor } from "../components/smooth_scroll_anchor";
 document.addEventListener("turbolinks:load", () => {
   const appId = process.env.PLACES_APP_ID;
   const apiKey = process.env.PLACES_API_KEY;
   placesAutocomplete(appId, apiKey);
   leafletMap();
+  userMap();
   togglePasswordVisibility();
+  smoothScrollAnchor();
   $('[data-toggle="tooltip"]').tooltip();
 });

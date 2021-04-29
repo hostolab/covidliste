@@ -1,0 +1,35 @@
+<%= content_for(:append_to_head) do %>
+<meta content="index;follow" name="robots"/>
+<% end %>
+
+<div class="container my-5" id="faq">
+  <div class="d-flex align-items-center mb-4">
+    <div class="rounded p-3 bg-light text-primary mr-3 h2">
+      <%= icon("fas", "hospital-user") %>
+    </div>
+    <h3>
+      Foire aux questions pour les professionnels de santé
+    </h3>
+  </div>
+
+  <p>
+    Vous trouverez sur cette page un ensemble de réponses aux questions les plus posées
+    pour les professionnels de santé, regroupées par thème.
+  </p>
+
+  <p class="mb-4">
+    Si vous n'êtes pas un professionnel de santé, consultez la
+    <%= link_to "foire aux questions pour les volontaires à la vaccination", faq_path %>.
+  </p>
+
+  <div id="accordion">
+    <% current_category = nil %>
+    <% @faq_items.each do |faq_item| %>
+      <% if current_category != faq_item.category %>
+        <h2 class="mt-5 mb-3"><%= current_category = faq_item.category %></h2>
+      <% end %>
+
+      <%= render "faq_entry", faq_item: faq_item %>
+    <% end %>
+  </div>
+</div>

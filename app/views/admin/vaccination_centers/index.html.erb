@@ -63,7 +63,7 @@
               </td>
               <td><%= vaccination_center.kind %></td>
               <td><%= vaccination_center.address %></td>
-              <td><%= vaccination_center.phone_number %></td>
+              <td><%= vaccination_center.human_friendly_phone_number %></td>
               <td>
                 <% if vaccination_center.pfizer %>
                   <span class="mr-1"><%= Vaccine::Brands::PFIZER.capitalize %></span>
@@ -81,7 +81,7 @@
               <td>
                 <% if vaccination_center.confirmed? %>
                   <%= icon("fas", "check", class: "text-success") %>
-                  <span title="Validé par #{vaccination_center.confirmer&.full_name} le #{vaccination_center.confirmed_at}", data-toggle="tooltip"> Oui </span>
+                  <span title="<%= "Validé par #{vaccination_center.confirmer} le #{vaccination_center.confirmed_at}" %>", data-toggle="tooltip"> Oui </span>
                 <% else %>
                   <%= icon("fas", "times", class: "text-danger") %>
                   Non

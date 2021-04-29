@@ -1,11 +1,12 @@
 class Campaign < ApplicationRecord
   MAX_DOSES = 200
   MAX_DISTANCE_IN_KM = 50
+  MAX_SMS_BUDGET_BY_DOSE = 20
+  OVERBOOKING_FACTOR = 40
 
   belongs_to :vaccination_center
   belongs_to :partner
 
-  has_many :campaign_batches
   has_many :matches
 
   enum status: {running: 0, completed: 1, canceled: 2}
@@ -18,8 +19,37 @@ class Campaign < ApplicationRecord
   validate :min_age_lesser_than_max_age
   validate :starts_at_lesser_than_ends_at
 
-  def remaining_slots
-    available_doses - matches.confirmed.size
+  before_create :set_algo_version
+
+  def canceled!
+    update_attribute(:canceled_at, Time.now.utc)
+    super
+  end
+
+  def remaining_doses
+    [available_doses - matches.confirmed.count, 0].max
+  end
+
+  def target_matches_count
+    # number of people to target at any point in time
+    remaining_doses * OVERBOOKING_FACTOR
+  end
+
+  def sms_budget_remaining
+    (available_doses * MAX_SMS_BUDGET_BY_DOSE) - matches.with_sms.count
+  end
+
+  def reachable_users_query(limit: nil)
+    User.confirmed.active
+      .where("EXTRACT(YEAR FROM AGE(birthdate))::int BETWEEN ? AND ?", min_age, max_age)
+      .where("SQRT(((? - lat)*110.574)^2 + ((? - lon)*111.320*COS(lat::float*3.14159/180))^2) < ?", vaccination_center.lat, vaccination_center.lon, max_distance_in_meters / 1000)
+      .where("id not in (
+        select user_id from matches
+        where user_id is not null
+        and ((created_at >= now() - interval '24 hours') or (confirmed_at is not null))
+        )") # exclude user_id that have been matched in the last 24 hours, or confirmed
+      .order("RANDOM()")
+      .limit(limit)
   end
 
   def to_csv
@@ -32,11 +62,19 @@ class Campaign < ApplicationRecord
           match.user.firstname || "Anonymous",
           match.user.lastname,
           match.user.birthdate,
-          match.user.phone_number,
+          match.user.human_friendly_phone_number,
           match.confirmed_at
         ]
       end
     end
+  end
+
+  def set_algo_version
+    self.algo_version = "v2" if Flipper.enabled?(:matching_algo_v2)
+  end
+
+  def matching_algo_v2?
+    algo_version == "v2"
   end
 
   private

@@ -5,7 +5,7 @@ FactoryBot.define do
 
     available_doses { 10 }
     starts_at { Time.zone.now }
-    ends_at { starts_at + 10.minutes }
+    ends_at { starts_at + 2.hours }
     min_age { 18 }
     max_age { 80 }
     max_distance_in_meters { 5_000 }

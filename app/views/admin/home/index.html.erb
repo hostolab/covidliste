@@ -1,11 +1,11 @@
 <div class="container">
   <h2 class="mt-4">
-    Espace admin
+    Espace bénévoles
   </h2>
 
   <p class="mt-4">
     <strong>
-      Bonjour <%= current_user.full_name %> 👋
+      Bonjour <%= current_user %> 👋
     </strong>
   </p>
 
@@ -14,15 +14,7 @@
   </p>
 
   <div class="mt-4">
-    Vous possèdez les rôles suivants :
-    <% if current_user.roles.any? %>
-      <ul>
-        <% current_user.roles.each do |role| %>
-          <li><%= role.name %></li>
-        <% end %>
-      </ul>
-    <% else %>
-      <em>Aucun role</em>
-    <% end %>
+    <p>Vous possèdez les rôles/accès suivants :</p>
+    <%= render partial: "admin/users/user_roles", locals: { user: current_user } %>
   </div>
 </div>

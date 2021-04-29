@@ -1,15 +1,21 @@
 class AnonymizeConfirmedMatchedUsersJob < ActiveJob::Base
   queue_as :default
 
+  DELAY_AFTER_MATCH_CONFIRMATION = 3.days
+
   def perform
-    users_to_anonymize.map(&:anonymize!)
+    users_to_anonymize.find_each do |user_to_anonymize|
+      user_email = user_to_anonymize.email
+      user_to_anonymize.anonymize!
+      MatchMailer.with(user_email: user_email).send_anonymisation_notice.deliver_later
+    end
   end
 
   private
 
   def users_to_anonymize
     a_month_ago = Date.today - 1.month
-    three_days_ago = Date.today - 3.days
+    three_days_ago = DELAY_AFTER_MATCH_CONFIRMATION.ago
 
     User.distinct
       .joins("JOIN matches ON matches.user_id = users.id")
@@ -18,9 +24,3 @@ class AnonymizeConfirmedMatchedUsersJob < ActiveJob::Base
       .where(anonymized_at: nil)
   end
 end
-
-Sidekiq::Cron::Job.create(
-  name: "Anonymize all users with confirmed match from 3 days ago and more",
-  cron: "0 3 * * *",
-  class: "AnonymizeConfirmedMatchedUsersJob"
-)

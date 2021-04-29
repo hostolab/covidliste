@@ -14,7 +14,7 @@
     <% if @vaccination_center.confirmed? %>
       <%= icon("fas", "check", class: "text-success") %>
       Validé par
-      <strong><%= @vaccination_center.confirmer&.full_name %></strong>
+      <strong><%= @vaccination_center.confirmer %></strong>
       le <%= l @vaccination_center.confirmed_at %>
 
     <% else %>
@@ -55,7 +55,7 @@
   </p>
 
   <p class="mb-2">
-    <%= icon("fas", "phone", @vaccination_center.phone_number) %>
+    <%= icon("fas", "phone", @vaccination_center.human_friendly_phone_number) %>
   </p>
 
   <p>
@@ -99,16 +99,14 @@
       <table class="table table-bordered table-sm">
         <thead class="thead-light">
           <tr>
-            <th> # </th>
-            <th> Date </th>
-            <th> Type de vaccin </th>
-            <th> Nombre de doses </th>
-            <th> Âge min. </th>
-            <th> Âge max. </th>
-            <th> Distance max. (km) </th>
-            <th> Nombre de matchs </th>
-            <th> Rdv confirmés </th>
-            <th> Statut </th>
+            <th scope="col"> # </th>
+            <th scope="col"> Date et heure du RDV </th>
+            <th scope="col"> Statut </th>
+            <th scope="col"> Âge </th>
+            <th scope="col" title="Distance" data-toggle="tooltip"> Dist. </th>
+            <th scope="col"> Doses </th>
+            <th scope="col"> Matchs </th>
+            <th scope="col"> Création </th>
           </tr>
         </thead>
 
@@ -116,15 +114,25 @@
           <% @vaccination_center.campaigns.order(id: :desc).each do |campaign| %>
             <tr>
               <td class="text-right"> <%= campaign.id %> </td>
-              <td> <%= campaign.created_at.strftime('%d-%m-%Y') %> </td>
-              <td> <%= campaign.vaccine_type %> </td>
-              <td> <%= campaign.available_doses %> </td>
-              <td> <%= campaign.min_age %> </td>
-              <td> <%= campaign.max_age %> </td>
-              <td> <%= campaign.max_distance_in_meters / 1000 %> </td>
-              <td> <%= campaign.matches.count %> </td>
-              <td> <%= campaign.matches.confirmed.count %> </td>
-              <td> <%= campaign.status %> </td>
+              <td>
+                <%= l(campaign.starts_at, format: '%e %B %Y') %>
+                entre <%= l(campaign.starts_at, format: '%Hh%M') %>
+                et <%= l(campaign.ends_at, format: '%Hh%M') %>
+              </td>
+              <td> <%= french_status(campaign) %> </td>
+              <td> <%= campaign.min_age %> - <%= campaign.max_age %> </td>
+              <td> <%= campaign.max_distance_in_meters / 1000 %> km </td>
+              <td>
+                <%= campaign.vaccine_type.capitalize %>
+                <span class="text-muted">x</span>
+                <%= campaign.available_doses %>
+              </td>
+              <td title="<%= campaign.matches.confirmed.size %> confirmés / <%= campaign.matches.count %> matchés" data-toggle="tooltip">
+                <%= campaign.matches.confirmed.size %> / <%= campaign.matches.count %>
+              </td>
+              <td title="<%= l campaign.created_at %> par <%= campaign.partner.name %>" data-toggle="tooltip">
+                <%= l campaign.created_at %>
+              </td>
             </tr>
           <% end %>
         </tbody>
@@ -155,7 +163,7 @@
               <td class="text-right"> <%= partner.id %> </td>
               <td> <%= partner.name %> </td>
               <td> <%= partner.email %> </td>
-              <td> <%= partner.phone_number %> </td>
+              <td> <%= partner.human_friendly_phone_number %> </td>
               <td class="text-center" title="<%= partner.confirmed_at.present? ? "Confirmé le #{l(partner.confirmed_at)}" : "" %>">
                 <%= humanize_boolean partner.confirmed_at.present? %>
               </td>

@@ -1,26 +1,16 @@
 class UsersController < ApplicationController
-  include ActionView::Helpers::NumberHelper
   before_action :authenticate_user!, except: %i[new create]
   before_action :sign_out_if_anonymized!
   invisible_captcha only: [:create], honeypot: :subtitle
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   def new
     skip_authorization
     if current_partner
       redirect_to partners_vaccination_centers_path
-    elsif current_user
-      redirect_to profile_path
     else
-      @user = User.new
-      @users_count = Rails.cache.fetch(:users_count, expires_in: 1.minute) do
-        number_with_delimiter(User.count, locale: :fr).gsub(" ", "&nbsp;").html_safe
-      end
-      @matched_users_count = Rails.cache.fetch(:matched_users_count, expires_in: 1.minute) do
-        number_with_delimiter(Match.confirmed.count, locale: :fr).gsub(" ", "&nbsp;").html_safe
-      end
-      @vaccination_centers_count = Rails.cache.fetch(:vaccination_centers_count, expires_in: 1.minute) do
-        number_with_delimiter(VaccinationCenter.confirmed.count, locale: :fr).gsub(" ", "&nbsp;").html_safe
-      end
+      @user = User.new(birthdate: Date.today.change(year: 1961))
+      set_counters
     end
   end
 
@@ -39,7 +29,9 @@ class UsersController < ApplicationController
   def update
     @user = current_user
     authorize @user
-    if @user.update(user_params)
+    @user.statement_accepted_at = Time.now.utc if !@user.statement && ActiveRecord::Type::Boolean.new.cast(user_params["statement"])
+    @user.assign_attributes(user_params)
+    if @user.save
       flash.now[:success] = "Modifications enregistrées."
     else
       flash.now[:error] = "Impossible d'enregistrer vos modifications."
@@ -50,8 +42,14 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    @user.address = params[:user][:address]
+    @user.ensure_lat_lon(params[:user][:address]) # fallback in case lat/lon are not returning from client
+    @user.statement_accepted_at = Time.zone.now if @user.statement
+    @user.toc_accepted_at = Time.zone.now if @user.toc
     authorize @user
     @user.save
+    set_counters
+    prepare_phone_number
     render action: :new
   rescue ActiveRecord::RecordNotUnique
     flash.now[:error] = "Une erreur s’est produite."
@@ -68,13 +66,19 @@ class UsersController < ApplicationController
 
   private
 
+  def set_counters
+    @users_count = Rails.cache.fetch(:users_count, expires_in: 30.minutes) { User.count }
+    @confirmed_matched_users_count = Rails.cache.fetch(:confirmed_matched_users_count, expires_in: 30.minutes) { Match.confirmed.count }
+    @matched_users_count = Rails.cache.fetch(:matched_users_count, expires_in: 30.minutes) { Match.distinct.count("user_id") + Match.confirmed.count }
+    @vaccination_centers_count = Rails.cache.fetch(:vaccination_centers_count, expires_in: 30.minutes) { VaccinationCenter.confirmed.count }
+  end
+
   def prepare_phone_number
-    human_friendly_phone_number = @user.human_friendly_phone_number
-    @user.phone_number = human_friendly_phone_number unless human_friendly_phone_number.nil?
+    @user.phone_number = @user.human_friendly_phone_number
   end
 
   def user_params
-    params.require(:user).permit(:firstname, :lastname, :email, :phone_number, :toc, :address, :birthdate, :password, :statement)
+    params.require(:user).permit(:email, :phone_number, :toc, :lat, :lon, :birthdate, :password, :statement)
   end
 
   def sign_out_if_anonymized!
@@ -83,5 +87,13 @@ class UsersController < ApplicationController
       sign_out
       redirect_to root_path
     end
+  end
+
+  def user_not_authorized(exception)
+    policy_name = exception
+      .policy.class.to_s.underscore
+    message = exception.message || (t "#{policy_name}.#{exception.query}", scope: "pundit", default: :default)
+    flash[:error] = message
+    redirect_back(fallback_location: root_path)
   end
 end

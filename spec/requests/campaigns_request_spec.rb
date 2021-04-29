@@ -23,7 +23,7 @@ RSpec.describe "Campaigns", type: :request do
       expect(response).to have_http_status(:ok)
       expect(response.content_type).to eq("application/json; charset=utf-8")
       json_response = JSON.parse(response.body)
-      expect(json_response["reach"]).to eq 1 # Special case in dev/test envs
+      expect(json_response["reach"]).to eq 0
       expect(json_response["enough"]).to eq false
     end
   end

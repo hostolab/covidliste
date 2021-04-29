@@ -1,23 +1,39 @@
 // Covidliste colors
 
-$purple900: #2c1b2d;
+$purple1000: #2c1b2d;
+$purple900: #301044;
+$purple700: #592c66;
 $purple500: #8c588f;
-$purple200: #ede2ee;
+$purple300: #c7a6c9;
+$purple100: #ede2ee;
 
+$blue900: #002778;
+$blue700: #0065b8;
 $blue500: #0089fb;
-$blue200: #d1f4ff;
+$blue300: #70bfff;
+$blue100: #ebf6ff;
 
+$green900: #1a6047;
+$green700: #30b081;
 $green500: #58d1a5;
-$green200: #e2faf1;
+$green300: #9fe5cb;
+$green100: #e2faf1;
 
+$red900: #6b0629;
+$red700: #a11029;
 $red500: #e02020;
+$red300: #f58d77;
+$red100: #fdeded;
 
-$yellow500: #ffe590;
-$yellow400: #f9e7ae;
-$yellow200: #fef8e7;
+$yellow900: #7a5201;
+$yellow700: #b78505;
+$yellow500: #ffc60a;
+$yellow300: #ffe590;
+$yellow100: #fef8e7;
 
 // Override bootstrap default colors
 $primary: $purple500;
+$secondary: $purple700;
 $success: $green500;
 $info: $blue500;
 $danger: $red500;
@@ -25,3 +41,9 @@ $warning: $yellow500;
 
 // Override specific bootstrap colors
 $body-bg: white;
+$dark: $purple1000;
+$light: $purple100;
+
+$theme-colors: (
+  "yellow": $yellow300,
+);

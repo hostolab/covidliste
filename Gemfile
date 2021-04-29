@@ -5,7 +5,7 @@ ruby ::File.read(::File.expand_path(".ruby-version", __dir__))
 
 gem "rails", "~> 6.1.1"
 
-gem "bootsnap", ">= 1.4.4", require: false
+gem "bootsnap", github: "Shopify/bootsnap", branch: "handle-race-conditions"
 gem "jbuilder", "~> 2.7"
 gem "pg", "~> 1.1"
 gem "puma", "~> 5.0"
@@ -43,7 +43,7 @@ gem "pg_search"
 gem "pghero"
 gem "phonelib"
 gem "rolify"
-gem "sidekiq"
+gem "sidekiq", "5.2.5"
 gem "sidekiq-cron"
 gem "sidekiq-failures"
 gem "sib-api-v3-sdk"
@@ -56,10 +56,19 @@ gem "lefthook"
 gem "pundit", "~> 2.1"
 gem "rack-attack"
 gem "invisible_captcha"
-gem "ddtrace"
+gem "lograge"
+gem "logstash-event"
+gem "ddtrace", "0.35.2"
+gem "devise_zxcvbn"
+gem "devise-passwordless"
+gem "ahoy_email"
+gem "redlock"
+gem "react_on_rails", "12.2.0"
+gem "mini_racer", platforms: :ruby
 
 group :development, :test do
   gem "dotenv-rails", "2.7.6"
+  gem "factory_bot_rails"
   gem "faker", git: "https://github.com/faker-ruby/faker.git", branch: "master"
   gem "pry-byebug"
   gem "pry-rails"
@@ -80,7 +89,6 @@ group :test do
   gem "codecov", require: false
   gem "cuprite"
   gem "database_cleaner-active_record"
-  gem "factory_bot_rails"
   gem "rails-controller-testing"
   gem "rspec-rails", "~> 4.0.0"
   gem "rspec-sidekiq"

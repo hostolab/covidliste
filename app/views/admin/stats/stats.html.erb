@@ -44,18 +44,20 @@
             <th> # Volontaires </th>
           </tr>
         <% @count_by_age.each do |k| %>
-          <td> <%= k[0] %> </td>
-          <td> <%= k[1] %> </td>
+          <tr>
+            <td> <%= k[0] %> </td>
+            <td> <%= k[1] %> </td>
+          </tr>
         <% end %>
         </table>
       </div>
     </div>
   </div>
 
-  <div class="mt-4" id="leaflet_map" style="height: 600px;" data-lat="<%= @lat %>" data-lng="<%= @lon %>" data-address="<%= @address %>" data-border="<%= bounds %>" data-icon="<%= asset_path("map/markers/firstaid.png") %>">
+  <div class="mt-4" id="leaflet_map" style="height: 600px;" data-lat="<%= @lat %>" data-lon="<%= @lon %>" data-address="<%= @address %>" data-icon="<%= asset_path("map/markers/firstaid.png") %>">
     <div id="leaflet_markers" class="d-none">
       <% @results.each do |user| %>
-        <div class="leaflet-marker" data-lat="<%= user.lat %>" data-lng="<%= user.lon %>" data-icon="<%= user.age && user.age >= 0 && user.age < 150 ? asset_path("map/markers/number_" + user.age.to_s+".png") : asset_path("map/markers/symbol_inter.png") %>">
+        <div class="leaflet-marker" data-lat="<%= user.lat %>" data-lon="<%= user.lon %>" data-icon="<%= user.age && user.age >= 0 && user.age < 150 ? asset_path("map/markers/number_" + user.age.to_s+".png") : asset_path("map/markers/symbol_inter.png") %>">
           <strong>
             id <%= user.id %>
           </strong>

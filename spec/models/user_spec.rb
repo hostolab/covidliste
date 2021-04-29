@@ -10,16 +10,16 @@ RSpec.describe User, type: :model do
 
     it "is invalid without a first_name" do
       user.firstname = nil
-      expect(user).to_not be_valid
+      expect(user).to be_valid
     end
 
     it "is invalid without a last_name" do
       user.lastname = nil
-      expect(user).to_not be_valid
+      expect(user).to be_valid
     end
 
-    it "is invalid without an address" do
-      user.address = nil
+    it "is invalid without lat or lon" do
+      user.lat = nil
       expect(user).to_not be_valid
     end
 
@@ -31,6 +31,26 @@ RSpec.describe User, type: :model do
     it "is invalid without an email" do
       user.email = nil
       expect(user).to_not be_valid
+    end
+  end
+
+  describe "latitude/lontidude" do
+    it "randomize lat/lon at user creation" do
+      lat = 48.345
+      lon = 2.123
+      user = create(:user, lat: lat, lon: lon)
+      expect(user.lat).to_not eq(lat)
+      expect(user.lon).to_not eq(lon)
+    end
+
+    it "randomize lat/lon at user update" do
+      lat = 48.345
+      lon = 2.123
+      user = create(:user)
+      user.reload
+      user.update(lat: lat, lon: lon)
+      expect(user.lat).to_not eq(lat)
+      expect(user.lon).to_not eq(lon)
     end
   end
 
@@ -80,6 +100,24 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe "to_s" do
+    it "should return email" do
+      user = User.new(email: "test@coviliste.com")
+      expect(user.to_s).to eq("test@coviliste.com")
+    end
+
+    it "should return firstname + lastname" do
+      user = User.new(firstname: "George", lastname: "Abitbol")
+      expect(user.to_s).to eq("George Abitbol")
+    end
+
+    it "should return Anonymous" do
+      user = create(:user)
+      user.anonymize!
+      expect(user.to_s).to eq("Anonymous")
+    end
+  end
+
   describe "Anonymisation" do
     it "anonymise every fields" do
       user = create(:user)
@@ -116,6 +154,31 @@ RSpec.describe User, type: :model do
       today = Time.now.utc.to_date
       user.birthdate = today - 20.years - 1.day
       expect(user.age).to eq(20)
+    end
+  end
+
+  describe "Roles" do
+    context "super admin" do
+      before { user.add_role(:super_admin) }
+      it "should have all roles" do
+        expect(user.has_role?(:admin)).to eq(true)
+        expect(user.has_role?(:dev_admin)).to eq(true)
+        expect(user.has_role?(:supply_admin)).to eq(true)
+        expect(user.has_role?(:supply_member)).to eq(true)
+        expect(user.has_role?(:support_admin)).to eq(true)
+        expect(user.has_role?(:support_member)).to eq(true)
+        expect(user.has_role?(:volunteer)).to eq(true)
+      end
+    end
+
+    context "support member" do
+      before { user.add_role(:support_member) }
+      it "should not have admin roles" do
+        expect(user.has_role?(:admin)).to eq(false)
+        expect(user.has_role?(:super_admin)).to eq(false)
+        expect(user.has_role?(:supply_admin)).to eq(false)
+        expect(user.has_role?(:support_admin)).to eq(false)
+      end
     end
   end
 end

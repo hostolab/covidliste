@@ -1,14 +1,14 @@
 <div>
-  <h2>
-    Bonne nouvelle <%= @match.user.full_name %> !
-  </h2>
-
   <p>
-    Un vaccin <%= @match.campaign.vaccine_type  %> est disponible. Réservez-le avant <%= @match.expires_at.strftime("%Hh%M") %> en cliquant sur le lien suivant :
-    <%= link_to "Je réserve mon vaccin", match_url(@match, match_confirmation_token: @match_confirmation_token) %>
-    <br>
-    Si le lien ne fonctionne pas, copiez et collez l’adresse suivante dans votre navigateur :
-    <%= match_url(@match, match_confirmation_token: @match_confirmation_token) %>
+    Bonne nouvelle !
+  </p>
+  <p>
+    Un vaccin est disponible près de chez vous. <br>
+    Réservez-le vite en cliquant sur le lien suivant : <%= link_to "Je réserve mon vaccin", match_url(match_confirmation_token: @match_confirmation_token, source: 'email') %>
+  </p>
+  <p>
+    Si le lien ne fonctionne pas, copiez et collez l’adresse suivante dans votre navigateur : <br>
+    <%= match_url(match_confirmation_token: @match_confirmation_token, source: 'email') %>
   </p>
 
   <%= render "mailer/footer" %>

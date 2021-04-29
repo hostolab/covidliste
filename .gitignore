@@ -35,6 +35,7 @@
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+
 # Ignore .env file containing credentials.
 .env*
 
@@ -46,3 +47,10 @@ yarn-debug.log*
 *.dump
 .idea/*
 coverage/*
+
+# Dockers volumes
+/database_data
+/redis_data
+/gems
+/node_modules
+/packs

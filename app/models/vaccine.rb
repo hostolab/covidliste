@@ -18,11 +18,7 @@ class Vaccine < ApplicationRecord
   end
 
   def self.overbooking_factor(vaccine)
-    case vaccine
-    when Brands::ASTRAZENECA
-      3
-    else
-      2
-    end
+    return 3 if vaccine == Brands::ASTRAZENECA
+    4
   end
 end

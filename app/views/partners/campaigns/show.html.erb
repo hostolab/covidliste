@@ -1,6 +1,6 @@
 <%# Poor's man real-time feature, reload every 10s while the campaign is running. %>
 
-<% if @campaign.running? %>
+<% if @campaign.running? || @campaign.matches&.pending&.maximum(:expires_at) %>
   <script>
     setTimeout(function() { document.location.reload(); }, 10000)
   </script>
@@ -16,10 +16,10 @@
 
     <% if @campaign.running? %>
       <span class="small">
-        <%= link_to "Annuler",
+        <%= link_to "Interrompre",
                     partners_campaign_path(@campaign, cancel: true),
                     method: :patch,
-                    data: { confirm: "Êtes-vous sûr de vouloir annuler la recherche de volontaires pour cette campagne ?" },
+                    data: { confirm: "Êtes-vous sûr de vouloir interrompre la recherche de volontaires pour cette campagne ? Attention l'interruption n'est pas immédiate car les volontaires déjà notifiés peuvent confimer jusqu'à la fin de la campagne." },
                     class: "btn btn-sm btn-danger" %>
       </span>
     <% end %>
@@ -41,7 +41,7 @@
     </h2>
   </div>
 
-  <div class="row justify-content-center mt-4">
+  <div class="row justify-content-center mt-4 mb-5">
     <div class="col-4 flex-column d-flex align-items-center">
       <%= icon("fas", "paper-plane", style: "font-size: 2rem;") %>
 
@@ -57,14 +57,51 @@
         <%= @campaign.matches.confirmed.size %> volontaires confirmés
       </h3>
     </div>
+
+    <div class="col-4 flex-column d-flex align-items-center">
+      <%= icon("fas", "user-times", style: "font-size: 2rem;") %>
+
+      <h3 class="text-center mt-2">
+        <%= @campaign.matches.refused.size %> volontaires ayant refusé
+      </h3>
+    </div>
   </div>
 
-  <h2 class="mb-4">
+  <% if @campaign.running? %>
+    <div class="alert alert-primary" role="alert">
+      <strong>Votre campagne est actuellement en cours.</strong><br/>
+      La liste des volontaires ne sera complète que lorsque votre campagne sera terminée ou interrompue.
+    </div>
+  <% elsif @campaign.canceled? && @campaign.matches&.pending&.maximum(:expires_at) %>
+    <div class="alert alert-danger" role="alert">
+      <strong>Votre campagne est en cours d'interruption.</strong><br/>
+      Des volontaires ont encore la possibilité de confirmer des RDV jusqu'à
+      <%= @campaign.matches&.pending&.maximum(:expires_at)&.strftime('%Hh%M') %>.<br/>
+      La liste des volontaires ne sera complète que lorsque votre campagne sera totalement interrompue.
+    </div>
+  <% elsif @campaign.completed? || @campaign.canceled? %>
+    <div class="alert alert-success" role="alert">
+      <strong>Votre campagne est terminée.</strong><br/>
+      La liste des volontaires est maintenant complète et vous pouvez la
+      <%= link_to "télécharger en CSV", partners_campaign_path(@campaign, format: :csv) %>
+      ou
+      <%= link_to "imprimer cette page", "javascript:print()" %>
+      si vous le souhaitez.<br />
+      Vérifiez bien l'identité des volontaires qui se présentent (nom, prénom et date de naissance) en consultant la liste.
+    </div>
+  <% end %>
+
+  <h2 class="mt-5 mb-4">
     Volontaires confirmés
   </h2>
 
   <p>
-    Ces informations seront supprimées définitivement ce soir à minuit.
+    Les volontaires devront se présenter le <%= @campaign.starts_at.strftime('%d/%m/%Y') %> entre
+    <%= @campaign.starts_at.strftime('%Hh%M') %> et <%= @campaign.ends_at.strftime('%Hh%M')%>
+  </p>
+
+  <p>
+    Ces informations seront supprimées définitivement dans quelques jours.
     <br>
     Ces informations ne doivent être utilisées que pour la vaccination des volontaires par votre centre.
   </p>
@@ -86,18 +123,28 @@
         </thead>
 
         <tbody>
-          <% @campaign.matches.confirmed.order(:confirmed_at).reject { |m| m.user.blank? }.each do |match| %>
+          <% @campaign.matches.confirmed.order(:confirmed_at).each do |match| %>
             <% user = match.user %>
 
             <tr>
-              <% if user.anonymized_at %>
-                <td> <em> Anonymized </em> </td>
-                <td> - </td>
-                <td> - </td>
+              <% if user.nil? %>
+                <td colspan="3">
+                  <em class="text-muted">
+                    Ce volontaire a confirmé le RDV puis a supprimé son compte.
+                  </em>
+                </td>
               <% else %>
-                <td> <%= user.full_name %> </td>
-                <td> <%= user.human_friendly_phone_number %> </td>
-                <td> <%= user.birthdate.strftime("%d/%m/%Y") %> </td>
+                <% if user.anonymized_at %>
+                  <td colspan="3">
+                    <em class="text-muted">
+                      Ce volontaire a été anonymisé quelques jours après le RDV.
+                    </em>
+                  </td>
+                <% else %>
+                  <td> <%= user %> </td>
+                  <td> <%= user.human_friendly_phone_number %> </td>
+                  <td> <%= user.birthdate.strftime("%d/%m/%Y") %> </td>
+                <% end %>
               <% end %>
 
               <td> <%= l match.confirmed_at %> </td>

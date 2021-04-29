@@ -1,12 +1,15 @@
 class VaccinationCenter < ApplicationRecord
+  include HasPhoneNumberConcern
+  has_phone_number_types %i[fixed_line mobile voip]
   module Kinds
+    CABINET_INFIRMIER = "Cabinet infirmier"
     CABINET_MEDICAL = "Cabinet médical"
     CENTRE_VACCINATION = "Centre de vaccination"
     EHPAD = "Ehpad"
     HOPITAL = "Hôpital"
     PHARMACIE = "Pharmacie"
 
-    ALL = [CABINET_MEDICAL, CENTRE_VACCINATION, EHPAD, HOPITAL, PHARMACIE].freeze
+    ALL = [CABINET_INFIRMIER, CABINET_MEDICAL, CENTRE_VACCINATION, EHPAD, HOPITAL, PHARMACIE].freeze
   end
 
   include PgSearch::Model
@@ -24,7 +27,11 @@ class VaccinationCenter < ApplicationRecord
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
 
+  after_initialize :approximated_lat_lon
+  attr_reader :approximated_lat, :approximated_lon
+
   after_commit :push_to_slack, on: :create
+  after_commit :geocode_address, if: -> { saved_change_to_address? }
 
   def active?
     confirmed? && !disabled?
@@ -39,9 +46,13 @@ class VaccinationCenter < ApplicationRecord
   end
 
   def can_be_accessed_by?(user, partner)
-    return true if user&.admin?
+    return true if user&.has_role?(:admin)
 
     partners.include?(partner)
+  end
+
+  def geocode_address
+    GeocodeResourceJob.perform_later(self)
   end
 
   def self.to_csv
@@ -73,36 +84,43 @@ class VaccinationCenter < ApplicationRecord
           vaccination_center.name,
           vaccination_center.kind,
           vaccination_center.address,
-          vaccination_center.phone_number,
+          vaccination_center.human_friendly_phone_number,
           vaccin_types,
           vaccination_center.partners&.first&.name,
           vaccination_center.partners&.first&.email,
-          vaccination_center.partners&.first&.phone_number,
+          vaccination_center.partners&.first&.human_friendly_phone_number,
           confirmed
         ]
         if confirmed
-          line += [vaccination_center.confirmer&.full_name, vaccination_center.confirmed_at]
+          line += [vaccination_center.confirmer&.to_s, vaccination_center.confirmed_at].compact
         end
         csv << line
       end
     end
   end
 
-  def reachable_users_query(min_age:, max_age:, max_distance_in_meters:, limit: nil)
-    User.distinct
-      .where.not(confirmed_at: nil)
-      .where(anonymized_at: nil)
-      .where("EXTRACT(YEAR FROM AGE(birthdate))::int BETWEEN ? AND ?", min_age, max_age)
-      .where("SQRT(((? - lat)*110.574)^2 + ((? - lon)*111.320*COS(lat::float*3.14159/180))^2) < ?", lat, lon, max_distance_in_meters / 1000)
-      .joins("LEFT JOIN matches ON matches.user_id = users.id")
-      .where("matches.confirmed_at IS NULL")
-      .where("(matches.id IS NULL) OR (matches.created_at = (SELECT MAX(matches.created_at) FROM matches WHERE users.id = matches.user_id))")
-      .where("(matches.id IS NULL) OR (matches.created_at + interval '1' day < now())")
-      .order(id: :asc)
-      .limit(limit)
+  def flipper_id
+    "#{self.class.name}_#{id}"
+  end
+
+  def build_campaign_smart_defaults
+    last_campaign = campaigns.order(:created_at).last
+    if last_campaign
+      last_campaign_slice = last_campaign.as_json.slice("extra_info", "vaccine_type", "min_age", "max_age", "max_distance_in_meters", "available_doses")
+      campaigns.build(last_campaign_slice)
+    else
+      campaigns.build
+    end
   end
 
   private
+
+  def approximated_lat_lon
+    return if lat.nil? || lon.nil?
+    results = ::RandomizeCoordinatesService.new(lat, lon, 5000).call
+    @approximated_lat = results[:lat]
+    @approximated_lon = results[:lon]
+  end
 
   def push_to_slack
     return unless Rails.env.production?

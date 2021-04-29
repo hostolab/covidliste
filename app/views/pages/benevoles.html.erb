@@ -1,16 +1,63 @@
+<%= provide(:meta_title, "Les bénévoles Covidliste") %>
+<%= provide(:meta_description, "Découvrez notre équipe de bénévoles.") %>
+<%= provide(:meta_image, image_url("meta/benevoles.png")) %>
+
 <%= content_for(:append_to_head) do %>
-<meta content="index;follow" name="robots"/>
+  <meta content="index;follow" name="robots"/>
 <% end %>
 
 <div class="container my-5">
-  <h1>Bénévoles</h1>
+  <h1 class="mb-3">Bénévoles</h1>
 
-  <p>Covidliste est une initiative bénévole et citoyenne qui a vu le jour Il y a quelques semaines pour accélérer la campagne nationale de vaccination contre le Covid19 en distribuant les doses sur le point d'être jetées.</p>
+  <p class="text-justify text-sm-left">Covidliste est une liste d'attente virtuelle pour les professionnels de la vaccination</p>
+  <p class="text-justify text-sm-left">Nous proposons aux professionnels de la santé de notifier notre base de volontaires dès lors qu'une place se libère dans leur agenda vaccinal</p>
+  <p class="text-justify text-sm-left">Nous proposons aux volontaires d'être mis dans la liste d'attente de tous les centres de vaccination proches de chez eux.</p>
+  <p class="text-justify text-sm-left">Grâce à Covidliste, les soignants gagnent de précieuses heures par jour. Finies les heures passées au téléphone pour remplir les créneaux disponibles, c'est Covidliste qui se charge de leur adresser les volontaires en quelques clics.</p>
+  <p class="text-justify text-sm-left">Vous voulez nous rejoindre ? C'est en bas de la page !</p>
 
-  <p>Nous avons besoin de bénévoles pour venir renforcer nos rangs 💪</p>
+  <div class="row my-5">
+    <% @volunteers.each do |volunteer| %>
+      <div class="col-6 col-lg-3 text-center mb-5">
+        <div data-toggle="tooltip" data-placement="top" title="<%= volunteer.role %>">
+          <div>
+            <%= image_tag volunteer.picture_path, height: 150, loading: "lazy", class: "rounded-circle border", alt: volunteer.display_name %>
+          </div>
+          <div class="<%= class_names("mt-3", "text-muted font-italic": volunteer.anon) %>"><%= volunteer.display_name %></div>
+        </div>
+        <div class="small text-muted" data-toggle="tooltip" data-placement="top" title="<%= volunteer.specialty %>"><%= volunteer.bio %></div>
+        <div class="mx-1">
+          <% if volunteer.twitter.present? %>
+            <%= link_to icon("fab", "twitter"), "https://twitter.com/" + volunteer.twitter, class: "text-info", target: "_blank", rel: "noopener" %>
+          <% end %>
+          <% if volunteer.linkedin.present? %>
+            <%= link_to icon("fab", "linkedin"), "" + volunteer.linkedin, class: "text-info mx-2", target: "_blank", rel: "noopener" %>
+          <% end %>
+          <% if volunteer.github.present? %>
+            <%= link_to icon("fab", "github"), "https://github.com/" + volunteer.github, class: "text-dark", target: "_blank", rel: "noopener" %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <h2 id="devenir-benevole">Envie de prendre part au projet ?</h2>
+
+  <p class="mt-4">Nous avons besoin de bénévoles pour venir renforcer nos rangs 💪</p>
+
+  <p class="text-primary small">
+  Tous les champs du formulaire comportant un astérisque (*) sont obligatoires car nécessaires à Hostolab, en tant que responsable de traitement, pour l’examen de votre candidature. A défaut de les remplir, nous ne pourrons pas traiter votre candidature.
+  </p>
+
+  <p class="text-primary small">
+  Conformément à la réglementation applicable, vous disposez d’un droit d’accès, de rectification, de suppression et, le cas échéant, de portabilité de vos données personnelles. Vous pouvez également vous opposer au traitement de vos données et, le cas échéant, en demander la limitation. Vous pouvez enfin définir des directives relatives au sort de vos données en cas de décès. Ces droits peuvent être exercés directement auprès de Hostolab par email à l’adresse suivante : <%= mail_to "privacy@covidliste.com" %>. Au besoin, vous bénéficiez du droit d’introduire une réclamation auprès de la CNIL.
+  </p>
+
+  <p class="text-primary small">
+  Pour en savoir plus sur l’utilisation de vos données personnelles, veuillez consulter la <%= link_to "politique de protection des données personnelles", privacy_volontaires_path %>.
+  </p>
 
   <p class="my-4">
-    <%= link_to "Postuler pour devenir bénévole", "https://form.typeform.com/to/UlzdGjLV", class: "btn btn-primary", target: "_blank", rel: "noopener" %>
+    <%= link_to "Postuler pour devenir bénévole", "https://bit.ly/recrutement-covidliste", class: "btn btn-primary", target: "_blank", rel: "noopener" %>
   </p>
 
   <p>Exemples de missions :</p>

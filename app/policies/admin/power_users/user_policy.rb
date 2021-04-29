@@ -1,15 +1,16 @@
-class Admin::PowerUsers::UserPolicy < ApplicationPolicy
-  class Scope < Scope
-    def resolve
-      if user.super_admin?
-        scope.with_roles
-      else
-        raise Pundit::NotAuthorizedError
+module Admin
+  module PowerUsers
+    class UserPolicy < ApplicationPolicy
+      class Scope < Scope
+        def resolve
+          raise Pundit::NotAuthorizedError unless user.has_role?(:admin)
+          scope.with_roles.distinct
+        end
+
+        def index?
+          raise Pundit::NotAuthorizedError unless user.has_role?(:admin)
+        end
       end
     end
-  end
-
-  def index?
-    user.super_admin?
   end
 end

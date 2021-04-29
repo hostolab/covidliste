@@ -4,13 +4,12 @@
 
 - title: Je n’ai pas reçu d’email de confirmation ou de changement de mot de passe.
   category: Inscription
+  area: main
   body_md_erb: |
     Vérifiez que le mail n’est pas présent dans vos courriers indésirables, ou boîte _SPAM_.
 
     S’il n’est pas présent, vous pouvez faire une nouvelle demande
-    <%= link_to "d’email de confirmation", new_user_confirmation_path %>
-    ou de
-    <%= link_to "changement de mot de passe", new_user_password_path %>.
+    <%= link_to "d’email de confirmation", new_user_confirmation_path %>.
 
     Attendez quelques minutes, vérifiez vos courriers indésirables ou boîte _SPAM_.
 
@@ -23,6 +22,7 @@
 
 - title: Peut-on s’inscrire à deux (ou plus) ?
   category: Inscription
+  area: main
   body_md_erb: |
     Oui ! Chacun doit alors utiliser sa propre adresse email pour s’inscrire.
 
@@ -30,6 +30,7 @@
 
 - title: Je ne suis pas prioritaire ou pas éligible au vaccin, puis-je tout de même m’inscrire ?
   category: Inscription
+  area: main
   body_md_erb: |
     Oui !
     Covidliste est un outil d’ajustement de l’offre et de la demande qui a pour
@@ -43,6 +44,7 @@
 
 - title: Puis-je m’inscrire sur Covidliste si j’ai déjà reçu ma première dose ?
   category: Inscription
+  area: main
   body_md_erb: |
     Covidliste s’adresse aux non vaccinés volontaires en se fixant pour mission de permettre
     à toutes les doses de vaccin disponibles d’être utilisées, en premier lieu
@@ -51,6 +53,7 @@
 
 - title: Comment inscrire deux adresses postales différentes (domicile, travail, etc.) ?
   category: Inscription
+  area: main
   body_md_erb: |
     À ce jour, Covidliste n’autorise qu’une adresse postale par compte.
 
@@ -63,6 +66,7 @@
 # changing it.
 - title: Comment fonctionne la sélection des volontaires ?
   category: Fonctionnement
+  area: main
   body_md_erb: |
     Le centre de vaccination choisit, lors de la création de la campagne, les paramètres suivants :
 
@@ -77,7 +81,7 @@
       * L’âge déclaré du volontaire doit être dans la tranche d’âge choisie par le centre de vaccination.
       * Le volontaire ne doit pas avoir été contacté depuis 1 jour.
 
-    Les volontaires sélectionné(e)s sont ensuite ordonné(e)s par ordre d’inscription (les premiers inscrit(e)s seront les premiers sélectionné(e)s).
+    Les volontaires sélectionné(e)s sont ensuite ordonné(e)s par ordre aléatoire.
 
     Nous rentrons en contact avec chaque volontaire sélectionné(e) à hauteur des doses disponibles plus un facteur dit "d’overbooking" jusqu’à ce que toutes les doses disponibles soient réservées.
 
@@ -87,24 +91,29 @@
 
 - title: Par quel moyen vais-je être contacté ?
   category: Fonctionnement
+  area: main
   body_md_erb: |
-    Si une dose de vaccin est disponible, nous vous enverrons un SMS et un e-mail
-    afin de connaître votre disponibilité.
+    Si une dose de vaccin est disponible près de l’adresse que vous avez renseignée,
+    nous vous enverrons un e-mail afin que vous puissiez confirmer votre disponibilité
+    et réserver le vaccin.
 
-    Si vous êtes disponible, nous vous transmettrons les informations nécessaires
-    pour vous rendre sur le lieu de vaccination.
+    S’il reste des doses non attribuées à la fin de journée, nous vous recontacterons par SMS.
+
+    Soyez donc le plus réactif possible dès que vous recevez un e-mail de notre part.
 
 - title: Comment fonctionne la liste d’attente ?
   category: Fonctionnement
+  area: main
   body_md_erb: |
-    Covidliste n’est pas une liste d’attente.
-
     En cas de disponibilité d’une ou plusieurs doses, le professionnel de santé ou le
     lieu de vaccination inscrit nous indique les critères de sélection de volontaires
     qu’il souhaite tels que l’âge et la distance du lieu de vaccination.
 
     Nous sélectionnons alors des volontaires correspondant aux critères, auxquels
-    nous enverrons un SMS et un e-mail afin de connaître leur disponibilité.
+    nous enverrons un e-mail afin de connaître leur disponibilité.
+
+    Lorsque la fin du créneau horaire choisi par le professionnel de santé approche
+    et en cas de doses restantes, un SMS est alors envoyé aux volontaires correspondants.
 
     Si ils sont disponibles, nous leur transmettrons les informations nécessaires
     pour se rendre sur le lieu de vaccination.
@@ -118,6 +127,7 @@
 
 - title: Je suis inscrit depuis plusieurs semaines et je n’ai jamais été contacté pour une vaccination.
   category: Fonctionnement
+  area: main
   body_md_erb: |
     Covidliste est un site de mise en relation en temps réel entre les établissements
     qui disposent de vaccins non utilisés et des volontaires non vaccinés.
@@ -135,6 +145,7 @@
 
 - title: Avez-vous une application mobile pour smartphone sur l’Apple Store ou le Google Play Store ?
   category: Fonctionnement
+  area: main
   body_md_erb: |
     À ce jour, Covidliste est uniquement un site internet et ne dispose pas d’application mobile.
 
@@ -144,6 +155,7 @@
 
 - title: J’ai une profession à risque ou une autre information utile me concernant, puis-je l’indiquer ?
   category: Fonctionnement
+  area: main
   body_md_erb: |
     La plateforme Covidliste prend uniquement en charge la mise en relation entre des
     professionnels de santé acteurs de la vaccination et les volontaires en fonction
@@ -162,12 +174,21 @@
 
 - title: Je me suis fait vacciner et je veux me désinscrire.
   category: Fonctionnement
+  area: main
   body_md_erb: |
     Félicitations pour cette bonne nouvelle !
 
     Afin de vous désinscrire, connectez-vous sur votre
     <%= link_to "espace personnel", :new_user_session %>
     puis cliquez sur « Supprimer mon compte ».
+- title: Pourquoi ne puis-je plus me connecter avec le mot de passe choisi, en tant que volontaire non-vacciné ?
+  category: Fonctionnement
+  area: main
+  body_md_erb: |
+    Toujours sensible à améliorer le niveau de sécurité de notre application, nous avons fait le choix de basculer la connexion des volontaires non-vaccinés sur un mode de connexion dit « PasswordLess ».
+    Ce mode se base sur l’envoi d’un e-mail sécurisé sur votre adresse personnelle. Cet e-mail contient un lien avec un code unique infalsifiable qui vous permettra, en le suivant, de vous connecter à l’application.
+
+    Ce mode nous permet de déléguer la sécurité de votre connexion au fournisseur de mails dans lequel vous avez déjà placé votre confiance.
 
 ###########
 # VACCINS #
@@ -175,6 +196,7 @@
 
 - title: Quel type de vaccin va-t-on m’administrer ?
   category: Vaccins
+  area: main
   body_md_erb: |
     La plateforme Covidliste prend uniquement en charge la mise en relation entre
     des professionnels de santé acteurs de la vaccination et les volontaires en
@@ -190,6 +212,7 @@
 
 - title: J’ai une préférence pour un type de vaccin, puis-je choisir ?
   category: Vaccins
+  area: main
   body_md_erb: |
     La plateforme Covidliste prend uniquement en charge la mise en relation entre
     des professionnels de santé acteurs de la vaccination et les volontaires en
@@ -205,6 +228,7 @@
 
 - title: J’ai une pathologie particulière qui m’interdit un type de vaccin, puis-je l’indiquer ?
   category: Vaccins
+  area: main
   body_md_erb: |
     La plateforme Covidliste prend uniquement en charge la mise en relation entre des
     professionnels de santé acteurs de la vaccination et les volontaires en fonction
@@ -222,6 +246,7 @@
 
 - title: Comment va se passer l’administration de la seconde dose ?
   category: Vaccins
+  area: main
   body_md_erb: |
     Covidliste prend uniquement en charge la mise en relation entre des volontaires
     et un professionnel de santé inscrit qui a des doses disponibles en surnombre.
@@ -235,6 +260,7 @@
 
 - title: Quels sont les professionnels de santé et lieux de vaccination inscrits ?
   category: Lieux de vaccination
+  area: main
   body_md_erb: |
     L’équipe de Covidliste diffusera bientôt la liste des professionnels de santé et
     lieux de vaccination inscrits.
@@ -244,6 +270,7 @@
 
 - title: Comment savoir si le lieu de vaccination près de chez moi est inscrit ?
   category: Lieux de vaccination
+  area: main
   body_md_erb: |
     L’équipe de Covidliste diffusera bientôt la liste des professionnels de santé
     et lieux de vaccination inscrits.
@@ -256,6 +283,7 @@
 
 - title: Puis-je choisir les centres susceptibles de me contacter ?
   category: Lieux de vaccination
+  area: main
   body_md_erb: |
     La plateforme Covidliste permet aux centres de vaccination d’identifier et
     de contacter des volontaires à proximité afin d’écouler des surdoses qui
@@ -270,6 +298,7 @@
 
 - title: Je me suis inscrit mais je souhaite modifier ou supprimer mes données ?
   category: Données personnelles et code source
+  area: main
   body_md_erb: |
     Afin de modifier ou supprimer vos données personnelles, connectez-vous sur votre
     <%= link_to "espace personnel", :new_user_session %>.
@@ -280,6 +309,7 @@
 
 - title: Comment être certain que les coordonnées transmises ne soient pas par la suite revendues à des tiers ?
   category: Données personnelles et code source
+  area: main
   body_md_erb: |
     Covidliste est une initiative citoyenne et philanthrope portée par une équipe
     de plus de 100 bénévoles qui se sont rassemblés dans l’unique but de permettre
@@ -293,6 +323,7 @@
 
 - title: À quoi servent les données demandées lors de l’inscription ?
   category: Données personnelles et code source
+  area: main
   body_md_erb: |
     Lors de l’inscription sur Covidliste, nous demandons à l’utilisateur de
     nous confier certaines données personnelles.
@@ -325,6 +356,7 @@
 
 - title: Comment sont stockées les données demandées lors de l’inscription ?
   category: Données personnelles et code source
+  area: main
   body_md_erb: |
     Lors de l’inscription sur Covidliste, nous demandons à l’utilisateur de nous confier certaines données personnelles.
     Nous nous efforçons de protèger les données que nous sommes amenés à traiter.
@@ -350,6 +382,7 @@
 
 - title: Votre code source est-il ouvert et auditable ?
   category: Données personnelles et code source
+  area: main
   body_md_erb: |
     Oui, notre code est open source et vous pouvez le retrouver sur le
     <%= link_to "GitHub du projet", "https://github.com/hostolab/covidliste", target: "_blank", rel: "noopener" %>.
@@ -358,16 +391,15 @@
 # CENTRES DE VACCINATION ET PROFESSIONNELS DE SANTÉ #
 #####################################################
 
-- title: Je suis un professionnel de santé en charge de la vaccination. Comment accéder à votre service ?
+- title: Je suis un professionnel de santé en charge de la vaccination et je souhaite obtenir des informations.
   category: Centres de vaccination et professionnels de santé
+  area: main
   body_md_erb: |
-    Nous avons développé une interface de gestion automatisée des volontaires à la vaccination.
-
-    Afin de référencer votre centre et obtenir un accès à notre interface, vous pouvez
-    <%= link_to "vous inscrire", partenaires_inscription_path %>.
+    Consultez la
+    <%= link_to "foire aux questions dédiée aux professionnels de santé", partenaires_faq_path %>.
 
     Si vous avez besoin d’accompagnement, nous vous invitons à contacter
-    <%= mail_to "partenaires@covidliste.com" %>.
+    <%= link_to "partenaires@covidliste.com", "mailto:partenaires@covidliste.com" %>.
 
 ############################
 # Collaboration et contact #
@@ -375,6 +407,7 @@
 
 - title: Je veux vous aider ou devenir bénévole.
   category: Collaboration et contact
+  area: main
   body_md_erb: |
     Merci beaucoup de vous proposer, cela nous fait très plaisir de voir que vous souhaitez nous apporter votre soutien !
 
@@ -385,32 +418,39 @@
 
 - title: Je représente une entreprise ou une association et nous voulons vous aider.
   category: Collaboration et contact
+  area: main
   body_md_erb: |
     Merci beaucoup de vous proposer, cela nous fait très plaisir de voir que vous des entreprises souhaitent nous apporter leur soutien !
 
     Nous essayons de travailler au maximum avec des entreprises ou associations françaises ou européennes.
 
     Si vous pensez pouvoir nous aider, vous pouvez nous contacter sur
-    <%= mail_to "hello@covidliste.com", rel: "noopener" %>.
+    <%= link_to "hello@covidliste.com", "mailto:hello@covidliste.com", rel: "noopener" %>.
 
 - title: Je suis journaliste et souhaite réaliser une interview ou obtenir des informations.
   category: Collaboration et contact
+  area: main
   body_md_erb: |
-    Nous vous invitons à nous contacter sur <%= mail_to "presse@covidliste.com", rel: "noopener" %>.
+    Nous vous invitons à nous contacter sur <%= link_to "presse@covidliste.com", "mailto:presse@covidliste.com", rel: "noopener" %>.
 
 - title: Je suis un professionnel de santé en charge de la vaccination et j’ai une question
   category: Collaboration et contact
+  area: main
   body_md_erb: |
     Nous avons développé une interface de gestion automatisée des volontaires à la vaccination.
 
     Afin de référencer votre centre et obtenir un accès à notre interface, vous pouvez
     <%= link_to "vous inscrire", partenaires_inscription_path %>.
 
+    Consultez la
+    <%= link_to "foire aux questions dédiée aux professionnels de santé", partenaires_faq_path %>.
+
     Si vous avez besoin d’accompagnement, nous vous invitons à contacter
-    <%= mail_to "partenaires@covidliste.com" %>.
+    <%= link_to "partenaires@covidliste.com", "mailto:partenaires@covidliste.com" %>.
 
 - title: J’ai une question qui n’est pas dans la FAQ ou je souhaite vous contacter.
   category: Collaboration et contact
+  area: main
   body_md_erb: |
     Nous sommes une équipe de bénévoles et nous recevons énormément de mails.
 
@@ -419,4 +459,190 @@
     Pour éviter d’allonger les délais de réponse, vérifiez bien que la réponse à votre question n’est pas présente
     dans la Foire aux questions avant de nous contacter.
 
-    Si ce n’est pas le cas, nous somme disponibles sur <%= mail_to "hello@covidliste.com", rel: "noopener" %>.
+    Si ce n’est pas le cas, nous somme disponibles sur <%= link_to "hello@covidliste.com", "mailto:hello@covidliste.com", rel: "noopener" %>.
+
+##################################################
+# PRO : Gestion du compte professionnel de santé #
+##################################################
+
+- title: Je suis un professionnel de santé en charge de la vaccination. Comment accéder à votre service ?
+  category: Accès et compte professionnel de santé
+  area: pro
+  body_md_erb: |
+    Nous avons développé une interface de gestion automatisée des volontaires à la vaccination.
+
+    Afin de référencer votre centre et obtenir un accès à notre interface, vous pouvez
+    <%= link_to "vous inscrire", partenaires_inscription_path %>.
+
+    Si vous avez besoin d’accompagnement, nous vous invitons à contacter
+    <%= link_to "partenaires@covidliste.com", "mailto:partenaires@covidliste.com" %>.
+
+- title: Je suis un professionnel de santé et je n’arrive pas à me connecter, mon email n’est pas reconnu
+  category: Accès et compte professionnel de santé
+  area: pro
+  body_md_erb: |
+    Vérifiez que vous essayez de vous connecter sur
+    <%= link_to "l’espace professionnels de santé", new_partner_session_path %>
+    et non comme volontaire à la vaccination.
+
+- title: Nous sommes plusieurs professionnels à vouloir utiliser Covidliste sur un même centre
+  category: Accès et compte professionnel de santé
+  area: pro
+  body_md_erb: |
+    Chaque professionnel doit
+    <%= link_to "s’inscrire en tant que professionnel de santé", partenaires_inscription_path %>
+    puis demander au référent du centre déjà créé de nous envoyer une demande d’ajout par email à
+    <%= link_to "partenaires@covidliste.com", "mailto:partenaires@covidliste.com" %>
+    en précisant l’adresse e-mail du professionnel de santé à ajouter.
+
+    _Vous ne devez pas re-créer le centre, puisqu’il existe déjà sur Covidliste._
+
+- title: Je n’ai renseigné qu’un type de vaccin sur mon centre et je prévois de vacciner avec un autre type prochainement
+  category: Accès et compte professionnel de santé
+  area: pro
+  body_md_erb: |
+    Lors de la création d’une campagne, vous pouvez sélectionner le type de vaccin même s’il n’apparait pas
+    dans les informations de votre centre. Il n’est pas nécessaire de créer un nouveau centre.
+
+    Vous pouvez nous demander de mettre à jour votre fiche de centre en nous contactant par email sur
+    <%= link_to "partenaires@covidliste.com", "mailto:partenaires@covidliste.com" %>.
+
+- title: Je souhaite modifier le numéro de téléphone de mon centre
+  category: Accès et compte professionnel de santé
+  area: pro
+  body_md_erb: |
+    Vous pouvez nous demander de mettre à jour votre fiche de centre en nous contactant par email sur
+    <%= link_to "partenaires@covidliste.com", "mailto:partenaires@covidliste.com" %>.
+
+#####################################
+# PRO : Planification des campagnes #
+#####################################
+
+- title: Est-ce qu’il est possible de proposer des doses de vaccins sur Covidliste un ou plusieurs jours à l’avance ?
+  category: Planification des campagnes
+  area: pro
+  body_md_erb: |
+    Covidliste vous permet actuellement de rechercher des volontaires à la vaccination pour le jour même.
+
+    Chaque campagne de recherche doit donc être lancée le jour où aura lieu le rendez-vous pour la vaccination.
+
+- title: Est-ce que je peux faire plusieurs campagnes par jour, par exemple une le matin et une l’après-midi ?
+  category: Planification des campagnes
+  area: pro
+  body_md_erb: |
+    Nous vous recommandons de paramétrer des campagnes avec une grande amplitude horaire,
+    entre l’heure du lancement et l’heure finale d’arrivée des volontaires (idéalement > 4 heures).
+
+    Ces campagnes sont les plus efficaces pour trouver le nombre de volontaires en leur laissant
+    suffisamment de temps pour se déplacer.
+
+    Les campagnes se lancent __le jour du rendez-vous d’injection__.
+
+- title: Est-ce que des volontaires qui s’inscrivent pendant qu’une campagne est en cours sont susceptibles d’être notifiés ?
+  category: Planification des campagnes
+  area: pro
+  body_md_erb: |
+    Oui, tant que les doses disponibles ne sont pas attribuées, un volontaire nouvellement inscrit et répondant
+    aux critères de recherche peut tout à fait recevoir une notification.
+
+- title: Est-il possible de lancer une campagne qui cible uniquement des personnes en recherche d’une deuxième dose ou d’une unique dose ?
+  category: Planification des campagnes
+  area: pro
+  body_md_erb: |
+    Covidliste ne recueille aucune donnée médicale et n’a pas vocation à le faire.
+
+    Il n’est donc pas possible de cibler de façon plus précise les volontaires à la vaccination.
+
+- title: Je ne suis pas sûr de pouvoir administrer la deuxième injection aux patients identifiés via Covidliste
+  category: Planification des campagnes
+  area: pro
+  body_md_erb: |
+    Le centre qui fait la première injection est chargé d’informer les patients sur la conduite à tenir pour la
+    deuxième dose de vaccin.
+
+    La réservation d’un rendez-vous pour la deuxième dose de vaccin, sur Doctolib ou site équivalent, n’est
+    actuellement pas soumise à une restriction quelle qu’elle soit.
+
+    Nous vous invitons à suivre scrupuleusement les indications de la DGS à ce sujet.
+
+- title: Est-ce que je peux contacter les volontaires à qui une dose vient d’être attribuée pour répondre à un questionnaire d’éligibilité au vaccin ?
+  category: Planification des campagnes
+  area: pro
+  body_md_erb: |
+    Covidliste vous permet de contacter les volontaires dès qu’ils apparaissent dans l’outil suivi de campagne.
+
+    Vous pouvez également informer les volontaires qu’il devront répondre à un questionnaire, via le champ
+    “Infos Supplémentaires” dans la campagne, mais les volontaires ne le verront qu’après avoir confirmé leur RDV.
+
+    _A noter : tout volontaire avec un RDV confirmé devant renoncer à sa vaccination devra se se réinscrire sur
+    Covidliste après quelques jours pour pouvoir être remis dans la liste d’attente._
+
+#####################################
+# PRO : Planification des campagnes #
+#####################################
+
+- title: Dans le cas où toutes les doses ne seraient pas attribuées, que dois-je faire ?
+  category: Gestion des campagnes
+  area: pro
+  body_md_erb: |
+    Nous vous conseillons de lancer une nouvelle campagne, en modifiant les paramètres du profil volontaire
+    (âge ou distance de votre centre de vaccination)
+
+    _Très important : attendre que la première campagne se termine (10/15 minutes) avant de lancer une nouvelle campagne._
+
+- title: "Est-il possible de modifier le nombre de doses d’un une campagne déjà lancée ? (Ex : si un volontaire à été trouvé hors de Covlidlise)"
+  category: Gestion des campagnes
+  area: pro
+  body_md_erb: |
+    Non, ce n’est pas possible si la campagne a été lancée et que les doses ont déjà été attribuées à des volontaires.
+
+    Il est possible d’interrompre une campagne en cours, mais dans ce cas, les personnes notifiées pourront
+    continuer à confirmer leur engagement, il est donc important de garder un œil ouvert sur le suivi de votre
+    campagne, même si vous l’avez interrompue.
+
+    Si vous n’êtes pas sûr des doses disponibles, nous vous conseillons de segmenter les campagnes dans une journée.
+
+###############################################################
+# PRO : Suivi des campagnes et relations avec les volontaires #
+###############################################################
+
+- title: J’ai lancé ma campagne, faut-il que je rappelle les volontaires sélectionnés pour leur confirmer le rendez-vous ?
+  category: Suivi des campagnes et relations avec les volontaires
+  area: pro
+  body_md_erb: |
+    Ce pas nécessaire, les volontaires sélectionnés qui ont confirmé leur présence ont toutes les informations de rendez-vous.
+
+    Vous avez néanmoins accès à leur coordonnées dans votre espace suivi de campagne et êtes libre de les contacter
+    pour organiser votre planning.
+
+- title: Est-ce que je risque d’avoir plus de volontaires que de doses disponibles dans une campagne ?
+  category: Suivi des campagnes et relations avec les volontaires
+  area: pro
+  body_md_erb: |
+    Non, l’algorithme est conçu pour vous adresser le bon nombre de volontaires.
+
+- title: Une fois une campagne finalisée comment avons-nous accès à la liste des volontaires confirmés ?
+  category: Suivi des campagnes et relations avec les volontaires
+  area: pro
+  body_md_erb: |
+    Vous avez accès à la liste des volontaires qui ont confirmé le RDV dans votre espace professionnel,
+    dans le suivi de campagne.
+
+    En fonction du navigateur Internet que vous utilisez, il peut être nécessaire de rafraichir la page
+    pour voir les noms au fur et à mesure.
+
+###############################################################
+# PRO : Accompagnement et contact #
+###############################################################
+
+- title: Je suis un professionnel de santé en charge de la vaccination et j’ai une autre question
+  category: Accompagnement et contact
+  area: pro
+  body_md_erb: |
+    Nous avons développé une interface de gestion automatisée des volontaires à la vaccination.
+
+    Afin de référencer votre centre et obtenir un accès à notre interface, vous pouvez
+    <%= link_to "vous inscrire", partenaires_inscription_path %>.
+
+    Si vous avez besoin d’accompagnement, nous vous invitons à contacter
+    <%= link_to "partenaires@covidliste.com", "mailto:partenaires@covidliste.com" %>.
