@@ -76,7 +76,7 @@
   </div>
 </div>
 
-<%= render partial: "users/shared/box_cta", locals: { title: "S’inscrire à Covidliste", text: "Vous serez contacté dès qu’une dose sera disponible !", cta_text: "S’inscrire à Covidliste", cta_href: "#inscription" } %>
+<%= render partial: "users/shared/box_cta", locals: { title: "S’inscrire à Covidliste", text: "Vous serez contacté dès qu’une dose sera disponible !", cta_text: "S’inscrire à Covidliste", cta_href: "#inscription", cta_target: nil } %>
 
 <div class="bg-white">
   <div class="container mt-3 mt-lg-5">
@@ -119,7 +119,7 @@
   </div>
 </div>
 
-<%= render partial: "users/shared/box_cta", locals: { title: "Vous êtes professionels de santé ?", text: "Simplifier la gestion de votre liste d’attente.<br>Commencer dès maintenant à gagner du temps.", cta_text: "Trouver des volontaires à la vaccination", cta_href: new_partners_vaccination_center_path } %>
+<%= render partial: "users/shared/box_cta", locals: { title: "Vous êtes professionels de santé ?", text: "Simplifier la gestion de votre liste d’attente.<br>Commencer dès maintenant à gagner du temps.", cta_text: "Trouver des volontaires à la vaccination", cta_href: new_partners_vaccination_center_path, cta_target: nil } %>
 
 <div class="bg-white">
   <div class="container my-5">
@@ -141,7 +141,7 @@
   </div>
 </div>
 
-<%= render partial: "users/shared/box_cta", locals: { title: "Devenir bénévole", text: "Rejoignez une centaine de bénévoles qui chaque<br>jour contribuent à accélérer la campagne de vaccination !", cta_text: "Rejoindre l’équipe Covidliste", cta_href: benevoles_path } %>
+<%= render partial: "users/shared/box_cta", locals: { title: "Devenir bénévole", text: "Rejoignez une centaine de bénévoles qui chaque<br>jour contribuent à accélérer la campagne de vaccination !", cta_text: "Rejoindre l’équipe Covidliste", cta_href: benevoles_path, cta_target: nil } %>
 
 <div class="bg-white">
   <div class="container py-3 py-lg-5 my-lg-5">
@@ -165,4 +165,4 @@
   </div>
 </div>
 
-<%= render partial: "users/shared/box_cta", locals: { title: "Nous lançons un appel aux dons !", text: "Chaque semaine Covidliste dépense quelques milliers d’euros pour assurer son fonctionnement.<br>Nous avons besoin de votre aide pour maintenir le service tout le long de la campagne vaccinale.", cta_text: "Faire un don", cta_href: donateurs_path } %>
+<%= render partial: "users/shared/box_cta", locals: { title: "Nous lançons un appel aux dons !", text: "Chaque semaine Covidliste dépense quelques milliers d’euros pour assurer son fonctionnement.<br>Nous avons besoin de votre aide pour maintenir le service tout le long de la campagne vaccinale.", cta_text: "Faire un don", cta_href: "https://fr.ulule.com/covidliste/", cta_target: "_blank" } %>
