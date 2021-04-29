@@ -71,8 +71,8 @@ RSpec.describe User, type: :model do
 
   describe "Email domain" do
     it "It extracts email domain" do
-      user = create(:user, email: "test+1@thisisfakesauvonslesvaccins.com")
-      expect(user.email_domain).to eq("thisisfakesauvonslesvaccins.com")
+      user = create(:user, email: "test+1@covidliste.com")
+      expect(user.email_domain).to eq("covidliste.com")
     end
   end
 
