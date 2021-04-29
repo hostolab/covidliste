@@ -12,7 +12,7 @@ class MailProviderService
       email: email,
       sort: "desc"
     }
-    puts opts
+    Rails.logger.debug opts
     api_instance.get_email_event_report(opts)
   end
 end
