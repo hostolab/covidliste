@@ -5,12 +5,12 @@ class PagesController < ApplicationController
 
   def donateurs
     ulule_project_slug = "covidliste"
-    service = UluleService.new(ulule_project_slug)
-    @project = service.project
-    @bronze_supporters = service.get_supporters(150, 500)
-    @silver_supporters = service.get_supporters(500, 100)
-    @gold_supporters = service.get_supporters(1000, 5000)
-    @diamond_supporters = service.get_supporters(5000, 99999999)
+    data = UluleService.new(ulule_project_slug).data
+    @project = data[:project]
+    @bronze_supporters = data[:bronze_supporters]
+    @silver_supporters = data[:silver_supporters]
+    @gold_supporters = data[:gold_supporters]
+    @diamond_supporters = data[:diamond_supporters]
   end
 
   def contact
