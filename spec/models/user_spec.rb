@@ -73,6 +73,7 @@ RSpec.describe User, type: :model do
     it "It extracts email domain" do
       user.email = "test@thisisfakesauvonslesvaccins.com"
       expect(user).to_not be_valid
+      user.save!
       expect(user.email_domain).to eq("thisisfakesauvonslesvaccins.com")
     end
   end
