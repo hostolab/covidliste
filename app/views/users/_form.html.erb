@@ -1,17 +1,34 @@
-<div class="mb-4 mb-md-0 bg-white py-3 px-3">
-  <h2 class="h6 font-weight-bolder text-primary mb-3">Inscription en tant que volontaire à la vaccination</h2>
 
-  <% if @user.persisted? %>
+<% if current_user.present? || @user.persisted? %>
 
-    <div class="alert alert-success">
-      Merci ! Vous êtes bien enregistré sur Covidliste. Vous allez recevoir dans quelques instants un email de
-      confirmation qui vous permettra de valider votre inscription et accéder à votre espace sécurisé.
-      Le lien de confirmation sera valable pendant 24 heures.
-    </div>
+  <div class="alert alert-success p-3">
+    <p class="mb-0">
+      <%= icon("fas", "thumbs-up", class: "fa-2x") %>
+      <br>
+      <br>
+      <strong>Merci !</strong>
+      <br>
+      <br>
+      Vous êtes bien enregistré sur Covidliste.
+      <% if current_user.blank? %>
+        <br>
+        <br>
+        Vous allez recevoir dans quelques instants un email de confirmation qui vous permettra de valider votre inscription et accéder à votre espace sécurisé.
+        <br>
+        <br>
+        Le lien de confirmation sera valable pendant 24 heures.
+      <% else %>
+        <br>
+        <%= link_to "Accéder à mon profil", profile_path, class: "btn btn-primary" %>
+      <% end %>
+    </p>
+  </div>
 
-  <% else %>
+<% else %>
 
-    <% if @user.errors.any? %>
+  <div class="bg-white p-2 p-lg-4 rounded">
+
+    <% if @user.present? && @user.errors.any? %>
       <div class="alert alert-danger" role="alert" style="position: inherit">
         <% @user.errors.full_messages.each do |msg| %>
           <%= msg %><br />
@@ -20,44 +37,49 @@
     <% end %>
 
     <%= simple_form_for @user do |f| %>
-      <%= f.input :birthdate,
-                  as: :date,
-                  label: "Date de naissance",
-                  start_year: Date.today.year - 120,
-                  end_year: Date.today.year - 18,
-                  order: [:day, :month, :year] %>
+      <%= f.input :email,
+                  label: false,
+                  error: f.error(:email),
+                  placeholder: "jean@dupont.com",
+                  hint: "Une adresse email ne peut être utilisée que par une seule personne.",
+                  required: true,
+                  input_html: { autocomplete: "email", autofocus: "true" } %>
 
-      <p class="text-primary small">
-        Vérifiez bien votre date de naissance. En cas d'erreur, la vaccination ne sera pas possible !
-      </p>
       <%= f.input :address,
-                  label: "Adresse",
-                  error: "Adresse requise",
-                  placeholder: "5 rue Larue, 13600 Marseille",
-                  required: true %>
+                  label: false,
+                  error: "Adresse invalide",
+                  placeholder: "Adresse",
+                  required: true,
+                  input_html: { class: "pr-5"} %>
       <%= f.input_field :lat, as: :hidden %>
       <%= f.input_field :lon, as: :hidden %>
+
       <%= f.input :phone_number,
-                  label: "Numéro de téléphone portable",
+                  label: false,
                   error: "Numéro de téléphone invalide",
-                  placeholder: "06 06 06 06 06",
+                  placeholder: "Numéro de téléphone portable",
                   required: true,
                   input_html: { autocomplete: "tel" } %>
 
-      <%= f.input :email,
-                  label: "Email",
-                  error: f.error(:email),
-                  placeholder: "jean@dupont.com",
-                  hint: "Une adresse email ne peut être utilisée que par une seule personne. 2 personnes = 2 adresses email différentes.",
-                  required: true,
-                  input_html: { autocomplete: "email" } %>
+      <%= f.input :birthdate,
+                  as: :date,
+                  label: false,
+                  order: [:day, :month, :year],
+                  wrapper_html: { class: "mb-2" } %>
+      <p class="text-dark">
+        Votre date de naissance sera vérifiée lors du rendez-vous.
+      </p>
 
-      <%= render partial: "input_statement", locals: {f: f, local_cgu_path: cgu_volontaires_path} %>
-      <%= render partial: "input_toc", locals: {f: f}%>
+      <%= render partial: "users/input_statement", locals: {f: f, local_cgu_path: cgu_volontaires_path} %>
+      <%= render partial: "users/input_toc", locals: {f: f}%>
 
       <%= f.invisible_captcha :subtitle %>
-      <%= f.button :submit, "Je m’inscris", class: "btn btn-primary", data: { disable_with: "Inscription en cours..." } %>
+      <%= f.button :submit, "S’inscrire", class: "btn btn-secondary btn-lg btn-block font-weight-bold", data: { disable_with: "Inscription en cours..." } %>
     <% end %>
-    <%= render partial: "mentions" %>
-  <% end %>
-</div>
+
+  </div>
+  <div class="py-1 px-2">
+    <%= render partial: "users/mentions" %>
+  </div>
+
+<% end %>

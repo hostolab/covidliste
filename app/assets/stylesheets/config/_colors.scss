@@ -1,13 +1,13 @@
 // Covidliste colors
 
 $purple1000: #2c1b2d;
-$purple900: #301044;
-$purple700: #592c66;
-$purple500: #8c588f;
+$purple900: #301144;
+$purple700: #592d66;
+$purple500: #8c598f;
 $purple300: #c7a6c9;
 $purple100: #ede2ee;
 
-$blue900: #002778;
+$blue900: #19191b;
 $blue700: #0065b8;
 $blue500: #0089fb;
 $blue300: #70bfff;
@@ -33,6 +33,7 @@ $yellow100: #fef8e7;
 
 // Override bootstrap default colors
 $primary: $purple500;
+$secondary: $purple700;
 $success: $green500;
 $info: $blue500;
 $danger: $red500;
@@ -44,5 +45,5 @@ $dark: $purple1000;
 $light: $purple100;
 
 $theme-colors: (
-  "yellow": $yellow500,
+  "yellow": $yellow300,
 );
