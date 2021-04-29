@@ -244,8 +244,11 @@ ActiveRecord::Schema.define(version: 2021_04_29_201413) do
     t.datetime "anonymized_at"
     t.datetime "statement_accepted_at"
     t.datetime "toc_accepted_at"
+    t.index ["anonymized_at"], name: "index_users_on_anonymized_at"
+    t.index ["birthdate"], name: "index_users_on_birthdate"
     t.index ["city"], name: "index_users_on_city"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token"
+    t.index ["confirmed_at"], name: "index_users_on_confirmed_at"
     t.index ["email_bidx"], name: "index_users_on_email_bidx", unique: true
     t.index ["geo_citycode"], name: "index_users_on_geo_citycode"
     t.index ["geo_context"], name: "index_users_on_geo_context"
