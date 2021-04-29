@@ -22,7 +22,6 @@ blazer_capture_query_stats:
   cron: "0 * * * *"
   class: "Blazer::CaptureQueryStats"
 
-
 anonynise_confirmed_mathced_users:
   cron: "0 3 * * *"
   class: "AnonymizeConfirmedMatchedUsersJob"
