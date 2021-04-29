@@ -21,7 +21,7 @@ class UluleService
       {
         project: project,
         bronze_supporters: get_supporters(150, 500),
-        silver_supporters: get_supporters(500, 100),
+        silver_supporters: get_supporters(500, 1000),
         gold_supporters: get_supporters(1000, 5000),
         diamond_supporters: get_supporters(5000, 99999999)
       }
