@@ -12,7 +12,7 @@ class UsersController < ApplicationController
       redirect_to profile_path
     else
       @user = User.new(birthdate: Date.today.change(year: 1961))
-      #set_counters
+      set_counters
     end
   end
 
