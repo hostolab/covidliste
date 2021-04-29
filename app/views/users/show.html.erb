@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="row mt-5 pb-3">
+  <div class="row">
     <div class="col-12 col-sm-8 offset-sm-2">
       <p>
         Bonjour <%= @user %>,
@@ -17,7 +17,7 @@
       <% if @user.errors.any? %>
         <div class="alert alert-danger" role="alert" style="position: inherit">
           <% @user.errors.full_messages.each do |msg| %>
-            <%= msg %><br />
+            <%= msg %><br/>
           <% end %>
         </div>
       <% end %>
@@ -35,26 +35,30 @@
         </div>
 
         <%= f.input :address, label: "Adresse", error: "Adresse requise", placeholder: "Choisir une nouvelle adresse" %>
-      
-        <small class="form-text text-muted mb-2"> 
-          Pour des raisons de protection des données personnelles, nous ne stockons pas votre adresse. Nous gardons seulement une représentation de votre adresse sous la forme d'une coordonnée GPS (latitude/longitude), randomisée à +/- 100 mètres.
+
+        <small class="form-text text-muted mb-2">
+          Pour des raisons de protection des données personnelles, nous ne stockons pas votre adresse. Nous gardons
+          seulement une représentation de votre adresse sous la forme d'une coordonnée GPS (latitude/longitude),
+          randomisée à +/- 100 mètres.
           <br/>
-          Si vous souhaitez modifier cette donnée, entrez une nouvelle adresse et cliquez sur "Je modifie mes informations".
+          Si vous souhaitez modifier cette donnée, entrez une nouvelle adresse et cliquez sur "Je modifie mes
+          informations".
         </small>
 
         <%- if @user.lat.nil? || @user.lon.nil? %>
           <div class="alert alert-danger mb-4 small" role="alert" style="position: inherit">
             Nous n'avons pas pu géolocaliser l'adresse que vous avez renseignée lors de votre inscription.
-            Sans cette information, il nous sera impossible de vous mettre en relation avec l'un de nos centres partenaires à proximité.
+            Sans cette information, il nous sera impossible de vous mettre en relation avec l'un de nos centres
+            partenaires à proximité.
             Merci de renseigner votre adresse une nouvelle fois.
           </div>
         <% else %>
-          <div class="mt-4 mb-4" 
-              id="user_map" 
-              style="height: 250px;" 
-              data-lat="<%= @user.lat %>" 
-              data-lon="<%= @user.lon %>"
-              >
+          <div class="mt-4 mb-4"
+               id="user_map"
+               style="height: 250px;"
+               data-lat="<%= @user.lat %>"
+               data-lon="<%= @user.lon %>"
+          >
           </div>
         <% end %>
 
@@ -66,23 +70,25 @@
 
         <% if @user.matches.confirmed.any? %>
           <div class="alert alert-primary">
-            Vous ne pouvez pas modifier votre compte actuellement car vous avez confirmé un rendez-vous de vaccination.<br />
+            Vous ne pouvez pas modifier votre compte actuellement car vous avez confirmé un rendez-vous de
+            vaccination.<br/>
             Votre profil sera anonymisé quelques jours après le RDV.
           </div>
         <% elsif @user.matches.pending.any? %>
           <div class="alert alert-primary">
-            Vous ne pouvez pas modifier vos informations actuellement car vous avez une proposition rendez vous de vaccination en cours.<br />
+            Vous ne pouvez pas modifier vos informations actuellement car vous avez une proposition rendez vous de
+            vaccination en cours.<br/>
             Si vous ne confirmez pas le RDV, vous pourrez de nouveau modifier vos informations à partir du
             <%= l(@user.matches.pending.maximum(:expires_at)) %>.<br/>
           </div>
         <% end %>
-        <%= f.button :submit, "Je modifie mes informations", class: "btn btn-primary", data: { disable_with: "Validation..." } %>
+        <%= f.button :submit, "Je modifie mes informations", class: "btn btn-primary", data: {disable_with: "Validation..."} %>
       <% end %>
       <%= render partial: "mentions" %>
 
       <%- @matches = @user.matches.includes(:campaign).order(id: :desc) %>
       <% if @matches.any? %>
-        <hr class="my-4" />
+        <hr class="my-4"/>
 
         <p class="mt-4">
           <strong>Vos propositions de RDV</strong>
@@ -92,10 +98,10 @@
           <table class="table table-bordered table-sm small" aria-describedby="Vos propositions de RDV">
             <thead class="thead-light">
             <tr>
-              <th scope="col"> Vaccin </th>
-              <th scope="col"> Notification email </th>
-              <th scope="col"> Notification SMS </th>
-              <th scope="col"> État </th>
+              <th scope="col"> Vaccin</th>
+              <th scope="col"> Notification email</th>
+              <th scope="col"> Notification SMS</th>
+              <th scope="col"> État</th>
             </tr>
             </thead>
             <tbody>
@@ -135,7 +141,7 @@
           </table>
         </div>
       <% end %>
-      <hr class="my-4" />
+      <hr class="my-4"/>
 
       <p class="mt-4">
         <strong>Données personnelles :</strong>
@@ -147,24 +153,26 @@
       </p>
 
       <p class="mt-3">
-        Vous souhaitez supprimer votre compte ?<br />
+        Vous souhaitez supprimer votre compte ?<br/>
         <% if @user.matches.confirmed.any? %>
-          <div class="alert alert-primary">
-            Vous ne pouvez pas supprimer votre compte actuellement car vous avez confirmé un rendez-vous de vaccination.<br />
-            Votre profil sera anonymisé quelques jours après le RDV.
-          </div>
-        <% elsif @user.matches.pending.any? %>
-          <div class="alert alert-primary">
-            Vous ne pouvez pas supprimer votre compte actuellement car vous avez une proposition rendez vous de vaccination en cours.<br />
-            Si vous ne confirmez pas le RDV, vous pourrez supprimer votre compte à partir du
-            <%= l(@user.matches.pending.maximum(:expires_at)) %>.<br/>
-          </div>
-        <% end %>
-        <%= button_to "Supprimer mon compte", :delete_user, method: :delete, class: "btn btn-danger",
-                      data: { confirm: "En confirmant, votre compte ainsi que toutes les données associées seront supprimées de nos serveurs. Êtes-vous sûr ?" } %>
+        <div class="alert alert-primary">
+          Vous ne pouvez pas supprimer votre compte actuellement car vous avez confirmé un rendez-vous de
+          vaccination.<br/>
+          Votre profil sera anonymisé quelques jours après le RDV.
+        </div>
+      <% elsif @user.matches.pending.any? %>
+        <div class="alert alert-primary">
+          Vous ne pouvez pas supprimer votre compte actuellement car vous avez une proposition rendez vous de
+          vaccination en cours.<br/>
+          Si vous ne confirmez pas le RDV, vous pourrez supprimer votre compte à partir du
+          <%= l(@user.matches.pending.maximum(:expires_at)) %>.<br/>
+        </div>
+      <% end %>
+      <%= button_to "Supprimer mon compte", :delete_user, method: :delete, class: "btn btn-danger",
+        data: {confirm: "En confirmant, votre compte ainsi que toutes les données associées seront supprimées de nos serveurs. Êtes-vous sûr ?"} %>
       </p>
 
-      <hr class="my-4" />
+      <hr class="my-4"/>
 
       <%= button_to "Se déconnecter", destroy_user_session_path, method: :delete, class: "btn btn-warning" %>
     </div>

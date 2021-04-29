@@ -1,21 +1,29 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
-    <title>Covidliste Bénévoles 💉</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
-    <meta content="noindex;nofollow" name="robots"/>
-    <%= yield(:append_to_head) %>
-    <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track": "reload" %>
-    <%= javascript_pack_tag "application", "data-turbolinks-track": "reload", defer: true, nonce: true %>
-  </head>
-  <body>
-    <%= render "layouts/admin_navbar" %>
-    <%= render "layouts/alerts" %>
-    <div class="container-fluid">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+  <title>Covidliste Bénévoles 💉</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+  <meta content="noindex;nofollow" name="robots"/>
+  <%= yield(:append_to_head) %>
+  <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track": "reload" %>
+  <%= javascript_pack_tag "application", "data-turbolinks-track": "reload", defer: !Rails.env.test?, nonce: true %>
+</head>
+<body>
+<div class="layout">
+  <div class="layout__above-footer">
+    <%= render "layouts/banner" %>
+    <%= render "layouts/navbar" %>
+    <div class="layout__content <%= "layout__content--no-padding" if @no_layout_content_padding ||= false %>">
+      <%= render "layouts/alerts" unless @no_layout_alerts ||= false %>
       <%= yield %>
     </div>
-  </body>
+  </div>
+  <div class="layout__footer">
+    <%= render "layouts/footer" %>
+  </div>
+</div>
+</body>
 </html>

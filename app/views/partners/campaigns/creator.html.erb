@@ -2,7 +2,7 @@
   <meta content="index;follow" name="robots"/>
   <%= javascript_pack_tag "partners", "data-turbolinks-track": "reload", defer: !Rails.env.test?, nonce: true %>
 <% end %>
-<div class="container mt-5">
+<div class="container">
   <%= render "components/page_title", title: "Lancer une campagne", icon_name: "paper-plane" %>
   <%= react_component("CampaignCreator", props: {
     vaccination_center: @vaccination_center,
