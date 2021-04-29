@@ -12,6 +12,10 @@
   .form-control {
     width: auto;
     display: inline-block;
+
+    &.form-control-full-width {
+      width: 90%;
+    }
   }
 
   input[type="number"] {
