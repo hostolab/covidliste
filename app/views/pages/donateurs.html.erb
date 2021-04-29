@@ -18,8 +18,8 @@
   <% end %>
 
   <% if @project["goal"].present? %>
-    <div class="card my-4">
-      <div class="card-body p-3">
+    <div class="my-4 shadow-lg">
+      <div class="p-4">
         <div class="d-flex align-items-start align-items-sm-center flex-column flex-sm-row mb-2">
           <% if @project["date_end"].present? %>
             <span class="badge badge-primary mr-2"><%= distance_of_time_in_words(@project["date_end"].to_time.to_i - Time.zone.now.to_i) %>
@@ -53,36 +53,47 @@
     </p>
   <% end %>
 
-  <% if @bronze_supporters.any? %>
-    <div class="font-weight-light text-center text-sm-left text-primary h2 my-4">
-      🥉 Donateurs Bronze
+  <% if @diamond_supporters.any? %>
+    <div class="bg-white p-4 shadow-lg mt-4">
+      <div class="d-flex align-items-start align-items-lg-center justify-content-start flex-column flex-lg-row font-weight-light text-primary h2 mb-3">
+        <span class="mr-lg-3">💎</span>
+        <span class="font-weight-bold">Donateurs Diamant</span>
+      </div>
+      <%= render 'donateurs_reward', amount: 5000, centers_count: 200, doses_count: 2500 %>
+      <%= render 'donateurs_list', supporters: @diamond_supporters %>
     </div>
-    <%= render 'donateurs_reward', amount: 150, centers_count: 7, doses_count: 25 %>
-    <%= render 'donateurs_list', supporters: @bronze_supporters %>
-  <% end %>
-
-  <% if @silver_supporters.any? %>
-    <div class="font-weight-light text-center text-sm-left text-primary h2 my-4">
-      🥈 Donateurs Argent
-    </div>
-    <%= render 'donateurs_reward', amount: 500, centers_count: 20, doses_count: 250 %>
-    <%= render 'donateurs_list', supporters: @silver_supporters %>
   <% end %>
 
   <% if @gold_supporters.any? %>
-    <div class="font-weight-light text-center text-sm-left text-primary h2 my-4">
-      🥇 Donateurs Or
+    <div class="bg-white p-4 shadow-lg mt-4">
+      <div class="d-flex align-items-start align-items-lg-center justify-content-start flex-column flex-lg-row font-weight-light text-primary h2 mb-3">
+        <span class="mr-lg-3">🥇</span>
+        <span class="font-weight-bold">Donateurs Or</span>
+      </div>
+      <%= render 'donateurs_reward', amount: 1000, centers_count: 40, doses_count: 500 %>
+      <%= render 'donateurs_list', supporters: @gold_supporters %>
     </div>
-    <%= render 'donateurs_reward', amount: 1000, centers_count: 40, doses_count: 500 %>
-    <%= render 'donateurs_list', supporters: @gold_supporters %>
   <% end %>
 
-  <% if @diamond_supporters.any? %>
-    <div class="font-weight-light text-center text-sm-left text-primary h2 my-4">
-      💎 Donateurs Diamant
+  <% if @silver_supporters.any? %>
+    <div class="bg-white p-4 shadow-lg mt-4">
+      <div class="d-flex align-items-start align-items-lg-center justify-content-start flex-column flex-lg-row font-weight-light text-primary h2 mb-3">
+        <span class="mr-lg-3">🥈</span>
+        <span class="font-weight-bold">Donateurs Argent</span>
+      </div>
+      <%= render 'donateurs_reward', amount: 500, centers_count: 20, doses_count: 250 %>
+      <%= render 'donateurs_list', supporters: @silver_supporters %>
     </div>
-    <%= render 'donateurs_reward', amount: 5000, centers_count: 200, doses_count: 2500 %>
-    <%= render 'donateurs_list', supporters: @diamond_supporters %>
   <% end %>
 
+  <% if @bronze_supporters.any? %>
+    <div class="bg-white p-4 shadow-lg mt-4">
+      <div class="d-flex align-items-start align-items-lg-center justify-content-start flex-column flex-lg-row font-weight-light text-primary h2 mb-3">
+        <span class="mr-lg-3">🥉</span>
+        <span class="font-weight-bold">Donateurs Bronze</span>
+      </div>
+      <%= render 'donateurs_reward', amount: 150, centers_count: 7, doses_count: 25 %>
+      <%= render 'donateurs_list', supporters: @bronze_supporters %>
+    <% end %>
+  </div>
 </div>
