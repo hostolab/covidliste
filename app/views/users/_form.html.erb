@@ -65,6 +65,8 @@
                   as: :date,
                   label: false,
                   order: [:day, :month, :year],
+                  start_year: Date.today.year - 120,
+                  end_year: Date.today.year - 18,
                   wrapper_html: { class: "mb-2" } %>
       <p class="text-dark">
         Votre date de naissance sera vérifiée lors du rendez-vous.
