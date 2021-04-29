@@ -118,11 +118,11 @@ class Match < ApplicationRecord
   end
 
   def notify_by_email
-    SendMatchEmailJob.perform_later(self)
+    SendMatchEmailJob.perform_later(id)
   end
 
   def notify_by_sms
-    SendMatchSmsJob.perform_later(self)
+    SendMatchSmsJob.perform_later(id)
   end
 
   def matching_algo_v2?

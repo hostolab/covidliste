@@ -3,7 +3,8 @@ class SendCampaignJob < ApplicationJob
 
   STOP_SENDING_BEFORE_CAMPAIGN_ENDS_AT = 10.minutes
 
-  def perform(campaign)
+  def perform(campaign_id)
+    campaign = Campaign.find(campaign_id)
     return if campaign.matching_algo_v2?
     return unless campaign.running?
     return campaign.completed! if campaign.remaining_doses <= 0 || (campaign.ends_at - STOP_SENDING_BEFORE_CAMPAIGN_ENDS_AT) < Time.now.utc
@@ -26,6 +27,6 @@ class SendCampaignJob < ApplicationJob
     end
 
     # Prepare for next campaign batch
-    SendCampaignJob.set(wait: Match::EXPIRE_IN_MINUTES.minutes + 1.minute).perform_later(campaign)
+    SendCampaignJob.set(wait: Match::EXPIRE_IN_MINUTES.minutes + 1.minute).perform_later(campaign.id)
   end
 end

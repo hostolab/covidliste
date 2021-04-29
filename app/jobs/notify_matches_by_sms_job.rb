@@ -3,8 +3,9 @@ class NotifyMatchesBySmsJob < ApplicationJob
 
   LEAD_TIME = 90.minutes # we start sending sms X minutes before campaign ends
 
-  def perform(campaign)
-    Rails.logger.info("Run NotifyMatchesBySmsJob for campaign_id #{campaign.id}")
+  def perform(campaign_id)
+    Rails.logger.info("Run NotifyMatchesBySmsJob for campaign_id #{campaign_id}")
+    campaign = Campaign.find(campaign_id)
     return unless campaign.matching_algo_v2?
     return unless campaign.running?
     return if campaign.ends_at > LEAD_TIME.from_now # do not send any SMS X minutes before campaign ends
