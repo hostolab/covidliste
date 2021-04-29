@@ -15,6 +15,5 @@ Rack::Attack.throttle("users/password/new", limit: 40, period: 10.minutes) do |r
 end
 
 ActiveSupport::Notifications.subscribe("rack.attack") do |name, start, finish, request_id, req|
-  puts "Throttled #{req.env["rack.attack.match_discriminator"]}"
-  ## todo add a logging tool
+  Rais.logger.warning("Throttled #{req.env["rack.attack.match_discriminator"]}")
 end
