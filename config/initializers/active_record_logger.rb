@@ -25,5 +25,5 @@ if Rails.env.development?
     end
   end
   # ActiveRecord::Base.logger = nil # Hide completely all logs SQL
-  ActiveRecord::Base.logger = ActiveSupport::TaggedLogging.new(CacheFreeLogger.new(STDOUT))
+  ActiveRecord::Base.logger = ActiveSupport::TaggedLogging.new(CacheFreeLogger.new($stdout))
 end
