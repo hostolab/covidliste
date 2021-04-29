@@ -3,7 +3,7 @@ class UluleService
   base_uri "https://api.ulule.com"
   format :json
 
-  CACHE_TTL = Rails.env.development? ? 10.seconds : 2.hours
+  CACHE_TTL = Rails.env.development? ? 10.seconds : 1.hours
 
   def initialize(project_id)
     @project_id = project_id
