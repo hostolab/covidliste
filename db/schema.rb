@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_27_112116) do
+ActiveRecord::Schema.define(version: 2021_04_29_055529) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -232,6 +232,7 @@ ActiveRecord::Schema.define(version: 2021_04_27_112116) do
     t.boolean "statement", default: false
     t.datetime "statement_accepted_at"
     t.datetime "toc_accepted_at"
+    t.string "email_domain"
     t.index ["city"], name: "index_users_on_city"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token"
     t.index ["email_bidx"], name: "index_users_on_email_bidx", unique: true

@@ -69,6 +69,14 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe "Email domain" do
+    it "It extracts email domain" do
+      user.email = "test@thisisfakesauvonslesvaccins.com"
+      expect(user).to_not be_valid
+      expect(user.email_domain).to eq("thisisfakesauvonslesvaccins.com")
+    end
+  end
+
   describe "Phone format" do
     it_behaves_like "has phone number"
 

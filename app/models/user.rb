@@ -35,6 +35,7 @@ class User < ApplicationRecord
 
   before_save :randomize_lat_lon, if: -> { (will_save_change_to_lat? || will_save_change_to_lon?) }
   after_commit :reverse_geocode, if: -> { (saved_change_to_lat? || saved_change_to_lon?) && anonymized_at.nil? }
+  before_save :extract_email_domain, if: -> { will_save_change_to_email? }
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
   scope :active, -> { where(anonymized_at: nil) }
@@ -55,6 +56,10 @@ class User < ApplicationRecord
     results = GeocodingService.new(address).call
     self.lat = results[:lat]
     self.lon = results[:lon]
+  end
+
+  def extract_email_domain
+    self.email_domain = Mail::Address.new(email).domain
   end
 
   def reverse_geocode
