@@ -13,7 +13,7 @@ def fill_valid_user
 end
 
 def signup_submit
-  click_on "Je m’inscris"
+  click_on "S’inscrire"
 end
 
 RSpec.describe "Users", type: :system do
@@ -100,7 +100,9 @@ RSpec.describe "Users", type: :system do
       visit users_magic_link_url(Hash["user", {email: user.email, token: token}])
 
       expect(page).to have_text("Connecté(e).")
-      expect(page).to have_text("Vos informations")
+      expect(page).to have_text("Accélérons la campagne de vaccination.")
+
+      visit profile_url
     end
 
     it "it allows me to edit personal information " do

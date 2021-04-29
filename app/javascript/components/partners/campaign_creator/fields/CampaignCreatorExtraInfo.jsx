@@ -6,14 +6,14 @@ export const CampaignCreatorExtraInfo = () => {
   return (
     <CampaignCreatorField
       label="Informations supplémentaires"
-      sublabel="Accès, modalités... Les volontaires ne verront cette information qu’après avoir confirmé leur rendez-vous."
+      sublabel="Accès, modalités... Les volontaires ne verront ces informations qu’après avoir confirmé leur rendez-vous."
       name="extraInfo"
     >
       <Field
         as="textarea"
         name="extraInfo"
         id="extraInfo"
-        className="form-control"
+        className="form-control form-control-full-width"
         rows="2"
       />
     </CampaignCreatorField>

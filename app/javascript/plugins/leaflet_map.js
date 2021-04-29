@@ -1,4 +1,5 @@
 import "leaflet";
+import "leaflet.markercluster";
 
 const leafletMap = () => {
   const leafletMap = document.getElementById("leaflet_map");
@@ -36,27 +37,30 @@ const leafletMap = () => {
       lmap.panTo([lat, lon]);
     }
     let leafletMarkers = leafletMap.getElementsByClassName("leaflet-marker");
-    for (let i = 0; i < leafletMarkers.length; ++i) {
-      let leafletMarker = leafletMarkers[i];
-      let markerLat = leafletMarker.getAttribute("data-lat");
-      let markerLon = leafletMarker.getAttribute("data-lon");
-      let markerIcon = leafletMarker.getAttribute("data-icon");
-      let markerText = leafletMarker.innerHTML || "";
-      if (markerLat && markerLon) {
-        if (markerIcon) {
-          let icon = new L.icon({
-            iconUrl: markerIcon,
-            iconSize: [32, 37],
-            iconAnchor: [16, 37],
-            popupAnchor: [0, -37],
-          });
-          L.marker([markerLat, markerLon], { icon: icon })
-            .addTo(lmap)
-            .bindPopup(markerText);
-        } else {
-          L.marker([markerLat, markerLon]).addTo(lmap).bindPopup(markerText);
+    if (leafletMarkers) {
+      let leafletMarkersCluster = L.markerClusterGroup();
+      for (let i = 0; i < leafletMarkers.length; ++i) {
+        let leafletMarker = leafletMarkers[i];
+        let markerLat = leafletMarker.getAttribute("data-lat");
+        let markerLon = leafletMarker.getAttribute("data-lon");
+        let markerIcon = leafletMarker.getAttribute("data-icon");
+        let markerText = leafletMarker.innerHTML || "";
+        if (markerLat && markerLon) {
+          let marker = L.marker([markerLat, markerLon]);
+          if (markerIcon) {
+            let icon = new L.icon({
+              iconUrl: markerIcon,
+              iconSize: [32, 37],
+              iconAnchor: [16, 37],
+              popupAnchor: [0, -37],
+            });
+            marker = L.marker([markerLat, markerLon], { icon: icon });
+          }
+          marker.bindPopup(markerText);
+          leafletMarkersCluster.addLayer(marker);
         }
       }
+      lmap.addLayer(leafletMarkersCluster);
     }
     document
       .querySelectorAll(".leaflet_fly_btn")

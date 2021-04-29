@@ -3,6 +3,8 @@ class UluleService
   base_uri "https://api.ulule.com"
   format :json
 
+  CACHE_TTL = Rails.env.development? ? 5.minutes : 1.hours
+
   def initialize(project_id)
     @project_id = project_id
     @api_key = ENV["ULULE_API_KEY"]
@@ -14,12 +16,20 @@ class UluleService
     )
   end
 
-  def project
-    self.class.get("/v1/projects/#{@project_id}")
+  def data(force = false)
+    Rails.cache.fetch(:ulule_data, expires_in: CACHE_TTL, force: force) {
+      {
+        project: project,
+        bronze_supporters: get_supporters(150, 500),
+        silver_supporters: get_supporters(500, 100),
+        gold_supporters: get_supporters(1000, 5000),
+        diamond_supporters: get_supporters(5000, 99999999)
+      }
+    }
   end
 
-  def supporters
-    self.class.get("/v1/projects/#{@project_id}/supporters", query: {limit: 25})
+  def project
+    self.class.get("/v1/projects/#{@project_id}")
   end
 
   def get_supporters(min = 0, max = 0)

@@ -1,5 +1,6 @@
 <%= f.input :statement,
   as: :boolean,
+  label_html: { class: "small" },
   label: "J’accepte les #{link_to "CGU", local_cgu_path} et certifie sur l’honneur que les informations ci-dessus sont exactes.".html_safe,
   error: "Vous devez cocher cette case pour valider votre inscription",
   required: true 

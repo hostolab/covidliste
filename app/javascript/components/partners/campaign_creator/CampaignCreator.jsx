@@ -62,7 +62,7 @@ const _CampaignCreator = ({
               <CampaignCreatorChecks />
 
               <button
-                className="btn btn-danger btn-lg"
+                className="btn btn-primary btn-lg"
                 type="submit"
                 disabled={
                   !isValid ||
