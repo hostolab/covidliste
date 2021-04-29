@@ -40,7 +40,7 @@ const createConfirmModal = (element) => {
             </button>
             <button data-behavior="commit"
                     type="button"
-                    class="btn btn-danger"
+                    class="btn btn-primary"
                     data-dismiss="modal">
                     ${commit}
             </button>

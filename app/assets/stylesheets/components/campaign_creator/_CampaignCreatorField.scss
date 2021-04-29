@@ -1,0 +1,44 @@
+.CampaignCreatorField {
+  h3 {
+    font-weight: bold;
+    font-size: 18px;
+  }
+
+  p {
+    color: $gray-700;
+    font-weight: 500;
+  }
+
+  .form-control {
+    width: auto;
+    display: inline-block;
+
+    &.form-control-full-width {
+      width: 90%;
+    }
+  }
+
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+
+  > label {
+    margin-bottom: 1rem;
+  }
+
+  .input {
+    > * {
+      display: inline-block;
+      margin-right: 0.8rem;
+
+      &.margin-xs {
+        margin-right: 0.25rem;
+      }
+    }
+  }
+
+  .was-validated .form-control:invalid,
+  .form-control.is-invalid {
+    background-position: right calc(0.375em + 0.588rem) center;
+  }
+}

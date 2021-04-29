@@ -1,6 +1,8 @@
 class Campaign < ApplicationRecord
   MAX_DOSES = 200
   MAX_DISTANCE_IN_KM = 50
+  MAX_SMS_BUDGET_BY_DOSE = 20
+  OVERBOOKING_FACTOR = 40
 
   belongs_to :vaccination_center
   belongs_to :partner
@@ -17,13 +19,24 @@ class Campaign < ApplicationRecord
   validate :min_age_lesser_than_max_age
   validate :starts_at_lesser_than_ends_at
 
+  before_create :set_algo_version
+
   def canceled!
     update_attribute(:canceled_at, Time.now.utc)
     super
   end
 
-  def remaining_slots
-    available_doses - matches.confirmed.size
+  def remaining_doses
+    [available_doses - matches.confirmed.count, 0].max
+  end
+
+  def target_matches_count
+    # number of people to target at any point in time
+    remaining_doses * OVERBOOKING_FACTOR
+  end
+
+  def sms_budget_remaining
+    (available_doses * MAX_SMS_BUDGET_BY_DOSE) - matches.with_sms.count
   end
 
   def reachable_users_query(limit: nil)
@@ -54,6 +67,14 @@ class Campaign < ApplicationRecord
         ]
       end
     end
+  end
+
+  def set_algo_version
+    self.algo_version = "v2" if Flipper.enabled?(:matching_algo_v2)
+  end
+
+  def matching_algo_v2?
+    algo_version == "v2"
   end
 
   private

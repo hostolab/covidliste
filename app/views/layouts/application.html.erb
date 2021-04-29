@@ -12,17 +12,16 @@
   <%= render "layouts/accesibility_development_warnings" %>
 </head>
 <body>
-<div class="layout">
-  <div class="layout__content">
-    <%= render "layouts/navbar" %>
-    <div class="container-fluid">
+  <div class="layout">
+    <div class="layout__content">
+      <%= render "layouts/banner" %>
+      <%= render "layouts/navbar" %>
       <%= render "layouts/alerts" %>
       <%= yield %>
     </div>
+    <div class="layout__footer">
+      <%= render "layouts/footer" %>
+    </div>
   </div>
-  <div class="layout__footer">
-    <%= render "layouts/footer" %>
-  </div>
-</div>
 </body>
 </html>

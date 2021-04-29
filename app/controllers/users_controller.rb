@@ -8,8 +8,6 @@ class UsersController < ApplicationController
     skip_authorization
     if current_partner
       redirect_to partners_vaccination_centers_path
-    elsif current_user
-      redirect_to profile_path
     else
       @user = User.new(birthdate: Date.today.change(year: 1961))
       set_counters
@@ -44,11 +42,13 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    @user.address = params[:user][:address]
     @user.ensure_lat_lon(params[:user][:address]) # fallback in case lat/lon are not returning from client
     @user.statement_accepted_at = Time.zone.now if @user.statement
     @user.toc_accepted_at = Time.zone.now if @user.toc
     authorize @user
     @user.save
+    set_counters
     prepare_phone_number
     render action: :new
   rescue ActiveRecord::RecordNotUnique
@@ -67,10 +67,10 @@ class UsersController < ApplicationController
   private
 
   def set_counters
-    @users_count = Rails.cache.fetch(:users_count, expires_in: 5.minutes) { User.count }
-    @confirmed_matched_users_count = Rails.cache.fetch(:confirmed_matched_users_count, expires_in: 5.minutes) { Match.confirmed.count }
-    @matched_users_count = Rails.cache.fetch(:matched_users_count, expires_in: 5.minutes) { Match.distinct.count("user_id") + Match.confirmed.count }
-    @vaccination_centers_count = Rails.cache.fetch(:vaccination_centers_count, expires_in: 5.minutes) { VaccinationCenter.confirmed.count }
+    @users_count = Rails.cache.fetch(:users_count, expires_in: 30.minutes) { User.count }
+    @confirmed_matched_users_count = Rails.cache.fetch(:confirmed_matched_users_count, expires_in: 30.minutes) { Match.confirmed.count }
+    @matched_users_count = Rails.cache.fetch(:matched_users_count, expires_in: 30.minutes) { Match.distinct.count("user_id") + Match.confirmed.count }
+    @vaccination_centers_count = Rails.cache.fetch(:vaccination_centers_count, expires_in: 30.minutes) { VaccinationCenter.confirmed.count }
   end
 
   def prepare_phone_number
@@ -94,6 +94,6 @@ class UsersController < ApplicationController
       .policy.class.to_s.underscore
     message = exception.message || (t "#{policy_name}.#{exception.query}", scope: "pundit", default: :default)
     flash[:error] = message
-    redirect_to(request.referrer || root_path)
+    redirect_back(fallback_location: root_path)
   end
 end

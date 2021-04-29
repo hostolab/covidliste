@@ -15,29 +15,47 @@ module Partners
     end
 
     def new
-      @campaign = @vaccination_center.campaigns.build(starts_at: Time.now, ends_at: 1.hour.from_now)
+      if Flipper.enabled?(:new_campaign_creator, @vaccination_center)
+        @campaign = @vaccination_center.build_campaign_smart_defaults
+        render "creator"
+      else
+        @campaign = @vaccination_center.campaigns.build(starts_at: Time.now, ends_at: 1.hour.from_now)
+        render "new"
+      end
     end
 
     def create
       @campaign = @vaccination_center.campaigns.build(create_params)
       @campaign.partner = current_partner
-      @campaign.max_distance_in_meters = create_params["max_distance_in_meters"].to_i * 1000
+      @campaign.max_distance_in_meters = create_params["max_distance_in_meters"].to_i * 1000 if request.format.html?
 
       if @campaign.save
         @campaign.update(name: "Campagne ##{@campaign.id} du #{@campaign.created_at.strftime("%d/%m/%Y")}")
-        SendCampaignJob.perform_later(@campaign, current_partner)
+        SendCampaignJob.perform_later(@campaign) unless @campaign.matching_algo_v2?
         PushNewCampaignToSlackJob.perform_later(@campaign)
-        redirect_to partners_campaign_path(@campaign)
+
+        respond_to do |format|
+          format.html { redirect_to partners_campaign_path(@campaign) }
+          format.json { render json: {campaign: @campaign, redirect_to: partners_campaign_url(@campaign)} }
+        end
       else
-        @campaign.max_distance_in_meters = @campaign.max_distance_in_meters / 1000
-        render :new
+        @campaign.max_distance_in_meters = @campaign.max_distance_in_meters / 1000 if request.format.html?
+
+        respond_to do |format|
+          format.html { render :new }
+          format.json { render json: {errors: @campaign.errors}, status: 400 }
+        end
       end
     end
 
     def update
       if params[:cancel] == "true" && @campaign.running?
         @campaign.canceled!
-        flash[:notice] = "La campagne est en cours d'interruption. Attention, des volontaires ont reçu des SMS et peuvent encore confirmer dans les #{Match::EXPIRE_IN_MINUTES + 1} prochaines minutes"
+        flash[:notice] = if @campaign.matching_algo_v2?
+          "La campagne est en cours d'interruption. Attention, des volontaires ont reçu des notifications et peuvent encore confirmer jusqu'à la fin de la campagne."
+        else
+          "La campagne est en cours d'interruption. Attention, des volontaires ont reçu des SMS et peuvent encore confirmer dans les #{Match::EXPIRE_IN_MINUTES + 1} prochaines minutes"
+        end
         redirect_to partners_campaign_path(@campaign)
       end
     end
@@ -48,8 +66,11 @@ module Partners
       campaign = Campaign.new(simulate_params.merge({vaccination_center: @vaccination_center}))
       reach = campaign.reachable_users_query.count
       render json: {
-        reach: Rails.env.production? ? reach : 1,
-        enough: reach >= (Vaccine.minimum_reach_to_dose_ratio(vaccine_type) * available_doses)
+        reach: reach,
+        # For testing, uncomment :
+        # reach: reach * 100,
+        enough: reach >= (Vaccine.minimum_reach_to_dose_ratio(vaccine_type) * available_doses),
+        minimum_reach_to_dose_ratio: Vaccine.minimum_reach_to_dose_ratio(vaccine_type)
       }
     end
 

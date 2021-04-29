@@ -1,15 +1,19 @@
+<%= provide(:meta_title, "Les bénévoles Covidliste") %>
+<%= provide(:meta_description, "Découvrez notre équipe de bénévoles.") %>
+<%= provide(:meta_image, image_url("meta/benevoles.png")) %>
+
 <%= content_for(:append_to_head) do %>
-<meta content="index;follow" name="robots"/>
+  <meta content="index;follow" name="robots"/>
 <% end %>
 
 <div class="container my-5">
   <h1 class="mb-3">Bénévoles</h1>
 
-  <p>Covidliste est une initiative bénévole et citoyenne qui a vu le jour il y a quelques semaines pour accélérer la campagne nationale de vaccination contre le Covid19 en distribuant les doses sur le point d'être jetées.</p>
-
-  <p>Merci à tous les bénévoles sans qui Covidliste ne pourrait pas exister !</p>
-
-  <p>Vous voulez nous rejoindre ? C'est en bas de la page !</p>
+  <p class="text-justify text-sm-left">Covidliste est une liste d'attente virtuelle pour les professionnels de la vaccination</p>
+  <p class="text-justify text-sm-left">Nous proposons aux professionnels de la santé de notifier notre base de volontaires dès lors qu'une place se libère dans leur agenda vaccinal</p>
+  <p class="text-justify text-sm-left">Nous proposons aux volontaires d'être mis dans la liste d'attente de tous les centres de vaccination proches de chez eux.</p>
+  <p class="text-justify text-sm-left">Grâce à Covidliste, les soignants gagnent de précieuses heures par jour. Finies les heures passées au téléphone pour remplir les créneaux disponibles, c'est Covidliste qui se charge de leur adresser les volontaires en quelques clics.</p>
+  <p class="text-justify text-sm-left">Vous voulez nous rejoindre ? C'est en bas de la page !</p>
 
   <div class="row my-5">
     <% @volunteers.each do |volunteer| %>

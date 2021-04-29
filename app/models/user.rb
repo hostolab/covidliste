@@ -33,7 +33,7 @@ class User < ApplicationRecord
     },
     if: :email_changed?
 
-  before_save :randomize_lat_lon, if: -> { (saved_change_to_lat? || saved_change_to_lon?) }
+  before_save :randomize_lat_lon, if: -> { (will_save_change_to_lat? || will_save_change_to_lon?) }
   after_commit :reverse_geocode, if: -> { (saved_change_to_lat? || saved_change_to_lon?) && anonymized_at.nil? }
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
@@ -52,6 +52,7 @@ class User < ApplicationRecord
 
   def ensure_lat_lon(address)
     return unless lat.nil? || lon.nil?
+    return if address.blank?
     results = GeocodingService.new(address).call
     self.lat = results[:lat]
     self.lon = results[:lon]
