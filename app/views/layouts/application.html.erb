@@ -12,16 +12,18 @@
   <%= render "layouts/accesibility_development_warnings" %>
 </head>
 <body>
-  <div class="layout">
-    <div class="layout__content">
-      <%= render "layouts/banner" %>
-      <%= render "layouts/navbar" %>
-      <%= render "layouts/alerts" %>
+<div class="layout">
+  <div class="layout__above-footer">
+    <%= render "layouts/banner" %>
+    <%= render "layouts/navbar" %>
+    <div class="layout__content <%= "layout__content--no-padding" if @no_layout_content_padding ||= false %>">
+      <%= render "layouts/alerts" unless @no_layout_alerts ||= false %>
       <%= yield %>
     </div>
-    <div class="layout__footer">
-      <%= render "layouts/footer" %>
-    </div>
   </div>
+  <div class="layout__footer">
+    <%= render "layouts/footer" %>
+  </div>
+</div>
 </body>
 </html>

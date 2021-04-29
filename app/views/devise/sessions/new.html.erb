@@ -8,7 +8,7 @@
 
 <div id="devise">
   <div class="container">
-    <div class="row mt-5">
+    <div class="row">
       <div class="col-12 col-lg-6 offset-lg-1 mb-5">
         <div class="d-flex align-items-center">
           <div class="rounded p-3 bg-light text-primary mr-3 h2">
@@ -30,11 +30,11 @@
 
         <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
           <%= f.input :email,
-                      autocomplete: 'off',
-                      autofocus: true,
-                      required: true,
-                      id: 'inputEmail',
-                      placeholder: 'E-mail' %>
+            autocomplete: 'off',
+            autofocus: true,
+            required: true,
+            id: 'inputEmail',
+            placeholder: 'E-mail' %>
 
           <%= f.submit "Recevoir un lien de connexion", class: "btn btn-primary", id: :sign_in %>
 
@@ -44,7 +44,7 @@
             </p>
           <% end %>
 
-          <% if controller_name == "sessions"  %>
+          <% if controller_name == "sessions" %>
             <p class="mt-3">
               <%= link_to "S’inscrire en tant que volontaire", users_path %>
             </p>

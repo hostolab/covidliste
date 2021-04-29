@@ -1,9 +1,7 @@
 <% unless flash.empty? %>
-  <div class="bg-theme">
-    <div class="container overflow-hidden">
-      <% flash.each do |key, value| %>
-        <%= message_flash(key, value) %>
-      <% end %>
-    </div>
+  <div class="container overflow-hidden alerts-container">
+    <% flash.each do |key, value| %>
+      <%= message_flash(key, value) %>
+    <% end %>
   </div>
 <% end %>

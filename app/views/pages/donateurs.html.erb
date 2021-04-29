@@ -1,13 +1,14 @@
 <%= content_for(:append_to_head) do %>
-<meta content="index;follow" name="robots"/>
+  <meta content="index;follow" name="robots"/>
 <% end %>
 
-<div class="container my-5">
+<div class="container">
   <h1 class="mb-3">
     <%= "Merci à nos #{@project['supporters_count']} donateurs" %>
   </h1>
 
-  <p class="text-justify text-sm-left">Merci à tous les donateurs qui nous permettent d'améliorer la plateforme, de continuer à former de nouveaux professionnels de santé et surtout d'accélérer la vaccination en France.</p>
+  <p class="text-justify text-sm-left">Merci à tous les donateurs qui nous permettent d'améliorer la plateforme,
+   de continuer à former de nouveaux professionnels de santé et surtout d'accélérer la vaccination en France.</p>
 
   <%= link_to "En savoir plus sur la campagne", @project["absolute_url"], target: "_blank", rel: "noopener", class: "btn btn-info btn-primary mt-2 mt-md-0" %>
   <% unless @project["finished"] %>
@@ -21,7 +22,8 @@
       <div class="card-body p-3">
         <div class="d-flex align-items-start align-items-sm-center flex-column flex-sm-row mb-2">
           <% if @project["date_end"].present? %>
-            <span class="badge badge-primary mr-2"><%= distance_of_time_in_words(@project["date_end"].to_time.to_i - Time.zone.now.to_i) %> restant</span>
+            <span class="badge badge-primary mr-2"><%= distance_of_time_in_words(@project["date_end"].to_time.to_i - Time.zone.now.to_i) %>
+              restant</span>
           <% end %>
           <div class="font-weight-bold text-primary mt-2 mt-sm-0">Objectif : <%= [@project["goal"], @project["currency"]].join(" ") %></div>
         </div>
