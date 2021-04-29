@@ -12,8 +12,10 @@
     <% else %>
       <strong> Distance du centre de vaccination </strong>
       <p>
-        <% distance = distance_delta({ lat: user.lat, lon: user.lon}, { lat: vaccination_center.lat, lon: vaccination_center.lon }) %>
-        <%= distance[:delta_in_words] %>
+        À
+        <% distance = distance_delta({lat: user.lat, lon: user.lon}, {lat: vaccination_center.lat, lon: vaccination_center.lon}) %>
+        <%= distance[:delta_in_words] %> de
+        vous<%= ", à #{vaccination_center.human_friendly_geo_area}" if vaccination_center.human_friendly_geo_area %>
       </p>
     <% end %>
   </div>

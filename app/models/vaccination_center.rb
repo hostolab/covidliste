@@ -113,6 +113,13 @@ class VaccinationCenter < ApplicationRecord
     end
   end
 
+  def human_friendly_geo_area
+    if zipcode && city && geo_context
+      region = geo_context.split(",")[-1]
+      "#{city}, #{region} (#{zipcode})"
+    end
+  end
+
   private
 
   def approximated_lat_lon
