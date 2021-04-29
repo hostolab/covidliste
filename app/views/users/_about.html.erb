@@ -6,6 +6,12 @@
   </p>
 
   <p>
+    Aujourd’hui <span class="text-primary font-weight-bold"><%= pretty_number(@users_count) %> volontaires</span> sont inscrits.
+    <span class="text-primary font-weight-bold"><%= pretty_number(@matched_users_count) %></span> personnes ont déjà été contactées par Covidliste pour une dose de vaccin disponible.
+    <span class="text-primary font-weight-bold"><%= pretty_number(@confirmed_matched_users_count) %></span> d’entre eux ont confirmé leur rendez-vous avec l’un de nos <span class="text-primary font-weight-bold"><%= pretty_number(@vaccination_centers_count) %></span> <span class="font-weight-bold">centres et professionnels de santé</span> inscrits !
+  </p>
+
+  <p>
     Solution entièrement gratuite et sécurisée, Covidliste permet :
     <ul>
       <li>
