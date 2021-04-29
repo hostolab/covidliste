@@ -9,13 +9,17 @@ class SendMatchSmsJob < ApplicationJob
 
     match.set_expiration!
 
-    client = Twilio::REST::Client.new
-    client.messages.create(
-      from: "COVIDLISTE",
-      to: match.user.phone_number,
-      body: "Bonne nouvelle, une dose de vaccin vient de se libérer près de chez vous. Réservez-la vite sur : #{cta_url(match)}"
-    )
-    match.update(sms_sent_at: Time.now.utc)
+    begin
+      client = Twilio::REST::Client.new
+      client.messages.create(
+        from: "COVIDLISTE",
+        to: match.user.phone_number,
+        body: "Bonne nouvelle, une dose de vaccin vient de se libérer près de chez vous. Réservez-la vite sur : #{cta_url(match)}"
+      )
+      match.update(sms_sent_at: Time.now.utc)
+    rescue Twilio::REST::TwilioError => e
+      Rails.logger.info("[SendMatchSmsJob] #{e.message}")
+    end
   end
 
   private
