@@ -5,7 +5,7 @@ class PagesController < ApplicationController
 
   def donateurs
     ulule_project_slug = "covidliste"
-    data = UluleService.new(ulule_project_slug).data
+    data = UluleService.new(ulule_project_slug).data(params[:force].present?)
     @project = data[:project]
     @bronze_supporters = data[:bronze_supporters]
     @silver_supporters = data[:silver_supporters]
