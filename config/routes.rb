@@ -110,6 +110,10 @@ Rails.application.routes.draw do
   end
 
   ## matches
+  namespace :matches do
+    resource :users, only: [:edit, :destroy]
+  end
+
   get "/m/:match_confirmation_token(/:source)" => "matches#show", :as => :match
   patch "/m/:match_confirmation_token(/:source)" => "matches#update"
   delete "/m/:match_confirmation_token(/:source)" => "matches#destroy"
