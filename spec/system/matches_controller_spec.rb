@@ -73,7 +73,7 @@ RSpec.describe MatchesController, type: :system do
     end
 
     context "with an anonymized user" do
-      before { match.update(user_id: nil) }
+      before { user.anonymize! }
       it "redirects to root" do
         subject
         expect(page).to have_current_path(root_path)
