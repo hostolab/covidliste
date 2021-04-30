@@ -23,7 +23,7 @@ describe RunCampaignJob do
 
   let(:reachable_users_query) { User.where(id: user.id) }
 
-  subject { RunCampaignJob.new.perform(campaign) }
+  subject { RunCampaignJob.new.perform(campaign.id) }
 
   before do
     Flipper.enable(:matching_algo_v2)

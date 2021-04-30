@@ -7,7 +7,7 @@
 - [Redis](https://redis.io/)
 - [React](https://reactjs.org/)
 - [Stimulus](https://stimulus.hotwire.dev/)
-- Bootstrap](https://getbootstrap.com/)
+- [Bootstrap](https://getbootstrap.com/)
 
 # Local Development
 

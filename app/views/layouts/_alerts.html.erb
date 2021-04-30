@@ -1,5 +1,7 @@
 <% unless flash.empty? %>
-  <% flash.each do |key, value| %>
-    <%= message_flash(key, value) %>
-  <% end %>
+  <div class="container overflow-hidden alerts-container">
+    <% flash.each do |key, value| %>
+      <%= message_flash(key, value) %>
+    <% end %>
+  </div>
 <% end %>

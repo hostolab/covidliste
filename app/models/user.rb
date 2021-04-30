@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  extend Memoist
   include HasPhoneNumberConcern
   has_phone_number_types %i[mobile]
   rolify
@@ -53,9 +54,13 @@ class User < ApplicationRecord
 
   def ensure_lat_lon(address)
     return unless lat.nil? || lon.nil?
+    return if address.blank?
     results = GeocodingService.new(address).call
-    self.lat = results[:lat]
-    self.lon = results[:lon]
+
+    if results.present?
+      self.lat = results[:lat]
+      self.lon = results[:lon]
+    end
   end
 
   def extract_email_domain
@@ -113,6 +118,7 @@ class User < ApplicationRecord
       end
     end
   end
+  memoize :has_role?
 
   def anonymize!
     return unless anonymized_at.nil?

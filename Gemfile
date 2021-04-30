@@ -65,6 +65,8 @@ gem "ahoy_email"
 gem "redlock"
 gem "react_on_rails", "12.2.0"
 gem "mini_racer", platforms: :ruby
+gem "marginalia"
+gem "memoist"
 
 group :development, :test do
   gem "dotenv-rails", "2.7.6"

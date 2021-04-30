@@ -113,6 +113,13 @@ class VaccinationCenter < ApplicationRecord
     end
   end
 
+  def human_friendly_geo_area
+    if zipcode && city && geo_context
+      region = geo_context.split(",")[-1]
+      "#{city}, #{region} (#{zipcode})"
+    end
+  end
+
   private
 
   def approximated_lat_lon
@@ -126,6 +133,6 @@ class VaccinationCenter < ApplicationRecord
     return unless Rails.env.production?
 
     # Wait for vaccination partner to be created
-    PushNewVaccinationCenterToSlackJob.set(wait: 5.seconds).perform_later(self)
+    PushNewVaccinationCenterToSlackJob.set(wait: 5.seconds).perform_later(id)
   end
 end

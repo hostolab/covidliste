@@ -6,14 +6,14 @@
   <meta content="index;follow" name="robots"/>
 <% end %>
 
-<div class="container my-5">
+<div class="container">
   <h3>Carte des lieux de vaccination inscrits sur Covidliste</h3>
   <p><%= @vaccination_centers.count %> lieux de vaccination sur Covidliste</p>
 
   <div class="my-3">
     <% @map_areas.each do |map_area| %>
       <button class="leaflet_fly_btn btn-sm btn btn-link small"
-         data-lat="<%= map_area["lat"] %>" data-lon="<%= map_area["lon"] %>" data-zoom="<%= map_area["zoom"] %>">
+              data-lat="<%= map_area["lat"] %>" data-lon="<%= map_area["lon"] %>" data-zoom="<%= map_area["zoom"] %>">
         <%= map_area["label"] %>
       </button>
     <% end %>
@@ -25,7 +25,7 @@
       <% @vaccination_centers.each do |vaccination_center| %>
         <div class="leaflet-marker" data-icon="<%= asset_path("map/markers/firstaid.png") %>"
              data-lat="<%= vaccination_center["lat"] %>" data-lon="<%= vaccination_center["lon"] %>">
-          <strong><%= vaccination_center["name"] %></strong><br />
+          <strong><%= vaccination_center["name"] %></strong><br/>
           <%= vaccination_center["description"] %>
         </div>
       <% end %>

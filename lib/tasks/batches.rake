@@ -1,7 +1,7 @@
 namespace :batches do
   desc "Creates a batch, matches, and sends them an text"
   task :create, [:campaign_id, :batch_size] => [:environment] do |t, args|
-    campaign = Campaign.find_by(id: args[:campaign_id])
+    campaign = Campaign.find(args[:campaign_id])
     puts "Campaign : #{campaign.name}"
 
     # Looking for users to match

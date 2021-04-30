@@ -11,10 +11,10 @@ data_sources:
     # caching settings
     # can greatly improve speed
     # off by default
-    # cache:
-    #   mode: slow # or all
-    #   expires_in: 60 # min
-    #   slow_threshold: 15 # sec, only used in slow mode
+    cache:
+      mode: slow # or all
+      expires_in: 15 # min
+      slow_threshold: 10 # sec, only used in slow mode
 
     # wrap queries in a transaction for safety
     # not necessary if you use a read-only user

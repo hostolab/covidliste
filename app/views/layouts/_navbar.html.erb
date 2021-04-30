@@ -1,15 +1,16 @@
-<nav class="navbar navbar-expand-xl navbar-dark bg-gradient-theme">
-  <%= link_to root_path, class: "navbar-brand" do %>
-    <%= image_tag "covidliste-logo.png", height: 40, loading: "lazy", class: "mr-2", alt: "logo covidliste" %>
-    <span class="font-weight-bolder">Covidliste</span>
-    <% if current_partner %>
-      <span class="ml-1 font-weight-light">Professionnels</span>
-    <% end %>    
-  <% end %>
+<nav class="navbar navbar-expand-xl navbar-dark bg-theme px-lg-0">
+  <div class="container">
+    <%= link_to root_path, class: "navbar-brand" do %>
+      <%= image_tag "covidliste-logo.png", height: 40, loading: "lazy", class: "mr-2", alt: "logo covidliste" %>
+      <span class="font-weight-bolder">Covidliste</span>
+      <% if current_partner %>
+        <span class="ml-1 font-weight-light">Professionnels</span>
+      <% end %>    
+    <% end %>
 
-  <button class="navbar-toggler" type="button" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation" data-target="#navbarNavDropdown" data-toggle="collapse">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+    <button class="navbar-toggler" type="button" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation" data-target="#navbarNavDropdown" data-toggle="collapse">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav ml-auto">
@@ -31,52 +32,53 @@
         </li>
       <% end %>
 
-      <% if current_partner %>
-        <li class="<%= class_names("nav-item", active: current_page?(partenaires_faq_path)) %>">
-          <%= link_to "FAQ professionnels", partenaires_faq_path, class: "nav-link" %>
-        </li>
-        <li class="<%= class_names("nav-item", active: current_page?(partners_vaccination_centers_path)) %>">
-          <%= link_to "Espace professionnels", partners_vaccination_centers_path, class: "nav-link" %>
-        </li>
-        <li class="nav-item dropdown">
-          <%= link_to "", class: "nav-link text-white font-weight-bold dropdown-toggle", id: "dropdown09", "aria-expanded": "false", "aria-haspopup": "true", "data-toggle": "dropdown" do %>
-            <%= current_partner.name %>
-            <span class="badge badge-primary">
-              Professionnel
-            </span>
-          <% end %>
-
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown09">
-            <%= link_to "Lieux de vaccination", partners_vaccination_centers_path, class: "dropdown-item" %>
-            <%= link_to "Profil", partners_path, class: "dropdown-item" %>
-            <%= link_to "Déconnexion", destroy_partner_session_path, method: :delete, class: "dropdown-item" %>
-          </div>
-        </li>
-      <% elsif current_user %>
-        <li class="nav-item dropdown">
-          <%= link_to "", class: "nav-link text-white font-weight-bold dropdown-toggle", id: "dropdown09", "aria-expanded": "false", "aria-haspopup": "true", "data-toggle": "dropdown" do %>
-            <%= current_user %>
-          <% end %>
-
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown09">
-            <%= link_to "Profil", profile_path, class: "dropdown-item" %>
-            <% if current_user.has_role?(:volunteer) %>
-              <%= link_to icon("fas", "external-link-alt", "Espace bénévoles", class: "mr-1"), admin_path, class: "dropdown-item" %>
+        <% if current_partner %>
+          <li class="<%= class_names("nav-item", active: current_page?(partenaires_faq_path)) %>">
+            <%= link_to "FAQ professionnels", partenaires_faq_path, class: "nav-link" %>
+          </li>
+          <li class="<%= class_names("nav-item", active: current_page?(partners_vaccination_centers_path)) %>">
+            <%= link_to "Espace professionnels", partners_vaccination_centers_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item dropdown">
+            <%= link_to "", class: "nav-link text-white font-weight-bold dropdown-toggle", id: "dropdown09", "aria-expanded": "false", "aria-haspopup": "true", "data-toggle": "dropdown" do %>
+              <%= current_partner.name %>
+              <span class="badge badge-primary">
+                Professionnel
+              </span>
             <% end %>
-            <%= link_to "Déconnexion", destroy_partner_session_path, method: :delete, class: "dropdown-item" %>
-          </div>
-        </li>
-      <% else %>
-        <li class="<%= class_names("nav-item", "dropdown", active: current_page?(new_user_session_path) || current_page?(new_partner_session_path)) %>">
-          <%= link_to "", class: "nav-link dropdown-toggle", id: "dropdown11", "aria-expanded": "false", "aria-haspopup": "true", "data-toggle": "dropdown" do %>
-            Se connecter
-          <% end %>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown11">
-            <%= link_to "Volontaires à la vaccination", new_user_session_path, class: "dropdown-item" %>
-            <%= link_to "Professionnels de santé", new_partner_session_path, class: "dropdown-item" %>
-          </div>
-        </li>
-      <% end %>
-    </ul>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown09">
+              <%= link_to "Lieux de vaccination", partners_vaccination_centers_path, class: "dropdown-item" %>
+              <%= link_to "Profil", partners_path, class: "dropdown-item" %>
+              <%= link_to "Déconnexion", destroy_partner_session_path, method: :delete, class: "dropdown-item" %>
+            </div>
+          </li>
+        <% elsif current_user %>
+          <li class="nav-item dropdown">
+            <%= link_to "", class: "nav-link text-white font-weight-bold dropdown-toggle", id: "dropdown09", "aria-expanded": "false", "aria-haspopup": "true", "data-toggle": "dropdown" do %>
+              Mon compte
+            <% end %>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown09">
+              <%= link_to "Profil", profile_path, class: "dropdown-item" %>
+              <% if current_user.has_role?(:volunteer) %>
+                <%= link_to icon("fas", "external-link-alt", "Espace bénévoles", class: "mr-1"), admin_path, class: "dropdown-item" %>
+              <% end %>
+              <%= link_to "Déconnexion", destroy_partner_session_path, method: :delete, class: "dropdown-item" %>
+            </div>
+          </li>
+        <% else %>
+          <li class="<%= class_names("nav-item", "dropdown", active: current_page?(new_user_session_path) || current_page?(new_partner_session_path)) %>">
+            <%= link_to "", class: "nav-link dropdown-toggle btn btn-primary font-weight-bold", id: "dropdown11", "aria-expanded": "false", "aria-haspopup": "true", "data-toggle": "dropdown" do %>
+              Se connecter
+            <% end %>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown11">
+              <%= link_to "Volontaires à la vaccination", new_user_session_path, class: "dropdown-item" %>
+              <%= link_to "Professionnels de santé", new_partner_session_path, class: "dropdown-item" %>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    </div>
   </div>
 </nav>

@@ -3,8 +3,16 @@
   flex-direction: column;
   min-height: 100vh;
 
-  &__content {
+  &__above-footer {
     flex-grow: 1;
+  }
+
+  &__content {
+    padding: 3rem 0;
+
+    &--no-padding {
+      padding: 0;
+    }
   }
 
   &__footer {

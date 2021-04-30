@@ -19,7 +19,7 @@ describe SendCampaignJob do
 
   let(:reachable_users_query) { User.where(id: user.id) }
 
-  subject { SendCampaignJob.new.perform(campaign) }
+  subject { SendCampaignJob.new.perform(campaign.id) }
 
   before do
     allow_any_instance_of(Campaign).to receive(:reachable_users_query).and_return(reachable_users_query)

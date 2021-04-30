@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Admin search page", type: :system do
+RSpec.describe "Admin vaccination centers page", type: :system do
   describe "/admin/vaccination_centers path" do
     context "user is logged as an admin" do
       let(:user) { create(:user, :admin) }

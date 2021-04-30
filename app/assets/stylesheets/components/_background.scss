@@ -1,7 +1,7 @@
+.bg-theme {
+  background: $purple1000;
+}
+
 .bg-gradient-theme {
-  background: linear-gradient(
-    90deg,
-    #573a59,
-    #2c1b2d
-  ); // TODO: Upgrade to new color palette
+  background: linear-gradient(90deg, $purple700, $purple1000);
 }
