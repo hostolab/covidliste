@@ -21,6 +21,7 @@ RSpec.describe "Destroy user account from match email", type: :system do
           click_on dom_id(user, :delete)
         end
       end.to change { User.count }.by(-1)
+         .and change { Match.pending.count}.by(-1)
     end
 
     scenario "the user is not logged in" do

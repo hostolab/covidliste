@@ -78,6 +78,8 @@ RSpec.describe Admin::UsersController, type: :controller do
 
     context "super admin" do
       let!(:user_1) { create(:user, email: "one@covidliste.com") }
+      let!(:match) { create(:match, :available, user: user_1) }
+
       let!(:user_2) { create(:user, email: "two@covidliste.com") }
       let(:super_admin) { create(:user, :super_admin) }
       before { sign_in super_admin }
@@ -87,6 +89,13 @@ RSpec.describe Admin::UsersController, type: :controller do
       it "deletes the user" do
         expect { subject }.to change { User.count }.by(-1)
         expect { user_1.reload }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+
+      it "refuses the user pending matches" do
+        expect { subject }.to change { Match.pending.count }.by(-1)
+
+        expect(match.reload.refused_at).to_not be_nil
+        expect(match.user_id).to be_nil
       end
     end
   end
