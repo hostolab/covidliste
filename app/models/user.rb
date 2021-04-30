@@ -34,6 +34,7 @@ class User < ApplicationRecord
     },
     if: :email_changed?
 
+  before_save :extract_email_domain, if: -> { will_save_change_to_email? }
   before_save :randomize_lat_lon, if: -> { (will_save_change_to_lat? || will_save_change_to_lon?) }
   after_commit :reverse_geocode, if: -> { (saved_change_to_lat? || saved_change_to_lon?) && anonymized_at.nil? }
 
@@ -49,6 +50,14 @@ class User < ApplicationRecord
     results = ::RandomizeCoordinatesService.new(lat, lon).call
     self.lat = results[:lat]
     self.lon = results[:lon]
+  end
+
+  def extract_email_domain
+    self.email_domain = begin
+      Digest::SHA256.hexdigest(Mail::Address.new(email).domain)
+    rescue
+      nil
+    end
   end
 
   def ensure_lat_lon(address)
