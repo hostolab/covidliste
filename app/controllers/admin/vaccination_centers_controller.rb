@@ -74,6 +74,7 @@ module Admin
         @vaccination_center.confirmed_at = Time.now.utc
         @vaccination_center.confirmer = current_user
         if @vaccination_center.save(context: :validation_by_admin)
+          SendVaccinationCenterConfirmedEmailJob.perform_later(id)
           flash[:success] = "Ce centre a bien été validé"
         else
           flash[:alert] = "Une erreur est survenue : #{@vaccination_center.errors.full_messages.join(", ")}"
