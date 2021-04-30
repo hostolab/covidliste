@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="d-flex align-items-center flex-column my-4 my-lg-5">
+    <h4 class="text-center">
+      Excellente nouvelle 🎉, vous souhaitez supprimer votre compte ?
+    </h4>
+    <%= button_to "Supprimer mon compte", matches_users_path(match_confirmation_token: @match.match_confirmation_token),
+          method: :delete,
+          class: "btn btn-outline-danger btn-lg mt-4",
+          data: {
+            confirm: "En confirmant, votre compte ainsi que toutes les données associées seront supprimées de nos serveurs. Êtes-vous sûr ?"} %>
+  </div>
+</div>
