@@ -46,7 +46,7 @@ class UsersController < ApplicationController
     @user.statement_accepted_at = Time.zone.now if @user.statement
     @user.toc_accepted_at = Time.zone.now if @user.toc
     authorize @user
-    @user.save!
+    @user.save
     set_counters
     prepare_phone_number
     render action: :new, status: :ok
