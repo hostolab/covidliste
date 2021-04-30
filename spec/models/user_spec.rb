@@ -97,6 +97,13 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe "Email domain" do
+    it "It extracts email domain" do
+      user = create(:user, email: "test+1@covidliste.com")
+      expect(user.email_domain).to eq(Digest::SHA256.hexdigest("covidliste.com"))
+    end
+  end
+
   describe "Phone format" do
     it_behaves_like "has phone number"
 
