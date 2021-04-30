@@ -67,8 +67,8 @@
               <td class="text-center"><%= (campaign.max_distance_in_meters.to_f / 1000).to_i.to_s + " km" %></td>
               <td class="text-center"><%= matches.size %></td>
               <td class="text-center"><%= matches.confirmed.size %></td>
-              <td class="text-center"><%= matches.size > 0 ? (matches.confirmed.size.to_f / matches.size).to_i.to_s + "%" : "0%" %></td>
-              <td class="text-center"><%= campaign.available_doses > 0 ? (matches.confirmed.size.to_f / campaign.available_doses).to_i.to_s + "%" : "0%" %></td>
+              <td class="text-center"><%= matches.size > 0 ? (100 * (matches.confirmed.size.to_f / matches.size)).to_i.to_s + "%" : "0%" %></td>
+              <td class="text-center"><%= campaign.available_doses > 0 ? (100 * (matches.confirmed.size.to_f / campaign.available_doses)).to_i.to_s + "%" : "0%" %></td>
             </tr>
           <% end %>
         </tbody>
