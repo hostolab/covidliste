@@ -2,11 +2,17 @@
 
 We're happy you want to contribute! 💜
 
-## How to become a contributor
+You may:
 
-1. Propose changes or write code as described below.
-2. If you make loved contributions, we may contact you to invite you to join as a collaborator on the repo and on join our Slack.
-3. Depending on your availability and expertise, you may become more involved and help us with reviews and/or managing the platform. At this point, we'll be in touch. 😉
+- [Propose changes](#proposing-a-change)
+- [Write code](#writing-code)
+- [Review code](#reviewing-code)
+
+## Paths to become a contributor
+
+1. To propose changes or write code, the repo is open-source so you're ready to go 🚀
+1. If you make loved contributions, we'll surely contact you and invite you to join as a volunteer (join the Slack, become a repo collaborator...) 💪
+1. You may then go further and help with reviews, merges, managing ops. At this point, we'll be in touch 😉
 
 ## Proposing a change
 
@@ -39,6 +45,28 @@ We're happy you want to contribute! 💜
 
 ### Merge process
 
-- Only some contributors are authorized to merge.
+- Only some contributors are authorized to merge (see [champions](./champions.md) to see who).
 - More are allowed to review, easing the work of those who can merge.
 - Merging in `master` will automatically deploy to production.
+
+## Reviewing code
+
+_We have a preference for contributors who also write code, but if you only have time for reviews and you have a significative Rails experience, that will help!_
+
+- If you want to **help with reviews**, we'll add you as a collaborator of the repository. Send an email to [romain-covidliste@runbox.com](mailto:romain-covidliste@runbox.com).
+- Once you're in, look at [pull requests](https://github.com/hostolab/covidliste/pulls) and choose one
+- Don't forget to **assign yourself** to the PR so others will look at others
+- If you need help, mention one of our [champions](./champions.md)
+- Once the PR is approved, one of the admins will be able to merge it with a faster review, so thanks in advance for the time you saved them 🙏
+
+**Review guidelines**
+
+- Keep code consistent with the Rails-way and Ruby idioms
+- Keep things simple: this is a time-limited project so no need for tech perfection, over-engineering or extraneous features
+- Never forget to check for security risks and how personal data is processed
+
+We favor explicit doubts and discussion so don't hesitate to be verbose when commenting a PR to trigger a discussion. Still, let's keep discussion short and efficient!
+
+Of course, you're expected to follow our [code of conduct](./code_of_conduct.md) in all interactions, in particular reviews!
+
+Thanks in advance for your help 🙏
