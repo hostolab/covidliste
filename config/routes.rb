@@ -24,6 +24,11 @@ Rails.application.routes.draw do
         post "/stats" => "stats#stats"
       end
 
+      authenticate :user, lambda { |u| u.has_role?(:supply_admin) } do
+        # Supply admin
+        resources :campaigns, only: [:index]
+      end
+
       authenticate :user, lambda { |u| u.has_role?(:support_member) } do
         # Support
         resources :users, only: [:index, :destroy] do

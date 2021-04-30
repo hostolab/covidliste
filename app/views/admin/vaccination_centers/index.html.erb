@@ -12,13 +12,13 @@
                         html: { class: "form-inline inline-block mr-4" },
                         defaults: { label: false, required: false, input_html: { class: "form-control-sm selectpicker mr-2", multiple: true } },
                         method: :get do |f| %>
-      <%= f.input :query, as: :string, label: false, placeholder: "Rechercher", required: false, input_html: { value: params.dig(:centers_search, :query), style: "width: 400px;" } %>
+      <%= f.input :query, as: :string, label: false, placeholder: "Rechercher", required: false, input_html: { value: params.dig(:centers_search, :query), style: "width: 300px;" } %>
 
       <%= f.input :kinds, collection: VaccinationCenter::Kinds::ALL,
                   input_html: { name: "kinds[]", "data-none-selected-text": "Type de centre" },
                   selected: params["kinds"] %>
 
-      <%= f.input :vaccines, collection: Vaccine::Brands::ALL,
+      <%= f.input :vaccines, collection: Vaccine::Brands::ALL.map { |v| [v.capitalize, v] },
                   input_html: { name: "vaccines[]", "data-none-selected-text": "Vaccins" },
                   selected: params["vaccines"] %>
 
@@ -63,7 +63,7 @@
               </td>
               <td><%= vaccination_center.kind %></td>
               <td><%= vaccination_center.address %></td>
-              <td><%= vaccination_center.human_friendly_phone_number %></td>
+              <td class="text-nowrap"><%= vaccination_center.human_friendly_phone_number %></td>
               <td>
                 <% if vaccination_center.pfizer %>
                   <span class="mr-1"><%= Vaccine::Brands::PFIZER.capitalize %></span>
@@ -78,7 +78,7 @@
                   <span class="mr-1"><%= Vaccine::Brands::JANSSEN.capitalize%></span>
                 <% end %>
               </td>
-              <td>
+              <td class="text-nowrap">
                 <% if vaccination_center.confirmed? %>
                   <%= icon("fas", "check", class: "text-success") %>
                   <span title="<%= "Validé par #{vaccination_center.confirmer} le #{vaccination_center.confirmed_at}" %>", data-toggle="tooltip"> Oui </span>
@@ -87,7 +87,7 @@
                   Non
                 <% end %>
               </td>
-              <td>
+              <td class="text-nowrap">
                 <% if vaccination_center.disabled? %>
                   <%= icon("fas", "times", class: "text-danger") %>
                   Non
