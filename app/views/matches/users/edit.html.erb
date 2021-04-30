@@ -1,7 +1,7 @@
 <div class="container">
   <div class="d-flex align-items-center flex-column my-4 my-lg-5">
     <h4 class="text-center">
-      Excellente nouvelle 🎉, vous souhaitez supprimer votre compte ?
+      Vous souhaitez vous désinscrire de Covidliste en supprimant votre compte ?
     </h4>
     <%= button_to "Supprimer mon compte", matches_users_path(match_confirmation_token: @match.match_confirmation_token),
           method: :delete,
