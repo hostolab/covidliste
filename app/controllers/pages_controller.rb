@@ -4,13 +4,22 @@ class PagesController < ApplicationController
   end
 
   def donateurs
-    ulule_project_slug = "covidliste"
-    data = UluleService.new(ulule_project_slug).data(params[:force].present?)
+    @force = params[:force].present?
+    @debug = params[:debug].present?
+    @ulule_buddy_orders = Rails.cache.fetch(:ulule_buddy_orders, expires_in: 1.hour, force: @force) do
+      UluleBuddyOrder.all.each_with_object({}) do |e, m|
+        m[e.order_id] = {
+          name: e.name,
+          picture_path: e.picture_path
+        }
+      end
+    end
+    data = UluleService.new("covidliste", ENV["ULULE_API_KEY"]).data(@force)
     @project = data[:project]
-    @bronze_supporters = data[:bronze_supporters]
-    @silver_supporters = data[:silver_supporters]
-    @gold_supporters = data[:gold_supporters]
-    @diamond_supporters = data[:diamond_supporters]
+    @bronze_orders = data[:bronze_orders]
+    @silver_orders = data[:silver_orders]
+    @gold_orders = data[:gold_orders]
+    @diamond_orders = data[:diamond_orders]
   end
 
   def contact
