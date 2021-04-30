@@ -1,6 +1,6 @@
 <% if current_user.present? || @user.persisted? %>
 
-  <div class="alert alert-success p-3">
+  <div class="alert alert-transparent-white p-3">
     <p class="mb-0">
       <%= icon("fas", "thumbs-up", class: "fa-2x") %>
       <br>
@@ -19,7 +19,7 @@
         Le lien de confirmation sera valable pendant 24 heures.
       <% else %>
         <br>
-        <%= link_to "Accéder à mon profil", profile_path, class: "btn btn-primary" %>
+        <%= link_to "Accéder à mon profil", profile_path, class: "btn btn-primary my-4" %>
       <% end %>
     </p>
   </div>
