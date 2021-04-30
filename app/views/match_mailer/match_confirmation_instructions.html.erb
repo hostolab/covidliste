@@ -12,4 +12,13 @@
   </p>
 
   <%= render "mailer/footer" %>
+
+  <p>
+    <%= link_to "Supprimer mon compte", edit_matches_users_url(match_confirmation_token: @match_confirmation_token) %>
+  </p>
+
+  <p>
+    Si le lien de suppression de compte ne fonctionne pas, copiez et collez l’adresse suivante dans votre navigateur : <br>
+    <%= edit_matches_users_url(match_confirmation_token: @match_confirmation_token) %>
+  </p>
 </div>
