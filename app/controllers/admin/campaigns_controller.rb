@@ -6,7 +6,7 @@ module Admin
     helper_method :sort_column, :sort_direction
 
     def index
-      campaigns = policy_scope(Campaign).left_outer_joins(:matches)
+      campaigns = policy_scope(Campaign)
 
       # Filters
       campaigns = campaigns.where(status: @statuses) if @statuses.present?

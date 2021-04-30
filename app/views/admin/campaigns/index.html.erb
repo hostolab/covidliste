@@ -41,16 +41,17 @@
             <th class="text-center"><%= sortable("min_age", "Âge min") %></th>
             <th class="text-center"><%= sortable("max_age", "Âge max") %></th>
             <th class="text-center"><%= sortable("max_distance_in_meters", "Distance max") %></th>
-            <th class="text-center"><%= sortable("matches_count", "Volontaires Contactés") %></th>
-            <th class="text-center"><%= sortable("matches_confirmed_count", "Volontaires Confirmés") %></th>
-            <th class="text-center"><%= sortable("confirmation_rate", "Taux Confirmation") %></th>
-            <th class="text-center"><%= sortable("filling_rate", "Taux Remplissage") %></th>
+            <th class="text-center">Nb volontaires Contactés</th>
+            <th class="text-center">Nb volontaires Confirmés</th>
+            <th class="text-center">Taux Confirmation</th>
+            <th class="text-center">Taux Remplissage</th>
 
           </tr>
         </thead>
 
         <tbody>
           <% @campaigns.each do |campaign| %>
+            <% matches = campaign.matches %>
             <tr>
               <th class="text-right"><%= campaign.id %></th>
               <td><%= link_to campaign.vaccination_center&.name, admin_vaccination_center_path(campaign.vaccination_center) %></td>
@@ -64,10 +65,10 @@
               <td class="text-center"><%= campaign.min_age %></td>
               <td class="text-center"><%= campaign.max_age %></td>
               <td class="text-center"><%= (campaign.max_distance_in_meters.to_f / 1000).to_i.to_s + " km" %></td>
-              <td class="text-center"><%= campaign.matches.size %></td>
-              <td class="text-center"><%= campaign.matches.confirmed.size %></td>
-              <td class="text-center"><%= campaign.matches.size > 0 ? (campaign.matches.confirmed.size.to_f / campaign.matches.size).round(2) : 0 %></td>
-              <td class="text-center"><%= campaign.available_doses > 0 ? (campaign.matches.confirmed.size.to_f / campaign.available_doses).round(2) : 0 %></td>
+              <td class="text-center"><%= matches.size %></td>
+              <td class="text-center"><%= matches.confirmed.size %></td>
+              <td class="text-center"><%= matches.size > 0 ? (matches.confirmed.size.to_f / matches.size).to_i.to_s + "%" : "0%" %></td>
+              <td class="text-center"><%= campaign.available_doses > 0 ? (matches.confirmed.size.to_f / campaign.available_doses).to_i.to_s + "%" : "0%" %></td>
             </tr>
           <% end %>
         </tbody>
