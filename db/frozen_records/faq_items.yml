@@ -380,19 +380,17 @@
     - Pour le hachage de l’adresse email, nous utilisons <%= link_to "ankane/blind_index", "https://github.com/ankane/blind_index", target: "_blank", rel: "noopener" %>.
     - Pour le hachage du mot de passe, nous utilisons les options de hachage par défaut proposées par <%= link_to "heartcombo/devise", "https://github.com/heartcombo/devise", target: "_blank", rel: "noopener" %>.
 
-
 - title: Pourquoi mon nom n’apparaît-il plus dans mon espace personnel ?
   category: Données personnelles et code source
   area: main
   body_md_erb: |
-      J’ai déjà fourni les informations de nom et prénom, pourquoi l’application me les redemande-t-elle pour confirmer mon rendez-vous ?
-      
-      Dans notre optique de respect de votre vie privée et pour augmenter le niveau de sécurité, nous revoyons régulièrement nos règles d’utilisation.
-      Dans ce cadre, nous avons pris la décision de ne plus conserver les informations de nom et prénom des personnes inscrites sur CovidListe.
-      
-      Pour permettre la validation de votre identité, vous serez invité à renseigner ces informations lors de l’acceptation d’une proposition de vaccination.
-      Soyez vigilant lors de la saisie de ces informations, le professionnel de santé les vérifiera ainsi que votre âge.
+    J’ai déjà fourni les informations de nom et prénom, pourquoi l’application me les redemande-t-elle pour confirmer mon rendez-vous ?
 
+    Dans notre optique de respect de votre vie privée et pour augmenter le niveau de sécurité, nous revoyons régulièrement nos règles d’utilisation.
+    Dans ce cadre, nous avons pris la décision de ne plus conserver les informations de nom et prénom des personnes inscrites sur CovidListe.
+
+    Pour permettre la validation de votre identité, vous serez invité à renseigner ces informations lors de l’acceptation d’une proposition de vaccination.
+    Soyez vigilant lors de la saisie de ces informations, le professionnel de santé les vérifiera ainsi que votre âge.
 
 - title: Votre code source est-il ouvert et auditable ?
   category: Données personnelles et code source
