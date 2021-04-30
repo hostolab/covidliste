@@ -74,12 +74,16 @@ class PushNewCampaignToSlackJob < ApplicationJob
       })
     end
 
-    SlackNotifierJob.perform_later(SLACK_CHANNEL, text, attachments)
+    SlackNotifierJob.perform_later(SLACK_CHANNEL, nil, nil, blocks)
   end
 
   private
 
   def creator(partner)
     " par #{partner.name}" if partner.present?
+  end
+
+  def link(vaccination_center, text)
+    "<#{Rails.application.routes.url_helpers.admin_vaccination_center_url(vaccination_center)}|#{text}>"
   end
 end
