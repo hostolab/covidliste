@@ -11,7 +11,5 @@ module Admin
     def index?
       user.has_role?(:admin)
     end
-
-    alias_method :show?, :index?
   end
 end
