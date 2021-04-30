@@ -72,6 +72,14 @@ RSpec.describe MatchesController, type: :system do
       end
     end
 
+    context "with an anonymized user" do
+      before { match.update(user_id: nil) }
+      it "redirects to root" do
+        subject
+        expect(page).to have_current_path(root_path)
+      end
+    end
+
     context "with an invalid token" do
       it "redirects to root" do
         visit match_path("invalid-token")
