@@ -30,7 +30,10 @@
         <thead class="thead-light">
           <tr>
             <th class="text-right"><%= sortable("id", "#") %></th>
+            <th><%= sortable("vaccination_center_id", "Centre") %></th>
             <th class="text-center"><%= sortable("status", "Statut") %></th>
+            <th class="text-center"><%= sortable("created_at", "Date") %></th>
+            <th class="text-center"><%= sortable("created_at", "Lancée") %></th>
             <th class="text-center"><%= sortable("starts_at", "Début") %></th>
             <th class="text-center"><%= sortable("ends_at", "Fin") %></th>
             <th class="text-center"><%= sortable("available_doses", "Nb doses") %></th>
@@ -38,8 +41,11 @@
             <th class="text-center"><%= sortable("min_age", "Âge min") %></th>
             <th class="text-center"><%= sortable("max_age", "Âge max") %></th>
             <th class="text-center"><%= sortable("max_distance_in_meters", "Distance max") %></th>
-            <th><%= sortable("vaccination_center_id", "Centre") %></th>
-            <th><%= sortable("algo_version", "Algo") %></th>
+            <th class="text-center"><%= sortable("matches_count", "Volontaires Contactés") %></th>
+            <th class="text-center"><%= sortable("matches_confirmed_count", "Volontaires Confirmés") %></th>
+            <th class="text-center"><%= sortable("confirmation_rate", "Taux Confirmation") %></th>
+            <th class="text-center"><%= sortable("filling_rate", "Taux Remplissage") %></th>
+
           </tr>
         </thead>
 
@@ -47,16 +53,21 @@
           <% @campaigns.each do |campaign| %>
             <tr>
               <th class="text-right"><%= campaign.id %></th>
+              <td><%= link_to campaign.vaccination_center&.name, admin_vaccination_center_path(campaign.vaccination_center) %></td>
               <td class="text-center text-nowrap"><%= french_status(campaign) %></td>
-              <td class="text-center text-nowrap"><%= l(campaign.starts_at, format: "%d/%m à %H:%M") %></td>
-              <td class="text-center text-nowrap"><%= l(campaign.ends_at, format: "%d/%m à %H:%M") %></td>
+              <td class="text-center text-nowrap"><%= l(campaign.created_at, format: "%d/%m") %></td>
+              <td class="text-center text-nowrap"><%= l(campaign.created_at, format: "%H:%M") %></td>
+              <td class="text-center text-nowrap"><%= l(campaign.starts_at, format: "%H:%M") %></td>
+              <td class="text-center text-nowrap"><%= l(campaign.ends_at, format: "%H:%M") %></td>
               <td class="text-center"><%= campaign.available_doses %></td>
               <td><%= campaign.vaccine_type.to_s.capitalize %></td>
               <td class="text-center"><%= campaign.min_age %></td>
               <td class="text-center"><%= campaign.max_age %></td>
               <td class="text-center"><%= (campaign.max_distance_in_meters.to_f / 1000).to_i.to_s + " km" %></td>
-              <td><%= link_to campaign.vaccination_center&.name, admin_vaccination_center_path(campaign.vaccination_center) %></td>
-              <td><%= campaign.algo_version %></td>
+              <td class="text-center"><%= campaign.matches.size %></td>
+              <td class="text-center"><%= campaign.matches.confirmed.size %></td>
+              <td class="text-center"><%= campaign.matches.size > 0 ? (campaign.matches.confirmed.size.to_f / campaign.matches.size).round(2) : 0 %></td>
+              <td class="text-center"><%= campaign.available_doses > 0 ? (campaign.matches.confirmed.size.to_f / campaign.available_doses).round(2) : 0 %></td>
             </tr>
           <% end %>
         </tbody>
