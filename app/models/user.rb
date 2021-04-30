@@ -59,7 +59,7 @@ class User < ApplicationRecord
   end
 
   def extract_email_domain
-    self.email_domain = Mail::Address.new(email).domain
+    self.email_domain = Digest::SHA256.hexdigest(Mail::Address.new(email).domain) rescue nil
   end
 
   def reverse_geocode
