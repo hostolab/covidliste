@@ -58,6 +58,23 @@
     <%= icon("fas", "phone", @vaccination_center.human_friendly_phone_number) %>
   </p>
 
+
+  <%- if @vaccination_center.lat && @vaccination_center.lon%>
+    <div 
+      class="my-3" 
+      id="leaflet_map" 
+      style="height: 250px;"
+      data-icon="<%= asset_path("map/markers/firstaid.png") %>"
+      data-lat="<%= @vaccination_center.lat %>" 
+      data-lon="<%= @vaccination_center.lon %>"
+    ></div>
+  <% else %>
+    <div class="alert alert-danger mb-4 small" role="alert" style="position: inherit">
+      Ce centre n'est pas correctement géocodé. Merci de mettre à jour l'adresse pour relancer le géocoding
+      ou bien veuillez ajouter manuellement une latitude et une longitude
+    </div>
+  <% end %>
+
   <p>
     Vaccins :
   </p>
