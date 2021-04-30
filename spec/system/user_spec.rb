@@ -35,6 +35,19 @@ RSpec.describe "Users", type: :system do
       end.to change { User.count }.by(1)
     end
 
+    it "rejects sign up if address has no zipcode valid" do
+      user.save!
+
+      expect do
+        visit "/"
+        fill_valid_user
+        fill_in :user_address, with: "5 rue Larue, Marseille" # no zipcode
+        signup_submit
+      end.not_to change { User.count }
+
+      expect(page).to have_text("doit comporter un code postal")
+    end
+
     it "rejects sign up if email is not unique" do
       user.save!
 

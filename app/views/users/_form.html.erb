@@ -46,11 +46,10 @@
         input_html: {autocomplete: "email", autofocus: "true"} %>
 
       <%= f.input :address,
-        label: false,
-        error: "Adresse invalide",
-        placeholder: "Adresse",
-        required: true,
-        input_html: {class: "pr-5"} %>
+                  label: "Adresse",
+                  error: "Adresse complète requise",
+                  placeholder: "5 rue Larue, 13600 Marseille",
+                  required: true %>
       <%= f.input_field :lat, as: :hidden %>
       <%= f.input_field :lon, as: :hidden %>
 
