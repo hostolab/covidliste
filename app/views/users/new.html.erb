@@ -1,17 +1,199 @@
+<%= provide(:meta_title, "Rejoignez la liste d’attente Covidliste") %>
+<%= provide(:meta_description, "Volontaires à la vaccination, inscrivez-vous sur Covidliste.") %>
+<%= provide(:meta_image, image_url("meta/main.png")) %>
+
 <%= content_for(:append_to_head) do %>
   <meta content="index;follow" name="robots"/>
 <% end %>
 
-<div class="container my-5">
-  <div class="row">
+<% @no_layout_content_padding = true %>
+<% @no_layout_alerts = true %>
 
-    <div class="col-12 col-md-6 col-lg-5 order-1 order-sm-0">
-      <%= render "form" %>
+<div class="bg-theme" id="inscription">
+  <div class="container pt-2 pb-5 pb-lg-0">
+    <h1 class="h1 font-weight-bold text-white mb-2" style="line-height: 1.1">Accélérons la campagne de vaccination.</h1>
+    <h2 class="h3 font-weight-bold text-light mb-4">Être contacté dès qu’une dose est disponible près de chez vous</h2>
+    <%= render "layouts/alerts" %>
+    <div class="row">
+      <div class="col-12 col-lg-7">
+        <%= render "users/form" %>
+      </div>
+      <div class="col-12 col-lg-5 d-none d-lg-flex align-items-end">
+        <%= image_tag "home/time-value.png", srcset: {"home/time-value-2x.png" => "2x"}, alt: "Accessibilité Smartphone", class: "ml-lg-5 img-fluid", loading: "lazy" %>
+      </div>
     </div>
-
-    <div class="col-12 col-md-6 col-lg-7 order-0 order-sm-1">
-      <%= render "about" %>
-    </div>
-
   </div>
 </div>
+
+<div class="bg-white">
+  <div class="container pt-3 pt-lg-5">
+    <div class="d-flex align-items-center justify-content-around flex-column flex-lg-row">
+      <div class="text-center mt-3 mt-lg-5">
+        <div class="text-secondary font-weight-bolder display-4 mb-2"><%= pretty_number(@matched_users_count) %></div>
+        <div class="text-black font-weight-bold h4 mb-0">Inscrits<br>contactés</div>
+      </div>
+      <div class="text-center mt-3 mt-lg-5">
+        <div class="text-secondary font-weight-bolder display-4 mb-2"><%= pretty_number(@vaccination_centers_count) %></div>
+        <div class="text-black font-weight-bold h4 mb-0">Centres de<br>vaccination</div>
+      </div>
+      <div class="text-center mt-3 mt-lg-5">
+        <div class="text-secondary font-weight-bolder display-4 mb-2"><%= pretty_number(@confirmed_matched_users_count) %></div>
+        <div class="text-black font-weight-bold h4 mb-0">RDV<br>confirmés</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="bg-white">
+  <div class="container py-5 my-5">
+    <div class="d-flex align-items-center justify-content-between py-3">
+      <div class="row">
+        <div class="col-12 col-lg-6">
+          <div class="font-weight-bolder text-dark mb-2 mb-lg-4 h2">Qu’est-ce que
+            <span class="text-secondary">Covidliste</span> ?
+          </div>
+          <p class="text-justify">
+            Covidliste est une initiative bénévole et citoyenne permettant la mise en relation entre des volontaires à
+            la vaccination et les professionnels de santé qui disposent de vaccin disponibles.
+          </p>
+          <p class="text-justify mb-0">
+            En quelques semaines, Covidliste est devenue
+            <strong>la plus grande liste d’attente de vaccination en France avec <%= pretty_number(@users_count) %>
+              inscrits.</strong>
+          </p>
+        </div>
+        <div class="col-12 col-lg-6">
+          <div class="ml-lg-4 pt-3 mt-2 mt-lg-5">
+            <div class="d-flex align-items-start">
+              <%= image_tag "home/icon-check-circle.svg", loading: "lazy", height: 32, width: 32, alt: "solution 1", class: "d-none d-lg-block mr-2" %>
+              <p>
+                <strong>Alerter</strong> les citoyens volontaires lorsqu’une dose de vaccin est disponible près de chez
+                eux.
+              </p>
+            </div>
+            <div class="d-flex align-items-start">
+              <%= image_tag "home/icon-check-circle.svg", loading: "lazy", height: 32, width: 32, alt: "solution 1", class: "d-none d-lg-block mr-2" %>
+              <p class="mb-0">
+                <strong>Simplifier</strong> la gestion des listes d’attentes des lieux de vaccination.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= render partial: "users/shared/box_cta", locals: {title: "S’inscrire à Covidliste", text: "Vous serez contacté dès qu’une dose sera disponible !", cta_text: "S’inscrire à Covidliste", cta_href: "#inscription", cta_target: "_self"} %>
+
+<div class="bg-white">
+  <div class="container mt-3 mt-lg-5">
+    <div class="d-flex align-items-center justify-content-between">
+      <div class="row">
+        <div class="col-12 col-lg-6 order-1 order-lg-0 mt-3 mt-lg-0">
+          <div class="font-weight-bolder text-dark mb-2 mb-lg-4 h2"><span class="text-secondary">Comment</span> ça
+            marche ?
+          </div>
+          <div class="d-flex align-items-start mb-4">
+            <%= image_tag "home/icon-check-circle.svg", loading: "lazy", height: 32, width: 32, alt: "solution 1", class: "d-none d-lg-block mr-2" %>
+            <p class="mb-0">
+              <strong>Un professionnel de santé</strong> constate qu’il a des doses disponibles, il
+              <strong>peut utiliser Covidliste pour trouver facilement des volontaires</strong> selon des critères d’âge
+              et de distance.
+            </p>
+          </div>
+          <div class="d-flex align-items-start mb-4">
+            <%= image_tag "home/icon-check-circle.svg", loading: "lazy", height: 32, width: 32, alt: "solution 1", class: "d-none d-lg-block mr-2" %>
+            <p class="mb-0">
+              Les <strong>inscrits Covidliste sont d’abord notifiés par email</strong>. S’il reste des doses non
+              attribuées en fin de journée, nous recontacterons par SMS tous les inscrits les plus proches.
+            </p>
+          </div>
+          <div class="d-flex align-items-center mb-4">
+            <%= image_tag "home/icon-check-circle.svg", loading: "lazy", height: 32, width: 32, alt: "solution 1", class: "d-none d-lg-block mr-2" %>
+            <p class="mb-0">
+              <strong>Les inscrits réservent leurs doses.</strong>
+            </p>
+          </div>
+          <div class="d-flex align-items-start mb-5">
+            <%= image_tag "home/icon-check-circle.svg", loading: "lazy", height: 32, width: 32, alt: "solution 1", class: "d-none d-lg-block mr-2" %>
+            <p class="mb-0">
+              <strong>Le professionnel de santé reçoit alors la liste des inscrits et les vaccine</strong> lorsqu’ils se
+              présentent.
+            </p>
+          </div>
+        </div>
+        <div class="col-12 col-lg-6 order-0 order-lg-1 d-flex align-items-end">
+          <div class="ml-lg-4">
+            <%= image_tag "home/comment-ca-marche.png", srcset: {"home/comment-ca-marche-2x.png" => "2x"}, alt: "Interface pour les professionels de santé", class: "shadow-lg img-fluid", loading: "lazy" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= render partial: "users/shared/box_cta", locals: {title: "Vous êtes professionels de santé ?", text: "Simplifier la gestion de votre liste d’attente.<br>Commencer dès maintenant à gagner du temps.", cta_text: "Trouver des volontaires à la vaccination", cta_href: partenaires_inscription_path, cta_target: "_self"} %>
+
+<div class="bg-white">
+  <div class="container my-5">
+    <div class="d-flex align-items-center justify-content-between">
+      <div class="row">
+        <div class="col-12 col-lg-6 d-flex align-items-center">
+          <div class="mr-lg-4">
+            <%= image_tag "home/pourquoi-ce-projet.svg", loading: "lazy", alt: "Deux professionnels de santé", class: "img-fluid" %>
+          </div>
+        </div>
+        <div class="col-12 col-lg-6 d-flex justify-content-center align-items-start flex-column mt-3 mt-lg-0">
+          <div class="font-weight-bolder text-dark mb-2 mb-lg-4 h2"><span class="text-secondary">Pourquoi</span> ce
+            projet ?
+          </div>
+          <p class="mb-0">
+            <strong>Covidliste se veut être un soutien et complémentaire à
+              la <%= link_to "stratégie vaccinale", "https://solidarites-sante.gouv.fr/grands-dossiers/vaccin-covid-19/" %>.</strong> Les stocks de vaccin étant mieux et plus vite écoulés, l’immunité collective pourra être
+            atteinte plus rapidement.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= render partial: "users/shared/box_cta", locals: {title: "Devenir bénévole", text: "Rejoignez une centaine de bénévoles qui chaque<br>jour contribuent à accélérer la campagne de vaccination !", cta_text: "Rejoindre l’équipe Covidliste", cta_href: benevoles_path, cta_target: "_self"} %>
+
+<div class="bg-white">
+  <div class="container py-3 py-lg-5 my-lg-5">
+    <div class="d-flex align-items-center justify-content-between py-lg-3">
+      <div class="row">
+        <div class="col-12 col-lg-6 order-1 order-lg-0 mt-3 mt-lg-0">
+          <div class="font-weight-bolder text-dark mb-2 mb-lg-4 h2"><span class="text-secondary">Qui est derrière</span>
+            Covidliste ?
+          </div>
+          <p class="mb-0">
+            <%= link_to "Martin Daniel", "https://twitter.com/martindaniel4", target: "_blank", rel: "noopener", class: "text-secondary font-weight-bold text-decoration-underline" %>
+            data scientist
+            et <%= link_to "Mathieu Ripert", "https://twitter.com/mathieurip", target: "_blank", rel: "noopener", class: "text-secondary font-weight-bold text-decoration-underline" %>
+            ingénieur, en collaboration
+            avec <%= link_to "Dr Antoine Roux", "https://www.paristransplantgroup.org/antoine-roux.html", target: "_blank", rel: "noopener", class: "text-secondary font-weight-bold text-decoration-underline" %>,
+            pneumologue, ont lancé Covidliste le 30 mars 2021. Depuis, ils ont été rejoints par plus d’une centaine de
+            bénévoles, développeurs informatiques, communicants, spécialistes en droit, et designers pour offrir leurs
+            compétences au service du projet.
+            <br>
+            Pour en savoir plus, n’hésitez pas à consulter
+            notre <%= link_to "FAQ", faq_path, class: "text-secondary font-weight-bold text-decoration-underline" %> et
+            suivez-nous
+            sur <%= link_to "Twitter", "https://twitter.com/covidliste", class: "text-secondary font-weight-bold text-decoration-underline", target: "_blank", rel: "noopener" %>
+             pour ne rien rater de notre actualité !
+          </p>
+        </div>
+        <div class="col-12 col-lg-6 order-0 order-lg-1 d-flex align-items-center">
+          <div class="ml-lg-4 mt-lg-5">
+            <%= image_tag "home/twitter-covidliste-creation.png", srcset: {"home/twitter-covidliste-creation-2x.png" => "2x"}, alt: "Tweet de création de Covidliste", class: "shadow-lg img-fluid", loading: "lazy" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= render partial: "users/shared/box_cta", locals: {title: "Nous lançons un appel aux dons !", text: "Chaque semaine, Covidliste dépense quelques milliers d’euros pour assurer son fonctionnement.<br>Nous avons besoin de votre aide pour maintenir le service tout le long de la campagne vaccinale.", cta_text: "Faire un don", cta_href: "https://fr.ulule.com/covidliste/", cta_target: "_blank"} %>

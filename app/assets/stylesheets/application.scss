@@ -7,7 +7,8 @@
 @import "font-awesome-sprockets";
 @import "font-awesome";
 @import "leaflet/dist/leaflet";
-@import "mapbox-gl/dist/mapbox-gl";
+@import "leaflet.markercluster/dist/MarkerCluster";
+@import "leaflet.markercluster/dist/MarkerCluster.Default";
 
 // Your CSS partials
 @import "components/index";
@@ -20,4 +21,10 @@
 nav .active > .nav-link,
 nav .nav-item.active {
   color: rgba(0, 0, 0, 1);
+}
+
+.alert-transparent-white {
+  color: #ffffff;
+  background-color: transparent;
+  border-color: none;
 }

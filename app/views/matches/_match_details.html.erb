@@ -1,8 +1,29 @@
+<% user = match.user %>
+<% vaccination_center = match.vaccination_center %>
+
 <div>
   <div>
     <i class="fas fa-map-pin"></i>
-    <strong> Adresse du centre de vaccination </strong>
-    <p><%= match.vaccination_center.address %></p>
+    <% if match.confirmed? || vaccination_center.lat.blank? || vaccination_center.lon.blank? %>
+      <strong> Adresse du centre de vaccination </strong>
+      <p>
+        <%= vaccination_center.address %>
+      </p>
+    <% else %>
+      <strong> Distance du centre de vaccination </strong>
+      <p>
+        À
+        <% distance = distance_delta({lat: user.lat, lon: user.lon}, {lat: vaccination_center.lat, lon: vaccination_center.lon}) %>
+        <%= distance[:delta_in_words] %>
+        de vous<%= ", à #{vaccination_center.human_friendly_geo_area}" if vaccination_center.human_friendly_geo_area %>
+      </p>
+      <p class="small">Trop loin de chez vous ?<br>
+        <% if user.city && user.zipcode %>
+          D'après nos informations vous habitez à proximité de <%= user.city %> (<%= user.zipcode %>). <br>
+        <% end %>
+        S'il y a une erreur dans votre adresse, refusez cette dose et modifiez votre adresse dans
+        votre <%= link_to "espace personnel", :new_user_session %> </p>
+    <% end %>
   </div>
 
   <div>
@@ -15,8 +36,6 @@
       et <%= l(ends_at, format: '%Hh%M') %>
     </p>
   </div>
-
-  <% user = match.user %>
 
   <% if user.blank? %>
     <div>

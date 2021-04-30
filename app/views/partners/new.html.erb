@@ -1,14 +1,18 @@
+<%= provide(:meta_title, "Devenez partenaires de Covidliste") %>
+<%= provide(:meta_description, "Professionnels de santé, inscrivez-vous sur Covidliste.") %>
+<%= provide(:meta_image, image_url("meta/partenaires.png")) %>
+
 <% content_for(:append_to_head) do %>
   <meta content="index;follow" name="robots"/>
 <% end %>
 
-<div class="container my-5">
-  <div class="row mt-2">
+<div class="container">
+  <div class="row">
     <div class="col-12 col-lg-8 offset-lg-2">
       <% if @partner.errors.any? %>
         <div class="alert alert-danger" role="alert">
           <% @partner.errors.full_messages.each do |msg| %>
-            <%= msg %><br />
+            <%= msg %><br/>
           <% end %>
         </div>
       <% end %>
@@ -16,7 +20,8 @@
       <p><strong>Inscription en tant que professionnel de santé assurant la vaccination</strong></p>
 
       <p class="text-justify mb-5">
-        Cette page d’inscription concerne uniquement l’inscription du <strong>personnel médical assurant la vaccination :</strong>
+        Cette page d’inscription concerne uniquement l’inscription du
+        <strong>personnel médical assurant la vaccination :</strong>
         membre d’un centre de vaccination, cabinet de médecine libérale, hôpital, pharmacie...
       </p>
 
@@ -39,14 +44,17 @@
       </h2>
 
       <p>
-        Si vous êtes un professionnel de santé assurant la vaccination et souhaitez inscrire votre lieu de vaccination sur Covidliste, c’est bien ici !
+        Si vous êtes un professionnel de santé assurant la vaccination et souhaitez inscrire votre lieu de vaccination
+        sur Covidliste, c’est bien ici !
       </p>
 
       <% if @partner.persisted? %>
 
         <div class="row mt-3">
           <div class="alert alert-success" role="alert">
-            Merci ! Vous êtes bien enregistré en tant que professionnel de santé assurant la vaccination sur Covidliste. Vous allez recevoir dans quelques instants un email de confirmation qui vous permettra de valider votre inscription et d'accéder à votre espace sécurisé.
+            Merci ! Vous êtes bien enregistré en tant que professionnel de santé assurant la vaccination sur Covidliste.
+            Vous allez recevoir dans quelques instants un email de confirmation qui vous permettra de valider votre
+            inscription et d'accéder à votre espace sécurisé.
           </div>
         </div>
 
@@ -62,38 +70,39 @@
             <%= simple_form_for @partner do |f| %>
               <%= f.input :name, label: "Nom", error: "Nom requis", placeholder: "Prénom Nom" %>
               <%= f.input :phone_number, label: "Téléphone portable", placeholder: "06 .... (votre téléphone professionnel - pas de ligne fixe)", hint: "Ce numéro ne sera jamais communiqué aux volontaires. " %>
-              <%= f.input :email, required: true, placeholder: "votre_email@du_centre_de_vaccination.fr", input_html: { autocomplete: "email" }, hint: "Cet email ne sera jamais communiqué aux volontaires." %>
+              <%= f.input :email, required: true, placeholder: "votre_email@du_centre_de_vaccination.fr", input_html: {autocomplete: "email"}, hint: "Cet email ne sera jamais communiqué aux volontaires." %>
 
               <div class="form-group" data-controller="password">
                 <label for="partner_password"> Mot de passe </label>
 
                 <div class="input-group" data-behavior="toggle-password-visibility">
                   <%= f.input_field :password,
-                                    type: :password,
-                                    class: "form-control",
-                                    required: true,
-                                    input_html: { autocomplete: "new-password" },
-                                    data: {password_target: 'password', action: 'input->password#check'} %>
+                    type: :password,
+                    class: "form-control",
+                    required: true,
+                    input_html: {autocomplete: "new-password"},
+                    data: {password_target: 'password', action: 'input->password#check'} %>
 
                   <div class="input-group-append">
                     <span class="input-group-text"> <%= link_to icon("fas", "eye") %> </span>
                   </div>
 
-                  <small class="form-text text-muted"> 
+                  <small class="form-text text-muted">
                     <%= User::PASSWORD_HINT.to_s %>
                     <br/>
-                    <%= content_tag :span, "", data: { password_target: "passwordCheck" }, class: "d-inline-block" %>
+                    <%= content_tag :span, "", data: {password_target: "passwordCheck"}, class: "d-inline-block" %>
                   </small>
                   <small class="form-text text-muted">
-                    Un email de confirmation de création de compte vous sera envoyé. Cliquez sur le lien pour activer votre compte.
+                    Un email de confirmation de création de compte vous sera envoyé. Cliquez sur le lien pour activer
+                    votre compte.
                   </small>
                 </div>
               </div>
 
-              <%= render partial: "users/input_statement", locals: { f: f, local_cgu_path: cgu_pro_path } %>
+              <%= render partial: "users/input_statement", locals: {f: f, local_cgu_path: cgu_pro_path} %>
 
               <%= f.invisible_captcha :subtitle, honeypots: true %>
-              <%= f.button :submit, "S’inscrire", id: "create-new-partner", class: "btn btn-primary", data: { disable_with: "Validation...", confirm: "Vous êtes bien professionnel de santé ?" } %>
+              <%= f.button :submit, "S’inscrire", id: "create-new-partner", class: "btn btn-primary", data: {disable_with: "Validation...", confirm: "Vous êtes bien professionnel de santé ?"} %>
             <% end %>
             <%= render partial: "mentions" %>
           </div>

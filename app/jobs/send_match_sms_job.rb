@@ -2,20 +2,26 @@ class SendMatchSmsJob < ApplicationJob
   # TODO: Define retry_on policy: https://edgeapi.rubyonrails.org/classes/ActiveJob/Exceptions/ClassMethods.html#method-i-retry_on
   queue_as :critical
 
-  def perform(match)
+  def perform(match_id)
+    match = Match.find(match_id)
+
     return if match.user.nil? ||
       match.user.phone_number.blank? ||
       match.sms_sent_at.present? || match.expired?
 
     match.set_expiration!
 
-    client = Twilio::REST::Client.new
-    client.messages.create(
-      from: "COVIDLISTE",
-      to: match.user.phone_number,
-      body: "Un vaccin est disponible près de chez vous. Pour le réserver, suivez les instructions avant #{match.expires_at.strftime("%Hh%M")} : #{cta_url(match)}"
-    )
-    match.update(sms_sent_at: Time.now.utc)
+    begin
+      client = Twilio::REST::Client.new
+      client.messages.create(
+        from: "COVIDLISTE",
+        to: match.user.phone_number,
+        body: "Bonne nouvelle, une dose de vaccin vient de se libérer près de chez vous. Réservez-la vite sur : #{cta_url(match)}"
+      )
+      match.update(sms_sent_at: Time.now.utc)
+    rescue Twilio::REST::TwilioError => e
+      Rails.logger.info("[SendMatchSmsJob] #{e.message}")
+    end
   end
 
   private

@@ -1,10 +1,14 @@
+<%= provide(:meta_title, "Devenez partenaires de Covidliste") %>
+<%= provide(:meta_description, "Professionnels de santé, inscrivez-vous sur Covidliste.") %>
+<%= provide(:meta_image, image_url("meta/partenaires.png")) %>
+
 <%= content_for(:append_to_head) do %>
   <meta content="index;follow" name="robots"/>
 <% end %>
 
 <div id="devise">
   <div class="container">
-    <div class="row mt-5">
+    <div class="row">
       <div class="col-12 col-lg-6 offset-lg-1 mb-5">
         <div class="d-flex align-items-center">
           <div class="rounded p-3 bg-light text-primary mr-3 h2">
@@ -20,7 +24,8 @@
         </p>
 
         <p class="mb-4">
-          Espace <strong>réservé aux professionnels</strong>, si vous êtes un particulier volontaire à la vaccination, rendez-vous sur
+          Espace <strong>réservé aux professionnels</strong>, si vous êtes un particulier volontaire à la vaccination,
+          rendez-vous sur
           <%= link_to "sur cette page", new_user_session_path %>.
         </p>
 

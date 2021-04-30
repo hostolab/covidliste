@@ -1,16 +1,16 @@
 <div class="container">
-  <h2 class="my-5" id="page-title">
+  <h2 class="mb-5" id="page-title">
     Gestion des rôles
   </h2>
 
   <div class="table-responsive">
     <table class="table table-bordered table-hover" aria-describedby="users with roles">
       <thead class="thead-light">
-        <tr>
-          <th scope="col">Nom</th>
-          <th scope="col">
-            Roles
-            <span class="ml-3">
+      <tr>
+        <th scope="col">Nom</th>
+        <th scope="col">
+          Roles
+          <span class="ml-3">
               (
               Légende :
               <span class="badge badge-primary">
@@ -27,21 +27,21 @@
               </span>
               )
             </span>
-          </th>
-        </tr>
+        </th>
+      </tr>
       </thead>
       <tbody>
-        <% @users.each do |user| %>
-          <tr>
-            <td>
-              <%= user.full_name %><br />
-              <%= user.email %>
-            </td>
-            <td>
-              <%= render partial: "admin/users/user_roles", locals: { user: user } %>
-            </td>
-          </tr>
-        <% end %>
+      <% @users.each do |user| %>
+        <tr>
+          <td>
+            <%= user.full_name %><br/>
+            <%= user.email %>
+          </td>
+          <td>
+            <%= render partial: "admin/users/user_roles", locals: {user: user} %>
+          </td>
+        </tr>
+      <% end %>
       </tbody>
     </table>
   </div>

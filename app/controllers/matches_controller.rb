@@ -37,7 +37,7 @@ class MatchesController < ApplicationController
 
     # Updating the match's confirmation_failed_at to indicate it failed.
     # This should help with detecting critical bugs.
-    @match.update_column(:confirmation_failed_at, Time.now.utc)
+    @match.update_columns(confirmation_failed_at: Time.now.utc, confirmation_failed_reason: e.class.to_s)
 
     # Reloading @match so it's back to the previous state, in particular
     # confirmed_at is nil again.
@@ -73,7 +73,7 @@ class MatchesController < ApplicationController
       flash[:error] = "Désolé, ce lien d’invitation n’est pas valide."
       redirect_to root_path
     elsif @match.user.blank?
-      flash[:error] = "Désolé, ce lien d’invitation n’est pas plus valide. L’utilisateur a été supprimé."
+      flash[:error] = "Désolé, ce lien d’invitation n’est plus valide. L’utilisateur a été supprimé."
       redirect_to root_path
     end
   end

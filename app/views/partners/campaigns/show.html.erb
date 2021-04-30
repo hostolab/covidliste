@@ -19,7 +19,7 @@
         <%= link_to "Interrompre",
                     partners_campaign_path(@campaign, cancel: true),
                     method: :patch,
-                    data: { confirm: "Êtes-vous sûr de vouloir interrompre la recherche de volontaires pour cette campagne ? Attention l'interruption n'est pas immédiate et prendra environ #{Match::EXPIRE_IN_MINUTES + 1} minutes." },
+                    data: { confirm: "Êtes-vous sûr de vouloir interrompre la recherche de volontaires pour cette campagne ? Attention l'interruption n'est pas immédiate car les volontaires déjà notifiés peuvent confimer jusqu'à la fin de la campagne." },
                     class: "btn btn-sm btn-danger" %>
       </span>
     <% end %>
@@ -66,6 +66,14 @@
       </h3>
     </div>
   </div>
+
+  <% if @campaign.running? %>
+    <p class="mb-5">
+      <strong>Important :</strong> Si vous avez l’impression que la campagne ne se remplit pas, ne créez pas une
+      nouvelle campagne pour les mêmes doses disponibles. <a href="/faq">Nous recontacterons par SMS tous les
+      volontaires proches de votre centre</a> s’il vous reste des doses au cours de la campagne.
+    </p>
+  <% end %>
 
   <% if @campaign.running? %>
     <div class="alert alert-primary" role="alert">

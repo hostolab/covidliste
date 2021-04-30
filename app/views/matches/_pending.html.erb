@@ -3,10 +3,9 @@
 <p class="mt-4">
   Bonne nouvelle ! Une dose est disponible près de chez vous. <br>
   <strong>
-    Une confirmation de votre part dans un délai de <%= time_ago_in_words(@match.expires_at, include_seconds: true) %>
-    est indispensable pour réserver votre dose. <br>
+    Une confirmation rapide de votre part est indispensable pour réserver votre dose.<br>
   </strong>
-  Passé ce délai, la dose sera attribuée à un autre volontaire.
+  Réservez vite votre dose.
 </p>
 
 <%= render 'match_details', match: @match %>
@@ -77,7 +76,8 @@
       <div class="form-check flex-wrap">
         <input class="form-check-input" type="checkbox" value="1" id="user_statement" name="user[statement]" required>
         <label class="form-check-label w-75" for="statement">
-          J’accepte les <%= link_to "CGU", cgu_volontaires_path %> et certifie sur l’honneur que les informations ci-dessus sont exactes.
+          J’accepte les <%= link_to "CGU", cgu_volontaires_path %> et certifie sur l’honneur que les informations
+          ci-dessus sont exactes.
         </label>
         <div class="invalid-feedback w-100">
           Vous devez accepter les CGU pour confirmer votre réservation.
@@ -92,7 +92,8 @@
       <div class="form-check flex-wrap">
         <input class="form-check-input" type="checkbox" value="1" id="user_toc" name="user[toc]" required>
         <label class="form-check-label w-75" for="toc">
-          J’accepte que mes données soient traitées aux fins de la mise en relation avec les établissements de vaccination Covid-19 participant à l’initiative Covidliste.
+          J’accepte que mes données soient traitées aux fins de la mise en relation avec les établissements de
+          vaccination Covid-19 participant à l’initiative Covidliste.
         </label>
         <div class="invalid-feedback w-100">
           Vous devez accepter le traitement de vos données personnelles pour confirmer votre réservation.
@@ -110,7 +111,7 @@
   </div>
   <div class="col-12 d-flex flex-wrap">
     <button class="btn btn-primary mr-2 btn-lg mb-3" type="submit">Je réserve la dose</button>
-    <%= link_to 'Refuser le RDV', match_path(match_confirmation_token: @match.match_confirmation_token), method: :delete, class: 'btn btn-danger btn-lg mb-3', "data-confirm": "Souhaitez-vous vraiment refuser ce RDV ?" %>
+    <%= link_to 'Refuser la dose', match_path(match_confirmation_token: @match.match_confirmation_token), method: :delete, class: 'btn btn-link btn-lg mb-3', "data-confirm": "Souhaitez-vous vraiment refuser ce RDV ?" %>
   </div>
 </form>
 
@@ -125,19 +126,19 @@
 </p>
 
 <script>
-    // Script from https://getbootstrap.com/docs/5.0/forms/validation/
-    (function () {
-        var forms = document.querySelectorAll('.needs-validation')
-        Array.prototype.slice.call(forms)
-            .forEach(function (form) {
-                form.addEventListener('submit', function (event) {
-                    if (!form.checkValidity()) {
-                        event.preventDefault()
-                        event.stopPropagation()
-                    }
+  // Script from https://getbootstrap.com/docs/5.0/forms/validation/
+  (function () {
+    var forms = document.querySelectorAll('.needs-validation')
+    Array.prototype.slice.call(forms)
+      .forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+          if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+          }
 
-                    form.classList.add('was-validated')
-                }, false)
-            })
-    })()
+          form.classList.add('was-validated')
+        }, false)
+      })
+  })()
 </script>

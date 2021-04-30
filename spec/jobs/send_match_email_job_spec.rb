@@ -5,7 +5,7 @@ describe SendMatchEmailJob do
   let!(:campaign) { create(:campaign) }
   let!(:match) { create(:match, user: user, campaign: campaign) }
 
-  subject { SendMatchEmailJob.new.perform(match) }
+  subject { SendMatchEmailJob.new.perform(match.id) }
 
   context "match is new" do
     it "sends the email" do
@@ -17,12 +17,12 @@ describe SendMatchEmailJob do
 
     it "set expiration" do
       subject
-      expect(match.expires_at).to_not be(nil)
+      expect(match.reload.expires_at).to_not be(nil)
     end
 
     it "set mail_sent_at" do
       subject
-      expect(match.mail_sent_at).to_not be(nil)
+      expect(match.reload.mail_sent_at).to_not be(nil)
     end
   end
 

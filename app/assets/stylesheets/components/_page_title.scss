@@ -1,0 +1,25 @@
+.page-title {
+  display: flex;
+  align-items: center;
+  margin-bottom: 3rem;
+
+  &__icon-wrapper {
+    background-color: $purple100;
+    border-radius: 22px;
+    width: 85px;
+    height: 85px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 30px;
+
+    i {
+      color: $purple500;
+      font-size: 38px;
+    }
+  }
+
+  h1 {
+    font-weight: 700;
+  }
+}

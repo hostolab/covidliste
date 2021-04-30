@@ -1,8 +1,14 @@
+<% if @meta_title.present? %>
+  <%= provide(:meta_title, @meta_title) %>
+<% end %>
+<%= provide(:meta_description, "Covidliste protège vos données personnelles.") %>
+<%= provide(:meta_image, image_url("meta/legal.png")) %>
+
 <%= content_for(:append_to_head) do %>
   <meta content="index;follow" name="robots"/>
 <% end %>
-  
-<div class="container my-5">
+
+<div class="container">
   <div class="static-page">
     <%= @body %>
   </div>

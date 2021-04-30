@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  extend Memoist
   include HasPhoneNumberConcern
   has_phone_number_types %i[mobile]
   rolify
@@ -34,7 +35,7 @@ class User < ApplicationRecord
     },
     if: :email_changed?
 
-  before_save :randomize_lat_lon, if: -> { (saved_change_to_lat? || saved_change_to_lon?) }
+  before_save :randomize_lat_lon, if: -> { (will_save_change_to_lat? || will_save_change_to_lon?) }
   after_commit :reverse_geocode, if: -> { (saved_change_to_lat? || saved_change_to_lon?) && anonymized_at.nil? }
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
@@ -55,9 +56,13 @@ class User < ApplicationRecord
     validate # trigger validations
     return if errors[:address].present?
     return unless lat.nil? || lon.nil?
+    return if address.blank?
     results = GeocodingService.new(address).call
-    self.lat = results[:lat]
-    self.lon = results[:lon]
+
+    if results.present?
+      self.lat = results[:lat]
+      self.lon = results[:lon]
+    end
   end
 
   def reverse_geocode
@@ -111,6 +116,7 @@ class User < ApplicationRecord
       end
     end
   end
+  memoize :has_role?
 
   def anonymize!
     return unless anonymized_at.nil?

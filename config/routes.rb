@@ -24,6 +24,11 @@ Rails.application.routes.draw do
         post "/stats" => "stats#stats"
       end
 
+      authenticate :user, lambda { |u| u.has_role?(:supply_admin) } do
+        # Supply admin
+        resources :campaigns, only: [:index]
+      end
+
       authenticate :user, lambda { |u| u.has_role?(:support_member) } do
         # Support
         resources :users, only: [:index, :destroy] do
@@ -93,6 +98,7 @@ Rails.application.routes.draw do
   resource :partners, only: [:show, :update, :destroy]
   get "/partenaires", to: redirect("/partenaires/inscription", status: 302)
   get "/partenaires/inscription" => "partners#new", :as => :partenaires_inscription
+  get "/partenaires/faq" => "pages#faq_pro", :as => :partenaires_faq
 
   namespace :partners do
     resources :vaccination_centers, only: [:index, :show, :new, :create] do
@@ -104,6 +110,10 @@ Rails.application.routes.draw do
   end
 
   ## matches
+  namespace :matches do
+    resource :users, only: [:edit, :destroy]
+  end
+
   get "/m/:match_confirmation_token(/:source)" => "matches#show", :as => :match
   patch "/m/:match_confirmation_token(/:source)" => "matches#update"
   delete "/m/:match_confirmation_token(/:source)" => "matches#destroy"
@@ -111,6 +121,7 @@ Rails.application.routes.draw do
 
   ## Pages
   get "/carte" => "pages#carte", :as => :carte
+  get "/donateurs" => "pages#donateurs", :as => :donateurs
   get "/benevoles" => "pages#benevoles", :as => :benevoles
   get "/contact" => "pages#contact", :as => :contact
   get "/algorithme" => "pages#algorithme", :as => :algorithme
