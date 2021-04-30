@@ -1,15 +1,16 @@
 <%= content_for(:append_to_head) do %>
-<meta content="index;follow" name="robots"/>
+  <meta content="index;follow" name="robots"/>
 <% end %>
 
-<div class="container my-5">
+<div class="container">
   <h1 class="mb-3">
-    <%= "Merci à nos #{@project['supporters_count']} Donateurs" %>
+    <%= "Merci à nos #{@project['supporters_count']} donateurs" %>
   </h1>
 
-  <p class="text-justify text-sm-left">Merci à tous les donateurs qui nous permettent d'améliorer la plateforme, continuer à former de nouveaux centres partenaires et surtout d'accélérer la vaccination en France.</p>
+  <p class="text-justify text-sm-left">Merci à tous les donateurs qui nous permettent d'améliorer la plateforme,
+    de continuer à former de nouveaux professionnels de santé et surtout d'accélérer la vaccination en France.</p>
 
-  <%= link_to "En savoir plus sur la campagne", @project["absolute_url"], target: "_blank", rel: "noopener", class: "btn btn-info btn-primary mt-2 " %>
+  <%= link_to "En savoir plus sur la campagne", @project["absolute_url"], target: "_blank", rel: "noopener", class: "btn btn-info btn-primary mt-2 mt-md-0" %>
   <% unless @project["finished"] %>
     <% if @project["urls"].present? %>
       <%= link_to "Contribuer financièrement", @project["urls"]["web"]["checkout"], target: "_blank", rel: "noopener", class: "btn btn-large btn-warning mt-2 mt-md-0 ml-md-2" %>
@@ -17,19 +18,23 @@
   <% end %>
 
   <% if @project["goal"].present? %>
-    <div class="card my-4">
-      <div class="card-body p-3">
+    <div class="my-4 shadow-lg">
+      <div class="p-4">
         <div class="d-flex align-items-start align-items-sm-center flex-column flex-sm-row mb-2">
           <% if @project["date_end"].present? %>
-            <span class="badge badge-primary mr-2"><%= distance_of_time_in_words(@project["date_end"].to_time.to_i - Time.zone.now.to_i) %> restant</span>
+            <span class="badge badge-primary mr-2"><%= distance_of_time_in_words(@project["date_end"].to_time.to_i - Time.zone.now.to_i) %>
+              restant</span>
           <% end %>
-          <div class="font-weight-bold text-primary mt-2 mt-sm-0">Objectif: <%= [@project["goal"], @project["currency"]].join(" ") %></div>
+          <div class="font-weight-bold text-primary mt-2 mt-sm-0">
+          Objectif : 
+          <%= pretty_number(@project["goal"]) %>€
+          </div>
         </div>
         <div class="d-flex align-items-center">
           <span class="text-primary font-weight-bold mr-2"><%= @project["percent"] %>%</span>
           <div class="progress-bg rounded">
-            <div class="progress-bar rounded" style="width: <%= @project["percent"] %>%">
-              <div class="raised"><%= [@project["amount_raised"], @project["currency"]].join(" ") %> levée</div>
+            <div class="progress-bar rounded" style="width: <%= [100, @project["percent"]].min %>%">
+              <div class="raised"><%= pretty_number(@project["amount_raised"]) %>€</div>
             </div>
           </div>
         </div>
@@ -51,32 +56,63 @@
     </p>
   <% end %>
 
-  <% if @bronze_supporters.any? %>
-    <div class="font-weight-light text-center text-sm-left text-primary h2 my-5">
-      🥉 Donateurs Bronze 
+  <% if @diamond_orders.any? %>
+    <div class="bg-white p-4 shadow-lg mt-4">
+      <div class="d-flex align-items-start align-items-lg-center justify-content-start flex-column flex-lg-row font-weight-light text-primary h2 mb-3">
+        <span class="mr-lg-3">💎</span>
+        <span class="font-weight-bold">Donateurs Diamant</span>
+      </div>
+      <p> Merci à leur don de <span class="text-primary">5000€ et plus.</span> Grâce à chaque contribution :</p>
+      <ul class="mb-0">
+        <li>🤩 Vous permettez le fonctionnement de Covidliste pendant <strong>10 jours entiers !</strong></li>
+        <li>🍻 Vous serez invité à <strong>l'apéro Covidliste</strong> en présence des bénévoles une fois les restrictions sanitaires levées pour que tout Covidliste puisse vous remercier chaleureusement.</li>
+      </ul>
+      <%= render 'pages/donateurs/orders', orders: @diamond_orders %>
     </div>
-    <%= render 'donateurs_list', supporters: @bronze_supporters %>
   <% end %>
 
-  <% if @silver_supporters.any? %>
-    <div class="font-weight-light text-center text-sm-left text-primary h2 my-5">
-      🥈 Donateurs Argent 
+  <% if @gold_orders.any? %>
+    <div class="bg-white p-4 shadow-lg mt-4">
+      <div class="d-flex align-items-start align-items-lg-center justify-content-start flex-column flex-lg-row font-weight-light text-primary h2 mb-3">
+        <span class="mr-lg-3">🥇</span>
+        <span class="font-weight-bold">Donateurs Or</span>
+      </div>
+      <p> Merci à leur don de <span class="text-primary">1000€ et plus.</span> Grâce à chaque contribution :</p>
+      <ul class="mb-0">
+        <li>🤩 Vous permettez le fonctionnement de Covidliste pendant <strong>2 jours entiers !</strong></li>
+        <li>🍻 Vous serez invité à <strong>l'apéro Covidliste</strong> en présence des bénévoles une fois les restrictions sanitaires levées pour que tout Covidliste puisse vous remercier chaleureusement.</li>
+      </ul>
+      <%= render 'pages/donateurs/orders', orders: @gold_orders %>
     </div>
-    <%= render 'donateurs_list', supporters: @silver_supporters %>
   <% end %>
 
-  <% if @gold_supporters.any? %>
-    <div class="font-weight-light text-center text-sm-left text-primary h2 my-5">
-      🥇 Donateurs Or 
+  <% if @silver_orders.any? %>
+    <div class="bg-white p-4 shadow-lg mt-4">
+      <div class="d-flex align-items-start align-items-lg-center justify-content-start flex-column flex-lg-row font-weight-light text-primary h2 mb-3">
+        <span class="mr-lg-3">🥈</span>
+        <span class="font-weight-bold">Donateurs Argent</span>
+      </div>
+      <p> Merci à leur don de <span class="text-primary">500€ et plus.</span> Grâce à chaque contribution :</p>
+      <ul class="mb-0">
+        <li>🏥 <strong>20 nouveaux centres</strong> seront équipés de Covidliste</li>
+        <li>💉 <strong>250 doses</strong> pourront être proposées aux volontaires</li>
+      </ul>
+      <%= render 'pages/donateurs/orders', orders: @silver_orders %>
     </div>
-    <%= render 'donateurs_list', supporters: @gold_supporters %>
   <% end %>
 
-  <% if @diamond_supporters.any? %>
-    <div class="font-weight-light text-center text-sm-left text-primary h2 my-5">
-      💎 Donateurs Diamand 
-    </div>
-    <%= render 'donateurs_list', supporters: @diamond_supporters %>
+  <% if @bronze_orders.any? %>
+    <div class="bg-white p-4 shadow-lg mt-4">
+      <div class="d-flex align-items-start align-items-lg-center justify-content-start flex-column flex-lg-row font-weight-light text-primary h2 mb-3">
+        <span class="mr-lg-3">🥉</span>
+        <span class="font-weight-bold">Donateurs Bronze</span>
+      </div>
+      <p> Merci à leur don de <span class="text-primary">150€ et plus.</span> Grâce à chaque contribution :</p>
+      <ul class="mb-0">
+        <li>🏥 <strong>7 nouveaux centres</strong> seront équipés de Covidliste</li>
+        <li>💉 <strong>25 doses</strong> pourront être proposées aux volontaires</li>
+      </ul>
+      <%= render 'pages/donateurs/orders', orders: @bronze_orders %>
   <% end %>
-
+  </div>
 </div>

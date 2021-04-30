@@ -497,6 +497,23 @@
 
     _Vous ne devez pas re-créer le centre, puisqu’il existe déjà sur Covidliste._
 
+- title: Je n’ai renseigné qu’un type de vaccin sur mon centre et je prévois de vacciner avec un autre type prochainement
+  category: Accès et compte professionnel de santé
+  area: pro
+  body_md_erb: |
+    Lors de la création d’une campagne, vous pouvez sélectionner le type de vaccin même s’il n’apparait pas
+    dans les informations de votre centre. Il n’est pas nécessaire de créer un nouveau centre.
+
+    Vous pouvez nous demander de mettre à jour votre fiche de centre en nous contactant par email sur
+    <%= link_to "partenaires@covidliste.com", "mailto:partenaires@covidliste.com" %>.
+
+- title: Je souhaite modifier le numéro de téléphone de mon centre
+  category: Accès et compte professionnel de santé
+  area: pro
+  body_md_erb: |
+    Vous pouvez nous demander de mettre à jour votre fiche de centre en nous contactant par email sur
+    <%= link_to "partenaires@covidliste.com", "mailto:partenaires@covidliste.com" %>.
+
 #####################################
 # PRO : Planification des campagnes #
 #####################################
@@ -513,18 +530,13 @@
   category: Planification des campagnes
   area: pro
   body_md_erb: |
-    Vous pouvez lancer autant de campagnes que nécessaire pour écouler les doses de vaccin que vous avez en trop.
+    Nous vous recommandons de paramétrer des campagnes avec une grande amplitude horaire,
+    entre l’heure du lancement et l’heure finale d’arrivée des volontaires (idéalement > 4 heures).
 
-    La seule contrainte est que chaque campagne de recherche doit donc être lancée le jour  où aura lieu le
-    rendez-vous pour la vaccination.
+    Ces campagnes sont les plus efficaces pour trouver le nombre de volontaires en leur laissant
+    suffisamment de temps pour se déplacer.
 
-- title: Est-ce que les personnes contactées lors d’une première campagne de recherche de volontaires seront sollicitées par une autre campagne à un autre horaire dans la même journée ?
-  category: Planification des campagnes
-  area: pro
-  body_md_erb: |
-    Nous faisons en sorte que les volontaires puissent avoir le plus de chances possibles de profiter d’une dose disponible.
-
-    Nous leur laissons la possibilité de la réserver tant que le nombre de doses proposées ne sont pas toutes attribuées.
+    Les campagnes se lancent __le jour du rendez-vous d’injection__.
 
 - title: Est-ce que des volontaires qui s’inscrivent pendant qu’une campagne est en cours sont susceptibles d’être notifiés ?
   category: Planification des campagnes
@@ -615,6 +627,9 @@
   body_md_erb: |
     Vous avez accès à la liste des volontaires qui ont confirmé le RDV dans votre espace professionnel,
     dans le suivi de campagne.
+
+    En fonction du navigateur Internet que vous utilisez, il peut être nécessaire de rafraichir la page
+    pour voir les noms au fur et à mesure.
 
 ###############################################################
 # PRO : Accompagnement et contact #

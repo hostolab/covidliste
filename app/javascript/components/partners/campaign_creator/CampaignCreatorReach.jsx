@@ -6,7 +6,7 @@ import { omit, isNumber } from "lodash";
 
 export const CampaignCreatorReach = ({ vaccinationCenter, className }) => {
   const { values, isValid } = useFormikContext();
-  const debouncedValues = useDebounce(values, 600);
+  const debouncedValues = useDebounce(values, 2000);
   const { isFetching, data } = useReachQuery(
     {
       campaign: omit(debouncedValues, [
@@ -27,7 +27,9 @@ export const CampaignCreatorReach = ({ vaccinationCenter, className }) => {
   return (
     <div className={`CampaignCreatorReach ${status} ${className}`}>
       <div className="count">
-        {isFetching && <div className="spinner"></div>}
+        {(isFetching || debouncedValues != values) && (
+          <div className="spinner"></div>
+        )}
         <span className="countNumber">
           {isNumber(data?.reach) && status !== "unknown" ? data.reach : "-"}
         </span>

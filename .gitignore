@@ -45,6 +45,7 @@ yarn-debug.log*
 
 # Ignore dumps
 *.dump
+dump.rdb
 .idea/*
 coverage/*
 

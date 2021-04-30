@@ -33,6 +33,7 @@ $yellow100: #fef8e7;
 
 // Override bootstrap default colors
 $primary: $purple500;
+$secondary: $purple700;
 $success: $green500;
 $info: $blue500;
 $danger: $red500;
@@ -44,5 +45,5 @@ $dark: $purple1000;
 $light: $purple100;
 
 $theme-colors: (
-  "yellow": $yellow500,
+  "yellow": $yellow300,
 );

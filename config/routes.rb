@@ -24,6 +24,11 @@ Rails.application.routes.draw do
         post "/stats" => "stats#stats"
       end
 
+      authenticate :user, lambda { |u| u.has_role?(:supply_admin) } do
+        # Supply admin
+        resources :campaigns, only: [:index]
+      end
+
       authenticate :user, lambda { |u| u.has_role?(:support_member) } do
         # Support
         resources :users, only: [:index, :destroy] do
@@ -105,6 +110,10 @@ Rails.application.routes.draw do
   end
 
   ## matches
+  namespace :matches do
+    resource :users, only: [:edit, :destroy]
+  end
+
   get "/m/:match_confirmation_token(/:source)" => "matches#show", :as => :match
   patch "/m/:match_confirmation_token(/:source)" => "matches#update"
   delete "/m/:match_confirmation_token(/:source)" => "matches#destroy"

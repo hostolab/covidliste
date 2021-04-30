@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_29_055529) do
+
+ActiveRecord::Schema.define(version: 2021_04_30_072418) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -161,6 +162,8 @@ ActiveRecord::Schema.define(version: 2021_04_29_055529) do
     t.index ["campaign_batch_id"], name: "index_matches_on_campaign_batch_id"
     t.index ["campaign_id"], name: "index_matches_on_campaign_id"
     t.index ["confirmation_failed_reason"], name: "index_matches_on_confirmation_failed_reason"
+    t.index ["confirmed_at"], name: "index_matches_on_confirmed_at"
+    t.index ["created_at"], name: "index_matches_on_created_at"
     t.index ["match_confirmation_token_bidx"], name: "index_matches_on_match_confirmation_token_bidx", unique: true
     t.index ["user_id"], name: "index_matches_on_user_id"
     t.index ["vaccination_center_id"], name: "index_matches_on_vaccination_center_id"
@@ -192,10 +195,25 @@ ActiveRecord::Schema.define(version: 2021_04_29_055529) do
     t.string "email_bidx"
     t.boolean "statement", default: false
     t.datetime "statement_accepted_at"
+    t.integer "failed_attempts", default: 0, null: false
+    t.datetime "locked_at"
+    t.string "unlock_token"
     t.index ["confirmation_token"], name: "index_partners_on_confirmation_token", unique: true
     t.index ["email_bidx"], name: "index_partners_on_email_bidx", unique: true
     t.index ["email_ciphertext"], name: "index_partners_on_email_ciphertext", unique: true
     t.index ["reset_password_token"], name: "index_partners_on_reset_password_token", unique: true
+    t.index ["unlock_token"], name: "index_partners_on_unlock_token", unique: true
+  end
+
+  create_table "pghero_query_stats", force: :cascade do |t|
+    t.text "database"
+    t.text "user"
+    t.text "query"
+    t.bigint "query_hash"
+    t.float "total_time"
+    t.bigint "calls"
+    t.datetime "captured_at"
+    t.index ["database", "captured_at"], name: "index_pghero_query_stats_on_database_and_captured_at"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -233,8 +251,11 @@ ActiveRecord::Schema.define(version: 2021_04_29_055529) do
     t.datetime "statement_accepted_at"
     t.datetime "toc_accepted_at"
     t.string "email_domain"
+    t.index ["anonymized_at"], name: "index_users_on_anonymized_at"
+    t.index ["birthdate"], name: "index_users_on_birthdate"
     t.index ["city"], name: "index_users_on_city"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token"
+    t.index ["confirmed_at"], name: "index_users_on_confirmed_at"
     t.index ["email_bidx"], name: "index_users_on_email_bidx", unique: true
     t.index ["geo_citycode"], name: "index_users_on_geo_citycode"
     t.index ["geo_context"], name: "index_users_on_geo_context"
@@ -266,7 +287,15 @@ ActiveRecord::Schema.define(version: 2021_04_29_055529) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "confirmer_id"
     t.datetime "disabled_at"
+    t.string "zipcode"
+    t.string "city"
+    t.string "geo_citycode"
+    t.string "geo_context"
+    t.index ["city"], name: "index_vaccination_centers_on_city"
     t.index ["confirmer_id"], name: "index_vaccination_centers_on_confirmer_id"
+    t.index ["geo_citycode"], name: "index_vaccination_centers_on_geo_citycode"
+    t.index ["geo_context"], name: "index_vaccination_centers_on_geo_context"
+    t.index ["zipcode"], name: "index_vaccination_centers_on_zipcode"
   end
 
   add_foreign_key "campaign_batches", "campaigns"
