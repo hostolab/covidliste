@@ -40,8 +40,10 @@ class Campaign < ApplicationRecord
   end
 
   def reachable_users_query(limit: nil)
-    User.confirmed.active
-      .where("EXTRACT(YEAR FROM AGE(birthdate))::int BETWEEN ? AND ?", min_age, max_age)
+    User
+      .confirmed
+      .active
+      .between_age(min_age, max_age)
       .where("SQRT(((? - lat)*110.574)^2 + ((? - lon)*111.320*COS(lat::float*3.14159/180))^2) < ?", vaccination_center.lat, vaccination_center.lon, max_distance_in_meters / 1000)
       .where("id not in (
         select user_id from matches
