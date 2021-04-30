@@ -53,7 +53,7 @@ class VaccinationCenter < ApplicationRecord
   end
 
   def geocode_address
-    GeocodeResourceJob.perform_later(self)
+    GeocodeResourceJob.perform_now(self)
   end
 
   def self.to_csv
