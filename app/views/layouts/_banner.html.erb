@@ -1,8 +1,10 @@
 <div class="bg-light">
   <div class="container py-2">
-    <%= link_to "https://fr.ulule.com/covidliste/", target: "_blank", class: "d-flex align-items-center justify-content-center flex-column flex-md-row font-weight-light text-primary text-center text-decoration-underline" do %>
-      <div>Covidliste lance sa campagne Ulule !</div>
-      <div class="mt-1 mt-md-0 ml-md-2">Nous soutenir<%= icon("fas", "chevron-right", class: "ml-2") %></div>
-    <% end %>
+    <div class="d-flex align-items-center justify-content-center flex-column flex-md-row">
+      <span class="font-weight-light text-dark">Covidliste lance sa campagne Ulule !</span>
+      <%= link_to "https://fr.ulule.com/covidliste/", target: "_blank", rel: "noopener", class: "font-weight-light text-dark text-decoration-underline mt-1 mt-md-0 ml-md-2" do %>
+        Nous soutenir<%= icon("fas", "chevron-right", class: "ml-2") %>
+      <% end %>
+    </div>
   </div>
 </div>
