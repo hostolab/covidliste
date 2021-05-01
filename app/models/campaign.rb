@@ -11,7 +11,7 @@ class Campaign < ApplicationRecord
 
   enum status: {running: 0, completed: 1, canceled: 2}
 
-  validates :available_doses, numericality: {greater_than: 0, less_than_or_equal_to: MAX_DOSES}
+  validates :available_doses, numericality: {greater_than_or_equal_to: 0, less_than_or_equal_to: MAX_DOSES}
   validates :vaccine_type, presence: true
   validates :min_age, numericality: {greater_than: 17}
   validates :max_age, numericality: {greater_than: 17}
