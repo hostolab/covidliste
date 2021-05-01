@@ -9,7 +9,7 @@ module CampaignHelper
 
   def status_badge(campaign)
     return "badge-primary" if campaign.running?
-    return "badge-secondary" if campaign.completed?
+    return "badge-success" if campaign.completed?
     return "badge-danger" if campaign.canceled?
 
     raise NotImplementedError, "Please add a badge for #{campaign.status}"

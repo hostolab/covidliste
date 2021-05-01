@@ -18,6 +18,7 @@ class User < ApplicationRecord
 
   blind_index :email
 
+  validates :address, presence: true, postal_address: {with_zipcode: true}, on: :create
   validates :lat, presence: true, unless: proc { |u| u.persisted? }
   validates :lon, presence: true, unless: proc { |u| u.persisted? }
   validates :birthdate, presence: true
@@ -34,12 +35,13 @@ class User < ApplicationRecord
     },
     if: :email_changed?
 
+  before_save :extract_email_domain, if: -> { will_save_change_to_email? }
   before_save :randomize_lat_lon, if: -> { (will_save_change_to_lat? || will_save_change_to_lon?) }
   after_commit :reverse_geocode, if: -> { (saved_change_to_lat? || saved_change_to_lon?) && anonymized_at.nil? }
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
   scope :active, -> { where(anonymized_at: nil) }
-  scope :between_age, ->(min, max) { where("birthdate between ? and ?", max.years.ago, min.years.ago) }
+  scope :between_age, ->(min, max) { where(birthdate: max.years.ago..min.years.ago) }
   scope :with_roles, -> { joins(:roles) }
 
   PASSWORD_HINT = "#{Devise.password_length.min} caractères minimum. Idéalement plus long en mélangeant des minuscules, des majuscules et des chiffres."
@@ -51,7 +53,15 @@ class User < ApplicationRecord
     self.lon = results[:lon]
   end
 
-  def ensure_lat_lon(address)
+  def extract_email_domain
+    self.email_domain = begin
+      Digest::SHA256.hexdigest(Mail::Address.new(email).domain)
+    rescue
+      nil
+    end
+  end
+
+  def ensure_lat_lon
     return unless lat.nil? || lon.nil?
     return if address.blank?
     results = GeocodingService.new(address).call
@@ -87,6 +97,7 @@ class User < ApplicationRecord
   end
 
   def age
+    return unless birthdate
     now = Time.now.utc.to_date
     now.year - birthdate.year - (now.month > birthdate.month || (now.month == birthdate.month && now.day >= birthdate.day) ? 0 : 1)
   end

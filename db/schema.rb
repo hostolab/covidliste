@@ -249,6 +249,7 @@ ActiveRecord::Schema.define(version: 2021_04_30_174709) do
     t.boolean "statement", default: false
     t.datetime "statement_accepted_at"
     t.datetime "toc_accepted_at"
+    t.string "email_domain"
     t.index ["anonymized_at"], name: "index_users_on_anonymized_at"
     t.index ["birthdate"], name: "index_users_on_birthdate"
     t.index ["city"], name: "index_users_on_city"
