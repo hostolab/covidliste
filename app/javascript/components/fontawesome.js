@@ -1,10 +1,8 @@
-import { config, library, dom } from '@fortawesome/fontawesome-svg-core'
+import { config, library, dom } from "@fortawesome/fontawesome-svg-core";
 
-config.mutateApproach = 'sync' // Change the config to fix the flicker
+config.mutateApproach = "sync"; // Change the config to fix the flicker
 
-import {
-  faUser
-} from '@fortawesome/free-regular-svg-icons'
+import { faUser } from "@fortawesome/free-regular-svg-icons";
 
 import {
   faPaperPlane,
@@ -27,16 +25,16 @@ import {
   faUserMd,
   faClinicMedical,
   faEye,
-  faThumbsUp
-} from '@fortawesome/free-solid-svg-icons'
+  faThumbsUp,
+} from "@fortawesome/free-solid-svg-icons";
 
 import {
   faGithub,
   faTwitter,
   faFacebook,
   faInstagram,
-  faLinkedin
-} from '@fortawesome/free-brands-svg-icons'
+  faLinkedin,
+} from "@fortawesome/free-brands-svg-icons";
 
 library.add(
   faUser,
@@ -68,6 +66,6 @@ library.add(
   faFacebook,
   faInstagram,
   faLinkedin
-)
+);
 
-dom.watch()
+dom.watch();
