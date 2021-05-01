@@ -54,7 +54,7 @@ class MatchesController < ApplicationController
   end
 
   def verify_match_validity
-    unless @match.user
+    if @match.user.nil? || @match.user.anonymized_at?
       flash[:error] = "Désolé, ce lien n'est plus valide."
       redirect_to
     end
