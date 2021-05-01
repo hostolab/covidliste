@@ -5,11 +5,11 @@ class VaccinationCenterMailer < ApplicationMailer
     @vaccination_center = params[:vaccination_center]
     partner_email = @vaccination_center&.partners&.first&.email
 
-    return if @vaccination_center.partners.empty?
+    return if partner_email.blanck?
 
     mail(
       to: partner_email,
-      subject: "Covidliste - validation de votre centre de vaccination"
+      subject: "Covidliste - validation de votre lieu de vaccination"
     )
   end
 end

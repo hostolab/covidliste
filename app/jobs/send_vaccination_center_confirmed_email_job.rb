@@ -1,5 +1,5 @@
 class SendVaccinationCenterConfirmationEmailJob < ApplicationJob
-  queue_as :default
+  queue_as :mailers
 
   def perform(vaccination_center_id)
     vaccination_center = VaccinationCenter.find(vaccination_center_id)
