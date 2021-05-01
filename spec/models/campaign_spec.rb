@@ -120,7 +120,7 @@ RSpec.describe Campaign, type: :model do
     it "should set remaining doses to zero" do
       campaign.canceled!
       campaign.reload
-      expect(campaign.status).to eq(2)
+      expect(campaign.status).to eq("canceled")
       expect(campaign.available_doses).to eq(9)
     end
   end
