@@ -51,11 +51,7 @@ module Partners
     def update
       if params[:cancel] == "true" && @campaign.running?
         @campaign.canceled!
-        flash[:notice] = if @campaign.matching_algo_v2?
-          "La campagne est en cours d'interruption. Attention, des volontaires ont reçu des notifications et peuvent encore confirmer jusqu'à la fin de la campagne."
-        else
-          "La campagne est en cours d'interruption. Attention, des volontaires ont reçu des SMS et peuvent encore confirmer dans les #{Match::EXPIRE_IN_MINUTES + 1} prochaines minutes"
-        end
+        flash[:notice] = "La campagne vient d'être interrompue."
         redirect_to partners_campaign_path(@campaign)
       end
     end

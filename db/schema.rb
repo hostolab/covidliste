@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_30_174709) do
+ActiveRecord::Schema.define(version: 2021_05_01_080458) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -126,7 +126,7 @@ ActiveRecord::Schema.define(version: 2021_04_30_174709) do
     t.index ["partner_id"], name: "index_campaigns_on_partner_id"
     t.index ["status"], name: "index_campaigns_on_status"
     t.index ["vaccination_center_id"], name: "index_campaigns_on_vaccination_center_id"
-    t.check_constraint "(available_doses > 0) AND (available_doses <= 1000)", name: "available_doses_gt_zero"
+    t.check_constraint "(available_doses >= 0) AND (available_doses <= 1000)", name: "available_doses_gt_zero"
     t.check_constraint "(max_age > 0) AND (max_age > min_age)", name: "max_age_gt_zero"
     t.check_constraint "(vaccine_type)::text = ANY ((ARRAY['pfizer'::character varying, 'moderna'::character varying, 'astrazeneca'::character varying, 'janssen'::character varying])::text[])", name: "vaccine_type_is_a_known_brand"
     t.check_constraint "max_distance_in_meters > 0", name: "max_distance_in_meters_gt_zero"

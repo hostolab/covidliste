@@ -11,7 +11,7 @@ class Campaign < ApplicationRecord
 
   enum status: {running: 0, completed: 1, canceled: 2}
 
-  validates :available_doses, numericality: {greater_than: 0, less_than_or_equal_to: MAX_DOSES}
+  validates :available_doses, numericality: {greater_than_or_equal_to: 0, less_than_or_equal_to: MAX_DOSES}
   validates :vaccine_type, presence: true
   validates :min_age, numericality: {greater_than: 17}
   validates :max_age, numericality: {greater_than: 17}
@@ -23,6 +23,7 @@ class Campaign < ApplicationRecord
 
   def canceled!
     update_attribute(:canceled_at, Time.now.utc)
+    update_attribute(:available_doses, matches.confirmed.count)
     super
   end
 
@@ -46,9 +47,9 @@ class Campaign < ApplicationRecord
       .between_age(min_age, max_age)
       .where("SQRT(((? - lat)*110.574)^2 + ((? - lon)*111.320*COS(lat::float*3.14159/180))^2) < ?", vaccination_center.lat, vaccination_center.lon, max_distance_in_meters / 1000)
       .where("id not in (
-        select user_id from matches
-        where user_id is not null
-        and ((created_at >= now() - interval '24 hours') or (confirmed_at is not null))
+        select user_id from matches m inner join campaigns c on (c.id = m.campaign_id)
+        where m.user_id is not null
+        and ((m.created_at >= now() - interval '24 hours' and c.status != 2) or (m.confirmed_at is not null))
         )") # exclude user_id that have been matched in the last 24 hours, or confirmed
       .order("RANDOM()")
       .limit(limit)
