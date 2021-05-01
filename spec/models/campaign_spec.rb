@@ -115,15 +115,14 @@ RSpec.describe Campaign, type: :model do
   describe "cancel!" do
     let(:available_doses) { 10 }
     let(:vaccination_center) { create(:vaccination_center, lat: 42, lon: 2) }
-    let(:campaign) { build(:campaign, vaccination_center: vaccination_center, available_doses: available_doses) }
-    let(:confirmed_match) {create(:match, campaign: campaign, confirmed_at: Time.now.utc)}
+    let(:campaign) { create(:campaign, vaccination_center: vaccination_center, available_doses: available_doses, min_age: 50, max_age: 70) }
+    let(:user) { create(:user) }
+    let!(:confirmed_match) { create(:match, campaign: campaign, user: user, confirmed_at: Time.now.utc) }
     it "should set remaining doses to zero" do
       campaign.canceled!
       campaign.reload
       expect(campaign.status).to eq("canceled")
-      expect(campaign.available_doses).to eq(9)
+      expect(campaign.available_doses).to eq(1)
     end
   end
-
-
 end
