@@ -5,7 +5,7 @@ class VaccinationCenterMailer < ApplicationMailer
     @vaccination_center = params[:vaccination_center]
     partner_email = @vaccination_center&.partners&.first&.email
 
-    return if partner_email.blanck?
+    return if partner_email.blank?
 
     mail(
       to: partner_email,
