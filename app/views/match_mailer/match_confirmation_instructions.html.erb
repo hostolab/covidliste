@@ -11,10 +11,8 @@
     <%= match_url(match_confirmation_token: @match_confirmation_token, source: 'email') %>
   </p>
 
-  <%= render "mailer/footer" %>
-
   <p>
-Vous ne souhaitez plus recevoir ces emails et souhaitez vous désinscrire de Covidliste ? 
+    Vous ne souhaitez plus recevoir ces emails et souhaitez vous désinscrire de Covidliste ?
     <%= link_to "Supprimer mon compte", edit_matches_users_url(match_confirmation_token: @match_confirmation_token) %>
   </p>
 
@@ -22,4 +20,8 @@ Vous ne souhaitez plus recevoir ces emails et souhaitez vous désinscrire de Cov
     Si le lien de suppression de compte ne fonctionne pas, copiez et collez l’adresse suivante dans votre navigateur : <br>
     <%= edit_matches_users_url(match_confirmation_token: @match_confirmation_token) %>
   </p>
+
+  <%= render "mailer/footer" %>
+  <%= render "mailer/automatic_message" %>
 </div>
+
