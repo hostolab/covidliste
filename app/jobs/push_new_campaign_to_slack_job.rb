@@ -69,7 +69,7 @@ class PushNewCampaignToSlackJob < ApplicationJob
         "type": "section",
         "text": {
           "type": "mrkdwn",
-          "text": "Nous n'avons pas pu faire correspondre l'addresse à un code postal, pour éviter les erreurs de match. Vous devriez pouvoir réparer ça en reprécisant l'adresse du centre. Contactez Maxence Aici pour plus d'infos."
+          "text": "Nous n'avons pas pu faire correspondre l'adresse à un code postal, pour éviter les erreurs de match. Vous devriez pouvoir réparer ça en reprécisant l'adresse du centre. Contactez Maxence Aici pour plus d'infos."
         }
       })
     end
