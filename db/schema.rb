@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_01_080458) do
+ActiveRecord::Schema.define(version: 2021_05_02_163526) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -158,12 +158,15 @@ ActiveRecord::Schema.define(version: 2021_05_01_080458) do
     t.datetime "confirmation_failed_at"
     t.string "confirmation_failed_reason", default: "", null: false
     t.integer "distance_in_meters"
+    t.string "sms_provider"
+    t.string "sms_provider_id"
     t.index ["campaign_batch_id"], name: "index_matches_on_campaign_batch_id"
     t.index ["campaign_id"], name: "index_matches_on_campaign_id"
     t.index ["confirmation_failed_reason"], name: "index_matches_on_confirmation_failed_reason"
     t.index ["confirmed_at"], name: "index_matches_on_confirmed_at"
     t.index ["created_at"], name: "index_matches_on_created_at"
     t.index ["match_confirmation_token_bidx"], name: "index_matches_on_match_confirmation_token_bidx", unique: true
+    t.index ["sms_provider", "sms_provider_id"], name: "index_matches_on_sms_provider_and_sms_provider_id"
     t.index ["user_id"], name: "index_matches_on_user_id"
     t.index ["vaccination_center_id"], name: "index_matches_on_vaccination_center_id"
   end
