@@ -10,6 +10,7 @@ class AddSmsProviderInformationToMatches < ActiveRecord::Migration[6.1]
 
     # We need to split backfilling into batches to avoid locking up the entire table in one transaction.
     # Code inspired from https://wework.github.io/data/2015/11/05/add-columns-with-default-values-to-large-tables-in-rails-postgres/
+    return unless Match.last
     last_id = Match.last.id
     batch_size = 10000
     (0..last_id).step(batch_size).each do |from_id|
