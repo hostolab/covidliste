@@ -126,6 +126,6 @@ class Match < ApplicationRecord
   end
 
   def matching_algo_v2?
-    campaign.matching_algo_v2?
+    campaign.matching_algo_v3? || campaign.matching_algo_v2?
   end
 end

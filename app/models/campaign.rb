@@ -3,6 +3,7 @@ class Campaign < ApplicationRecord
   MAX_DISTANCE_IN_KM = 50
   MAX_SMS_BUDGET_BY_DOSE = 20
   OVERBOOKING_FACTOR = 40
+  OVERBOOKING_FACTOR_V3 = 20
 
   belongs_to :vaccination_center
   belongs_to :partner
@@ -73,11 +74,47 @@ class Campaign < ApplicationRecord
   end
 
   def set_algo_version
-    self.algo_version = "v2" if Flipper.enabled?(:matching_algo_v2)
+    self.algo_version = if Flipper.enabled?(:matching_algo_v2)
+      if Flipper.enabled?(:matching_algo_v3)
+        "v3"
+      else
+        "v2"
+      end
+    end
   end
 
   def matching_algo_v2?
     algo_version == "v2"
+  end
+
+  def matching_algo_v3?
+    algo_version == "v3"
+  end
+
+  def initial_match_count
+    # number of people to target at first
+    remaining_doses * OVERBOOKING_FACTOR_V3
+  end
+
+  # compute the expected confirmations given current confirmations
+  def projected_confirmations
+    if matches.confirmed.count <= 0
+      0.0
+    else
+      a = 1.498
+      b = 0.007
+      c = 0.435
+
+      [
+        matches
+          .confirmed
+          .sum("1. / (1 -#{a}*exp(
+            -#{b}*EXTRACT(EPOCH FROM now() - created_at)/60.
+            -#{c}*pow(EXTRACT(EPOCH FROM now() - created_at)/60., -1/3)
+            ))"),
+        matches.count
+      ].min
+    end
   end
 
   private

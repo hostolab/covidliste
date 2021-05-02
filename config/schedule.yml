@@ -27,3 +27,8 @@ run_active_campaigns: # every 2 minutes
   cron: "*/2 * * * *"
   class: "RunActiveCampaignsJob"
   description: "Re-evaluate active campaigns"
+
+run_active_campaigns_5: # every 5 minutes
+  cron: "*/5 * * * *"
+  class: "RunActiveCampaignsV3Job"
+  description: "Re-evaluate active campaigns that run with version 3"
