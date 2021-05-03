@@ -77,7 +77,7 @@ class Campaign < ApplicationRecord
         ranking_method: ranking_method,
         overbooking_factor: matching_algo == "v3" ? OVERBOOKING_FACTOR_V3 : OVERBOOKING_FACTOR,
         max_sms_budget_by_dose: MAX_SMS_BUDGET_BY_DOSE,
-        max_email_budget_by_dose: MAX_EMAIL_BUDGET_BY_DOSE,
+        max_email_budget_by_dose: MAX_EMAIL_BUDGET_BY_DOSE
       }
   end
 
