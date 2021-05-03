@@ -18,7 +18,7 @@ class RunCampaignJob < ApplicationJob
     return unless should_run?
 
     # compute how many more users we need to match
-    limit = compute_new_users_to_reach
+    limit = [compute_new_users_to_reach, @campaign.email_budget_remaining].min
     return if limit <= 0
 
     users = @campaign.reachable_users_query(limit: limit)
