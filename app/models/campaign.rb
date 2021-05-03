@@ -20,6 +20,7 @@ class Campaign < ApplicationRecord
   validate :starts_at_lesser_than_ends_at
 
   before_create :set_algo_version
+  after_create_commit :notify_to_slack
 
   def canceled!
     update_attribute(:canceled_at, Time.now.utc)
@@ -73,11 +74,15 @@ class Campaign < ApplicationRecord
   end
 
   def set_algo_version
-    self.algo_version = "v2" if Flipper.enabled?(:matching_algo_v2)
+    self.algo_version = "v2"
   end
 
   def matching_algo_v2?
     algo_version == "v2"
+  end
+
+  def notify_to_slack
+    PushNewCampaignToSlackJob.perform_later(self.id)
   end
 
   private

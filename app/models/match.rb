@@ -84,11 +84,7 @@ class Match < ApplicationRecord
 
   def set_expiration!
     return unless expires_at.nil?
-    self.expires_at = if matching_algo_v2?
-      campaign.ends_at
-    else
-      [Time.now.utc + Match::EXPIRE_IN_MINUTES.minutes, campaign.ends_at].min
-    end
+    self.expires_at = campaign.ends_at
     save
   end
 
@@ -114,7 +110,6 @@ class Match < ApplicationRecord
 
   def notify
     notify_by_email
-    notify_by_sms unless matching_algo_v2?
   end
 
   def notify_by_email
@@ -125,7 +120,4 @@ class Match < ApplicationRecord
     SendMatchSmsJob.perform_later(id)
   end
 
-  def matching_algo_v2?
-    campaign.matching_algo_v2?
-  end
 end
