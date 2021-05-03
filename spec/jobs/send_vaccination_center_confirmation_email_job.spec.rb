@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe SendVaccinationCenterConfirmationEmailJob do
   let!(:partner) { create(:partner) }
-  let!(:vaccination_center) { create(:vaccination_center, partner: partner) }
+  let!(:vaccination_center) { create(:vaccination_center, lat: 42, lon: 2, partner: partner) }
 
   subject { SendVaccinationCenterConfirmationEmailJob.new.perform(vaccination_center.id) }
 
