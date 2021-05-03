@@ -82,7 +82,7 @@ class Campaign < ApplicationRecord
   end
 
   def notify_to_slack
-    PushNewCampaignToSlackJob.perform_later(self.id)
+    PushNewCampaignToSlackJob.perform_later(id)
   end
 
   private

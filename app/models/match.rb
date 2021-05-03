@@ -118,5 +118,4 @@ class Match < ApplicationRecord
   def notify_by_sms
     SendMatchSmsJob.perform_later(id)
   end
-
 end
