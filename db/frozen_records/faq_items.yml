@@ -307,6 +307,8 @@
 
     Si vous souhaitez supprimer vos données : cliquez sur « Supprimer mon compte ».
 
+    <%= link_to "Pour en savoir plus sur l’exercice de vos droits sur vos données.", :cgu_volontaires %>.
+
 - title: Comment être certain que les coordonnées transmises ne soient pas par la suite revendues à des tiers ?
   category: Données personnelles et code source
   area: main
@@ -320,6 +322,9 @@
     Les données que vous renseignez ne sont transmises qu’aux centres de vaccination
     ou aux professionnels de santé proches de chez vous et disposant de doses
     de vaccins disponibles.
+
+    <%= link_to "Pour en savoir plus sur l’utilisation de vos données.", :cgu_volontaires %>.
+
 
 - title: À quoi servent les données demandées lors de l’inscription ?
   category: Données personnelles et code source
@@ -354,7 +359,10 @@
     - La date de naissance,
     - Le numéro de téléphone.
 
-- title: Comment sont stockées les données demandées lors de l’inscription ?
+    <%= link_to "Pour en savoir plus sur l’utilisation de vos données.", :cgu_volontaires %>.
+
+
+- title: Comment sont hébergées vos données ?
   category: Données personnelles et code source
   area: main
   body_md_erb: |
