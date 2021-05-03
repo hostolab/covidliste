@@ -111,6 +111,7 @@ class Campaign < ApplicationRecord
         matches.count
       ].min
     end
+  end
 
   def notify_to_slack
     PushNewCampaignToSlackJob.perform_later(id)
