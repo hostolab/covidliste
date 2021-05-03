@@ -102,10 +102,12 @@ RSpec.describe Match, type: :model do
     after do
       travel_back
     end
+
     it "should set correct expiration" do
+      match.reload
       match.set_expiration!
       match.reload
-      expect(match.expires_at).to eq(Time.now.utc + Match::EXPIRE_IN_MINUTES.minutes)
+      expect(match.expires_at).to eq(campaign.ends_at)
     end
 
     context "campaign ending now" do
@@ -114,23 +116,6 @@ RSpec.describe Match, type: :model do
         match.set_expiration!
         match.reload
         expect(match.expires_at).to eq(Time.now.utc)
-      end
-    end
-
-    context "with matching v2" do
-      before do
-        travel_to Time.parse("2021-04-01 14:00:00")
-        campaign.update(algo_version: "v2")
-      end
-      after do
-        travel_back
-      end
-
-      it "should set correct expiration" do
-        match.reload
-        match.set_expiration!
-        match.reload
-        expect(match.expires_at).to eq(campaign.ends_at)
       end
     end
   end
