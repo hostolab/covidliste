@@ -4,8 +4,7 @@
   Bonjour,
   <br>
   <br>
-  Vous pouvez vous connecter en utilisant le lien ci-dessous, il est valable uniquement <%= Devise.passwordless_login_within.inspect %> :
-  <br>
+  Vous pouvez vous connecter en cliquant sur le lien suivant, il est valable uniquement <%= Devise.passwordless_login_within.inspect %> :
   <%= link_to "Me connecter à mon compte", magic_link_url %>
   <br>
   <br>
@@ -15,3 +14,4 @@
 </p>
 
 <%= render "mailer/footer" %>
+<%= render "mailer/automatic_message" %>
