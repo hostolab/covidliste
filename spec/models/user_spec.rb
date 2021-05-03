@@ -98,6 +98,14 @@ RSpec.describe User, type: :model do
       expect(user.grid_i).to eq(16577)
       expect(user.grid_j).to eq(11343)
     end
+
+
+    it "test range" do
+      lat = 48.345
+      lon = 2.123
+      range = ::GridCoordsService.new(lat, lon).get_covering(50000)
+      print range
+    end
   end
 
   describe "Email format" do
