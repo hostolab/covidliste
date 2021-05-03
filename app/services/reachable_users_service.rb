@@ -1,5 +1,4 @@
-class ReachableUsersService 
-
+class ReachableUsersService
   def initialize(campaign)
     @campaign = campaign
     @vaccination_center = campaign.vaccination_center
@@ -12,7 +11,7 @@ class ReachableUsersService
   end
 
   def get_users_with_v2(limit = nil)
-    sql = <<~SQL.tr("\n", ' ').squish
+    sql = <<~SQL.tr("\n", " ").squish
       with reachable_users as (
         SELECT
         u.id as user_id,
@@ -61,7 +60,7 @@ class ReachableUsersService
       limit (:limit)
     SQL
     params = {
-      min_date: @campaign.max_age.years.ago, 
+      min_date: @campaign.max_age.years.ago,
       max_date: @campaign.min_age.years.ago,
       lat: @vaccination_center.lat,
       lon: @vaccination_center.lon,
@@ -73,20 +72,18 @@ class ReachableUsersService
     User.where(id: ActiveRecord::Base.connection.execute(query).to_a.pluck(:user_id))
   end
 
-
   def get_users_with_random(limit = nil)
     User
-    .confirmed
-    .active
-    .between_age(@campaign.min_age, @campaign.max_age)
-    .where("SQRT(((? - lat)*110.574)^2 + ((? - lon)*111.320*COS(lat::float*3.14159/180))^2) < ?", @vaccination_center.lat, @vaccination_center.lon, @campaign.max_distance_in_meters / 1000)
-    .where("id not in (
+      .confirmed
+      .active
+      .between_age(@campaign.min_age, @campaign.max_age)
+      .where("SQRT(((? - lat)*110.574)^2 + ((? - lon)*111.320*COS(lat::float*3.14159/180))^2) < ?", @vaccination_center.lat, @vaccination_center.lon, @campaign.max_distance_in_meters / 1000)
+      .where("id not in (
       select user_id from matches m inner join campaigns c on (c.id = m.campaign_id)
       where m.user_id is not null
       and ((m.created_at >= now() - interval '24 hours' and c.status != 2) or (m.confirmed_at is not null))
       )") # exclude user_id that have been matched in the last 24 hours, or confirmed
-    .order("RANDOM()")
-    .limit(limit)
+      .order("RANDOM()")
+      .limit(limit)
   end
-
 end
