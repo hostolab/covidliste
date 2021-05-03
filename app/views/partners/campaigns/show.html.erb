@@ -37,7 +37,7 @@
 
   <div class="justify-content-center">
     <div class="progress" style="height: 20px;">
-      <div class="progress-bar" role="progressbar" style="width: <%= @campaign.matches.confirmed.size * 100 / @campaign.available_doses %>%;">
+      <div class="progress-bar" role="progressbar" style="width: <%= @campaign.available_doses > 0 ? (@campaign.matches.confirmed.size * 100 / @campaign.available_doses) : 0 %>%;">
       </div>
     </div>
 

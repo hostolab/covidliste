@@ -36,11 +36,11 @@
             <th class="text-center"><%= sortable("created_at", "Lancée") %></th>
             <th class="text-center"><%= sortable("starts_at", "Début") %></th>
             <th class="text-center"><%= sortable("ends_at", "Fin") %></th>
-            <th class="text-center"><%= sortable("available_doses", "doses") %></th>
             <th><%= sortable("vaccine_type", "Vaccin") %></th>
             <th class="text-center"><%= sortable("min_age", "Âge min") %></th>
             <th class="text-center"><%= sortable("max_age", "Âge max") %></th>
-            <th class="text-center"><%= sortable("max_distance_in_meters", "Distance max") %></th>
+            <th class="text-center"><%= sortable("max_distance_in_meters", "Rayon") %></th>
+            <th class="text-center"><%= sortable("available_doses", "doses") %></th>
             <th class="text-center">Contactés</th>
             <th class="text-center">Confirmés</th>
             <th class="text-center">Taux Confirm</th>
@@ -64,11 +64,11 @@
               <td class="text-center text-nowrap"><%= l(campaign.created_at, format: "%H:%M") %></td>
               <td class="text-center text-nowrap"><%= l(campaign.starts_at, format: "%H:%M") %></td>
               <td class="text-center text-nowrap"><%= l(campaign.ends_at, format: "%H:%M") %></td>
-              <td class="text-center"><%= campaign.available_doses %></td>
               <td><%= campaign.vaccine_type.to_s.capitalize %></td>
               <td class="text-center"><%= campaign.min_age %></td>
               <td class="text-center"><%= campaign.max_age %></td>
               <td class="text-center"><%= (campaign.max_distance_in_meters.to_f / 1000).to_i.to_s + " km" %></td>
+              <td class="text-center"><%= campaign.available_doses %></td>
               <td class="text-center"><%= matches.size %></td>
               <td class="text-center"><%= matches.confirmed.size %></td>
               <td class="text-center"><%= matches.size > 0 ? (100 * matches.confirmed.size.to_f / matches.size).round(1).to_s + "%" : "0%" %></td>
