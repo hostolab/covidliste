@@ -113,8 +113,8 @@ class Campaign < ApplicationRecord
         matches
           .confirmed
           .sum("1. / (1 -#{a}*exp(
-            -#{b}*EXTRACT(EPOCH FROM now() - created_at)/60.
-            -#{c}*pow(EXTRACT(EPOCH FROM now() - created_at)/60., 1./3)
+            -#{b}*EXTRACT(EPOCH FROM now() - mail_sent_at)/60.
+            -#{c}*pow(EXTRACT(EPOCH FROM now() - mail_sent_at)/60., 1./3)
             ))"),
         matches.count
       ].min
