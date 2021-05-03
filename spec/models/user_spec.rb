@@ -80,6 +80,24 @@ RSpec.describe User, type: :model do
       expect(user.lat).to_not eq(lat)
       expect(user.lon).to_not eq(lon)
     end
+
+    it "create grid cell at user creation" do
+      lat = 48.345
+      lon = 2.123
+      user = create(:user, lat: lat, lon: lon)
+      expect(user.grid_i).to eq(16577)
+      expect(user.grid_j).to eq(11343)
+    end
+
+    it "create grid cell at user update" do
+      lat = 48.345
+      lon = 2.123
+      user = create(:user)
+      user.reload
+      user.update(lat: lat, lon: lon)
+      expect(user.grid_i).to eq(16577)
+      expect(user.grid_j).to eq(11343)
+    end
   end
 
   describe "Email format" do
