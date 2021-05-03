@@ -325,7 +325,6 @@
 
     <%= link_to "Pour en savoir plus sur l’utilisation de vos données.", :cgu_volontaires %>.
 
-
 - title: À quoi servent les données demandées lors de l’inscription ?
   category: Données personnelles et code source
   area: main
@@ -360,7 +359,6 @@
     - Le numéro de téléphone.
 
     <%= link_to "Pour en savoir plus sur l’utilisation de vos données.", :cgu_volontaires %>.
-
 
 - title: Comment sont hébergées vos données ?
   category: Données personnelles et code source
