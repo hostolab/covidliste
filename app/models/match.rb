@@ -6,7 +6,6 @@ class Match < ApplicationRecord
   class MissingNamesError < StandardError; end
 
   NO_MORE_THAN_ONE_MATCH_PER_PERIOD = 24.hours
-  EXPIRE_IN_MINUTES = 30
   MATCH_TTL = 45.minutes
 
   has_secure_token :match_confirmation_token
