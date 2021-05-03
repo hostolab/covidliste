@@ -25,33 +25,65 @@ describe RunCampaignJob do
 
   subject { RunCampaignJob.new.perform(campaign.id) }
 
-  before do
-    Flipper.enable(:matching_algo_v2)
-    allow_any_instance_of(Campaign).to receive(:reachable_users_query).and_return(reachable_users_query)
-  end
-
-  after do
-    Flipper.disable(:matching_algo_v2)
-  end
-
-  context "with one reachable user" do
-    it "should create a batch and a match" do
-      subject
-      expect(campaign.matches.count).to eq(1)
+  describe "perform" do
+    before do
+      travel_to Time.parse("2021-04-01 14:00:00")
+      allow_any_instance_of(RunCampaignJob).to receive(:should_run?).and_return(true)
+      allow_any_instance_of(Campaign).to receive(:reachable_users_query).and_return(reachable_users_query)
     end
 
-    it "should send an email" do
-      expect { subject }.to have_enqueued_job(SendMatchEmailJob).exactly(:once)
+    after do
+      travel_back
     end
 
-    context "and with an already confirmed match" do
+    context "with one reachable user" do
+      it "should create a batch and a match" do
+        subject
+        expect(campaign.matches.count).to eq(1)
+      end
+
+      it "should send an email" do
+        expect { subject }.to have_enqueued_job(SendMatchEmailJob).exactly(:once)
+      end
+
+      context "and with an already confirmed match" do
+        before do
+          Match.create!(
+            campaign: campaign,
+            vaccination_center: center,
+            user: user,
+            confirmed_at: Time.now.utc
+          )
+        end
+        it "should end the campaign" do
+          subject
+          campaign.reload
+          expect(campaign.status).to eq("completed")
+        end
+      end
+    end
+
+    context "when no reachable user" do
+      let(:reachable_users_query) { User.none }
+      it "should not create any match and complete the campaign" do
+        subject
+        expect(campaign.matches.any?).to eq(false)
+      end
+    end
+
+    context "when campaign is canceled" do
       before do
-        Match.create!(
-          campaign: campaign,
-          vaccination_center: center,
-          user: user,
-          confirmed_at: Time.now.utc
-        )
+        campaign.update(status: 2)
+      end
+      it "should not create any batch or match" do
+        subject
+        expect(campaign.matches.any?).to eq(false)
+      end
+    end
+
+    context "when campaign is complete" do
+      before do
+        campaign.update(ends_at: Time.now.utc)
       end
       it "should end the campaign" do
         subject
@@ -61,32 +93,33 @@ describe RunCampaignJob do
     end
   end
 
-  context "when no reachable user" do
-    let(:reachable_users_query) { User.none }
-    it "should not create any match and complete the campaign" do
-      subject
-      expect(campaign.matches.any?).to eq(false)
-    end
-  end
-
-  context "when campaign is canceled" do
+  describe "should_run?" do
     before do
-      campaign.update(status: 2)
+      allow_any_instance_of(Campaign).to receive(:reachable_users_query).and_return(reachable_users_query)
     end
-    it "should not create any batch or match" do
-      subject
-      expect(campaign.matches.any?).to eq(false)
+    context "at minute 1" do
+      before do
+        travel_to Time.parse("2021-04-01 14:01:00")
+      end
+      after do
+        travel_back
+      end
+      it "should not run" do
+        subject
+        expect(campaign.matches.count).to eq(0)
+      end
     end
-  end
-
-  context "when campaign is complete" do
-    before do
-      campaign.update(ends_at: Time.now.utc)
-    end
-    it "should end the campaign" do
-      subject
-      campaign.reload
-      expect(campaign.status).to eq("completed")
+    context "at minute 0" do
+      before do
+        travel_to Time.parse("2021-04-01 14:00:00")
+      end
+      after do
+        travel_back
+      end
+      it "should run" do
+        subject
+        expect(campaign.matches.count).to eq(1)
+      end
     end
   end
 end

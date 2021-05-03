@@ -23,7 +23,7 @@ anonynise_confirmed_mathced_users:
   class: "AnonymizeConfirmedMatchedUsersJob"
   description: Anonymize all users with confirmed match from 3 days ago and more
 
-run_active_campaigns: # every 2 minutes
-  cron: "*/2 * * * *"
+run_active_campaigns: # every 1 minute
+  cron: "* * * * *"
   class: "RunActiveCampaignsJob"
   description: "Re-evaluate active campaigns"
