@@ -19,7 +19,7 @@ class Campaign < ApplicationRecord
   validate :min_age_lesser_than_max_age
   validate :starts_at_lesser_than_ends_at
 
-  before_create :set_algo_version
+  before_create :set_parameters
   after_create_commit :notify_to_slack
 
   def canceled!
@@ -73,12 +73,26 @@ class Campaign < ApplicationRecord
     end
   end
 
-  def set_algo_version
-    self.algo_version = "v2"
+  def set_parameters
+    self.parameters = 
+    {
+      algo_version: Flipper.enabled?(:matching_algo_v3) ? "v3" : "v2",
+      ranking_method: Flipper.enabled?(:ranking_method_v2) ? "v2" : "v1",
+      overbooking_factor: OVERBOOKING_FACTOR,
+      max_sms_budget_by_dose: MAX_SMS_BUDGET_BY_DOSE,
+    }
+  end
+
+  def algo_version
+    ((parameters || {})[:algo_version]) || "v2"
   end
 
   def matching_algo_v2?
     algo_version == "v2"
+  end
+
+  def matching_algo_v3?
+    algo_version == "v3"
   end
 
   def notify_to_slack
