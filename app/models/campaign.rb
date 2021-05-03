@@ -19,7 +19,7 @@ class Campaign < ApplicationRecord
   validate :min_age_lesser_than_max_age
   validate :starts_at_lesser_than_ends_at
 
-  before_create :set_algo_version
+  before_create :set_parameters
   after_create_commit :notify_to_slack
 
   def canceled!
@@ -42,18 +42,7 @@ class Campaign < ApplicationRecord
   end
 
   def reachable_users_query(limit: nil)
-    User
-      .confirmed
-      .active
-      .between_age(min_age, max_age)
-      .where("SQRT(((? - lat)*110.574)^2 + ((? - lon)*111.320*COS(lat::float*3.14159/180))^2) < ?", vaccination_center.lat, vaccination_center.lon, max_distance_in_meters / 1000)
-      .where("id not in (
-        select user_id from matches m inner join campaigns c on (c.id = m.campaign_id)
-        where m.user_id is not null
-        and ((m.created_at >= now() - interval '24 hours' and c.status != 2) or (m.confirmed_at is not null))
-        )") # exclude user_id that have been matched in the last 24 hours, or confirmed
-      .order("RANDOM()")
-      .limit(limit)
+    ::ReachableUsersService.new(self).get_users(limit)
   end
 
   def to_csv
@@ -73,12 +62,30 @@ class Campaign < ApplicationRecord
     end
   end
 
-  def set_algo_version
-    self.algo_version = "v2"
+  def set_parameters
+    self.parameters =
+      {
+        algo_version: Flipper.enabled?(:matching_algo_v3) ? "v3" : "v2",
+        ranking_method: Flipper.enabled?(:ranking_method_v2) ? "v2" : "v1",
+        overbooking_factor: OVERBOOKING_FACTOR,
+        max_sms_budget_by_dose: MAX_SMS_BUDGET_BY_DOSE
+      }
+  end
+
+  def algo_version
+    ((parameters || {})[:algo_version]) || "v2"
+  end
+
+  def ranking_method
+    ((parameters || {})[:ranking_method]) || "v1"
   end
 
   def matching_algo_v2?
     algo_version == "v2"
+  end
+
+  def matching_algo_v3?
+    algo_version == "v3"
   end
 
   def notify_to_slack
