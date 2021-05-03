@@ -307,7 +307,7 @@
 
     Si vous souhaitez supprimer vos données : cliquez sur « Supprimer mon compte ».
 
-    <%= link_to "Pour en savoir plus sur l’exercice de vos droits sur vos données.", :cgu_volontaires %>.
+    <%= link_to "Pour en savoir plus sur l’exercice de vos droits sur vos données.", :cgu_volontaires %>
 
 - title: Comment être certain que les coordonnées transmises ne soient pas par la suite revendues à des tiers ?
   category: Données personnelles et code source
@@ -323,7 +323,7 @@
     ou aux professionnels de santé proches de chez vous et disposant de doses
     de vaccins disponibles.
 
-    <%= link_to "Pour en savoir plus sur l’utilisation de vos données.", :cgu_volontaires %>.
+    <%= link_to "Pour en savoir plus sur l’utilisation de vos données.", :cgu_volontaires %>
 
 - title: À quoi servent les données demandées lors de l’inscription ?
   category: Données personnelles et code source
@@ -358,14 +358,13 @@
     - La date de naissance,
     - Le numéro de téléphone.
 
-    <%= link_to "Pour en savoir plus sur l’utilisation de vos données.", :cgu_volontaires %>.
+    <%= link_to "Pour en savoir plus sur l’utilisation de vos données.", :cgu_volontaires %>
 
-- title: Comment sont hébergées vos données ?
+- title: Comment sont hébergées mes données ?
   category: Données personnelles et code source
   area: main
   body_md_erb: |
-    Lors de l’inscription sur Covidliste, nous demandons à l’utilisateur de nous confier certaines données personnelles.
-    Nous nous efforçons de protèger les données que nous sommes amenés à traiter.
+    Vos données sont hébergées en France auprès du prestataire SCALINGO SAS.
 
     Lieu et choix de l’hébergeur : dans une volonté de souligner son attachement à des technologies françaises et de
     s’assurer de la conformité avec les législation en vigueur, COVIDLISTE a fait le choix d’héberger ses données en
@@ -373,10 +372,10 @@
 
     Type de stockage utilisés :
 
-    - La plupart des données personnelles sont stockées et chiffrées dans notre base de données conformément à l’état de l’art.
+    - La plupart des données personnelles (email, téléphone, nom/prénom (après confirmation d’un rendez-vous)) sont stockées et chiffrées dans notre base de données conformément à l’état de l’art.
     - La clé de chiffrement est stockée séparément, sur la plateforme d’hébergement du site, et n’est accessible que des gestionnaires de COVIDLISTE et de l’hébergeur pour des raisons techniques.
     - Certaines données personnelles sont stockées de manière non réversible à l’aide de <%= link_to "fonctions de hashage", "https://fr.wikipedia.org/wiki/Fonction_de_hachage", target: "_blank", rel: "noopener" %>.
-    - Quelques données personnelles sont stockées en clair dans notre base de données.
+    - Quelques données personnelles (localisation approximée, date de naissance) sont stockées en clair dans notre base de données.
     - Elles sont réduites au strict minimum et/ou sont volontairement imprécises.
 
 
