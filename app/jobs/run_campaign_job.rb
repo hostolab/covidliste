@@ -1,19 +1,22 @@
 class RunCampaignJob < ApplicationJob
   queue_as :critical
 
+  SLOW_ADJUSTMENT_FACTOR = 0.25
+  LOWER_BOUND_CONVERSION_RATE = 0.002
+
   # Job that decides users the be matched for a given campaign at a given point in time.
   # This job creates the matches.
 
   def perform(campaign_id)
     Rails.logger.info("Run RunCampaignJob for campaign_id #{campaign_id}")
-    campaign = Campaign.find(campaign_id)
-    return unless campaign.matching_algo_v2?
-    return unless campaign.running?
-    return campaign.completed! if campaign.remaining_doses <= 0
-    return campaign.completed! if Time.now.utc >= campaign.ends_at
+    @campaign = Campaign.find(campaign_id)
+    return unless @campaign.matching_algo_v2?
+    return unless @campaign.running?
+    return @campaign.completed! if @campaign.remaining_doses <= 0
+    return @campaign.completed! if Time.now.utc >= @campaign.ends_at
 
     # compute how many more users we need to match
-    limit = campaign.target_matches_count - campaign.matches.pending.alive.count
+    limit = compute_new_users_to_reach
     return if limit <= 0
     users = campaign.reachable_users_query(limit: limit)
 
@@ -30,4 +33,22 @@ class RunCampaignJob < ApplicationJob
       Rails.logger.warning("Could not obtain lock to create match for user_id #{user.id}")
     end
   end
+
+  def compute_new_users_to_reach
+    return (@campaign.target_matches_count - @campaign.matches.pending.alive.count) if @campaign.matching_algo_v2?
+    compute_new_users_to_reach_with_v3
+  end
+
+  def compute_new_users_to_reach_with_v3
+    projected_conversion = if campaign.matches.count <= 0
+      1.0 / campaign.initial_match_count.to_f
+    else
+      [campaign.projected_confirmations / campaign.matches.count, LOWER_BOUND_CONVERSION_RATE].max
+    end
+    limit = ((campaign.available_doses.to_f - campaign.projected_confirmations) / projected_conversion * SLOW_ADJUSTMENT_FACTOR).floor
+    limit
+  end
+
+
+
 end
