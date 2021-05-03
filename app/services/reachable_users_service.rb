@@ -16,12 +16,12 @@ class ReachableUsersService
       with reachable_users as (
         SELECT
         u.id as user_id,
-        (SQRT((((:lat) - u.lat)*110.574)^2 + (((:lon) - u.lon)*111.320*COS(u.lat::float*3.14159/180))^2))  as distance
+        (SQRT((((:lat) - u.lat)*110.574)^2 + (((:lon) - u.lon)*111.320*COS(u.lat::float*3.14159/180))^2)) as distance
         FROM users u
         WHERE u.confirmed_at IS NOT NULL 
         AND u.anonymized_at is NULL
         AND u.birthdate between (:min_date) and (:max_date)
-        AND (SQRT((((:lat) - u.lat)*110.574)^2 + (((:lon) - u.lon)*111.320*COS(u.lat::float*3.14159/180))^2)) < (:rayon_km)) 
+        AND (SQRT((((:lat) - u.lat)*110.574)^2 + (((:lon) - u.lon)*111.320*COS(u.lat::float*3.14159/180))^2)) < (:rayon_km)
       )
       ,users_stats as (
         select
@@ -36,9 +36,10 @@ class ReachableUsersService
         SUM(case when m.refused_at is not null then 1 else null end) as total_refusals_count
         from reachable_users r
         inner join users u on (r.user_id = u.id)
-        left outer join matches m on (m.user_id = r.user_id and m.status != 2)
-        left outer join campaigns c on (c.id = m.campaign_id)
+        left outer join matches m on (m.user_id = r.user_id)
+        left outer join campaigns c on (c.id = m.campaign_id and c.status != 2)
         group by 1,2,3
+        having SUM(case when m.confirmed_at is not null then 1 else 0 end) <= 0
       )
 
       select 
@@ -69,7 +70,7 @@ class ReachableUsersService
       limit: limit
     }
     query = ActiveRecord::Base.send(:sanitize_sql_array, [sql, params])
-    User.where(ActiveRecord::Base.connection.execute(query).to_a.pluck(:user_id))
+    User.where(id: ActiveRecord::Base.connection.execute(query).to_a.pluck(:user_id))
   end
 
 
@@ -77,8 +78,8 @@ class ReachableUsersService
     User
     .confirmed
     .active
-    .between_age(min_age, max_age)
-    .where("SQRT(((? - lat)*110.574)^2 + ((? - lon)*111.320*COS(lat::float*3.14159/180))^2) < ?", vaccination_center.lat, vaccination_center.lon, max_distance_in_meters / 1000)
+    .between_age(@campaign.min_age, @campaign.max_age)
+    .where("SQRT(((? - lat)*110.574)^2 + ((? - lon)*111.320*COS(lat::float*3.14159/180))^2) < ?", @vaccination_center.lat, @vaccination_center.lon, @campaign.max_distance_in_meters / 1000)
     .where("id not in (
       select user_id from matches m inner join campaigns c on (c.id = m.campaign_id)
       where m.user_id is not null
