@@ -103,9 +103,8 @@ class Campaign < ApplicationRecord
       limit: limit
     }
     query = ActiveRecord::Base.send(:sanitize_sql_array, [sql, params])
-    ActiveRecord::Base.connection.execute(query).to_a
+    User.where(ActiveRecord::Base.connection.execute(query).to_a.pluck(:user_id))
   end
-
 
   def reachable_users_query_v1(limit: nil)
     User
