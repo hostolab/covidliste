@@ -70,12 +70,14 @@ class Campaign < ApplicationRecord
 
   def set_parameters
     matching_algo = Flipper.enabled?(:matching_algo_v3) ? "v3" : "v2"
+    ranking_method = Flipper.enabled?(:ranking_method_v2) ? "v2" : "v1"
     self.parameters =
       {
         algo_version: matching_algo,
-        ranking_method: Flipper.enabled?(:ranking_method_v2) ? "v2" : "v1",
+        ranking_method: ranking_method,
         overbooking_factor: matching_algo == "v3" ? OVERBOOKING_FACTOR_V3 : OVERBOOKING_FACTOR,
-        max_sms_budget_by_dose: MAX_SMS_BUDGET_BY_DOSE
+        max_sms_budget_by_dose: MAX_SMS_BUDGET_BY_DOSE,
+        max_email_budget_by_dose: MAX_EMAIL_BUDGET_BY_DOSE,
       }
   end
 
