@@ -15,12 +15,12 @@ describe SendMatchEmailJob do
       subject
     end
 
-    it "set expiration" do
+    it "sets expiration" do
       subject
       expect(match.reload.expires_at).to_not be(nil)
     end
 
-    it "set mail_sent_at" do
+    it "sets mail_sent_at" do
       subject
       expect(match.reload.mail_sent_at).to_not be(nil)
     end

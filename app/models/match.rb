@@ -20,6 +20,8 @@ class Match < ApplicationRecord
   encrypts :match_confirmation_token
   blind_index :match_confirmation_token
 
+  enum sms_provider: {twilio: "twilio"}, _prefix: :sms_provider
+
   validates :distance_in_meters, numericality: {greater_than_or_equal_to: 0, only_integer: true}, allow_nil: true
   validate :no_recent_match, on: :create
   before_create :save_user_info
