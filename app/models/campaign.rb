@@ -2,6 +2,7 @@ class Campaign < ApplicationRecord
   MAX_DOSES = 200
   MAX_DISTANCE_IN_KM = 50
   MAX_SMS_BUDGET_BY_DOSE = 20
+  MAX_EMAIL_BUDGET_BY_DOSE = 1000
   OVERBOOKING_FACTOR = 40
   OVERBOOKING_FACTOR_V3 = 20
 
@@ -40,6 +41,10 @@ class Campaign < ApplicationRecord
 
   def sms_budget_remaining
     (available_doses * MAX_SMS_BUDGET_BY_DOSE) - matches.with_sms.count
+  end
+
+  def email_budget_remaining
+    (available_doses * MAX_EMAIL_BUDGET_BY_DOSE) - matches.count
   end
 
   def reachable_users_query(limit: nil)
@@ -108,8 +113,8 @@ class Campaign < ApplicationRecord
         matches
           .confirmed
           .sum("1. / (1 -#{a}*exp(
-            -#{b}*EXTRACT(EPOCH FROM now() - created_at)/60.
-            -#{c}*pow(EXTRACT(EPOCH FROM now() - created_at)/60., -1/3)
+            -#{b}*EXTRACT(EPOCH FROM now() - mail_sent_at)/60.
+            -#{c}*pow(EXTRACT(EPOCH FROM now() - mail_sent_at)/60., 1./3)
             ))"),
         matches.count
       ].min
