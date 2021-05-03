@@ -1,7 +1,7 @@
 class VaccinationCenterMailer < ApplicationMailer
   default from: "Covidliste <partenaires@covidliste.com>"
 
-  def confirmed_vaccination_center_instructions
+  def confirmed_vaccination_center_onboarding
     @vaccination_center = params[:vaccination_center]
     partner_email = @vaccination_center&.partners&.first&.email
     @tutorial_url = "https://docs.google.com/document/d/10IqYk739dJImngTIsQ7IJbf7RXJRG7drD4dZM_Z4xmI/edit?usp=sharing"
