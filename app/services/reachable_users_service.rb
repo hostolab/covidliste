@@ -65,7 +65,7 @@ class ReachableUsersService
       lat: @vaccination_center.lat,
       lon: @vaccination_center.lon,
       rayon_km: @campaign.max_distance_in_meters / 1000,
-      vaccine_type: @campaign.vaccine_type
+      vaccine_type: @campaign.vaccine_type,
       limit: limit
     }
     query = ActiveRecord::Base.send(:sanitize_sql_array, [sql, params])
