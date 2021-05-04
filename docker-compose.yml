@@ -87,6 +87,7 @@ services:
       - db
     volumes:
       - .:/usr/src/app
+      - gems:/usr/local/bundle
     env_file:
       - docker/environments/db.env
       - docker/environments/web.env
