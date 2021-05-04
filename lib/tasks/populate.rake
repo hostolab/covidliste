@@ -10,11 +10,11 @@ namespace :populate do
         email: Faker::Internet.unique.email(domain: "covidliste.com"),
         birthdate: Faker::Date.between(from: 100.years.ago, to: 18.years.ago),
         address: Faker::Address.full_address,
-        lat: Faker::Address.latitude,
-        lon: Faker::Address.longitude,
         phone_number: "06 01 02 03 04",
         toc: true,
-        statement: true
+        statement: true,
+        lat: rand(42.261..51.2757),
+        lon: rand(-4.943848..8.679199),
       )
       user.skip_confirmation!
       user.save!
