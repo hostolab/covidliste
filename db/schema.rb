@@ -295,6 +295,7 @@ ActiveRecord::Schema.define(version: 2021_05_03_122404) do
     t.string "city"
     t.string "geo_citycode"
     t.string "geo_context"
+    t.datetime "confirmation_mail_sent_at"
     t.index ["city"], name: "index_vaccination_centers_on_city"
     t.index ["confirmer_id"], name: "index_vaccination_centers_on_confirmer_id"
     t.index ["geo_citycode"], name: "index_vaccination_centers_on_geo_citycode"
