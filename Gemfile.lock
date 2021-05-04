@@ -134,6 +134,8 @@ GEM
     crack (0.4.5)
       rexml
     crass (1.0.6)
+    css_parser (1.9.0)
+      addressable
     cuprite (0.13)
       capybara (>= 2.1, < 4)
       ferrum (~> 0.11.0)
@@ -206,6 +208,7 @@ GEM
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     hashdiff (1.0.1)
+    htmlentities (4.3.4)
     httparty (0.18.1)
       mime-types (~> 3.0)
       multi_xml (>= 0.5.2)
@@ -279,6 +282,13 @@ GEM
       activerecord (>= 5)
     phonelib (0.6.49)
     popper_js (2.8.6)
+    premailer (1.14.3)
+      addressable
+      css_parser (>= 1.6.0)
+      htmlentities (>= 4.0.0)
+    premailer-rails (1.11.1)
+      actionmailer (>= 3)
+      premailer (~> 1.7, >= 1.7.9)
     pry (0.13.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -543,6 +553,7 @@ DEPENDENCIES
   pg_search
   pghero
   phonelib
+  premailer-rails (~> 1.11, >= 1.11.1)
   pry-byebug
   pry-rails
   puma (~> 5.0)
