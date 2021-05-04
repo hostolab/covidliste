@@ -15,33 +15,20 @@ module Partners
     end
 
     def new
-      if Flipper.enabled?(:new_campaign_creator, @vaccination_center)
-        @campaign = @vaccination_center.build_campaign_smart_defaults
-        render "creator"
-      else
-        @campaign = @vaccination_center.campaigns.build(starts_at: Time.now, ends_at: 1.hour.from_now)
-        render "new"
-      end
+      @campaign = @vaccination_center.build_campaign_smart_defaults
+      render "new"
     end
 
     def create
       @campaign = @vaccination_center.campaigns.build(create_params)
       @campaign.partner = current_partner
-      @campaign.max_distance_in_meters = create_params["max_distance_in_meters"].to_i * 1000 if request.format.html?
 
       if @campaign.save
         @campaign.update(name: "Campagne ##{@campaign.id} du #{@campaign.created_at.strftime("%d/%m/%Y")}")
-        respond_to do |format|
-          format.html { redirect_to partners_campaign_path(@campaign) }
-          format.json { render json: {campaign: @campaign, redirect_to: partners_campaign_url(@campaign)} }
-        end
+        render json: {campaign: @campaign, redirect_to: partners_campaign_url(@campaign)}
       else
         @campaign.max_distance_in_meters = @campaign.max_distance_in_meters / 1000 if request.format.html?
-
-        respond_to do |format|
-          format.html { render :new }
-          format.json { render json: {errors: @campaign.errors}, status: 400 }
-        end
+        render json: {errors: @campaign.errors}, status: 400
       end
     end
 
