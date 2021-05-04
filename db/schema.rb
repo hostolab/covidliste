@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_03_122404) do
+ActiveRecord::Schema.define(version: 2021_05_04_200923) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -133,6 +133,13 @@ ActiveRecord::Schema.define(version: 2021_05_03_122404) do
     t.check_constraint "max_distance_in_meters > 0", name: "max_distance_in_meters_gt_zero"
     t.check_constraint "min_age > 0", name: "min_age_gt_zero"
     t.check_constraint "starts_at < ends_at", name: "starts_at_lt_ends_at"
+  end
+
+  create_table "counters", force: :cascade do |t|
+    t.string "key"
+    t.integer "value", default: 0
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "matches", force: :cascade do |t|
