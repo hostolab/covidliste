@@ -14,7 +14,7 @@ namespace :populate do
         toc: true,
         statement: true,
         lat: rand(41.5..42.5),
-        lon: rand(1.5..2.5),
+        lon: rand(1.5..2.5)
       )
       user.skip_confirmation!
       user.save!

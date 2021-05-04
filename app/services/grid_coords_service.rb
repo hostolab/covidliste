@@ -19,7 +19,7 @@ class GridCoordsService
 
   def get_cell_size
     lat_rad = @lat / 180 * Math::PI
-    EARTH_CIRCUMFERENCE * Math.cos(lat_rad) / (2.0 ** DEFAULT_ZOOM_LEVEL)
+    EARTH_CIRCUMFERENCE * Math.cos(lat_rad) / (2.0**DEFAULT_ZOOM_LEVEL)
   end
 
   def get_covering(distance_in_m)
@@ -32,11 +32,11 @@ class GridCoordsService
 
     a = []
     irange.each do |i|
-        jrange.each do |j|
-            if Math.sqrt((cell[:i] - i) ** 2 + (cell[:j] - j) ** 2) <= n_cells
-                a.append([i, j])
-            end
+      jrange.each do |j|
+        if Math.sqrt((cell[:i] - i)**2 + (cell[:j] - j)**2) <= n_cells
+          a.append([i, j])
         end
+      end
     end
 
     {center_cell: cell, dist_cells: n_cells, cells: a}

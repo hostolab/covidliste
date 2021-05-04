@@ -1,11 +1,11 @@
 require "rails_helper"
 
 def get_lat_lng_for_number(xtile, ytile, zoom)
-  n = 2.0 ** zoom
+  n = 2.0**zoom
   lon_deg = xtile / n * 360.0 - 180.0
-  lat_rad = Math::atan(Math::sinh(Math::PI * (1 - 2 * ytile / n)))
+  lat_rad = Math.atan(Math.sinh(Math::PI * (1 - 2 * ytile / n)))
   lat_deg = 180.0 * (lat_rad / Math::PI)
-  {:lat => lat_deg, :lon => lon_deg}
+  {lat: lat_deg, lon: lon_deg}
 end
 
 DEFAULT_ZOOM_LEVEL = 15
@@ -42,7 +42,7 @@ RSpec.describe ReachableUsersService, type: :service do
         statement: true,
         confirmed_at: Time.now.utc,
         lat: 42,
-        lon: 2,
+        lon: 2
       )
     end
     it "get user" do
@@ -67,7 +67,7 @@ RSpec.describe ReachableUsersService, type: :service do
         statement: true,
         confirmed_at: Time.now.utc,
         lat: 42.01665183556824,
-        lon: 1.93359375,
+        lon: 1.93359375
       )
     end
     it "get user" do

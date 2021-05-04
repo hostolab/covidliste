@@ -12,7 +12,7 @@ class ReachableUsersService
 
   def get_vaccination_center_grid_query
     cells = ::GridCoordsService.new(@vaccination_center.lat, @vaccination_center.lon).get_covering(@campaign.max_distance_in_meters)[:cells]
-    '(grid_i, grid_j) IN ((' + cells.map{ |sub| sub.join(",")}.join('),(') + '))'
+    "(grid_i, grid_j) IN ((" + cells.map { |sub| sub.join(",") }.join("),(") + "))"
   end
 
   def get_users_with_v2(limit = nil)
@@ -77,7 +77,7 @@ class ReachableUsersService
       limit: limit,
       last_match_allowed_at: Match::NO_MORE_THAN_ONE_MATCH_PER_PERIOD.ago
     }
-    sql = sql.sub! '__GRID_QUERY__', get_vaccination_center_grid_query
+    sql = sql.sub! "__GRID_QUERY__", get_vaccination_center_grid_query
     query = ActiveRecord::Base.send(:sanitize_sql_array, [sql, params])
     User.where(id: ActiveRecord::Base.connection.execute(query).to_a.pluck("user_id"))
   end
