@@ -27,6 +27,18 @@ class GridCoordsService
     n_cells = (distance_in_m / cell_size).ceil
     cell = get_cell
 
-    {range_i: [*(cell[:i] - n_cells)..(cell[:i] + n_cells)], range_j: [*(cell[:j] - n_cells)..(cell[:j] + n_cells)]}
+    irange = [*(cell[:i] - n_cells)..(cell[:i] + n_cells)]
+    jrange = [*(cell[:j] - n_cells)..(cell[:j] + n_cells)]
+
+    a = []
+    irange.each do |i|
+        jrange.each do |j|
+            if Math.sqrt((cell[:i] - i) ** 2 + (cell[:j] - j) ** 2) <= n_cells
+                a.append([i, j])
+            end
+        end
+    end
+
+    {center_cell: cell, dist_cells: n_cells, cells: a}
   end
 end
