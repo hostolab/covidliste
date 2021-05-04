@@ -13,8 +13,8 @@ namespace :populate do
         phone_number: "+33601020304",
         toc: true,
         statement: true,
-        lat: Faker::Address.latitude,
-        lon: Faker::Address.longitude,
+        lat: rand(41.5..42.5),
+        lon: rand(1.5..2.5),
       )
       user.skip_confirmation!
       user.save!
