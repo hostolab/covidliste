@@ -16,7 +16,7 @@ module Partners
 
     def new
       @campaign = @vaccination_center.build_campaign_smart_defaults
-      render "creator"
+      render "new"
     end
 
     def create
