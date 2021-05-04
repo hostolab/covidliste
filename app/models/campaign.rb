@@ -51,6 +51,10 @@ class Campaign < ApplicationRecord
     ::ReachableUsersService.new(self).get_users(limit)
   end
 
+  def reachable_users_count
+    ::ReachableUsersService.new(self).get_users_count
+  end
+
   def to_csv
     CSV.generate(headers: true) do |csv|
       csv << %w[firstname lastname birthdate phone_number confirmed_at]

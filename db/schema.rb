@@ -123,7 +123,6 @@ ActiveRecord::Schema.define(version: 2021_05_04_200923) do
     t.integer "status", default: 0
     t.datetime "canceled_at"
     t.string "algo_version"
-    t.jsonb "parameters"
     t.index ["partner_id"], name: "index_campaigns_on_partner_id"
     t.index ["status"], name: "index_campaigns_on_status"
     t.index ["vaccination_center_id"], name: "index_campaigns_on_vaccination_center_id"
@@ -258,8 +257,6 @@ ActiveRecord::Schema.define(version: 2021_05_04_200923) do
     t.datetime "statement_accepted_at"
     t.datetime "toc_accepted_at"
     t.string "email_domain"
-    t.integer "grid_i"
-    t.integer "grid_j"
     t.index ["anonymized_at"], name: "index_users_on_anonymized_at"
     t.index ["birthdate"], name: "index_users_on_birthdate"
     t.index ["city"], name: "index_users_on_city"
@@ -268,8 +265,6 @@ ActiveRecord::Schema.define(version: 2021_05_04_200923) do
     t.index ["email_bidx"], name: "index_users_on_email_bidx", unique: true
     t.index ["geo_citycode"], name: "index_users_on_geo_citycode"
     t.index ["geo_context"], name: "index_users_on_geo_context"
-    t.index ["grid_i"], name: "index_users_on_grid_i"
-    t.index ["grid_j"], name: "index_users_on_grid_j"
     t.index ["zipcode"], name: "index_users_on_zipcode"
   end
 

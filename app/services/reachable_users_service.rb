@@ -86,4 +86,28 @@ class ReachableUsersService
       .order("RANDOM()")
       .limit(limit)
   end
+
+  def get_users_count
+    sql = <<~SQL.tr("\n", " ").squish
+      SELECT
+        COUNT(DISTINCT u.id) as count
+        FROM users u
+        left outer join matches m on (m.user_id = u.id and m.confirmed_at is not null)
+        WHERE u.confirmed_at IS NOT NULL 
+        AND u.anonymized_at is NULL
+        AND u.birthdate between (:min_date) and (:max_date)
+        AND (SQRT((((:lat) - u.lat)*110.574)^2 + (((:lon) - u.lon)*111.320*COS(u.lat::float*3.14159/180))^2)) < (:rayon_km)
+        AND m.id IS NULL
+    SQL
+    params = {
+      min_date: @campaign.max_age.years.ago,
+      max_date: @campaign.min_age.years.ago,
+      lat: @vaccination_center.lat,
+      lon: @vaccination_center.lon,
+      rayon_km: @campaign.max_distance_in_meters / 1000,
+      vaccine_type: @campaign.vaccine_type
+    }
+    query = ActiveRecord::Base.send(:sanitize_sql_array, [sql, params])
+    ActiveRecord::Base.connection.execute(query).to_a.first["count"].to_i
+  end
 end

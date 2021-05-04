@@ -44,11 +44,9 @@ module Partners
       vaccine_type = simulate_params[:vaccine_type]
       available_doses = simulate_params[:available_doses]
       campaign = Campaign.new(simulate_params.merge({vaccination_center: @vaccination_center}))
-      reach = campaign.reachable_users_query.count
+      reach = campaign.reachable_users_count
       render json: {
         reach: reach,
-        # For testing, uncomment :
-        # reach: reach * 100,
         enough: reach >= (Vaccine.minimum_reach_to_dose_ratio(vaccine_type) * available_doses),
         minimum_reach_to_dose_ratio: Vaccine.minimum_reach_to_dose_ratio(vaccine_type)
       }
