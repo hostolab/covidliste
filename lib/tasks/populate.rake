@@ -7,12 +7,11 @@ namespace :populate do
     puts "Generating #{count} users..."
     count.times do |i|
       user = User.new(
-        firstname: Faker::Name.first_name,
-        lastname: Faker::Name.last_name,
         email: Faker::Internet.unique.email(domain: "covidliste.com"),
         birthdate: Faker::Date.between(from: 100.years.ago, to: 18.years.ago),
         address: Faker::Address.full_address,
-        password: "1G09_!9s08vUsa",
+        lat: Faker::Address.latitude,
+        lon: Faker::Address.longitude,
         phone_number: "06 01 02 03 04",
         toc: true,
         statement: true
