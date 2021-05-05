@@ -197,7 +197,7 @@ GEM
       erubi (>= 1.0.0, < 2.0.0)
       flipper (~> 0.20.4)
       rack (>= 1.4, < 3)
-      rack-protection (>= 1.5.3, < 2.1.0)
+      rack-protection (>= 1.5.3, < 2.2.0)
     frozen_record (0.22.1)
       activemodel
       dedup
