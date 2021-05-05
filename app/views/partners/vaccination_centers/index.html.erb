@@ -9,7 +9,7 @@
 
   <p class="small">
     <%= icon("fas", "phone", current_partner.human_friendly_phone_number) %>
-    <br />
+    <br/>
     Informations incorrectes ?
     <%= link_to "Modifiez votre profil", partners_path %>
   </p>
@@ -18,7 +18,7 @@
     Bienvenue dans l’espace <strong>réservé aux professionnels de santé assurant la vaccination</strong>.
     <br>
     Merci de nous avoir rejoint et merci pour ce que vous faites pour aider à la vaccination du plus grand nombre !
-    <br />
+    <br/>
     Un problème, une question ? Contactez-nous sur
     <%= link_to "partenaires@covidliste.com", "mailto:partenaires@covidliste.com" %>
   </p>
@@ -31,61 +31,60 @@
     <div class="table-responsive">
       <table class="table table-bordered table-sm">
         <thead class="thead-light">
-          <tr>
-            <th scope="col"> Nom </th>
-            <th scope="col"> Coordonnées </th>
-            <th scope="col"> Vaccins </th>
-            <th scope="col"> Collaborateurs </th>
-            <th scope="col" class="text-center"> Actions </th>
-          </tr>
+        <tr>
+          <th scope="col"> Nom</th>
+          <th scope="col"> Coordonnées</th>
+          <th scope="col"><abbr data-toggle="tooltip" title="Collaborateurs">Collab.</abbr></th>
+          <th scope="col" class="text-center"> Actions</th>
+        </tr>
         </thead>
 
         <tbody>
-          <% @vaccination_centers.each do |vaccination_center| %>
-            <tr>
-              <td>
-                <strong>
-                  <%= link_to vaccination_center.name, partners_vaccination_center_path(vaccination_center.id) %>
-                </strong>
-                <br>
-                <i><%= vaccination_center.kind %></i>
-                <br>
-                <%= vaccination_center.description %>
-              </td>
+        <% @vaccination_centers.each do |vaccination_center| %>
+          <tr>
+            <td>
+              <strong>
+                <%= link_to vaccination_center.name, partners_vaccination_center_path(vaccination_center.id) %>
+              </strong>
+              <br>
+              <i><%= vaccination_center.kind %></i>
+              <br>
+              <%= vaccination_center.description %>
+            </td>
 
-              <td>
-                <%= icon("fas", "phone", vaccination_center.human_friendly_phone_number) %>
-                <br>
-                <%= vaccination_center.address %>
-              </td>
+            <td class="small">
+              <%= icon("fas", "phone", vaccination_center.human_friendly_phone_number) %>
+              <br>
+              <%= vaccination_center.address %>
+              <br>
+              <% if vaccination_center.pfizer %>
+                <span class="mr-1"> <%= Vaccine::Brands::PFIZER.capitalize %> </span>
+              <% end %>
+              <% if vaccination_center.moderna %>
+                <span class="mr-1"> <%= Vaccine::Brands::MODERNA.capitalize %> </span>
+              <% end %>
+              <% if vaccination_center.astrazeneca %>
+                <span class="mr-1"> <%= Vaccine::Brands::ASTRAZENECA.capitalize %> </span>
+              <% end %>
+              <% if vaccination_center.janssen %>
+                <span class="mr-1"> <%= Vaccine::Brands::JANSSEN.capitalize %> </span>
+              <% end %>
+            </td>
 
-              <td>
-                <% if vaccination_center.pfizer %>
-                  <span class="mr-1"> <%= Vaccine::Brands::PFIZER.capitalize %> </span><br />
-                <% end %>
-                <% if vaccination_center.moderna %>
-                  <span class="mr-1"> <%= Vaccine::Brands::MODERNA.capitalize %> </span><br />
-                <% end %>
-                <% if vaccination_center.astrazeneca %>
-                  <span class="mr-1"> <%= Vaccine::Brands::ASTRAZENECA.capitalize %> </span><br />
-                <% end %>
-                <% if vaccination_center.janssen %>
-                  <span class="mr-1"> <%= Vaccine::Brands::JANSSEN.capitalize %> </span><br />
-                <% end %>
-              </td>
-
-              <td>
+            <td class="small text-center" data-toggle="tooltip" data-html="true" title="
+                Collaborateurs : <br>
                 <% vaccination_center.partners.each do |partner| %>
-                  <%= partner.name %>
+                  - <%= partner.name %>
                   <br>
-                <% end %>
-              </td>
+                <% end %>">
+              <%= icon("fas", "user", vaccination_center.partners.count) %>
+            </td>
 
-              <td class="text-center">
-                <%= link_to "Voir / Gérer les campagnes", partners_vaccination_center_path(vaccination_center.id) %>
-              </td>
-            </tr>
-          <% end %>
+            <td class="text-center">
+              <%= link_to "Voir / Gérer les campagnes", partners_vaccination_center_path(vaccination_center.id), class: "btn btn-primary btn-sm" %>
+            </td>
+          </tr>
+        <% end %>
         </tbody>
       </table>
     </div>
@@ -101,11 +100,12 @@
     </p>
 
     <div class="alert alert-primary" role="alert" style="position: inherit">
-      Nous allons vous contacter dans les prochaines heures ou les prochains jours pour valider vos lieux de vaccination en attente.
-      <br />
+      Nous allons vous contacter dans les prochaines heures ou les prochains jours pour valider vos lieux de vaccination
+      en attente.
+      <br/>
       Vérifiez vos informations, et particulièrement votre numéro de téléphone portable :
       <strong><%= current_partner.human_friendly_phone_number %></strong>
-      <br />
+      <br/>
       Numéro incorrect ?
       <%= link_to "Modifiez-le sur votre page profil", partners_path %>
     </div>
@@ -114,10 +114,10 @@
       <table class="table table-bordered table-sm">
         <thead class="thead-light">
         <tr>
-          <th> Nom </th>
-          <th> Coordonnées </th>
-          <th> Vaccins </th>
-          <th> État </th>
+          <th scope="col"> Nom</th>
+          <th scope="col"> Coordonnées</th>
+          <th scope="col"><abbr data-toggle="tooltip" title="Collaborateurs">Collab.</abbr></th>
+          <th scope="col"> État</th>
         </tr>
         </thead>
 
@@ -134,25 +134,32 @@
               <%= vaccination_center.description %>
             </td>
 
-            <td>
+            <td class="small">
               <%= icon("fas", "phone", vaccination_center.human_friendly_phone_number) %>
               <br>
               <%= vaccination_center.address %>
-            </td>
-
-            <td>
+              <br>
               <% if vaccination_center.pfizer %>
-                <span class="mr-1"> <%= Vaccine::Brands::PFIZER.capitalize %> </span><br />
+                <span class="mr-1"> <%= Vaccine::Brands::PFIZER.capitalize %> </span>
               <% end %>
               <% if vaccination_center.moderna %>
-                <span class="mr-1"> <%= Vaccine::Brands::MODERNA.capitalize %> </span><br />
+                <span class="mr-1"> <%= Vaccine::Brands::MODERNA.capitalize %> </span>
               <% end %>
               <% if vaccination_center.astrazeneca %>
-                <span class="mr-1"> <%= Vaccine::Brands::ASTRAZENECA.capitalize %> </span><br />
+                <span class="mr-1"> <%= Vaccine::Brands::ASTRAZENECA.capitalize %> </span>
               <% end %>
               <% if vaccination_center.janssen %>
-                <span class="mr-1"> <%= Vaccine::Brands::JANSSEN.capitalize %> </span><br />
+                <span class="mr-1"> <%= Vaccine::Brands::JANSSEN.capitalize %> </span>
               <% end %>
+            </td>
+
+            <td class="small text-center" data-toggle="tooltip" data-html="true" title="
+                Collaborateurs : <br>
+                <% vaccination_center.partners.each do |partner| %>
+                  - <%= partner.name %>
+                  <br>
+                <% end %>">
+              <%= icon("fas", "user", vaccination_center.partners.count) %>
             </td>
 
             <td>
@@ -165,73 +172,87 @@
     </div>
   <% end %>
 
-  <p>
-    <%= link_to "Demander la création d’un nouveau lieu de vaccination", new_partners_vaccination_center_path, class: "btn btn-primary btn-sm" %>
-  </p>
+  <% if @vaccination_centers.any? || @unconfirmed_vaccination_centers.any? %>
+    <p class="small">
+      Vous gèrez une autre lieu de vaccination ?
+      <%= link_to "Demandez la création d’un autre lieu de vaccination", new_partners_vaccination_center_path %>
+    </p>
+  <% else %>
+    <p class="small">
+      <%= link_to "Demander la création d’un nouveau lieu de vaccination", new_partners_vaccination_center_path, class: "btn btn-primary" %>
+    </p>
+  <% end %>
 
-  <p class="mt-4 small">
-    Si vous souhaitez rejoindre un centre déjà existant sur Covidliste, contactez-nous sur
-    <%= link_to "partenaires@covidliste.com", "mailto:partenaires@covidliste.com" %>.
-  </p>
+    <p class="mt-4 small">
+      Si vous souhaitez rejoindre un lieu de vaccination déjà existant sur Covidliste, contactez-nous sur
+      <%= link_to "partenaires@covidliste.com", "mailto:partenaires@covidliste.com" %>.
+    </p>
 
-  <% if @vaccination_centers.any? %>
-    <div class="mt-5 mb-5">
-      <p>
-        Êtes-vous satisfait de Covidliste ?
-        <button class="btn btn-sm btn-success mx-3" type="button"
-                data-toggle="collapse" data-target="#collapseRecommend"
-                aria-expanded="false" aria-controls="collapseRecommend">
-          Recommandez le service à un confrère
-        </button>
-      </p>
-      <div id="collapseRecommend" class="collapse mt-4">
-        <div class="row">
-          <div class="col-12 col-lg-6">
-            <p class="mt-4">
-              Si vous êtes satisfait de Covidliste, nous avons préparé pour vous un exemple de mail simple et
-              prêt à l'emploi pour recommander le service à un confrère en un clic :
-            </p>
-            <p>
-              <%= link_to icon("fas", "envelope") + " Recommander par mail", "mailto:?cc=partenaires@covidliste.com&subject=Je%20vous%20recommande%20Covidliste%20pour%20trouver%20des%20volontaires%20%C3%A0%20la%20vaccination&body=Cher%20confr%C3%A8re%2C%0D%0A%0D%0AJe%20souhaite%20vous%20faire%20part%20de%20l'existence%20de%20Covidliste%2C%20une%20plateforme%20sur%20laquelle%20je%20suis%20inscrit%2C%20qui%20permet%20aux%20professionnels%20de%20sant%C3%A9%20de%20trouver%20des%20volontaires%20%C3%A0%20la%20vaccination%20en%20cas%20de%20doses%20de%20vaccin%20surnum%C3%A9raires.%0D%0A%0D%0AVoici%20l'adresse%20pour%20s'inscrire%20en%20tant%20que%20professionnel%20%3A%20https%3A%2F%2Fwww.covidliste.com%2Fpartenaires%2F%0D%0A%0D%0AL'%C3%A9quipe%20de%20Covidliste%20est%20en%20copie%20de%20ce%20mail%20pour%20toute%20question%20ou%20besoin%20d'accompagnement.%0D%0A%0D%0ACordialement", class: "btn btn-sm btn-outline-primary", target: "_blank", rel: "noopener" %>
-            </p>
-            <p class="text-center text-muted font-italic my-4">
-              ou
-            </p>
-            <p>
-              Nous mettons à votre disposition ci-contre un exemple de contenu mail utilisable pour
-              recommander Covidliste à un confrère
-            </p>
-          </div>
-          <div class="col-12 col-lg-6">
-            <div class="card">
-              <div class="card-body small">
-                <p>
-                  Cc : <em><%=  link_to "partenaires@covidliste.com", "mailto:partenaires@covidliste.com" %></em><br />
-                  Sujet : <em>Je vous recommande Covidliste pour trouver des volontaires à la vaccination</em>
-                </p>
-                <p>
-                  Cher confrère,<br />
-                  <br />
-                  Je souhaite vous faire part de l'existence de Covidliste, une plateforme sur laquelle je suis
-                  inscrit, qui permet aux professionnels de santé de trouver des volontaires à la vaccination
-                  en cas de doses de vaccin surnuméraires.<br />
-                  <br />
-                  Voici l'adresse pour s'inscrire en tant que professionnel : https://www.covidliste.com/partenaires/<br />
-                  <br />
-                  L'équipe de Covidliste est en copie de ce mail pour toute question ou besoin d'accompagnement.<br />
-                  <br />
-                  Cordialement
-                </p>
+    <% if @vaccination_centers.any? %>
+      <div class="mt-5 mb-5">
+        <p>
+          Êtes-vous satisfait de Covidliste ?
+          <button class="btn btn-sm btn-success mx-3" type="button"
+                  data-toggle="collapse" data-target="#collapseRecommend"
+                  aria-expanded="false" aria-controls="collapseRecommend">
+            Recommandez le service à un confrère
+          </button>
+        </p>
+        <div id="collapseRecommend" class="collapse mt-4">
+          <div class="row">
+            <div class="col-12 col-lg-6">
+              <p class="mt-4">
+                Si vous êtes satisfait de Covidliste, nous avons préparé pour vous un exemple de mail simple et
+                prêt à l'emploi pour recommander le service à un confrère en un clic :
+              </p>
+              <p>
+                <%= link_to icon("fas", "envelope") + " Recommander par mail", "mailto:?cc=partenaires@covidliste.com&subject=Je%20vous%20recommande%20Covidliste%20pour%20trouver%20des%20volontaires%20%C3%A0%20la%20vaccination&body=Cher%20confr%C3%A8re%2C%0D%0A%0D%0AJe%20souhaite%20vous%20faire%20part%20de%20l'existence%20de%20Covidliste%2C%20une%20plateforme%20sur%20laquelle%20je%20suis%20inscrit%2C%20qui%20permet%20aux%20professionnels%20de%20sant%C3%A9%20de%20trouver%20des%20volontaires%20%C3%A0%20la%20vaccination%20en%20cas%20de%20doses%20de%20vaccin%20surnum%C3%A9raires.%0D%0A%0D%0AVoici%20l'adresse%20pour%20s'inscrire%20en%20tant%20que%20professionnel%20%3A%20https%3A%2F%2Fwww.covidliste.com%2Fpartenaires%2F%0D%0A%0D%0AL'%C3%A9quipe%20de%20Covidliste%20est%20en%20copie%20de%20ce%20mail%20pour%20toute%20question%20ou%20besoin%20d'accompagnement.%0D%0A%0D%0ACordialement", class: "btn btn-sm btn-outline-primary", target: "_blank", rel: "noopener" %>
+              </p>
+              <p class="text-center text-muted font-italic my-4">
+                ou
+              </p>
+              <p>
+                Nous mettons à votre disposition ci-contre un exemple de contenu mail utilisable pour
+                recommander Covidliste à un confrère
+              </p>
+            </div>
+            <div class="col-12 col-lg-6">
+              <div class="card">
+                <div class="card-body small">
+                  <p>
+                    Cc : <em><%= link_to "partenaires@covidliste.com", "mailto:partenaires@covidliste.com" %></em><br/>
+                    Sujet : <em>Je vous recommande Covidliste pour trouver des volontaires à la vaccination</em>
+                  </p>
+                  <p>
+                    Cher confrère,<br/>
+                    <br/>
+                    Je souhaite vous faire part de l'existence de Covidliste, une plateforme sur laquelle je suis
+                    inscrit, qui permet aux professionnels de santé de trouver des volontaires à la vaccination
+                    en cas de doses de vaccin surnuméraires.<br/>
+                    <br/>
+                    Voici l'adresse pour s'inscrire en tant que professionnel :
+                    https://www.covidliste.com/partenaires/<br/>
+                    <br/>
+                    L'équipe de Covidliste est en copie de ce mail pour toute question ou besoin d'accompagnement.<br/>
+                    <br/>
+                    Cordialement
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+    <% end %>
+
+    <p class="mb-5">
+      Besoin de documents pour communiquer à propos de Covidliste avec vos collègues, confrères, visiteurs ou patients ?<br/>
+      <small>Nous vous mettons à disposition un ensemble de documents imprimables adaptés à chaque public.</small>
+      <br />
+      <%= link_to "Documents pour les professionnels", "https://drive.google.com/drive/folders/1g79baMWlOFjZAcCrK7sa6uUNlyQBuzyC?usp=sharing", class: "btn btn-info btn-sm mt-2", target: "_blank", rel: "noopener" %>
+    </p>
+
+    <hr>
+
+    <%= link_to "Se déconnecter", destroy_partner_session_path, method: :delete, class: "btn btn-warning" %>
     </div>
-  <% end %>
-
-
-  <hr>
-
-  <%= link_to "Se déconnecter", destroy_partner_session_path, method: :delete, class: "btn btn-warning" %>
-</div>
