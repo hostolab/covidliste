@@ -110,7 +110,7 @@ RSpec.describe "Users", type: :system do
       user.save!
 
       token = Devise::Passwordless::LoginToken.encode(user)
-      visit users_magic_link_url(Hash["user", {email: user.email, token: token}])
+      visit users_magic_link_url({user: {email: user.email, token: token}})
 
       expect(page).to have_text("Connecté(e).")
       expect(page).to have_text("Accélérons la campagne de vaccination.")
@@ -208,7 +208,7 @@ RSpec.describe "Users", type: :system do
     context "expired link" do
       scenario "it notifies the user" do
         token = Devise::Passwordless::LoginToken.encode(user)
-        magic_link = users_magic_link_url(Hash["user", {email: user.email, token: token}])
+        magic_link = users_magic_link_url({user: {email: user.email, token: token}})
 
         travel Devise.passwordless_login_within + 2.minutes
         visit magic_link
@@ -221,7 +221,7 @@ RSpec.describe "Users", type: :system do
     context "invalid link (remove last character)" do
       scenario "it notifies the user" do
         token = Devise::Passwordless::LoginToken.encode(user)[0...-1]
-        magic_link = users_magic_link_url(Hash["user", {email: user.email, token: token}])
+        magic_link = users_magic_link_url({user: {email: user.email, token: token}})
 
         visit magic_link
 

@@ -127,6 +127,14 @@ start them all using [`overmind`](https://github.com/DarthSim/overmind)
 overmind s
 ```
 
+### Data seed
+
+To populate fake users
+
+```ruby
+rails populate:users
+```
+
 ### Admin development
 
 In a rails console with `rails c`

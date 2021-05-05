@@ -40,6 +40,7 @@ class User < ApplicationRecord
   before_save :get_grid_cell, if: -> { (will_save_change_to_lat? || will_save_change_to_lon?) }
   after_commit :reverse_geocode, if: -> { (saved_change_to_lat? || saved_change_to_lon?) && anonymized_at.nil? }
   before_destroy :refuse_pending_matching, prepend: true
+  after_create_commit :increment_total_users_counter
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
   scope :active, -> { where(anonymized_at: nil) }
@@ -170,6 +171,10 @@ class User < ApplicationRecord
       end
     end
     errors.none?
+  end
+
+  def increment_total_users_counter
+    Counter.increment(:total_users)
   end
 
   protected

@@ -2,7 +2,9 @@ class Campaign < ApplicationRecord
   MAX_DOSES = 200
   MAX_DISTANCE_IN_KM = 50
   MAX_SMS_BUDGET_BY_DOSE = 20
+  MAX_EMAIL_BUDGET_BY_DOSE = 1000
   OVERBOOKING_FACTOR = 40
+  OVERBOOKING_FACTOR_V3 = 20
 
   belongs_to :vaccination_center
   belongs_to :partner
@@ -41,8 +43,16 @@ class Campaign < ApplicationRecord
     (available_doses * MAX_SMS_BUDGET_BY_DOSE) - matches.with_sms.count
   end
 
+  def email_budget_remaining
+    (available_doses * MAX_EMAIL_BUDGET_BY_DOSE) - matches.count
+  end
+
   def reachable_users_query(limit: nil)
     ::ReachableUsersService.new(self).get_users(limit)
+  end
+
+  def reachable_users_count
+    ::ReachableUsersService.new(self).get_users_count
   end
 
   def to_csv
@@ -63,21 +73,24 @@ class Campaign < ApplicationRecord
   end
 
   def set_parameters
+    matching_algo = Flipper.enabled?(:matching_algo_v3) ? "v3" : "v2"
+    ranking_method = Flipper.enabled?(:ranking_method_v2) ? "v2" : "v1"
     self.parameters =
       {
-        algo_version: Flipper.enabled?(:matching_algo_v3) ? "v3" : "v2",
-        ranking_method: Flipper.enabled?(:ranking_method_v2) ? "v2" : "v1",
-        overbooking_factor: OVERBOOKING_FACTOR,
-        max_sms_budget_by_dose: MAX_SMS_BUDGET_BY_DOSE
+        algo_version: matching_algo,
+        ranking_method: ranking_method,
+        overbooking_factor: matching_algo == "v3" ? OVERBOOKING_FACTOR_V3 : OVERBOOKING_FACTOR,
+        max_sms_budget_by_dose: MAX_SMS_BUDGET_BY_DOSE,
+        max_email_budget_by_dose: MAX_EMAIL_BUDGET_BY_DOSE
       }
   end
 
   def algo_version
-    ((parameters || {})[:algo_version]) || "v2"
+    (parameters || {}).symbolize_keys[:algo_version] || "v2"
   end
 
   def ranking_method
-    ((parameters || {})[:ranking_method]) || "v1"
+    (parameters || {}).symbolize_keys[:ranking_method] || "v1"
   end
 
   def matching_algo_v2?
@@ -86,6 +99,32 @@ class Campaign < ApplicationRecord
 
   def matching_algo_v3?
     algo_version == "v3"
+  end
+
+  def initial_match_count
+    # number of people to target at first
+    remaining_doses * OVERBOOKING_FACTOR_V3
+  end
+
+  # compute the expected confirmations given current confirmations
+  def projected_confirmations
+    if matches.confirmed.count <= 0
+      0.0
+    else
+      a = 1.498
+      b = 0.007
+      c = 0.435
+
+      [
+        matches
+          .confirmed
+          .sum("1. / (1 -#{a}*exp(
+            -#{b}*EXTRACT(EPOCH FROM now() - mail_sent_at)/60.
+            -#{c}*pow(EXTRACT(EPOCH FROM now() - mail_sent_at)/60., 1./3)
+            ))"),
+        matches.count
+      ].min
+    end
   end
 
   def notify_to_slack
