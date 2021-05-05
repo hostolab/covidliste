@@ -1,6 +1,6 @@
 :concurrency: <%= ENV['SIDEKIQ_CONCURRENCY'] || 10 %>
 :queues:
-  - critical
-  - default
-  - mailers
-  - low
+  - [critical, 8]
+  - [mailers, 4]
+  - [default, 2]
+  - [low, 1]
