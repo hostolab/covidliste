@@ -74,8 +74,6 @@ class ReachableUsersService
     params = {
       min_date: @campaign.max_age.years.ago,
       max_date: @campaign.min_age.years.ago,
-      lat: @vaccination_center.lat,
-      lon: @vaccination_center.lon,
       cells_i: @covering[:cells_i],
       cells_j: @covering[:cells_j],
       vc_grid_i: @covering[:center_cell][:i],
@@ -124,8 +122,6 @@ class ReachableUsersService
     params = {
       min_date: @campaign.max_age.years.ago,
       max_date: @campaign.min_age.years.ago,
-      lat: @vaccination_center.lat,
-      lon: @vaccination_center.lon,
       cells_i: @covering[:cells_i],
       cells_j: @covering[:cells_j],
       vc_grid_i: @covering[:center_cell][:i],
