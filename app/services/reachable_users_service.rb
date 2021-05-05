@@ -88,7 +88,7 @@ class ReachableUsersService
       .confirmed
       .active
       .between_age(@campaign.min_age, @campaign.max_age)
-      .where(get_vaccination_center_grid_query)
+      .where("SQRT(((? - lat)*110.574)^2 + ((? - lon)*111.320*COS(lat::float*3.14159/180))^2) < ?", @vaccination_center.lat, @vaccination_center.lon, @campaign.max_distance_in_meters / 1000)
       .where("id not in (
       select user_id from matches m inner join campaigns c on (c.id = m.campaign_id)
       where m.user_id is not null
