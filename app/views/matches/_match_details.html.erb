@@ -42,7 +42,12 @@
       <i class="fas fa-user-lock"></i>
       <strong> Informations personnelles </strong>
       <p>
-        Date de naissance : <strong><%= user.birthdate.strftime('%d/%m/%Y') %></strong><br>
+        Date de naissance : <strong><%= user.birthdate.strftime('%d/%m/%Y') %></strong>
+        <br>
+        <% if match.confirmed? %>
+        Identité : <strong><%= user.full_name %></strong>
+
+        <% end %>
       </p>
     </div>
   <% end %>

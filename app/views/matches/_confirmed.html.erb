@@ -8,6 +8,12 @@
 
 <%= render 'match_details', match: @match %>
 
+<p>
+  <strong>Date de naissance et nom seront vérifiés,</strong> si ces informations sont inexactes, le praticien ne pourra pas vous vacciner.
+  <br>
+  Munissez-vous d'une pièce d'identité et de votre carte vitale.
+</p>
+
 <% if match.campaign.extra_info.present? %>
   <div>
     <p>
