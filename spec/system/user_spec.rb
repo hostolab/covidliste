@@ -169,7 +169,7 @@ RSpec.describe "Users", type: :system do
         expect(page).to have_text("Vous ne pouvez pas modifier vos informations actuellement car vous avez confirmé un rendez-vous de vaccination.")
       end
 
-      it 'it does not allow te delete my account' do
+      it "it does not allow te delete my account" do
         expect do
           accept_confirm_modal do
             click_on "Supprimer mon compte"
