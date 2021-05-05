@@ -14,16 +14,21 @@ import { GenericError } from "components/partners/GenericError";
 import { CampaignCreatorAvailableDoses } from "components/partners/campaign_creator/fields/CampaignCreatorAvailableDoses";
 import { CampaignCreatorChecks } from "components/partners/campaign_creator/fields/CampaignCreatorChecks";
 import { initialFormState } from "components/partners/campaign_creator/initialFormState";
+import { CampaignCreatorAlreadyRunningCampaignWarning } from "components/partners/campaign_creator/CampaignCreatorAlreadyRunningCampaignWarning";
 
 const _CampaignCreator = ({
   initialCampaign,
   vaccinationCenter,
   flowImagePath,
+  runningCampaignsPaths,
 }) => {
   const createCampaign = useCreateCampaignMutation(vaccinationCenter);
   return (
     <div className="CampaignCreator">
       {createCampaign.isError && <GenericError />}
+      <CampaignCreatorAlreadyRunningCampaignWarning
+        runningCampaignsPaths={runningCampaignsPaths}
+      />
       <Formik
         initialValues={initialFormState(initialCampaign)}
         validate={validateCampaignCreatorForm}

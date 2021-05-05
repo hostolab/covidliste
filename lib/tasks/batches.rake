@@ -5,12 +5,7 @@ namespace :batches do
     puts "Campaign : #{campaign.name}"
 
     # Looking for users to match
-    users = campaign.reachable_users_query(
-      min_age: campaign.min_age,
-      max_age: campaign.max_age,
-      max_distance_in_meters: campaign.max_distance_in_meters,
-      limit: args[:batch_size]
-    ).all
+    users = campaign.reachable_users_query(limit: args[:batch_size]).all
     puts "#{users.size} users found"
 
     # Creating the matches

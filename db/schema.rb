@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_03_122404) do
+ActiveRecord::Schema.define(version: 2021_05_04_200923) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -123,7 +123,6 @@ ActiveRecord::Schema.define(version: 2021_05_03_122404) do
     t.integer "status", default: 0
     t.datetime "canceled_at"
     t.string "algo_version"
-    t.jsonb "parameters"
     t.index ["partner_id"], name: "index_campaigns_on_partner_id"
     t.index ["status"], name: "index_campaigns_on_status"
     t.index ["vaccination_center_id"], name: "index_campaigns_on_vaccination_center_id"
@@ -133,6 +132,13 @@ ActiveRecord::Schema.define(version: 2021_05_03_122404) do
     t.check_constraint "max_distance_in_meters > 0", name: "max_distance_in_meters_gt_zero"
     t.check_constraint "min_age > 0", name: "min_age_gt_zero"
     t.check_constraint "starts_at < ends_at", name: "starts_at_lt_ends_at"
+  end
+
+  create_table "counters", force: :cascade do |t|
+    t.string "key"
+    t.integer "value", default: 0
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "matches", force: :cascade do |t|
@@ -251,8 +257,6 @@ ActiveRecord::Schema.define(version: 2021_05_03_122404) do
     t.datetime "statement_accepted_at"
     t.datetime "toc_accepted_at"
     t.string "email_domain"
-    t.integer "grid_i"
-    t.integer "grid_j"
     t.index ["anonymized_at"], name: "index_users_on_anonymized_at"
     t.index ["birthdate"], name: "index_users_on_birthdate"
     t.index ["city"], name: "index_users_on_city"
@@ -261,8 +265,6 @@ ActiveRecord::Schema.define(version: 2021_05_03_122404) do
     t.index ["email_bidx"], name: "index_users_on_email_bidx", unique: true
     t.index ["geo_citycode"], name: "index_users_on_geo_citycode"
     t.index ["geo_context"], name: "index_users_on_geo_context"
-    t.index ["grid_i"], name: "index_users_on_grid_i"
-    t.index ["grid_j"], name: "index_users_on_grid_j"
     t.index ["zipcode"], name: "index_users_on_zipcode"
   end
 
