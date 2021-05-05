@@ -17,6 +17,15 @@
       <strong><%= @vaccination_center.confirmer %></strong>
       le <%= l @vaccination_center.confirmed_at %>
 
+      <br>
+      <% if @vaccination_center.confirmation_mail_sent_at.present? %>
+        <%= icon("fas", "check", class: "text-success") %>
+        Email de confirmation envoyé le <%= l @vaccination_center.confirmation_mail_sent_at %>
+      <% else %>
+        <%= icon("fas", "times", class: "text-danger") %>
+        Email de confirmation non envoyé
+      <% end %>
+
     <% else %>
       <%= icon("fas", "times", class: "text-danger") %>
       Non validé
@@ -60,12 +69,12 @@
 
 
   <%- if @vaccination_center.lat && @vaccination_center.lon%>
-    <div 
-      class="my-3" 
-      id="leaflet_map" 
+    <div
+      class="my-3"
+      id="leaflet_map"
       style="height: 250px;"
       data-icon="<%= asset_path("map/markers/firstaid.png") %>"
-      data-lat="<%= @vaccination_center.lat %>" 
+      data-lat="<%= @vaccination_center.lat %>"
       data-lon="<%= @vaccination_center.lon %>"
     ></div>
   <% else %>
