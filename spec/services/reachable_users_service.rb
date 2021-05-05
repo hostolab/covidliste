@@ -48,7 +48,7 @@ RSpec.describe ReachableUsersService, type: :service do
     it "get user" do
       resp = reachable_users_service.get_users_with_random(5)
       user = resp[0]
-
+      # lat/lon randomisation can move cell around a bit
       expect(user.grid_i).to be_within(2).of(16565)
       expect(user.grid_j).to be_within(2).of(12163)
     end
@@ -73,6 +73,60 @@ RSpec.describe ReachableUsersService, type: :service do
     it "get user" do
       resp = reachable_users_service.get_users_with_random(5)
       expect(resp.length).to eq(0)
+    end
+  end
+
+  describe "get_users_with_v2 should find users" do
+    before do
+      User.create(
+        firstname: Faker::Name.first_name,
+        lastname: Faker::Name.last_name,
+        email: Faker::Internet.unique.email(domain: "covidliste.com"),
+        birthdate: Faker::Date.between(from: 100.years.ago, to: 55.years.ago),
+        address: Faker::Address.full_address,
+        phone_number: "+33601020304",
+        toc: true,
+        statement: true,
+        confirmed_at: Time.now.utc,
+        lat: 42,
+        lon: 2
+      )
+      User.create(
+        firstname: Faker::Name.first_name,
+        lastname: Faker::Name.last_name,
+        email: Faker::Internet.unique.email(domain: "covidliste.com"),
+        birthdate: Faker::Date.between(from: 100.years.ago, to: 55.years.ago),
+        address: Faker::Address.full_address,
+        phone_number: "+33601020304",
+        toc: true,
+        statement: true,
+        confirmed_at: Time.now.utc,
+        lat: 42,
+        lon: 2
+      )
+      User.create(
+        firstname: Faker::Name.first_name,
+        lastname: Faker::Name.last_name,
+        email: Faker::Internet.unique.email(domain: "covidliste.com"),
+        birthdate: Faker::Date.between(from: 100.years.ago, to: 55.years.ago),
+        address: Faker::Address.full_address,
+        phone_number: "+33601020304",
+        toc: true,
+        statement: true,
+        confirmed_at: Time.now.utc,
+        lat: 42.01665183556824,
+        lon: 1.93359375
+      )
+    end
+    it "get user" do
+      resp = reachable_users_service.get_users_with_v2(5)
+
+      expect(resp.length).to eq(2)
+
+      user = resp[0]
+      # lat/lon randomisation can move cell around a bit
+      expect(user.grid_i).to be_within(2).of(16565)
+      expect(user.grid_j).to be_within(2).of(12163)
     end
   end
 end
