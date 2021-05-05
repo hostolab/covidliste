@@ -1,4 +1,6 @@
 class MatchMailer < ApplicationMailer
+  default from: "Covidliste <dose@covidliste.com>"
+
   def match_confirmation_instructions
     @match = params[:match]
     return if @match.user.blank?
