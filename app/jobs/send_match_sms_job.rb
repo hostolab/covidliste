@@ -13,12 +13,12 @@ class SendMatchSmsJob < ApplicationJob
 
     begin
       client = Twilio::REST::Client.new
-      client.messages.create(
+      message = client.messages.create(
         from: "COVIDLISTE",
         to: match.user.phone_number,
         body: "Bonne nouvelle, une dose de vaccin vient de se libérer près de chez vous. Réservez-la vite sur : #{cta_url(match)}"
       )
-      match.update(sms_sent_at: Time.now.utc)
+      match.update(sms_sent_at: Time.now.utc, sms_provider: :twilio, sms_provider_id: message.sid)
     rescue Twilio::REST::TwilioError => e
       Rails.logger.info("[SendMatchSmsJob] #{e.message}")
     end
