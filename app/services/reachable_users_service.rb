@@ -21,7 +21,7 @@ class ReachableUsersService
       with reachable_users as (
         SELECT
         u.id as user_id,
-        (SQRT( (:vc_grid_i - u.grid_i)^2 + (:vc_grid_j - u.grid_j)^2 ) * :grid_cell_size) as distance
+        (SQRT( ((:vc_grid_i - u.grid_i) * :grid_cell_size)^2 + ((:vc_grid_j - u.grid_j) * :grid_cell_size)^2 )) as distance
         FROM users u
         WHERE u.confirmed_at IS NOT NULL
         AND u.anonymized_at is NULL
