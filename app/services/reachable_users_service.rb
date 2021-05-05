@@ -93,9 +93,9 @@ class ReachableUsersService
       .confirmed
       .active
       .between_age(@campaign.min_age, @campaign.max_age)
-      .where('grid_i IN (?)', @covering[:cells_i])
-      .where('grid_j IN (?)', @covering[:cells_j])
-      .where('SQRT( ((? - grid_i))^2 + ((? - grid_j))^2 ) <= ?', @covering[:center_cell][:i], @covering[:center_cell][:j], @covering[:dist_cells])
+      .where("grid_i IN (?)", @covering[:cells_i])
+      .where("grid_j IN (?)", @covering[:cells_j])
+      .where("SQRT( ((? - grid_i))^2 + ((? - grid_j))^2 ) <= ?", @covering[:center_cell][:i], @covering[:center_cell][:j], @covering[:dist_cells])
       .where("id not in (
       select user_id from matches m inner join campaigns c on (c.id = m.campaign_id)
       where m.user_id is not null

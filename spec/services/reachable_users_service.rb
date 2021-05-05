@@ -37,7 +37,7 @@ RSpec.describe ReachableUsersService, type: :service do
       User.create(
         firstname: Faker::Name.first_name,
         lastname: Faker::Name.last_name,
-        email: (0...8).map { (65 + rand(26)).chr }.join + email_domain,
+        email: (0...8).map { rand(65..90).chr }.join + email_domain,
         birthdate: Faker::Date.between(from: 100.years.ago, to: 55.years.ago),
         address: Faker::Address.full_address,
         phone_number: Faker::PhoneNumber.cell_phone_in_e164,
@@ -64,7 +64,7 @@ RSpec.describe ReachableUsersService, type: :service do
       User.create(
         firstname: Faker::Name.first_name,
         lastname: Faker::Name.last_name,
-        email: (0...8).map { (65 + rand(26)).chr }.join + email_domain,
+        email: (0...8).map { rand(65..90).chr }.join + email_domain,
         birthdate: Faker::Date.between(from: 100.years.ago, to: 55.years.ago),
         address: Faker::Address.full_address,
         phone_number: Faker::PhoneNumber.cell_phone_in_e164,
@@ -86,7 +86,7 @@ RSpec.describe ReachableUsersService, type: :service do
       User.create(
         firstname: Faker::Name.first_name,
         lastname: Faker::Name.last_name,
-        email: (0...8).map { (65 + rand(26)).chr }.join + email_domain,
+        email: (0...8).map { rand(65..90).chr }.join + email_domain,
         birthdate: Faker::Date.between(from: 100.years.ago, to: 55.years.ago),
         address: Faker::Address.full_address,
         phone_number: Faker::PhoneNumber.cell_phone_in_e164,
@@ -99,7 +99,7 @@ RSpec.describe ReachableUsersService, type: :service do
       User.create(
         firstname: Faker::Name.first_name,
         lastname: Faker::Name.last_name,
-        email: (0...8).map { (65 + rand(26)).chr }.join + email_domain,
+        email: (0...8).map { rand(65..90).chr }.join + email_domain,
         birthdate: Faker::Date.between(from: 100.years.ago, to: 55.years.ago),
         address: Faker::Address.full_address,
         phone_number: Faker::PhoneNumber.cell_phone_in_e164,
@@ -127,7 +127,7 @@ RSpec.describe ReachableUsersService, type: :service do
       User.create(
         firstname: Faker::Name.first_name,
         lastname: Faker::Name.last_name,
-        email: (0...8).map { (65 + rand(26)).chr }.join + email_domain,
+        email: (0...8).map { rand(65..90).chr }.join + email_domain,
         birthdate: Faker::Date.between(from: 100.years.ago, to: 55.years.ago),
         address: Faker::Address.full_address,
         phone_number: Faker::PhoneNumber.cell_phone_in_e164,
@@ -140,7 +140,7 @@ RSpec.describe ReachableUsersService, type: :service do
       User.create(
         firstname: Faker::Name.first_name,
         lastname: Faker::Name.last_name,
-        email: (0...8).map { (65 + rand(26)).chr }.join + email_domain,
+        email: (0...8).map { rand(65..90).chr }.join + email_domain,
         birthdate: Faker::Date.between(from: 100.years.ago, to: 55.years.ago),
         address: Faker::Address.full_address,
         phone_number: Faker::PhoneNumber.cell_phone_in_e164,
