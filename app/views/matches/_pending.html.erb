@@ -27,13 +27,13 @@
   </div>
 
   <div class="d-sm-none">
-    <button class="btn btn-primary col-sm-12 col-md-3 col-lg-3 btn-lg mb-3">Je suis intéressé</button>
+    <button class="btn btn-primary col-sm-12 col-md-3 col-lg-3 btn-lg mb-3" id="interested-button">Je suis intéressé</button>
     <%= link_to 'Je refuse la dose', match_path(match_confirmation_token: match.match_confirmation_token), method: :delete, class: 'btn btn-link btn-lg col-sm-12 col-md-3 col-lg-3 mb-3', "data-confirm": "Souhaitez-vous vraiment refuser ce RDV ?" %>
   </div>
 
 </div>
 
-<div id="mobile-match-identity">
+<div id="mobile-match-identity" class="d-none d-sm-block">
   <%= render 'identity_form', match: @match %>
 </div>
 
