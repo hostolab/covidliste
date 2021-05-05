@@ -2,6 +2,7 @@ class MatchesController < ApplicationController
   class MissingConfirmation < StandardError; end
 
   before_action :set_match, only: [:show, :update, :destroy]
+  before_action :verify_match_validity, only: [:show]
   before_action :verify_age, only: [:show, :update]
   before_action :verify_expiration, only: [:update]
 
@@ -52,8 +53,15 @@ class MatchesController < ApplicationController
     params.require(:user).permit(:firstname, :lastname, :statement, :toc)
   end
 
+  def verify_match_validity
+    if @match.user.nil? || @match.user.anonymized_at?
+      flash[:error] = "Désolé, ce lien n'est plus valide."
+      redirect_to root_path
+    end
+  end
+
   def verify_age
-    unless @match.age == @match.user.age
+    unless @match.user && @match.age == @match.user.age
       flash[:error] = "Désolé, votre âge a changé depuis l’envoi de la notification. Pas d’inquiétude, vous restez dans notre liste de volontaires ! Vous serez contacté dès qu’une dose est à nouveau disponible près de chez vous."
       redirect_to root_path
     end

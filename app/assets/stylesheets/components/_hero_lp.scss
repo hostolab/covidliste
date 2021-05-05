@@ -1,0 +1,30 @@
+.hero-lp {
+  h1 {
+    font-size: 64px;
+    line-height: 60px;
+    max-width: 842px;
+    margin-bottom: 0;
+
+    @include media-breakpoint-down(sm) {
+      font-size: 38px;
+      line-height: 40px;
+    }
+  }
+
+  h2 {
+    font-size: 28px;
+    line-height: 33px;
+    max-width: 600px;
+    margin-top: 12px;
+    margin-bottom: 24px;
+
+    @include media-breakpoint-down(sm) {
+      font-size: 20px;
+      line-height: 22px;
+    }
+  }
+
+  hr {
+    border-color: rgba(163, 160, 160, 0.2);
+  }
+}

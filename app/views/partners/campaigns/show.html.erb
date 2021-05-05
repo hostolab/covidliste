@@ -1,8 +1,8 @@
-<%# Poor's man real-time feature, reload every 10s while the campaign is running. %>
+<%# Poor's man real-time feature, reload every 20s while the campaign is running. %>
 
 <% if @campaign.running? || @campaign.matches&.pending&.maximum(:expires_at) %>
   <script>
-    setTimeout(function() { document.location.reload(); }, 10000)
+    setTimeout(function() { document.location.reload(); }, 20000)
   </script>
 <% end %>
 
@@ -14,12 +14,17 @@
   <h1 class="mb-4">
     <%= @campaign.name %>
 
-    <% if @campaign.running? %>
+    <% if @campaign.running? %> 
+      <%- confirmed_matches_count = @campaign.matches.confirmed.size %>
+      <%- cancel_message = "Vous êtes sur le point d'interrompre cette campagne." %> 
+      <% if confirmed_matches_count > 0 %>
+        <%- cancel_message =  "#{cancel_message} #{confirmed_matches_count} doses sont déjà attribuées à des volontaires ayant confirmé leur RDV et le resteront. Attendez-vous à ce que les #{confirmed_matches_count} volontaires se présentent à l'heure prévue. Les autres doses seront retirées de la campagne et ne pourront plus être réservées." %>
+      <% end %>      
       <span class="small">
         <%= link_to "Interrompre",
                     partners_campaign_path(@campaign, cancel: true),
                     method: :patch,
-                    data: { confirm: "Êtes-vous sûr de vouloir interrompre la recherche de volontaires pour cette campagne ? Attention l'interruption n'est pas immédiate car les volontaires déjà notifiés peuvent confimer jusqu'à la fin de la campagne." },
+                    data: { confirm: cancel_message },
                     class: "btn btn-sm btn-danger" %>
       </span>
     <% end %>
@@ -32,7 +37,7 @@
 
   <div class="justify-content-center">
     <div class="progress" style="height: 20px;">
-      <div class="progress-bar" role="progressbar" style="width: <%= @campaign.matches.confirmed.size * 100 / @campaign.available_doses %>%;">
+      <div class="progress-bar" role="progressbar" style="width: <%= @campaign.available_doses > 0 ? (@campaign.matches.confirmed.size * 100 / @campaign.available_doses) : 0 %>%;">
       </div>
     </div>
 
@@ -79,13 +84,6 @@
     <div class="alert alert-primary" role="alert">
       <strong>Votre campagne est actuellement en cours.</strong><br/>
       La liste des volontaires ne sera complète que lorsque votre campagne sera terminée ou interrompue.
-    </div>
-  <% elsif @campaign.canceled? && @campaign.matches&.pending&.maximum(:expires_at) %>
-    <div class="alert alert-danger" role="alert">
-      <strong>Votre campagne est en cours d'interruption.</strong><br/>
-      Des volontaires ont encore la possibilité de confirmer des RDV jusqu'à
-      <%= @campaign.matches&.pending&.maximum(:expires_at)&.strftime('%Hh%M') %>.<br/>
-      La liste des volontaires ne sera complète que lorsque votre campagne sera totalement interrompue.
     </div>
   <% elsif @campaign.completed? || @campaign.canceled? %>
     <div class="alert alert-success" role="alert">

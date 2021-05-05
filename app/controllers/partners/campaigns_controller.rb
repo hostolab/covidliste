@@ -15,47 +15,27 @@ module Partners
     end
 
     def new
-      if Flipper.enabled?(:new_campaign_creator, @vaccination_center)
-        @campaign = @vaccination_center.build_campaign_smart_defaults
-        render "creator"
-      else
-        @campaign = @vaccination_center.campaigns.build(starts_at: Time.now, ends_at: 1.hour.from_now)
-        render "new"
-      end
+      @campaign = @vaccination_center.build_campaign_smart_defaults
+      render "new"
     end
 
     def create
       @campaign = @vaccination_center.campaigns.build(create_params)
       @campaign.partner = current_partner
-      @campaign.max_distance_in_meters = create_params["max_distance_in_meters"].to_i * 1000 if request.format.html?
 
       if @campaign.save
         @campaign.update(name: "Campagne ##{@campaign.id} du #{@campaign.created_at.strftime("%d/%m/%Y")}")
-        SendCampaignJob.perform_later(@campaign.id) unless @campaign.matching_algo_v2?
-        PushNewCampaignToSlackJob.perform_later(@campaign.id)
-
-        respond_to do |format|
-          format.html { redirect_to partners_campaign_path(@campaign) }
-          format.json { render json: {campaign: @campaign, redirect_to: partners_campaign_url(@campaign)} }
-        end
+        render json: {campaign: @campaign, redirect_to: partners_campaign_url(@campaign)}
       else
         @campaign.max_distance_in_meters = @campaign.max_distance_in_meters / 1000 if request.format.html?
-
-        respond_to do |format|
-          format.html { render :new }
-          format.json { render json: {errors: @campaign.errors}, status: 400 }
-        end
+        render json: {errors: @campaign.errors}, status: 400
       end
     end
 
     def update
       if params[:cancel] == "true" && @campaign.running?
         @campaign.canceled!
-        flash[:notice] = if @campaign.matching_algo_v2?
-          "La campagne est en cours d'interruption. Attention, des volontaires ont reçu des notifications et peuvent encore confirmer jusqu'à la fin de la campagne."
-        else
-          "La campagne est en cours d'interruption. Attention, des volontaires ont reçu des SMS et peuvent encore confirmer dans les #{Match::EXPIRE_IN_MINUTES + 1} prochaines minutes"
-        end
+        flash[:notice] = "La campagne vient d'être interrompue."
         redirect_to partners_campaign_path(@campaign)
       end
     end
@@ -64,11 +44,9 @@ module Partners
       vaccine_type = simulate_params[:vaccine_type]
       available_doses = simulate_params[:available_doses]
       campaign = Campaign.new(simulate_params.merge({vaccination_center: @vaccination_center}))
-      reach = campaign.reachable_users_query.count
+      reach = campaign.reachable_users_count
       render json: {
         reach: reach,
-        # For testing, uncomment :
-        # reach: reach * 100,
         enough: reach >= (Vaccine.minimum_reach_to_dose_ratio(vaccine_type) * available_doses),
         minimum_reach_to_dose_ratio: Vaccine.minimum_reach_to_dose_ratio(vaccine_type)
       }

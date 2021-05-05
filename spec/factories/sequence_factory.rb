@@ -3,7 +3,7 @@ FactoryBot.define do
   sequence(:company_name) { Faker::Company.name }
   sequence(:description) { Faker::Lorem.paragraph(sentence_count: 2) }
   sequence(:firstname) { Faker::Name.first_name }
-  sequence(:french_address) { Faker::Address.country_by_code(code: "FR") }
+  sequence(:french_address) { "#{Faker::Address.full_address} #{Faker::Address.country_by_code(code: "FR")}" }
   sequence(:lastname) { Faker::Name.last_name }
   sequence(:lat) { Faker::Address.latitude }
   sequence(:lon) { Faker::Address.longitude }

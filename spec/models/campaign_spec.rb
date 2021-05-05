@@ -4,8 +4,9 @@ require "rails_helper"
 
 RSpec.describe Campaign, type: :model do
   describe "#to_csv" do
+    let(:available_doses) { 10 }
     let!(:vaccination_center) { create(:vaccination_center, lat: 42, lon: 2) }
-    let(:campaign) { build(:campaign, vaccination_center: vaccination_center) }
+    let(:campaign) { build(:campaign, vaccination_center: vaccination_center, available_doses: available_doses) }
     let!(:match) { create(:match, campaign: campaign, confirmed_at: Time.now) }
     let!(:unconfirmed_match) { create(:match, campaign: campaign, confirmed_at: nil) }
 
@@ -85,7 +86,7 @@ RSpec.describe Campaign, type: :model do
 
   describe "#reachable_users_query" do
     let!(:vaccination_center) { create(:vaccination_center, lat: 42, lon: 2) }
-    it "should not re-match someone who was matched less than a day ago" do
+    it "should not re-match someone who was matched less than a hour ago" do
       campaign = create(:campaign, vaccination_center: vaccination_center, min_age: 50, max_age: 70)
       user1 = create(:user, lat: 42, lon: 2, birthdate: (Time.now.utc - 60.years))
       user2 = create(:user, lat: 42, lon: 2, birthdate: (Time.now.utc - 60.years))
@@ -93,9 +94,9 @@ RSpec.describe Campaign, type: :model do
       users = campaign.reachable_users_query(limit: 10)
       expect(users).to include(user1)
 
-      create(:match, user: user1, campaign: campaign, created_at: 23.hours.ago)
+      create(:match, user: user1, campaign: campaign, created_at: 1.hours.ago)
 
-      users = campaign.reachable_users_query(limit: 10)
+      users = campaign.reachable_users_query(limit: 1)
       expect(users).not_to include(user1)
       expect(users).to include(user2)
     end
@@ -108,6 +109,20 @@ RSpec.describe Campaign, type: :model do
 
       users = campaign.reachable_users_query(limit: 10)
       expect(users).to include(user1)
+    end
+  end
+
+  describe "cancel!" do
+    let(:available_doses) { 10 }
+    let(:vaccination_center) { create(:vaccination_center, lat: 42, lon: 2) }
+    let(:campaign) { create(:campaign, vaccination_center: vaccination_center, available_doses: available_doses, min_age: 50, max_age: 70) }
+    let(:user) { create(:user) }
+    let!(:confirmed_match) { create(:match, campaign: campaign, user: user, confirmed_at: Time.now.utc) }
+    it "should set remaining doses to zero" do
+      campaign.canceled!
+      campaign.reload
+      expect(campaign.status).to eq("canceled")
+      expect(campaign.available_doses).to eq(1)
     end
   end
 end

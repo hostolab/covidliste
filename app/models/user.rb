@@ -18,6 +18,7 @@ class User < ApplicationRecord
 
   blind_index :email
 
+  validates :address, presence: true, postal_address: {with_zipcode: true}, on: :create
   validates :lat, presence: true, unless: proc { |u| u.persisted? }
   validates :lon, presence: true, unless: proc { |u| u.persisted? }
   validates :birthdate, presence: true
@@ -34,12 +35,16 @@ class User < ApplicationRecord
     },
     if: :email_changed?
 
+  before_save :extract_email_domain, if: -> { will_save_change_to_email? }
   before_save :randomize_lat_lon, if: -> { (will_save_change_to_lat? || will_save_change_to_lon?) }
+  before_save :get_grid_cell, if: -> { (will_save_change_to_lat? || will_save_change_to_lon?) }
   after_commit :reverse_geocode, if: -> { (saved_change_to_lat? || saved_change_to_lon?) && anonymized_at.nil? }
+  before_destroy :refuse_pending_matching, prepend: true
+  after_create_commit :increment_total_users_counter
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
   scope :active, -> { where(anonymized_at: nil) }
-  scope :between_age, ->(min, max) { where("birthdate between ? and ?", max.years.ago, min.years.ago) }
+  scope :between_age, ->(min, max) { where(birthdate: max.years.ago..min.years.ago) }
   scope :with_roles, -> { joins(:roles) }
 
   PASSWORD_HINT = "#{Devise.password_length.min} caractères minimum. Idéalement plus long en mélangeant des minuscules, des majuscules et des chiffres."
@@ -51,7 +56,22 @@ class User < ApplicationRecord
     self.lon = results[:lon]
   end
 
-  def ensure_lat_lon(address)
+  def extract_email_domain
+    self.email_domain = begin
+      Digest::SHA256.hexdigest(Mail::Address.new(email).domain)
+    rescue
+      nil
+    end
+  end
+
+  def get_grid_cell
+    return if lat.nil? || lon.nil?
+    cell = ::GridCoordsService.new(lat, lon).get_cell
+    self.grid_i = cell[:i]
+    self.grid_j = cell[:j]
+  end
+
+  def ensure_lat_lon
     return unless lat.nil? || lon.nil?
     return if address.blank?
     results = GeocodingService.new(address).call
@@ -87,6 +107,7 @@ class User < ApplicationRecord
   end
 
   def age
+    return unless birthdate
     now = Time.now.utc.to_date
     now.year - birthdate.year - (now.month > birthdate.month || (now.month == birthdate.month && now.day >= birthdate.day) ? 0 : 1)
   end
@@ -152,9 +173,19 @@ class User < ApplicationRecord
     errors.none?
   end
 
+  def increment_total_users_counter
+    Counter.increment(:total_users)
+  end
+
   protected
 
   def skip_password_complexity?
     true unless encrypted_password_changed?
+  end
+
+  private
+
+  def refuse_pending_matching
+    matches.pending.map(&:refuse!)
   end
 end
