@@ -163,10 +163,21 @@ RSpec.describe "Users", type: :system do
       let(:campaign) { build(:campaign) }
       let!(:match) { create(:match, campaign: campaign, confirmed_at: Time.now, user: user) }
 
-      it "it doest not allow me to edit personal information " do
+      it "it does not allow me to edit personal information" do
         click_on "Je modifie mes informations"
         expect(page).not_to have_text("Modifications enregistrées.")
         expect(page).to have_text("Vous ne pouvez pas modifier vos informations actuellement car vous avez confirmé un rendez-vous de vaccination.")
+      end
+
+      it 'it does not allow te delete my account' do
+        expect do
+          accept_confirm_modal do
+            click_on "Supprimer mon compte"
+          end
+        end.to change { User.count }.by(0)
+
+        expect(page).to_not have_text("Votre compte a bien été supprimé.")
+        expect(page).to have_text("Vous ne pouvez pas supprimer votre compte actuellement car vous avez confirmé un rendez-vous de vaccination.")
       end
     end
 
@@ -174,10 +185,20 @@ RSpec.describe "Users", type: :system do
       let(:campaign) { build(:campaign) }
       let!(:match) { create(:match, campaign: campaign, confirmed_at: nil, expires_at: 10.minutes.since, user: user) }
 
-      it "it doest not allow me to edit personal information " do
+      it "it does not allow me to edit personal information " do
         click_on "Je modifie mes informations"
         expect(page).not_to have_text("Modifications enregistrées.")
         expect(page).to have_text("Vous ne pouvez pas modifier vos informations actuellement car vous avez une proposition rendez vous de vaccination en cours.")
+      end
+
+      it "it allows me to delete my account" do
+        expect do
+          accept_confirm_modal do
+            click_on "Supprimer mon compte"
+          end
+        end.to change { User.count }.by(-1)
+
+        expect(page).to have_text("Votre compte a bien été supprimé.")
       end
     end
   end
