@@ -38,9 +38,12 @@ class ReachableUsersService
         left outer join matches m on (m.user_id = r.user_id)
         left outer join campaigns c on (c.id = m.campaign_id and c.status != 2)
         group by 1,2,3
-        having SUM(case when m.confirmed_at is not null then 1 else 0 end) <= 0
+        having 
+         (
+           SUM(case when m.confirmed_at is not null then 1 else 0 end) <= 0
+           AND (MAX(m.created_at) <= (:last_match_allowed_at) or MAX(m.created_at) is null)
+         )
       )
-
       select 
         user_id,
         vaccine_matches_count,
@@ -66,7 +69,8 @@ class ReachableUsersService
       lon: @vaccination_center.lon,
       rayon_km: @campaign.max_distance_in_meters / 1000,
       vaccine_type: @campaign.vaccine_type,
-      limit: limit
+      limit: limit,
+      last_match_allowed_at: Match::NO_MORE_THAN_ONE_MATCH_PER_PERIOD.ago
     }
     query = ActiveRecord::Base.send(:sanitize_sql_array, [sql, params])
     User.where(id: ActiveRecord::Base.connection.execute(query).to_a.pluck("user_id"))
