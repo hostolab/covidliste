@@ -79,7 +79,6 @@ class ReachableUsersService
       limit: limit,
       last_match_allowed_at: Match::NO_MORE_THAN_ONE_MATCH_PER_PERIOD.ago
     }
-    sql = sql.sub! "__GRID_QUERY__", get_vaccination_center_grid_query
     query = ActiveRecord::Base.send(:sanitize_sql_array, [sql, params])
     User.where(id: ActiveRecord::Base.connection.execute(query).to_a.pluck("user_id"))
   end
