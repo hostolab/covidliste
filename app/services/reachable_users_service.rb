@@ -81,8 +81,8 @@ class ReachableUsersService
       .where("id not in (
       select user_id from matches m inner join campaigns c on (c.id = m.campaign_id)
       where m.user_id is not null
-      and ((m.created_at >= now() - interval '3 hours' and c.status != 2) or (m.confirmed_at is not null))
-      )") # exclude user_id that have been matched in the last 24 hours, or confirmed
+      and ((m.created_at >= ? and c.status != 2) or (m.confirmed_at is not null))
+      )", Match::NO_MORE_THAN_ONE_MATCH_PER_PERIOD.ago) # exclude user_id that have been matched in the last 24 hours, or confirmed
       .order("RANDOM()")
       .limit(limit)
   end
