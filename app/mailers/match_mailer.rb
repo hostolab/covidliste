@@ -19,7 +19,7 @@ class MatchMailer < ApplicationMailer
 
     mail(
       to: user_email,
-      subject: "Merci de nous avoir fait confiance !"
+      subject: "Covidliste - Merci de nous avoir fait confiance !"
     )
   end
 end
