@@ -69,7 +69,7 @@ class ReachableUsersService
       limit: limit
     }
     query = ActiveRecord::Base.send(:sanitize_sql_array, [sql, params])
-    User.where(id: ActiveRecord::Base.connection.execute(query).to_a.pluck(:user_id))
+    User.where(id: ActiveRecord::Base.connection.execute(query).to_a.pluck("user_id"))
   end
 
   def get_users_with_random(limit = nil)
