@@ -92,8 +92,8 @@
   <% end %>
 
   <div class="col-12 mt-2">
-    <button class="btn btn-primary col-sm-12 col-md-3 col-lg-3 mr-2 btn-lg mb-3" type="submit">Je réserve la dose</button>
-    <%= link_to 'Je refuse la dose', match_path(match_confirmation_token: match.match_confirmation_token), method: :delete, class: 'btn btn-link btn-lg col-sm-12 col-md-3 col-lg-3 mb-3', "data-confirm": "Souhaitez-vous vraiment refuser ce RDV ?" %>
+    <button class="btn btn-primary col-sm-12 col-md-4 col-lg-3 mr-2 btn-lg mb-3" type="submit">Je confirme le RDV</button>
+    <%= link_to 'Je refuse la dose', match_path(match_confirmation_token: match.match_confirmation_token), method: :delete, class: 'btn btn-link btn-lg col-sm-12 col-md-4 col-lg-3 mb-3', "data-confirm": "Souhaitez-vous vraiment refuser ce RDV ?" %>
   </div>
 </form>
 
@@ -106,3 +106,22 @@
     , et vous ne recevrez plus de notifications.
   </small>
 </p>
+
+
+<script>
+  // Script from https://getbootstrap.com/docs/5.0/forms/validation/
+  (function () {
+    var forms = document.querySelectorAll('.needs-validation')
+    Array.prototype.slice.call(forms)
+      .forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+          if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+          }
+
+          form.classList.add('was-validated')
+        }, false)
+      })
+  })()
+</script>

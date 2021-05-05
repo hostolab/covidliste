@@ -1,50 +1,40 @@
 <% user = match.user %>
-<h2>Une dose de <%= match.campaign.vaccine_type.capitalize %> est disponible près de chez vous !</h2>
 
-<p class="mt-4">
-  <strong>
-    Une confirmation de votre part est indispensable pour réserver votre dose. Si vous ne la réservez pas, elle sera attribuée à un autre volontaire.
-  </strong>
-  Vérifiez les informations ci-dessous et réservez vite votre dose !
-</p>
+<div id="mobile-match-info">
+  <h2>Une dose de <%= match.campaign.vaccine_type.capitalize %> est disponible près de chez vous !</h2>
 
-<%= render 'match_details', match: @match %>
+  <p class="mt-4">
+    <strong>
+      Une confirmation de votre part est indispensable pour réserver votre dose. Si vous ne la réservez pas, elle sera attribuée à un autre volontaire.
+    </strong>
+    Vérifiez les informations ci-dessous et réservez vite votre dose !
+  </p>
 
-<p class="small">Trop loin de chez vous ?
-  <% if user.city && user.zipcode %>
-    D'après nos informations vous habitez à proximité de <%= user.city %> (<%= user.zipcode %>).
-  <% end %>
-  S'il y a une erreur dans votre adresse, refusez cette dose et modifiez votre adresse dans
-  votre <%= link_to "espace personnel", :new_user_session %>.
-</p>
+  <%= render 'match_details', match: @match %>
 
-<div class="alert alert-danger" role="alert">
-  Ne réservez votre dose que si vous pouvez vous rendre au centre de vaccination
-  entre <%= l(match.campaign.starts_at, format: '%Hh%M') %>
-  et <%= l(match.campaign.ends_at, format: '%Hh%M') %> aujourd'hui.
+  <p class="small">Trop loin de chez vous ?
+    <% if user.city && user.zipcode %>
+      D'après nos informations vous habitez à proximité de <%= user.city %> (<%= user.zipcode %>).
+    <% end %>
+    S'il y a une erreur dans votre adresse, refusez cette dose et modifiez votre adresse dans
+    votre <%= link_to "espace personnel", :new_user_session %>.
+  </p>
+
+  <div class="alert alert-danger" role="alert">
+    Ne réservez votre dose que si vous pouvez vous rendre au centre de vaccination
+    entre <%= l(match.campaign.starts_at, format: '%Hh%M') %>
+    et <%= l(match.campaign.ends_at, format: '%Hh%M') %> aujourd'hui.
+  </div>
+
+  <div class="d-sm-none">
+    <button class="btn btn-primary col-sm-12 col-md-3 col-lg-3 btn-lg mb-3">Je suis intéressé</button>
+    <%= link_to 'Je refuse la dose', match_path(match_confirmation_token: match.match_confirmation_token), method: :delete, class: 'btn btn-link btn-lg col-sm-12 col-md-3 col-lg-3 mb-3', "data-confirm": "Souhaitez-vous vraiment refuser ce RDV ?" %>
+  </div>
+
 </div>
 
-<div>
-  <button class="btn btn-primary col-sm-12 col-md-3 col-lg-3 btn-lg mb-3" type="submit">Je suis intéressé</button>
-  <%= link_to 'Je refuse la dose', match_path(match_confirmation_token: match.match_confirmation_token), method: :delete, class: 'btn btn-link btn-lg col-sm-12 col-md-3 col-lg-3 mb-3', "data-confirm": "Souhaitez-vous vraiment refuser ce RDV ?" %>
+<div id="mobile-match-identity">
+  <%= render 'identity_form', match: @match %>
 </div>
 
-<%= render 'identity_form', match: @match %>
 
-<script>
-  // Script from https://getbootstrap.com/docs/5.0/forms/validation/
-  (function () {
-    var forms = document.querySelectorAll('.needs-validation')
-    Array.prototype.slice.call(forms)
-      .forEach(function (form) {
-        form.addEventListener('submit', function (event) {
-          if (!form.checkValidity()) {
-            event.preventDefault()
-            event.stopPropagation()
-          }
-
-          form.classList.add('was-validated')
-        }, false)
-      })
-  })()
-</script>
