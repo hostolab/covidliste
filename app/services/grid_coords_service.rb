@@ -39,6 +39,6 @@ class GridCoordsService
       end
     end
 
-    {center_cell: cell, dist_cells: n_cells, cells: a}
+    {center_cell: cell, dist_cells: n_cells, cells: a, cell_size_meters: cell_size}
   end
 end

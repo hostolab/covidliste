@@ -3,6 +3,7 @@ class ReachableUsersService
     @campaign = campaign
     @vaccination_center = campaign.vaccination_center
     @ranking_method = campaign.ranking_method
+    @covering = ::GridCoordsService.new(@vaccination_center.lat, @vaccination_center.lon).get_covering(@campaign.max_distance_in_meters)
   end
 
   def get_users(limit = nil)
@@ -11,7 +12,7 @@ class ReachableUsersService
   end
 
   def get_vaccination_center_grid_query
-    cells = ::GridCoordsService.new(@vaccination_center.lat, @vaccination_center.lon).get_covering(@campaign.max_distance_in_meters)[:cells]
+    cells = @covering[:cells]
     "(grid_i, grid_j) IN ((" + cells.map { |sub| sub.join(",") }.join("),(") + "))"
   end
 
@@ -20,7 +21,7 @@ class ReachableUsersService
       with reachable_users as (
         SELECT
         u.id as user_id,
-        (SQRT((((:lat) - u.lat)*110.574)^2 + (((:lon) - u.lon)*111.320*COS(u.lat::float*3.14159/180))^2)) as distance
+        (SQRT( (:vc_grid_i - u.grid_i)^2 + (:vc_grid_j - u.grid_j)^2 ) * :grid_cell_size) as distance
         FROM users u
         WHERE u.confirmed_at IS NOT NULL
         AND u.anonymized_at is NULL
@@ -71,8 +72,9 @@ class ReachableUsersService
     params = {
       min_date: @campaign.max_age.years.ago,
       max_date: @campaign.min_age.years.ago,
-      lat: @vaccination_center.lat,
-      lon: @vaccination_center.lon,
+      vc_grid_i: @covering[:center_cell][:i],
+      vc_grid_j: @covering[:center_cell][:j],
+      grid_cell_size: @covering[:cell_size_meters] / 1000.to_f,
       vaccine_type: @campaign.vaccine_type,
       limit: limit,
       last_match_allowed_at: Match::NO_MORE_THAN_ONE_MATCH_PER_PERIOD.ago
