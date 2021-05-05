@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_03_122404) do
+ActiveRecord::Schema.define(version: 2021_05_04_200923) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -123,7 +123,6 @@ ActiveRecord::Schema.define(version: 2021_05_03_122404) do
     t.integer "status", default: 0
     t.datetime "canceled_at"
     t.string "algo_version"
-    t.jsonb "parameters"
     t.index ["partner_id"], name: "index_campaigns_on_partner_id"
     t.index ["status"], name: "index_campaigns_on_status"
     t.index ["vaccination_center_id"], name: "index_campaigns_on_vaccination_center_id"
@@ -133,6 +132,13 @@ ActiveRecord::Schema.define(version: 2021_05_03_122404) do
     t.check_constraint "max_distance_in_meters > 0", name: "max_distance_in_meters_gt_zero"
     t.check_constraint "min_age > 0", name: "min_age_gt_zero"
     t.check_constraint "starts_at < ends_at", name: "starts_at_lt_ends_at"
+  end
+
+  create_table "counters", force: :cascade do |t|
+    t.string "key"
+    t.integer "value", default: 0
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "matches", force: :cascade do |t|
@@ -159,12 +165,15 @@ ActiveRecord::Schema.define(version: 2021_05_03_122404) do
     t.datetime "confirmation_failed_at"
     t.string "confirmation_failed_reason", default: "", null: false
     t.integer "distance_in_meters"
+    t.string "sms_provider"
+    t.string "sms_provider_id"
     t.index ["campaign_batch_id"], name: "index_matches_on_campaign_batch_id"
     t.index ["campaign_id"], name: "index_matches_on_campaign_id"
     t.index ["confirmation_failed_reason"], name: "index_matches_on_confirmation_failed_reason"
     t.index ["confirmed_at"], name: "index_matches_on_confirmed_at"
     t.index ["created_at"], name: "index_matches_on_created_at"
     t.index ["match_confirmation_token_bidx"], name: "index_matches_on_match_confirmation_token_bidx", unique: true
+    t.index ["sms_provider", "sms_provider_id"], name: "index_matches_on_sms_provider_and_sms_provider_id"
     t.index ["user_id"], name: "index_matches_on_user_id"
     t.index ["vaccination_center_id"], name: "index_matches_on_vaccination_center_id"
   end
@@ -251,8 +260,6 @@ ActiveRecord::Schema.define(version: 2021_05_03_122404) do
     t.datetime "statement_accepted_at"
     t.datetime "toc_accepted_at"
     t.string "email_domain"
-    t.integer "grid_i"
-    t.integer "grid_j"
     t.index ["anonymized_at"], name: "index_users_on_anonymized_at"
     t.index ["birthdate"], name: "index_users_on_birthdate"
     t.index ["city"], name: "index_users_on_city"
@@ -261,8 +268,6 @@ ActiveRecord::Schema.define(version: 2021_05_03_122404) do
     t.index ["email_bidx"], name: "index_users_on_email_bidx", unique: true
     t.index ["geo_citycode"], name: "index_users_on_geo_citycode"
     t.index ["geo_context"], name: "index_users_on_geo_context"
-    t.index ["grid_i"], name: "index_users_on_grid_i"
-    t.index ["grid_j"], name: "index_users_on_grid_j"
     t.index ["zipcode"], name: "index_users_on_zipcode"
   end
 
@@ -295,6 +300,7 @@ ActiveRecord::Schema.define(version: 2021_05_03_122404) do
     t.string "city"
     t.string "geo_citycode"
     t.string "geo_context"
+    t.datetime "confirmation_mail_sent_at"
     t.index ["city"], name: "index_vaccination_centers_on_city"
     t.index ["confirmer_id"], name: "index_vaccination_centers_on_confirmer_id"
     t.index ["geo_citycode"], name: "index_vaccination_centers_on_geo_citycode"

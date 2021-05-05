@@ -51,6 +51,10 @@ class Campaign < ApplicationRecord
     ::ReachableUsersService.new(self).get_users(limit)
   end
 
+  def reachable_users_count
+    ::ReachableUsersService.new(self).get_users_count
+  end
+
   def to_csv
     CSV.generate(headers: true) do |csv|
       csv << %w[firstname lastname birthdate phone_number confirmed_at]
@@ -82,11 +86,11 @@ class Campaign < ApplicationRecord
   end
 
   def algo_version
-    ((parameters || {})[:algo_version]) || "v2"
+    (parameters || {}).symbolize_keys[:algo_version] || "v2"
   end
 
   def ranking_method
-    ((parameters || {})[:ranking_method]) || "v1"
+    (parameters || {}).symbolize_keys[:ranking_method] || "v1"
   end
 
   def matching_algo_v2?

@@ -155,19 +155,12 @@
       <p class="mt-3">
         Vous souhaitez supprimer votre compte ?<br/>
         <% if @user.matches.confirmed.any? %>
-        <div class="alert alert-primary">
-          Vous ne pouvez pas supprimer votre compte actuellement car vous avez confirmé un rendez-vous de
-          vaccination.<br/>
-          Votre profil sera anonymisé quelques jours après le RDV.
-        </div>
-      <% elsif @user.matches.pending.any? %>
-        <div class="alert alert-primary">
-          Vous ne pouvez pas supprimer votre compte actuellement car vous avez une proposition rendez vous de
-          vaccination en cours.<br/>
-          Si vous ne confirmez pas le RDV, vous pourrez supprimer votre compte à partir du
-          <%= l(@user.matches.pending.maximum(:expires_at)) %>.<br/>
-        </div>
-      <% end %>
+          <div class="alert alert-primary">
+            Vous ne pouvez pas supprimer votre compte actuellement car vous avez confirmé un rendez-vous de
+            vaccination.<br/>
+            Votre profil sera anonymisé quelques jours après le RDV.
+          </div>
+        <% end %>
       <%= button_to "Supprimer mon compte", :delete_user, method: :delete, class: "btn btn-danger",
         data: {confirm: "En confirmant, votre compte ainsi que toutes les données associées seront supprimées de nos serveurs. Êtes-vous sûr ?"} %>
       </p>

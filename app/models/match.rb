@@ -5,7 +5,7 @@ class Match < ApplicationRecord
 
   class MissingNamesError < StandardError; end
 
-  NO_MORE_THAN_ONE_MATCH_PER_PERIOD = 24.hours
+  NO_MORE_THAN_ONE_MATCH_PER_PERIOD = 3.hours
   MATCH_TTL = 45.minutes
 
   has_secure_token :match_confirmation_token
@@ -18,6 +18,8 @@ class Match < ApplicationRecord
 
   encrypts :match_confirmation_token
   blind_index :match_confirmation_token
+
+  enum sms_provider: {twilio: "twilio"}, _prefix: :sms_provider
 
   validates :distance_in_meters, numericality: {greater_than_or_equal_to: 0, only_integer: true}, allow_nil: true
   validate :no_recent_match, on: :create

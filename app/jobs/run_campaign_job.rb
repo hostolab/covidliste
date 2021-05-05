@@ -18,7 +18,7 @@ class RunCampaignJob < ApplicationJob
     return unless should_run?
 
     # compute how many more users we need to match
-    limit = [compute_new_users_to_reach, @campaign.email_budget_remaining].min
+    limit = [compute_new_users_to_reach * SLOW_ADJUSTMENT_FACTOR, @campaign.email_budget_remaining].min.floor
     return if limit <= 0
 
     users = @campaign.reachable_users_query(limit: limit)
@@ -48,7 +48,7 @@ class RunCampaignJob < ApplicationJob
     else
       [@campaign.projected_confirmations / @campaign.matches.count, LOWER_BOUND_CONVERSION_RATE].max
     end
-    ((@campaign.available_doses.to_f - @campaign.projected_confirmations) / projected_conversion * SLOW_ADJUSTMENT_FACTOR).floor
+    (@campaign.available_doses.to_f - @campaign.projected_confirmations) / projected_conversion
   end
 
   def should_run?
