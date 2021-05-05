@@ -31,8 +31,8 @@ class ReachableUsersService
         COUNT(m.id) as total_matches_count,
         MAX(m.created_at) filter (where vaccine_type = (:vaccine_type))  as last_vaccine_match,
         MAX(m.created_at)::date as last_match,
-        SUM(case when m.refused_at is not null and vaccine_type = (:vaccine_type) then 1 else null end) as vaccine_refusals_count,
-        SUM(case when m.refused_at is not null then 1 else null end) as total_refusals_count
+        SUM(case when m.refused_at is not null and vaccine_type = (:vaccine_type) then 1 else 0 end) as vaccine_refusals_count,
+        SUM(case when m.refused_at is not null then 1 else 0 end) as total_refusals_count
         from reachable_users r
         inner join users u on (r.user_id = u.id)
         left outer join matches m on (m.user_id = r.user_id)
@@ -81,7 +81,7 @@ class ReachableUsersService
       .where("id not in (
       select user_id from matches m inner join campaigns c on (c.id = m.campaign_id)
       where m.user_id is not null
-      and ((m.created_at >= now() - interval '24 hours' and c.status != 2) or (m.confirmed_at is not null))
+      and ((m.created_at >= now() - interval '3 hours' and c.status != 2) or (m.confirmed_at is not null))
       )") # exclude user_id that have been matched in the last 24 hours, or confirmed
       .order("RANDOM()")
       .limit(limit)
