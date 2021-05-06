@@ -86,7 +86,7 @@
       <% end %>
       <%= render partial: "mentions" %>
 
-      <%- @matches = @user.matches.includes(:campaign).order(id: :desc) %>
+      <%- @matches = @user.matches.includes([:campaign, :vaccination_center]).order(id: :desc) %>
       <% if @matches.any? %>
         <hr class="my-4"/>
 
@@ -95,31 +95,29 @@
         </p>
 
         <div class="table-responsive">
-          <table class="table table-bordered table-sm small" aria-describedby="Vos propositions de RDV">
+          <table class="table table-bordered table-sm small text-center" aria-describedby="Vos propositions de RDV">
             <thead class="thead-light">
             <tr>
               <th scope="col"> Vaccin</th>
-              <th scope="col"> Notification email</th>
-              <th scope="col"> Notification SMS</th>
+              <th scope="col"> Lieu</th>
+              <th scope="col"> Notification</th>
               <th scope="col"> État</th>
             </tr>
             </thead>
             <tbody>
             <% @matches.order(id: :desc).each do |match| %>
+              <% vaccination_center = match.vaccination_center %>
               <tr>
                 <td> <%= match.campaign&.vaccine_type.capitalize %> </td>
-                <td>
-                  <% if match.mail_sent_at %>
-                    <%= l match.mail_sent_at %>
-                  <% else %>
-                    <em class="text-muted">Non envoyée ou échec d'envoi</em>
-                  <% end %>
+                <td data-toggle="tooltip" title="<%= "#{vaccination_center.human_friendly_geo_area}" if vaccination_center.human_friendly_geo_area %>">
+                  <%= icon("fas", "map-marked-alt") if vaccination_center.human_friendly_geo_area %>
                 </td>
                 <td>
+                  <% if match.mail_sent_at %>
+                    Mail envoyé le <%= l match.mail_sent_at %><br />
+                  <% end %>
                   <% if match.sms_sent_at %>
-                    <%= l match.sms_sent_at %>
-                  <% else %>
-                    <em class="text-muted">Non envoyée ou numéro invalide</em>
+                    SMS envoyé le <%= l match.sms_sent_at %><br />
                   <% end %>
                 </td>
                 <td>
