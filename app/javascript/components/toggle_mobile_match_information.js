@@ -4,14 +4,11 @@ const toggleMobileMatchInformation = () => {
   const buttonInterested = document.getElementById("interested-button");
 
   if (matchInfo) {
-    buttonInterested.addEventListener("click", function(e) {
-      console.log("coucou")
+    buttonInterested.addEventListener("click", function (e) {
       matchInfo.classList.add("d-none");
       matchIdentity.classList.remove("d-none", "d-sm-block");
-    })
+    });
   }
-
-}
-
+};
 
 export { toggleMobileMatchInformation };
