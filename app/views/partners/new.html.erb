@@ -8,112 +8,119 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-12 col-lg-8 offset-lg-2">
-      <% if @partner.errors.any? %>
-        <div class="alert alert-danger" role="alert">
-          <% @partner.errors.full_messages.each do |msg| %>
-            <%= msg %><br/>
-          <% end %>
-        </div>
-      <% end %>
-
-      <p><strong>Inscription en tant que professionnel de santé assurant la vaccination</strong></p>
-
-      <p class="text-justify mb-5">
-        Cette page d’inscription concerne uniquement l’inscription du
-        <strong>personnel médical assurant la vaccination :</strong>
-        membre d’un centre de vaccination, cabinet de médecine libérale, hôpital, pharmacie...
-      </p>
-
-      <h2>
-        <%= icon("far", "user") %>
-        <%= icon("fas", "syringe") %>
-      </h2>
-
-      <p>
-        Si vous êtes un particulier et souhaitez vous inscrire en tant volontaire à la vaccination, c’est par là !
-      </p>
-
-      <div class="btn btn-secondary">
-        <%= link_to "Je suis volontaire pour me faire vacciner", root_path, class: "text-white text-decoration-none" %>
-      </div>
-
-      <h2 class="mt-5">
-        <%= icon("fas", "user-md") %>
-        <%= icon("fas", "clinic-medical") %>
-      </h2>
-
-      <p>
-        Si vous êtes un professionnel de santé assurant la vaccination et souhaitez inscrire votre lieu de vaccination
-        sur Covidliste, c’est bien ici !
-      </p>
-
-      <% if @partner.persisted? %>
-
-        <div class="row mt-3">
-          <div class="alert alert-success" role="alert">
-            Merci ! Vous êtes bien enregistré en tant que professionnel de santé assurant la vaccination sur Covidliste.
-            Vous allez recevoir dans quelques instants un email de confirmation qui vous permettra de valider votre
-            inscription et d'accéder à votre espace sécurisé.
+    <div class="row">
+      <div class="col-12 col-lg-6 offset-lg-1 mb-5">
+        <div class="d-flex align-items-center">
+          <div class="rounded p-3 bg-light text-primary mr-3 h2">
+            <%= icon("fas", "hospital-user") %>
           </div>
+          <h3>
+            Vous êtes un professionnel de santé assurant la vaccination
+          </h3>
         </div>
 
-      <% else %>
+        <p class="mt-4 h4">
+          Inscription en tant que professionnel de santé
+        </p>
 
-        <button class="btn btn-primary" type="button" id="health-professionnal" data-toggle="collapse" data-target="#collapseForm" aria-expanded="false" aria-controls="collapseForm">
-          Je suis professionnel de santé assurant la vaccination
-        </button>
+        <p class="mb-4">
+          Espace <strong>réservé aux professionnels</strong>. Si vous êtes un particulier volontaire à la vaccination,
+          rendez-vous sur
+          <%= link_to "le formulaire des volontaires à la vaccination", new_user_session_path %>.
+        </p>
 
-        <div class="collapse <%= @partner.errors.any? ? 'show' : '' %>" id="collapseForm">
-          <div class="mt-4">
-            <p>Veuillez remplir le formulaire ci-dessous pour vous inscrire en tant que professionnel de santé.</p>
-            <%= simple_form_for @partner do |f| %>
-              <%= f.input :name, label: "Nom", error: "Nom requis", placeholder: "Prénom Nom" %>
-              <%= f.input :phone_number, label: "Téléphone portable", placeholder: "06 .... (votre téléphone professionnel - pas de ligne fixe)", hint: "Ce numéro ne sera jamais communiqué aux volontaires. " %>
-              <%= f.input :email, required: true, placeholder: "votre_email@du_centre_de_vaccination.fr", input_html: {autocomplete: "email"}, hint: "Cet email ne sera jamais communiqué aux volontaires." %>
+        <p class="mb-4">
+          Vous êtes un professionnel de santé déjà inscrit ? Connectez-vous sur
+          <%= link_to "l'espace professionnels de santé", new_partner_session_path %>
+        </p>
 
-              <div class="form-group" data-controller="password">
-                <label for="partner_password"> Mot de passe </label>
-
-                <div class="input-group" data-behavior="toggle-password-visibility">
-                  <%= f.input_field :password,
-                    type: :password,
-                    class: "form-control",
-                    required: true,
-                    input_html: {autocomplete: "new-password"},
-                    data: {password_target: 'password', action: 'input->password#check'} %>
-
-                  <div class="input-group-append">
-                    <span class="input-group-text"> <%= link_to icon("fas", "eye") %> </span>
-                  </div>
-
-                  <small class="form-text text-muted">
-                    <%= User::PASSWORD_HINT.to_s %>
-                    <br/>
-                    <%= content_tag :span, "", data: {password_target: "passwordCheck"}, class: "d-inline-block" %>
-                  </small>
-                  <small class="form-text text-muted">
-                    Un email de confirmation de création de compte vous sera envoyé. Cliquez sur le lien pour activer
-                    votre compte.
-                  </small>
-                </div>
-              </div>
-
-              <%= render partial: "users/input_statement", locals: {f: f, local_cgu_path: cgu_pro_path} %>
-
-              <%= f.invisible_captcha :subtitle, honeypots: true %>
-              <%= f.button :submit, "S’inscrire", id: "create-new-partner", class: "btn btn-primary", data: {disable_with: "Validation...", confirm: "Vous êtes bien professionnel de santé ?"} %>
+        <% if @partner.errors.any? %>
+          <div class="alert alert-danger" role="alert">
+            <% @partner.errors.full_messages.each do |msg| %>
+              <%= msg %><br/>
             <% end %>
-            <%= render partial: "mentions" %>
           </div>
+        <% end %>
+
+        <% if @partner.persisted? %>
+
+          <div class="row mt-3">
+            <div class="alert alert-success" role="alert">
+              Merci ! Vous êtes bien enregistré en tant que professionnel de santé assurant la vaccination sur Covidliste.
+              Vous allez recevoir dans quelques instants un email de confirmation qui vous permettra de valider votre
+              inscription et d'accéder à votre espace sécurisé.
+            </div>
+          </div>
+
+        <% else %>
+
+          <button class="btn btn-primary" type="button" id="health-professionnal" data-toggle="collapse" data-target="#collapseForm" aria-expanded="false" aria-controls="collapseForm">
+            S'inscrire en tant que professionnel de santé assurant la vaccination
+          </button>
+
+          <div class="collapse <%= @partner.errors.any? ? 'show' : '' %>" id="collapseForm">
+            <div class="mt-4">
+              <p>Veuillez remplir le formulaire ci-dessous pour vous inscrire en tant que professionnel de santé.</p>
+              <%= simple_form_for @partner do |f| %>
+                <%= f.input :name, label: "Nom et prénom du professionnel de santé", error: "Nom requis", placeholder: "Prénom Nom" %>
+                <%= f.input :phone_number, label: "Téléphone portable", placeholder: "06 .... (votre téléphone professionnel - pas de ligne fixe)", hint: "Ce numéro ne sera jamais communiqué aux volontaires. " %>
+                <%= f.input :email, required: true, placeholder: "votre_email@du_centre_de_vaccination.fr", input_html: {autocomplete: "email"}, hint: "Cet email ne sera jamais communiqué aux volontaires." %>
+
+                <div class="form-group" data-controller="password">
+                  <label for="partner_password"> Mot de passe </label>
+
+                  <div class="input-group" data-behavior="toggle-password-visibility">
+                    <%= f.input_field :password,
+                                      type: :password,
+                                      class: "form-control",
+                                      required: true,
+                                      input_html: {autocomplete: "new-password"},
+                                      data: {password_target: 'password', action: 'input->password#check'} %>
+
+                    <div class="input-group-append">
+                      <span class="input-group-text"> <%= link_to icon("fas", "eye") %> </span>
+                    </div>
+
+                    <small class="form-text text-muted">
+                      <%= User::PASSWORD_HINT.to_s %>
+                      <br/>
+                      <%= content_tag :span, "", data: {password_target: "passwordCheck"}, class: "d-inline-block" %>
+                    </small>
+                    <small class="form-text text-muted">
+                      Un email de confirmation de création de compte vous sera envoyé. Cliquez sur le lien pour activer
+                      votre compte.
+                    </small>
+                  </div>
+                </div>
+
+                <%= render partial: "users/input_statement", locals: {f: f, local_cgu_path: cgu_pro_path} %>
+
+                <%= f.invisible_captcha :subtitle, honeypots: true %>
+                <%= f.button :submit, "S’inscrire en tant que professionnel de santé", id: "create-new-partner", class: "btn btn-primary", data: {disable_with: "Validation...", confirm: "Vous êtes bien professionnel de santé ?"} %>
+              <% end %>
+              <div class="mt-3 small">
+                <%= render partial: "mentions" %>
+              </div>
+            </div>
+          </div>
+
+        <% end %>
+
+      </div>
+      <div class="col-12 col-lg-3 offset-lg-1 d-flex align-items-center border rounded">
+        <div class="text-center px-2">
+          <div class="mt-4">
+            <%= icon("fas", "user-plus", class: "rounded p-3 bg-light text-primary h2") %>
+          </div>
+          <p class="mt-2">
+            Vous êtes un un particulier volontaire à la vaccination ?
+          </p>
+          <p class="mt-4">
+            Inscrivez-vous sur
+            <%= link_to "le formulaire des volontaires à la vaccination", root_path %>
+          </p>
         </div>
-
-      <% end %>
-
-      <p class="mt-3">
-        <%= link_to "Se connecter en tant que professionnel de santé assurant la vaccination", new_partner_session_path %>
-      </p>
-
+      </div>
     </div>
   </div>
 </div>
