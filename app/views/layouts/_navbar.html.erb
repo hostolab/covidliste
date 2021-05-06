@@ -24,11 +24,13 @@
         <li class="<%= class_names("nav-item", active: current_page?(partenaires_path)) %>">
           <%= link_to "Professionnels de santé", partenaires_path, class: "nav-link" %>
         </li>
-        <li class="<%= class_names("nav-item", active: current_page?(donateurs_path)) %>">
-          <%= link_to "Donateurs", donateurs_path, class: "nav-link" %>
-        </li>
-        <li class="<%= class_names("nav-item", active: current_page?(benevoles_path)) %>">
-          <%= link_to "Bénévoles", benevoles_path, class: "nav-link" %>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#dropdownHelpers" role="button" aria-haspopup="true" aria-expanded="false">Ils nous aident</a>
+          <div class="dropdown-menu" aria-labelledby="dropdownHelpers">
+            <%= link_to "Donateurs", donateurs_path, class: class_names("dropdown-item", active: current_page?(donateurs_path)) %>
+            <%= link_to "Sponsors", sponsors_path, class: class_names("dropdown-item", active: current_page?(sponsors_path)) %>
+            <%= link_to "Bénévoles", benevoles_path, class: class_names("dropdown-item", active: current_page?(benevoles_path)) %>
+          </div>
         </li>
       <% end %>
 

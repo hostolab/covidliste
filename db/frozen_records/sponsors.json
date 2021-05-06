@@ -1,0 +1,100 @@
+[
+  {
+    "name": "McDermott Will & Emery",
+    "logo_path": "sponsors/logo-mcdermott-will-emery.svg",
+    "website_url": "https://www.mwe.com/fr/locations/paris/",
+    "description": "Cabinet d'avocats",
+    "role": "Accompagnement légal"
+  },
+  {
+    "name": "Airbnb",
+    "logo_path": "sponsors/logo-airbnb.svg",
+    "website_url": "#",
+    "description": "Produit de recherche sur le web basé sur l'IA",
+    "role": ""
+  },
+  {
+    "name": "Agence Maarc",
+    "logo_path": "sponsors/logo-agence-maarc.svg",
+    "website_url": "https://www.agencemaarc.com/",
+    "description": "Agence de conseil en relations publiques",
+    "role": ""
+  },
+  {
+    "name": "Sendinblue",
+    "logo_path": "sponsors/logo-sendinblue.svg",
+    "website_url": "http://sendinblue.com/",
+    "description": "Emailing et SMS marketing et transactionnel",
+    "role": ""
+  },
+  {
+    "name": "Alan",
+    "logo_path": "sponsors/logo-alan.svg",
+    "website_url": "https://alan.com/",
+    "description": "Assurance santé",
+    "role": ""
+  },
+  {
+    "name": "Adesias",
+    "logo_path": "sponsors/logo-adesias.svg",
+    "website_url": "https://www.adesias.fr/",
+    "description": "Agence de communication",
+    "role": ""
+  },
+  {
+    "name": "Scalingo",
+    "logo_path": "sponsors/logo-scalingo.svg",
+    "website_url": "https://scalingo.com/fr",
+    "description": "Société d'hébergement",
+    "role": ""
+  },
+  {
+    "name": "Frontapp",
+    "logo_path": "sponsors/logo-frontapp.svg",
+    "website_url": "https://frontapp.com/",
+    "description": "Plateforme de communication client",
+    "role": ""
+  },
+  {
+    "name": "Salesforce",
+    "logo_path": "sponsors/logo-salesforce.svg",
+    "website_url": "https://www.salesforce.com/",
+    "description": "CRM relation client",
+    "role": ""
+  },
+  {
+    "name": "Algolia",
+    "logo_path": "sponsors/logo-algolia.svg",
+    "website_url": "https://www.algolia.com/",
+    "description": "Produit de recherche sur le web basé sur l'IA",
+    "role": ""
+  },
+  {
+    "name": "Aircall",
+    "logo_path": "sponsors/logo-aircall.svg",
+    "website_url": "https://aircall.io/fr/",
+    "description": "Téléphonie sur IP pour les entreprises",
+    "role": ""
+  },
+  {
+    "name": "Qonto",
+    "logo_path": "sponsors/logo-qonto.svg",
+    "website_url": "https://qonto.com/fr",
+    "description": "Banque en ligne",
+    "role": ""
+  },
+  {
+    "name": "Sarbacane",
+    "logo_path": "sponsors/logo-sarbacane.svg",
+    "website_url": "https://www.sarbacane.com/",
+    "description": "Emailing et SMS marketing et transactionnel",
+    "role": ""
+  },
+  {
+    "name": "Yousign",
+    "logo_path": "sponsors/logo-yousign.svg",
+    "website_url": "https://yousign.com/fr-fr",
+    "description": "Solution de signature électronique",
+    "role": ""
+  }
+]
