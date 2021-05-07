@@ -49,18 +49,18 @@
     "role": "Réalisation de la vidéo de campagne Ulule"
   },
   {
-    "name": "Frontapp",
-    "logo_path": "sponsors/logo-frontapp.svg",
-    "website_url": "https://frontapp.com/",
-    "description": "Plateforme de communication client",
-    "role": "Outil de support email"
-  },
-  {
     "name": "Algolia",
     "logo_path": "sponsors/logo-algolia.svg",
     "website_url": "https://www.algolia.com/",
     "description": "Produit de recherche sur le web basé sur l'IA",
     "role": "Utilisation de l'API Algolia Places"
+  },
+  {
+    "name": "Frontapp",
+    "logo_path": "sponsors/logo-frontapp.svg",
+    "website_url": "https://frontapp.com/",
+    "description": "Plateforme de communication client",
+    "role": "Outil de support email"
   },
   {
     "name": "Aircall",
