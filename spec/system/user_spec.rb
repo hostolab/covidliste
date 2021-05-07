@@ -113,9 +113,7 @@ RSpec.describe "Users", type: :system do
       visit users_magic_link_url({user: {email: user.email, token: token}})
 
       expect(page).to have_text("Connecté(e).")
-      expect(page).to have_text("Accélérons la campagne de vaccination.")
-
-      visit profile_url
+      expect(page).to have_text("Vous êtes inscrit sur Covidliste depuis")
     end
 
     it "it allows me to edit personal information " do
