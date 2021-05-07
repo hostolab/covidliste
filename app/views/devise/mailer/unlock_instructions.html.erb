@@ -6,6 +6,7 @@
 
 <p><%= link_to 'Déverrouiller mon compte', unlock_url(@resource, unlock_token: @token) %></p>
 
+<%= render "mailer/faq" %>
 <%= render "mailer/footer" %>
 <%= render "mailer/automatic_message" %>
 

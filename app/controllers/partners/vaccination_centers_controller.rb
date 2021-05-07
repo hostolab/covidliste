@@ -7,7 +7,7 @@ module Partners
     helper_method :sort_column, :sort_direction
 
     def index
-      @vaccination_centers = current_partner.vaccination_centers
+      @vaccination_centers = current_partner.vaccination_centers.includes([:partner_vaccination_centers, :partners])
       @unconfirmed_vaccination_centers = current_partner.unconfirmed_vaccination_centers
     end
 
