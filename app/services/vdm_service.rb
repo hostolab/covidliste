@@ -2,6 +2,13 @@ class VdmService
   include HTTParty
   base_uri "https://vitemadose.gitlab.io/vitemadose"
 
+  VACCINE_TYPES = {
+    pfizer: "Pfizer-BioNTech",
+    moderna: "Moderna",
+    az: "AstraZeneca",
+    jj: "Janssen"
+  }.freeze
+
   def same_day_search(lat, lon, rayon_km)
     next_day_slots.filter { |x| distance_from_location(x, lat, lon) <= rayon_km }
   end
