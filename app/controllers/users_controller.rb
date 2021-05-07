@@ -66,7 +66,7 @@ class UsersController < ApplicationController
   private
 
   def set_counters
-    @users_count = Rails.cache.fetch(:users_count, expires_in: 30.minutes) { User.count }
+    @users_count = Rails.cache.fetch(:users_count, expires_in: 30.seconds) { Counter.total_users }
     @confirmed_matched_users_count = Rails.cache.fetch(:confirmed_matched_users_count, expires_in: 30.minutes) { Match.confirmed.count }
     @matched_users_count = Rails.cache.fetch(:matched_users_count, expires_in: 30.minutes) { Match.distinct.count("user_id") + Match.confirmed.count }
     @vaccination_centers_count = Rails.cache.fetch(:vaccination_centers_count, expires_in: 30.minutes) { VaccinationCenter.confirmed.count }
