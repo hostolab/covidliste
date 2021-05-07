@@ -9,8 +9,10 @@ class VdmService
     jj: "Janssen"
   }.freeze
 
-  def same_day_search(lat, lon, rayon_km)
-    next_day_slots.filter { |x| distance_from_location(x, lat, lon) <= rayon_km }
+  def next_day_search(lat, lon, rayon_km, vaccine_type = nil)
+    results = next_day_slots.filter { |x| distance_from_location(x, lat, lon) <= rayon_km }
+    results = results.filter { |x| x["vaccine_type"]&.include?(VACCINE_TYPES[vaccine_type.to_sym]) } if vaccine_type
+    results
   end
 
   def search(lat, lon, rayon_km)
