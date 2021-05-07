@@ -123,7 +123,7 @@ RSpec.describe MatchesController, type: :system do
         fill_in :user_lastname, with: generate(:lastname)
         check :confirm_age
         check :confirm_name
-        click_on("Je réserve la dose")
+        click_on("Je confirme le RDV")
         expect(page).to have_text("Mince 😔, toutes les doses disponibles ont déjà été réservées")
         Match.where(confirmation_failed_reason: "Match::AlreadyConfirmedError").count == already_confirmed_count + 1
       end
