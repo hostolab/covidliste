@@ -1,0 +1,31 @@
+<%= content_for(:append_to_head) do %>
+  <meta content="index;follow" name="robots"/>
+<% end %>
+
+<div class="container">
+  <h1 class="mb-4">Aidez vous à accélérer la campagne vaccinale</h1>
+
+  <p class="text-justify text-sm-left">
+    <strong>C’est grâce au soutien de nos généreux sponsors que Covidliste a pu devenir la plus grande liste d’attente d’inscrits à la vaccination.</strong> Sans eux, ce projet ne serait pas possible. 
+    <br>
+    <br>
+    Nous essayons de travailler au maximum avec des entreprises ou associations françaises ou européennes.
+    <br>
+    <strong>Aidez-nous à aider les professionnels de santé à gagner de précieuses heures tous les jours.</strong>
+  </p>
+
+  <%= link_to "Nous contacter", "mailto:hello@covidliste.com", target: "_blank", rel: "noopener", class: "btn btn-large btn-primary mt-2 mt-md-0" %>
+
+  <h2 class="text-uppercase font-weight-bold text-primary mt-4">Nos <%= @sponsors.size %> sponsors</h2>
+
+  <div class="row d-flex flex-wrap">
+    <% @sponsors.each do |sponsor| %>
+      <div class="col-12 col-sm-4 d-flex flex-column mt-3">
+        <%= link_to sponsor.website_url, target: "_blank", rel: "noopener", title: sponsor.role, class: "bg-white p-3 shadow-sm rounded h-100", "data-toggle": "tooltip", "data-placement": "top" do %>
+          <%= image_tag sponsor.logo_path, height: 36, loading: "lazy", class: "d-block", alt: sponsor.name %>
+          <div class="mt-2 small"><%= sponsor.description %></div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
