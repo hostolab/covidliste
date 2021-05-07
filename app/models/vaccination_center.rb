@@ -1,6 +1,6 @@
 class VaccinationCenter < ApplicationRecord
   include HasPhoneNumberConcern
-  has_phone_number_types %i[fixed_line mobile voip]
+  has_phone_number_types %i[fixed_line mobile voip premium_rate]
   module Kinds
     CABINET_INFIRMIER = "Cabinet infirmier"
     CABINET_MEDICAL = "Cabinet médical"
