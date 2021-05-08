@@ -74,6 +74,8 @@ group :development, :test do
   gem "faker", git: "https://github.com/faker-ruby/faker.git", branch: "master"
   gem "pry-byebug"
   gem "pry-rails"
+  # used in dev+CI
+  gem "rails-erd", require: false
 end
 
 group :development do
@@ -84,7 +86,6 @@ group :development do
   gem "listen", "~> 3.3"
   gem "rack-mini-profiler", "~> 2.0"
   gem "web-console", ">= 4.1.0"
-  gem "rails-erd"
 end
 
 group :test do
