@@ -21,7 +21,7 @@ class CreateVmdSlots < ActiveRecord::Migration[6.1]
       t.integer :slots_7_days
       t.integer :slots_28_days
       t.integer :slots_49_days
-      t.boolean :astrazenca
+      t.boolean :astrazeneca
       t.boolean :pfizer
       t.boolean :moderna
       t.boolean :janssen

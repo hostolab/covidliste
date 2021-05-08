@@ -4,7 +4,7 @@ class VmdSlot < ApplicationRecord
   VACCINE_TYPES = {
     pfizer: "Pfizer-BioNTech",
     moderna: "Moderna",
-    astrazenca: "AstraZeneca",
+    astrazeneca: "AstraZeneca",
     janssen: "Janssen"
   }.freeze
 
@@ -55,7 +55,7 @@ class VmdSlot < ApplicationRecord
       pfizer: (slot[:vaccine_type] || []).include?(VACCINE_TYPES[:pfizer]),
       moderna: (slot[:vaccine_type] || []).include?(VACCINE_TYPES[:moderna]),
       janssen: (slot[:vaccine_type] || []).include?(VACCINE_TYPES[:janssen]),
-      astrazenca: (slot[:vaccine_type] || []).include?(VACCINE_TYPES[:astrazenca])
+      astrazeneca: (slot[:vaccine_type] || []).include?(VACCINE_TYPES[:astrazeneca])
     )
   end
 end

@@ -334,7 +334,7 @@ ActiveRecord::Schema.define(version: 2021_05_08_091206) do
     t.integer "slots_7_days"
     t.integer "slots_28_days"
     t.integer "slots_49_days"
-    t.boolean "astrazenca"
+    t.boolean "astrazeneca"
     t.boolean "pfizer"
     t.boolean "moderna"
     t.boolean "janssen"
@@ -346,7 +346,7 @@ ActiveRecord::Schema.define(version: 2021_05_08_091206) do
   end
 
   add_foreign_key "campaign_batches", "campaigns"
-  add_foreign_key "campaign_batches", "partners", name: "campaign_batches_partner_id_fkey"
+  add_foreign_key "campaign_batches", "partners"
   add_foreign_key "campaign_batches", "vaccination_centers"
   add_foreign_key "campaigns", "partners"
   add_foreign_key "campaigns", "vaccination_centers"
