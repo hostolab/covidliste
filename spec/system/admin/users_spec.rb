@@ -60,7 +60,7 @@ RSpec.describe "Admin Users", type: :system do
             find_by_id(dom_id(user, :delete)).click
           end
           expect(page).to have_text "l'utilisateur a été supprimé."
-          expect { user.reload.anonymized_at? }.to eq(true)
+          expect(user.reload.anonymized_at?).to eq(true)
         end
       end
     end
