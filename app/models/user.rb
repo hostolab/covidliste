@@ -151,6 +151,8 @@ class User < ApplicationRecord
     self.geo_context = nil
     self.phone_number = nil
     self.birthdate = nil
+    self.grid_i = nil
+    self.grid_j = nil
     self.anonymized_at = Time.now.utc
     save(validate: false)
   end

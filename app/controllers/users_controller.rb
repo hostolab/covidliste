@@ -58,7 +58,8 @@ class UsersController < ApplicationController
   def delete
     @user = current_user
     authorize @user
-    @user.destroy
+    sign_out @user
+    @user.anonymize!
     flash[:success] = "Votre compte a bien été supprimé."
     redirect_to root_path
   end
