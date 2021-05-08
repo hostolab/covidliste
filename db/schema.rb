@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_04_200923) do
+ActiveRecord::Schema.define(version: 2021_05_08_091206) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,12 +94,13 @@ ActiveRecord::Schema.define(version: 2021_05_04_200923) do
   create_table "campaign_batches", force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "vaccination_center_id"
+    t.bigint "partner_id"
     t.integer "size", null: false
     t.integer "duration_in_minutes", default: 10, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "partner_id"
     t.index ["campaign_id"], name: "index_campaign_batches_on_campaign_id"
+    t.index ["partner_id"], name: "index_campaign_batches_on_partner_id"
     t.index ["vaccination_center_id"], name: "index_campaign_batches_on_vaccination_center_id"
     t.check_constraint "duration_in_minutes > 0", name: "duration_in_minutes_gt_zero"
     t.check_constraint "size > 0", name: "size_gt_zero"
@@ -255,8 +256,8 @@ ActiveRecord::Schema.define(version: 2021_05_04_200923) do
     t.string "city"
     t.string "geo_citycode"
     t.string "geo_context"
-    t.boolean "statement", default: false
     t.datetime "anonymized_at"
+    t.boolean "statement", default: false
     t.datetime "statement_accepted_at"
     t.datetime "toc_accepted_at"
     t.string "email_domain"
@@ -310,6 +311,38 @@ ActiveRecord::Schema.define(version: 2021_05_04_200923) do
     t.index ["geo_citycode"], name: "index_vaccination_centers_on_geo_citycode"
     t.index ["geo_context"], name: "index_vaccination_centers_on_geo_context"
     t.index ["zipcode"], name: "index_vaccination_centers_on_zipcode"
+  end
+
+  create_table "vmd_slots", force: :cascade do |t|
+    t.string "center_id"
+    t.string "name"
+    t.string "url"
+    t.float "latitude"
+    t.float "longitude"
+    t.string "city"
+    t.string "department"
+    t.string "address"
+    t.string "phone_number"
+    t.datetime "next_rdv"
+    t.string "platform"
+    t.string "center_type"
+    t.integer "slots_count"
+    t.datetime "last_updated_at"
+    t.integer "slots_0_days"
+    t.integer "slots_1_days"
+    t.integer "slots_2_days"
+    t.integer "slots_7_days"
+    t.integer "slots_28_days"
+    t.integer "slots_49_days"
+    t.boolean "astrazenca"
+    t.boolean "pfizer"
+    t.boolean "moderna"
+    t.boolean "janssen"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["center_id", "last_updated_at"], name: "index_vmd_slots_on_center_id_and_last_updated_at"
+    t.index ["center_id"], name: "index_vmd_slots_on_center_id"
+    t.index ["department"], name: "index_vmd_slots_on_department"
   end
 
   add_foreign_key "campaign_batches", "campaigns"
