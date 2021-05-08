@@ -144,7 +144,7 @@ RSpec.describe "Users", type: :system do
         accept_confirm_modal do
           click_on "Supprimer mon compte"
         end
-      end.to change { User.count }.by(-1)
+      end.to change { User.active.count }.by(-1)
 
       expect(page).to have_text("Votre compte a bien été supprimé.")
     end
@@ -154,7 +154,7 @@ RSpec.describe "Users", type: :system do
         decline_confirm_modal do
           click_on "Supprimer mon compte"
         end
-      end.to change { User.count }.by(0)
+      end.to change { User.active.count }.by(0)
     end
 
     context "with a confirmed match" do
@@ -172,7 +172,7 @@ RSpec.describe "Users", type: :system do
           accept_confirm_modal do
             click_on "Supprimer mon compte"
           end
-        end.to change { User.count }.by(0)
+        end.to change { User.active.count }.by(0)
 
         expect(page).to_not have_text("Votre compte a bien été supprimé.")
         expect(page).to have_text("Vous ne pouvez pas supprimer votre compte actuellement car vous avez confirmé un rendez-vous de vaccination.")
@@ -194,7 +194,7 @@ RSpec.describe "Users", type: :system do
           accept_confirm_modal do
             click_on "Supprimer mon compte"
           end
-        end.to change { User.count }.by(-1)
+        end.to change { User.active.count }.by(-1)
 
         expect(page).to have_text("Votre compte a bien été supprimé.")
       end
