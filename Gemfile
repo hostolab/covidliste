@@ -84,6 +84,7 @@ group :development do
   gem "listen", "~> 3.3"
   gem "rack-mini-profiler", "~> 2.0"
   gem "web-console", ">= 4.1.0"
+  gem "rails-erd"
 end
 
 group :test do
