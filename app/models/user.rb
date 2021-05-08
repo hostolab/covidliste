@@ -138,6 +138,7 @@ class User < ApplicationRecord
 
   def anonymize!
     return unless anonymized_at.nil?
+    refuse_pending_matching
 
     self.email = "anonymous#{id}+#{rand(100_000_000)}@null"
     self.firstname = nil
