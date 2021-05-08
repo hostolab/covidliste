@@ -82,5 +82,7 @@ jobs:
       #     files: rspec.xml
       - name: Brakeman action
         uses: artplan1/brakeman-action@v1.2.1
+      - name: Install graphviz
+        run: sudo apt-get install graphviz
       - name: Generate ERD diagram
         run: bundle exec erd
