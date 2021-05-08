@@ -70,6 +70,20 @@
     "role": "Lignes de téléphone pour l'équipe en charge des professionnels de santé"
   },
   {
+    "name": "Slite",
+    "logo_path": "sponsors/logo-slite.svg",
+    "website_url": "http://slite.com/",
+    "description": "Notes et documentation",
+    "role": "Documentation et outil de prise de notes"
+  },
+  {
+    "name": "Ulule",
+    "logo_path": "sponsors/logo-ulule.svg",
+    "website_url": "https://fr.ulule.com/",
+    "description": "Plateforme de financement participatif",
+    "role": "Plateforme de financement participatif"
+  },
+  {
     "name": "Qonto",
     "logo_path": "sponsors/logo-qonto.svg",
     "website_url": "https://qonto.com/fr",
