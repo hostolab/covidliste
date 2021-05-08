@@ -28,7 +28,6 @@ run_active_campaigns: # every 1 minute
   class: "RunActiveCampaignsJob"
   description: "Re-evaluate active campaigns"
 
-
 vmd_parser: # every 2 minute
   cron: "*/2 * * * *"
   class: "VmdParserJob"
