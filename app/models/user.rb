@@ -8,7 +8,7 @@ class User < ApplicationRecord
 
   devise :magic_link_authenticatable, :confirmable, :validatable
 
-  has_many :matches
+  has_many :matches, dependent: :nullify
   has_many :messages, class_name: "Ahoy::Message", as: :user
 
   encrypts :firstname
