@@ -20,7 +20,7 @@ RSpec.describe "Destroy user account from match email", type: :system do
         accept_confirm_modal do
           click_on dom_id(user, :delete)
         end
-      end.to change { User.count }.by(-1)
+      end.to change { User.active.count }.by(-1)
         .and change { Match.pending.count }.by(-1)
     end
 

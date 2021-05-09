@@ -21,12 +21,12 @@ class ReachableUsersService
       with reachable_users as (
         SELECT
         u.id as user_id,
-        (SQRT( ((:vc_grid_i - u.grid_i) * :grid_cell_size)^2 + ((:vc_grid_j - u.grid_j) * :grid_cell_size)^2 )) as distance
+        (SQRT((((:lat) - u.lat)*110.574)^2 + (((:lon) - u.lon)*111.320*COS(u.lat::float*3.14159/180))^2)) as distance
         FROM users u
         WHERE u.confirmed_at IS NOT NULL
         AND u.anonymized_at is NULL
         AND u.birthdate between (:min_date) and (:max_date)
-        AND __GRID_QUERY__
+        AND (SQRT((((:lat) - u.lat)*110.574)^2 + (((:lon) - u.lon)*111.320*COS(u.lat::float*3.14159/180))^2)) < (:rayon_km)
       )
       ,users_stats as (
         select
@@ -72,14 +72,13 @@ class ReachableUsersService
     params = {
       min_date: @campaign.max_age.years.ago,
       max_date: @campaign.min_age.years.ago,
-      vc_grid_i: @covering[:center_cell][:i],
-      vc_grid_j: @covering[:center_cell][:j],
-      grid_cell_size: @covering[:cell_size_meters] / 1000.to_f,
+      lat: @vaccination_center.lat,
+      lon: @vaccination_center.lon,
+      rayon_km: @campaign.max_distance_in_meters / 1000,
       vaccine_type: @campaign.vaccine_type,
       limit: limit,
       last_match_allowed_at: Match::NO_MORE_THAN_ONE_MATCH_PER_PERIOD.ago
     }
-    sql = sql.sub! "__GRID_QUERY__", get_vaccination_center_grid_query
     query = ActiveRecord::Base.send(:sanitize_sql_array, [sql, params])
     User.where(id: ActiveRecord::Base.connection.execute(query).to_a.pluck("user_id"))
   end
@@ -89,7 +88,7 @@ class ReachableUsersService
       .confirmed
       .active
       .between_age(@campaign.min_age, @campaign.max_age)
-      .where(get_vaccination_center_grid_query)
+      .where("SQRT(((? - lat)*110.574)^2 + ((? - lon)*111.320*COS(lat::float*3.14159/180))^2) < ?", @vaccination_center.lat, @vaccination_center.lon, @campaign.max_distance_in_meters / 1000)
       .where("id not in (
       select user_id from matches m inner join campaigns c on (c.id = m.campaign_id)
       where m.user_id is not null

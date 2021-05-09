@@ -87,15 +87,16 @@ RSpec.describe Admin::UsersController, type: :controller do
       subject { delete :destroy, params: {id: user_1.id} }
 
       it "deletes the user" do
-        expect { subject }.to change { User.count }.by(-1)
-        expect { user_1.reload }.to raise_error(ActiveRecord::RecordNotFound)
+        subject
+        expect(user_1.reload.anonymized_at?).to eq(true)
       end
 
       it "refuses the user pending matches" do
         expect { subject }.to change { Match.pending.count }.by(-1)
 
         expect(match.reload.refused_at).to_not be_nil
-        expect(match.user_id).to be_nil
+        expect(match.user_id).to_not be_nil
+        expect(match.user.anonymized_at?).to eq(true)
       end
     end
   end

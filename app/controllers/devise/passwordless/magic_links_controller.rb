@@ -26,6 +26,16 @@ class Devise::Passwordless::MagicLinksController < DeviseController
 
   private
 
+  def after_sign_in_path_for(resource)
+    if resource.is_a?(Partner)
+      partners_vaccination_centers_path
+    elsif resource.is_a?(User)
+      profile_path
+    else
+      new_user_session_path
+    end
+  end
+
   def create_params
     resource_params.permit(:email, :remember_me)
   end

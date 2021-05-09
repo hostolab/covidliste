@@ -1,20 +1,46 @@
 <div>
   <p>
     Bonjour,
-  </p>>
+  </p>
 
   <p>
-    Cette semaine, vous avez été mis en contact avec un centre de vaccination grâce à Covidliste. Nous en sommes très heureux et espérons que vous avez pu vous rendre au rendez-vous.
+    Cette semaine, Covidliste vous a mis en relation avec un centre de vaccination qui disposait d’une dose de vaccin. Nous en sommes très heureux et espérons que vous avez pu vous rendre au rendez-vous et vous faire vacciner.
   </p>
   <p>
-    Vous faites partie des premières personnes à avoir pu bénéficier de notre service et nous serions ravis de pouvoir recueillir votre témoignage. Si vous acceptez de nous partager votre expérience, merci de répondre à cet email.
+    Conformément à nos Conditions Générales d’Utilisation, nous avons supprimé vos données de Covidliste. À des fins statistiques, des informations anonymisées ne permettant ni de vous identifier ni de vous contacter peuvent toutefois être conservées.
   </p>
+    <h3>
+      Vous souhaitez participer à l’accélération de la campagne vaccinale ?
+    </h3>
   <p>
-    Par ailleurs, nous avons bien supprimé vos données comme indiqué précédemment. À des fins statistiques, comme prévu par nos CGU, des informations anonymisées ne permettant ni de vous identifier ni de vous contacter peuvent être conservées.
+    Voici comment vous pouvez nous aider :
+    <ul>
+      <li>
+        Parlez de Covidliste à vos amis et famille, au centre de vaccination proche de chez vous ou à votre maire !
+      </li>
+      <li>
+        Faites savoir que vous vous êtes fait vacciner grâce à Covidliste, sur
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.covidliste.com%2F&quote=J'ai%20%C3%A9t%C3%A9%20vaccin%C3%A9%20grâce%20à%20Covidliste%2C%20pourquoi%20pas%20vous%20%3F" title="Share on Facebook" target="_blank">Facebook</a>,
+        <a href="https://twitter.com/intent/tweet?source=https%3A%2F%2Fwww.covidliste.com%2F&text=J%27ai%20%C3%A9t%C3%A9%20vaccin%C3%A9%20gr%C3%A2ce%20%C3%A0%20@covidliste%2C%20pourquoi%20pas%20vous%20%3F%20https%3A%2F%2Fwww.covidliste.com%2F&" target="_blank" title="Tweet">Twitter</a>,
+        <a href="http://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fwww.covidliste.com%2F&title=J'ai%20%C3%A9t%C3%A9%20vaccin%C3%A9%20avec%20Covidliste%2C%20pourquoi%20pas%20vous%20%3F&summary=&source=https%3A%2F%2Fwww.covidliste.com%2F" target="_blank" title="Share on LinkedIn">Linkedin</a> ou
+        <a href="mailto:?subject=J'ai%20%C3%A9t%C3%A9%20vaccin%C3%A9%grâce%20à%20Covidliste%2C%20pourquoi%20pas%20vous%20%3F&body=:%20https%3A%2F%2Fwww.covidliste.com%2F" target="_blank" title="Send email">par email</a>
+      </li>
+      <li>
+        Soutenez notre campagne de financement :
+        <%= link_to "contribuez sur Ulule", "https://fr.ulule.com/projects/129093/checkout/", target: "_blank" %>.
+      </li>
+      <li>
+        Partagez-nous votre témoignage :
+        <%= link_to "racontez votre expérience Covidliste", "https://form.typeform.com/to/rHTAEqUZ", target: "_blank"%> !
+      </li>
+    </ul>
   </p>
+
   <p>
-    Merci de nous avoir fait confiance,<br>
+    Merci de nous avoir fait confiance ! <br>
   </p>
 
   <%= render 'mailer/footer' %>
+  <%= render "mailer/automatic_message" %>
+
 </div>

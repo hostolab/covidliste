@@ -22,6 +22,10 @@ class PagesController < ApplicationController
     @diamond_orders = data[:diamond_orders]
   end
 
+  def sponsors
+    @sponsors = Rails.cache.fetch(:sponsors, expires_in: 1.day, force: params[:force].present?) { Sponsor.all }
+  end
+
   def contact
     @contact_items = FaqItem.where(category: "Collaboration et contact")
   end

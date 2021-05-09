@@ -76,14 +76,16 @@
     <p class="mb-5">
       <strong>Important :</strong> Si vous avez l’impression que la campagne ne se remplit pas, ne créez pas une
       nouvelle campagne pour les mêmes doses disponibles. <a href="/faq">Nous recontacterons par SMS tous les
-      volontaires proches de votre centre</a> s’il vous reste des doses au cours de la campagne.
+      volontaires proches de votre lieu de vaccination</a> s’il vous reste des doses au cours de la campagne.
     </p>
   <% end %>
 
   <% if @campaign.running? %>
     <div class="alert alert-primary" role="alert">
       <strong>Votre campagne est actuellement en cours.</strong><br/>
-      La liste des volontaires ne sera complète que lorsque votre campagne sera terminée ou interrompue.
+      La liste des volontaires ne sera complète que lorsque votre campagne sera terminée ou interrompue.<br />
+      Dernière mise à jour de la liste : <%= l Time.zone.now %>
+      <%= link_to "Mettre à jour la liste maintenant", partners_campaign_path(@campaign) %>
     </div>
   <% elsif @campaign.completed? || @campaign.canceled? %>
     <div class="alert alert-success" role="alert">
@@ -97,27 +99,14 @@
     </div>
   <% end %>
 
-  <h2 class="mt-5 mb-4">
-    Volontaires confirmés
-  </h2>
+  <h2 class="mt-5 mb-4">Volontaires confirmés</h2>
 
   <p>
-    Les volontaires devront se présenter le <%= @campaign.starts_at.strftime('%d/%m/%Y') %> entre
-    <%= @campaign.starts_at.strftime('%Hh%M') %> et <%= @campaign.ends_at.strftime('%Hh%M')%>
+    Les volontaires se présenteront le <%= l(@campaign.starts_at, format: '%e %B %Y') %> entre
+    <%= l(@campaign.starts_at, format: '%Hh%M') %> et <%= l(@campaign.ends_at, format: '%Hh%M') %>.
   </p>
 
-  <p>
-    Ces informations seront supprimées définitivement dans quelques jours.
-    <br>
-    Ces informations ne doivent être utilisées que pour la vaccination des volontaires par votre centre.
-  </p>
-
-  <% if @campaign.matches.confirmed.any? %>
-    <p class="float-right">
-      <%= link_to "Télécharger la liste (CSV)", partners_campaign_path(@campaign, format: :csv) %>
-    </p>
-
-    <div class="table-responsive">
+  <div class="table-responsive">
       <table class="table table-bordered table-sm">
         <thead class="thead-light">
         <tr>
@@ -129,35 +118,58 @@
         </thead>
 
         <tbody>
-          <% @campaign.matches.confirmed.order(:confirmed_at).each do |match| %>
-            <% user = match.user %>
+          <% if @campaign.matches.confirmed.any? %>
+            <% @campaign.matches.confirmed.order(:confirmed_at).each do |match| %>
+              <% user = match.user %>
 
-            <tr>
-              <% if user.nil? %>
-                <td colspan="3">
-                  <em class="text-muted">
-                    Ce volontaire a confirmé le RDV puis a supprimé son compte.
-                  </em>
-                </td>
-              <% else %>
-                <% if user.anonymized_at %>
+              <tr>
+                <% if user.nil? %>
                   <td colspan="3">
                     <em class="text-muted">
-                      Ce volontaire a été anonymisé quelques jours après le RDV.
+                      Ce volontaire a confirmé le RDV puis a supprimé son compte.
                     </em>
                   </td>
                 <% else %>
-                  <td> <%= user %> </td>
-                  <td> <%= user.human_friendly_phone_number %> </td>
-                  <td> <%= user.birthdate.strftime("%d/%m/%Y") %> </td>
+                  <% if user.anonymized_at %>
+                    <td colspan="3">
+                      <em class="text-muted">
+                        Ce volontaire a été anonymisé quelques jours après le RDV.
+                      </em>
+                    </td>
+                  <% else %>
+                    <td> <%= user %> </td>
+                    <td> <%= user.human_friendly_phone_number %> </td>
+                    <td> <%= user.birthdate.strftime("%d/%m/%Y") %> </td>
+                  <% end %>
                 <% end %>
-              <% end %>
 
-              <td> <%= l match.confirmed_at %> </td>
+                <td> <%= l match.confirmed_at %> </td>
+              </tr>
+            <% end %>
+          <% else %>
+            <tr class="text-center">
+              <td colspan="4">
+                <em class="text-muted">
+                  <% if @campaign.running? %>
+                    Aucun volontaire confirmé pour l'instant
+                  <% else %>
+                    Aucun volontaire confirmé
+                  <% end %>
+                </em>
+              </td>
             </tr>
           <% end %>
         </tbody>
       </table>
+
+      <p class="text-right mt-0">
+        <%= link_to "Télécharger la liste (format CSV)", partners_campaign_path(@campaign, format: :csv) %>
+      </p>
+
+      <p class="small text-muted">
+        Les informations des volontaires seront supprimées définitivement dans quelques jours.
+        <br>
+        Elles doivent être utilisées uniquement pour la vaccination des volontaires et pas à d'autres fins.
+      </p>
     </div>
-  <% end %>
 </div>
