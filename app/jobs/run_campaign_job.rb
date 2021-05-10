@@ -53,7 +53,7 @@ class RunCampaignJob < ApplicationJob
   end
 
   def compute_adjustment_factor
-    return [[@campaign.matches.confirmed.count / 15., SLOW_ADJUSTMENT_FACTOR].max, FAST_ADJUSTMENT_FACTOR].min
+    [FAST_ADJUSTMENT_FACTOR, [@campaign.matches.confirmed.count / 15.0, SLOW_ADJUSTMENT_FACTOR].max].min
   end
 
   def should_run?
