@@ -2,6 +2,7 @@ class RunCampaignJob < ApplicationJob
   queue_as :critical
 
   SLOW_ADJUSTMENT_FACTOR = 0.25
+  FAST_ADJUSTMENT_FACTOR = 0.9
   LOWER_BOUND_CONVERSION_RATE = 0.01
   V3_JOB_MINUTES_CADENCE = 5
   V2_JOB_MINUTES_CADENCE = 2
@@ -18,7 +19,7 @@ class RunCampaignJob < ApplicationJob
     return unless should_run?
 
     # compute how many more users we need to match
-    limit = [compute_new_users_to_reach * SLOW_ADJUSTMENT_FACTOR, @campaign.email_budget_remaining].min.floor
+    limit = [compute_new_users_to_reach * compute_adjustment_factor, @campaign.email_budget_remaining].min.floor
     return if limit <= 0
 
     users = @campaign.reachable_users_query(limit: limit)
@@ -49,6 +50,10 @@ class RunCampaignJob < ApplicationJob
       [@campaign.projected_confirmations / @campaign.matches.count, LOWER_BOUND_CONVERSION_RATE].max
     end
     (@campaign.available_doses.to_f - @campaign.projected_confirmations) / projected_conversion
+  end
+
+  def compute_adjustment_factor
+    return [[@campaign.matches.confirmed.count / 15., SLOW_ADJUSTMENT_FACTOR].max, FAST_ADJUSTMENT_FACTOR].min
   end
 
   def should_run?
