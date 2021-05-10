@@ -21,14 +21,12 @@ class ReachableUsersService
       with reachable_users as (
         SELECT
         u.id as user_id,
-        (SQRT( ((:vc_grid_i - u.grid_i) * :grid_cell_size)^2 + ((:vc_grid_j - u.grid_j) * :grid_cell_size)^2 )) as distance
+        (SQRT((((:lat) - u.lat)*110.574)^2 + (((:lon) - u.lon)*111.320*COS(u.lat::float*3.14159/180))^2)) as distance
         FROM users u
         WHERE u.confirmed_at IS NOT NULL
         AND u.anonymized_at is NULL
         AND u.birthdate between (:min_date) and (:max_date)
-        AND grid_i IN (:cells_i)
-        AND grid_j IN (:cells_j)
-        AND (SQRT( ((:vc_grid_i - u.grid_i))^2 + ((:vc_grid_j - u.grid_j))^2 ) <= :dist_cells)
+        AND (SQRT((((:lat) - u.lat)*110.574)^2 + (((:lon) - u.lon)*111.320*COS(u.lat::float*3.14159/180))^2)) < (:rayon_km)
       )
       ,users_stats as (
         select
@@ -74,12 +72,9 @@ class ReachableUsersService
     params = {
       min_date: @campaign.max_age.years.ago,
       max_date: @campaign.min_age.years.ago,
-      cells_i: @covering[:cells_i],
-      cells_j: @covering[:cells_j],
-      vc_grid_i: @covering[:center_cell][:i],
-      vc_grid_j: @covering[:center_cell][:j],
-      dist_cells: @covering[:dist_cells],
-      grid_cell_size: @covering[:cell_size_meters] / 1000.0,
+      lat: @vaccination_center.lat,
+      lon: @vaccination_center.lon,
+      rayon_km: @campaign.max_distance_in_meters / 1000,
       vaccine_type: @campaign.vaccine_type,
       limit: limit,
       last_match_allowed_at: Match::NO_MORE_THAN_ONE_MATCH_PER_PERIOD.ago
@@ -93,9 +88,7 @@ class ReachableUsersService
       .confirmed
       .active
       .between_age(@campaign.min_age, @campaign.max_age)
-      .where("grid_i IN (?)", @covering[:cells_i])
-      .where("grid_j IN (?)", @covering[:cells_j])
-      .where("SQRT( ((? - grid_i))^2 + ((? - grid_j))^2 ) <= ?", @covering[:center_cell][:i], @covering[:center_cell][:j], @covering[:dist_cells])
+      .where("SQRT(((? - lat)*110.574)^2 + ((? - lon)*111.320*COS(lat::float*3.14159/180))^2) < ?", @vaccination_center.lat, @vaccination_center.lon, @campaign.max_distance_in_meters / 1000)
       .where("id not in (
       select user_id from matches m inner join campaigns c on (c.id = m.campaign_id)
       where m.user_id is not null
@@ -114,19 +107,15 @@ class ReachableUsersService
         WHERE u.confirmed_at IS NOT NULL
         AND u.anonymized_at is NULL
         AND u.birthdate between (:min_date) and (:max_date)
-        AND u.grid_i IN (:cells_i)
-        AND u.grid_j IN (:cells_j)
-        AND (SQRT( ((:vc_grid_i - u.grid_i))^2 + ((:vc_grid_j - u.grid_j))^2 ) <= :dist_cells)
+        AND (SQRT((((:lat) - u.lat)*110.574)^2 + (((:lon) - u.lon)*111.320*COS(u.lat::float*3.14159/180))^2)) < (:rayon_km)
         AND m.id IS NULL
     SQL
     params = {
       min_date: @campaign.max_age.years.ago,
       max_date: @campaign.min_age.years.ago,
-      cells_i: @covering[:cells_i],
-      cells_j: @covering[:cells_j],
-      vc_grid_i: @covering[:center_cell][:i],
-      vc_grid_j: @covering[:center_cell][:j],
-      dist_cells: @covering[:dist_cells],
+      lat: @vaccination_center.lat,
+      lon: @vaccination_center.lon,
+      rayon_km: @campaign.max_distance_in_meters / 1000,
       vaccine_type: @campaign.vaccine_type
     }
     query = ActiveRecord::Base.send(:sanitize_sql_array, [sql, params])
