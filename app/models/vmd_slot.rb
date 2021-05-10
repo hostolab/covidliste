@@ -46,16 +46,22 @@ class VmdSlot < ApplicationRecord
       platform: slot[:plateforme],
       slots_count: slot[:appointment_count],
       last_updated_at: slot[:last_scan_with_availabilities],
-      slots_0_days: (slot[:appointment_schedules][:"0_days"]),
-      slots_1_days: (slot[:appointment_schedules][:"1_days"]),
-      slots_2_days: (slot[:appointment_schedules][:"2_days"]),
-      slots_7_days: (slot[:appointment_schedules][:"7_days"]),
-      slots_28_days: (slot[:appointment_schedules][:"28_days"]),
-      slots_49_days: (slot[:appointment_schedules][:"49_days"]),
+      slots_0_days: VmdSlot.get_appointment_schedule(slot, "chronodose"),
+      slots_1_days: VmdSlot.get_appointment_schedule(slot, "1_days"),
+      slots_2_days: VmdSlot.get_appointment_schedule(slot, "2_days"),
+      slots_7_days: VmdSlot.get_appointment_schedule(slot, "7_days"),
+      slots_28_days: VmdSlot.get_appointment_schedule(slot, "28_days"),
+      slots_49_days: VmdSlot.get_appointment_schedule(slot, "49_days"),
       pfizer: (slot[:vaccine_type] || []).include?(VACCINE_TYPES[:pfizer]),
       moderna: (slot[:vaccine_type] || []).include?(VACCINE_TYPES[:moderna]),
       janssen: (slot[:vaccine_type] || []).include?(VACCINE_TYPES[:janssen]),
       astrazeneca: (slot[:vaccine_type] || []).include?(VACCINE_TYPES[:astrazeneca])
     )
+  end
+
+  def self.get_appointment_schedule(slot, key)
+    slot[:appointment_schedules].find { |x| x[:name] == key }[:total]
+  rescue
+    0
   end
 end
