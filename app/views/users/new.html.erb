@@ -96,6 +96,9 @@
 <% if current_user.blank? && !@user.persisted? %>
   <%= render partial: "users/shared/box_cta", locals: {title: "S’inscrire à Covidliste", text: "Vous serez contacté dès qu’une dose sera disponible !", cta_text: "S’inscrire à Covidliste", cta_href: "#inscription", cta_target: "_self"} %>
 <% end %>
+<% if !current_user.blank? or @user.persisted? %>
+<%= render partial: "users/shared/box_cta", locals: {title: "Nous lançons un appel aux dons !", text: "Chaque semaine, Covidliste dépense quelques milliers d’euros pour assurer son fonctionnement.<br>Nous avons besoin de votre aide pour maintenir le service tout le long de la campagne vaccinale.", cta_text: "Faire un don", cta_href: "https://fr.ulule.com/covidliste/", cta_target: "_blank"} %>
+<% end %>
 <div class="bg-white">
   <div class="container mt-5 mt-lg-5 mb-lg-5 py-5">
     <div class="d-flex align-items-center justify-content-between">
@@ -208,5 +211,6 @@
     </div>
   </div>
 </div>
-
+<% if current_user.blank? && !@user.persisted? %>
 <%= render partial: "users/shared/box_cta", locals: {title: "Nous lançons un appel aux dons !", text: "Chaque semaine, Covidliste dépense quelques milliers d’euros pour assurer son fonctionnement.<br>Nous avons besoin de votre aide pour maintenir le service tout le long de la campagne vaccinale.", cta_text: "Faire un don", cta_href: "https://fr.ulule.com/covidliste/", cta_target: "_blank"} %>
+<% end %>
