@@ -93,9 +93,9 @@
     </div>
   </div>
 </div>
-
-<%= render partial: "users/shared/box_cta", locals: {title: "S’inscrire à Covidliste", text: "Vous serez contacté dès qu’une dose sera disponible !", cta_text: "S’inscrire à Covidliste", cta_href: "#inscription", cta_target: "_self"} %>
-
+<% if current_user.blank? && !@user.persisted? %>
+  <%= render partial: "users/shared/box_cta", locals: {title: "S’inscrire à Covidliste", text: "Vous serez contacté dès qu’une dose sera disponible !", cta_text: "S’inscrire à Covidliste", cta_href: "#inscription", cta_target: "_self"} %>
+<% end %>
 <div class="bg-white">
   <div class="container mt-5 mt-lg-5 mb-lg-5 py-5">
     <div class="d-flex align-items-center justify-content-between">
