@@ -40,6 +40,7 @@ class Campaign < ApplicationRecord
   end
 
   def sms_budget_remaining
+    return 0 if vaccine_type == Vaccine::Brands::ASTRAZENECA
     (available_doses * MAX_SMS_BUDGET_BY_DOSE) - matches.with_sms.count
   end
 
