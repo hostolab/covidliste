@@ -28,7 +28,8 @@ class ReachableUsersService
         left outer join matches m on (m.user_id = u.id)
         left outer join campaigns c on (c.id = m.campaign_id and c.status != 2)
         WHERE
-          u.anonymized_at is NULL
+          u.confirmed_at IS NOT NULL
+          AND u.anonymized_at is NULL
           AND u.birthdate between (:min_date) and (:max_date)
           AND u.grid_i >= :min_i AND u.grid_i <= :max_i
           AND u.grid_j >= :min_j AND u.grid_j <= :max_j
