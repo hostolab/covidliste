@@ -11,27 +11,12 @@ class ReachableUsersService
     get_users_with_random(limit)
   end
 
-  def get_vaccination_center_grid_query
-    cells = @covering[:cells]
-    "(grid_i, grid_j) IN ((" + cells.map { |sub| sub.join(",") }.join("),(") + "))"
-  end
-
   def get_users_with_v2(limit = nil)
     sql = <<~SQL.tr("\n", " ").squish
-      with reachable_users as (
-        SELECT
-        u.id as user_id,
-        (SQRT((((:lat) - u.lat)*110.574)^2 + (((:lon) - u.lon)*111.320*COS(u.lat::float*3.14159/180))^2)) as distance
-        FROM users u
-        WHERE u.confirmed_at IS NOT NULL
-        AND u.anonymized_at is NULL
-        AND u.birthdate between (:min_date) and (:max_date)
-        AND (SQRT((((:lat) - u.lat)*110.574)^2 + (((:lon) - u.lon)*111.320*COS(u.lat::float*3.14159/180))^2)) < (:rayon_km)
-      )
-      ,users_stats as (
+      with users_stats as (
         select
         u.id as user_id,
-        (distance / 5.0)::int * 5 as distance_bucket,
+        ((SQRT((((:lat) - u.lat)*110.574)^2 + (((:lon) - u.lon)*111.320*COS(u.lat::float*3.14159/180))^2)) / 5.0)::int * 5 as distance_bucket,
         u.created_at::date as created_at,
         COUNT(m.id) filter (where vaccine_type = (:vaccine_type)) as vaccine_matches_count,
         COUNT(m.id) as total_matches_count,
@@ -39,10 +24,15 @@ class ReachableUsersService
         MAX(m.created_at)::date as last_match,
         SUM(case when m.refused_at is not null and vaccine_type = (:vaccine_type) then 1 else 0 end) as vaccine_refusals_count,
         SUM(case when m.refused_at is not null then 1 else 0 end) as total_refusals_count
-        from reachable_users r
-        inner join users u on (r.user_id = u.id)
-        left outer join matches m on (m.user_id = r.user_id)
+        from users u
+        left outer join matches m on (m.user_id = u.id)
         left outer join campaigns c on (c.id = m.campaign_id and c.status != 2)
+        WHERE
+          u.anonymized_at is NULL
+          AND u.birthdate between (:min_date) and (:max_date)
+          AND u.grid_i >= :min_i AND u.grid_i <= :max_i
+          AND u.grid_j >= :min_j AND u.grid_j <= :max_j
+          AND (SQRT((((:lat) - u.lat)*110.574)^2 + (((:lon) - u.lon)*111.320*COS(u.lat::float*3.14159/180))^2)) < (:rayon_km)
         group by 1,2,3
         having
          (
@@ -75,6 +65,10 @@ class ReachableUsersService
       lat: @vaccination_center.lat,
       lon: @vaccination_center.lon,
       rayon_km: @campaign.max_distance_in_meters / 1000,
+      min_i: @covering[:center_cell][:i] - @covering[:dist_cells],
+      max_i: @covering[:center_cell][:i] + @covering[:dist_cells],
+      min_j: @covering[:center_cell][:j] - @covering[:dist_cells],
+      max_j: @covering[:center_cell][:j] + @covering[:dist_cells],
       vaccine_type: @campaign.vaccine_type,
       limit: limit,
       last_match_allowed_at: Match::NO_MORE_THAN_ONE_MATCH_PER_PERIOD.ago
@@ -107,6 +101,8 @@ class ReachableUsersService
         WHERE u.confirmed_at IS NOT NULL
         AND u.anonymized_at is NULL
         AND u.birthdate between (:min_date) and (:max_date)
+        AND u.grid_i >= :min_i AND u.grid_i <= :max_i
+        AND u.grid_j >= :min_j AND u.grid_j <= :max_j
         AND (SQRT((((:lat) - u.lat)*110.574)^2 + (((:lon) - u.lon)*111.320*COS(u.lat::float*3.14159/180))^2)) < (:rayon_km)
         AND m.id IS NULL
     SQL
@@ -116,6 +112,10 @@ class ReachableUsersService
       lat: @vaccination_center.lat,
       lon: @vaccination_center.lon,
       rayon_km: @campaign.max_distance_in_meters / 1000,
+      min_i: @covering[:center_cell][:i] - @covering[:dist_cells],
+      max_i: @covering[:center_cell][:i] + @covering[:dist_cells],
+      min_j: @covering[:center_cell][:j] - @covering[:dist_cells],
+      max_j: @covering[:center_cell][:j] + @covering[:dist_cells],
       vaccine_type: @campaign.vaccine_type
     }
     query = ActiveRecord::Base.send(:sanitize_sql_array, [sql, params])
