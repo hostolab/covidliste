@@ -30,6 +30,7 @@ class MatchesController < ApplicationController
     if user.valid_attributes?(:statement, :toc)
       user.save(validate: false)
       @match.confirm!
+      SendConfirmedMatchEmailJob.perform_later(@match.id)
     else
       raise ActiveRecord::RecordInvalid.new(user)
     end
