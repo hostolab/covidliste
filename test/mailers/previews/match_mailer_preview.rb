@@ -10,4 +10,9 @@ class MatchMailerPreview < ActionMailer::Preview
     match = FactoryBot.create(:match, :confirmed)
     MatchMailer.with(match: match).send_anonymisation_notice.deliver_now
   end
+
+  def send_confirmed_match_details
+    match = FactoryBot.create(:match, :confirmed)
+    MatchMailer.with(match: match).send_confirmed_match_details.deliver_now
+  end
 end
