@@ -24,6 +24,7 @@
     <%= edit_matches_users_url(match_confirmation_token: @match_confirmation_token) %>
   </p>
 
+  <%= render "mailer/faq" %>
   <%= render "mailer/footer" %>
   <%= render "mailer/automatic_message" %>
 </div>

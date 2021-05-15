@@ -6,7 +6,7 @@ module Matches
     end
 
     def destroy
-      @match.user.destroy
+      @match.user.anonymize!
       redirect_to root_path, notice: "🎉 🎉 🎉 Votre compte a été supprimé de nos serveurs. Portez-vous bien."
     end
 
