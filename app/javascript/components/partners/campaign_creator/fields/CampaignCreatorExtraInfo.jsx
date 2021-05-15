@@ -5,8 +5,7 @@ import { CampaignCreatorField } from "components/partners/campaign_creator/field
 export const CampaignCreatorExtraInfo = () => {
   return (
     <CampaignCreatorField
-      label="Informations supplémentaires"
-      sublabel="Accès, modalités... Les volontaires ne verront ces informations qu’après avoir confirmé leur rendez-vous."
+      label="Détails d’accès"
       name="extraInfo"
     >
       <Field
@@ -15,6 +14,8 @@ export const CampaignCreatorExtraInfo = () => {
         id="extraInfo"
         className="form-control form-control-full-width"
         rows="2"
+        cols="100"
+        placeholder="Vous pouvez préciser les modalités d’accès au lieu de vaccination"
       />
     </CampaignCreatorField>
   );
