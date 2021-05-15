@@ -1,7 +1,7 @@
 <% user = match.user %>
 
 <div id="mobile-match-info">
-  <h2>Une dose de <%= match.campaign.vaccine_type.capitalize %> est disponible près de chez vous !</h2>
+  <h1>Une dose de vaccin est disponible près de chez vous !</h1>
 
   <p class="mt-4">
     <strong>
@@ -12,29 +12,21 @@
 
   <%= render 'match_details', match: @match %>
 
-  <p class="small">Trop loin de chez vous ?
-    <% if user.city && user.zipcode %>
-      D'après nos informations vous habitez à proximité de <%= user.city %> (<%= user.zipcode %>).
-    <% end %>
-    S'il y a une erreur dans votre adresse, refusez cette dose et modifiez votre adresse dans
-    votre <%= link_to "espace personnel", :new_user_session %>.
-  </p>
-
   <div class="alert alert-danger" role="alert">
     Ne réservez votre dose que si vous pouvez vous rendre au centre de vaccination
     entre <%= l(match.campaign.starts_at, format: '%Hh%M') %>
     et <%= l(match.campaign.ends_at, format: '%Hh%M') %> aujourd'hui.
   </div>
 
-  <div class="d-sm-none">
+  <div class="d-md-none">
     <button class="btn btn-primary col-sm-12 col-md-3 col-lg-3 btn-lg mb-3" id="interested-button">Je suis intéressé</button>
     <%= link_to 'Je refuse la dose', match_path(match_confirmation_token: match.match_confirmation_token), method: :delete, class: 'btn btn-link btn-lg col-sm-12 col-md-3 col-lg-3 mb-3', "data-confirm": "Souhaitez-vous vraiment refuser ce RDV ?" %>
   </div>
 
 </div>
 
-<div id="mobile-match-identity" class="d-none d-sm-block">
-  <a href="" id="mobile-match-back" class="d-sm-none">← Retour</a>
+<div id="mobile-match-identity" class="d-none d-md-block">
+  <a href="" id="mobile-match-back" class="d-none">← Retour</a>
   <%= render 'identity_form', match: @match %>
 </div>
 

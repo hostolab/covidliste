@@ -7,11 +7,12 @@ const toggleMobileMatchInformation = () => {
   if (matchInfo) {
     interestedButton.addEventListener("click", function (e) {
       matchInfo.classList.add("d-none");
-      matchIdentity.classList.remove("d-none", "d-sm-block");
+      matchIdentity.classList.remove("d-none", "d-md-block");
+      backButton.classList.remove("d-none");
     });
     backButton.addEventListener("click", function (e) {
       matchInfo.classList.remove("d-none");
-      matchIdentity.classList.add("d-none", "d-sm-block");
+      matchIdentity.classList.add("d-none", "d-md-block");
     });
   }
 };
