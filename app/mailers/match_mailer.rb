@@ -12,6 +12,17 @@ class MatchMailer < ApplicationMailer
     )
   end
 
+  def send_confirmed_match_details
+    @match = params[:match]
+    @vaccination_center = @match.vaccination_center
+    return if @match.user.blank?
+
+    mail(
+      to: @match.user.email,
+      subject: "Covidliste - Votre rendez-vous de vaccination est confirmé"
+    )
+  end
+
   def send_anonymisation_notice
     @match = params[:match]
     user_email = params[:user_email] || @match&.user&.email
