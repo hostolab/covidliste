@@ -1,4 +1,5 @@
 require "sidekiq/web"
+require "sidekiq/cron/web"
 
 Rails.application.routes.draw do
   namespace :admin do
@@ -122,6 +123,7 @@ Rails.application.routes.draw do
   ## Pages
   get "/carte" => "pages#carte", :as => :carte
   get "/donateurs" => "pages#donateurs", :as => :donateurs
+  get "/sponsors" => "pages#sponsors", :as => :sponsors
   get "/benevoles" => "pages#benevoles", :as => :benevoles
   get "/contact" => "pages#contact", :as => :contact
   get "/algorithme" => "pages#algorithme", :as => :algorithme

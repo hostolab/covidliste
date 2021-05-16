@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_04_200923) do
+ActiveRecord::Schema.define(version: 2021_05_08_091206) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -310,6 +310,38 @@ ActiveRecord::Schema.define(version: 2021_05_04_200923) do
     t.index ["geo_citycode"], name: "index_vaccination_centers_on_geo_citycode"
     t.index ["geo_context"], name: "index_vaccination_centers_on_geo_context"
     t.index ["zipcode"], name: "index_vaccination_centers_on_zipcode"
+  end
+
+  create_table "vmd_slots", force: :cascade do |t|
+    t.string "center_id"
+    t.string "name"
+    t.string "url"
+    t.float "latitude"
+    t.float "longitude"
+    t.string "city"
+    t.string "department"
+    t.string "address"
+    t.string "phone_number"
+    t.datetime "next_rdv"
+    t.string "platform"
+    t.string "center_type"
+    t.integer "slots_count"
+    t.datetime "last_updated_at"
+    t.integer "slots_0_days"
+    t.integer "slots_1_days"
+    t.integer "slots_2_days"
+    t.integer "slots_7_days"
+    t.integer "slots_28_days"
+    t.integer "slots_49_days"
+    t.boolean "astrazeneca"
+    t.boolean "pfizer"
+    t.boolean "moderna"
+    t.boolean "janssen"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["center_id", "last_updated_at"], name: "index_vmd_slots_on_center_id_and_last_updated_at"
+    t.index ["center_id"], name: "index_vmd_slots_on_center_id"
+    t.index ["department"], name: "index_vmd_slots_on_department"
   end
 
   add_foreign_key "campaign_batches", "campaigns"

@@ -87,13 +87,15 @@ const createConfirmModal = (element) => {
         return true;
       };
 
+      // Close the modal first otherwise it conflicts with browser form
+      // validations in chrome
+      closeModal();
+
       // Click the link again
       element.click();
 
       // Restore the confirm behavior
       Rails.confirm = old_confirm;
-
-      closeModal();
     });
 
   modal.querySelector("[data-behavior='commit']").focus();
