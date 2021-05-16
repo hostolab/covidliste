@@ -58,7 +58,7 @@ const _CampaignCreator = ({
               <p>
                 Les volontaires verront les informations suivantes uniquement
                 <strong> après avoir confirmé leur rendez-vous.</strong> Il leur
-                est déjà demandé déjà d’apporter leur carte vitale et une pièce
+                est déjà demandé d’apporter leur carte vitale et une pièce
                 d’identité.
               </p>
               <CampaignCreatorExtraInfo />
