@@ -18,6 +18,7 @@ class Campaign < ApplicationRecord
   validates :min_age, numericality: {greater_than: 17}
   validates :max_age, numericality: {greater_than: 17}
   validates :max_distance_in_meters, numericality: {greater_than: 0, less_than_or_equal_to: MAX_DISTANCE_IN_KM * 1000}
+  validates :extra_info, no_url: true, no_phone_number: true
   validate :min_age_lesser_than_max_age
   validate :starts_at_lesser_than_ends_at
 
