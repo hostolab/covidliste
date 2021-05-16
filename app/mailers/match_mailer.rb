@@ -14,7 +14,6 @@ class MatchMailer < ApplicationMailer
 
   def send_confirmed_match_details
     @match = params[:match]
-    @vaccination_center = @match.vaccination_center
     return if @match.user.blank?
 
     mail(

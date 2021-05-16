@@ -10,12 +10,13 @@
   <p>
     <strong>Informations et accès</strong>
     <ul>
-      <li>Adresse : <%= @vaccination_center.address %></li>
+      <li>Adresse : <%= @match.vaccination_center.address %></li>
       <li>Créneau horaire : <%= l(@match.campaign.starts_at, format: '%A %e %B %Y').capitalize %> entre <%= l(@match.campaign.starts_at, format: '%Hh%M') %>
       et <%= l(@match.campaign.ends_at, format: '%Hh%M') %> </li>
       <% if @match.campaign.extra_info.present? %>
         <li>Détails d’accès : <%= @match.campaign.extra_info %></li>
       <% end %>
+      <!-- numéro de téléphone facultatif -->
     </ul>
   </p>
 
