@@ -47,7 +47,7 @@ class User < ApplicationRecord
   scope :between_age, ->(min, max) { where(birthdate: max.years.ago..min.years.ago) }
   scope :with_roles, -> { joins(:roles) }
 
-  PASSWORD_HINT = "#{Devise.password_length.min} caractères minimum. Idéalement plus long en mélangeant des minuscules, des majuscules et des chiffres."
+  PASSWORD_HINT = "Le mot de passe choisi doit être robuste ou très robuste pour pouvoir compléter votre inscription. Il doit notamment comporter au moins 8 caractères avec un mélange de chiffres et de lettres."
 
   def randomize_lat_lon
     return if lat.nil? || lon.nil?
