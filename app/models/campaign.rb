@@ -20,6 +20,10 @@ class Campaign < ApplicationRecord
   validates :max_distance_in_meters, numericality: {greater_than: 0, less_than_or_equal_to: MAX_DISTANCE_IN_KM * 1000}
   validate :min_age_lesser_than_max_age
   validate :starts_at_lesser_than_ends_at
+  validates :starts_at, presence: true,
+                        datetime: { earlier_than: proc { |campaign| campaign.ends_at } }
+  validates :ends_at, presence: true,
+                      datetime: { earlier_than: proc { |campaign| campaign.starts_at } }
 
   before_create :set_parameters
   after_create_commit :notify_to_slack
