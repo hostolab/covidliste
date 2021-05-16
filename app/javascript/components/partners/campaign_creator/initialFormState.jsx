@@ -1,28 +1,28 @@
 import dayjs from "dayjs";
 import { vaccineTypes } from "./vaccineTypes";
 
-export function initialFormState(lastCampaign) {
+export function initialFormState(campaignDefaults) {
   const ceilToFiveMinutes = (date) =>
     date.minute(Math.ceil(date.minute() / 5) * 5);
 
   const startsAt = ceilToFiveMinutes(
-    lastCampaign.startsAt
-      ? dayjs(lastCampaign.startsAt)
+    campaignDefaults.startsAt
+      ? dayjs(campaignDefaults.startsAt)
       : dayjs().add(30, "minutes")
   );
 
   const endsAt = ceilToFiveMinutes(
-    lastCampaign.endsAt
-      ? dayjs(lastCampaign.endsAt)
+    campaignDefaults.endsAt
+      ? dayjs(campaignDefaults.endsAt)
       : dayjs().add(4, "hours")
   );
 
   return {
-    availableDoses: lastCampaign.availableDoses || 16,
-    vaccineType: lastCampaign.vaccineType || vaccineTypes[0].value,
-    minAge: lastCampaign.minAge || 55,
-    maxAge: lastCampaign.maxAge || 130,
-    maxDistanceInMeters: lastCampaign.maxDistanceInMeters || 5000,
+    availableDoses: campaignDefaults.availableDoses || 16,
+    vaccineType: campaignDefaults.vaccineType || vaccineTypes[0].value,
+    minAge: campaignDefaults.minAge || 55,
+    maxAge: campaignDefaults.maxAge || 130,
+    maxDistanceInMeters: campaignDefaults.maxDistanceInMeters || 5000,
     startsAt,
     endsAt,
     extraInfo: "",
