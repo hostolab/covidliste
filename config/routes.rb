@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
       authenticate :user, lambda { |u| u.has_role?(:supply_member) } do
         # Supply
+        resources :campaigns, only: [:index]
         resources :vaccination_centers do
           authenticate :user, lambda { |u| u.has_role?(:supply_admin) } do
             # Supply Admin
@@ -21,8 +22,6 @@ Rails.application.routes.draw do
 
       authenticate :user, lambda { |u| u.has_role?(:supply_admin) } do
         # Supply admin
-        resources :campaigns, only: [:index]
-
         get "/stats" => "stats#stats"
         post "/stats" => "stats#stats"
       end

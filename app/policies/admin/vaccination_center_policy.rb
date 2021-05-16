@@ -21,8 +21,8 @@ module Admin
     def add_partner?
       user.has_role?(:supply_admin)
     end
-    alias_method :validate?, :index?
-    alias_method :enable?, :index?
-    alias_method :disable?, :index?
+    alias_method :validate?, :add_partner?
+    alias_method :enable?, :add_partner?
+    alias_method :disable?, :add_partner?
   end
 end
