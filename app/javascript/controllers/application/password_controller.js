@@ -27,6 +27,8 @@ export default class extends Controller {
     }
     this.passwordCheckTarget.innerHTML = message;
     this.passwordCheckTarget.style.color = color;
-    this.passwordTarget.setCustomValidity("Veuillez choisir un mot de passe robuste ou très robuste")
+    this.passwordTarget.setCustomValidity(
+      "Veuillez choisir un mot de passe robuste ou très robuste"
+    );
   }
 }
