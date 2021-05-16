@@ -15,7 +15,7 @@ export const CampaignCreatorExtraInfo = () => {
         className="form-control form-control-full-width"
         rows="2"
         cols="100"
-        placeholder="Vous pouvez préciser les modalités d’accès au lieu de vaccination"
+        placeholder="Vous pouvez préciser les modalités d’accès au lieu de vaccination."
       />
     </CampaignCreatorField>
   );
