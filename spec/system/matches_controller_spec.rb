@@ -15,8 +15,8 @@ RSpec.describe MatchesController, type: :system do
     context "with a valid match" do
       it "confirms the match only when all inputs are filled" do
         subject
-        expect(page).to have_text("Une dose est disponible")
-        expect(page).to have_text("Je réserve la dose")
+        expect(page).to have_text("est disponible près de chez vous")
+        expect(page).to have_text("Je confirme le RDV")
         expect(page).to have_text("Distance du centre de vaccination")
         expect(page).to have_field("user_firstname", with: user.firstname)
         expect(page).to have_field("user_lastname", with: user.lastname)
@@ -25,23 +25,23 @@ RSpec.describe MatchesController, type: :system do
         fill_in :user_lastname, with: ""
         check :confirm_age
         check :confirm_name
-        click_on("Je réserve la dose")
+        click_on("Je confirme le RDV")
         expect(page).to have_text("Vous devez renseigner votre identité")
 
         fill_in :user_firstname, with: ""
         fill_in :user_lastname, with: user.lastname
         check :confirm_age
         check :confirm_name
-        click_on("Je réserve la dose")
-        expect(page).to have_text("Vous devez renseigner votre identité")
+        click_on("Je confirme le RDV")
+        expect(page).to have_text("Vous devez renseigner votre")
 
         fill_in :user_firstname, with: user.firstname
         fill_in :user_lastname, with: user.lastname
         check :confirm_age
         check :confirm_name
-        click_on("Je réserve la dose")
-        expect(page).not_to have_text("Vous devez renseigner votre identité")
-        expect(page).to have_text("Votre disponibilité est confirmée")
+        click_on("Je confirme le RDV")
+        expect(page).not_to have_text("Vous devez renseigner votre")
+        expect(page).to have_text("Votre rendez-vous est confirmé")
         expect(page).to have_text("Adresse du centre de vaccination")
         expect(page).to have_text(center.address)
         match.reload
@@ -55,7 +55,7 @@ RSpec.describe MatchesController, type: :system do
       end
       it "it says dispo confirmée" do
         subject
-        expect(page).to have_text("Votre disponibilité est confirmée")
+        expect(page).to have_text("Votre rendez-vous est confirmé")
         expect(page).to have_text("Adresse du centre de vaccination")
         expect(page).to have_text(center.address)
       end
@@ -99,7 +99,7 @@ RSpec.describe MatchesController, type: :system do
         visit match_path(match_confirmation_token)
 
         expect(page).to have_text("Mince 😔, toutes les doses disponibles ont déjà été réservées")
-        expect(page).not_to have_text("Je réserve la dose")
+        expect(page).not_to have_text("Je confirme le RDV")
       end
     end
 
@@ -123,7 +123,7 @@ RSpec.describe MatchesController, type: :system do
         fill_in :user_lastname, with: generate(:lastname)
         check :confirm_age
         check :confirm_name
-        click_on("Je réserve la dose")
+        click_on("Je confirme le RDV")
         expect(page).to have_text("Mince 😔, toutes les doses disponibles ont déjà été réservées")
         Match.where(confirmation_failed_reason: "Match::AlreadyConfirmedError").count == already_confirmed_count + 1
       end
