@@ -4,10 +4,7 @@ import { CampaignCreatorField } from "components/partners/campaign_creator/field
 
 export const CampaignCreatorExtraInfo = () => {
   return (
-    <CampaignCreatorField
-      label="Détails d’accès"
-      name="extraInfo"
-    >
+    <CampaignCreatorField label="Détails d’accès" name="extraInfo">
       <Field
         as="textarea"
         name="extraInfo"
