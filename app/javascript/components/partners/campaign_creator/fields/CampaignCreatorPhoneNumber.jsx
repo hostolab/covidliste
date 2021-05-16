@@ -11,7 +11,7 @@ export const CampaignCreatorPhoneNumber = ({
   return (
     <>
       <CampaignCreatorField
-        label="Numéro de téléphone à communiquer aux volontaires (facultatif)"
+        label="Numéro de téléphone (facultatif)"
         name={fieldName}
       >
         <CampaignCreatorInput type="tel" name={fieldName} id={fieldName} />
