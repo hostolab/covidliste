@@ -29,12 +29,8 @@ class SendMatchSmsJob < ApplicationJob
     from = "Covidliste"
     to = match.user.phone_number
     body = "Bonne nouvelle, une dose de vaccin vient de se libérer près de chez vous. Réservez-la vite sur : #{cta_url(match)}"
-    if provider == "twilio"
-      return send_with_twilio(from, to, body)
-    end
-    if provider == "sendinblue"
-      return send_with_sendinblue(from, to, body)
-    end
+    return send_with_twilio(from, to, body) if provider == "twilio"
+    return send_with_sendinblue(from, to, body) if provider == "sendinblue"
     raise ArgumentError, "Unknown provider", caller
   end
 
