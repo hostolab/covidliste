@@ -9,14 +9,14 @@ export default class extends Controller {
     if (this._isServiceWorkerSupported()) {
       navigator.serviceWorker
         .register(this.pathValue)
-        .then((reg) => console.log('Service Worker Registered', reg))
+        .then((reg) => console.log("Service Worker Registered", reg))
         .catch((error) =>
-          console.error('Service worker registration failed: ' + error
-        ));
+          console.error("Service worker registration failed: " + error)
+        );
     }
   }
 
   _isServiceWorkerSupported() {
-    return 'caches' in window && 'serviceWorker' in navigator;
+    return "caches" in window && "serviceWorker" in navigator;
   }
 }
