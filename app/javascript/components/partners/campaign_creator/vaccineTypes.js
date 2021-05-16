@@ -1,10 +1,5 @@
 export const vaccineTypes = [
   {
-    value: "astrazeneca",
-    label: "AstraZeneca",
-    minimumMinAge: 55,
-  },
-  {
     value: "pfizer",
     label: "Pfizer",
   },
@@ -15,6 +10,11 @@ export const vaccineTypes = [
   {
     value: "janssen",
     label: "Janssen / Johnson & Johnson",
+    minimumMinAge: 55,
+  },
+  {
+    value: "astrazeneca",
+    label: "AstraZeneca",
     minimumMinAge: 55,
   },
 ];
