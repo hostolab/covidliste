@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_04_200923) do
+ActiveRecord::Schema.define(version: 2021_05_15_232244) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -123,6 +123,7 @@ ActiveRecord::Schema.define(version: 2021_05_04_200923) do
     t.integer "status", default: 0
     t.datetime "canceled_at"
     t.string "algo_version"
+    t.jsonb "parameters"
     t.index ["partner_id"], name: "index_campaigns_on_partner_id"
     t.index ["status"], name: "index_campaigns_on_status"
     t.index ["vaccination_center_id"], name: "index_campaigns_on_vaccination_center_id"
@@ -167,6 +168,7 @@ ActiveRecord::Schema.define(version: 2021_05_04_200923) do
     t.integer "distance_in_meters"
     t.string "sms_provider"
     t.string "sms_provider_id"
+    t.datetime "confirmed_mail_sent_at"
     t.index ["campaign_batch_id"], name: "index_matches_on_campaign_batch_id"
     t.index ["campaign_id"], name: "index_matches_on_campaign_id"
     t.index ["confirmation_failed_reason"], name: "index_matches_on_confirmation_failed_reason"
@@ -260,6 +262,8 @@ ActiveRecord::Schema.define(version: 2021_05_04_200923) do
     t.datetime "statement_accepted_at"
     t.datetime "toc_accepted_at"
     t.string "email_domain"
+    t.integer "grid_i"
+    t.integer "grid_j"
     t.index ["anonymized_at"], name: "index_users_on_anonymized_at"
     t.index ["birthdate"], name: "index_users_on_birthdate"
     t.index ["city"], name: "index_users_on_city"
@@ -268,6 +272,8 @@ ActiveRecord::Schema.define(version: 2021_05_04_200923) do
     t.index ["email_bidx"], name: "index_users_on_email_bidx", unique: true
     t.index ["geo_citycode"], name: "index_users_on_geo_citycode"
     t.index ["geo_context"], name: "index_users_on_geo_context"
+    t.index ["grid_i"], name: "index_users_on_grid_i"
+    t.index ["grid_j"], name: "index_users_on_grid_j"
     t.index ["zipcode"], name: "index_users_on_zipcode"
   end
 
@@ -306,6 +312,38 @@ ActiveRecord::Schema.define(version: 2021_05_04_200923) do
     t.index ["geo_citycode"], name: "index_vaccination_centers_on_geo_citycode"
     t.index ["geo_context"], name: "index_vaccination_centers_on_geo_context"
     t.index ["zipcode"], name: "index_vaccination_centers_on_zipcode"
+  end
+
+  create_table "vmd_slots", force: :cascade do |t|
+    t.string "center_id"
+    t.string "name"
+    t.string "url"
+    t.float "latitude"
+    t.float "longitude"
+    t.string "city"
+    t.string "department"
+    t.string "address"
+    t.string "phone_number"
+    t.datetime "next_rdv"
+    t.string "platform"
+    t.string "center_type"
+    t.integer "slots_count"
+    t.datetime "last_updated_at"
+    t.integer "slots_0_days"
+    t.integer "slots_1_days"
+    t.integer "slots_2_days"
+    t.integer "slots_7_days"
+    t.integer "slots_28_days"
+    t.integer "slots_49_days"
+    t.boolean "astrazeneca"
+    t.boolean "pfizer"
+    t.boolean "moderna"
+    t.boolean "janssen"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["center_id", "last_updated_at"], name: "index_vmd_slots_on_center_id_and_last_updated_at"
+    t.index ["center_id"], name: "index_vmd_slots_on_center_id"
+    t.index ["department"], name: "index_vmd_slots_on_department"
   end
 
   add_foreign_key "campaign_batches", "campaigns"

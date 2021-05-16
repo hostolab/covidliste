@@ -64,7 +64,7 @@
           </div>
           <p class="text-justify">
             Covidliste est une initiative bénévole et citoyenne permettant la mise en relation entre des volontaires à
-            la vaccination et les professionnels de santé qui disposent de vaccin disponibles.
+            la vaccination et des professionnels de santé qui disposent de doses de vaccin.
           </p>
           <p class="text-justify mb-0">
             En quelques semaines, Covidliste est devenue
@@ -84,7 +84,7 @@
             <div class="d-flex align-items-start">
               <%= image_tag "home/icon-check-circle.svg", loading: "lazy", height: 32, width: 32, alt: "solution 1", class: "d-none d-lg-block mr-2" %>
               <p class="mb-0">
-                <strong>Simplifier</strong> la gestion des listes d’attentes des lieux de vaccination.
+                <strong>Simplifier</strong> la gestion des listes d’attente des lieux de vaccination.
               </p>
             </div>
           </div>
@@ -116,7 +116,7 @@
             <%= image_tag "home/icon-check-circle.svg", loading: "lazy", height: 32, width: 32, alt: "solution 2", class: "d-none d-lg-block mr-2" %>
             <p class="mb-0">
               Les <strong>inscrits Covidliste sont d’abord notifiés par email</strong>. S’il reste des doses non
-              attribuées en fin de journée, nous recontacterons par SMS tous les inscrits les plus proches.
+              attribuées en fin de journée, nous recontactons par SMS tous les inscrits les plus proches.
             </p>
           </div>
           <div class="d-flex align-items-center mb-4 text-justify">
@@ -135,7 +135,7 @@
         </div>
         <div class="col-12 col-lg-6 order-0 order-lg-1 d-flex align-items-center">
           <div class="ml-lg-5">
-            <%= image_tag "home/comment-ca-marche.png", srcset: {"home/comment-ca-marche-2x.png" => "2x"}, alt: "Interface pour les professionels de santé", class: "shadow rounded img-fluid", loading: "lazy" %>
+            <%= image_tag "home/comment-ca-marche.png", srcset: {"home/comment-ca-marche-2x.png" => "2x"}, alt: "Interface pour les professionnels de santé", class: "shadow rounded img-fluid", loading: "lazy" %>
           </div>
         </div>
       </div>
@@ -143,7 +143,7 @@
   </div>
 </div>
 
-<%= render partial: "users/shared/box_cta", locals: {title: "Vous êtes professionels de santé ?", text: "Simplifier la gestion de votre liste d’attente.<br>Commencer dès maintenant à gagner du temps.", cta_text: "Trouver des volontaires à la vaccination", cta_href: partenaires_inscription_path, cta_target: "_self"} %>
+<%= render partial: "users/shared/box_cta", locals: {title: "Vous êtes professionnel de santé ?", text: "Simplifiez la gestion de votre liste d’attente.<br>Commencez dès maintenant à gagner du temps.", cta_text: "Trouver des volontaires à la vaccination", cta_href: partenaires_inscription_path, cta_target: "_self"} %>
 
 <div class="bg-white">
   <div class="container py-5 my-5">
@@ -160,7 +160,8 @@
           </div>
           <p class="mb-0 line-height-lg text-justify">
             <strong>Covidliste se veut être un soutien et complémentaire à
-              la <%= link_to "stratégie vaccinale", "https://solidarites-sante.gouv.fr/grands-dossiers/vaccin-covid-19/" %>.</strong> Les stocks de vaccin étant mieux et plus vite écoulés, l’immunité collective pourra être
+              la <%= link_to "stratégie vaccinale", "https://solidarites-sante.gouv.fr/grands-dossiers/vaccin-covid-19/", target: "_blank" %>
+              .</strong> Les stocks de vaccin étant mieux et plus vite écoulés, l’immunité collective pourra être
             atteinte plus rapidement.
           </p>
         </div>
@@ -180,13 +181,14 @@
             Covidliste ?
           </div>
           <p class="mb-0 text-justify">
-            <%= link_to "Martin Daniel", "https://twitter.com/martindaniel4", target: "_blank", rel: "noopener", class: "text-secondary font-weight-bold text-decoration-underline" %>
+            <%= link_to "Martin Daniel", "https://twitter.com/martindaniel4", target: "_blank", rel: "noopener", class: "text-secondary font-weight-bold text-decoration-underline" %>,
             data scientist
-            et <%= link_to "Mathieu Ripert", "https://twitter.com/mathieurip", target: "_blank", rel: "noopener", class: "text-secondary font-weight-bold text-decoration-underline" %>
+            et <%= link_to "Mathieu Ripert", "https://twitter.com/mathieurip", target: "_blank", rel: "noopener", class: "text-secondary font-weight-bold text-decoration-underline" %>,
             ingénieur, en collaboration
-            avec <%= link_to "Dr Antoine Roux", "https://www.paristransplantgroup.org/antoine-roux.html", target: "_blank", rel: "noopener", class: "text-secondary font-weight-bold text-decoration-underline" %>,
+            avec <%= link_to "Dr Antoine Roux", "https://www.paristransplantgroup.org/antoine-roux.html", target: "_blank", rel: "noopener", class: "text-secondary font-weight-bold text-decoration-underline" %>
+            ,
             pneumologue, ont lancé Covidliste le 30 mars 2021. Depuis, ils ont été rejoints par plus d’une centaine de
-            bénévoles, développeurs informatiques, communicants, spécialistes en droit, et designers pour offrir leurs
+            bénévoles, développeurs informatiques, communicants, spécialistes en droit et designers pour offrir leurs
             compétences au service du projet.
             <br>
             <br>

@@ -1,8 +1,8 @@
 class Campaign < ApplicationRecord
   MAX_DOSES = 200
   MAX_DISTANCE_IN_KM = 50
-  MAX_SMS_BUDGET_BY_DOSE = 20
-  MAX_EMAIL_BUDGET_BY_DOSE = 1000
+  MAX_SMS_BUDGET_BY_DOSE = 5
+  MAX_EMAIL_BUDGET_BY_DOSE = 300
   OVERBOOKING_FACTOR = 40
   OVERBOOKING_FACTOR_V3 = 20
 
@@ -40,6 +40,7 @@ class Campaign < ApplicationRecord
   end
 
   def sms_budget_remaining
+    return 0 if vaccine_type == Vaccine::Brands::ASTRAZENECA
     (available_doses * MAX_SMS_BUDGET_BY_DOSE) - matches.with_sms.count
   end
 

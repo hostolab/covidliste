@@ -33,7 +33,7 @@
         ></div>
       <% else %>
         <div class="alert alert-danger mb-4 small" role="alert" style="position: inherit">
-          Votre centre n'est pas correctement géocodé. Veuillez nous contacter. 
+          Votre lieu de vaccination n'est pas correctement localisé. Veuillez nous contacter.
         </div>
       <% end %>
     </div>
@@ -49,33 +49,54 @@
     </h5>
 
     <div class="table-responsive">
-      <table class="table table-bordered table-sm">
+      <table class="table table-bordered table-sm text-center">
         <thead class="thead-light">
           <tr>
-            <th> # </th>
-            <th> Statut </th>
-            <th> Volontaires confirmés </th>
-            <th> Doses disponibles </th>
-            <th> Vaccin </th>
-            <th> Date et heure </th>
-            <th> Âge </th>
-            <th> Distance </th>
+            <th scope="col"> # </th>
+            <th scope="col"> Statut </th>
+            <th scope="col"> Lancée le </th>
+            <th scope="col"> Volontaires confirmés </th>
+            <th scope="col"> Doses </th>
+            <th scope="col"> Rendez-vous </th>
+            <th scope="col"> Critères </th>
+            <th scope="col"> Actions </th>
           </tr>
         </thead>
 
         <tbody>
-        <% @vaccination_center.campaigns.order(id: :desc).each do |campaign| %>
-          <tr>
-            <th> <%= link_to campaign.id, partners_campaign_path(campaign) %> </th>
-            <td> <%= french_status(campaign) %> </td>
-            <td> <%= campaign.matches.confirmed.size %> </td>
-            <td> <%= campaign.available_doses %> </td>
-            <td> <%= campaign.vaccine_type.capitalize %> </td>
-            <td> <%= l campaign.starts_at %> </td>
-            <td> <%= campaign.min_age %>-<%= campaign.max_age %> ans</td>
-            <td> <%= campaign.max_distance_in_meters/1000 %> km</td>
-          </tr>
-        <% end %>
+          <% @vaccination_center.campaigns.order(id: :desc).each do |campaign| %>
+            <tr>
+              <td class="font-weight-bold"> <%= link_to campaign.id, partners_campaign_path(campaign) %> </td>
+              <td>
+                <%= link_to (content_tag :span, french_status(campaign), class: "badge badge-sm #{status_badge(campaign)}"), partners_campaign_path(campaign) %>
+              </td>
+              <td class=" small">
+                <%= l campaign.created_at %><br />
+                <span class="text-muted">par <%= campaign.partner.name %></span>
+              </td>
+              <td> <%= campaign.matches.confirmed.size %> </td>
+              <td>
+                <%= campaign.available_doses %>
+                <small class="text-muted"><%= campaign.available_doses > 1 ? "doses" : "dose" %></small><br />
+                <%= campaign.vaccine_type.capitalize %>
+              </td>
+              <td>
+                <%= l(campaign.starts_at, format: '%e %B %Y') %><br />
+                <small class="text-muted">entre</small>
+                <%= l(campaign.starts_at, format: '%Hh%M') %>
+                <small class="text-muted">et</small>
+                <%= l(campaign.ends_at, format: '%Hh%M') %>
+              </td>
+              <td>
+                <%= campaign.min_age %>-<%= campaign.max_age %> <small class="text-muted">ans</small><br />
+                <%= campaign.max_distance_in_meters/1000 %> <small class="text-muted">km</small>
+              </td>
+
+              <td>
+                <%= link_to "Voir la campagne", partners_campaign_path(campaign), class: "btn btn-primary btn-sm" %>
+              </td>
+            </tr>
+          <% end %>
         </tbody>
       </table>
     </div>

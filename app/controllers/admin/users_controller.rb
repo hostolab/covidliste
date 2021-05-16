@@ -22,7 +22,7 @@ module Admin
     end
 
     def destroy
-      @user.destroy
+      @user.anonymize!
 
       respond_to do |format|
         format.html { redirect_to admin_users_url, notice: "l'utilisateur a été supprimé." }
