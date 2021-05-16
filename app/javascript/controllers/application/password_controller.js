@@ -28,7 +28,7 @@ export default class extends Controller {
     this.passwordCheckTarget.innerHTML = message;
     this.passwordCheckTarget.style.color = color;
 
-    const isValid = password.length >= 8 && color === "green"
+    const isValid = password.length >= 8 && color === "green";
     this.passwordTarget.setCustomValidity(
       isValid ? "" : "Veuillez choisir un mot de passe robuste ou très robuste"
     );
