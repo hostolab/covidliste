@@ -1,4 +1,4 @@
-<h2>Votre disponibilité est confirmée !</h2>
+<h1>Votre rendez-vous est confirmé !</h1>
 
 <p class="mt-4">
   Nous sommes heureux de vous permettre d’accéder à la vaccination. <br>
@@ -7,6 +7,12 @@
 </p>
 
 <%= render 'match_details', match: @match %>
+
+<p>
+  <strong>Date de naissance et nom seront vérifiés</strong>, si ces informations sont inexactes, le praticien ne pourra pas vous vacciner.
+  <br>
+  Munissez-vous d'une pièce d'identité et de votre carte vitale.
+</p>
 
 <% if match.campaign.extra_info.present? %>
   <div>
