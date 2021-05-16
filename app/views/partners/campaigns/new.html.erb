@@ -6,7 +6,7 @@
   <%= render "components/page_title", title: "Lancer une campagne", icon_name: "paper-plane" %>
   <%= react_component("CampaignCreator", props: {
     vaccination_center: @vaccination_center,
-    initial_campaign: @campaign,
+    last_campaign: @last_campaign,
     flow_image_path: asset_path('campaign_creator_flow.png'),
     running_campaigns_paths: @vaccination_center.campaigns.running.map { |running_campaign| partners_campaign_path(running_campaign) }
   }, prerender: false) %>

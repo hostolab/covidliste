@@ -17,7 +17,7 @@ import { initialFormState } from "components/partners/campaign_creator/initialFo
 import { CampaignCreatorAlreadyRunningCampaignWarning } from "components/partners/campaign_creator/CampaignCreatorAlreadyRunningCampaignWarning";
 
 const _CampaignCreator = ({
-  initialCampaign,
+  lastCampaign,
   vaccinationCenter,
   flowImagePath,
   runningCampaignsPaths,
@@ -30,7 +30,7 @@ const _CampaignCreator = ({
         runningCampaignsPaths={runningCampaignsPaths}
       />
       <Formik
-        initialValues={initialFormState(initialCampaign)}
+        initialValues={initialFormState(lastCampaign)}
         validate={validateCampaignCreatorForm}
         onSubmit={createCampaign.mutate}
         validateOnMount

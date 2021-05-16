@@ -15,7 +15,7 @@ module Partners
     end
 
     def new
-      @campaign = @vaccination_center.build_campaign_smart_defaults
+      @last_campaign = @vaccination_center.build_campaign_smart_defaults
       render "new"
     end
 
