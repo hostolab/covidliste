@@ -1,0 +1,6 @@
+en:
+  errors:
+    offline:
+      show:
+        title: Whoops!
+        headline: It appears you're offline. Make sure you're connected to the Internet and try again!

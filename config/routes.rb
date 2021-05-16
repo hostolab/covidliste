@@ -2,6 +2,15 @@ require "sidekiq/web"
 require "sidekiq/cron/web"
 
 Rails.application.routes.draw do
+  scope module: :pwa do
+    resource :service_worker, only: :show
+    resource :manifest, only: :show
+  end
+
+  scope module: :errors do
+    resource :offline, controller: :offline, only: :show
+  end
+
   namespace :admin do
     authenticate :user, lambda { |u| u.has_role?(:volunteer) } do
       get "/" => "home#index"

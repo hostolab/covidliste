@@ -1,0 +1,6 @@
+fr:
+  errors:
+    offline:
+      show:
+        title: Aïe !
+        headline: Il semblerait que vous êtes hors ligne. Vérifiez votre connexion internet et réessayez !
