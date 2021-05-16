@@ -7,20 +7,20 @@ module Pwa
     before_action :set_icons
 
     ICON_SIZES = [48, 72, 96, 128, 192, 384, 512].freeze
-    BACKGROUND_COLOR = '#fff'
-    THEME_COLOR = '#2c1b2d'
+    BACKGROUND_COLOR = "#fff"
+    THEME_COLOR = "#2c1b2d"
 
     def show
-      render json: { short_name: Rails.application.class.module_parent.name,
-                     name: Rails.application.class.module_parent.name,
-                     icons: @icons,
-                     start_url: root_path(source: 'pwa'),
-                     background_color: BACKGROUND_COLOR,
-                     display: 'standalone',
-                     scope: root_path,
-                     theme_color: THEME_COLOR,
-                     description: Rails.application.class.module_parent.name,
-                     screenshots: screenshots }
+      render json: {short_name: Rails.application.class.module_parent.name,
+                    name: Rails.application.class.module_parent.name,
+                    icons: @icons,
+                    start_url: root_path(source: "pwa"),
+                    background_color: BACKGROUND_COLOR,
+                    display: "standalone",
+                    scope: root_path,
+                    theme_color: THEME_COLOR,
+                    description: Rails.application.class.module_parent.name,
+                    screenshots: screenshots}
     end
 
     private
@@ -28,9 +28,9 @@ module Pwa
     def screenshots
       [
         {
-          src: '/pwa/screenshot.png',
+          src: "/pwa/screenshot.png",
           type: Mime[:png].to_s,
-          sizes: '1920x1326'
+          sizes: "1920x1326"
         }
       ]
     end
@@ -41,7 +41,7 @@ module Pwa
           src: "/pwa/maskable_icon_x#{size}.png",
           type: Mime[:png].to_s,
           sizes: "#{size}x#{size}",
-          purpose: 'any maskable'
+          purpose: "any maskable"
         }
       end
     end

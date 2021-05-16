@@ -2,7 +2,8 @@
 
 module Errors
   class OfflineController < ApplicationController
-    def show; end
+    def show
+    end
 
     private
 

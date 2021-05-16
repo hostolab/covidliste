@@ -5,7 +5,7 @@ describe Pwa::ManifestsController, type: :controller do
     File.read(Rails.root.join(__dir__, "manifest.webmanifest"))
   end
 
-  describe '#show' do
+  describe "#show" do
     before { get :show, format: :webmanifest }
 
     it { expect(response).to have_http_status :ok }
