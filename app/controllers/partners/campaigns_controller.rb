@@ -79,6 +79,7 @@ module Partners
       params.require(:campaign).permit(
         :available_doses,
         :extra_info,
+        :phone_number,
         :max_distance_in_meters,
         :min_age,
         :max_age,

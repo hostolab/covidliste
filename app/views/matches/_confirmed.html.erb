@@ -22,3 +22,12 @@
     </p>
   </div>
 <% end %>
+
+<% if match.campaign.phone_number.present? %>
+  <div>
+    <p>
+      <i class="fas fa-phone"></i>
+      <%= match.campaign.phone_number %>
+    </p>
+  </div>
+<% end %>

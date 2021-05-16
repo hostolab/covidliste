@@ -10,6 +10,7 @@ import { CampaignCreatorAgeRange } from "components/partners/campaign_creator/fi
 import { CampaignCreatorMaxDistance } from "components/partners/campaign_creator/fields/CampaignCreatorMaxDistance";
 import { CampaignCreatorExtraInfo } from "components/partners/campaign_creator/fields/CampaignCreatorExtraInfo";
 import { CampaignCreatorVaccineType } from "components/partners/campaign_creator/fields/CampaignCreatorVaccineType";
+import { CampaignCreatorPhoneNumber } from "components/partners/campaign_creator/fields/CampaignCreatorPhoneNumber";
 import { GenericError } from "components/partners/GenericError";
 import { CampaignCreatorAvailableDoses } from "components/partners/campaign_creator/fields/CampaignCreatorAvailableDoses";
 import { CampaignCreatorChecks } from "components/partners/campaign_creator/fields/CampaignCreatorChecks";
@@ -62,7 +63,9 @@ const _CampaignCreator = ({
                 d’identité.
               </p>
               <CampaignCreatorExtraInfo />
-              {/*ajouter la possibilité de faire apparaître son téléphone*/}
+              <CampaignCreatorPhoneNumber
+                vaccinationCenterPhoneNumber={vaccinationCenter.phoneNumber}
+              />
 
               <h2>
                 <i className="fas fa-bullhorn"></i> Lancer la campagne

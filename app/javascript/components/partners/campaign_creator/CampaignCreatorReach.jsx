@@ -11,6 +11,7 @@ export const CampaignCreatorReach = ({ vaccinationCenter, className }) => {
     {
       campaign: omit(debouncedValues, [
         "extraInfo",
+        "phoneNumber",
         "checkDoses",
         "checkNotify",
       ]),

@@ -132,7 +132,7 @@ class VaccinationCenter < ApplicationRecord
   def build_campaign_smart_defaults
     last_campaign = campaigns.order(:created_at).last
     if last_campaign
-      last_campaign_slice = last_campaign.as_json.slice("extra_info", "vaccine_type", "min_age", "max_age", "max_distance_in_meters", "available_doses")
+      last_campaign_slice = last_campaign.as_json.slice("extra_info", "phone_number", "vaccine_type", "min_age", "max_age", "max_distance_in_meters", "available_doses")
       campaigns.build(last_campaign_slice)
     else
       campaigns.build

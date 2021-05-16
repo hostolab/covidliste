@@ -39,6 +39,13 @@ class PushNewCampaignToSlackJob < ApplicationJob
       })
     end
 
+    if campaign.phone_number
+      context.append({
+        type: "mrkdwn",
+        text: "📞 #{campaign.phone_number}"
+      })
+    end
+
     blocks = [
       {
         type: "section",

@@ -26,5 +26,6 @@ export function initialFormState(initialCampaign) {
     startsAt,
     endsAt,
     extraInfo: "",
+    phoneNumber: initialCampaign.phoneNumber || "",
   };
 }

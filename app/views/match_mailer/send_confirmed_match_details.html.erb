@@ -16,7 +16,9 @@
       <% if @match.campaign.extra_info.present? %>
         <li>Détails d’accès : <%= @match.campaign.extra_info %></li>
       <% end %>
-      <!-- numéro de téléphone facultatif -->
+      <% if @match.campaign.phone_number.present? %>
+        <li>Numéro de téléphone : <%= @match.campaign.phone_number %></li>
+      <% end %>
     </ul>
   </p>
 
