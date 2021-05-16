@@ -1,8 +1,8 @@
 <% user = match.user %>
 <% vaccination_center = match.vaccination_center %>
 
-<div>
-  <div>
+<div class="row">
+  <div class="col-sm-12 col-md-6 col-lg-6">
     <i class="fas fa-map-pin"></i>
     <% if match.confirmed? || vaccination_center.lat.blank? || vaccination_center.lon.blank? %>
       <strong> Adresse du centre de vaccination </strong>
@@ -17,16 +17,17 @@
         <%= distance[:delta_in_words] %>
         de vous<%= ", à #{vaccination_center.human_friendly_geo_area}" if vaccination_center.human_friendly_geo_area %>
       </p>
-      <p class="small">Trop loin de chez vous ?<br>
+      <p class="small">Trop loin de chez vous ?
         <% if user.city && user.zipcode %>
-          D'après nos informations vous habitez à proximité de <%= user.city %> (<%= user.zipcode %>). <br>
+          D'après nos informations vous habitez à proximité de <%= user.city %> (<%= user.zipcode %>).
         <% end %>
         S'il y a une erreur dans votre adresse, refusez cette dose et modifiez votre adresse dans
-        votre <%= link_to "espace personnel", :new_user_session %> </p>
+        votre <%= link_to "espace personnel", :new_user_session %>.
+      </p>
     <% end %>
   </div>
 
-  <div>
+  <div class="col-sm-12 col-md-6 col-lg-6">
     <i class="fas fa-clock"></i>
     <strong> Créneau horaire </strong>
     <% starts_at = match.campaign.starts_at %>
@@ -38,25 +39,27 @@
   </div>
 
   <% if user.blank? %>
-    <div>
+    <div class="col-sm-12 col-md-6 col-lg-6">
       <i class="fas fa-minus-circle"></i>
       <p>L’utilisateur a supprimé son compte.</p>
     </div>
     <%# elsif user.anonymized_at #TODO PR #197 %>
   <% else %>
-    <div>
+    <div class="col-sm-12 col-md-6 col-lg-6">
       <i class="fas fa-user-lock"></i>
       <strong> Informations personnelles </strong>
       <p>
-        Date de naissance : <strong><%= user.birthdate.strftime('%d/%m/%Y') %></strong><br>
-        <strong>Date de naissance et nom seront vérifiés.</strong> <br>
-        Munissez-vous d'une pièce d'identité et de votre
-        carte vitale.<br>
+        Date de naissance : <strong><%= user.birthdate.strftime('%d/%m/%Y') %></strong>
+        <br>
+        <% if match.confirmed? %>
+        Identité : <strong><%= user.full_name %></strong>
+
+        <% end %>
       </p>
     </div>
   <% end %>
 
-  <div>
+  <div class="col-sm-12 col-md-6 col-lg-6">
     <i class="fas fa-check-circle"></i>
     <strong>Type de vaccin</strong>
     <p><%= match.campaign.vaccine_type.capitalize %></p>
