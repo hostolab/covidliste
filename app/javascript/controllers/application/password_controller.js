@@ -4,7 +4,7 @@ var zxcvbn = require("zxcvbn");
 const passwordScores = {
   0: { message: "Très faible", color: "red" },
   1: { message: "Faible", color: "red" },
-  2: { message: "Moyen", color: "orange" },
+  2: { message: "Moyen", color: "red" },
   3: { message: "Robuste", color: "green" },
   4: { message: "Très robuste", color: "green" },
 };
