@@ -1,11 +1,12 @@
 <p>
-  Bonjour <%= @resource %>,
+  Bonjour,
 </p>
 
 <p>
-  Vous venez de vous enregistrer sur Covidliste.
+  <strong>Vous venez de vous enregistrer sur Covidliste</strong> avec l’e-mail <%= @resource.email %>.
   <br>
-  Pour finaliser votre inscription, merci de cliquer sur le lien suivant, il est valide uniquement pendant 24 heures :
+  Finalisez votre inscription en cliquant sur le lien suivant (valide pendant 24 heures).
+  <br>
   <%= link_to "Valider mon inscription", confirmation_url(@resource, confirmation_token: @token) %>
 </p>
 
@@ -14,6 +15,7 @@
   <br>
   <%= confirmation_url(@resource, confirmation_token: @token) %>
 </p>
+
 <%= render "mailer/faq" %>
 <%= render "mailer/footer" %>
 <%= render "mailer/automatic_message" %>

@@ -1,30 +1,31 @@
 <div>
+  <h1>Une dose de vaccin est disponible près de chez vous !</h1>
+
   <p>
-    Bonne nouvelle !
-  </p>
-  <p>
-    <strong>
-      Une dose de vaccin est disponible près de chez vous. <br>
-    </strong>
-  </p>
-  <p>
-    <strong>
-      Réservez-la vite en cliquant sur le lien suivant : <%= link_to "Je réserve mon vaccin !", match_url(match_confirmation_token: @match_confirmation_token, source: 'email') %>
-    </strong>
+    Si vous souhaitez en bénéficier, réservez la dose en confirmant le rendez-vous :
     <br>
-    Ou copiez et collez l’adresse suivante dans votre navigateur : <br>
+    <strong>
+      <%= link_to "Réserver mon vaccin", match_url(match_confirmation_token: @match_confirmation_token, source: 'email') %>
+    </strong>
+  </p>
+
+  <p>
+    Si le lien ne fonctionne pas, copiez et collez l’adresse suivante dans votre navigateur :
+    <br>
     <%= match_url(match_confirmation_token: @match_confirmation_token, source: 'email') %>
   </p>
 
+  <%= render "mailer/faq" %>
+
   <p>
-    Vous ne souhaitez plus recevoir ces emails et souhaitez vous désinscrire de Covidliste ?
-    <%= link_to "Je supprime mon compte", edit_matches_users_url(match_confirmation_token: @match_confirmation_token) %>
+    Vous ne souhaitez plus être informé de doses disponibles ?
+    <%= link_to "Supprimer mon compte", edit_matches_users_url(match_confirmation_token: @match_confirmation_token) %>
     <br>
-    Si le lien de suppression de compte ne fonctionne pas, copiez et collez l’adresse suivante dans votre navigateur : <br>
+    Si le lien ne fonctionne pas, copiez et collez l’adresse suivante dans votre navigateur :
+    <br>
     <%= edit_matches_users_url(match_confirmation_token: @match_confirmation_token) %>
   </p>
 
-  <%= render "mailer/faq" %>
   <%= render "mailer/footer" %>
   <%= render "mailer/automatic_message" %>
 </div>

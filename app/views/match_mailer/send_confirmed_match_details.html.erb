@@ -1,15 +1,13 @@
 <div>
-  <p>
-    Bonjour,
-  </p>
 
-  <h3>
+  <h1>
     Votre dose de vaccin <%= @match.campaign.vaccine_type.capitalize %> est bien réservée !
-  </h3>
+  </h1>
 
   <p>
     <strong>Informations et accès</strong>
     <ul>
+      <li>Nom : <%= @match.vaccination_center.name %> (<%= @match.vaccination_center.kind %>) </li>
       <li>Adresse : <%= @match.vaccination_center.address %></li>
       <li>Créneau horaire : <%= l(@match.campaign.starts_at, format: '%A %e %B %Y').capitalize %> entre <%= l(@match.campaign.starts_at, format: '%Hh%M') %>
       et <%= l(@match.campaign.ends_at, format: '%Hh%M') %> </li>
@@ -37,11 +35,7 @@
   </p>
 
   <p>
-    Si vous n’êtes plus disponible, prévenez le centre et réinscrivez-vous sur Covidliste après 72h. En cas de problème, contactez <%= mail_to "hello@covidliste.com", "hello@covidliste.com" %>.
-  </p>
-
-  <p>
-    Nous sommes heureux de vous permettre d’accéder à la vaccination.
+    Notre mission s'arrête ici ! Nous sommes heureux de vous permettre d'accéder à la vaccination. Votre compte sera automatiquement désactivé dans 72h. Si votre vaccination n’a pas pu avoir lieu, vous pourrez vous réinscrire sur Covidliste après 72h. En cas de problème, contactez <%= mail_to "hello@covidliste.com", "hello@covidliste.com" %>.
   </p>
 
 
