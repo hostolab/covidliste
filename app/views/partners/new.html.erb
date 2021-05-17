@@ -86,14 +86,15 @@
                       <br/>
                       <%= content_tag :strong, "", data: {password_target: "passwordCheck"}, class: "d-inline-block" %>
                     </small>
-                    <small class="form-text text-muted">
-                      Un email de confirmation de création de compte vous sera envoyé. Cliquez sur le lien pour activer
-                      votre compte.
-                    </small>
                   </div>
                 </div>
 
                 <%= render partial: "users/input_statement", locals: {f: f, local_cgu_path: cgu_pro_path} %>
+
+                <p class="form-text">
+                  Un email de confirmation de création de compte vous sera envoyé. Cliquez sur le lien pour activer
+                  votre compte.
+                </p>
 
                 <%= f.invisible_captcha :subtitle, honeypots: true %>
                 <%= f.button :submit, "S’inscrire en tant que professionnel de santé", id: "create-new-partner", class: "btn btn-primary", data: {disable_with: "Validation...", confirm: "Vous êtes bien professionnel de santé ?"} %>
