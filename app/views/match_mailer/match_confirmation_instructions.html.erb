@@ -20,7 +20,9 @@
   <p>
     <strong>Vous ne souhaitez plus être informé de doses disponibles ?</strong>
     <br>
-    <%= link_to "Supprimer mon compte", edit_matches_users_url(match_confirmation_token: @match_confirmation_token) %>
+    <strong>
+      <%= link_to "Supprimer mon compte", edit_matches_users_url(match_confirmation_token: @match_confirmation_token) %>
+    </strong>
   </p>
   <p>
     <strong>Si le lien ne fonctionne pas</strong>, copiez et collez l’adresse suivante dans votre navigateur :

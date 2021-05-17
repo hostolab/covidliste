@@ -7,7 +7,9 @@
   <p>
     <strong>Connectez-vous en toute sécurité</strong> à Covidliste en cliquant sur le lien suivant (valide pendant <%= Devise.passwordless_login_within.inspect %>) :
     <br>
-    <%= link_to "Me connecter à mon compte", magic_link_url %>
+    <strong>
+      <%= link_to "Me connecter à mon compte", magic_link_url %>
+    </strong>
   </p>
 
   <p>

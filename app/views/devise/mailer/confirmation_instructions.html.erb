@@ -8,7 +8,9 @@
     <br>
     Finalisez votre inscription en cliquant sur le lien suivant (valide pendant 24 heures) :
     <br>
-    <%= link_to "Valider mon inscription", confirmation_url(@resource, confirmation_token: @token) %>
+    <strong>
+      <%= link_to "Valider mon inscription", confirmation_url(@resource, confirmation_token: @token) %>
+    </strong>
   </p>
 
   <p>
