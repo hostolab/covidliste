@@ -1,7 +1,6 @@
 import { isNil, isInteger, find } from "lodash";
 import {
   vaccineTypes,
-  vaccineTypesValues,
 } from "components/partners/campaign_creator/vaccineTypes";
 import dayjs from "dayjs";
 
