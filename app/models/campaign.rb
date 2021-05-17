@@ -22,7 +22,7 @@ class Campaign < ApplicationRecord
 
   validates :starts_at, :ends_at, presence: true
   validates :starts_at, datetime: {later_than: 10.minutes.from_now}, on: :create
-  validates :ends_at, datetime: {later_than: proc {|campaign| 15.minutes.after(campaign.starts_at)}}
+  validates :ends_at, datetime: {later_than: proc { |campaign| 15.minutes.after(campaign.starts_at) }}
   validates :ends_at, datetime: {earlier_than: proc(&:end_of_day), message: :same_day}
 
   before_create :set_parameters
