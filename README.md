@@ -18,8 +18,7 @@ We aim to minimize vaccine losses by connecting people who wish to be inoculated
 
 ## Discover 🔍
 
-- Read our [handbook](doc/handbook.md)
-- Look at our [roadmap](https://github.com/hostolab/covidliste/projects/1).
+- Look at our [roadmap](https://github.com/hostolab/covidliste/projects/4).
 
 ## Audit our security and data-privacy practices 🔒
 
