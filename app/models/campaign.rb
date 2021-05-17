@@ -19,14 +19,17 @@ class Campaign < ApplicationRecord
   validates :max_age, numericality: {greater_than: 17}
   validates :max_distance_in_meters, numericality: {greater_than: 0, less_than_or_equal_to: MAX_DISTANCE_IN_KM * 1000}
   validate :min_age_lesser_than_max_age
-  validate :starts_at_lesser_than_ends_at
-  validates :starts_at, presence: true,
-                        datetime: { earlier_than: proc { |campaign| campaign.ends_at } }
-  validates :ends_at, presence: true,
-                      datetime: { earlier_than: proc { |campaign| campaign.starts_at } }
+  validates :starts_at, :ends_at, presence: true
+  validates :ends_at, datetime: {later_than: proc(&:starts_at)}
+  validates :ends_at, datetime: {
+                        earlier_than: proc(&:end_of_day),
+                        message: :same_day
+                      }
 
   before_create :set_parameters
   after_create_commit :notify_to_slack
+
+  delegate :end_of_day, to: :starts_at, allow_nil: true
 
   def canceled!
     update_attribute(:canceled_at, Time.now.utc)
@@ -141,12 +144,6 @@ class Campaign < ApplicationRecord
   def min_age_lesser_than_max_age
     if (min_age || 0) >= (max_age || 0)
       errors.add(:max_age, "doit être supérieur à l’âge minimum")
-    end
-  end
-
-  def starts_at_lesser_than_ends_at
-    if starts_at >= ends_at
-      errors.add(:ends_at, "doit être postérieur à la date de début")
     end
   end
 end
