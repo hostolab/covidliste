@@ -3,7 +3,7 @@ class DeviseMailer < Devise::Mailer
 
   def confirmation_instructions(record, token, opts = {})
     mail = super
-    mail.subject = "Covidliste - Valider votre inscription"
+    mail.subject = "Valider votre inscription Covidliste"
     mail
   end
 end

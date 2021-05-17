@@ -2,15 +2,15 @@
   <h1>Une dose de vaccin est disponible près de chez vous !</h1>
 
   <p>
+    <strong>
     Si vous souhaitez en bénéficier, réservez la dose en confirmant le rendez-vous :
     <br>
-    <strong>
       <%= link_to "Réserver mon vaccin", match_url(match_confirmation_token: @match_confirmation_token, source: 'email') %>
     </strong>
   </p>
 
   <p>
-    Si le lien ne fonctionne pas, copiez et collez l’adresse suivante dans votre navigateur :
+    <strong>Si le lien ne fonctionne pas</strong>, copiez et collez l’adresse suivante dans votre navigateur :
     <br>
     <%= match_url(match_confirmation_token: @match_confirmation_token, source: 'email') %>
   </p>
@@ -18,10 +18,12 @@
   <%= render "mailer/faq" %>
 
   <p>
-    Vous ne souhaitez plus être informé de doses disponibles ?
-    <%= link_to "Supprimer mon compte", edit_matches_users_url(match_confirmation_token: @match_confirmation_token) %>
+    <strong>Vous ne souhaitez plus être informé de doses disponibles ?</strong>
     <br>
-    Si le lien ne fonctionne pas, copiez et collez l’adresse suivante dans votre navigateur :
+    <%= link_to "Supprimer mon compte", edit_matches_users_url(match_confirmation_token: @match_confirmation_token) %>
+  </p>
+  <p>
+    <strong>Si le lien ne fonctionne pas</strong>, copiez et collez l’adresse suivante dans votre navigateur :
     <br>
     <%= edit_matches_users_url(match_confirmation_token: @match_confirmation_token) %>
   </p>

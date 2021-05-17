@@ -18,7 +18,7 @@ class MatchMailer < ApplicationMailer
 
     mail(
       to: @match.user.email,
-      subject: "Covidliste - Votre rendez-vous de vaccination est confirmé"
+      subject: "Votre rendez-vous de vaccination est confirmé"
     )
   end
 
@@ -29,7 +29,7 @@ class MatchMailer < ApplicationMailer
 
     mail(
       to: user_email,
-      subject: "Covidliste - Merci pour votre confiance"
+      subject: "Merci pour votre confiance"
     )
   end
 end

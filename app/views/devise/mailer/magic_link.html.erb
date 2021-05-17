@@ -1,19 +1,22 @@
-<%- magic_link_url = send("#{@scope_name.to_s.pluralize}_magic_link_url", Hash[@scope_name, {email: @resource.email, token: @token}]) %>
+<div style="font-family:Trebuchet MS">
+  <%- magic_link_url = send("#{@scope_name.to_s.pluralize}_magic_link_url", Hash[@scope_name, {email: @resource.email, token: @token}]) %>
 
 
-<h1>Mon lien de connexion</h1>
+  <h1>Mon lien de connexion</h1>
 
-<p>
-  Connectez-vous en toute sécurité à Covidliste en cliquant sur le lien suivant (valide pendant <%= Devise.passwordless_login_within.inspect %>)
-  <%= link_to "Me connecter à mon compte", magic_link_url %>
-</p>
+  <p>
+    <strong>Connectez-vous en toute sécurité</strong> à Covidliste en cliquant sur le lien suivant (valide pendant <%= Devise.passwordless_login_within.inspect %>) :
+    <br>
+    <%= link_to "Me connecter à mon compte", magic_link_url %>
+  </p>
 
-<p>
-  Si le lien ne fonctionne pas, copiez et collez l’adresse suivante dans votre navigateur :
-  <br>
-  <%= magic_link_url %>
-</p>
+  <p>
+    <strong>Si le lien ne fonctionne pas</strong>, copiez et collez l’adresse suivante dans votre navigateur :
+    <br>
+    <%= magic_link_url %>
+  </p>
 
-<%= render "mailer/faq" %>
-<%= render "mailer/footer" %>
-<%= render "mailer/automatic_message" %>
+  <%= render "mailer/faq" %>
+  <%= render "mailer/footer" %>
+  <%= render "mailer/automatic_message" %>
+</div>
