@@ -1,5 +1,5 @@
 class SendConfirmedMatchEmailJob < ApplicationJob
-  queue_as :mailer
+  queue_as :mailers
 
   def perform(match_id)
     match = Match.find(match_id)
