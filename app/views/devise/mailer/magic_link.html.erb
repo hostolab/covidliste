@@ -1,4 +1,4 @@
-<div style="font-family:Trebuchet MS">
+<div style="font-family:Trebuchet MS,sans-serif">
   <%- magic_link_url = send("#{@scope_name.to_s.pluralize}_magic_link_url", Hash[@scope_name, {email: @resource.email, token: @token}]) %>
 
 
