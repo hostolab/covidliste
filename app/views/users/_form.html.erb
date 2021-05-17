@@ -1,16 +1,16 @@
-<div class="bg-white p-3 py-4 p-lg-4 rounded">
+<%= simple_form_for @user do |f| %>
+  <div class="bg-white p-3 py-4 p-lg-4 rounded">
 
-  <% if @user.present? && @user.errors.any? %>
-    <div class="alert alert-danger" role="alert" style="position: inherit">
-      <% @user.errors.full_messages.each do |msg| %>
-        <%= msg %><br/>
-      <% end %>
-    </div>
-  <% end %>
+    <% if @user.present? && @user.errors.any? %>
+      <div class="alert alert-danger" role="alert" style="position: inherit">
+        <% @user.errors.full_messages.each do |msg| %>
+          <%= msg %><br/>
+        <% end %>
+      </div>
+    <% end %>
 
-  <%= simple_form_for @user do |f| %>
     <%= f.input :email,
-      label: false,
+      label: "Adresse email",
       error: f.error(:email),
       placeholder: "jean@dupont.com",
       hint: "Une adresse email ne peut être utilisée que par une seule personne.",
@@ -20,9 +20,9 @@
     <hr>
 
     <%= f.input :address,
-      label: false,
+      label: "Adresse",
       error: f.error(:address),
-      placeholder: "Adresse",
+      placeholder: "5 avenue de Paris",
       required: true,
       input_html: {class: "pr-5"} %>
 
@@ -30,15 +30,15 @@
     <%= f.input_field :lon, as: :hidden %>
 
     <%= f.input :phone_number,
-      label: false,
+      label: "Numéro de téléphone portable",
       error: "Numéro de téléphone invalide",
-      placeholder: "Numéro de téléphone portable",
+      placeholder: "06 00 00 00 00",
       required: true,
       input_html: {autocomplete: "tel"} %>
 
     <%= f.input :birthdate,
       as: :date,
-      label: false,
+      label: "Date de naissance",
       order: [:day, :month, :year],
       start_year: Date.today.year - 120,
       end_year: Date.today.year - 18,
@@ -54,9 +54,9 @@
 
     <%= f.invisible_captcha :subtitle %>
     <%= f.button :submit, "S’inscrire", class: "btn btn-secondary btn-lg btn-block font-weight-bold", data: {disable_with: "Inscription en cours..."} %>
-  <% end %>
 
-</div>
-<div class="py-1 px-2">
-  <%= render partial: "users/mentions" %>
-</div>
+  </div>
+  <div class="py-1 px-2">
+    <%= render partial: "users/mentions" %>
+  </div>
+<% end %>
