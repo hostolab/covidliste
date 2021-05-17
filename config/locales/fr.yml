@@ -89,6 +89,8 @@ fr:
         lon: Longitude
     errors:
       messages:
+        too_soon: est trop tôt
+        too_late: est trop tard
         record_invalid: "La validation a échoué : %{errors}"
         restrict_dependent_destroy:
           has_one:
@@ -101,9 +103,9 @@ fr:
         campaign:
           attributes:
             starts_at:
-              too_late: doit être antérieur à la date de fin
+              too_soon: doit être dans au moins 10 minutes
             ends_at:
-              too_soon: doit être postérieur à la date de début
+              too_soon: doit être au moins 15 minutes après la date de début
               same_day: doit être le même jour que la date de début
   date:
     abbr_day_names:
