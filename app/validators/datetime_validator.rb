@@ -1,6 +1,6 @@
 # @example
 #    class Person < ApplicationRecord
-#      validates :born_at, datetime: { earlier_than: Time.now }
+#      validates :born_at, datetime: { earlier_than: proc { Time.now } }
 #      validates :died_at, datetime: { later_than: proc(&:born_at) }
 #      # ...
 
@@ -8,7 +8,7 @@
 #      validates :created_at, :updated_at, datetime: true
 #      validates :starts_at, datetime: { earlier_than: proc { |event| event.ends_at } }
 #      validates :ends_at, datetime: { later_than: :today }
-#      validates :archived_at, datetime: { later_than: 1.year.from_now }
+#      validates :archived_at, datetime: { later_than: proc { 1.year.from_now } }
 #      # ...
 #
 class DatetimeValidator < ActiveModel::EachValidator
