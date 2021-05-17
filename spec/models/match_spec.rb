@@ -105,11 +105,10 @@ describe Match, type: :model do
     end
 
     it "should set correct expiration" do
-      freeze_time
       match.reload
       match.set_expiration!
       match.reload
-      expect(match.expires_at).to eq(campaign.ends_at)
+      expect(match.expires_at.beginning_of_minute).to eq(campaign.ends_at.beginning_of_minute)
     end
 
     context "campaign ending now" do
