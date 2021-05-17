@@ -47,7 +47,7 @@ You may:
 
 - Only some contributors are authorized to merge (see [champions](./champions.md) to see who).
 - More are allowed to review, easing the work of those who can merge.
-- Merging in `master` will automatically deploy to production.
+- Merging in `main` will automatically deploy to production.
 
 ## Reviewing code
 
