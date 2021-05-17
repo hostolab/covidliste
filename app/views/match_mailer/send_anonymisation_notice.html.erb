@@ -1,7 +1,7 @@
-<div style="">
+<div>
   <h1>Merci pour votre confiance</h1>
 
-  <p class="text-primary">
+  <p>
     Nous espérons que vous avez pu vous rendre au rendez-vous de vaccination.
     <br>
     <strong>Nous avons supprimé vos données de Covidliste </strong>conformément à nos
@@ -24,12 +24,14 @@
     <strong>Parlez-nous de votre expérience Covidliste</strong> : <%= link_to "Témoigner", "https://form.typeform.com/to/rHTAEqUZ", target: "_blank" %>
   </p>
 
+  <p>
+    <strong>Nous lançons un appel aux dons !</strong>
+    <%= link_to "Contribuer à partir d’1€", "https://fr.ulule.com/projects/129093/checkout/", target: "_blank" %>.
+  </p>
+
+
   <%= render 'mailer/footer' %>
 
-<!--   <p>
-    Nous lançons un appel aux dons !
-    <%= link_to "contribuez à partir d'1€", "https://fr.ulule.com/projects/129093/checkout/", target: "_blank" %>.
-  </p> -->
 
   <%= render "mailer/automatic_message" %>
 </div>
