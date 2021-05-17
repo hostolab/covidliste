@@ -2,11 +2,11 @@ import { Controller } from "stimulus";
 var zxcvbn = require("zxcvbn");
 
 const passwordScores = {
-  0: { message: "Très faible", color: "red" },
-  1: { message: "Faible", color: "red" },
-  2: { message: "Moyen", color: "red" },
-  3: { message: "Robuste", color: "green" },
-  4: { message: "Très robuste", color: "green" },
+  0: { message: "Très faible", isValid: false },
+  1: { message: "Faible", isValid: false },
+  2: { message: "Moyen", isValid: false },
+  3: { message: "Robuste", isValid: true },
+  4: { message: "Très robuste", isValid: true },
 };
 
 export default class extends Controller {
@@ -15,23 +15,22 @@ export default class extends Controller {
   check(e) {
     const password = this.passwordTarget.value;
     let message = "";
-    let color = "red";
+    let isValid = false;
     if (password.length < 8) {
       message = "Trop court";
-      color = "red";
+      isValid = false;
     } else {
       let score = zxcvbn(password).score;
       let scoreInfo = passwordScores[score];
       message = scoreInfo.message;
-      color = scoreInfo.color;
+      isValid = scoreInfo.isValid;
     }
     this.passwordCheckTarget.innerHTML = message;
-    this.passwordCheckTarget.style.color = color;
+    this.passwordCheckTarget.classList.add(isValid ? "text-success" : "text-danger");
+    this.passwordCheckTarget.classList.remove(isValid ? "text-danger" : "text-success");
 
     this.passwordTarget.setCustomValidity(
-      color === "green"
-        ? ""
-        : "Veuillez choisir un mot de passe robuste ou très robuste"
+      isValid ? "" : "Veuillez choisir un mot de passe robuste ou très robuste"
     );
   }
 }
