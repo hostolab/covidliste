@@ -105,6 +105,7 @@ describe Match, type: :model do
     end
 
     it "should set correct expiration" do
+      freeze_time
       match.reload
       match.set_expiration!
       match.reload
