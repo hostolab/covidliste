@@ -213,6 +213,7 @@ RSpec.describe "Users", type: :system do
 
         expect(page).to_not have_current_path(profile_path)
         expect(page).to have_text(I18n.t("devise.failure.user.magic_link_invalid"))
+        travel_back
       end
     end
 
