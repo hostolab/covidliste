@@ -63,10 +63,12 @@ describe Campaign, type: :model do
     end
 
     it "is invalid if starts_at is not at least 10 minutes in the future" do
+      travel_to Time.current
       campaign.starts_at = 9.minutes.from_now
 
       expect(campaign).not_to be_valid
       expect(campaign.errors[:starts_at]).to include("doit être dans au moins 10 minutes")
+      travel_back
     end
 
     it "is invalid if starts_at does not precede ends_at by at least 15 minutes" do
