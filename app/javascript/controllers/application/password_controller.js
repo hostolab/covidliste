@@ -26,8 +26,12 @@ export default class extends Controller {
       isValid = scoreInfo.isValid;
     }
     this.passwordCheckTarget.innerHTML = message;
-    this.passwordCheckTarget.classList.add(isValid ? "text-success" : "text-danger");
-    this.passwordCheckTarget.classList.remove(isValid ? "text-danger" : "text-success");
+    this.passwordCheckTarget.classList.add(
+      isValid ? "text-success" : "text-danger"
+    );
+    this.passwordCheckTarget.classList.remove(
+      isValid ? "text-danger" : "text-success"
+    );
 
     this.passwordTarget.setCustomValidity(
       isValid ? "" : "Veuillez choisir un mot de passe robuste ou très robuste"
