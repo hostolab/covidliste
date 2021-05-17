@@ -49,9 +49,9 @@
       <strong> Informations personnelles </strong>
       <p>
         Date de naissance : <strong><%= user.birthdate.strftime('%d/%m/%Y') %></strong><br>
-        <strong>Date de naissance et nom seront vérifiés.</strong> <br>
-        Munissez-vous d’une pièce d’identité et de votre
-        carte vitale.<br>
+        <% if match.confirmed? %>
+          Identité : <strong><%= user.full_name %></strong>
+        <% end %>
       </p>
     </div>
   <% end %>
