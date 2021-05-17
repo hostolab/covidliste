@@ -8,6 +8,8 @@ fr:
     models:
       campaign:
         one: campagne
+      user: Utilisateur
+      partner: Professionnel de santé
     attributes:
       user:
         firstname: Prénom
@@ -21,9 +23,54 @@ fr:
         city: Ville
         statement: Certification sur l'honneur
         toc: Partage des données
+        confirmation_sent_at: Date d'envoi de la confirmation
+        confirmation_token: Clé de confirmation du mot de passe
+        confirmed_at: Confirmé à
+        created_at: Enregistré à
+        current_password: Mot de passe actuel
+        current_sign_in_at: Date de la connexion actuelle
+        current_sign_in_ip: IP de la connexion actuelle
+        email: Email
+        encrypted_password: Mot de passe chiffré
+        failed_attempts: Tentatives échouées
+        last_sign_in_at: Date de la dernière connexion
+        last_sign_in_ip: IP de la dernière connexion
+        locked_at: Verrouillé à
+        password: Mot de passe
+        password_confirmation: Confirmation du mot de passe
+        remember_created_at: Mémorisé à
+        reset_password_sent_at: Clé de réinitialisation créée à
+        reset_password_token: Clé de réinitialisation du mot de passe
+        sign_in_count: Nombre des connexions
+        unconfirmed_email: Email non confirmé
+        unlock_token: Clé de déverrouillage
+        updated_at: Date de mise à jour
       partner:
         name: Nom
         phone_number: Numéro de téléphone
+        confirmation_sent_at: Date d'envoi de la confirmation
+        confirmation_token: Clé de confirmation du mot de passe
+        confirmed_at: Confirmé à
+        created_at: Enregistré à
+        current_password: Mot de passe actuel
+        current_sign_in_at: Date de la connexion actuelle
+        current_sign_in_ip: IP de la connexion actuelle
+        email: Email
+        encrypted_password: Mot de passe chiffré
+        failed_attempts: Tentatives échouées
+        last_sign_in_at: Date de la dernière connexion
+        last_sign_in_ip: IP de la dernière connexion
+        locked_at: Verrouillé à
+        password: Mot de passe
+        password_confirmation: Confirmation du mot de passe
+        remember_created_at: Mémorisé à
+        remember_me: Se souvenir de moi
+        reset_password_sent_at: Clé de réinitialisation créée à
+        reset_password_token: Clé de réinitialisation du mot de passe
+        sign_in_count: Nombre des connexions
+        unconfirmed_email: Email non confirmé
+        unlock_token: Clé de déverrouillage
+        updated_at: Date de mise à jour
       campaign:
         starts_at: Date de début
         ends_at: Date de fin
@@ -50,6 +97,14 @@ fr:
           has_many:
             Vous ne pouvez pas supprimer l’enregistrement parce que les %{record}
             dépendants existent
+      models:
+        campaign:
+          attributes:
+            starts_at:
+              too_late: doit être antérieur à la date de fin
+            ends_at:
+              too_soon: doit être postérieur à la date de début
+              same_day: doit être le même jour que la date de début
   date:
     abbr_day_names:
       - dim
