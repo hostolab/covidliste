@@ -1,7 +1,5 @@
 import { isNil, isInteger, find } from "lodash";
-import {
-  vaccineTypes,
-} from "components/partners/campaign_creator/vaccineTypes";
+import { vaccineTypes } from "components/partners/campaign_creator/vaccineTypes";
 import dayjs from "dayjs";
 
 export const validateCampaignCreatorForm = (values) => {
