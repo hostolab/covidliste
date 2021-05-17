@@ -2,9 +2,9 @@
 
 require "rails_helper"
 
-RSpec.describe Match, type: :model do
+describe Match, type: :model do
   let(:vaccination_center) { create(:vaccination_center, :from_paris) }
-  let(:campaign) { create(:campaign, vaccination_center: vaccination_center, ends_at: 2.hours.from_now) }
+  let(:campaign) { create(:campaign, vaccination_center: vaccination_center) }
   let(:match) { create(:match, campaign: campaign, vaccination_center: vaccination_center) }
   let(:confirmed_match) { create(:match, :confirmed) }
   let(:now_utc) { Time.now.utc }
@@ -97,6 +97,7 @@ RSpec.describe Match, type: :model do
 
   describe "#set_expiration!" do
     before do
+      match.touch
       travel_to Time.parse("2021-04-01 14:00:00")
     end
     after do
