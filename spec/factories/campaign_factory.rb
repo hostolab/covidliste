@@ -4,7 +4,7 @@ FactoryBot.define do
     association :partner
 
     available_doses { 10 }
-    starts_at { Time.zone.now }
+    starts_at { 30.minutes.from_now }
     ends_at { starts_at + 2.hours }
     min_age { 18 }
     max_age { 80 }

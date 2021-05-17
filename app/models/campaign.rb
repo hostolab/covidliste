@@ -19,12 +19,11 @@ class Campaign < ApplicationRecord
   validates :max_age, numericality: {greater_than: 17}
   validates :max_distance_in_meters, numericality: {greater_than: 0, less_than_or_equal_to: MAX_DISTANCE_IN_KM * 1000}
   validate :min_age_lesser_than_max_age
+
   validates :starts_at, :ends_at, presence: true
-  validates :ends_at, datetime: {later_than: proc(&:starts_at)}
-  validates :ends_at, datetime: {
-                        earlier_than: proc(&:end_of_day),
-                        message: :same_day
-                      }
+  validates :starts_at, datetime: {later_than: 10.minutes.from_now}, on: :create
+  validates :ends_at, datetime: {later_than: proc {|campaign| 15.minutes.after(campaign.starts_at)}}
+  validates :ends_at, datetime: {earlier_than: proc(&:end_of_day), message: :same_day}
 
   before_create :set_parameters
   after_create_commit :notify_to_slack
