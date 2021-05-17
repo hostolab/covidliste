@@ -1,5 +1,11 @@
 # @example
+#    class Person < ApplicationRecord
+#      validates :born_at, datetime: { earlier_than: Time.now }
+#      validates :died_at, datetime: { later_than: proc(&:born_at) }
+#      # ...
+
 #    class Event < ApplicationRecord
+#      validates :created_at, :updated_at, datetime: true
 #      validates :starts_at, datetime: { earlier_than: proc { |event| event.ends_at } }
 #      validates :ends_at, datetime: { later_than: :today }
 #      validates :archived_at, datetime: { later_than: 1.year.from_now }
@@ -41,11 +47,17 @@ class DatetimeValidator < ActiveModel::EachValidator
 
     if options[comparative].respond_to?(:call)
       options[comparative].call(record)
-    elsif Time.now.respond_to?(options[comparative])
+    elsif time_method?(comparative)
       Time.now.public_send(options[comparative])
     else
       options[comparative]
     end
+  end
+
+  def time_method?(comparative)
+    return false unless options[comparative].is_a?(String) || options[comparative].is_a?(Symbol)
+
+    Time.now.respond_to?(options[comparative])
   end
 
   def invalid_type?(value)
