@@ -14,13 +14,13 @@ class RunCampaignJob < ApplicationJob
     Rails.logger.info("Run RunCampaignJob for campaign_id #{campaign_id}")
     @campaign = Campaign.find(campaign_id)
     return unless @campaign.running?
-    return @campaign.completed! if @campaign.remaining_doses <= 0
-    return @campaign.completed! if Time.now.utc >= @campaign.ends_at
+    return @campaign.completed! unless @campaign.remaining_doses.positive?
+    return @campaign.completed! if @campaign.ends_at.past?
     return unless should_run?
 
     # compute how many more users we need to match
     limit = [compute_new_users_to_reach * compute_adjustment_factor, @campaign.email_budget_remaining].min.floor
-    return if limit <= 0
+    return unless limit.positive?
 
     users = @campaign.reachable_users_query(limit: limit)
 

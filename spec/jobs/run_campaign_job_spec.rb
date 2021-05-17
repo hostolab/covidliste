@@ -8,9 +8,9 @@ describe RunCampaignJob do
   let(:vaccine_type) { Vaccine::Brands::PFIZER }
   let(:min_age) { 18 }
   let(:max_age) { 99 }
-  let(:starts_at) { Time.now.utc - 1.hours }
-  let(:ends_at) { Time.now.utc + 6.hours }
-  let(:campaign) {
+  let(:starts_at) { 15.minutes.from_now }
+  let(:ends_at) { 6.hours.from_now }
+  let!(:campaign) do
     create(:campaign, vaccination_center: center,
                       available_doses: available_doses,
                       vaccine_type: vaccine_type,
@@ -19,7 +19,7 @@ describe RunCampaignJob do
                       max_distance_in_meters: 50,
                       starts_at: starts_at,
                       ends_at: ends_at)
-  }
+  end
 
   let(:reachable_users_query) { User.where(id: user.id) }
 
@@ -27,7 +27,7 @@ describe RunCampaignJob do
 
   describe "perform" do
     before do
-      travel_to Time.parse("2021-04-01 14:00:00")
+      travel_to Time.now.noon
       allow_any_instance_of(RunCampaignJob).to receive(:should_run?).and_return(true)
       allow_any_instance_of(Campaign).to receive(:reachable_users_query).and_return(reachable_users_query)
     end
@@ -58,7 +58,7 @@ describe RunCampaignJob do
         it "should end the campaign" do
           subject
           campaign.reload
-          expect(campaign.status).to eq("completed")
+          expect(campaign.completed?).to be true
         end
       end
     end
@@ -83,12 +83,12 @@ describe RunCampaignJob do
 
     context "when campaign is complete" do
       before do
-        campaign.update(ends_at: Time.now.utc)
+        travel_to 1.hour.after(campaign.ends_at)
       end
       it "should end the campaign" do
         subject
         campaign.reload
-        expect(campaign.status).to eq("completed")
+        expect(campaign.completed?).to be true
       end
     end
   end
