@@ -516,7 +516,7 @@ DEPENDENCIES
   codecov
   cuprite
   database_cleaner-active_record
-  ddtrace (= 0.35.2)
+  ddtrace
   devise
   devise-passwordless
   devise_zxcvbn
