@@ -1,10 +1,10 @@
 # Covidliste
 
-[![Test](https://github.com/hostolab/covidliste/actions/workflows/test.yml/badge.svg?branch=master)](https://github.com/hostolab/covidliste/actions/workflows/test.yml)
+[![Test](https://github.com/hostolab/covidliste/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/hostolab/covidliste/actions/workflows/test.yml)
 [![Ruby Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://github.com/testdouble/standard)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=hostolab_covidliste&metric=security_rating)](https://sonarcloud.io/dashboard?id=hostolab_covidliste)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=hostolab_covidliste&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=hostolab_covidliste)
-[![codecov](https://codecov.io/gh/hostolab/covidliste/branch/master/graph/badge.svg?token=Z6SM94ONW9)](https://codecov.io/gh/hostolab/covidliste)
+[![codecov](https://codecov.io/gh/hostolab/covidliste/branch/main/graph/badge.svg?token=Z6SM94ONW9)](https://codecov.io/gh/hostolab/covidliste)
 
 [Covidliste](https://www.covidliste.com) makes it easy to manage waiting lists for vaccination centers in France.
 We aim to minimize vaccine losses by connecting people who wish to be inoculated with health vaccination centers with unused doses at the end of the day.
@@ -18,8 +18,7 @@ We aim to minimize vaccine losses by connecting people who wish to be inoculated
 
 ## Discover 🔍
 
-- Read our [handbook](doc/handbook.md)
-- Look at our [roadmap](https://github.com/hostolab/covidliste/projects/1).
+- Look at our [roadmap](https://github.com/hostolab/covidliste/projects/4).
 
 ## Audit our security and data-privacy practices 🔒
 
