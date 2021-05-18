@@ -5,16 +5,21 @@ describe SendMatchSmsJob do
   let!(:campaign) { create(:campaign) }
   let!(:match) { create(:match, user: user, campaign: campaign) }
   let!(:twilio_mock) { double }
+  let!(:sendinblue_mock) { double }
 
   subject {
     allow(Twilio::REST::Client).to receive(:new).and_return(twilio_mock)
     allow(twilio_mock).to receive_message_chain(:messages, :create).and_return(double(sid: "smsid"))
+
+    allow(SibApiV3Sdk::TransactionalSMSApi).to receive(:new).and_return(sendinblue_mock)
+    allow(sendinblue_mock).to receive(:send_transac_sms).and_return(double(message_id: "smsid"))
+
     SendMatchSmsJob.new.perform(match.id)
   }
 
   context "match is new" do
     it "sends the sms" do
-      expect(twilio_mock).to receive_message_chain(:messages, :create)
+      expect(twilio_mock).to receive_message_chain(:messages, :create) # To update when flipping to sendinblue
       subject
     end
 
@@ -30,7 +35,7 @@ describe SendMatchSmsJob do
 
     it "sets sms_provider" do
       subject
-      expect(match.reload.sms_provider).to eq("twilio")
+      expect(match.reload.sms_provider).to eq("twilio") # To update when flipping to sendinblue
     end
 
     it "sets sms_provider_id" do
