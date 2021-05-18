@@ -1,10 +1,15 @@
 import React from "react";
-import { Field } from "formik";
+import { Field, useFormikContext } from "formik";
 import { CampaignCreatorField } from "components/partners/campaign_creator/fields/CampaignCreatorField";
 
 export const CampaignCreatorExtraInfo = () => {
+  const { values } = useFormikContext();
   return (
-    <CampaignCreatorField label="Détails d’accès" name="extraInfo">
+    <CampaignCreatorField
+      label="Détails d’accès"
+      name="extraInfo"
+      warning={dateInExtraInfoWarning(values.extraInfo)}
+    >
       <Field
         as="textarea"
         name="extraInfo"
@@ -16,4 +21,16 @@ export const CampaignCreatorExtraInfo = () => {
       />
     </CampaignCreatorField>
   );
+};
+
+const dateInExtraInfoWarning = (info) => {
+  const dateRegex = /(lundi|mardi|mercredi|jeudi|vendredi|janvier|f[eé]vrier|mars|avril|mai|juin|juillet|ao[uû]t|septembre|octobre|novembre|d[eé]cembre|demain)/i;
+  if (info.match(dateRegex)) {
+    return (
+      <>
+        Votre message semble contenir une date : n'oubliez pas que les campagnes
+        doivent être envoyées pour le jour même !
+      </>
+    );
+  }
 };
