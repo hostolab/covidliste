@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import { vaccineTypes } from "./vaccineTypes";
 
 export function initialFormState(initialCampaign) {
   const ceilToFiveMinutes = (date) =>
@@ -18,7 +19,7 @@ export function initialFormState(initialCampaign) {
 
   return {
     availableDoses: initialCampaign.availableDoses || 16,
-    vaccineType: initialCampaign.vaccineType || "astrazeneca",
+    vaccineType: initialCampaign.vaccineType || vaccineTypes[0].value,
     minAge: initialCampaign.minAge || 55,
     maxAge: initialCampaign.maxAge || 130,
     maxDistanceInMeters: initialCampaign.maxDistanceInMeters || 5000,
