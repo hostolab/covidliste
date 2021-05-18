@@ -19,7 +19,7 @@ class Match < ApplicationRecord
   encrypts :match_confirmation_token
   blind_index :match_confirmation_token
 
-  enum sms_provider: {twilio: "twilio"}, _prefix: :sms_provider
+  enum sms_provider: {twilio: "twilio", sendinblue: "sendinblue"}, _prefix: :sms_provider
 
   validates :distance_in_meters, numericality: {greater_than_or_equal_to: 0, only_integer: true}, allow_nil: true
   validate :no_recent_match, on: :create
@@ -119,5 +119,9 @@ class Match < ApplicationRecord
 
   def notify_by_sms
     SendMatchSmsJob.perform_later(id)
+  end
+
+  def flipper_id
+    "#{self.class.name}_#{id}"
   end
 end
