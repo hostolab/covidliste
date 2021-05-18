@@ -82,18 +82,18 @@ Rails.application.configure do
   config.active_support.disallowed_deprecation_warnings = []
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
-  # config.log_formatter = ::Logger::Formatter.new
+  config.log_formatter = ::Logger::Formatter.new
 
   # Use a different logger for distributed setups.
   # require "syslog/logger"
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
-  # if ENV["RAILS_LOG_TO_STDOUT"].present?
-  #   logger = ActiveSupport::Logger.new($stdout)
-  #   logger.formatter = config.log_formatter
-  #   logger.level = Logger::WARN
-  #   config.logger = ActiveSupport::TaggedLogging.new(logger)
-  # end
+  if ENV["RAILS_LOG_TO_STDOUT"].present?
+    logger = ActiveSupport::Logger.new($stdout)
+    logger.formatter = config.log_formatter
+    logger.level = Logger::WARN
+    config.logger = ActiveSupport::TaggedLogging.new(logger)
+  end
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
