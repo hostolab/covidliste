@@ -14,8 +14,14 @@ end
 
 Marginalia::SidekiqInstrumentation.enable!
 
-schedule_file = "config/schedule.yml"
-
-if File.exist?(schedule_file) && Sidekiq.server?
-  Sidekiq::Cron::Job.load_from_hash YAML.load_file(schedule_file)
+if Sidekiq.server?
+  schedule_default = if Rails.env.production? || Rails.env.staging?
+    "config/schedule.yml"
+  else
+    "config/schedule.dev.yml"
+  end
+  schedule_file = ENV.fetch("SIDEKIQ_SCHEDULE", schedule_default)
+  if schedule_file.present? && File.exist?(schedule_file)
+    Sidekiq::Cron::Job.load_from_hash YAML.load_file(schedule_file)
+  end
 end
