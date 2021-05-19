@@ -62,11 +62,11 @@ describe Campaign, type: :model do
       expect(campaign.errors[:max_distance_in_meters]).to include("doit être inférieur ou égal à #{Campaign::MAX_DISTANCE_IN_KM * 1000}")
     end
 
-    it "is invalid if starts_at is not at least 10 minutes in the future" do
-      travel_to 9.minutes.before(campaign.starts_at)
+    it "is invalid if starts_at is not in the future" do
+      travel_to 1.minute.after(campaign.starts_at)
 
       expect(campaign).not_to be_valid
-      expect(campaign.errors[:starts_at]).to include("doit être dans au moins 10 minutes")
+      expect(campaign.errors[:starts_at]).to include("ne peut pas être dans le passé")
       travel_back
     end
 
