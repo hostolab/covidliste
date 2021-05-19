@@ -12,7 +12,6 @@ export default class extends Controller {
   configure(beforeinstallpromptEvent) {
     beforeinstallpromptEvent.preventDefault();
 
-
     this.element.style.display = "block";
 
     this.element.addEventListener("click", async () => {
