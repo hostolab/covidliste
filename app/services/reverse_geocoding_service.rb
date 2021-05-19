@@ -10,7 +10,7 @@ class ReverseGeocodingService
   def call
     result = self.class.get("/reverse", query: {lat: @lat, lon: @lon, limit: 1})
     return unless result.success?
-    
+
     response = result.parsed_response
     first_result = response.dig("features")&.first # ou response["features"]&.first
     return nil if first_result.nil?
