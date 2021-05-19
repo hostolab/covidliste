@@ -9,29 +9,27 @@ export default class extends Controller {
     this.element.style.display = "none";
   }
 
-  configure(event) {
-    event.preventDefault();
+  configure(beforeinstallpromptEvent) {
+    beforeinstallpromptEvent.preventDefault();
 
-    this.deferredPromptValue = event;
+
     this.element.style.display = "block";
 
-    this.element.addEventListener("click", onAddButtonClicked);
-  }
+    this.element.addEventListener("click", async () => {
+      // hide our user interface that shows our A2HS button
+      this.element.style.display = "none";
+      // Show the prompt
 
-  async onAddButtonClicked() {
-    // hide our user interface that shows our A2HS button
-    this.element.style.display = "none";
-    // Show the prompt
-    this.deferredPromptValue.prompt();
-    // Wait for the user to respond to the prompt
+      beforeinstallpromptEvent.prompt();
+      // Wait for the user to respond to the prompt
 
-    const choiceResult = await this.deferredPromptValue.userChoice;
+      const choiceResult = await beforeinstallpromptEvent.userChoice;
 
-    if (choiceResult.outcome === "accepted") {
-      console.log("User accepted the A2HS prompt");
-    } else {
-      console.log("User dismissed the A2HS prompt");
-    }
-    this.deferredPromptValue = null;
+      if (choiceResult.outcome === "accepted") {
+        console.log("User accepted the A2HS prompt");
+      } else {
+        console.log("User dismissed the A2HS prompt");
+      }
+    });
   }
 }

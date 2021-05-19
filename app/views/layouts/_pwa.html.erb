@@ -1,7 +1,8 @@
 <button
-  class="pwa-add-button"
+  class="fixed-bottom btn btn-primary"
   data-controller="service-worker pwa"
   data-service-worker-path-value="<%= service_worker_path(format: :js)%>"
+  data-action="beforeinstallprompt@window->pwa#configure"
 >
-  Add to home screen
+  <i class="fas fa-download"></i> Installer l'application
 </button>
