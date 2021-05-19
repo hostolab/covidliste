@@ -1,19 +1,26 @@
-<p>
-  Bonjour <%= @resource %>,
-</p>
+<div style="font-family:Trebuchet MS,sans-serif">
+  <p>
+    Bonjour,
+  </p>
 
-<p>
-  Vous venez de vous enregistrer sur Covidliste.
-  <br>
-  Pour finaliser votre inscription, merci de cliquer sur le lien suivant, il est valide uniquement pendant 24 heures :
-  <%= link_to "Valider mon inscription", confirmation_url(@resource, confirmation_token: @token) %>
-</p>
+  <p>
+    <strong>Vous venez de vous enregistrer sur Covidliste</strong> avec l’e-mail <%= @resource.email %>.
+    <br>
+    Finalisez votre inscription en cliquant sur le lien suivant (valide pendant 24 heures) :
+    <br>
+    <strong>
+      <%= link_to "Valider mon inscription", confirmation_url(@resource, confirmation_token: @token) %>
+    </strong>
+  </p>
 
-<p>
-  Si le lien ne fonctionne pas, copiez et collez l’adresse suivante dans votre navigateur :
-  <br>
-  <%= confirmation_url(@resource, confirmation_token: @token) %>
-</p>
-<%= render "mailer/faq" %>
-<%= render "mailer/footer" %>
-<%= render "mailer/automatic_message" %>
+  <p>
+    <strong>Si le lien ne fonctionne pas</strong>, copiez et collez l’adresse suivante dans votre navigateur :
+    <br>
+    <%= confirmation_url(@resource, confirmation_token: @token) %>
+  </p>
+
+  <%= render "mailer/faq" %>
+  <%= render "mailer/footer" %>
+  <%= render "mailer/automatic_message" %>
+
+</div>
