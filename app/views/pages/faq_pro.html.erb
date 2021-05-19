@@ -22,14 +22,16 @@
     <%= link_to "foire aux questions pour les volontaires à la vaccination", faq_path %>.
   </p>
 
-  <div id="accordion">
-    <% current_category = nil %>
-    <% @faq_items.each do |faq_item| %>
-      <% if current_category != faq_item.category %>
-        <h2 class="mt-5 mb-3"><%= current_category = faq_item.category %></h2>
+  <div id="fuzzy-search" data-fuzzy-search-source="<%= partenaires_faq_path(format: :json) %>" data-fuzzy-search-input="#search" data-fuzzy-search-none="#no-results" data-fuzzy-search-item-category=".faq-category" data-fuzzy-search-item=".faq-item" data-fuzzy-search-item-title=".faq-item--title">
+    <%= search_field_tag :search, params[:search], placeholder: "Saisissez un mot-clé pour trouver votre réponse", class: 'form-control string required', autocomplete: "off" %>
+    <div id="no-results" class="d-none alert alert-warning mt-2">Nous n’avons pas trouvé de réponse avec ces mots clefs, merci de reformuler votre demande.</div>
+    <div id="accordion" class="d-flex flex-column">
+      <% @faq_items.group_by(&:category).each do |category, faq_items| %>
+        <h2 class="mt-4 mb-3 h4"><%= category %></h2>
+        <% faq_items.each do |faq_item| %>
+          <%= render "faq_entry", faq_item: faq_item %>
+        <% end %>
       <% end %>
-
-      <%= render "faq_entry", faq_item: faq_item %>
-    <% end %>
+    </div>
   </div>
 </div>
