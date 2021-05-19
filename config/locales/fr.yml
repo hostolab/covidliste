@@ -103,7 +103,7 @@ fr:
         campaign:
           attributes:
             starts_at:
-              too_soon: doit être dans au moins 10 minutes
+              too_soon: ne peut pas être dans le passé
             ends_at:
               too_soon: doit être au moins 15 minutes après la date de début
               same_day: doit être le même jour que la date de début
