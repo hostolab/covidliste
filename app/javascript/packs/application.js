@@ -32,4 +32,9 @@ document.addEventListener("turbolinks:load", () => {
   smoothScrollAnchor();
   toggleMobileMatchInformation();
   $('[data-toggle="tooltip"]').tooltip();
+
+  // webpack will load this JS async
+  if (document.getElementById("fuzzy-search")) {
+    import("../plugins/fuzzy_search");
+  }
 });

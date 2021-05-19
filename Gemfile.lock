@@ -1,12 +1,4 @@
 GIT
-  remote: https://github.com/Shopify/bootsnap.git
-  revision: 503e9d50805769e9fc5034ed175062810e8f8f54
-  branch: handle-race-conditions
-  specs:
-    bootsnap (1.7.3)
-      msgpack (~> 1.0)
-
-GIT
   remote: https://github.com/faker-ruby/faker.git
   revision: c6f5ce104389161c8cf89de16533e9dc3a79b54e
   branch: master
@@ -105,6 +97,8 @@ GEM
     blind_index (2.2.0)
       activesupport (>= 5)
       argon2-kdf (>= 0.1.1)
+    bootsnap (1.7.5)
+      msgpack (~> 1.0)
     brakeman (5.0.1)
     builder (3.2.4)
     bullet (6.1.4)
@@ -283,7 +277,6 @@ GEM
     pghero (2.8.1)
       activerecord (>= 5)
     phonelib (0.6.49)
-    popper_js (2.9.2)
     premailer (1.14.3)
       addressable
       css_parser (>= 1.6.0)
@@ -514,7 +507,7 @@ DEPENDENCIES
   binding_of_caller
   blazer
   blind_index
-  bootsnap!
+  bootsnap
   brakeman
   bullet
   capybara (>= 2.15)
@@ -590,4 +583,4 @@ RUBY VERSION
    ruby 2.7.3p183
 
 BUNDLED WITH
-   2.2.16
+   2.2.17

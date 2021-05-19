@@ -96,11 +96,19 @@ class PagesController < ApplicationController
   end
 
   def faq
-    @faq_items = FaqItem.where(area: "main")
+    @faq_items = Rails.cache.fetch("faq_items_main", expires_in: 2.hours) { FaqItem.where(area: "main") }
+    respond_to do |format|
+      format.html
+      format.json { render json: @faq_items.to_json }
+    end
   end
 
   def faq_pro
-    @faq_items = FaqItem.where(area: "pro")
+    @faq_items = Rails.cache.fetch("faq_items_pro", expires_in: 2.hours) { FaqItem.where(area: "pro") }
+    respond_to do |format|
+      format.html
+      format.json { render json: @faq_items.to_json }
+    end
   end
 
   def robots

@@ -5,7 +5,7 @@ ruby ::File.read(::File.expand_path(".ruby-version", __dir__))
 
 gem "rails", "~> 6.1.1"
 
-gem "bootsnap", github: "Shopify/bootsnap", branch: "handle-race-conditions"
+gem "bootsnap"
 gem "jbuilder", "~> 2.7"
 gem "pg", "~> 1.1"
 gem "puma", "~> 5.3"
