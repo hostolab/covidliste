@@ -21,7 +21,6 @@ class Campaign < ApplicationRecord
   validate :min_age_lesser_than_max_age
 
   validates :starts_at, :ends_at, presence: true
-  validates :starts_at, datetime: {later_than: proc { Time.current }}, on: :create
   validates :ends_at, datetime: {later_than: proc { |campaign| 15.minutes.after(campaign.starts_at) }}
   validates :ends_at, datetime: {earlier_than: proc(&:end_of_day), message: :same_day}
 
