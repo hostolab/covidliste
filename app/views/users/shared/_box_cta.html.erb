@@ -3,7 +3,7 @@
     <div class="text-center">
       <div class="font-weight-bolder text-light mb-4 h1"><%= title %></div>
       <p class="text-light mx-auto mb-3" style="max-width: 800px"><%= sanitize text, tags: %w(br) %></p>
-      <%= link_to cta_text, cta_href, class: "btn btn-light btn-large font-weight-bold", role: "button", target: cta_target, data: { behavior: cta_href[0] == "#" ? "smooth-scroll-anchor" : "regular-link" } %>
+      <%= link_to cta_text, cta_href, class: "btn btn-light btn-large font-weight-bold", role: "button", target: cta_target, rel: cta_target == "_blank" ? "noopener" : "follow", data: { behavior: cta_href[0] == "#" ? "smooth-scroll-anchor" : "regular-link" } %>
     </div>
   </div>
 </div>

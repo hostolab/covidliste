@@ -10,6 +10,7 @@ import "controllers/application";
 // import "channels";
 import "bootstrap";
 import "bootstrap-select";
+import "../components/fontawesome";
 import "../components/confirmation";
 
 Rails.start();
