@@ -8,7 +8,10 @@ class ReverseGeocodingService
   end
 
   def call
-    first_result = self.class.get("/reverse", query: {lat: @lat, lon: @lon, limit: 1}).dig("features")&.first
+    response = self.class.get("/reverse", query: {lat: @lat, lon: @lon, limit: 1})
+    return nil if response.code != 200
+
+    first_result = response.dig("features")&.first
     return nil if first_result.nil?
 
     Rails.logger.debug(first_result)
