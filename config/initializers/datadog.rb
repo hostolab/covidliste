@@ -1,5 +1,7 @@
-Datadog.configure do |c|
-  c.tracer enabled: Rails.env.production?
-  c.use :rails, service_name: "covidliste"
+unless Rails.env.test?
+  require "ddtrace"
+
+  Datadog.configure do |c|
+    c.use :rails, log_injection: true
+  end
 end
-Datadog.tracer.enabled = Rails.env.production?

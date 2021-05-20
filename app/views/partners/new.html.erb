@@ -31,7 +31,7 @@
 
         <p class="mb-4">
           Vous êtes un professionnel de santé déjà inscrit ? Connectez-vous sur
-          <%= link_to "l'espace professionnels de santé", new_partner_session_path %>
+          <%= link_to "l’espace professionnels de santé", new_partner_session_path %>
         </p>
 
         <% if @partner.errors.any? %>
@@ -48,14 +48,14 @@
             <div class="alert alert-success" role="alert">
               Merci ! Vous êtes bien enregistré en tant que professionnel de santé assurant la vaccination sur Covidliste.
               Vous allez recevoir dans quelques instants un email de confirmation qui vous permettra de valider votre
-              inscription et d'accéder à votre espace sécurisé.
+              inscription et d’accéder à votre espace sécurisé.
             </div>
           </div>
 
         <% else %>
 
           <button class="btn btn-primary" type="button" id="health-professionnal" data-toggle="collapse" data-target="#collapseForm" aria-expanded="false" aria-controls="collapseForm">
-            S'inscrire en tant que professionnel de santé assurant la vaccination
+            S’inscrire en tant que professionnel de santé assurant la vaccination
           </button>
 
           <div class="collapse <%= @partner.errors.any? ? 'show' : '' %>" id="collapseForm">
@@ -84,16 +84,17 @@
                     <small class="form-text text-muted">
                       <%= User::PASSWORD_HINT.to_s %>
                       <br/>
-                      <%= content_tag :span, "", data: {password_target: "passwordCheck"}, class: "d-inline-block" %>
-                    </small>
-                    <small class="form-text text-muted">
-                      Un email de confirmation de création de compte vous sera envoyé. Cliquez sur le lien pour activer
-                      votre compte.
+                      <%= content_tag :strong, "", data: {password_target: "passwordCheck"}, class: "d-inline-block" %>
                     </small>
                   </div>
                 </div>
 
                 <%= render partial: "users/input_statement", locals: {f: f, local_cgu_path: cgu_pro_path} %>
+
+                <p class="form-text">
+                  Un email de confirmation de création de compte vous sera envoyé. Cliquez sur le lien pour activer
+                  votre compte.
+                </p>
 
                 <%= f.invisible_captcha :subtitle, honeypots: true %>
                 <%= f.button :submit, "S’inscrire en tant que professionnel de santé", id: "create-new-partner", class: "btn btn-primary", data: {disable_with: "Validation...", confirm: "Vous êtes bien professionnel de santé ?"} %>

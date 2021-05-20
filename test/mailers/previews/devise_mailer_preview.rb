@@ -9,7 +9,7 @@ class DeviseMailerPreview < ActionMailer::Preview
 
   def magic_link
     @resource = User.last || FactoryBot.create(:user)
-    resource&.send_magic_link(true)
+    @resource&.send_magic_link(true)
   end
 
   def reset_password_instructions

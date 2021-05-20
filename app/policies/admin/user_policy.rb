@@ -2,14 +2,14 @@ module Admin
   class Admin::UserPolicy < ApplicationPolicy
     class Scope < Scope
       def resolve
-        raise Pundit::NotAuthorizedError unless user.has_role?(:admin)
+        raise Pundit::NotAuthorizedError unless user.has_role?(:support_member)
 
         scope.all
       end
     end
 
     def resend_confirmation?
-      user.has_role?(:admin)
+      user.has_role?(:support_member)
     end
 
     def destroy?

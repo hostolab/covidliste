@@ -17,7 +17,7 @@ import { initialFormState } from "components/partners/campaign_creator/initialFo
 import { CampaignCreatorAlreadyRunningCampaignWarning } from "components/partners/campaign_creator/CampaignCreatorAlreadyRunningCampaignWarning";
 
 const _CampaignCreator = ({
-  initialCampaign,
+  campaignDefaults,
   vaccinationCenter,
   flowImagePath,
   runningCampaignsPaths,
@@ -30,7 +30,7 @@ const _CampaignCreator = ({
         runningCampaignsPaths={runningCampaignsPaths}
       />
       <Formik
-        initialValues={initialFormState(initialCampaign)}
+        initialValues={initialFormState(campaignDefaults)}
         validate={validateCampaignCreatorForm}
         onSubmit={createCampaign.mutate}
         validateOnMount
@@ -50,7 +50,19 @@ const _CampaignCreator = ({
               </h2>
               <CampaignCreatorAgeRange />
               <CampaignCreatorMaxDistance />
+
+              <h2>
+                <i className="fas fa-info-circle"></i> Informations pour les
+                volontaires
+              </h2>
+              <p>
+                Les volontaires verront les informations suivantes uniquement
+                <strong> après avoir confirmé leur rendez-vous.</strong> Il leur
+                est déjà demandé d’apporter leur carte vitale et une pièce
+                d’identité.
+              </p>
               <CampaignCreatorExtraInfo />
+              {/*ajouter la possibilité de faire apparaître son téléphone*/}
 
               <h2>
                 <i className="fas fa-bullhorn"></i> Lancer la campagne
