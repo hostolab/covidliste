@@ -1,10 +1,11 @@
-<nav class="navbar navbar-expand-xl navbar-dark bg-theme px-lg-0">
+<nav class="navbar navbar-expand-xl px-lg-0 <%= @page_pro ? "navbar-light bg-light" : "navbar-dark bg-theme" %>">
   <div class="container">
     <%= link_to root_path, class: "navbar-brand" do %>
-      <%= image_tag "covidliste-logo.png", height: 40, loading: "lazy", class: "mr-2", alt: "logo covidliste" %>
+      <%= image_tag @page_pro ? "covidliste-logo-reverse.svg" : "covidliste-logo.svg", height: 40, width: 32, loading: "lazy", class: "mr-2", alt: "logo covidliste" %>
       <span class="font-weight-bolder">Covidliste</span>
-      <% if current_partner %>
-        <span class="ml-1 font-weight-light">Professionnels</span>
+      <% if @page_pro %>
+        <span class="badge align-top font-weight-light border <%= @page_pro ? "text-dark border-dark" : "text-light border-light" %>" style="font-size: 0.66rem">Pro</span>
+        <span class="sr-only">Professionnels de santé</span>
       <% end %>    
     <% end %>
 
@@ -21,8 +22,8 @@
         <li class="<%= class_names("nav-item", active: current_page?(faq_path)) %>">
           <%= link_to "Foire aux questions", faq_path, class: "nav-link" %>
         </li>
-        <li class="<%= class_names("nav-item", active: current_page?(partenaires_path)) %>">
-          <%= link_to "Professionnels de santé", partenaires_path, class: "nav-link" %>
+        <li class="<%= class_names("nav-item", active: current_page?(landing_page_pro_path)) %>">
+          <%= link_to "Professionnels de santé", landing_page_pro_path, class: "nav-link" %>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#dropdownHelpers" role="button" aria-haspopup="true" aria-expanded="false">Ils nous aident</a>
@@ -71,7 +72,7 @@
           </li>
         <% else %>
           <li class="<%= class_names("nav-item", "dropdown", active: current_page?(new_user_session_path) || current_page?(new_partner_session_path)) %>">
-            <%= link_to "", class: "nav-link dropdown-toggle btn btn-primary font-weight-bold", id: "dropdown11", "aria-expanded": "false", "aria-haspopup": "true", "data-toggle": "dropdown" do %>
+            <%= link_to "", class: "nav-link dropdown-toggle btn btn-primary font-weight-bold#{@page_pro ? " text-white" : ""}", id: "dropdown11", "aria-expanded": "false", "aria-haspopup": "true", "data-toggle": "dropdown" do %>
               Se connecter
             <% end %>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown11">

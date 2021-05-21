@@ -12,29 +12,33 @@
     width: 100%;
     text-align: left;
     position: relative;
+    font-weight: bold;
 
     &:after {
+      content: "";
+      display: block;
+      z-index: 1;
       position: absolute;
-      right: 0px;
+      right: 13px;
       top: 50%;
       margin-top: -10px;
-      font-family: "Font Awesome 5 Free";
-      font-weight: 900;
-      font-size: 15px;
-      font-style: normal;
-      font-variant: normal;
-      display: inline-block;
-      text-rendering: auto;
-      color: $purple700;
-      content: "\f106";
+      background: transparent image-url("icons/icon-caret-down.svg") no-repeat
+        center center;
+      height: 15px;
+      width: 15px;
+      transition: transform 300ms ease-in-out;
     }
 
-    &.collapsed:after {
-      content: "\f107";
+    &.collapsed {
+      font-weight: normal;
+
+      &:after {
+        transform: rotate(-180deg);
+      }
     }
   }
 
-  .card-body p:last-child {
+  p {
     margin-bottom: 0;
   }
 }
