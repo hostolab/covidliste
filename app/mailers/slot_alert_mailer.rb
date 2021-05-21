@@ -3,7 +3,7 @@ class SlotAlertMailer < ApplicationMailer
   default from: "Covidliste <dose@covidliste.com>"
 
   def notify_slot
-    @alert = params[:slot_alert]
+    @alert = params[:alert]
     return if @alert.user.blank?
 
     @alert_token = @alert.token
