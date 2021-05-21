@@ -3,7 +3,7 @@ class SlotAlertsController < ApplicationController
 
   def show
     @alert.update(clicked_at: Time.now) unless @alert.clicked_at
-    redirect_to @alert.vmd_slot.url
+    redirect_to URI.parse(@alert.vmd_slot.url).to_s
   end
 
   def update
