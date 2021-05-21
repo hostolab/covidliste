@@ -1,5 +1,6 @@
 module Partners
   class CampaignsController < ApplicationController
+    before_action :define_as_page_pro
     before_action :authenticate_partner!
     before_action :find_vaccination_center, except: [:show, :update]
     before_action :find_campaign, only: [:show, :update]

@@ -79,7 +79,10 @@ Rails.application.routes.draw do
     path_names: {sign_in: "login", sign_out: "logout"},
     skip: %i[registrations],
     controllers: {
-      confirmations: "confirmations"
+      confirmations: "partners/confirmations",
+      passwords: "partners/passwords",
+      sessions: "partners/sessions",
+      unlocks: "partners/unlocks"
     }
 
   ####################
