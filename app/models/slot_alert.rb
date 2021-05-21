@@ -2,6 +2,7 @@ class SlotAlert < ApplicationRecord
   has_secure_token :token
   encrypts :token
   blind_index :token
+  self.ignored_columns = ["token"]
 
   belongs_to :user
   belongs_to :vmd_slot
