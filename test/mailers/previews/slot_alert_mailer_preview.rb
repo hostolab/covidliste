@@ -3,6 +3,6 @@
 class SlotAlertMailerPreview < ActionMailer::Preview
   def notify_slot
     alert = FactoryBot.create(:slot_alert)
-    SlotAlertMailer.with(slot_alert: alert).notify_slot.deliver_now
+    SlotAlertMailer.with(alert: alert).notify_slot.deliver_now
   end
 end
