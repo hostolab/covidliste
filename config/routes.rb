@@ -112,6 +112,13 @@ Rails.application.routes.draw do
     resource :users, only: [:edit, :destroy]
   end
 
+  # slot alerts
+  get "/s/:token" => "slot_alerts#show", :as => :slot_alert
+  patch "/s/:token" => "slot_alerts#update"
+  namespace :slot_alerts do
+    resource :users, only: [:edit, :destroy]
+  end
+
   get "/m/:match_confirmation_token(/:source)" => "matches#show", :as => :match
   patch "/m/:match_confirmation_token(/:source)" => "matches#update"
   delete "/m/:match_confirmation_token(/:source)" => "matches#destroy"
