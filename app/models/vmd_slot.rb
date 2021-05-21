@@ -64,4 +64,10 @@ class VmdSlot < ApplicationRecord
   rescue
     0
   end
+
+  def vaccine_type
+    VACCINE_TYPES.each do |k, v|
+      return v if send(k)
+    end
+  end
 end
