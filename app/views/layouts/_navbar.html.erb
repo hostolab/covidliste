@@ -43,7 +43,7 @@
             <%= link_to "Espace professionnels", partners_vaccination_centers_path, class: "nav-link" %>
           </li>
           <li class="nav-item dropdown">
-            <%= link_to "", class: "nav-link text-white font-weight-bold dropdown-toggle", id: "dropdown09", "aria-expanded": "false", "aria-haspopup": "true", "data-toggle": "dropdown" do %>
+            <%= link_to "", class: "nav-link font-weight-bold dropdown-toggle #{@page_pro ? "text-secondary" : "text-white"}", id: "dropdown09", "aria-expanded": "false", "aria-haspopup": "true", "data-toggle": "dropdown" do %>
               <%= current_partner.name %>
               <span class="badge badge-primary">
                 Professionnel
@@ -58,7 +58,7 @@
           </li>
         <% elsif current_user %>
           <li class="nav-item dropdown">
-            <%= link_to "", class: "nav-link text-white font-weight-bold dropdown-toggle", id: "dropdown09", "aria-expanded": "false", "aria-haspopup": "true", "data-toggle": "dropdown" do %>
+            <%= link_to "", class: "nav-link font-weight-bold dropdown-toggle #{@page_pro ? "text-secondary" : "text-white"}", id: "dropdown09", "aria-expanded": "false", "aria-haspopup": "true", "data-toggle": "dropdown" do %>
               Mon compte
             <% end %>
 

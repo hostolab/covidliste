@@ -27,13 +27,14 @@
       height: 15px;
       width: 15px;
       transition: transform 300ms ease-in-out;
+      transform: rotate(-180deg);
     }
 
     &.collapsed {
       font-weight: normal;
 
       &:after {
-        transform: rotate(-180deg);
+        transform: rotate(0deg);
       }
     }
   }

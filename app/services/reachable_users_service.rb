@@ -7,11 +7,6 @@ class ReachableUsersService
   end
 
   def get_users(limit = nil)
-    return get_users_with_v2(limit) if @ranking_method == "v2"
-    get_users_with_random(limit)
-  end
-
-  def get_users_with_v2(limit = nil)
     sql = <<~SQL.tr("\n", " ").squish
       with users_stats as (
         select
@@ -21,9 +16,7 @@ class ReachableUsersService
         COUNT(m.id) filter (where vaccine_type = (:vaccine_type)) as vaccine_matches_count,
         COUNT(m.id) as total_matches_count,
         MAX(m.created_at) filter (where vaccine_type = (:vaccine_type))  as last_vaccine_match,
-        MAX(m.created_at)::date as last_match,
-        SUM(case when m.refused_at is not null and vaccine_type = (:vaccine_type) then 1 else 0 end) as vaccine_refusals_count,
-        SUM(case when m.refused_at is not null then 1 else 0 end) as total_refusals_count
+        MAX(m.created_at)::date as last_match
         from users u
         left outer join matches m on (m.user_id = u.id)
         left outer join campaigns c on (c.id = m.campaign_id and c.status != 2)
@@ -35,11 +28,7 @@ class ReachableUsersService
           AND u.grid_j >= :min_j AND u.grid_j <= :max_j
           AND (SQRT((((:lat) - u.lat)*110.574)^2 + (((:lon) - u.lon)*111.320*COS(u.lat::float*3.14159/180))^2)) < (:rayon_km)
         group by 1,2,3
-        having
-         (
-           SUM(case when m.confirmed_at is not null then 1 else 0 end) <= 0
-           AND (MAX(m.created_at) <= (:last_match_allowed_at) or MAX(m.created_at) is null)
-         )
+        having SUM(case when m.confirmed_at is not null then 1 else 0 end) <= 0
       )
 
       select
@@ -47,17 +36,13 @@ class ReachableUsersService
         vaccine_matches_count,
         distance_bucket,
         total_matches_count,
-        COALESCE(last_match, created_at) as last_match_or_signup,
-        vaccine_refusals_count,
-        total_refusals_count
+        COALESCE(last_match, created_at) as last_match_or_signup
         from users_stats
         order by
         vaccine_matches_count asc,
         distance_bucket asc,
         total_matches_count,
-        COALESCE(last_match, created_at) asc,
-        vaccine_refusals_count asc,
-        total_refusals_count asc
+        COALESCE(last_match, created_at) asc
       limit (:limit)
     SQL
     params = {
@@ -71,26 +56,10 @@ class ReachableUsersService
       min_j: @covering[:center_cell][:j] - @covering[:dist_cells],
       max_j: @covering[:center_cell][:j] + @covering[:dist_cells],
       vaccine_type: @campaign.vaccine_type,
-      limit: limit,
-      last_match_allowed_at: Match::NO_MORE_THAN_ONE_MATCH_PER_PERIOD.ago
+      limit: limit
     }
     query = ActiveRecord::Base.send(:sanitize_sql_array, [sql, params])
     User.where(id: ActiveRecord::Base.connection.execute(query).to_a.pluck("user_id"))
-  end
-
-  def get_users_with_random(limit = nil)
-    User
-      .confirmed
-      .active
-      .between_age(@campaign.min_age, @campaign.max_age)
-      .where("SQRT(((? - lat)*110.574)^2 + ((? - lon)*111.320*COS(lat::float*3.14159/180))^2) < ?", @vaccination_center.lat, @vaccination_center.lon, @campaign.max_distance_in_meters / 1000)
-      .where("id not in (
-      select user_id from matches m inner join campaigns c on (c.id = m.campaign_id)
-      where m.user_id is not null
-      and ((m.created_at >= ? and c.status != 2) or (m.confirmed_at is not null))
-      )", Match::NO_MORE_THAN_ONE_MATCH_PER_PERIOD.ago) # exclude user_id that have been matched in the last 24 hours, or confirmed
-      .order("RANDOM()")
-      .limit(limit)
   end
 
   def get_users_count

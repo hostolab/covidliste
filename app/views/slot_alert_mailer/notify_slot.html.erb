@@ -1,12 +1,11 @@
 <div>
-  <h1>Covidliste vous propose des créneaux du lendemain disponibles grâce à Vite Ma Dose. </h1>
+  <h1>Covidliste vous propose aussi des créneaux disponibles.</h1>
 
   <p>
-    Depuis le 12 mai, les personnes âgées de 18 à 49 ans sont éligibles à la vaccination sur les créneaux disponibles dans les 24h !
-  </p>
-
-  <p>
-    Nous avons trouvé un centre à proximité qui dispose de créneaux de vaccination:
+    Nous avons trouvé un centre situé à
+    <% distance = distance_delta({lat: @alert.user.lat, lon: @alert.user.lon}, {lat: @slot.latitude, lon: @slot.longitude}) %>
+    <%= distance[:delta_in_words] %>
+    de chez vous qui dispose de créneaux de vaccination:
   </p>
 
   <div class="row">
@@ -16,13 +15,6 @@
       <strong> Centre de vaccination </strong>
       <br/><%= @slot.name %>
       <br/><%= @slot.address %>
-    </p>
-
-    <p>
-      (À
-      <% distance = distance_delta({lat: @alert.user.lat, lon: @alert.user.lon}, {lat: @slot.latitude, lon: @slot.longitude}) %>
-      <%= distance[:delta_in_words] %>
-      de chez vous)
     </p>
 
     <p>
@@ -53,10 +45,8 @@
     <%= slot_alert_url(token: @alert_token) %>
   </p>
 
-  <%= render "mailer/faq" %>
-
   <p>
-    <strong>Vous ne souhaitez plus être informé de doses ou de creneaux disponibles ?</strong>
+    <strong>Vous ne souhaitez plus être informé de doses ou de créneaux disponibles ?</strong>
     <br>
     <strong>
       <%= link_to "Supprimer mon compte", edit_slot_alerts_users_url(token: @alert_token) %>
