@@ -1,9 +1,9 @@
-<nav class="navbar navbar-expand-xl navbar-dark bg-theme px-lg-0">
+<nav class="navbar navbar-expand-xl px-lg-0 <%= @page_pro ? "navbar-light bg-theme-reverse" : "navbar-dark bg-theme" %>">
   <div class="container">
     <%= link_to root_path, class: "navbar-brand" do %>
       <%= image_tag "covidliste-logo.png", height: 40, loading: "lazy", class: "mr-2", alt: "logo covidliste" %>
       <span class="font-weight-bolder">Covidliste</span>
-      <% if controller_name == "partners" || current_page?(landing_page_pro_path) %>
+      <% if @page_pro %>
         <span class="badge font-weight-light border border-light align-top" style="font-size: 0.66rem">Pro</span>
         <span class="sr-only">Professionnels de santé</span>
       <% end %>    
@@ -72,7 +72,7 @@
           </li>
         <% else %>
           <li class="<%= class_names("nav-item", "dropdown", active: current_page?(new_user_session_path) || current_page?(new_partner_session_path)) %>">
-            <%= link_to "", class: "nav-link dropdown-toggle btn btn-primary font-weight-bold", id: "dropdown11", "aria-expanded": "false", "aria-haspopup": "true", "data-toggle": "dropdown" do %>
+            <%= link_to "", class: "nav-link dropdown-toggle btn btn-primary font-weight-bold#{@page_pro ? " text-white" : ""}", id: "dropdown11", "aria-expanded": "false", "aria-haspopup": "true", "data-toggle": "dropdown" do %>
               Se connecter
             <% end %>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown11">

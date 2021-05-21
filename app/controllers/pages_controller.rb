@@ -1,12 +1,12 @@
 class PagesController < ApplicationController
+  before_action :define_as_page_pro, only: [:landing_page_pro]
+
   def landing_page_pro
-    # @users_count = Rails.cache.fetch(:users_count, expires_in: 30.seconds) { Counter.total_users }
-    @users_count = 1282234
-    # @confirmed_matched_users_count = Rails.cache.fetch(:confirmed_matched_users_count, expires_in: 30.minutes) { Match.confirmed.count }
-    @confirmed_matched_users_count = 19024
-    @typeform_url = "http://localhost:3000"
-    @reviews = Rails.cache.fetch("reviews_volunteer", expires_in: 2.hours) { Review.where(from: "volunteer") }
-    @faq_items = Rails.cache.fetch("faq_items_pro", expires_in: 2.hours) { FaqItem.where(area: "pro") }[0..4]
+    @users_count = Rails.cache.fetch(:users_count, expires_in: 30.seconds) { Counter.total_users }
+    @confirmed_matched_users_count = Rails.cache.fetch(:confirmed_matched_users_count, expires_in: 30.minutes) { Match.confirmed.count }
+    @typeform_url = nil # Replace with typeform url once we got it
+    @reviews = Review.where(from: "volunteer")
+    @faq_items = FaqItem.where(area: "pro").limit(4)
   end
 
   def benevoles
@@ -16,13 +16,11 @@ class PagesController < ApplicationController
   def donateurs
     @force = params[:force].present?
     @debug = params[:debug].present?
-    @ulule_buddy_orders = Rails.cache.fetch(:ulule_buddy_orders, expires_in: 1.hour, force: @force) do
-      UluleBuddyOrder.all.each_with_object({}) do |e, m|
-        m[e.order_id] = {
-          name: e.name,
-          picture_path: e.picture_path
-        }
-      end
+    @ulule_buddy_orders = UluleBuddyOrder.all.each_with_object({}) do |e, m|
+      m[e.order_id] = {
+        name: e.name,
+        picture_path: e.picture_path
+      }
     end
     data = UluleService.new("covidliste", ENV["ULULE_API_KEY"]).data(@force)
     @project = data[:project]
@@ -33,7 +31,7 @@ class PagesController < ApplicationController
   end
 
   def sponsors
-    @sponsors = Rails.cache.fetch(:sponsors, expires_in: 1.day, force: params[:force].present?) { Sponsor.all }
+    @sponsors = Sponsor.all
   end
 
   def contact
@@ -106,7 +104,7 @@ class PagesController < ApplicationController
   end
 
   def faq
-    @faq_items = Rails.cache.fetch("faq_items_main", expires_in: 2.hours) { FaqItem.where(area: "main") }
+    @faq_items = FaqItem.where(area: "main")
     respond_to do |format|
       format.html
       format.json { render json: @faq_items.to_json }
@@ -114,7 +112,7 @@ class PagesController < ApplicationController
   end
 
   def faq_pro
-    @faq_items = Rails.cache.fetch("faq_items_pro", expires_in: 2.hours) { FaqItem.where(area: "pro") }
+    @faq_items = FaqItem.where(area: "pro")
     respond_to do |format|
       format.html
       format.json { render json: @faq_items.to_json }

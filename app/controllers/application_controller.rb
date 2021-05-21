@@ -32,4 +32,8 @@ class ApplicationController < ActionController::Base
       "ERROR"
     end
   end
+
+  def define_as_page_pro
+    @page_pro = true
+  end
 end
