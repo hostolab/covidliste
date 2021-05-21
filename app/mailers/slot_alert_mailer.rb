@@ -9,7 +9,7 @@ class SlotAlertMailer < ApplicationMailer
     @slot = @alert.vmd_slot
     mail(
       to: @alert.user.email,
-      subject: "Avez vous pu reserver un créneau de vaccination ?"
+      subject: "Avez vous pu réserver un créneau de vaccination ?"
     )
   end
 end
