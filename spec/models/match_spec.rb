@@ -33,7 +33,7 @@ RSpec.describe Match, type: :model do
         create(:match, user: user, campaign: campaign)
       end
       it "should not create a second match for the same campaign" do
-        expect { create(:match, user: user, campaign: campaign) }.to raise_error
+        expect { create(:match, user: user, campaign: campaign) }.to raise_error(ActiveRecord::RecordInvalid)
       end
     end
 
