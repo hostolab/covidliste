@@ -25,7 +25,7 @@ class User < ApplicationRecord
   validates :toc, presence: true, acceptance: true
   validates :statement, presence: true, acceptance: true
   validates :email,
-    email: {
+    'valid_email_2/email': {
       mx: true,
       message: "Email invalide"
     },

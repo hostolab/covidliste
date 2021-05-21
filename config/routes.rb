@@ -2,6 +2,8 @@ require "sidekiq/web"
 require "sidekiq/cron/web"
 
 Rails.application.routes.draw do
+  draw(:redirects)
+
   namespace :admin do
     authenticate :user, lambda { |u| u.has_role?(:volunteer) } do
       get "/" => "home#index"
@@ -61,7 +63,6 @@ Rails.application.routes.draw do
   ## devise users
   devise_for :users,
     path_names: {sign_in: "login", sign_out: "logout"},
-    path: "",
     skip: %i[registrations],
     controllers: {
       sessions: "devise/passwordless/sessions",
@@ -85,9 +86,9 @@ Rails.application.routes.draw do
 
   ## users
   resources :users, only: [:create, :new]
-  get "/profile" => "users#show", :as => :profile
-  put "/profile" => "users#update", :as => :user
-  delete "/profile" => "users#delete", :as => :delete_user
+  get "/users/profile" => "users#show", :as => :profile
+  put "/users/profile" => "users#update", :as => :user
+  delete "/users/profile" => "users#delete", :as => :delete_user
   get "/users" => "users#new"
 
   ## Partners
