@@ -16,11 +16,11 @@
         <h1 class="font-weight-bold mb-4"><span class="text-secondary">Écoulez des doses,</span> <span class="text-dark">gagnez du temps.</span></h1>
         <h2 class="font-weight-bold mb-3"><span class="text-dark">La</span> <span class="text-secondary">plus grande liste d’attente de vaccination</span> <span class="text-dark">en France avec</span> <span class="text-secondary"><%= pretty_number(@users_count) %> inscrits.</span></h2>
         <p class="mb-3 text-dark">
-          <strong>Découvrez Covidliste</strong>, un outil qui vous <strong>fait gagner un temps considérable</strong> pour vacciner tout la France. 
+          <strong>Découvrez Covidliste</strong>, un outil qui vous <strong>fait gagner un temps considérable</strong> pour vacciner toute la France.
         </p>
         <div class="row">
           <div class="col-12 col-xl-6">
-            <%= link_to "M’inscrire à Coviliste Pro", partenaires_inscription_path, class: "btn btn-primary btn-large btn-block font-weight-bold" %>
+            <%= link_to "M’inscrire à Covidliste Pro", partenaires_inscription_path, class: "btn btn-primary btn-large btn-block font-weight-bold" %>
           </div>
           <% if @typeform_url.present? %>
             <div class="col-12 col-xl-6 mt-3 mt-xl-0">
@@ -38,6 +38,8 @@
 
 <div class="shadow-sm py-3 py-md-4">
   <div class="container">
+    <div class="h4"><span class="text-dark font-weight-lighter">Projet soutenu par </span> <span class="text-secondary font-weight-bold">Ministère des Solidarités et de la Santé</span></div>
+    <!--
     <div class="row">
       <div class="col-6 col-md-3 align-self-center justify">
         <%= image_tag "landing_page_pro/logo-elysee-presidence-de-la-republique.svg", alt: "Elysée présidence de la République", class: "grayscale-effect scale-effect h-100 w-auto", loading: "lazy" %>
@@ -52,6 +54,7 @@
         <%= image_tag "landing_page_pro/logo-direction-generale-de-sante.svg", alt: "Direction générale de Santé", class: "grayscale-effect scale-effect h-100 w-auto", loading: "lazy" %>
       </div>
     </div>
+    -->
   </div>
 </div>
 

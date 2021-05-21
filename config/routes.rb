@@ -93,8 +93,7 @@ Rails.application.routes.draw do
   ## Partners
   resources :partners, only: [:new, :create]
   resource :partners, only: [:show, :update, :destroy]
-  get "/pro", to: redirect("/partenaires", status: 302), as: :pro
-  get "/partenaires" => "pages#landing_page_pro", :as => :landing_page_pro
+  get "/pro" => "pages#landing_page_pro", :as => :landing_page_pro
   get "/partenaires/inscription" => "partners#new", :as => :partenaires_inscription
   get "/partenaires/faq" => "pages#faq_pro", :as => :partenaires_faq
 
