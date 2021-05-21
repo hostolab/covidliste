@@ -18,6 +18,13 @@
       <br/><%= @slot.address %>
     </p>
 
+    <p>
+      (À
+      <% distance = distance_delta({lat: @alert.user.lat, lon: @alert.user.lon}, {lat: @slot.latitude, lon: @slot.longitude}) %>
+      <%= distance[:delta_in_words] %>
+      de chez vous)
+    </p>
+
   </div>
 
   <div class="col-sm-12 col-md-6 col-lg-6 mt-2">

@@ -1,4 +1,5 @@
 class SlotAlertMailer < ApplicationMailer
+  helper ApplicationHelper
   default from: "Covidliste <dose@covidliste.com>"
 
   def notify_slot
