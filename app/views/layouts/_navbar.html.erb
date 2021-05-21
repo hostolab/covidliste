@@ -3,8 +3,9 @@
     <%= link_to root_path, class: "navbar-brand" do %>
       <%= image_tag "covidliste-logo.png", height: 40, loading: "lazy", class: "mr-2", alt: "logo covidliste" %>
       <span class="font-weight-bolder">Covidliste</span>
-      <% if current_partner %>
-        <span class="ml-1 font-weight-light">Professionnels</span>
+      <% if controller_name == "partners" || current_page?(landing_page_pro_path) %>
+        <span class="badge font-weight-light border border-light align-top" style="font-size: 0.66rem">Pro</span>
+        <span class="sr-only">Professionnels de santé</span>
       <% end %>    
     <% end %>
 
@@ -21,8 +22,8 @@
         <li class="<%= class_names("nav-item", active: current_page?(faq_path)) %>">
           <%= link_to "Foire aux questions", faq_path, class: "nav-link" %>
         </li>
-        <li class="<%= class_names("nav-item", active: current_page?(partenaires_path)) %>">
-          <%= link_to "Professionnels de santé", partenaires_path, class: "nav-link" %>
+        <li class="<%= class_names("nav-item", active: current_page?(landing_page_pro_path)) %>">
+          <%= link_to "Professionnels de santé", landing_page_pro_path, class: "nav-link" %>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#dropdownHelpers" role="button" aria-haspopup="true" aria-expanded="false">Ils nous aident</a>

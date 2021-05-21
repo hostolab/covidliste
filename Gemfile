@@ -67,6 +67,7 @@ gem "mini_racer", platforms: :ruby
 gem "marginalia"
 gem "memoist"
 gem "ddtrace"
+gem "view_component", require: "view_component/engine"
 
 group :development, :test do
   gem "dotenv-rails", "2.7.6"
@@ -82,7 +83,7 @@ group :development do
   gem "brakeman"
   gem "bullet"
   gem "listen", "~> 3.3"
-  gem "rack-mini-profiler", "~> 2.0"
+  # gem "rack-mini-profiler", "~> 2.0"
   gem "web-console", ">= 4.1.0"
 end
 

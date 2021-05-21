@@ -1,4 +1,14 @@
 class PagesController < ApplicationController
+  def landing_page_pro
+    # @users_count = Rails.cache.fetch(:users_count, expires_in: 30.seconds) { Counter.total_users }
+    @users_count = 1282234
+    # @confirmed_matched_users_count = Rails.cache.fetch(:confirmed_matched_users_count, expires_in: 30.minutes) { Match.confirmed.count }
+    @confirmed_matched_users_count = 19024
+    @typeform_url = "http://localhost:3000"
+    @reviews = Rails.cache.fetch("reviews_volunteer", expires_in: 2.hours) { Review.where(from: "volunteer") }
+    @faq_items = Rails.cache.fetch("faq_items_pro", expires_in: 2.hours) { FaqItem.where(area: "pro") }[0..4]
+  end
+
   def benevoles
     @volunteers = Volunteer.where(anon: false).order(sort_name: :asc) + Volunteer.where(anon: true).order(sort_name: :asc)
   end

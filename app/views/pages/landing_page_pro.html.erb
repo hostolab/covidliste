@@ -1,0 +1,204 @@
+<%= provide(:meta_title, "Devenez partenaires de Covidliste") %>
+<%= provide(:meta_description, "Professionnels de santé, inscrivez-vous sur Covidliste.") %>
+<%= provide(:meta_image, image_url("meta/partenaires.png")) %>
+
+<% content_for(:append_to_head) do %>
+  <meta content="index;follow" name="robots"/>
+<% end %>
+
+<% @no_layout_content_padding = true %>
+<% @no_layout_alerts = true %>
+
+<div class="bg-gradient-theme-light hero-lp" id="inscription">
+  <div class="container py-5">
+    <div class="row">
+      <div class="col-12 col-xl-7 align-self-center">
+        <h1 class="font-weight-bold mb-4"><span class="text-secondary">Écoulez des doses,</span> <span class="text-dark">gagnez du temps.</span></h1>
+        <h2 class="font-weight-bold mb-3"><span class="text-dark">La</span> <span class="text-secondary">plus grande liste d’attente de vaccination</span> <span class="text-dark">en France avec</span> <span class="text-secondary"><%= pretty_number(@users_count) %> inscrits.</span></h2>
+        <p class="mb-3 text-dark">
+          <strong>Découvrez Covidliste</strong>, un outil qui vous <strong>fait gagner un temps considérable</strong> pour vacciner tout la France. 
+        </p>
+        <div class="row">
+          <div class="col-12 col-xl-6">
+            <%= link_to "M’inscrire à Coviliste Pro", partenaires_inscription_path, class: "btn btn-primary btn-large btn-block font-weight-bold" %>
+          </div>
+          <% if @typeform_url.present? %>
+            <div class="col-12 col-xl-6 mt-3 mt-xl-0">
+              <%= link_to "Être contacté par un bénévole", @typeform_url, class: "btn btn-light btn-large btn-block font-weight-bold", target: "_blank", rel: "noopener" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <div class="col-12 col-xl-5 d-none d-xl-flex align-items-end h-100">
+        <%= image_tag "landing_page_pro/hero-partners.png", srcset: {"landing_page_pro/hero-partners-2x.png" => "2x"}, alt: "Partenaires de santé", class: "ml-lg-5 h-100 w-auto", loading: "lazy" %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="shadow-sm py-3 py-md-4">
+  <div class="container">
+    <div class="row">
+      <div class="col-6 col-md-3 align-self-center justify">
+        <%= image_tag "landing_page_pro/logo-elysee-presidence-de-la-republique.svg", alt: "Elysée présidence de la République", class: "grayscale-effect scale-effect h-100 w-auto", loading: "lazy" %>
+      </div>
+      <div class="col-6 col-md-3 align-self-center justify">
+        <%= image_tag "landing_page_pro/logo-ministere-des-solidarites-et-de-la-sante.svg", alt: "Ministère des solidarités et de la santé", class: "grayscale-effect scale-effect h-100 w-auto", loading: "lazy" %>
+      </div>
+      <div class="col-6 col-md-3 align-self-center justify mt-3 mt-md-0">
+        <%= image_tag "landing_page_pro/logo-agence-regionale-de-sante.svg", alt: "Agence Régionale de Santé", class: "grayscale-effect scale-effect h-100 w-auto", loading: "lazy" %>
+      </div>
+      <div class="col-6 col-md-3 align-self-center justify mt-3 mt-md-0">
+        <%= image_tag "landing_page_pro/logo-direction-generale-de-sante.svg", alt: "Direction générale de Santé", class: "grayscale-effect scale-effect h-100 w-auto", loading: "lazy" %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container py-5 py-sm-0">
+  <div class="row">
+    <div class="col-12 col-sm-4 py-2 py-sm-5">
+      <div class="mb-3" style="height: 48px">
+        <%= image_tag "landing_page_pro/icon-alert.svg", alt: "Icone d'un mégaphone", class: "h-100 w-auto", loading: "lazy" %>
+      </div>
+      <h3 class="h4 font-weight-bold mb-2"><span class="text-dark">Alerter</span> <span class="text-secondary">les volontaires</span></h3>
+      <p class="mb-0 font-weight-light text-dark">Je lance une campagne de recherche de volontaires pour les doses que j’ai à écouler.</p>
+    </div>
+    <div class="col-12 col-sm-4 py-2 py-sm-5">
+      <div class="mb-3" style="height: 48px">
+        <%= image_tag "landing_page_pro/icon-booking-phone.svg", alt: "Icone d'un téléphone avec une confirmation", class: "h-100 w-auto", loading: "lazy" %>
+      </div>
+      <h3 class="h4 font-weight-bold mb-2"><span class="text-dark">Des</span> <span class="text-secondary">réservations rapides</span></h3>
+      <p class="mb-0 font-weight-light text-dark">Les volontaires correspondant à mes critères sont alertés. Les volontaires réservent leur dose et se déplacent.</p>
+    </div>
+    <div class="col-12 col-sm-4 py-2 py-sm-5">
+      <div class="mb-3" style="height: 48px">
+        <%= image_tag "landing_page_pro/icon-simple-list.svg", alt: "Icone d'une liste d’utilisateur", class: "h-100 w-auto", loading: "lazy" %>
+      </div>
+      <h3 class="h4 font-weight-bold mb-2"><span class="text-dark">Une</span> <span class="text-secondary">vaccination simplifiée</span></h3>
+      <p class="mb-0 font-weight-light text-dark">Je peux consulter la liste de tous les volontaires qui ont confirmé leur venue ainsi que leur identité.</p>
+    </div>
+  </div>
+</div>
+
+<div class="bg-gradient-theme-light hero-lp py-4 py-lg-5">
+  <div class="container">
+    <div class="h1 font-weight-bold mb-3"><span class="text-secondary"><%= pretty_number(@confirmed_matched_users_count) %> citoyens vaccinés,</span> <span class="text-dark">leur expérience</span></div>
+    <% @reviews[0..2].each do |review| %>
+      <div class="mt-1 d-flex align-items-center align-items-sm-end">
+        <%= image_tag review.avatar_path, alt: "Avatar", loading: "lazy" %>
+        <div class="rounded overflow-hidden p-3 bg-white ml-2">
+          <p class="mb-0 font-weight-bold"><%= review.text %></p>
+        </div>
+      </div>
+    <% end %>
+    <%= render(ModalComponent.new(title: "Tous les témoignages", class_names: "modal-lg modal-dialog-scrollable", modal_id: "modalReviews")) do %>
+      <div class="p-3">
+        <% @reviews.each do |review| %>
+          <div class="mt-1 d-flex align-items-center align-items-sm-end">
+            <%= image_tag review.avatar_path, alt: "Avatar", loading: "lazy" %>
+            <div class="rounded overflow-hidden p-3 bg-white ml-2">
+              <p class="mb-0 font-weight-bold"><%= review.text %></p>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+    <%= link_to "Lire tous les témoignages", "#modalReviews", "data-toggle": "modal", class: "btn btn-secondary btn-large font-weight-bold mt-4" %>
+  </div>
+</div>
+
+<div class="bg-white">
+  <div class="container mt-0 mt-lg-5 mb-lg-5 pt-4 pb-4 pt-lg-5 pb-lg-5">
+    <div class="d-flex align-items-center justify-content-between">
+      <div class="row">
+        <div class="col-12 col-lg-6 order-1 order-lg-0 mt-4 mt-lg-0">
+          <div class="font-weight-bolder mb-4 h1">
+            <span class="text-dark">Et</span> <span class="text-secondary">concrètement</span> <span class="text-dark">?</span>
+          </div>
+          <div class="d-flex align-items-start mb-4 text-justify">
+            <%= image_tag "home/icon-check-circle.svg", loading: "lazy", height: 32, width: 32, alt: "solution 1", class: "d-none d-lg-block mr-2" %>
+            <p class="mb-0">
+              <strong>Un professionnel de santé</strong> constate qu’il a des doses disponibles, il
+              <strong>peut utiliser Covidliste pour trouver facilement des volontaires</strong> selon des critères d’âge
+              et de distance.
+            </p>
+          </div>
+          <div class="d-flex align-items-start mb-4 text-justify">
+            <%= image_tag "home/icon-check-circle.svg", loading: "lazy", height: 32, width: 32, alt: "solution 2", class: "d-none d-lg-block mr-2" %>
+            <p class="mb-0">
+              Les <strong>inscrits Covidliste sont d’abord notifiés par email</strong>. S’il reste des doses non
+              attribuées en fin de journée, nous recontactons par SMS tous les inscrits les plus proches.
+            </p>
+          </div>
+          <div class="d-flex align-items-center mb-4 text-justify">
+            <%= image_tag "home/icon-check-circle.svg", loading: "lazy", height: 32, width: 32, alt: "solution 3", class: "d-none d-lg-block mr-2" %>
+            <p class="mb-0">
+              <strong>Les inscrits réservent leurs doses.</strong>
+            </p>
+          </div>
+          <div class="d-flex align-items-start text-justify">
+            <%= image_tag "home/icon-check-circle.svg", loading: "lazy", height: 32, width: 32, alt: "solution 4", class: "d-none d-lg-block mr-2" %>
+            <p class="mb-0">
+              <strong>Le professionnel de santé reçoit alors la liste des inscrits et les vaccine</strong> lorsqu’ils se
+              présentent.
+            </p>
+          </div>
+        </div>
+        <div class="col-12 col-lg-6 order-0 order-lg-1 d-flex align-items-center">
+          <div class="ml-lg-5">
+            <%= image_tag "home/comment-ca-marche.png", srcset: {"home/comment-ca-marche-2x.png" => "2x"}, alt: "Interface pour les professionnels de santé", class: "shadow rounded img-fluid", loading: "lazy" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="bg-gradient-theme-light">
+  <div class="container mt-lg-5 mb-lg-5 py-4 py-lg-5" id="faq">
+    <div class="font-weight-bolder mb-3 mb-lg-4 h1">
+      <span class="text-dark">Foire aux</span> <span class="text-secondary">questions</span>
+    </div>
+    <div id="accordion" class="d-flex flex-column">
+      <% @faq_items.each do |faq_item| %>
+        <%= render "faq_entry", faq_item: faq_item %>
+      <% end %>
+    </div>
+    <%= link_to "Lire la Foire à questions", partenaires_faq_path, class: "btn btn-secondary btn-large font-weight-bold mt-4" %>
+  </div>
+</div>
+
+<div class="bg-white">
+  <div class="container mt-0 mt-lg-5 mb-lg-5 py-5">
+    <div class="font-weight-bolder mb-4 h1">
+      <span class="text-secondary">On parle</span> <span class="text-dark">de nous</span>
+    </div>
+    <div class="row">
+      <div class="col-6 col-md-4 col-lg-3 align-self-center">
+        <%= image_tag "sponsors/logo-le-figaro.svg", loading: "lazy", class: "grayscale-effect scale-effect img-fluid", height: 38, width: 163, alt: "Le Figaro" %>
+      </div>
+      <div class="col-6 col-md-4 col-lg-3 align-self-center mt-2 mt-sm-0">
+        <%= image_tag "sponsors/logo-le-monde.svg", loading: "lazy", class: "grayscale-effect scale-effect img-fluid", height: 38, width: 164, alt: "Le Monde" %>
+      </div>
+      <div class="col-6 col-md-4 col-lg-3 align-self-center mt-2">
+        <%= image_tag "sponsors/logo-fr-24-news.png", loading: "lazy", class: "grayscale-effect scale-effect img-fluid", height: 51, width: 123, alt: "FR24 News" %>
+      </div>
+      <div class="col-6 col-md-4 col-lg-3 align-self-center mt-2">
+        <%= image_tag "sponsors/logo-ouest-france.svg", loading: "lazy", class: "grayscale-effect scale-effect img-fluid", height: 56, width: 161, alt: "Ouest France" %>
+      </div>
+      <div class="col-6 col-md-4 col-lg-3 align-self-center mt-2">
+        <%= image_tag "sponsors/logo-la-nouvelle-republique.svg", loading: "lazy", class: "grayscale-effect scale-effect img-fluid", height: 79, width: 158, alt: "la Nouvelle République" %>
+      </div>
+      <div class="col-6 col-md-4 col-lg-3 align-self-center mt-2">
+        <%= image_tag "sponsors/logo-france-bleu.svg", loading: "lazy", class: "grayscale-effect scale-effect img-fluid", height: 56, width: 92, alt: "france bleu" %>
+      </div>
+      <div class="col-6 col-md-4 col-lg-3 align-self-center mt-2">
+        <%= image_tag "sponsors/logo-la-depeche.svg", loading: "lazy", class: "grayscale-effect scale-effect img-fluid", height: 37, width: 157, alt: "ladepeche" %>
+      </div>
+      <div class="col-6 col-md-4 col-lg-3 align-self-center mt-2">
+        <%= image_tag "sponsors/logo-la-montagne.svg", loading: "lazy", class: "grayscale-effect scale-effect img-fluid", height: 18, width: 159, alt: "la montagne" %>
+      </div>
+    </div>
+  </div>
+</div>
