@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_21_110106) do
+ActiveRecord::Schema.define(version: 2021_05_21_212053) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -244,12 +244,10 @@ ActiveRecord::Schema.define(version: 2021_05_21_110106) do
     t.datetime "clicked_at"
     t.datetime "refused_at"
     t.jsonb "settings"
-    t.string "token"
     t.string "token_ciphertext"
     t.string "token_bidx"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["token"], name: "index_slot_alerts_on_token", unique: true
     t.index ["token_bidx"], name: "index_slot_alerts_on_token_bidx", unique: true
   end
 
