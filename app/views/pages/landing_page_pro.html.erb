@@ -9,8 +9,8 @@
 <% @no_layout_content_padding = true %>
 <% @no_layout_alerts = true %>
 
-<div class="bg-gradient-theme-light hero-lp" id="inscription">
-  <div class="container py-5">
+<div class="bg-gradient-theme-reverse hero-lp" id="inscription">
+  <div class="container pt-4 pb-5">
     <div class="row">
       <div class="col-12 col-xl-7 align-self-center">
         <h1 class="font-weight-bold mb-4"><span class="text-secondary">Écoulez des doses,</span> <span class="text-dark">gagnez du temps.</span></h1>
@@ -81,9 +81,9 @@
   </div>
 </div>
 
-<div class="bg-gradient-theme-light hero-lp py-4 py-lg-5">
+<div class="bg-gradient-theme-reverse py-4 py-lg-5">
   <div class="container">
-    <div class="h1 font-weight-bold mb-3"><span class="text-secondary"><%= pretty_number(@confirmed_matched_users_count) %> citoyens vaccinés,</span> <span class="text-dark">leur expérience</span></div>
+    <div class="h1 font-weight-bold mb-3"><span class="text-secondary"><%= pretty_number(@vaccination_centers_count) %> professionnels de santé équipés<br><%= pretty_number(@confirmed_matched_users_count) %> citoyens vaccinés,</span><br><span class="text-dark">leur expérience</span></div>
     <% @reviews[0..2].each do |review| %>
       <div class="mt-1 d-flex align-items-center align-items-sm-end">
         <%= image_tag review.avatar_path, alt: "Avatar", loading: "lazy" %>
@@ -155,7 +155,7 @@
   </div>
 </div>
 
-<div class="bg-gradient-theme-light">
+<div class="bg-gradient-theme-reverse">
   <div class="container mt-lg-5 mb-lg-5 py-4 py-lg-5" id="faq">
     <div class="font-weight-bolder mb-3 mb-lg-4 h1">
       <span class="text-dark">Foire aux</span> <span class="text-secondary">questions</span>

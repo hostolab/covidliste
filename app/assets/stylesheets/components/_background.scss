@@ -6,12 +6,11 @@
   background: linear-gradient(90deg, $purple700, $purple1000);
 }
 
-.bg-gradient-theme-light {
+.bg-gradient-theme-reverse {
   background: linear-gradient(
-      210.69deg,
-      rgba(255, 255, 255, 0.2) 11.38%,
-      rgba(237, 226, 238, 0.5) 49.29%,
-      rgba(199, 166, 201, 0.5) 81.38%
-    ),
-    #ede2ee;
+      180deg,
+      $purple100 0%,
+      $purple100 50%,
+      $purple300 100%,
+    );
 }

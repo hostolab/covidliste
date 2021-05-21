@@ -1,10 +1,10 @@
-<nav class="navbar navbar-expand-xl px-lg-0 <%= @page_pro ? "navbar-light bg-theme-reverse" : "navbar-dark bg-theme" %>">
+<nav class="navbar navbar-expand-xl px-lg-0 <%= @page_pro ? "navbar-light bg-light" : "navbar-dark bg-theme" %>">
   <div class="container">
     <%= link_to root_path, class: "navbar-brand" do %>
-      <%= image_tag "covidliste-logo.png", height: 40, loading: "lazy", class: "mr-2", alt: "logo covidliste" %>
+      <%= image_tag @page_pro ? "covidliste-logo-reverse.svg" : "covidliste-logo.svg", height: 40, width: 32, loading: "lazy", class: "mr-2", alt: "logo covidliste" %>
       <span class="font-weight-bolder">Covidliste</span>
       <% if @page_pro %>
-        <span class="badge font-weight-light border border-light align-top" style="font-size: 0.66rem">Pro</span>
+        <span class="badge align-top font-weight-light border <%= @page_pro ? "text-dark border-dark" : "text-light border-light" %>" style="font-size: 0.66rem">Pro</span>
         <span class="sr-only">Professionnels de santé</span>
       <% end %>    
     <% end %>

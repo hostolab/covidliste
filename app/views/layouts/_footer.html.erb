@@ -1,17 +1,17 @@
-<footer class="navbar text-lg-start small px-0 shadow-lg <%= @page_pro ? "navbar-light bg-gradient-theme-light" : "navbar-dark bg-light" %>">
+<footer class="navbar text-lg-start small px-0 shadow-lg <%= @page_pro ? "navbar-light bg-gradient-theme" : "navbar-dark bg-light" %>">
   <div class="container p-4">
     <div class="row w-100">
       <div class="col-lg-4 col-md-12 mb-4 mb-md-0">
         <div class="d-flex align-items-start mb-4">
-          <div class="h4 font-weight-bolder text-dark">Covidliste</div>
+          <div class="h4 font-weight-bolder <%= @page_pro ? "text-light" : "text-dark" %>">Covidliste</div>
           <% if @page_pro %>
-            <span class="ml-2 badge font-weight-light border border-dark align-top" style="font-size: 0.66rem">Pro</span>
+            <span class="ml-2 badge align-top font-weight-light border <%= @page_pro ? "text-light border-light" : "text-dark border-dark" %>" style="font-size: 0.66rem">Pro</span>
             <span class="sr-only">Professionnels de santé</span>
           <% end %>
         </div>
-        <p class="text-dark" style="max-width: 400px">
+        <p class="<%= @page_pro ? "text-light" : "text-dark" %>" style="max-width: 400px">
           Une initiative citoyenne portée par
-          des <%= link_to "bénévoles", :benevoles, class: "text-dark text-decoration-underline" %>
+          des <%= link_to "bénévoles", :benevoles, class: "#{@page_pro ? "text-light" : "text-dark"} text-decoration-underline" %>
           dans le but d'accélerer la campagne vaccinale contre la COVID-19 <strong>#aucunedoseperdue</strong>
         </p>
       </div>
@@ -19,28 +19,28 @@
       <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
         <ul class="list-unstyled mb-0">
           <li>
-            <%= link_to "Donateurs", donateurs_path, class: "text-dark d-inline-flex" %>
+            <%= link_to "Donateurs", donateurs_path, class: "#{@page_pro ? "text-light" : "text-dark"} d-inline-flex" %>
           </li>
           <li>
-            <%= link_to "Sponsors", sponsors_path, class: "text-dark mt-2 d-inline-flex" %>
+            <%= link_to "Sponsors", sponsors_path, class: "#{@page_pro ? "text-light" : "text-dark"} mt-2 d-inline-flex" %>
           </li>
           <li>
-            <%= link_to "Bénévoles", benevoles_path, class: "text-dark mt-2 d-inline-flex" %>
+            <%= link_to "Bénévoles", benevoles_path, class: "#{@page_pro ? "text-light" : "text-dark"} mt-2 d-inline-flex" %>
           </li>
           <li>
-            <%= link_to "Mentions légales", :mentions_legales, class: "text-dark mt-2 d-inline-flex" %>
+            <%= link_to "Mentions légales", :mentions_legales, class: "#{@page_pro ? "text-light" : "text-dark"} mt-2 d-inline-flex" %>
           </li>
           <li>
-            <%= link_to "Presse", :presse, class: "text-dark mt-2 d-inline-flex" %>
+            <%= link_to "Presse", :presse, class: "#{@page_pro ? "text-light" : "text-dark"} mt-2 d-inline-flex" %>
           </li>
           <li>
-            <%= link_to "Algorithme de sélection", :algorithme, class: "text-dark mt-2 d-inline-flex" %>
+            <%= link_to "Algorithme de sélection", :algorithme, class: "#{@page_pro ? "text-light" : "text-dark"} mt-2 d-inline-flex" %>
           </li>
           <li>
-            <%= link_to "Foire aux questions", :faq, class: "text-dark mt-2 d-inline-flex" %>
+            <%= link_to "Foire aux questions", :faq, class: "#{@page_pro ? "text-light" : "text-dark"} mt-2 d-inline-flex" %>
           </li>
           <li>
-            <%= link_to "Contact", :contact, class: "text-dark mt-2 d-inline-flex" %>
+            <%= link_to "Contact", :contact, class: "#{@page_pro ? "text-light" : "text-dark"} mt-2 d-inline-flex" %>
           </li>
         </ul>
       </div>
@@ -48,19 +48,19 @@
       <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
         <ul class="list-unstyled mb-0">
           <li>
-            <%= link_to "Politique cookies", :cookies, class: "text-dark d-inline-flex" %>
+            <%= link_to "Politique cookies", :cookies, class: "#{@page_pro ? "text-light" : "text-dark"} d-inline-flex" %>
           </li>
           <li>
-            <%= link_to "CGU - Volontaires non vaccinés", :cgu_volontaires, class: "text-dark mt-2 d-inline-flex" %>
+            <%= link_to "CGU - Volontaires non vaccinés", :cgu_volontaires, class: "#{@page_pro ? "text-light" : "text-dark"} mt-2 d-inline-flex" %>
           </li>
           <li>
-            <%= link_to "CGU - Professionnels de santé", :cgu_pro, class: "text-dark mt-2 d-inline-flex" %>
+            <%= link_to "CGU - Professionnels de santé", :cgu_pro, class: "#{@page_pro ? "text-light" : "text-dark"} mt-2 d-inline-flex" %>
           </li>
           <li>
-            <%= link_to "Politique de protection des données personnelles - Volontaires non vaccinés", :privacy_volontaires, class: "text-dark mt-2 d-inline-flex" %>
+            <%= link_to "Politique de protection des données personnelles - Volontaires non vaccinés", :privacy_volontaires, class: "#{@page_pro ? "text-light" : "text-dark"} mt-2 d-inline-flex" %>
           </li>
           <li>
-            <%= link_to "Politique de protection des données personnelles - Professionnels de santé", :privacy_pro, class: "text-dark mt-2 d-inline-flex" %>
+            <%= link_to "Politique de protection des données personnelles - Professionnels de santé", :privacy_pro, class: "#{@page_pro ? "text-light" : "text-dark"} mt-2 d-inline-flex" %>
           </li>
         </ul>
       </div>
@@ -68,20 +68,20 @@
       <div class="col-lg-2 col-md-6 mt-3 mt-md-0">
         <ul class="list-unstyled mb-0">
           <li>
-            <%= icon("fab", "github", class: "text-dark mr-2") %>
-            <%= link_to "GitHub", "https://github.com/hostolab/covidliste", class: "text-dark d-inline-flex", target: "_blank", rel: "noopener" %>
+            <%= icon("fab", "github", class: "#{@page_pro ? "text-light" : "text-dark"} mr-2") %>
+            <%= link_to "GitHub", "https://github.com/hostolab/covidliste", class: "#{@page_pro ? "text-light" : "text-dark"} d-inline-flex", target: "_blank", rel: "noopener" %>
           </li>
           <li>
-            <%= icon("fab", "twitter", class: "text-dark mr-2") %>
-            <%= link_to "Twitter", "https://twitter.com/covidliste", class: "text-dark mt-2 d-inline-flex", target: "_blank", rel: "noopener" %>
+            <%= icon("fab", "twitter", class: "#{@page_pro ? "text-light" : "text-dark"} mr-2") %>
+            <%= link_to "Twitter", "https://twitter.com/covidliste", class: "#{@page_pro ? "text-light" : "text-dark"} mt-2 d-inline-flex", target: "_blank", rel: "noopener" %>
           </li>
            <li>
-            <%= icon("fab", "facebook", class: "text-dark mr-2") %>
-            <%= link_to "Facebook", "https://www.facebook.com/covidliste", class: "text-dark mt-2 d-inline-flex", target: "_blank", rel: "noopener" %>
+            <%= icon("fab", "facebook", class: "#{@page_pro ? "text-light" : "text-dark"} mr-2") %>
+            <%= link_to "Facebook", "https://www.facebook.com/covidliste", class: "#{@page_pro ? "text-light" : "text-dark"} mt-2 d-inline-flex", target: "_blank", rel: "noopener" %>
           </li>
            <li>
-            <%= icon("fab", "instagram", class: "text-dark mr-2") %>
-            <%= link_to "Instagram", "https://www.instagram.com/covidliste/", class: "text-dark mt-2 d-inline-flex", target: "_blank", rel: "noopener" %>
+            <%= icon("fab", "instagram", class: "#{@page_pro ? "text-light" : "text-dark"} mr-2") %>
+            <%= link_to "Instagram", "https://www.instagram.com/covidliste/", class: "#{@page_pro ? "text-light" : "text-dark"} mt-2 d-inline-flex", target: "_blank", rel: "noopener" %>
           </li>
         </ul>
       </div>

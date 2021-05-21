@@ -4,6 +4,7 @@ class PagesController < ApplicationController
   def landing_page_pro
     @users_count = Rails.cache.fetch(:users_count, expires_in: 30.seconds) { Counter.total_users }
     @confirmed_matched_users_count = Rails.cache.fetch(:confirmed_matched_users_count, expires_in: 30.minutes) { Match.confirmed.count }
+    @vaccination_centers_count = Rails.cache.fetch(:vaccination_centers_count, expires_in: 30.minutes) { VaccinationCenter.confirmed.count }
     @typeform_url = nil # Replace with typeform url once we got it
     @reviews = Review.where(from: "volunteer")
     @faq_items = FaqItem.where(area: "pro").limit(4)
