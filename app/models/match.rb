@@ -5,7 +5,9 @@ class Match < ApplicationRecord
 
   class MissingNamesError < StandardError; end
 
-  NO_MORE_THAN_ONE_MATCH_PER_PERIOD = 3.hours
+  THROTTLING_RATE = 5
+  THROTTLING_INTERVAL = 24.hours
+
   MATCH_TTL = 45.minutes
 
   has_secure_token :match_confirmation_token
@@ -22,7 +24,8 @@ class Match < ApplicationRecord
   enum sms_provider: {twilio: "twilio", sendinblue: "sendinblue"}, _prefix: :sms_provider
 
   validates :distance_in_meters, numericality: {greater_than_or_equal_to: 0, only_integer: true}, allow_nil: true
-  validate :no_recent_match, on: :create
+  validate :match_throttling, on: :create
+  validates :user_id, uniqueness: {scope: :campaign_id}
   before_create :save_user_info
   before_save :cache_distance_in_meters_between_user_and_vaccination_center
   after_create_commit :notify
@@ -89,10 +92,10 @@ class Match < ApplicationRecord
     save
   end
 
-  def no_recent_match
-    if user.present? && user.matches.where("created_at >= ?", Match::NO_MORE_THAN_ONE_MATCH_PER_PERIOD.ago).any?
-      errors.add(:base, "Cette personne a déjà été matchée récemment")
-    end
+  def match_throttling
+    return unless user
+    matches_count = user.matches.where("created_at >= ?", THROTTLING_INTERVAL.ago).count
+    errors.add(:base, "Too many matches for this user") if matches_count >= THROTTLING_RATE
   end
 
   def cache_distance_in_meters_between_user_and_vaccination_center
