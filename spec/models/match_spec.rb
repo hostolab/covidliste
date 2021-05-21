@@ -27,6 +27,16 @@ RSpec.describe Match, type: :model do
       expect(match.geo_context).to eq "GEO_CONTEXT"
     end
 
+    context "same campaign" do
+      let(:user) { create(:user) }
+      before do
+        create(:match, user: user, campaign: campaign)
+      end
+      it "should not create a second match for the same campaign" do
+        expect { create(:match, user: user, campaign: campaign) }.to raise_error
+      end
+    end
+
     context "user has already too many matches" do
       let(:user) { create(:user) }
       before do
