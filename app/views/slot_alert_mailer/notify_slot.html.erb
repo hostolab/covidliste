@@ -1,0 +1,69 @@
+<div>
+  <h1>Covidliste vous propose des créneaux du lendemain disponibles grâce à Vite Ma Dose. </h1>
+
+  <p>
+    Depuis le 12 mai, les personnes âgées de 18 à 49 ans sont éligibles à la vaccination sur les créneaux disponibles dans les 24h !
+  </p>
+
+  <p>
+    Nous avons trouvé un centre à proximité qui dispose de créneaux de vaccination:
+  </p>
+
+  <div class="row">
+  <div class="col-sm-12 col-md-6 col-lg-6">
+    <i class="fas fa-map-pin"></i>
+    <p>
+      <strong> Centre de vaccination </strong>
+      <br/><%= @slot.name %>
+      <br/><%= @slot.address %>
+    </p>
+
+    <p>
+      (À
+      <% distance = distance_delta({lat: @alert.user.lat, lon: @alert.user.lon}, {lat: @slot.latitude, lon: @slot.longitude}) %>
+      <%= distance[:delta_in_words] %>
+      de chez vous)
+    </p>
+
+    <p>
+      <strong> Prochain créneau </strong>
+      <br/><%= l(@slot.next_rdv, format: '%A %e %B %Y') %>
+    </p>
+
+  </div>
+
+  <div class="col-sm-12 col-md-6 col-lg-6 mt-2">
+    <i class="fas fa-check-circle"></i>
+    <p>
+      <strong>Type de vaccin</strong>
+      <br/><%= @slot.vaccine_type %>
+    </p>
+  </div>
+
+  </div>
+  <p>
+  <strong>
+    <%= link_to "Réserver mon créneau", slot_alert_url(token: @alert_token) %>
+  </strong>
+  </p>
+
+  <p>
+    <strong>Si le lien ne fonctionne pas</strong>, copiez et collez l’adresse suivante dans votre navigateur :
+    <br>
+    <%= slot_alert_url(token: @alert_token) %>
+  </p>
+
+  <%= render "mailer/faq" %>
+
+  <p>
+    <strong>Vous ne souhaitez plus être informé de doses ou de creneaux disponibles ?</strong>
+    <br>
+    <strong>
+      <%= link_to "Supprimer mon compte", edit_slot_alerts_users_url(token: @alert_token) %>
+    </strong>
+  </p>
+
+  <%= render "mailer/footer" %>
+  <%= render "mailer/automatic_message" %>
+</div>
+
