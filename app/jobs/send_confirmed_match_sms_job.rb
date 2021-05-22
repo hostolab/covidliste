@@ -4,7 +4,6 @@ MAX_SMS_BODY_LENGTH = 160
 ELLIPSIS = "..."
 
 class SendConfirmedMatchSmsJob < ApplicationJob
-  # TODO: Define retry_on policy: https://edgeapi.rubyonrails.org/classes/ActiveJob/Exceptions/ClassMethods.html#method-i-retry_on
   queue_as :critical
 
   def perform(match_id)
