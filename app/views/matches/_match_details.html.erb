@@ -9,6 +9,13 @@
       <p>
         <%= vaccination_center.address %>
       </p>
+      <i class="fas fa-phone"></i>
+      <strong>Numéro de téléphone</strong>
+      <p>
+        <a href="tel:<%= vaccination_center.phone_number %>">
+          <%= vaccination_center.phone_number %>
+        </a>
+      </p>
     <% else %>
       <strong> Distance du centre de vaccination </strong>
       <p>
