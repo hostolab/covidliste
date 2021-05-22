@@ -62,7 +62,17 @@ const _CampaignCreator = ({
                 d’identité.
               </p>
               <CampaignCreatorExtraInfo />
-              {/*ajouter la possibilité de faire apparaître son téléphone*/}
+              <p
+                tabIndex={0}
+                data-toggle="tooltip"
+                title="Mauvais numéro ?<br/>Contactez-nous à partenaires@covidliste.com"
+                data-html="true"
+                data-placement="right"
+              >
+                <em>Votre numéro {vaccinationCenter.phoneNumber} sera communiqué aux volontaires ayant confirmé leur venue.</em>
+                {' '}
+                ℹ️
+              </p>
 
               <h2>
                 <i className="fas fa-bullhorn"></i> Lancer la campagne
