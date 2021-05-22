@@ -9,9 +9,13 @@ class SlotAlert < ApplicationRecord
 
   validates :user_id, uniqueness: {scope: :vmd_slot_id}
 
-  after_create_commit :send_email
+  after_create_commit :notify
 
-  def send_email
+  def notify
     SendSlotAlertEmailJob.perform_later(id)
+  end
+
+  def follow_up
+    SendSlotAlertFollowUpJob.perform_later(id)
   end
 end
