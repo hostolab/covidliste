@@ -31,7 +31,7 @@ document.addEventListener("turbolinks:load", () => {
   togglePasswordVisibility();
   smoothScrollAnchor();
   toggleMobileMatchInformation();
-  $('body').tooltip({ selector: '[data-toggle="tooltip"]' });
+  $("body").tooltip({ selector: '[data-toggle="tooltip"]' });
 
   // webpack will load this JS async
   if (document.getElementById("fuzzy-search")) {

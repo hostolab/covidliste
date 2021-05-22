@@ -69,8 +69,10 @@ const _CampaignCreator = ({
                 data-html="true"
                 data-placement="right"
               >
-                <em>Votre numéro {vaccinationCenter.phoneNumber} sera communiqué aux volontaires ayant confirmé leur venue.</em>
-                {' '}
+                <em>
+                  Votre numéro {vaccinationCenter.phoneNumber} sera communiqué
+                  aux volontaires ayant confirmé leur venue.
+                </em>{" "}
                 ℹ️
               </p>
 
