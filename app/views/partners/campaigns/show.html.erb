@@ -7,20 +7,20 @@
 <% end %>
 
 <div class="container">
-  <p class="mb-2">
+  <p class="mb-2 d-print-none">
     <%= link_to "← Retour", partners_vaccination_center_path(@campaign.vaccination_center) %>
   </p>
 
-  <h1 class="mb-4">
+  <h1 class="mb-1">
     <%= @campaign.name %>
 
-    <% if @campaign.running? %> 
+    <% if @campaign.running? %>
       <%- confirmed_matches_count = @campaign.matches.confirmed.size %>
-      <%- cancel_message = "Vous êtes sur le point d'interrompre cette campagne." %> 
+      <%- cancel_message = "Vous êtes sur le point d'interrompre cette campagne." %>
       <% if confirmed_matches_count > 0 %>
         <%- cancel_message =  "#{cancel_message} #{confirmed_matches_count} doses sont déjà attribuées à des volontaires ayant confirmé leur RDV et le resteront. Attendez-vous à ce que les #{confirmed_matches_count} volontaires se présentent à l'heure prévue. Les autres doses seront retirées de la campagne et ne pourront plus être réservées." %>
-      <% end %>      
-      <span class="small">
+      <% end %>
+      <span class="small d-print-none">
         <%= link_to "Interrompre",
                     partners_campaign_path(@campaign, cancel: true),
                     method: :patch,
@@ -29,97 +29,135 @@
       </span>
     <% end %>
   </h1>
-
-  <p>
+  <p class="mb-1">
+    <%= @campaign.vaccination_center.name %>
+    -
+    <small><%= @campaign.vaccination_center.address %></small>
+  </p>
+  <p class="mb-1">
     État :
     <%= content_tag :span, french_status(@campaign), class: "badge badge-sm #{status_badge(@campaign)}" %>
+    <span class="d-none d-print-inline ml-5">
+      <%= icon("fas", "syringe") %>
+      <%= @campaign.matches.confirmed.size %> doses attribuées / <%= @campaign.available_doses %>
+    </span>
   </p>
 
-  <div class="justify-content-center">
-    <div class="progress" style="height: 20px;">
-      <div class="progress-bar" role="progressbar" style="width: <%= @campaign.available_doses > 0 ? (@campaign.matches.confirmed.size * 100 / @campaign.available_doses) : 0 %>%;">
+  <div class="d-none d-print-block">
+    <p>
+      <span>
+        <%= icon("fas", "paper-plane") %>
+        <%= @campaign.matches.size %> volontaires contactés
+      </span>
+
+      <span class="ml-2">
+        <%= icon("fas", "user-check") %>
+        <%= @campaign.matches.confirmed.size %> volontaires confirmés
+      </span>
+
+      <span class="ml-2">
+        <%= icon("fas", "user-times") %>
+        <%= @campaign.matches.refused.size %> volontaires ayant refusé
+      </span>
+    </p>
+  </div>
+
+  <div class="d-print-none mt-4">
+    <div class="justify-content-center">
+      <div class="progress" style="height: 20px;">
+        <div class="progress-bar" role="progressbar" style="width: <%= @campaign.available_doses > 0 ? (@campaign.matches.confirmed.size * 100 / @campaign.available_doses) : 0 %>%;">
+        </div>
+      </div>
+
+      <h2 class="text-center mt-4">
+        <%= @campaign.matches.confirmed.size %> doses attribuées / <%= @campaign.available_doses %>
+      </h2>
+    </div>
+
+    <div class="row justify-content-center mt-4 mb-5">
+      <div class="col-4 flex-column d-flex align-items-center">
+        <%= icon("fas", "paper-plane", style: "font-size: 2rem;") %>
+
+        <h3 class="text-center mt-2">
+          <%= @campaign.matches.size %> volontaires contactés
+        </h3>
+      </div>
+
+      <div class="col-4 flex-column d-flex align-items-center">
+        <%= icon("fas", "user-check", style: "font-size: 2rem;") %>
+
+        <h3 class="text-center mt-2">
+          <%= @campaign.matches.confirmed.size %> volontaires confirmés
+        </h3>
+      </div>
+
+      <div class="col-4 flex-column d-flex align-items-center">
+        <%= icon("fas", "user-times", style: "font-size: 2rem;") %>
+
+        <h3 class="text-center mt-2">
+          <%= @campaign.matches.refused.size %> volontaires ayant refusé
+        </h3>
       </div>
     </div>
 
-    <h2 class="text-center mt-4">
-      <%= @campaign.matches.confirmed.size %> doses attribuées / <%= @campaign.available_doses %>
-    </h2>
+    <% if @campaign.running? %>
+      <p class="mb-5">
+        <strong>Important :</strong> Si vous avez l’impression que la campagne ne se remplit pas, ne créez pas une
+        nouvelle campagne pour les mêmes doses disponibles. <a href="/faq">Nous recontacterons par SMS tous les
+        volontaires proches de votre lieu de vaccination</a> s’il vous reste des doses au cours de la campagne.
+      </p>
+    <% end %>
+
+    <% if @campaign.running? %>
+      <div class="alert alert-primary" role="alert">
+        <strong>Votre campagne est actuellement en cours.</strong><br/>
+        La liste des volontaires ne sera complète que lorsque votre campagne sera terminée ou interrompue.<br />
+        Dernière mise à jour de la liste : <%= l Time.zone.now %>
+        <%= link_to "Mettre à jour la liste maintenant", partners_campaign_path(@campaign) %>
+      </div>
+    <% elsif @campaign.completed? || @campaign.canceled? %>
+      <div class="alert alert-success" role="alert">
+        <strong>Votre campagne est terminée.</strong><br/>
+        La liste des volontaires est maintenant complète et vous pouvez la
+        <%= link_to "télécharger en CSV", partners_campaign_path(@campaign, format: :csv) %>
+        ou
+        <%= link_to "imprimer cette page", "#", onclick: "window.print()" %>
+        si vous le souhaitez.<br />
+        Vérifiez bien l'identité des volontaires qui se présentent (nom, prénom et date de naissance) en consultant la liste.
+      </div>
+    <% end %>
   </div>
 
-  <div class="row justify-content-center mt-4 mb-5">
-    <div class="col-4 flex-column d-flex align-items-center">
-      <%= icon("fas", "paper-plane", style: "font-size: 2rem;") %>
-
-      <h3 class="text-center mt-2">
-        <%= @campaign.matches.size %> volontaires contactés
-      </h3>
-    </div>
-
-    <div class="col-4 flex-column d-flex align-items-center">
-      <%= icon("fas", "user-check", style: "font-size: 2rem;") %>
-
-      <h3 class="text-center mt-2">
-        <%= @campaign.matches.confirmed.size %> volontaires confirmés
-      </h3>
-    </div>
-
-    <div class="col-4 flex-column d-flex align-items-center">
-      <%= icon("fas", "user-times", style: "font-size: 2rem;") %>
-
-      <h3 class="text-center mt-2">
-        <%= @campaign.matches.refused.size %> volontaires ayant refusé
-      </h3>
-    </div>
-  </div>
-
-  <% if @campaign.running? %>
-    <p class="mb-5">
-      <strong>Important :</strong> Si vous avez l’impression que la campagne ne se remplit pas, ne créez pas une
-      nouvelle campagne pour les mêmes doses disponibles. <a href="/faq">Nous recontacterons par SMS tous les
-      volontaires proches de votre lieu de vaccination</a> s’il vous reste des doses au cours de la campagne.
-    </p>
-  <% end %>
-
-  <% if @campaign.running? %>
-    <div class="alert alert-primary" role="alert">
-      <strong>Votre campagne est actuellement en cours.</strong><br/>
-      La liste des volontaires ne sera complète que lorsque votre campagne sera terminée ou interrompue.<br />
-      Dernière mise à jour de la liste : <%= l Time.zone.now %>
-      <%= link_to "Mettre à jour la liste maintenant", partners_campaign_path(@campaign) %>
-    </div>
-  <% elsif @campaign.completed? || @campaign.canceled? %>
-    <div class="alert alert-success" role="alert">
-      <strong>Votre campagne est terminée.</strong><br/>
-      La liste des volontaires est maintenant complète et vous pouvez la
-      <%= link_to "télécharger en CSV", partners_campaign_path(@campaign, format: :csv) %>
-      ou
-      <%= link_to "imprimer cette page", "javascript:print()" %>
-      si vous le souhaitez.<br />
-      Vérifiez bien l'identité des volontaires qui se présentent (nom, prénom et date de naissance) en consultant la liste.
-    </div>
-  <% end %>
-
-  <h2 class="mt-5 mb-4">Volontaires confirmés</h2>
+  <h2 class="mt-5 mb-4 d-print-none">Volontaires confirmés</h2>
+  <h4 class="mt-2 mb-2 d-none d-print-block">Volontaires confirmés</h4>
 
   <p>
     Les volontaires se présenteront le <%= l(@campaign.starts_at, format: '%e %B %Y') %> entre
     <%= l(@campaign.starts_at, format: '%Hh%M') %> et <%= l(@campaign.ends_at, format: '%Hh%M') %>.
   </p>
 
+  <% if @campaign.running? %>
+    <p class="text-right mb-3 small text-danger d-none d-print-block">
+      <%= icon("fas", "exclamation-circle") %>
+      Campagne en cours : La liste des volontaires ne sera complète que lorsque votre campagne sera terminée ou interrompue.
+    </p>
+  <% end %>
+
   <div class="table-responsive">
-      <table class="table table-bordered table-sm">
+      <table class="table table-bordered table-sm table-striped" aria-label="Volontaires confirmés">
         <thead class="thead-light">
         <tr>
-          <th> Nom </th>
-          <th> Téléphone </th>
-          <th> Date de naissance </th>
-          <th> Confirmation </th>
+          <th scope="col"> Nom </th>
+          <th scope="col"> Prénom </th>
+          <th scope="col"> Téléphone </th>
+          <th scope="col"> Date de naissance </th>
+          <th scope="col"> Confirmation </th>
         </tr>
         </thead>
 
         <tbody>
           <% if @campaign.matches.confirmed.any? %>
-            <% @campaign.matches.confirmed.order(:confirmed_at).each do |match| %>
+            <% @campaign.matches.confirmed.includes(:user).sort_by{ |m| m.user.lastname+" "+m.user.firstname+" "+m.user.birthdate.strftime("%d/%m/%Y")+" "+m.confirmed_at.to_s }.each do |match| %>
               <% user = match.user %>
 
               <tr>
@@ -131,13 +169,14 @@
                   </td>
                 <% else %>
                   <% if user.anonymized_at %>
-                    <td colspan="3">
+                    <td colspan="4">
                       <em class="text-muted">
                         Ce volontaire a été anonymisé quelques jours après le RDV.
                       </em>
                     </td>
                   <% else %>
-                    <td> <%= user %> </td>
+                    <td> <%= user.lastname %> </td>
+                    <td> <%= user.firstname %> </td>
                     <td> <%= user.human_friendly_phone_number %> </td>
                     <td> <%= user.birthdate.strftime("%d/%m/%Y") %> </td>
                   <% end %>
@@ -148,7 +187,7 @@
             <% end %>
           <% else %>
             <tr class="text-center">
-              <td colspan="4">
+              <td colspan="5">
                 <em class="text-muted">
                   <% if @campaign.running? %>
                     Aucun volontaire confirmé pour l'instant
@@ -162,9 +201,17 @@
         </tbody>
       </table>
 
-      <p class="text-right mt-0">
-        <%= link_to "Télécharger la liste (format CSV)", partners_campaign_path(@campaign, format: :csv) %>
+      <% if @campaign.running? %>
+        <p class="text-right mb-2 small text-danger">
+          <%= icon("fas", "exclamation-circle") %>
+          Campagne en cours : La liste des volontaires ne sera complète que lorsque votre campagne sera terminée ou interrompue.
+        </p>
+      <% end %>
+      <p class="text-right mt-0 d-print-none">
+        <%= link_to icon("fas", "print", "Imprimer"), "#", onclick: "window.print()", class: "btn btn-sm btn-outline-primary" %>
+        <%= link_to icon("fas", "file-excel", "Télécharger (CSV)", class: "text-success"), partners_campaign_path(@campaign, format: :csv), class: "btn btn-sm btn-outline-primary" %>
       </p>
+
 
       <p class="small text-muted">
         Les informations des volontaires seront supprimées définitivement dans quelques jours.
