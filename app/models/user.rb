@@ -10,6 +10,7 @@ class User < ApplicationRecord
 
   has_many :matches, dependent: :nullify
   has_many :messages, class_name: "Ahoy::Message", as: :user
+  has_many :slot_alerts
 
   encrypts :firstname
   encrypts :lastname
