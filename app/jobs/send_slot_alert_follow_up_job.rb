@@ -11,7 +11,7 @@ class SendSlotAlertFollowUpJob < ApplicationJob
 
     # check last follow_up email
     last_follow_up_sent_at = alert.user.slot_alerts.maximum(:follow_up_sent_at)
-    return if last_follow_up_sent_at && last_follow_up_sent_at <= 24.hours.ago
+    return if last_follow_up_sent_at && last_follow_up_sent_at > 24.hours.ago
 
     SlotAlertMailer.with(alert: alert).follow_up.deliver_now
     alert.update(follow_up_sent_at: Time.now.utc)
