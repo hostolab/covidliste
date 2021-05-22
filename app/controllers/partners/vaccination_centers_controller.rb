@@ -1,5 +1,6 @@
 module Partners
   class VaccinationCentersController < ApplicationController
+    before_action :define_as_page_pro
     before_action :authenticate_partner!
     before_action :find_vaccination_center, only: [:show]
     before_action :authorize!, except: [:index, :new, :create]

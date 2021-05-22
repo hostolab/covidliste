@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  before_action :define_as_page_pro, only: [:landing_page_pro]
+  before_action :define_as_page_pro, only: [:landing_page_pro, :faq_pro]
 
   def landing_page_pro
     @users_count = Rails.cache.fetch(:users_count, expires_in: 30.seconds) { Counter.total_users }
