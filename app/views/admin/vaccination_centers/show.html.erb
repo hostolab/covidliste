@@ -30,10 +30,10 @@
       <%= icon("fas", "times", class: "text-danger") %>
       Non validé
       <%= link_to "Valider ce centre",
-                  validate_admin_vaccination_center_path(@vaccination_center),
-                  method: :patch,
-                  class: "btn btn-sm btn-primary",
-                  "data-confirm": "Êtes-vous sûr(e)?" %>
+        validate_admin_vaccination_center_path(@vaccination_center),
+        method: :patch,
+        class: "btn btn-sm btn-primary",
+        "data-confirm": "Êtes-vous sûr(e)?" %>
     <% end %>
   </p>
 
@@ -42,18 +42,18 @@
       <%= icon("fas", "times", class: "text-danger") %>
       Désactivé
       <%= link_to "Activer ce centre",
-                  enable_admin_vaccination_center_path(@vaccination_center),
-                  method: :patch,
-                  class: "btn btn-sm btn-primary",
-                  "data-confirm": "Êtes-vous sûr(e)?" %>
+        enable_admin_vaccination_center_path(@vaccination_center),
+        method: :patch,
+        class: "btn btn-sm btn-primary",
+        "data-confirm": "Êtes-vous sûr(e)?" %>
     <% else %>
       <%= icon("fas", "check", class: "text-success") %>
       Activé
       <%= link_to "Désactiver ce centre",
-                  disable_admin_vaccination_center_path(@vaccination_center),
-                  method: :patch,
-                  class: "btn btn-sm btn-primary",
-                  "data-confirm": "Êtes-vous sûr(e)?" %>
+        disable_admin_vaccination_center_path(@vaccination_center),
+        method: :patch,
+        class: "btn btn-sm btn-primary",
+        "data-confirm": "Êtes-vous sûr(e)?" %>
     <% end %>
   </p>
 
@@ -68,7 +68,7 @@
   </p>
 
 
-  <%- if @vaccination_center.lat && @vaccination_center.lon%>
+  <%- if @vaccination_center.lat && @vaccination_center.lon %>
     <div
       class="my-3"
       id="leaflet_map"
@@ -81,6 +81,16 @@
     <div class="alert alert-danger mb-4 small" role="alert" style="position: inherit">
       Ce centre n'est pas correctement géocodé. Merci de mettre à jour l'adresse pour relancer le géocoding
       ou bien veuillez ajouter manuellement une latitude et une longitude
+    </div>
+  <% end %>
+
+  <%- if !@vaccination_center.city || !@vaccination_center.zipcode || !@vaccination_center.geo_context %>
+    <div class="alert alert-danger mb-4 small" role="alert" style="position: inherit">
+      La ville de ce centre n'est pas correctement géocodée. Merci de mettre à jour l'adresse pour relancer le
+      géocoding.
+      <br>
+      En général, enlever le nom de la région et le pays, en ignorant la suggestion d'Algolia, marche bien : <br>
+      <i>6 rue des chevaux, 59800 Lille Nord France</i> ➡️ <i>6 rue des chevaux, 59800 Lille</i>
     </div>
   <% end %>
 
@@ -107,10 +117,10 @@
   </h5>
 
   <%= simple_form_for :new_partner_email,
-                      url: add_partner_admin_vaccination_center_path(@vaccination_center),
-                      method: :post,
-                      wrapper: :inline_form,
-                      html: { class: "form-inline" } do |f| %>
+    url: add_partner_admin_vaccination_center_path(@vaccination_center),
+    method: :post,
+    wrapper: :inline_form,
+    html: {class: "form-inline"} do |f| %>
 
     <%= f.input :email, type: :email, label: false, placeholder: "jean.dupont@email.com", required: true %>
     <%= f.submit "Ajouter ce professionnel de santé", class: "ml-3 btn btn-primary" %>
@@ -124,43 +134,43 @@
     <div class="table-responsive">
       <table class="table table-bordered table-sm">
         <thead class="thead-light">
-          <tr>
-            <th scope="col"> # </th>
-            <th scope="col"> Date et heure du RDV </th>
-            <th scope="col"> Statut </th>
-            <th scope="col"> Âge </th>
-            <th scope="col" title="Distance" data-toggle="tooltip"> Dist. </th>
-            <th scope="col"> Doses </th>
-            <th scope="col"> Matchs </th>
-            <th scope="col"> Création </th>
-          </tr>
+        <tr>
+          <th scope="col"> #</th>
+          <th scope="col"> Date et heure du RDV</th>
+          <th scope="col"> Statut</th>
+          <th scope="col"> Âge</th>
+          <th scope="col" title="Distance" data-toggle="tooltip"> Dist.</th>
+          <th scope="col"> Doses</th>
+          <th scope="col"> Matchs</th>
+          <th scope="col"> Création</th>
+        </tr>
         </thead>
 
         <tbody>
-          <% @vaccination_center.campaigns.order(id: :desc).each do |campaign| %>
-            <tr>
-              <td class="text-right"> <%= campaign.id %> </td>
-              <td>
-                <%= l(campaign.starts_at, format: '%e %B %Y') %>
-                entre <%= l(campaign.starts_at, format: '%Hh%M') %>
-                et <%= l(campaign.ends_at, format: '%Hh%M') %>
-              </td>
-              <td> <%= french_status(campaign) %> </td>
-              <td> <%= campaign.min_age %> - <%= campaign.max_age %> </td>
-              <td> <%= campaign.max_distance_in_meters / 1000 %> km </td>
-              <td>
-                <%= campaign.vaccine_type.capitalize %>
-                <span class="text-muted">x</span>
-                <%= campaign.available_doses %>
-              </td>
-              <td title="<%= campaign.matches.confirmed.size %> confirmés / <%= campaign.matches.count %> matchés" data-toggle="tooltip">
-                <%= campaign.matches.confirmed.size %> / <%= campaign.matches.count %>
-              </td>
-              <td title="<%= l campaign.created_at %> par <%= campaign.partner.name %>" data-toggle="tooltip">
-                <%= l campaign.created_at %>
-              </td>
-            </tr>
-          <% end %>
+        <% @vaccination_center.campaigns.order(id: :desc).each do |campaign| %>
+          <tr>
+            <td class="text-right"> <%= campaign.id %> </td>
+            <td>
+              <%= l(campaign.starts_at, format: '%e %B %Y') %>
+              entre <%= l(campaign.starts_at, format: '%Hh%M') %>
+              et <%= l(campaign.ends_at, format: '%Hh%M') %>
+            </td>
+            <td> <%= french_status(campaign) %> </td>
+            <td> <%= campaign.min_age %> - <%= campaign.max_age %> </td>
+            <td> <%= campaign.max_distance_in_meters / 1000 %> km</td>
+            <td>
+              <%= campaign.vaccine_type.capitalize %>
+              <span class="text-muted">x</span>
+              <%= campaign.available_doses %>
+            </td>
+            <td title="<%= campaign.matches.confirmed.size %> confirmés / <%= campaign.matches.count %> matchés" data-toggle="tooltip">
+              <%= campaign.matches.confirmed.size %> / <%= campaign.matches.count %>
+            </td>
+            <td title="<%= l campaign.created_at %> par <%= campaign.partner.name %>" data-toggle="tooltip">
+              <%= l campaign.created_at %>
+            </td>
+          </tr>
+        <% end %>
         </tbody>
       </table>
     </div>
@@ -174,27 +184,27 @@
     <div class="table-responsive">
       <table class="table table-bordered table-sm">
         <thead class="thead-light">
-          <tr>
-            <th class="text-right"> # </th>
-            <th> Nom </th>
-            <th> Email </th>
-            <th> Téléphone </th>
-            <th class="text-center"> Confirmé ? </th>
-          </tr>
+        <tr>
+          <th class="text-right"> #</th>
+          <th> Nom</th>
+          <th> Email</th>
+          <th> Téléphone</th>
+          <th class="text-center"> Confirmé ?</th>
+        </tr>
         </thead>
 
         <tbody>
-          <% @vaccination_center.partners.order(id: :desc).each do |partner| %>
-            <tr>
-              <td class="text-right"> <%= partner.id %> </td>
-              <td> <%= partner.name %> </td>
-              <td> <%= partner.email %> </td>
-              <td> <%= partner.human_friendly_phone_number %> </td>
-              <td class="text-center" title="<%= partner.confirmed_at.present? ? "Confirmé le #{l(partner.confirmed_at)}" : "" %>">
-                <%= humanize_boolean partner.confirmed_at.present? %>
-              </td>
-            </tr>
-          <% end %>
+        <% @vaccination_center.partners.order(id: :desc).each do |partner| %>
+          <tr>
+            <td class="text-right"> <%= partner.id %> </td>
+            <td> <%= partner.name %> </td>
+            <td> <%= partner.email %> </td>
+            <td> <%= partner.human_friendly_phone_number %> </td>
+            <td class="text-center" title="<%= partner.confirmed_at.present? ? "Confirmé le #{l(partner.confirmed_at)}" : "" %>">
+              <%= humanize_boolean partner.confirmed_at.present? %>
+            </td>
+          </tr>
+        <% end %>
         </tbody>
       </table>
     </div>
