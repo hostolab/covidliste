@@ -14,7 +14,7 @@
       <% if @match.campaign.extra_info.present? %>
         <li>Détails d’accès : <%= @match.campaign.extra_info %></li>
       <% end %>
-      <li>Numéro de téléphone : <%= @match.vaccination_center.phone_number %></li>
+      <li>Numéro de téléphone : <%= @match.vaccination_center.human_friendly_phone_number %></li>
     </ul>
   </p>
 
