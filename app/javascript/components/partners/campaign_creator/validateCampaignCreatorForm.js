@@ -79,7 +79,7 @@ export const validateCampaignCreatorForm = (values) => {
 
   // Campaign launch date validation
   if (now.isBefore(now.hour(7))) {
-    errors.extraInfo =
+    errors.checkNotify =
       "Les campagnes ne peuvent pas être lancées avant 7h du matin, pour ne pas prévenir de volontaires dans leur sommeil.";
   }
 
