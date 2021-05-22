@@ -37,7 +37,7 @@ class SendConfirmedMatchSmsJob < ApplicationJob
     to = match.user.phone_number
 
     body = create_sms_body(match)
-  
+
     return send_with_twilio(from, to, body) if provider == "twilio"
     return send_with_sendinblue(from, to, body) if provider == "sendinblue"
     raise ArgumentError, "Unknown provider", caller
@@ -67,7 +67,7 @@ class SendConfirmedMatchSmsJob < ApplicationJob
     #  <Center name>, <City>                        (max X chars)
     #  Plus d'info www.domainname.com/match_id      (12 chars + link size)
     #  Truncate Center Name if needed
-    body_time = "RDV confirmé #{match.campaign.starts_at.strftime('%a %d/%m')} #{match.campaign.starts_at.strftime('%Hh%M')} - #{match.campaign.ends_at.strftime('%Hh%M')}\n"
+    body_time = "RDV confirmé #{match.campaign.starts_at.strftime("%a %d/%m")} #{match.campaign.starts_at.strftime("%Hh%M")} - #{match.campaign.ends_at.strftime("%Hh%M")}\n"
     body_center_name = match.vaccination_center.name
     body_city = ", #{match.vaccination_center.city}\n"
     body_url = "Plus d'info sur: #{cta_url(match)}"
@@ -78,6 +78,6 @@ class SendConfirmedMatchSmsJob < ApplicationJob
       body_center_name = body_center_name.slice(0, available_text_length - ELLIPSIS.length) + ELLIPSIS
     end
 
-    return body_time + body_center_name + body_city + body_url
+    body_time + body_center_name + body_city + body_url
   end
 end
