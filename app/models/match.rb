@@ -71,6 +71,49 @@ class Match < ApplicationRecord
     save!
   end
 
+  def find_other_available_match_for_user
+    sql = <<~SQL.tr("\n", " ").squish
+      WITH user_campaigns AS (
+        SELECT c.id, c.available_doses
+        FROM
+          campaigns c
+          JOIN matches m ON (m.campaign_id=c.id)
+        WHERE
+          m.user_id = :user_id
+      ), remaining_doses_campaigns AS (
+        SELECT id
+        FROM (
+          SELECT uc.id, GREATEST(0, uc.available_doses - count(1)) remaining_doses
+          FROM
+            matches m
+            JOIN user_campaigns uc ON (m.campaign_id=uc.id)
+          GROUP BY uc.id, uc.available_doses
+        ) a
+        WHERE remaining_doses > 0
+      )
+
+      SELECT
+        m.id
+      FROM
+        matches m
+        JOIN remaining_doses_campaigns c ON (m.campaign_id=c.id)
+      WHERE
+        m.id != :match_id
+        AND m.user_id = :user_id
+        AND confirmed_at IS NULL
+        AND refused_at IS NULL
+        AND expires_at >= now()
+      ORDER BY id
+      LIMIT 1
+    SQL
+    params = {
+      user_id: self.user_id,
+      match_id: self.id
+    }
+    query = ActiveRecord::Base.send(:sanitize_sql_array, [sql, params])
+    Match.where(id: ActiveRecord::Base.connection.execute(query).to_a.pluck("id"))
+  end
+
   def confirmable?
     !confirmed? && campaign.remaining_doses > 0 && !refused?
   end
