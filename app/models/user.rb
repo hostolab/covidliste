@@ -4,7 +4,7 @@ class User < ApplicationRecord
   has_phone_number_types %i[mobile]
   rolify
 
-  attr_accessor :address
+  attr_accessor :address, :skip_reverse_geocode
 
   devise :magic_link_authenticatable, :confirmable, :validatable
 
@@ -38,7 +38,8 @@ class User < ApplicationRecord
   before_save :extract_email_domain, if: -> { will_save_change_to_email? }
   before_save :randomize_lat_lon, if: -> { (will_save_change_to_lat? || will_save_change_to_lon?) }
   before_save :get_grid_cell, if: -> { (will_save_change_to_lat? || will_save_change_to_lon?) }
-  after_commit :reverse_geocode, if: -> { (saved_change_to_lat? || saved_change_to_lon?) && anonymized_at.nil? }
+  after_commit :reverse_geocode, if: -> { (saved_change_to_lat? || saved_change_to_lon?) && anonymized_at.nil? }, unless: :skip_reverse_geocode
+
   before_destroy :refuse_pending_matching, prepend: true
   after_create_commit :increment_total_users_counter
 
