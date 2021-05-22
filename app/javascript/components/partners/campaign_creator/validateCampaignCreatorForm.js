@@ -35,6 +35,8 @@ export const validateCampaignCreatorForm = (values) => {
     errors.startsAt = `Pour laisser le temps aux premiers volontaires de se rendre dans votre établissement, la campagne ne peut commencer que dans 10 minutes, à partir de ${now
       .add(10, "minutes")
       .format("HH:mm")}`;
+  } else if (!values.startsAt.isSame(now, "day")) {
+    errors.startsAt = `La campagne doit être lancée pour aujourd'hui`;
   }
 
   // Ends At
