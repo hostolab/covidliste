@@ -32,3 +32,8 @@ vmd_parser: # every 2 minute
   cron: "*/2 * * * *"
   class: "VmdParserJob"
   description: "Parse VMD vaccination slots"
+
+follow_up_for_slot_alerts:
+  cron: "0 */6 * * *"
+  class: "FollowUpSlotAlertsJob"
+  description: "Follow up slot alert emails"

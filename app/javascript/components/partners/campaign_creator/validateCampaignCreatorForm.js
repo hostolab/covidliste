@@ -35,6 +35,8 @@ export const validateCampaignCreatorForm = (values) => {
     errors.startsAt = `Pour laisser le temps aux premiers volontaires de se rendre dans votre établissement, la campagne ne peut commencer que dans 10 minutes, à partir de ${now
       .add(10, "minutes")
       .format("HH:mm")}`;
+  } else if (!values.startsAt.isSame(now, "day")) {
+    errors.startsAt = `La campagne doit être lancée pour aujourd'hui`;
   }
 
   // Ends At
@@ -77,7 +79,7 @@ export const validateCampaignCreatorForm = (values) => {
 
   // Campaign launch date validation
   if (now.isBefore(now.hour(7))) {
-    errors.extraInfo =
+    errors.checkNotify =
       "Les campagnes ne peuvent pas être lancées avant 7h du matin, pour ne pas prévenir de volontaires dans leur sommeil.";
   }
 

@@ -8,6 +8,7 @@ require "rspec/rails"
 require "devise"
 require "database_cleaner/active_record"
 require "webmock/rspec"
+require "view_component/test_helpers"
 
 WebMock.disable_net_connect!(allow_localhost: true)
 
@@ -53,6 +54,7 @@ RSpec.configure do |config|
   config.include ActionView::RecordIdentifier, type: :system # to use the dom_id helper
   config.include SystemSpecHelpers, type: :system
   config.include Warden::Test::Helpers, type: :system
+  config.include ViewComponent::TestHelpers, type: :component
   config.after :each, type: :system do
     Warden.test_reset!
   end

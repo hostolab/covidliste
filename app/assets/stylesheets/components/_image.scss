@@ -1,0 +1,16 @@
+img.grayscale-effect {
+  transition: all 0.2s;
+  filter: grayscale(100%);
+
+  &:hover {
+    filter: grayscale(0%);
+  }
+}
+
+img.scale-effect {
+  transition: all 0.2s;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}

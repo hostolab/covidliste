@@ -14,7 +14,7 @@
     <h1 class="font-weight-bold text-light">Accélérons la campagne de vaccination.</h1>
     <div class="row">
       <div class="col-12 col-lg-7">
-        <h2 class="font-weight-bold text-light">Être contacté dès qu’une dose est disponible près de chez vous.</h2>
+        <h2 class="font-weight-bold text-light mt-2 mb-3">Être contacté dès qu’une dose est disponible près de chez vous.</h2>
         <%= render "layouts/alerts" %>
         <% if current_user.blank? %>
           <% if @user.persisted? %>
@@ -40,7 +40,7 @@
     <div class="d-flex align-items-center justify-content-around flex-column flex-lg-row">
       <div class="text-center mt-lg-0">
         <div class="text-secondary font-weight-bolder display-3 mb-0 mb-lg-2"><%= pretty_number(@matched_users_count) %></div>
-        <div class="text-black font-weight-bold h3 mb-0">Inscrits<br>contactés</div>
+        <div class="text-black font-weight-bold h3 mb-0">Volontaires<br>contactés</div>
       </div>
       <div class="text-center mt-5 mt-lg-0">
         <div class="text-secondary font-weight-bolder display-3 mb-0 mb-lg-2"><%= pretty_number(@vaccination_centers_count) %></div>
@@ -185,8 +185,7 @@
             data scientist
             et <%= link_to "Mathieu Ripert", "https://twitter.com/mathieurip", target: "_blank", rel: "noopener", class: "text-secondary font-weight-bold text-decoration-underline" %>,
             ingénieur, en collaboration
-            avec <%= link_to "Dr Antoine Roux", "https://www.paristransplantgroup.org/antoine-roux.html", target: "_blank", rel: "noopener", class: "text-secondary font-weight-bold text-decoration-underline" %>
-            ,
+            avec <%= link_to "Dr Antoine Roux", "https://www.paristransplantgroup.org/antoine-roux.html", target: "_blank", rel: "noopener", class: "text-secondary font-weight-bold text-decoration-underline" %>,
             pneumologue, ont lancé Covidliste le 30 mars 2021. Depuis, ils ont été rejoints par plus d’une centaine de
             bénévoles, développeurs informatiques, communicants, spécialistes en droit et designers pour offrir leurs
             compétences au service du projet.

@@ -5,3 +5,12 @@
 .bg-gradient-theme {
   background: linear-gradient(90deg, $purple700, $purple1000);
 }
+
+.bg-gradient-theme-reverse {
+  background: linear-gradient(
+    180deg,
+    $purple100 0%,
+    $purple100 50%,
+    $purple300 100%
+  );
+}
