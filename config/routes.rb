@@ -88,11 +88,11 @@ Rails.application.routes.draw do
   ####################
 
   ## users
-  resources :users, only: [:create, :new]
-  get "/users/profile" => "users#show", :as => :profile
-  put "/users/profile" => "users#update", :as => :user
-  delete "/users/profile" => "users#delete", :as => :delete_user
-  get "/users" => "users#new"
+  resources :users, only: [:create, :new, :index] do
+    collection do
+      resource :profile, controller: "users", only: [:show, :update, :destroy]
+    end
+  end
 
   ## Partners
   resources :partners, only: [:new, :create]

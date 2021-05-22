@@ -4,6 +4,10 @@ class UsersController < ApplicationController
   invisible_captcha only: [:create], honeypot: :subtitle
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
+  def index
+    redirect_to action: :new
+  end
+
   def new
     skip_authorization
     if current_partner
@@ -55,12 +59,12 @@ class UsersController < ApplicationController
     render action: :new, status: :unprocessable_entity
   end
 
-  def delete
+  def destroy
     @user = current_user
     authorize @user
     sign_out @user
     @user.anonymize!
-    flash[:success] = "Votre compte a bien été supprimé."
+    flash[:success] = "🎉 🎉 🎉 Votre compte a été supprimé de nos serveurs. Portez-vous bien."
     redirect_to root_path
   end
 

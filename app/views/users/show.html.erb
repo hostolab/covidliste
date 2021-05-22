@@ -147,7 +147,7 @@
 
       <p class="mt-3">
         Vous souhaitez vérifier vos données personnelles ?
-        <%= link_to "Télécharger mes données (CSV)", user_path(format: :csv) %>
+        <%= link_to "Télécharger mes données (CSV)", profile_path(format: :csv) %>
       </p>
 
       <p class="mt-3">
@@ -159,7 +159,7 @@
             Votre profil sera anonymisé quelques jours après le RDV.
           </div>
         <% end %>
-      <%= button_to "Supprimer mon compte", :delete_user, method: :delete, class: "btn btn-danger",
+      <%= button_to "Supprimer mon compte", :profile, method: :delete, class: "btn btn-danger",
         data: {confirm: "En confirmant, votre compte ainsi que toutes les données associées seront supprimées de nos serveurs. Êtes-vous sûr ?"} %>
       </p>
 

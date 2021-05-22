@@ -25,7 +25,7 @@ class UserPolicy < ApplicationPolicy
     user == record
   end
 
-  def delete?
+  def destroy?
     if user.matches.confirmed.any?
       raise Pundit::NotAuthorizedError, "Vous ne pouvez pas supprimer vos informations actuellement car vous avez confirmé un rendez-vous de vaccination. Votre profil sera anonymisé quelques jours après le RDV."
     end

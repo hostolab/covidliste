@@ -146,7 +146,7 @@ RSpec.describe "Users", type: :system do
         end
       end.to change { User.active.count }.by(-1)
 
-      expect(page).to have_text("Votre compte a bien été supprimé.")
+      expect(page).to have_text("Votre compte a été supprimé")
     end
 
     it "it allows me to decline the delete" do
@@ -174,7 +174,7 @@ RSpec.describe "Users", type: :system do
           end
         end.to change { User.active.count }.by(0)
 
-        expect(page).to_not have_text("Votre compte a bien été supprimé.")
+        expect(page).to_not have_text("Votre compte a été supprimé")
         expect(page).to have_text("Vous ne pouvez pas supprimer votre compte actuellement car vous avez confirmé un rendez-vous de vaccination.")
       end
     end
@@ -196,7 +196,7 @@ RSpec.describe "Users", type: :system do
           end
         end.to change { User.active.count }.by(-1)
 
-        expect(page).to have_text("Votre compte a bien été supprimé.")
+        expect(page).to have_text("Votre compte a été supprimé")
       end
     end
   end

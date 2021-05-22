@@ -11,7 +11,7 @@ module SlotAlerts
     end
 
     def destroy
-      authorize @alert.user, :delete?
+      authorize @alert.user, :destroy?
       @alert.user.anonymize!
       redirect_to root_path, notice: "🎉 🎉 🎉 Votre compte a été supprimé de nos serveurs. Portez-vous bien."
     end
