@@ -1,5 +1,5 @@
 module Partners
-  class UnlockssController < ::Devise::UnlockssController
+  class UnlocksController < ::Devise::UnlocksController
     before_action :define_as_page_pro
   end
 end
