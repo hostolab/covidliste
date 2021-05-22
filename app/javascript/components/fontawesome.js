@@ -1,67 +1,20 @@
 import { config, library, dom } from "@fortawesome/fontawesome-svg-core";
-
-config.mutateApproach = "sync"; // Change the config to fix the flicker
-
-// import { faUser } from "@fortawesome/free-regular-svg-icons";
-
+import { fas } from "@fortawesome/free-solid-svg-icons";
 import {
-  faEye,
-  faUser,
-  faEdit,
-  faTimes,
-  faTrash,
-  faTools,
-  faPhone,
-  faCheck,
-  faSyringe,
-  faUserPlus,
-  faEnvelope,
-  faThumbsUp,
-  faUserCheck,
-  faUserTimes,
-  faInfoCircle,
-  faPaperPlane,
-  faHospitalUser,
-  faChevronRight,
-  faMapMarkedAlt,
-  faExternalLinkAlt,
-} from "@fortawesome/free-solid-svg-icons";
-
-import {
-  faGithub,
-  faTwitter,
-  faFacebook,
-  faInstagram,
-  faLinkedin,
+  faGithub as fabFaGithub,
+  faTwitter as fabFaTwitter,
+  faFacebook as fabFaFacebook,
+  faInstagram as fabFaInstagram,
+  faLinkedin as fabFaLinkedin,
 } from "@fortawesome/free-brands-svg-icons";
 
+config.mutateApproach = "sync";
 library.add(
-  faEye,
-  faUser,
-  faEdit,
-  faTimes,
-  faTrash,
-  faTools,
-  faPhone,
-  faCheck,
-  faSyringe,
-  faUserPlus,
-  faEnvelope,
-  faThumbsUp,
-  faUserCheck,
-  faUserTimes,
-  faInfoCircle,
-  faPaperPlane,
-  faHospitalUser,
-  faChevronRight,
-  faMapMarkedAlt,
-  faExternalLinkAlt,
-
-  faGithub,
-  faTwitter,
-  faFacebook,
-  faInstagram,
-  faLinkedin
+  fas,
+  fabFaGithub,
+  fabFaTwitter,
+  fabFaFacebook,
+  fabFaInstagram,
+  fabFaLinkedin
 );
-
 dom.watch();
