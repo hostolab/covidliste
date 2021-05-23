@@ -79,6 +79,7 @@ class Match < ApplicationRecord
       .where.not(id: id)
       .where(user_id: user_id)
       .where("(confirmed_at IS NOT NULL OR refused_at IS NOT NULL)")
+      .where("expires_at >= now()")
       .first
     return other_confirmed if other_confirmed
 
