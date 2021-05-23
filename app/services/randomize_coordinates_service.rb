@@ -8,13 +8,19 @@ class RandomizeCoordinatesService
   end
 
   def call
-    dy = rand(-@meters_range..@meters_range) / 1000.0
-    dx = rand(-@meters_range..@meters_range) / 1000.0
+    dy = generate_random_delta
+    dx = generate_random_delta
 
     new_lat = @lat + (dy / EARTH_RADIUS) * (180 / Math::PI)
     new_lon = @lon + (dx / EARTH_RADIUS) * (180 / Math::PI) / Math.cos(@lat * Math::PI / 180)
     distance = Geocoder::Calculations.distance_between([@lat, @lon], [new_lat, new_lon], {unit: :km})
 
     {lat: new_lat, lon: new_lon, distance_from_original: distance, dy: dy, dx: dx}
+  end
+
+  private
+
+  def generate_random_delta
+    rand(-@meters_range..@meters_range) / 1000.0
   end
 end

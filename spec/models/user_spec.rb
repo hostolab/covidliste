@@ -72,6 +72,14 @@ RSpec.describe User, type: :model do
     end
 
     it "randomize lat/lon at user update" do
+      # This prevents flaky specs when the change in lat/lng is zero (1/200)
+      allow_any_instance_of(RandomizeCoordinatesService)
+        .to receive(:generate_random_delta)
+        .and_wrap_original do |method, *args|
+          original_result = method.call(*args)
+          original_result.zero? ? 0.001 : original_result
+        end
+
       lat = 48.345
       lon = 2.123
       user = create(:user)

@@ -146,7 +146,7 @@ RSpec.describe "Users", type: :system do
         end
       end.to change { User.active.count }.by(-1)
 
-      expect(page).to have_text("Votre compte a bien été supprimé.")
+      expect(page).to have_text("Votre compte a été supprimé")
     end
 
     it "it allows me to decline the delete" do
@@ -174,7 +174,7 @@ RSpec.describe "Users", type: :system do
           end
         end.to change { User.active.count }.by(0)
 
-        expect(page).to_not have_text("Votre compte a bien été supprimé.")
+        expect(page).to_not have_text("Votre compte a été supprimé")
         expect(page).to have_text("Vous ne pouvez pas supprimer votre compte actuellement car vous avez confirmé un rendez-vous de vaccination.")
       end
     end
@@ -196,7 +196,7 @@ RSpec.describe "Users", type: :system do
           end
         end.to change { User.active.count }.by(-1)
 
-        expect(page).to have_text("Votre compte a bien été supprimé.")
+        expect(page).to have_text("Votre compte a été supprimé")
       end
     end
   end
@@ -226,6 +226,29 @@ RSpec.describe "Users", type: :system do
         expect(page).to_not have_current_path(profile_path)
         expect(page).to have_text(I18n.t("devise.failure.user.magic_link_invalid"))
       end
+    end
+  end
+
+  describe "Confirmation to delete an account" do
+    before do
+      user.save!
+
+      token = Devise::Passwordless::LoginToken.encode(user)
+      visit users_magic_link_url({user: {email: user.email, token: token}})
+
+      expect(page).to have_current_path(profile_path)
+    end
+
+    scenario "it confirms then delete the account" do
+      visit confirm_destroy_profile_path
+
+      expect do
+        accept_confirm_modal do
+          click_on "Supprimer mon compte"
+        end
+      end.to change { User.active.count }.by(-1)
+
+      expect(page).to have_text("Votre compte a été supprimé")
     end
   end
 end
