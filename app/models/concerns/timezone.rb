@@ -2,11 +2,11 @@ module Timezone
   extend ActiveSupport::Concern
 
   MAPPING = {
-    "GY" => "Guyane",
-    "GP" => "Guadeloupe",
-    "RE" => "La Réunion",
-    "MQ" => "Martinique",
-    "YT" => "Mayotte"
+    "Guyane" => "Georgetown",
+    "Guadeloupe" => "America/Guadeloupe",
+    "La Réunion" => "Indian/Reunion",
+    "Martinique" => "America/Martinique",
+    "Mayotte" => "Indian/Mayotte"
   }
 
   included do
@@ -20,13 +20,7 @@ module Timezone
   private
 
   def set_timezone
-    self.timezone = ActiveSupport::TimeZone.send(
-      :load_country_zones, department_code
-    ).first.name
-  end
-
-  def department_code
-    MAPPING.key(department) || "FR"
+    self.timezone = MAPPING[department] || "Europe/Paris"
   end
 
   def department?

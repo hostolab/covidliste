@@ -46,7 +46,7 @@ shared_examples "a resource with a settable timezone" do |param|
     context "when it is anything else" do
       let(:department) { "Basse-Normandie" }
 
-      it { expect(subject.timezone).to eq "Paris" }
+      it { expect(subject.timezone).to eq "Europe/Paris" }
     end
   end
 end
