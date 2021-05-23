@@ -1,8 +1,8 @@
 <div>
-  <h1>Avez-vous pu trouver un créneau ?</h1>
+  <h1>Avez-vous pu trouver un rdv ?</h1>
 
   <p>
-    Il y a quelques heures, nous vous avons alerté de créneaux de vaccination disponibles.
+    Il y a quelques heures, nous vous avons alerté de rdv de vaccination disponibles.
     Nous espérons que vous avez pu en réserver un. 
   </p>
 
@@ -13,6 +13,9 @@
       <%= link_to "Supprimer mon compte", edit_slot_alerts_users_url(token: @alert_token) %>
     </strong>
   </p>
+
+  <h1>Et si je suis arrivé trop tard ?</h1>
+  <p>Ne vous inquiétez pas. Covidliste continue à vous notifier dès qu'une dose sur le point d'être perdue est disponible près de chez vous !</p>
 
   <%= render "mailer/footer" %>
   <%= render "mailer/automatic_message" %>

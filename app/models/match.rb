@@ -112,6 +112,10 @@ class Match < ApplicationRecord
     end
   end
 
+  def sorting_string
+    "#{user&.lastname&.strip || "Anonymous"} #{user&.firstname&.strip || "Anonymous"} #{user&.birthdate&.strftime("%d/%m/%Y")} #{confirmed_at}".titleize
+  end
+
   def notify
     notify_by_email
   end

@@ -26,7 +26,7 @@ RSpec.describe MatchesController, type: :system do
         check :confirm_age
         check :confirm_name
         click_on("Je confirme le RDV")
-        expect(page).to have_text("Vous devez renseigner votre identité")
+        expect(page).to have_text("Vous devez renseigner votre")
 
         fill_in :user_firstname, with: ""
         fill_in :user_lastname, with: user.lastname
