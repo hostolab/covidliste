@@ -62,13 +62,13 @@ class Campaign < ApplicationRecord
         csv << ["Attention ! Votre campagne est actuellement en cours. La liste des volontaires ne sera complète que lorsque votre campagne sera terminée ou interrompue."]
       end
       csv << ["Nom", "Prénom", "Date de naissance", "Numéro de téléphone", "Confirmation"]
-      matches.confirmed.includes(:user).sort_by { |m| m.user.lastname + " " + m.user.firstname + " " + m.user.birthdate.strftime("%d/%m/%Y") + " " + m.confirmed_at.to_s }.each do |match|
+      matches.confirmed.includes(:user).sort_by { |m| m.sorting_name }.each do |match|
         next if match.user.nil?
 
         csv << [
-          match.user.lastname || "Anonymous",
-          match.user.firstname || "Anonymous",
-          match.user.birthdate.strftime("%d/%m/%Y"),
+          match.user.anonymized_at ? "Anonymous" : match.user.lastname,
+          match.user.anonymized_at ? "Anonymous" : match.user.firstname,
+          match.user.birthdate && match.user.birthdate.strftime("%d/%m/%Y"),
           match.user.human_friendly_phone_number,
           match.confirmed_at
         ]
