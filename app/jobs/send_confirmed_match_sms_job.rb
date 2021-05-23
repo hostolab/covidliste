@@ -16,7 +16,7 @@ class SendConfirmedMatchSmsJob < ApplicationJob
     begin
       provider = Flipper.enabled?(:sendinblue, match) ? "sendinblue" : "twilio"
       sms_provider_id = send_with_provider(match, provider)
-      match.update(confirmed_sms_sent_at: Time.now.utc, confirm_sms_provider: provider, confirm_sms_provider_id: sms_provider_id)
+      match.update(confirmed_sms_sent_at: Time.now.utc, conf_sms_provider: provider, conf_sms_provider_id: sms_provider_id)
     rescue => e
       Rails.logger.info("[SendConfirmedMatchSmsJob][#{provider}] error #{e.message}")
       if Rails.env.development?

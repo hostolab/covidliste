@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_22_063736) do
+ActiveRecord::Schema.define(version: 2021_05_23_033810) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -169,8 +169,11 @@ ActiveRecord::Schema.define(version: 2021_05_22_063736) do
     t.string "sms_provider"
     t.string "sms_provider_id"
     t.datetime "confirmed_mail_sent_at"
+    t.string "conf_sms_provider"
+    t.string "conf_sms_provider_id"
     t.index ["campaign_batch_id"], name: "index_matches_on_campaign_batch_id"
     t.index ["campaign_id"], name: "index_matches_on_campaign_id"
+    t.index ["conf_sms_provider", "conf_sms_provider_id"], name: "index_matches_on_conf_sms_provider_and_conf_sms_provider_id"
     t.index ["confirmation_failed_reason"], name: "index_matches_on_confirmation_failed_reason"
     t.index ["confirmed_at"], name: "index_matches_on_confirmed_at"
     t.index ["created_at"], name: "index_matches_on_created_at"
@@ -249,6 +252,7 @@ ActiveRecord::Schema.define(version: 2021_05_22_063736) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "follow_up_sent_at"
+    t.datetime "confirmed_sms_sent_at"
     t.index ["token_bidx"], name: "index_slot_alerts_on_token_bidx", unique: true
   end
 
