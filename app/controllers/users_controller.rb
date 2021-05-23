@@ -1,5 +1,8 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!, except: %i[new create]
+  include UserAuthenticationViaSignedId
+
+  before_action :authenticate_user!, except: %i[new create destroy]
+  before_action :authenticate_user_via_signed_id!, only: %i[destroy]
   before_action :sign_out_if_anonymized!
   invisible_captcha only: [:create], honeypot: :subtitle
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
