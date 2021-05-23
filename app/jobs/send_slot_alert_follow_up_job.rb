@@ -6,6 +6,7 @@ class SendSlotAlertFollowUpJob < ApplicationJob
 
     return unless alert.sent_at
     return if alert.follow_up_sent_at.present?
+    return unless alert.clicked_at
     return if alert.user.nil?
     return if alert.user.anonymized_at?
 
