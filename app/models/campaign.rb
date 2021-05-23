@@ -63,13 +63,11 @@ class Campaign < ApplicationRecord
       end
       csv << ["Nom", "Prénom", "Date de naissance", "Numéro de téléphone", "Confirmation"]
       matches.confirmed.includes(:user).sort_by { |m| m.sorting_name }.each do |match|
-        next if match.user.nil?
-
         csv << [
-          match.user.anonymized_at ? "Anonymous" : match.user.lastname,
-          match.user.anonymized_at ? "Anonymous" : match.user.firstname,
-          match.user.birthdate && match.user.birthdate.strftime("%d/%m/%Y"),
-          match.user.human_friendly_phone_number,
+          match.user&.anonymized_at ? "Anonymous" : match.user&.lastname,
+          match.user&.anonymized_at ? "Anonymous" : match.user&.firstname,
+          match.user&.birthdate&.strftime("%d/%m/%Y"),
+          match.user&.human_friendly_phone_number,
           match.confirmed_at
         ]
       end
