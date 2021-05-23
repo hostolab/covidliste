@@ -4,7 +4,7 @@ MAX_SMS_BODY_LENGTH = 160
 ELLIPSIS = "..."
 
 class SendConfirmedMatchSmsJob < ApplicationJob
-  queue_as :critical
+  queue_as :mailers
 
   def perform(match_id)
     match = Match.find(match_id)
