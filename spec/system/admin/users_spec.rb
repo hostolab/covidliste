@@ -9,7 +9,7 @@ RSpec.describe "Admin Users", type: :system do
 
       subject do
         visit admin_users_path
-        fill_in :user_email, with: email
+        fill_in :user_search_query, with: email
         click_on "Chercher"
       end
 
@@ -30,7 +30,7 @@ RSpec.describe "Admin Users", type: :system do
       context "without user in DB" do
         it "should not find anything" do
           subject
-          expect(page).to have_text("Aucun utilisateur trouvé avec cette adresse")
+          expect(page).to have_text("Aucun utilisateur correspondant trouvé")
         end
       end
     end
@@ -42,7 +42,7 @@ RSpec.describe "Admin Users", type: :system do
 
       subject do
         visit admin_users_path
-        fill_in :user_email, with: email
+        fill_in :user_search_query, with: email
         click_on "Chercher"
       end
 

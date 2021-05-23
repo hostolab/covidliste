@@ -27,7 +27,7 @@ RSpec.describe Admin::UsersController, type: :controller do
 
       context "pass email filter as a param" do
         it "index returns all users" do
-          get :index, params: {user: {email: user_1.email}}
+          get :index, params: {user_search: {query: user_1.email}}
           expect(assigns(:user)).to eq user_1
         end
       end
