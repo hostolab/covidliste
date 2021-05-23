@@ -25,9 +25,9 @@ describe SendConfirmedMatchSmsJob do
       subject
     end
 
-    it "set confirm_sms_sent_at" do
+    it "set confirmed_sms_sent_at" do
       subject
-      expect(match.reload.confirm_sms_sent_at).to_not be(nil)
+      expect(match.reload.confirmed_sms_sent_at).to_not be(nil)
     end
   end
 end
