@@ -1,19 +1,10 @@
 <%# Poor's man real-time feature, reload every 20s while the campaign is running. %>
 
 <% if @campaign.running? || @campaign.matches&.pending&.maximum(:expires_at) %>
-  <script>
+  <script nonce="<%= content_security_policy_nonce %>">
     setTimeout(function() { document.location.reload(); }, 20000)
   </script>
 <% end %>
-<script>
-  (function () {
-    document.querySelector(".link-print")
-      .addEventListener("click", (event) => {
-        event.preventDefault();
-        window.print();
-      });
-  })()
-</script>
 
 
 <div class="container">
@@ -219,3 +210,10 @@
       </p>
     </div>
 </div>
+<script nonce="<%= content_security_policy_nonce %>">
+  document.querySelector(".link-print")
+    .addEventListener("click", (event) => {
+      event.preventDefault();
+      window.print();
+    });
+</script>
