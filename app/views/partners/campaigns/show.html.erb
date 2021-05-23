@@ -5,6 +5,16 @@
     setTimeout(function() { document.location.reload(); }, 20000)
   </script>
 <% end %>
+<script>
+  (function () {
+    document.querySelector(".link-print")
+      .addEventListener("click", (event) => {
+        event.preventDefault();
+        window.print();
+      });
+  })()
+</script>
+
 
 <div class="container">
   <p class="mb-2 d-print-none">
@@ -157,7 +167,7 @@
 
         <tbody>
           <% if @campaign.matches.confirmed.any? %>
-            <% @campaign.matches.confirmed.includes(:user).sort_by{ |m| m.sorting_name }.each do |match| %>
+            <% @campaign.matches.confirmed.includes(:user).sort_by{ |m| ((m.user&.lastname || "Anonymous").strip + " " + (m.user&.firstname || "Anonymous").strip + " " + (m.user&.birthdate ? m.user&.birthdate&.strftime("%d/%m/%Y") : "") + " " + m.confirmed_at.to_s).titleize }.each do |match| %>
               <tr>
                 <% if match.user&.anonymized_at %>
                   <td colspan="4">
@@ -209,10 +219,3 @@
       </p>
     </div>
 </div>
-<script type="text/javascript">
-    document.querySelector(".link-print")
-        .addEventListener("click", (event) => {
-            event.preventDefault();
-            window.print();
-        });
-</script>
