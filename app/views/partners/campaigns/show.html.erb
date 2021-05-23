@@ -121,7 +121,7 @@
         La liste des volontaires est maintenant complète et vous pouvez la
         <%= link_to "télécharger en CSV", partners_campaign_path(@campaign, format: :csv) %>
         ou
-        <%= link_to "imprimer cette page", "#", onclick: "window.print()" %>
+        <%= link_to "imprimer cette page", "#", id: "link-print" %>
         si vous le souhaitez.<br />
         Vérifiez bien l'identité des volontaires qui se présentent (nom, prénom et date de naissance) en consultant la liste.
       </div>
@@ -157,7 +157,7 @@
 
         <tbody>
           <% if @campaign.matches.confirmed.any? %>
-            <% @campaign.matches.confirmed.includes(:user).sort_by{ |m| m.user.lastname+" "+m.user.firstname+" "+m.user.birthdate.strftime("%d/%m/%Y")+" "+m.confirmed_at.to_s }.each do |match| %>
+            <% @campaign.matches.confirmed.includes(:user).sort_by{ |m| m.sorting_name }.each do |match| %>
               <% user = match.user %>
 
               <tr>
@@ -178,7 +178,7 @@
                     <td> <%= user.lastname %> </td>
                     <td> <%= user.firstname %> </td>
                     <td> <%= user.human_friendly_phone_number %> </td>
-                    <td> <%= user.birthdate.strftime("%d/%m/%Y") %> </td>
+                    <td> <%= match.user.birthdate && match.user.birthdate.strftime("%d/%m/%Y") %> </td>
                   <% end %>
                 <% end %>
 
@@ -208,7 +208,7 @@
         </p>
       <% end %>
       <p class="text-right mt-0 d-print-none">
-        <%= link_to icon("fas", "print", "Imprimer"), "#", onclick: "window.print()", class: "btn btn-sm btn-outline-primary" %>
+        <%= link_to icon("fas", "print", "Imprimer"), "#", class: "btn btn-sm btn-outline-primary link-print" %>
         <%= link_to icon("fas", "file-excel", "Télécharger (CSV)", class: "text-success"), partners_campaign_path(@campaign, format: :csv), class: "btn btn-sm btn-outline-primary" %>
       </p>
 
@@ -220,3 +220,10 @@
       </p>
     </div>
 </div>
+<script type="text/javascript">
+    document.querySelector(".link-print")
+        .addEventListener("click", (event) => {
+            event.preventDefault();
+            window.print();
+        });
+</script>
