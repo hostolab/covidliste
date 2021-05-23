@@ -61,8 +61,6 @@ function formattedAdress(reponse) {
     reponse.administrative,
   ];
 
-  console.log('autocomplete', reponse);
-
   // We skipped country field if it's a DOM TOM as Algolia sent us France by default when it's one of them
   var excludeCountryFilters = [
     "Guyane",
