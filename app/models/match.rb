@@ -107,8 +107,8 @@ class Match < ApplicationRecord
       LIMIT 1
     SQL
     params = {
-      user_id: self.user_id,
-      match_id: self.id
+      user_id: user_id,
+      match_id: id
     }
     query = ActiveRecord::Base.send(:sanitize_sql_array, [sql, params])
     Match.where(id: ActiveRecord::Base.connection.execute(query).to_a.pluck("id")).first

@@ -183,7 +183,6 @@ RSpec.describe Match, type: :model do
       vc2 = create(:vaccination_center, :from_paris)
 
       c1 = create(:campaign, vaccination_center: vc1, ends_at: 2.hours.from_now, available_doses: 1)
-      c2 = create(:campaign, vaccination_center: vc2, ends_at: 2.hours.from_now, available_doses: 1)
 
       m1 = create(:match, user: u1, campaign: c1, vaccination_center: vc1)
       m2 = create(:match, :confirmed, user: u2, campaign: c1, vaccination_center: vc1)
