@@ -1,20 +1,25 @@
-import dayjs from "dayjs";
+import dayjs from "./utils/dayjs";
+
 import { vaccineTypes } from "./vaccineTypes";
 
-export function initialFormState(campaignDefaults) {
+export function initialFormState(campaignDefaults, { timezone }) {
+  dayjs.tz.setDefault(timezone);
+
+  window.dayjs = dayjs;
+
   const ceilToFiveMinutes = (date) =>
     date.minute(Math.ceil(date.minute() / 5) * 5);
 
   const startsAt = ceilToFiveMinutes(
     campaignDefaults.startsAt
-      ? dayjs(campaignDefaults.startsAt)
-      : dayjs().add(30, "minutes")
+      ? dayjs.tz(campaignDefaults.startsAt)
+      : dayjs.tz().add(30, "minutes")
   );
 
   const endsAt = ceilToFiveMinutes(
     campaignDefaults.endsAt
-      ? dayjs(campaignDefaults.endsAt)
-      : dayjs().add(4, "hours")
+      ? dayjs.tz(campaignDefaults.endsAt)
+      : dayjs.tz().add(4, "hours")
   );
 
   return {
