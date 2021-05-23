@@ -1,0 +1,20 @@
+<% token = @user.signed_id(purpose: "users.destroy", expires_in: 7.days) %>
+<div>
+  <h1>Avez-vous toujours besoin d'une dose de vaccin ?</h1>
+  <p>
+  <strong>Si vous ne souhaitez plus être informé de doses disponibles,</strong>, laissez votre place à quelqu'un d'autre en supprimant votre compte :
+    <br>
+    <strong>
+      <%= link_to "Supprimer mon compte", confirm_destroy_profile_url(authentication_token: token) %>
+    </strong>
+  </p>
+  <p>
+    <strong>Si le lien ne fonctionne pas</strong>, copiez et collez l’adresse suivante dans votre navigateur :
+    <br>
+    <%= confirm_destroy_profile_url(authentication_token: token) %>
+  </p>
+
+  <%= render "mailer/footer" %>
+  <%= render "mailer/automatic_message" %>
+</div>
+
