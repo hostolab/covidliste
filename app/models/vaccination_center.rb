@@ -146,6 +146,53 @@ class VaccinationCenter < ApplicationRecord
     end
   end
 
+  def visible_optin
+    false # waiting for https://github.com/hostolab/covidliste/issues/473
+  end
+
+  def public_name
+    visible_optin ? name : "Lieu de vaccination inscrit"
+  end
+
+  def public_location
+    visible_optin ? address : geo_context
+  end
+
+  def public_kind
+    visible_optin ? kind : nil
+  end
+
+  def public_description
+    visible_optin ? kind : "La localisation est approximée à quelques kilomètres"
+  end
+
+  def public_lat
+    visible_optin ? lat : approximated_lat
+  end
+
+  def public_lon
+    visible_optin ? lon : approximated_lon
+  end
+
+  def map_color
+    case kind
+    when VaccinationCenter::Kinds::CABINET_INFIRMIER
+      "#ffe733"
+    when VaccinationCenter::Kinds::CABINET_MEDICAL
+      "#3733ff"
+    when VaccinationCenter::Kinds::CENTRE_VACCINATION
+      "#ffaf33"
+    when VaccinationCenter::Kinds::EHPAD
+      "#bb33ff"
+    when VaccinationCenter::Kinds::HOPITAL
+      "#ff3333"
+    when VaccinationCenter::Kinds::PHARMACIE
+      "#409e1b"
+    else
+      "#3388ff"
+    end
+  end
+
   private
 
   def approximated_lat_lon

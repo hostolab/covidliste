@@ -23,14 +23,15 @@
       </p>
 
       <%- if @vaccination_center.lat && @vaccination_center.lon%>
-        <div 
-          class="my-3" 
-          id="leaflet_map" 
-          style="height: 250px;"
-          data-icon="<%= asset_path("map/markers/firstaid.png") %>"
-          data-lat="<%= @vaccination_center.lat %>" 
-          data-lon="<%= @vaccination_center.lon %>"
-        ></div>
+        <div class="my-3 leaflet_map_container">
+          <div
+            class="leaflet_map"
+            style="height: 250px;"
+            data-icon="<%= asset_path("map/markers/firstaid.png") %>"
+            data-lat="<%= @vaccination_center.lat %>"
+            data-lon="<%= @vaccination_center.lon %>"
+          ></div>
+        </div>
       <% else %>
         <div class="alert alert-danger mb-4 small" role="alert" style="position: inherit">
           Votre lieu de vaccination n'est pas correctement localisé. Veuillez nous contacter.
