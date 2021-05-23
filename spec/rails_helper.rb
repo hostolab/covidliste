@@ -16,7 +16,7 @@ ActiveRecord::Migration.maintain_test_schema!
 DatabaseCleaner[:active_record].strategy = :truncation
 
 Capybara.default_max_wait_time = 10
-Capybara.server = :puma
+Capybara.server = :puma, {Silent: true}
 Capybara.javascript_driver = :cuprite
 
 Capybara.register_driver(:cuprite) do |app|

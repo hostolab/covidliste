@@ -88,11 +88,13 @@ Rails.application.routes.draw do
   ####################
 
   ## users
-  resources :users, only: [:create, :new]
-  get "/users/profile" => "users#show", :as => :profile
-  put "/users/profile" => "users#update", :as => :user
-  delete "/users/profile" => "users#delete", :as => :delete_user
-  get "/users" => "users#new"
+  resources :users, only: [:create, :new, :index] do
+    collection do
+      resource :profile, controller: "users", only: [:show, :update, :destroy] do
+        get :confirm_destroy
+      end
+    end
+  end
 
   ## Partners
   resources :partners, only: [:new, :create]
@@ -113,14 +115,14 @@ Rails.application.routes.draw do
 
   ## matches
   namespace :matches do
-    resource :users, only: [:edit, :destroy]
+    resource :users, only: [:edit]
   end
 
   # slot alerts
   get "/s/:token" => "slot_alerts#show", :as => :slot_alert
   patch "/s/:token" => "slot_alerts#update"
   namespace :slot_alerts do
-    resource :users, only: [:edit, :destroy]
+    resource :users, only: [:edit]
   end
 
   get "/m/:match_confirmation_token(/:source)" => "matches#show", :as => :match

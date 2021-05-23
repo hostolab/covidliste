@@ -1,6 +1,6 @@
 module Matches
   class UsersController < ApplicationController
-    before_action :set_match, only: [:edit, :destroy]
+    before_action :set_match, only: [:edit]
     rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
     def pundit_user
@@ -8,12 +8,6 @@ module Matches
     end
 
     def edit
-    end
-
-    def destroy
-      authorize @match.user, :delete?
-      @match.user.anonymize!
-      redirect_to root_path, notice: "🎉 🎉 🎉 Votre compte a été supprimé de nos serveurs. Portez-vous bien."
     end
 
     private
