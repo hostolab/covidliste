@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-shared_examples "a resource with a settable timezone" do |param|
+shared_examples "a resource with a settable timezone" do
   subject { model }
 
   let(:model) { create(described_class.to_s.underscore.to_sym) }
@@ -12,35 +12,19 @@ shared_examples "a resource with a settable timezone" do |param|
     subject.validate
   end
 
-  describe "assiging a timezone depending on the department" do
-    context "when the department is French Guyane" do
-      let(:department) { "Guyane" }
+  describe "assigning a timezone depending on the department" do
+    {
+      "Guyane" => "Georgetown",
+      "Guadeloupe" => "America/Guadeloupe",
+      "La Réunion" => "Indian/Reunion",
+      "Martinique" => "America/Martinique",
+      "Mayotte" => "Indian/Mayotte"
+    }.each do |department_name, timezone|
+      context "when the department is #{department_name}" do
+        let(:department) { department_name }
 
-      it { expect(subject.timezone).to eq "Georgetown" }
-    end
-
-    context "when the department is Guadeloupe" do
-      let(:department) { "Guadeloupe" }
-
-      it { expect(subject.timezone).to eq "America/Guadeloupe" }
-    end
-
-    context "when the department is La Réunion" do
-      let(:department) { "La Réunion" }
-
-      it { expect(subject.timezone).to eq "Indian/Reunion" }
-    end
-
-    context "when the department is Martinique" do
-      let(:department) { "Martinique" }
-
-      it { expect(subject.timezone).to eq "America/Martinique" }
-    end
-
-    context "when the department is Mayotte" do
-      let(:department) { "Mayotte" }
-
-      it { expect(subject.timezone).to eq "Indian/Mayotte" }
+        it { expect(subject.timezone).to eq timezone }
+      end
     end
 
     context "when it is anything else" do
