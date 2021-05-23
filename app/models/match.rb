@@ -124,10 +124,6 @@ class Match < ApplicationRecord
     SendMatchSmsJob.perform_later(id)
   end
 
-  def sorting_name
-    ((user&.lastname || "Anonymous").strip + " " + (user&.firstname || "Anonymous").strip + " " + (user&.birthdate ? user.birthdate.strftime("%d/%m/%Y") : "") + " " + confirmed_at.to_s).titleize
-  end
-
   def flipper_id
     "#{self.class.name}_#{id}"
   end
