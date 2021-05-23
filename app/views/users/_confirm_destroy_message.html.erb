@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="d-flex align-items-center flex-column my-4 my-lg-5">
+    <h4 class="text-center">
+      Vous souhaitez vous désinscrire de Covidliste en supprimant votre compte ?
+    </h4>
+    <% token = user.signed_id(purpose: "users.destroy", expires_in: 1.hour) %>
+    <%= button_to "Supprimer mon compte", profile_path(authentication_token: token),
+      method: :delete,
+      id: dom_id(user, :delete),
+      class: "btn btn-outline-danger btn-lg mt-4",
+      data: {
+        confirm: "En confirmant, votre compte ainsi que toutes les données associées seront supprimées de nos serveurs. Êtes-vous sûr ?"} %>
+  </div>
+</div>

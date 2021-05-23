@@ -32,4 +32,6 @@ class UserPolicy < ApplicationPolicy
 
     user == record
   end
+
+  alias_method :confirm_destroy?, :destroy?
 end

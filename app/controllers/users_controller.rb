@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   include UserAuthenticationViaSignedId
 
   before_action :authenticate_user!, except: %i[new create destroy]
-  before_action :authenticate_user_via_signed_id!, only: %i[destroy]
+  before_action -> { authenticate_user_via_signed_id!(purpose: "users.destroy") }, only: %i[confirm_destroy destroy]
   before_action :sign_out_if_anonymized!
   invisible_captcha only: [:create], honeypot: :subtitle
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
@@ -62,11 +62,14 @@ class UsersController < ApplicationController
     render action: :new, status: :unprocessable_entity
   end
 
+  def confirm_destroy
+    authorize current_user
+  end
+
   def destroy
-    @user = current_user
-    authorize @user
-    sign_out @user
-    @user.anonymize!
+    authorize current_user
+    current_user.anonymize!
+    sign_out current_user
     flash[:success] = "🎉 🎉 🎉 Votre compte a été supprimé de nos serveurs. Portez-vous bien."
     redirect_to root_path
   end

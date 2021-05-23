@@ -228,4 +228,27 @@ RSpec.describe "Users", type: :system do
       end
     end
   end
+
+  describe "Confirmation to delete an account" do
+    before do
+      user.save!
+
+      token = Devise::Passwordless::LoginToken.encode(user)
+      visit users_magic_link_url({user: {email: user.email, token: token}})
+
+      expect(page).to have_current_path(profile_path)
+    end
+
+    scenario "it confirms then delete the account" do
+      visit confirm_destroy_profile_path
+
+      expect do
+        accept_confirm_modal do
+          click_on "Supprimer mon compte"
+        end
+      end.to change { User.active.count }.by(-1)
+
+      expect(page).to have_text("Votre compte a été supprimé")
+    end
+  end
 end
