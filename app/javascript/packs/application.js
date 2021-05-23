@@ -10,6 +10,7 @@ import "controllers/application";
 // import "channels";
 import "bootstrap";
 import "bootstrap-select";
+import "../components/fontawesome";
 import "../components/confirmation";
 
 Rails.start();
@@ -31,7 +32,7 @@ document.addEventListener("turbolinks:load", () => {
   togglePasswordVisibility();
   smoothScrollAnchor();
   toggleMobileMatchInformation();
-  $('[data-toggle="tooltip"]').tooltip();
+  $("body").tooltip({ selector: '[data-toggle="tooltip"]' });
 
   // webpack will load this JS async
   if (document.getElementById("fuzzy-search")) {

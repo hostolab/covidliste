@@ -10,25 +10,27 @@
   <h3>Carte des lieux de vaccination inscrits sur Covidliste</h3>
   <p><%= @vaccination_centers.count %> lieux de vaccination sur Covidliste</p>
 
-  <div class="my-3">
-    <% @map_areas.each do |map_area| %>
-      <button class="leaflet_fly_btn btn-sm btn btn-link small"
-              data-lat="<%= map_area["lat"] %>" data-lon="<%= map_area["lon"] %>" data-zoom="<%= map_area["zoom"] %>">
-        <%= map_area["label"] %>
-      </button>
-    <% end %>
-  </div>
-  <div class="mt-3" id="leaflet_map" style="height: 650px;"
-       data-lat="<%= @map_areas[0]["lat"] %>" data-lon="<%= @map_areas[0]["lon"] %>"
-       data-zoom="<%= @map_areas[0]["zoom"] %>" data-max-zoom="12">
-    <div id="leaflet_markers" class="d-none">
-      <% @vaccination_centers.each do |vaccination_center| %>
-        <div class="leaflet-marker" data-icon="<%= asset_path("map/markers/firstaid.png") %>"
-             data-lat="<%= vaccination_center["lat"] %>" data-lon="<%= vaccination_center["lon"] %>">
-          <strong><%= vaccination_center["name"] %></strong><br/>
-          <%= vaccination_center["description"] %>
-        </div>
+  <div class="leaflet_map_container">
+    <div class="my-3">
+      <% @map_areas.each do |map_area| %>
+        <button class="leaflet_fly_btn btn-sm btn btn-link small"
+                data-lat="<%= map_area["lat"] %>" data-lon="<%= map_area["lon"] %>" data-zoom="<%= map_area["zoom"] %>">
+          <%= map_area["label"] %>
+        </button>
       <% end %>
+    </div>
+
+    <div class="mt-3 leaflet_map"
+       style="height: 650px;"
+       data-lat="<%= @map_areas[0]["lat"] %>"
+       data-lon="<%= @map_areas[0]["lon"] %>"
+       data-canvas="true"
+       data-zoom="<%= @map_areas[0]["zoom"] %>">
+    </div>
+    <div id="leaflet_data" class="d-none">
+      <div class="leaflet-geojson"
+           data-url="<%= vaccination_centers_geojson_url %>">
+      </div>
     </div>
   </div>
 </div>

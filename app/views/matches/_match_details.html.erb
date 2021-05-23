@@ -3,11 +3,18 @@
 
 <div class="row">
   <div class="col-sm-12 col-md-6 col-lg-6">
-    <i class="fas fa-map-pin"></i>
+    <%= icon("fas", "map-pin") %>
     <% if match.confirmed? || vaccination_center.lat.blank? || vaccination_center.lon.blank? %>
       <strong> Adresse du centre de vaccination </strong>
       <p>
         <%= vaccination_center.address %>
+      </p>
+      <%= icon("fas", "phone") %>
+      <strong>Numéro de téléphone</strong>
+      <p>
+        <a href="tel:<%= vaccination_center.phone_number %>">
+          <%= vaccination_center.human_friendly_phone_number %>
+        </a>
       </p>
     <% else %>
       <strong> Distance du centre de vaccination </strong>
@@ -27,7 +34,7 @@
   </div>
 
   <div class="col-sm-12 col-md-6 col-lg-6">
-    <i class="fas fa-clock"></i>
+    <%= icon("fas", "clock") %>
     <strong> Créneau horaire </strong>
     <% starts_at = match.campaign.starts_at %>
     <% ends_at = match.campaign.ends_at %>
@@ -39,13 +46,13 @@
 
   <% if user.blank? %>
     <div class="col-sm-12 col-md-6 col-lg-6">
-      <i class="fas fa-minus-circle"></i>
+      <%= icon("fas", "minus-circle") %>
       <p>L’utilisateur a supprimé son compte.</p>
     </div>
     <%# elsif user.anonymized_at #TODO PR #197 %>
   <% else %>
     <div class="col-sm-12 col-md-6 col-lg-6">
-      <i class="fas fa-user-lock"></i>
+      <%= icon("fas", "user-lock") %>
       <strong> Informations personnelles </strong>
       <p>
         Date de naissance : <strong><%= user.birthdate.strftime('%d/%m/%Y') %></strong><br>
@@ -57,7 +64,7 @@
   <% end %>
 
   <div class="col-sm-12 col-md-6 col-lg-6">
-    <i class="fas fa-check-circle"></i>
+    <%= icon("fas", "check-circle") %>
     <strong>Type de vaccin</strong>
     <p><%= match.campaign.vaccine_type.capitalize %></p>
   </div>

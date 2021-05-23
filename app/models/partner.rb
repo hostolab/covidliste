@@ -8,7 +8,8 @@ class Partner < ApplicationRecord
     :validatable,
     :confirmable,
     :zxcvbnable,
-    :lockable
+    :lockable,
+    :omniauthable, omniauth_providers: [:pro_sante_connect, :bimedoc]
 
   validates :name, presence: true
   validates :phone_number, presence: true
@@ -21,6 +22,7 @@ class Partner < ApplicationRecord
   blind_index :email
 
   has_many :partner_vaccination_centers
+  has_many :partner_external_accounts
   has_many :vaccination_centers, -> { where.not(confirmed_at: nil) }, through: :partner_vaccination_centers
   has_many :unconfirmed_vaccination_centers, lambda {
                                                where(confirmed_at: nil)

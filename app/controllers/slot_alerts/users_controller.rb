@@ -1,6 +1,6 @@
 module SlotAlerts
   class UsersController < ApplicationController
-    before_action :set_alert, only: [:destroy, :edit]
+    before_action :set_alert, only: [:edit]
     rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
     def pundit_user
@@ -8,12 +8,6 @@ module SlotAlerts
     end
 
     def edit
-    end
-
-    def destroy
-      authorize @alert.user, :delete?
-      @alert.user.anonymize!
-      redirect_to root_path, notice: "🎉 🎉 🎉 Votre compte a été supprimé de nos serveurs. Portez-vous bien."
     end
 
     private
