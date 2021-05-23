@@ -8,7 +8,7 @@ class MatchMailer < ApplicationMailer
     @match_confirmation_token = @match.match_confirmation_token
     mail(
       to: @match.user.email,
-      subject: "Une dose de vaccin est disponible, réservez-la vite."
+      subject: "Une dose de vaccin est disponible près de chez vous"
     )
   end
 
@@ -18,7 +18,7 @@ class MatchMailer < ApplicationMailer
 
     mail(
       to: @match.user.email,
-      subject: "Covidliste - Votre rendez-vous de vaccination est confirmé"
+      subject: "Votre rendez-vous de vaccination est confirmé"
     )
   end
 
@@ -29,7 +29,7 @@ class MatchMailer < ApplicationMailer
 
     mail(
       to: user_email,
-      subject: "Covidliste - Merci de nous avoir fait confiance !"
+      subject: "Merci pour votre confiance"
     )
   end
 end

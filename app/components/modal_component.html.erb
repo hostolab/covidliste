@@ -1,0 +1,19 @@
+<%= content_for(:modals) do %>
+  <%= tag.div(class: "modal fade", role: "dialog", "tabindex": "-1", "aria-hidden": "true", id: @modal_id, data: @data_attrs) do %>
+    <div class="<%= class_names("modal-dialog modal-dialog-centered", @class_names) %>" role="document">
+      <div class="modal-content">
+        <% if @title.present? %>
+          <div class="modal-header align-items-center">
+            <div class="modal-title font-weight-bold text-primary h2 mb-0"><%= @title.html_safe %></div>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        <% end %>
+        <div class="modal-body p-0">
+          <%= content %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>

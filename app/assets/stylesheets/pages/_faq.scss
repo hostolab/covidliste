@@ -1,11 +1,45 @@
 #faq {
+  #fuzzy-search {
+    &.search-done {
+      h2 {
+        display: none !important;
+      }
+    }
+  }
+
   h3 button {
     padding-left: 0;
     width: 100%;
     text-align: left;
+    position: relative;
+    font-weight: bold;
+
+    &:after {
+      content: "";
+      display: block;
+      z-index: 1;
+      position: absolute;
+      right: 13px;
+      top: 50%;
+      margin-top: -10px;
+      background: transparent image-url("icons/icon-caret-down.svg") no-repeat
+        center center;
+      height: 15px;
+      width: 15px;
+      transition: transform 300ms ease-in-out;
+      transform: rotate(-180deg);
+    }
+
+    &.collapsed {
+      font-weight: normal;
+
+      &:after {
+        transform: rotate(0deg);
+      }
+    }
   }
 
-  .card-body p:last-child {
+  p {
     margin-bottom: 0;
   }
 }

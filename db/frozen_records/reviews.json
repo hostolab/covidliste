@@ -1,0 +1,17 @@
+[
+  {
+    "avatar_path": "reviews/avatar-men-1.svg",
+    "text": "Très bien organisé, permet rapidement d'éviter de jeter des doses et de satisfaire des patients en attente de vaccination.",
+    "from": "volunteer"
+  },
+  {
+    "avatar_path": "reviews/avatar-women-1.svg",
+    "text": "Service très pratique et efficace pour ne pas gâcher de flacon ! Merci !",
+    "from": "volunteer"
+  },
+  {
+    "avatar_path": "reviews/avatar-men-2.svg",
+    "text": "Outil génial, un gain de temps incroyable.",
+    "from": "volunteer"
+  }
+]

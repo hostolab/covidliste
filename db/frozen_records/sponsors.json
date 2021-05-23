@@ -42,6 +42,13 @@
     "role": "Participation des employés"
   },
   {
+    "name": "Kokoshka",
+    "logo_path": "sponsors/logo-kokoshka.svg",
+    "website_url": "https://www.kokoshka.fr/",
+    "description": "Studio digital et créatif",
+    "role": "Conseil en marketing et communication"
+  },
+  {
     "name": "Adesias",
     "logo_path": "sponsors/logo-adesias.svg",
     "website_url": "https://www.adesias.fr/",
@@ -98,10 +105,31 @@
     "role": "Emails à destination des professionels de santé et support email (via Tipimail)"
   },
   {
+    "name": "Datadog",
+    "logo_path": "sponsors/logo-datadog.svg",
+    "website_url": "https://www.datadoghq.com/",
+    "description": "Service de surveillance des applications, des serveurs, des bases de données",
+    "role": ""
+  },
+  {
     "name": "Yousign",
     "logo_path": "sponsors/logo-yousign.svg",
     "website_url": "https://yousign.com/fr-fr",
     "description": "Solution de signature électronique",
     "role": "Signatures des chartes bénévoles"
+  },
+  {
+    "name": "Talenz",
+    "logo_path": "sponsors/logo-talenz.svg",
+    "website_url": "https://www.talenz.fr/",
+    "description": "Expertise Comptable",
+    "role": "Comptabilité de l'association Hostolab"
+  },
+  {
+    "name": "Oplus",
+    "logo_path": "sponsors/logo-oplus.svg",
+    "website_url": "https://oplus.law/",
+    "description": "Cabinet d'avocats",
+    "role": ""
   }
 ]

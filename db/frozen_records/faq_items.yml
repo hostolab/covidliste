@@ -79,9 +79,9 @@
       * Le compte du volontaire doit être confirmé.
       * L’adresse déclarée par le volontaire doit se trouver à une distance inférieure à la distance choisie par le centre de vaccination.
       * L’âge déclaré du volontaire doit être dans la tranche d’âge choisie par le centre de vaccination.
-      * Le volontaire ne doit pas avoir été contacté depuis 1 jour.
+      * Le volontaire ne doit pas avoir été contacté récemment.
 
-    Les volontaires sélectionné(e)s sont ensuite ordonné(e)s par ordre aléatoire.
+    Les volontaires sélectionné(e)s sont ensuite ordonné(e)s pour optimiser nos chances d'avoir une réponse.
 
     Nous rentrons en contact avec chaque volontaire sélectionné(e) à hauteur des doses disponibles plus un facteur dit "d’overbooking" jusqu’à ce que toutes les doses disponibles soient réservées.
 

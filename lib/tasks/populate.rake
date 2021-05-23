@@ -3,7 +3,8 @@ namespace :populate do
   task users: :environment do
     puts "How many users do you want? (~1s / user)"
     print "> "
-    count = gets.chomp.to_i
+    # count = gets.chomp.to_i
+    count = 3
     puts "Generating #{count} users..."
     count.times do |i|
       user = User.new(

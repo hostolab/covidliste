@@ -1,0 +1,5 @@
+POSTGRES_USER=covidliste
+POSTGRES_DB=covidliste_development
+DATABASE_URL=postgres://covidliste:covidliste@localhost:5433/covidliste_development
+BLAZER_DATABASE_URL=postgres://covidliste:covidliste@localhost:5433/covidliste_development
+REDIS_URL=redis://localhost:6380/

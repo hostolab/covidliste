@@ -1,0 +1,20 @@
+<div>
+  <h1>Avez-vous pu trouver un créneau ?</h1>
+
+  <p>
+    Il y a quelques heures, nous vous avons alerté de créneaux de vaccination disponibles.
+    Nous espérons que vous avez pu en réserver un. 
+  </p>
+
+  <p>    
+    Si c'est le cas nous vous invitons à supprimer votre compte Covidliste.
+    <br>
+    <strong>
+      <%= link_to "Supprimer mon compte", edit_slot_alerts_users_url(token: @alert_token) %>
+    </strong>
+  </p>
+
+  <%= render "mailer/footer" %>
+  <%= render "mailer/automatic_message" %>
+</div>
+

@@ -5,10 +5,10 @@ ruby ::File.read(::File.expand_path(".ruby-version", __dir__))
 
 gem "rails", "~> 6.1.1"
 
-gem "bootsnap", github: "Shopify/bootsnap", branch: "handle-race-conditions"
+gem "bootsnap"
 gem "jbuilder", "~> 2.7"
 gem "pg", "~> 1.1"
-gem "puma", "~> 5.0"
+gem "puma", "~> 5.3"
 gem "sass-rails", ">= 6"
 gem "turbolinks", "~> 5"
 gem "webpacker", "~> 5.0"
@@ -51,7 +51,7 @@ gem "simple_form"
 gem "spring"
 gem "standard"
 gem "twilio-ruby", "~> 5.50"
-gem "valid_email"
+gem "valid_email2"
 gem "lefthook"
 gem "pundit", "~> 2.1"
 gem "rack-attack"
@@ -67,6 +67,7 @@ gem "mini_racer", platforms: :ruby
 gem "marginalia"
 gem "memoist"
 gem "ddtrace"
+gem "view_component", require: "view_component/engine"
 
 group :development, :test do
   gem "dotenv-rails", "2.7.6"

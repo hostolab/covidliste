@@ -2,6 +2,8 @@ require "sidekiq/web"
 require "sidekiq/cron/web"
 
 Rails.application.routes.draw do
+  draw(:redirects)
+
   namespace :admin do
     authenticate :user, lambda { |u| u.has_role?(:volunteer) } do
       get "/" => "home#index"
@@ -61,7 +63,6 @@ Rails.application.routes.draw do
   ## devise users
   devise_for :users,
     path_names: {sign_in: "login", sign_out: "logout"},
-    path: "",
     skip: %i[registrations],
     controllers: {
       sessions: "devise/passwordless/sessions",
@@ -78,22 +79,26 @@ Rails.application.routes.draw do
     path_names: {sign_in: "login", sign_out: "logout"},
     skip: %i[registrations],
     controllers: {
-      confirmations: "confirmations"
+      confirmations: "partners/confirmations",
+      passwords: "partners/passwords",
+      sessions: "partners/sessions",
+      unlocks: "partners/unlocks"
     }
 
   ####################
 
   ## users
   resources :users, only: [:create, :new]
-  get "/profile" => "users#show", :as => :profile
-  put "/profile" => "users#update", :as => :user
-  delete "/profile" => "users#delete", :as => :delete_user
+  get "/users/profile" => "users#show", :as => :profile
+  put "/users/profile" => "users#update", :as => :user
+  delete "/users/profile" => "users#delete", :as => :delete_user
   get "/users" => "users#new"
 
   ## Partners
   resources :partners, only: [:new, :create]
   resource :partners, only: [:show, :update, :destroy]
-  get "/partenaires", to: redirect("/partenaires/inscription", status: 302), as: :partenaires # Soon here we will put a landing page
+  get "/pro" => "pages#landing_page_pro", :as => :landing_page_pro
+  get "/partenaires", to: redirect("/pro", status: 302)
   get "/partenaires/inscription" => "partners#new", :as => :partenaires_inscription
   get "/partenaires/faq" => "pages#faq_pro", :as => :partenaires_faq
 
@@ -108,6 +113,13 @@ Rails.application.routes.draw do
 
   ## matches
   namespace :matches do
+    resource :users, only: [:edit, :destroy]
+  end
+
+  # slot alerts
+  get "/s/:token" => "slot_alerts#show", :as => :slot_alert
+  patch "/s/:token" => "slot_alerts#update"
+  namespace :slot_alerts do
     resource :users, only: [:edit, :destroy]
   end
 

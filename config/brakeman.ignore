@@ -1,0 +1,37 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "c0fb1e5ea00ece3a9c9e3a04573f6bf2e67cc63c01f861322b3cc6cc1e30e4ab",
+      "check_name": "LinkToHref",
+      "message": "Potentially unsafe model attribute in `link_to` href",
+      "file": "app/views/pages/sponsors.html.erb",
+      "line": 25,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to(Sponsor.new.website_url, :target => \"_blank\", :rel => \"noopener\", :title => Sponsor.new.role, :class => \"bg-white p-3 shadow-sm rounded h-100\", :\"data-toggle\" => \"tooltip\", :\"data-placement\" => \"top\")",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "PagesController",
+          "method": "sponsors",
+          "line": 36,
+          "file": "app/controllers/pages_controller.rb",
+          "rendered": {
+            "name": "pages/sponsors",
+            "file": "app/views/pages/sponsors.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "pages/sponsors"
+      },
+      "user_input": "Sponsor.new.website_url",
+      "confidence": "Weak",
+      "note": "sponsor website homepage manually entered in sponsors.json"
+    }
+  ],
+  "updated": "2021-05-21 19:39:30 +0200",
+  "brakeman_version": "5.0.1"
+}

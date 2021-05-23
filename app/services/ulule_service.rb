@@ -44,7 +44,7 @@ class UluleService
     @all_orders ||= begin
       pagination = 20
       results = fetch_api_orders(pagination)
-      all_orders = results["orders"]
+      all_orders = results["orders"] || []
       while results["meta"]["next"]
         results = fetch_api_orders(pagination, all_orders.size)
         results["orders"]
