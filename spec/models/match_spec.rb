@@ -180,7 +180,6 @@ RSpec.describe Match, type: :model do
         geo_context: "GEO_CONTEXT")
 
       vc1 = create(:vaccination_center, :from_paris)
-      vc2 = create(:vaccination_center, :from_paris)
 
       c1 = create(:campaign, vaccination_center: vc1, ends_at: 2.hours.from_now, available_doses: 1)
 
