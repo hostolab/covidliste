@@ -23,10 +23,6 @@ class SendConfirmedMatchSmsJob < ApplicationJob
         puts "[SendConfirmedMatchSmsJob][#{provider}] error #{e.message}"
       end
     end
-
-    def cta_url(match)
-      Rails.application.routes.url_helpers.match_url(match_confirmation_token: match.match_confirmation_token, source: "sms_c")
-    end
   end
 
   private
@@ -78,5 +74,9 @@ class SendConfirmedMatchSmsJob < ApplicationJob
     end
 
     body_time + body_center_name + body_city + body_url
+  end
+
+  def cta_url(match)
+    Rails.application.routes.url_helpers.match_url(match_confirmation_token: match.match_confirmation_token, source: "sms_c")
   end
 end
