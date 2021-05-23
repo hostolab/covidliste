@@ -20,6 +20,7 @@
     <%= f.input :lat, hint: 'Si vide, le geocoding se fera automatiquement'%>
     <%= f.input :lon, hint: 'Si vide, le geocoding se fera automatiquement'%>
     <%= f.input :phone_number, label: 'Numéro de téléphone', error: 'Numéro de téléphone requis', placeholder: '06 06 06 06 06' %>
+    <%= f.input :department, as: :hidden %>
     <%= f.button :submit, "Modifier le centre", class: 'btn btn-primary', data: { disable_with: 'Validation...' } %>
   <% end %>
 

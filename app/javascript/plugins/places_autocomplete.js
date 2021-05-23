@@ -30,10 +30,9 @@ const placesAutocomplete = (appId, apiKey) => {
   const centerAddressInput = document.getElementById(
     "vaccination_center_address"
   );
-  const centerLatInput = document.getElementById("vaccination_center_lat");
-  const centerLonInput = document.getElementById("vaccination_center_lon");
+  const centerDepartmentInput = document.getElementById("vaccination_center_department");
   if (centerAddressInput) {
-    let p = places({
+    const p = places({
       container: centerAddressInput,
       appId: appId,
       apiKey: apiKey,
@@ -44,6 +43,10 @@ const placesAutocomplete = (appId, apiKey) => {
     }).configure({
       language: "fr",
       countries: ["fr", "gy", "gp", "re", "mq", "yt"],
+    });
+
+    p.on("change", ({suggestion}) => {
+      centerDepartmentInput.value = suggestion.county;
     });
   }
 };
@@ -57,6 +60,8 @@ function formattedAdress(reponse) {
     reponse.city,
     reponse.administrative,
   ];
+
+  console.log('autocomplete', reponse);
 
   // We skipped country field if it's a DOM TOM as Algolia sent us France by default when it's one of them
   var excludeCountryFilters = [
