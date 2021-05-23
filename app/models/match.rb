@@ -74,7 +74,7 @@ class Match < ApplicationRecord
   def find_other_available_match_for_user
     sql = <<~SQL.tr("\n", " ").squish
       WITH user_campaigns AS (
-        SELECT c.id, c.available_doses
+        SELECT DISTINCT c.id, c.available_doses
         FROM
           campaigns c
           JOIN matches m ON (m.campaign_id=c.id)
@@ -83,7 +83,7 @@ class Match < ApplicationRecord
       ), remaining_doses_campaigns AS (
         SELECT id
         FROM (
-          SELECT uc.id, GREATEST(0, uc.available_doses - count(1)) remaining_doses
+          SELECT uc.id, GREATEST(0, uc.available_doses - SUM(CASE WHEN confirmed_at IS NOT NULL THEN 1 ELSE 0 END)) remaining_doses
           FROM
             matches m
             JOIN user_campaigns uc ON (m.campaign_id=uc.id)
@@ -111,7 +111,7 @@ class Match < ApplicationRecord
       match_id: self.id
     }
     query = ActiveRecord::Base.send(:sanitize_sql_array, [sql, params])
-    Match.where(id: ActiveRecord::Base.connection.execute(query).to_a.pluck("id"))
+    Match.where(id: ActiveRecord::Base.connection.execute(query).to_a.pluck("id")).first
   end
 
   def confirmable?

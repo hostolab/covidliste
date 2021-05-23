@@ -58,8 +58,8 @@ class MatchesController < ApplicationController
   def verify_redirect_to_newer_match
     if !@match.confirmable?
       other = @match.find_other_available_match_for_user
-      if other.length != 0
-        redirect_to "/m/" + other[0].match_confirmation_token
+      if other
+        redirect_to Rails.application.routes.url_helpers.match_url(match_confirmation_token: other.match_confirmation_token, source: "redirect")
       end
     end
   end
