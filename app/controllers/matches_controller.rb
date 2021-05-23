@@ -3,7 +3,7 @@ class MatchesController < ApplicationController
 
   before_action :set_match, only: [:show, :update, :destroy]
   before_action :verify_match_validity, only: [:show]
-  before_action :verify_redirect_to_newer_match, only: [:show, :update]
+  before_action :verify_redirect_to_other_match, only: [:show, :update]
   before_action :verify_age, only: [:show, :update]
   before_action :verify_expiration, only: [:update]
 
@@ -55,7 +55,7 @@ class MatchesController < ApplicationController
     params.require(:user).permit(:firstname, :lastname, :statement, :toc)
   end
 
-  def verify_redirect_to_newer_match
+  def verify_redirect_to_other_match
     if !@match.confirmable?
       other = @match.find_other_available_match_for_user
       if other
