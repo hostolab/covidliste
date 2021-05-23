@@ -90,6 +90,9 @@ class Match < ApplicationRecord
           JOIN matches m ON (m.campaign_id=c.id)
         WHERE
           m.user_id = :user_id
+          AND m.confirmed_at IS NULL
+          AND m.refused_at IS NULL
+          AND m.expires_at >= now()
       ), remaining_doses_campaigns AS (
         SELECT id
         FROM (
