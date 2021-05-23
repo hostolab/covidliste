@@ -158,7 +158,7 @@
 
         <tbody>
           <% if @campaign.matches.confirmed.any? %>
-            <% @campaign.matches.confirmed.includes(:user).sort_by{ |m| ((m.user&.lastname || "Anonymous").strip + " " + (m.user&.firstname || "Anonymous").strip + " " + (m.user&.birthdate ? m.user&.birthdate&.strftime("%d/%m/%Y") : "") + " " + m.confirmed_at.to_s).titleize }.each do |match| %>
+            <% @campaign.matches.confirmed.includes(:user).sort_by{ |m| m.sorting_string }.each do |match| %>
               <tr>
                 <% if match.user&.anonymized_at %>
                   <td colspan="4">
