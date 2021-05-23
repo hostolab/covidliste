@@ -72,6 +72,16 @@ class Match < ApplicationRecord
   end
 
   def find_other_available_match_for_user
+    return nil if confirmed?
+    return nil if refused_at?
+
+    other_confirmed = Match
+      .where(user_id: user_id)
+      .where.not(confirmed_at: nil)
+      .where.not(id: id)
+      .first
+    return other_confirmed if other_confirmed
+
     sql = <<~SQL.tr("\n", " ").squish
       WITH user_campaigns AS (
         SELECT DISTINCT c.id, c.available_doses
