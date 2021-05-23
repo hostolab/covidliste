@@ -1,6 +1,6 @@
 <div class="container">
   <p class="mb-2">
-    <%= link_to '← Retour', admin_vaccination_center_path(@vaccination_center) %>
+    <%= link_to '← Retour', [:admin, @vaccination_center] %>
   </p>
 
   <h3> Modification du centre de vaccination « <%= @vaccination_center.name %> »</h3>
@@ -24,7 +24,10 @@
   <% end %>
 
   <div class="float-right">
-    <%= link_to icon("fas", "trash", "supprimer ce centre"), admin_vaccination_center_path(@vaccination_center), class: "text-danger", method: :delete, data: { confirm: "Êtes-vous sûr(e) ?" } %>
-  </div>`
-
+    <%= link_to icon("fas", "trash", "supprimer ce centre"),
+                [:admin, @vaccination_center],
+                method: :delete,
+                class: "text-danger",
+                data: { confirm: "Êtes-vous sûr(e) ?" } %>
+  </div>
 </div>
