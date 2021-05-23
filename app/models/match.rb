@@ -100,10 +100,10 @@ class Match < ApplicationRecord
       WHERE
         m.id != :match_id
         AND m.user_id = :user_id
-        AND confirmed_at IS NULL
-        AND refused_at IS NULL
-        AND expires_at >= now()
-      ORDER BY id
+        AND m.confirmed_at IS NULL
+        AND m.refused_at IS NULL
+        AND m.expires_at >= now()
+      ORDER BY m.id
       LIMIT 1
     SQL
     params = {
