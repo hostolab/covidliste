@@ -30,7 +30,9 @@ const placesAutocomplete = (appId, apiKey) => {
   const centerAddressInput = document.getElementById(
     "vaccination_center_address"
   );
-  const centerDepartmentInput = document.getElementById("vaccination_center_department");
+  const centerDepartmentInput = document.getElementById(
+    "vaccination_center_department"
+  );
   if (centerAddressInput) {
     const p = places({
       container: centerAddressInput,
@@ -45,7 +47,7 @@ const placesAutocomplete = (appId, apiKey) => {
       countries: ["fr", "gy", "gp", "re", "mq", "yt"],
     });
 
-    p.on("change", ({suggestion}) => {
+    p.on("change", ({ suggestion }) => {
       centerDepartmentInput.value = suggestion.county;
     });
   }

@@ -24,7 +24,8 @@ const _CampaignCreator = ({
 }) => {
   const { timezone } = vaccinationCenter;
   const createCampaign = useCreateCampaignMutation(vaccinationCenter);
-  const validate = (values) => validateCampaignCreatorForm(values, { timezone })
+  const validate = (values) =>
+    validateCampaignCreatorForm(values, { timezone });
   return (
     <div className="CampaignCreator">
       {createCampaign.isError && <GenericError />}
@@ -45,9 +46,7 @@ const _CampaignCreator = ({
               </h2>
               <CampaignCreatorAvailableDoses />
               <CampaignCreatorVaccineType />
-              <CampaignCreatorTimeRange
-                timezone={timezone}
-              />
+              <CampaignCreatorTimeRange timezone={timezone} />
 
               <h2>
                 <i className="fas fa-user"></i> Sélection des volontaires

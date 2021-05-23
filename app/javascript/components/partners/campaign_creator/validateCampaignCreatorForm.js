@@ -32,7 +32,9 @@ export const validateCampaignCreatorForm = (values, { timezone }) => {
   if (!values.startsAt?.isValid())
     errors.startsAt = "Veuillez choisir une heure de début";
   else if (values.startsAt.isBefore(now.add(9, "minutes"))) {
-    errors.startsAt = `Pour laisser le temps aux premiers volontaires de se rendre dans votre établissement, la campagne ne peut commencer que dans 10 minutes, à partir de ${now.add(10, "minutes").format("HH:mm")} (${utcTimezone(timezone)})`;
+    errors.startsAt = `Pour laisser le temps aux premiers volontaires de se rendre dans votre établissement, la campagne ne peut commencer que dans 10 minutes, à partir de ${now
+      .add(10, "minutes")
+      .format("HH:mm")} (${utcTimezone(timezone)})`;
   } else if (!values.startsAt.isSame(now, "day")) {
     errors.startsAt = `La campagne doit être lancée pour aujourd'hui`;
   }
@@ -41,7 +43,9 @@ export const validateCampaignCreatorForm = (values, { timezone }) => {
   if (!values.endsAt?.isValid())
     errors.endsAt = "Veuillez choisir une heure de fin";
   else if (values.endsAt.isBefore(now.add(24, "minutes"))) {
-    errors.endsAt = `Pour laisser le temps aux volontaires de se rendre dans votre établissement, la campagne ne peut se finir que dans 25 minutes au plus tôt, à partir de ${now.add(25, "minutes").format("HH:mm")} (${utcTimezone(timezone)})`;
+    errors.endsAt = `Pour laisser le temps aux volontaires de se rendre dans votre établissement, la campagne ne peut se finir que dans 25 minutes au plus tôt, à partir de ${now
+      .add(25, "minutes")
+      .format("HH:mm")} (${utcTimezone(timezone)})`;
   } else if (values.endsAt.isBefore(values.startsAt.add(15, "minutes"))) {
     errors.endsAt = `Les volontaires doivent disposer d'un crénau d'au moins 15 minutes.`;
   }
