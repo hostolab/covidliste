@@ -6,8 +6,13 @@ describe SendMatchSmsJob do
   let!(:match) { create(:match, user: user, campaign: campaign) }
   let!(:twilio_mock) { double }
   let!(:sendinblue_mock) { double }
+  let(:sms_url) { "http://localhost:3000/m/#{match.match_confirmation_token}/sms" }
   let(:sms_body_message) do
-    "Bonne nouvelle, une dose de vaccin vient de se libérer près de chez vous. Réservez-la vite sur : http://localhost:3000/m/#{match.match_confirmation_token}/sms"
+    "Bonne nouvelle, une dose de vaccin vient de se libérer près de chez vous. Réservez-la vite sur : #{sms_url}"
+  end
+
+  before do
+    allow_any_instance_of(Sms::MatchMessage).to receive(:cta_url).and_return(sms_url)
   end
 
   context "Twilio provider" do
