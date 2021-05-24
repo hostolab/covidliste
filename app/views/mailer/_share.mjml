@@ -1,0 +1,4 @@
+<mj-text padding-bottom="0px">
+  <b>Recommander à un confrère :</b>
+</mj-text>
+<mj-button href="<%= root_url %>"> Recommander par mail </mj-button>

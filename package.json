@@ -23,6 +23,7 @@
     "leaflet-spin": "^1.1.2",
     "leaflet.markercluster": "^1.5.0",
     "lodash": "^4.17.21",
+    "mjml": "^4.9.3",
     "places.js": "^1.19.0",
     "popper.js": "^1.16.1",
     "prop-types": "^15.7.2",

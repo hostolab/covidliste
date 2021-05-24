@@ -1,0 +1,79 @@
+<mjml lang="<%= I18n.locale %>">
+  <mj-head>
+    <mj-font
+      name="Poppins"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap"
+    />
+    <mj-breakpoint width="375px" />
+    <mj-attributes>
+      <mj-all font-family="Poppins, Trebuchet MS, sans-serif" />
+      <mj-body background-color="#f2f2f2" />
+      <mj-text color="#616161" font-size="14px" line-height="25px" />
+      <mj-section
+        background-color="#ffffff"
+        padding-top="0"
+        padding-bottom="0"
+      />
+      <mj-button
+        line-height="18px"
+        font-size="14px"
+        border-radius="6px"
+        background-color="#592c66"
+        color="white"
+        align="left"
+      />
+      <mj-class
+        name="text-logo"
+        font-size="36px"
+        font-weight="bold"
+        color="#ffffff"
+        padding-top="24px"
+        align="left"
+      />
+      <mj-class
+        name="text-footer"
+        align="center"
+        font-size="11px"
+        font-style="italic"
+        font-weight="normal"
+        color="#828282"
+        line-height="15px"
+      />
+      <mj-class
+        name="text-headline"
+        align="right"
+        font-size="18px"
+        font-weight="bold"
+        color="#ffffff"
+        line-height="27px"
+      />
+    </mj-attributes>
+    <mj-style inline="inline">
+      h1, h2 { margin: 0 } h1 { font-size: 28px; } h2 { font-size: 20px; } p {
+      margin: 0; } a { color: #592c66; text-decoration: underline; } b, strong,
+      h1, h2 { font-weight: bold; color: #2c1a2c; } a, span, td, th {
+      -webkit-font-smoothing: antialiased !important; -moz-osx-font-smoothing:
+      grayscale !important; }
+    </mj-style>
+  </mj-head>
+  <mj-body width="768px">
+    <mj-section background-color="#2c1a2c">
+      <mj-column>
+        <mj-text mj-class="text-logo">Covidliste</mj-text>
+      </mj-column>
+      <mj-column>
+        <mj-text mj-class="text-headline"
+          >La plus grande liste<br />d'attente de vaccination.</mj-text
+        >
+      </mj-column>
+    </mj-section>
+    <%= yield %>
+    <mj-section background-color="#f2f2f2">
+      <mj-column>
+        <mj-text mj-class="text-footer">
+          Ce message est envoyé automatiquement, merci de ne pas y répondre.
+        </mj-text>
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>

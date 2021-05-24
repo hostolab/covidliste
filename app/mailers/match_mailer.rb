@@ -9,7 +9,9 @@ class MatchMailer < ApplicationMailer
     mail(
       to: @match.user.email,
       subject: "Une dose de vaccin est disponible près de chez vous"
-    )
+    ) do |format|
+      format.mjml
+    end
   end
 
   def send_confirmed_match_details

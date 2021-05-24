@@ -1,0 +1,33 @@
+<mj-text padding-bottom="0px">
+  <b>Nous suivre sur :</b>
+</mj-text>
+<mj-social
+  font-size="15px"
+  icon-size="30px"
+  mode="horizontal"
+  align="left"
+  padding-top="0px"
+  padding-bottom="0px"
+>
+  <mj-social-element
+    name="twitter"
+    alt="twitter-logo"
+    src="https://codedmails.com/images/social/color/twitter-logo-transparent.png"
+    href="https://twitter.com/covidliste"
+  ></mj-social-element>
+  <mj-social-element
+    name="facebook"
+    alt="facebook-logo"
+    src="https://codedmails.com/images/social/color/facebook-logo-transparent.png"
+    href="https://www.facebook.com/covidliste"
+  ></mj-social-element>
+  <mj-social-element
+    name="instagram"
+    alt="instagram-logo"
+    src="https://codedmails.com/images/social/color/insta-logo-transparent.png"
+    href="https://www.instagram.com/covidliste/"
+  ></mj-social-element>
+</mj-social>
+<mj-text padding-top="0px" padding-bottom="0px">
+  <%= link_to "www.covidliste.com", "https://www.covidliste.com" %>
+</mj-text>
