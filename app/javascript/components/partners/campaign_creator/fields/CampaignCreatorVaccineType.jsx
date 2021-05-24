@@ -27,7 +27,7 @@ export const CampaignCreatorVaccineType = () => {
               className={`btn btn-sm ${className}`}
               htmlFor={vaccineType.value}
             >
-              {/*selected && <i className="fas fa-check"></i>*/}
+              {selected && <i className="fas fa-check"></i>}
               {vaccineType.label}
             </label>
           </div>
