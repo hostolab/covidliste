@@ -3,10 +3,25 @@ module Admin
     before_action :set_user, only: %i[resend_confirmation destroy]
 
     def index
-      @user = policy_scope(User).find_or_initialize_by(email: params.dig(:user, :email))
+      @query = params.dig(:user_search, :query)
+      if @query && (m = @query.match(/\/m\/([^\/]*)/))
+        # If that's a match url /m/xxxxxxxxx/email or /m/xxxxxxxxx using xxxxxxxxx as query
+        @query = m[1]
+      end
+      @user = policy_scope(User).find_or_initialize_by(email: @query)
+      if (match = policy_scope(Match).find_by(match_confirmation_token: @query))
+        @user = match.user
+      end
       return unless @user.persisted? && params.dig(:other, :with_mails)
 
-      @user_mails = MailProviderService.new.find_mails(@user.email).events
+      user_mails = MailProviderService.new.find_mails(@user.email).events
+      @user_mails = {}
+      user_mails.each do |event|
+        unless @user_mails[event.message_id]
+          @user_mails[event.message_id] = []
+        end
+        @user_mails[event.message_id].push(event)
+      end
     end
 
     def resend_confirmation

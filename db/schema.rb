@@ -181,6 +181,20 @@ ActiveRecord::Schema.define(version: 2021_05_23_170000) do
     t.index ["vaccination_center_id"], name: "index_matches_on_vaccination_center_id"
   end
 
+  create_table "partner_external_accounts", force: :cascade do |t|
+    t.bigint "partner_id"
+    t.string "provider_id"
+    t.string "sub_bidx"
+    t.text "sub_ciphertext"
+    t.text "info_ciphertext"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["partner_id"], name: "index_partner_external_accounts_on_partner_id"
+    t.index ["provider_id"], name: "index_partner_external_accounts_on_provider_id"
+    t.index ["sub_bidx", "provider_id"], name: "index_partner_external_accounts_on_sub_bidx_and_provider_id", unique: true
+    t.index ["sub_bidx"], name: "index_partner_external_accounts_on_sub_bidx"
+  end
+
   create_table "partner_vaccination_centers", force: :cascade do |t|
     t.bigint "partner_id"
     t.bigint "vaccination_center_id"

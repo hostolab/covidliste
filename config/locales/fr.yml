@@ -22,8 +22,13 @@ fr:
         statement: Certification sur l'honneur
         toc: Partage des données
       partner:
-        name: Nom
-        phone_number: Numéro de téléphone
+        name: Nom et prénom
+        phone_number: Téléphone portable
+      partner_external_account:
+        sub: Compte
+        provider_id: Fournisseur
+        service_name: Fournisseur
+        info: Informations
       campaign:
         starts_at: Date de début
         ends_at: Date de fin
