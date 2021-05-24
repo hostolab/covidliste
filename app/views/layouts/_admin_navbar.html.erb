@@ -2,8 +2,9 @@
   <%= link_to admin_path, class: "navbar-brand" do %>
     <%= image_tag "covidliste-logo.png", height: 40, width: 32, loading: "lazy", class: "mr-2", alt: "logo covidliste" %>
     <span class="font-weight-bolder">Covidliste</span>
-    <span class="ml-1 font-weight-light">Bénévoles</span>
-  <% end %>
+    <span class="badge align-top font-weight-light border text-light border-light" style="font-size: 0.66rem">Bénévoles</span>
+    <span class="sr-only">Bénévoles</span>
+<% end %>
 
   <button class="navbar-toggler" type="button" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation" data-target="#navbarNavDropdown" data-toggle="collapse">
     <span class="navbar-toggler-icon"></span>
