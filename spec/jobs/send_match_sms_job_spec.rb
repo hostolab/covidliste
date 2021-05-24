@@ -173,7 +173,6 @@ describe SendMatchSmsJob do
       end
     end
 
-
     context "match has sms_status in error" do
       before do
         match.sms_status_error!
