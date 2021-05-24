@@ -211,9 +211,14 @@
     </div>
 </div>
 <script nonce="<%= content_security_policy_nonce %>">
-  document.querySelector(".link-print")
-    .addEventListener("click", (event) => {
-      event.preventDefault();
-      window.print();
-    });
+  (function () {
+    var links = document.querySelectorAll(".link-print")
+    Array.prototype.slice.call(links)
+      .forEach(function (links) {
+        links.addEventListener("click", function (event) {
+          event.preventDefault();
+          window.print();
+        }, false)
+      });
+  })();
 </script>
