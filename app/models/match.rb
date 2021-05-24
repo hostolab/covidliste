@@ -73,12 +73,11 @@ class Match < ApplicationRecord
 
   def find_other_available_match_for_user
     return nil if confirmed?
-    return nil if refused_at?
 
     other_confirmed = Match
       .where.not(id: id)
       .where(user_id: user_id)
-      .where("confirmed_at IS NOT NULL OR (refused_at IS NOT NULL AND expires_at >= now())")
+      .where.not(confirmed_at: nil)
       .first
     return other_confirmed if other_confirmed
 
