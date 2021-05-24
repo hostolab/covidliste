@@ -7,7 +7,7 @@ describe SendMatchSmsJob do
   let!(:twilio_mock) { double }
   let!(:sendinblue_mock) { double }
   let(:sms_body_message) do
-    %r{Bonne nouvelle, une dose de vaccin vient de se libérer près de chez vous. Réservez-la vite sur : http://localhost:3000/m/#{match.match_confirmation_token}/sms}
+    "Bonne nouvelle, une dose de vaccin vient de se libérer près de chez vous. Réservez-la vite sur : http://localhost:3000/m/#{match.match_confirmation_token}/sms"
   end
 
   context "Twilio provider" do
