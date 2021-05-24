@@ -135,10 +135,10 @@ RSpec.describe Match, type: :model do
   describe "#multi match fallback" do
     it "should have other match" do
       users = create_list(:user, 2, birthdate: Time.now.utc.to_date - 60.years,
-                              zipcode: "75001",
-                              city: "Paris",
-                              geo_citycode: "75001",
-                              geo_context: "GEO_CONTEXT")
+        zipcode: "75001",
+        city: "Paris",
+        geo_citycode: "75001",
+        geo_context: "GEO_CONTEXT")
       u1 = users.first
       u2 = users.second
 
@@ -162,10 +162,10 @@ RSpec.describe Match, type: :model do
 
     it "should not have other match" do
       users = create_list(:user, 2, birthdate: Time.now.utc.to_date - 60.years,
-                              zipcode: "75001",
-                              city: "Paris",
-                              geo_citycode: "75001",
-                              geo_context: "GEO_CONTEXT")
+        zipcode: "75001",
+        city: "Paris",
+        geo_citycode: "75001",
+        geo_context: "GEO_CONTEXT")
       u1 = users.first
       u2 = users.second
 
