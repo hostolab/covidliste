@@ -134,18 +134,13 @@ RSpec.describe Match, type: :model do
 
   describe "#multi match fallback" do
     it "should have other match" do
-      u1 = create(:user,
-        birthdate: Time.now.utc.to_date - 60.years,
-        zipcode: "75001",
-        city: "Paris",
-        geo_citycode: "75001",
-        geo_context: "GEO_CONTEXT")
-      u2 = create(:user,
-        birthdate: Time.now.utc.to_date - 60.years,
-        zipcode: "75001",
-        city: "Paris",
-        geo_citycode: "75001",
-        geo_context: "GEO_CONTEXT")
+      users = create_list(:user, 2, birthdate: Time.now.utc.to_date - 60.years,
+                              zipcode: "75001",
+                              city: "Paris",
+                              geo_citycode: "75001",
+                              geo_context: "GEO_CONTEXT")
+      u1 = users.first
+      u2 = users.second
 
       vc1 = create(:vaccination_center, :from_paris)
       vc2 = create(:vaccination_center, :from_paris)
@@ -166,15 +161,13 @@ RSpec.describe Match, type: :model do
     end
 
     it "should not have other match" do
-      let(:users) do
-        create_list(:user, 2, birthdate: Time.now.utc.to_date - 60.years,
+      users = create_list(:user, 2, birthdate: Time.now.utc.to_date - 60.years,
                               zipcode: "75001",
                               city: "Paris",
                               geo_citycode: "75001",
                               geo_context: "GEO_CONTEXT")
-      end
-      let(:u1) { users.first }
-      let(:u2) { users.second }
+      u1 = users.first
+      u2 = users.second
 
       vc1 = create(:vaccination_center, :from_paris)
 
