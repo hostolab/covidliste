@@ -56,12 +56,10 @@ class MatchesController < ApplicationController
   end
 
   def verify_redirect_to_other_match
-    if !@match.confirmable?
-      other = @match.find_other_available_match_for_user
-      if other
-        redirect_to Rails.application.routes.url_helpers.match_url(match_confirmation_token: other.match_confirmation_token, source: "redirect")
-      end
-    end
+    return if @match.confirmable?
+    return unless (other = @match.find_other_available_match_for_user)
+
+    redirect_to Rails.application.routes.url_helpers.match_url(match_confirmation_token: other.match_confirmation_token, source: "redirect")
   end
 
   def verify_match_validity

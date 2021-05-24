@@ -72,13 +72,12 @@ class Match < ApplicationRecord
   end
 
   def find_other_available_match_for_user
-    return nil if confirmed?
+    return if confirmed?
 
     other_confirmed = Match
       .where.not(id: id)
-      .where(user_id: user_id)
       .where.not(confirmed_at: nil)
-      .first
+      .find_by(user_id: user_id)
     return other_confirmed if other_confirmed
 
     sql = <<~SQL.tr("\n", " ").squish
