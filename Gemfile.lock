@@ -70,6 +70,7 @@ GEM
       zeitwerk (~> 2.3)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
+    aes_key_wrap (1.1.0)
     ahoy_email (2.0.3)
       actionmailer (>= 5)
       addressable (>= 2.3.2)
@@ -79,6 +80,7 @@ GEM
       rack
     argon2-kdf (0.1.6)
     ast (2.4.2)
+    attr_required (1.0.1)
     autoprefixer-rails (10.2.4.0)
       execjs
     bcrypt (3.1.16)
@@ -86,6 +88,7 @@ GEM
       coderay (>= 1.0.0)
       erubi (>= 1.0.0)
       rack (>= 0.9.0)
+    bindata (2.4.9)
     bindex (0.8.1)
     binding_of_caller (1.0.0)
       debug_inspector (>= 0.0.1)
@@ -190,6 +193,8 @@ GEM
       flipper (~> 0.20.4)
       rack (>= 1.4, < 3)
       rack-protection (>= 1.5.3, < 2.2.0)
+    font-awesome-sass (5.15.1)
+      sassc (>= 1.11)
     frozen_record (0.22.1)
       activemodel
       dedup
@@ -197,14 +202,20 @@ GEM
       et-orbi (~> 1.1, >= 1.1.8)
       raabro (~> 1.4)
     geocoder (1.6.7)
+    gitlab-omniauth-openid-connect (0.4.0)
+      addressable (~> 2.7)
+      omniauth (~> 1.9)
+      openid_connect (~> 1.2)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     google-protobuf (3.15.8)
     hashdiff (1.0.1)
+    hashie (4.1.0)
     htmlentities (4.3.4)
     httparty (0.18.1)
       mime-types (~> 3.0)
       multi_xml (>= 0.5.2)
+    httpclient (2.8.3)
     i18n (1.8.10)
       concurrent-ruby (~> 1.0)
     invisible_captcha (2.0.0)
@@ -212,6 +223,10 @@ GEM
     jbuilder (2.11.2)
       activesupport (>= 5.0.0)
     json (2.5.1)
+    json-jwt (1.13.0)
+      activesupport (>= 4.2)
+      aes_key_wrap
+      bindata
     jwt (2.2.3)
     kramdown (2.3.1)
       rexml
@@ -261,6 +276,19 @@ GEM
     nokogiri (1.11.4)
       mini_portile2 (~> 2.5.0)
       racc (~> 1.4)
+    omniauth (1.9.1)
+      hashie (>= 3.4.6)
+      rack (>= 1.6.2, < 3)
+    openid_connect (1.2.0)
+      activemodel
+      attr_required (>= 1.0.0)
+      json-jwt (>= 1.5.0)
+      rack-oauth2 (>= 1.6.1)
+      swd (>= 1.0.0)
+      tzinfo
+      validate_email
+      validate_url
+      webfinger (>= 1.0.1)
     orm_adapter (0.5.0)
     pagy (3.13.0)
     parallel (1.20.1)
@@ -302,6 +330,12 @@ GEM
       rack (>= 1.0, < 3)
     rack-mini-profiler (2.3.2)
       rack (>= 1.2.0)
+    rack-oauth2 (1.16.0)
+      activesupport
+      attr_required
+      httpclient
+      json-jwt (>= 1.11.0)
+      rack (>= 2.1.0)
     rack-protection (2.1.0)
       rack
     rack-proxy (0.6.5)
@@ -451,6 +485,10 @@ GEM
     standard (1.0.5)
       rubocop (= 1.12.1)
       rubocop-performance (= 1.10.1)
+    swd (1.2.0)
+      activesupport (>= 3)
+      attr_required (>= 0.0.5)
+      httpclient (>= 2.4)
     thor (1.1.0)
     tilt (2.0.10)
     turbolinks (5.2.1)
@@ -469,6 +507,12 @@ GEM
     valid_email2 (3.6.1)
       activemodel (>= 3.2)
       mail (~> 2.5)
+    validate_email (0.1.6)
+      activemodel (>= 3.0)
+      mail (>= 2.2.5)
+    validate_url (1.0.13)
+      activemodel (>= 3.0.0)
+      public_suffix
     view_component (2.31.1)
       activesupport (>= 5.0.0, < 7.0)
     warden (1.2.9)
@@ -478,6 +522,9 @@ GEM
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
+    webfinger (1.1.0)
+      activesupport
+      httpclient (>= 2.4)
     webmock (3.12.2)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
@@ -524,8 +571,10 @@ DEPENDENCIES
   flipper
   flipper-redis
   flipper-ui
+  font-awesome-sass
   frozen_record
   geocoder
+  gitlab-omniauth-openid-connect
   httparty
   invisible_captcha
   jbuilder (~> 2.7)

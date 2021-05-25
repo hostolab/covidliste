@@ -1,11 +1,11 @@
 $spinner-size: 40px;
-.spinner {
+.cl_spinner {
   display: inline-block;
   width: $spinner-size;
   height: $spinner-size;
 }
 
-.spinner:after {
+.cl_spinner:after {
   content: " ";
   display: block;
   width: $spinner-size * 0.8;
@@ -14,10 +14,10 @@ $spinner-size: 40px;
   border-radius: 50%;
   border: $spinner-size * 0.12 solid #fff;
   border-color: #fff transparent #fff transparent;
-  animation: spinner 1.2s linear infinite;
+  animation: cl_spinner 1.2s linear infinite;
 }
 
-@keyframes spinner {
+@keyframes cl_spinner {
   0% {
     transform: rotate(0deg);
   }

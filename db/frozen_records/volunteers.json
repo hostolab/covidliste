@@ -33,20 +33,6 @@
     "bio": "",
     "firstname": "",
     "github": "",
-    "id": "1af2082104b5f751c5d7fa2e6a04f53c",
-    "identity": "",
-    "lastname": "",
-    "linkedin": "",
-    "nickname": "",
-    "role": "",
-    "specialty": "",
-    "twitter": ""
-  },
-  {
-    "anon": true,
-    "bio": "",
-    "firstname": "",
-    "github": "",
     "id": "a5896e65456ef3508b8318c1b0f312e4",
     "identity": "",
     "lastname": "",
@@ -159,21 +145,6 @@
     "picture": "",
     "role": "",
     "specialty": "Am\u00e9nagement des territoires, mobilit\u00e9s",
-    "twitter": ""
-  },
-  {
-    "anon": false,
-    "bio": "Chef de projet @Caravane",
-    "firstname": "Anouck",
-    "github": "",
-    "id": "94a64c84997b9a87882543878ee92195",
-    "identity": "Femme",
-    "lastname": "Toulemonde",
-    "linkedin": "https://www.linkedin.com/in/anoucktoulemonde/",
-    "nickname": "",
-    "picture": "volunteer-94a64c84997b9a87882543878ee92195.jpg",
-    "role": "Supply Vetting",
-    "specialty": "",
     "twitter": ""
   },
   {
@@ -491,20 +462,6 @@
     "twitter": ""
   },
   {
-    "anon": true,
-    "bio": "",
-    "firstname": "",
-    "github": "",
-    "id": "f006689adde3b33c2989f89a7064fc89",
-    "identity": "",
-    "lastname": "",
-    "linkedin": "",
-    "nickname": "",
-    "role": "",
-    "specialty": "",
-    "twitter": ""
-  },
-  {
     "anon": false,
     "bio": "Relations m\u00e9dias @AgenceMaarc",
     "firstname": "Clara",
@@ -625,22 +582,8 @@
     "twitter": "martindaniel4"
   },
   {
-    "anon": true,
-    "bio": "",
-    "firstname": "",
-    "github": "",
-    "id": "e2968c975dafcbc9208ee83f8f4b1b97",
-    "identity": "",
-    "lastname": "",
-    "linkedin": "",
-    "nickname": "",
-    "role": "",
-    "specialty": "",
-    "twitter": ""
-  },
-  {
     "anon": false,
-    "bio": "Lead product @Ubisoft",
+    "bio": "Lead product manager @Ubisoft",
     "firstname": "Damien",
     "github": "",
     "id": "bad8d281c67a873a21f53785879527e3",
@@ -664,7 +607,7 @@
     "linkedin": "https://www.linkedin.com/in/davidlaifr/",
     "nickname": "",
     "picture": "volunteer-07061ba051228665cd8e514c3229f479.jpg",
-    "role": "Aujourd'hui je d\u00e9couvre, demain je contribue, apr\u00e8s-demain, j'am\u00e9liore (?)",
+    "role": "Contact r\u00e9gional aupr\u00e8s des ARS",
     "specialty": "",
     "twitter": "DavidLAI1982"
   },
@@ -711,21 +654,6 @@
     "picture": "volunteer-83aa3307a7f28450b94792baacb0ee27.jpg",
     "role": "",
     "specialty": "enseignement, g\u00e9ologie",
-    "twitter": ""
-  },
-  {
-    "anon": false,
-    "bio": "",
-    "firstname": "Eleonore",
-    "github": "",
-    "id": "0fd4bb516fdc5b55f2d971eb42f64da9",
-    "identity": "Femme",
-    "lastname": "Real",
-    "linkedin": "",
-    "nickname": "",
-    "picture": "",
-    "role": "",
-    "specialty": "enseignement recherche virologie biochimie",
     "twitter": ""
   },
   {
@@ -998,21 +926,6 @@
   },
   {
     "anon": false,
-    "bio": "Enterprise Manager @Airbnb",
-    "firstname": "Gari",
-    "github": "",
-    "id": "7986b5a20f9ab0ff0731b910542583c8",
-    "identity": "Homme",
-    "lastname": "Poniatowski",
-    "linkedin": "https://www.linkedin.com/in/gariponiatowski/",
-    "nickname": "",
-    "picture": "volunteer-7986b5a20f9ab0ff0731b910542583c8.jpg",
-    "role": "Supply Acquisition",
-    "specialty": "",
-    "twitter": ""
-  },
-  {
-    "anon": false,
     "bio": "Ex L3 MIAGE Dauphine / En fin de formation Data Science @ OpenClassrooms",
     "firstname": "Matthieu",
     "github": "MatthieuGariel",
@@ -1102,18 +1015,19 @@
     "twitter": ""
   },
   {
-    "anon": true,
-    "bio": "",
-    "firstname": "",
+    "anon": false,
+    "bio": "Lead product manager chez Brigad",
+    "firstname": "Helene ",
     "github": "",
     "id": "0cc3d297a41f541fa8ed47305bdd9ffb",
-    "identity": "",
-    "lastname": "",
+    "identity": "Femme",
+    "lastname": "Gloux",
     "linkedin": "",
     "nickname": "",
+    "picture": "volunteer-0cc3d297a41f541fa8ed47305bdd9ffb.jpg",
     "role": "",
-    "specialty": "",
-    "twitter": ""
+    "specialty": "Product management",
+    "twitter": "@helene_gloux"
   },
   {
     "anon": false,
@@ -1179,20 +1093,6 @@
     "bio": "",
     "firstname": "",
     "github": "",
-    "id": "a179196f28b430aa584733b4b0ddcb36",
-    "identity": "",
-    "lastname": "",
-    "linkedin": "",
-    "nickname": "",
-    "role": "",
-    "specialty": "",
-    "twitter": ""
-  },
-  {
-    "anon": true,
-    "bio": "",
-    "firstname": "",
-    "github": "",
     "id": "2867626d3d0ea42542a39158dc7f80d4",
     "identity": "",
     "lastname": "",
@@ -1218,16 +1118,17 @@
     "twitter": "Julie_Dachez"
   },
   {
-    "anon": true,
-    "bio": "",
-    "firstname": "",
+    "anon": false,
+    "bio": "Retrait\u00e9e",
+    "firstname": "Jacqueline",
     "github": "",
     "id": "b651cf89e314ddfdcb718797f8bc6043",
-    "identity": "",
+    "identity": "Femme",
     "lastname": "",
     "linkedin": "",
     "nickname": "",
-    "role": "",
+    "picture": "",
+    "role": "R\u00e9pondre aux questions des volontaires \u00e0 la vaccination",
     "specialty": "",
     "twitter": ""
   },
@@ -1262,6 +1163,20 @@
     "twitter": ""
   },
   {
+    "anon": true,
+    "bio": "",
+    "firstname": "",
+    "github": "",
+    "id": "94100b69251bdc85e96acac50065aa5b",
+    "identity": "",
+    "lastname": "",
+    "linkedin": "",
+    "nickname": "",
+    "role": "",
+    "specialty": "",
+    "twitter": ""
+  },
+  {
     "anon": false,
     "bio": "D\u00e9veloppeur Web @ Epicery",
     "firstname": "Jean-Charles",
@@ -1275,20 +1190,6 @@
     "role": "",
     "specialty": "D\u00e9veloppeur backend",
     "twitter": "_jcsanti"
-  },
-  {
-    "anon": true,
-    "bio": "",
-    "firstname": "",
-    "github": "",
-    "id": "dca3b59f615ad6f01746a06fb7a20774",
-    "identity": "",
-    "lastname": "",
-    "linkedin": "",
-    "nickname": "",
-    "role": "",
-    "specialty": "",
-    "twitter": ""
   },
   {
     "anon": false,
@@ -1349,21 +1250,6 @@
     "role": "",
     "specialty": "Open data + coups de main en tout genre",
     "twitter": "Jul_Dum"
-  },
-  {
-    "anon": false,
-    "bio": "\u00c9tudiant ing\u00e9nieur informatique \u00e0 l'UTT",
-    "firstname": "Julien",
-    "github": "",
-    "id": "6e0a34b7903eb2c793f79e9dca9757bb",
-    "identity": "Homme",
-    "lastname": "Auffret",
-    "linkedin": "https://www.linkedin.com/in/julienauffret",
-    "nickname": "",
-    "picture": "volunteer-6e0a34b7903eb2c793f79e9dca9757bb.jpg",
-    "role": "",
-    "specialty": "",
-    "twitter": ""
   },
   {
     "anon": false,
@@ -1440,21 +1326,6 @@
   },
   {
     "anon": false,
-    "bio": "",
-    "firstname": "Lola",
-    "github": "",
-    "id": "80bb80d931cf53a44977780949e2d580",
-    "identity": "Femme",
-    "lastname": "A",
-    "linkedin": "https://www.linkedin.com/in/lolaarrou/",
-    "nickname": "",
-    "picture": "",
-    "role": "",
-    "specialty": "",
-    "twitter": ""
-  },
-  {
-    "anon": false,
     "bio": "dev full stack + data",
     "firstname": "Laure",
     "github": "Laurel16",
@@ -1514,20 +1385,6 @@
     "twitter": ""
   },
   {
-    "anon": true,
-    "bio": "",
-    "firstname": "",
-    "github": "",
-    "id": "6290e7d7fd1a88eaea35a4ac3f9bc9b2",
-    "identity": "",
-    "lastname": "",
-    "linkedin": "",
-    "nickname": "",
-    "role": "",
-    "specialty": "",
-    "twitter": ""
-  },
-  {
     "anon": false,
     "bio": "Sp\u00e9cialis\u00e9e dans le d\u00e9veloppement de produits (sourcing fournisseurs, n\u00e9gocitaion commerciale, cr\u00e9ation de produits)",
     "firstname": "Linda",
@@ -1540,20 +1397,6 @@
     "picture": "volunteer-cdb5b6c2b3c2b90abeaadd09e9aee3b1.jpg",
     "role": "Core supply acquisition et sponsors pro bono",
     "specialty": "D\u00e9veloppement produits, sourcing, n\u00e9gociation, cr\u00e9ation produits, sourcing",
-    "twitter": ""
-  },
-  {
-    "anon": true,
-    "bio": "",
-    "firstname": "",
-    "github": "",
-    "id": "bd465c822980ed9af0a79ab62913546c",
-    "identity": "",
-    "lastname": "",
-    "linkedin": "",
-    "nickname": "",
-    "role": "",
-    "specialty": "",
     "twitter": ""
   },
   {
@@ -1677,20 +1520,6 @@
     "twitter": ""
   },
   {
-    "anon": true,
-    "bio": "",
-    "firstname": "",
-    "github": "",
-    "id": "47d326af5a0759424e16b21cbcf79c3d",
-    "identity": "",
-    "lastname": "",
-    "linkedin": "",
-    "nickname": "",
-    "role": "",
-    "specialty": "",
-    "twitter": ""
-  },
-  {
     "anon": false,
     "bio": "",
     "firstname": "Lou",
@@ -1721,20 +1550,6 @@
     "twitter": ""
   },
   {
-    "anon": true,
-    "bio": "",
-    "firstname": "",
-    "github": "",
-    "id": "497670dc102e59378619fee27b32127e",
-    "identity": "",
-    "lastname": "",
-    "linkedin": "",
-    "nickname": "",
-    "role": "",
-    "specialty": "",
-    "twitter": ""
-  },
-  {
     "anon": false,
     "bio": "Machine Learning @ Instacart",
     "firstname": "Mathieu ",
@@ -1750,20 +1565,6 @@
     "twitter": "mathieurip"
   },
   {
-    "anon": true,
-    "bio": "",
-    "firstname": "",
-    "github": "",
-    "id": "f6eb736b0217679da0605585190c51b0",
-    "identity": "",
-    "lastname": "",
-    "linkedin": "",
-    "nickname": "",
-    "role": "",
-    "specialty": "",
-    "twitter": ""
-  },
-  {
     "anon": false,
     "bio": "Software Engineer @ Alan",
     "firstname": "Maxence",
@@ -1777,21 +1578,6 @@
     "role": "",
     "specialty": "D\u00e9veloppement Web",
     "twitter": "mininao_"
-  },
-  {
-    "anon": false,
-    "bio": "",
-    "firstname": "",
-    "github": "",
-    "id": "1f4d5bfb34f4c14a561a7aaaa57ab181",
-    "identity": "Femme",
-    "lastname": "",
-    "linkedin": "https://www.linkedin.com/in/m%C3%A9line-la%C3%AF-pei-a188421b6/",
-    "nickname": "M\u00e9line Lp",
-    "picture": "",
-    "role": "",
-    "specialty": "",
-    "twitter": ""
   },
   {
     "anon": false,
@@ -1824,15 +1610,16 @@
     "twitter": ""
   },
   {
-    "anon": true,
-    "bio": "",
-    "firstname": "",
+    "anon": false,
+    "bio": "Directeur Financier",
+    "firstname": "Miguel",
     "github": "",
     "id": "a97f553d16672c5b534d4f78f2b450f5",
-    "identity": "",
-    "lastname": "",
-    "linkedin": "",
+    "identity": "Homme",
+    "lastname": "OLEGO",
+    "linkedin": "https://www.linkedin.com/in/miguelolego",
     "nickname": "",
+    "picture": "",
     "role": "",
     "specialty": "",
     "twitter": ""
@@ -1928,6 +1715,20 @@
     "twitter": "nmrtn"
   },
   {
+    "anon": true,
+    "bio": "",
+    "firstname": "",
+    "github": "",
+    "id": "2988cc97db2fa2f54bcabcba25ef90a0",
+    "identity": "",
+    "lastname": "",
+    "linkedin": "",
+    "nickname": "",
+    "role": "",
+    "specialty": "",
+    "twitter": ""
+  },
+  {
     "anon": false,
     "bio": "Chef de projet",
     "firstname": "Gianluca ",
@@ -2018,6 +1819,20 @@
     "twitter": "Pierre2LT"
   },
   {
+    "anon": true,
+    "bio": "",
+    "firstname": "",
+    "github": "",
+    "id": "e336e23f3a3f3fe6a9f1c9ece84c4676",
+    "identity": "",
+    "lastname": "",
+    "linkedin": "",
+    "nickname": "",
+    "role": "",
+    "specialty": "",
+    "twitter": ""
+  },
+  {
     "anon": false,
     "bio": "Chercheur @M\u00e9t\u00e9oFrance",
     "firstname": "Matteo",
@@ -2049,21 +1864,6 @@
   },
   {
     "anon": false,
-    "bio": "",
-    "firstname": "Rapha\u00eblle",
-    "github": "",
-    "id": "5d8a4c094e61298cb76735d39b811dd8",
-    "identity": "Femme",
-    "lastname": "Sassi",
-    "linkedin": "https://www.linkedin.com/in/rapha%C3%ABlle-sassi-a969a4170/",
-    "nickname": "",
-    "picture": "",
-    "role": "",
-    "specialty": "",
-    "twitter": ""
-  },
-  {
-    "anon": false,
     "bio": "Product designer en reconversion",
     "firstname": "Alice",
     "github": "",
@@ -2075,20 +1875,6 @@
     "picture": "volunteer-28c296615f9cf0e0e304a8a0225d5d3c.jpg",
     "role": "Product design",
     "specialty": "Product design",
-    "twitter": ""
-  },
-  {
-    "anon": true,
-    "bio": "",
-    "firstname": "",
-    "github": "",
-    "id": "0981c377feed72a6c93d12d66ab2aa0c",
-    "identity": "",
-    "lastname": "",
-    "linkedin": "",
-    "nickname": "",
-    "role": "",
-    "specialty": "",
     "twitter": ""
   },
   {
@@ -2117,7 +1903,7 @@
     "linkedin": "",
     "nickname": "",
     "picture": "volunteer-046cf7c18c0b5a7eabdfb1c1d7ae27b5.jpg",
-    "role": "cautino m\u00e9dicale",
+    "role": "caution m\u00e9dicale",
     "specialty": "Pneumologue, transplantation pulmonaire",
     "twitter": "drAntoineRoux"
   },
@@ -2135,20 +1921,6 @@
     "role": "Expertise juridique / Data Privacy",
     "specialty": "Data protection/Privacy/Num\u00e9rique responsable",
     "twitter": "sa_arrad"
-  },
-  {
-    "anon": true,
-    "bio": "",
-    "firstname": "",
-    "github": "",
-    "id": "83217bb4f74410d77701fd6f29c19e48",
-    "identity": "",
-    "lastname": "",
-    "linkedin": "",
-    "nickname": "",
-    "role": "",
-    "specialty": "",
-    "twitter": ""
   },
   {
     "anon": false,
@@ -2256,17 +2028,18 @@
     "twitter": ""
   },
   {
-    "anon": true,
-    "bio": "",
-    "firstname": "",
+    "anon": false,
+    "bio": "Energy + Data",
+    "firstname": "Thibaud",
     "github": "",
     "id": "db61fb8de83ceb22ff074986b7895a80",
-    "identity": "",
-    "lastname": "",
-    "linkedin": "",
+    "identity": "Homme",
+    "lastname": "Duplantier",
+    "linkedin": "https://www.linkedin.com/in/thibaudduplantier/",
     "nickname": "",
+    "picture": "volunteer-db61fb8de83ceb22ff074986b7895a80.jpg",
     "role": "",
-    "specialty": "",
+    "specialty": "data & ops",
     "twitter": ""
   },
   {
@@ -2284,29 +2057,16 @@
     "twitter": ""
   },
   {
-    "anon": true,
-    "bio": "",
-    "firstname": "",
+    "anon": false,
+    "bio": "Consultant ind\u00e9pendant ",
+    "firstname": "Thomas",
     "github": "",
     "id": "9edd8b562c8b50329028440083ac203f",
-    "identity": "",
-    "lastname": "",
+    "identity": "Homme",
+    "lastname": "Gaudoux",
     "linkedin": "",
     "nickname": "",
-    "role": "",
-    "specialty": "",
-    "twitter": ""
-  },
-  {
-    "anon": true,
-    "bio": "",
-    "firstname": "",
-    "github": "",
-    "id": "14f53d6f9a40dd5d3727138d2a58c9a4",
-    "identity": "",
-    "lastname": "",
-    "linkedin": "",
-    "nickname": "",
+    "picture": "",
     "role": "",
     "specialty": "",
     "twitter": ""
@@ -2327,16 +2087,17 @@
     "twitter": ""
   },
   {
-    "anon": true,
-    "bio": "",
-    "firstname": "",
+    "anon": false,
+    "bio": "Product designer",
+    "firstname": "Valeriane",
     "github": "",
     "id": "9dad2ae083431035bba3d8c7f0f57f4f",
-    "identity": "",
-    "lastname": "",
-    "linkedin": "",
+    "identity": "Femme",
+    "lastname": "Richard",
+    "linkedin": "https://www.linkedin.com/in/val%C3%A9riane-richard-5392ab34/",
     "nickname": "",
-    "role": "",
+    "picture": "volunteer-9dad2ae083431035bba3d8c7f0f57f4f.jpg",
+    "role": "Design",
     "specialty": "",
     "twitter": ""
   },

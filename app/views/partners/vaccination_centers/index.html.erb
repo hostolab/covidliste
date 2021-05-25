@@ -99,7 +99,7 @@
       Vos lieux de vaccination en attente de validation :
     </p>
 
-    <div class="alert alert-primary" role="alert" style="position: inherit">
+    <div class="alert alert-primary" role="alert">
       Nous allons vous contacter dans les prochaines heures ou les prochains jours pour valider vos lieux de vaccination
       en attente.
       <br/>
@@ -109,6 +109,17 @@
       Numéro incorrect ?
       <%= link_to "Modifiez-le sur votre page profil", partners_path %>
     </div>
+
+    <% @external_accounts = current_partner.partner_external_accounts.order(id: :desc) %>
+    <% unless @external_accounts.any? %>
+      <% if PartnerExternalAccountProvider::Providers::ALL.any? %>
+        <div class="alert alert-primary" role="alert">
+          <strong>Accélérez la validation de vos lieux de vaccination</strong> en
+          liant un compte ou une carte professionnelle (CPS ou e-CPS) depuis
+          <%=  link_to "votre page profil", partners_path  %>
+        </div>
+      <% end %>
+    <% end %>
 
     <div class="table-responsive">
       <table class="table table-bordered table-sm">

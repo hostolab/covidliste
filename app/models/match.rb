@@ -22,6 +22,7 @@ class Match < ApplicationRecord
   blind_index :match_confirmation_token
 
   enum sms_provider: {twilio: "twilio", sendinblue: "sendinblue"}, _prefix: :sms_provider
+  enum sms_status: {pending: "pending", success: "success", error: "error"}, _default: :pending, _prefix: :sms_status
 
   validates :distance_in_meters, numericality: {greater_than_or_equal_to: 0, only_integer: true}, allow_nil: true
   validate :match_throttling, on: :create
@@ -130,5 +131,13 @@ class Match < ApplicationRecord
 
   def flipper_id
     "#{self.class.name}_#{id}"
+  end
+
+  def sms_notification_needed?
+    can_receive_sms? && sms_sent_at.blank? && !expired? && !sms_status_error?
+  end
+
+  def can_receive_sms?
+    user.present? && user.phone_number.present?
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_23_120455) do
+ActiveRecord::Schema.define(version: 2021_05_23_170000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -169,6 +169,7 @@ ActiveRecord::Schema.define(version: 2021_05_23_120455) do
     t.string "sms_provider"
     t.string "sms_provider_id"
     t.datetime "confirmed_mail_sent_at"
+    t.string "sms_status"
     t.index ["campaign_batch_id"], name: "index_matches_on_campaign_batch_id"
     t.index ["campaign_id"], name: "index_matches_on_campaign_id"
     t.index ["confirmation_failed_reason"], name: "index_matches_on_confirmation_failed_reason"
@@ -178,6 +179,20 @@ ActiveRecord::Schema.define(version: 2021_05_23_120455) do
     t.index ["sms_provider", "sms_provider_id"], name: "index_matches_on_sms_provider_and_sms_provider_id"
     t.index ["user_id"], name: "index_matches_on_user_id"
     t.index ["vaccination_center_id"], name: "index_matches_on_vaccination_center_id"
+  end
+
+  create_table "partner_external_accounts", force: :cascade do |t|
+    t.bigint "partner_id"
+    t.string "provider_id"
+    t.string "sub_bidx"
+    t.text "sub_ciphertext"
+    t.text "info_ciphertext"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["partner_id"], name: "index_partner_external_accounts_on_partner_id"
+    t.index ["provider_id"], name: "index_partner_external_accounts_on_provider_id"
+    t.index ["sub_bidx", "provider_id"], name: "index_partner_external_accounts_on_sub_bidx_and_provider_id", unique: true
+    t.index ["sub_bidx"], name: "index_partner_external_accounts_on_sub_bidx"
   end
 
   create_table "partner_vaccination_centers", force: :cascade do |t|

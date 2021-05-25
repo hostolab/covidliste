@@ -28,7 +28,7 @@ export const CampaignCreatorReach = ({ vaccinationCenter, className }) => {
     <div className={`CampaignCreatorReach ${status} ${className}`}>
       <div className="count">
         {(isFetching || debouncedValues != values) && (
-          <div className="spinner"></div>
+          <div className="cl_spinner"></div>
         )}
         <span className="countNumber">
           {isNumber(data?.reach) && status !== "unknown" ? data.reach : "-"}
