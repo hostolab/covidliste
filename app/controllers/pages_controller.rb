@@ -35,6 +35,10 @@ class PagesController < ApplicationController
     @sponsors = Sponsor.all
   end
 
+  def temoignages
+    @typeform_url = "https://form.typeform.com/to/rHTAEqUZ"
+  end
+
   def contact
     @contact_items = FaqItem.where(category: "Collaboration et contact")
   end

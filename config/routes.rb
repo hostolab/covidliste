@@ -142,6 +142,7 @@ Rails.application.routes.draw do
   get "/algorithme" => "pages#algorithme", :as => :algorithme
   get "/presse" => "pages#presse", :as => :presse
   get "/faq" => "pages#faq", :as => :faq
+  get "/temoignages" => "pages#temoignages", :as => :temoignages
 
   ## Pages from frozen_records/static_pages.yml
   get "/mentions_legales" => "pages#mentions_legales", :as => :mentions_legales
