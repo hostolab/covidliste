@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe SendConfirmedMatchSmsJob do
   let!(:user) { create(:user, phone_number: "+33601020304") }
-  let!(:campaign) { create(:campaign, starts_at: Time.new(2021, 0o5, 23, 12, 50), ends_at: Time.new(2021, 0o5, 23, 13, 15)) }
+  let!(:campaign) { create(:campaign, starts_at: Time.zone.parse("2021-05-23 12:50"), ends_at: Time.zone.parse("2021-05-23 13:15")) }
   let!(:vaccination_center) { create(:vaccination_center, name: "Bicycle rights blue bottle typewriter copper mug, chicharrones helvetica man bun direct trade salvia literally. Pinterest farm-to-table adaptogen synth meditation chia 8-bit. Everyday carry iceland meggings semiotics direct trade, adaptogen gochujang. Hammock sartorial thundercats hoodie try-hard shaman butcher skateboard squid.", city: "Paris") }
   let!(:match) { create(:match, user: user, campaign: campaign, vaccination_center: vaccination_center) }
   let!(:twilio_mock) { double }
