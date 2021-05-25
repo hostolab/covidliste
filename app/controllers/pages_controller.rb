@@ -6,7 +6,7 @@ class PagesController < ApplicationController
     @confirmed_matched_users_count = Rails.cache.fetch(:confirmed_matched_users_count, expires_in: 30.minutes) { Match.confirmed.count }
     @vaccination_centers_count = Rails.cache.fetch(:vaccination_centers_count, expires_in: 30.minutes) { VaccinationCenter.confirmed.count }
     @typeform_url = "https://form.typeform.com/to/Gj2d2iue"
-    @reviews = Review.where(from: "volunteer")
+    @reviews = Review.where(from: "user")
     @faq_items = FaqItem.where(area: "pro").limit(4)
   end
 
@@ -36,6 +36,7 @@ class PagesController < ApplicationController
   end
 
   def temoignages
+    @reviews = Review.all
     @typeform_url = "https://form.typeform.com/to/rHTAEqUZ"
   end
 

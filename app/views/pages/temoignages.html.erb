@@ -9,10 +9,31 @@
       <div class="col-12">
         <h1 class="font-weight-bold"><span class="text-secondary">XX XXXX personnes </span>ont été vaccinées grâce à Covidliste</h1>
       </div>
-      <div class="col-sm-12 col-md-4 col-lg-4 my-3">
+      <div class="col-md-4 col-12 my-3">
         <%= link_to "Je donne aussi mon avis !", @typeform_url, class: "btn btn-secondary btn-large btn-block font-weight-bold", target: "_blank", rel: "noopener" %>
       </div>
 
     </div>
+  </div>
+</div>
+<div class="container py-4">
+  <h2 class="mb-3">Leurs témoignages</h2>
+  <div class="row d-flex">
+      <% @reviews.each do |review| %>
+        <div class="col-12 col-md-4 d-flex flex-column mt-3">
+          <% if review.from == "user" %>
+            <div class="card-review card-user">
+              <p class="font-weight-bold">"<%= review.message %>"</p>
+              <p class="text-secondary mb-0">Volontaire</p>
+            </div>
+          <% elsif review.from == "partner" %>
+            <div class=card-review>
+              <p>"<%= review.message %>"</p>
+              <p>Professionnel de santé</p>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+
   </div>
 </div>
