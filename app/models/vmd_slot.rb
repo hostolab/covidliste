@@ -103,8 +103,8 @@ class VmdSlot < ApplicationRecord
     SQL
     min_age = astrazeneca || janssen ? 55 : 18
     params = {
-      min_date: min_age.years.ago,
-      max_date: Date.today,
+      min_date: 130.years.ago,
+      max_date: min_age.years.ago,
       lat: latitude,
       lon: longitude,
       max_distance: max_distance,
@@ -112,5 +112,13 @@ class VmdSlot < ApplicationRecord
     }
     query = ActiveRecord::Base.send(:sanitize_sql_array, [sql, params])
     User.where(id: ActiveRecord::Base.connection.execute(query).to_a.pluck("user_id"))
+  end
+
+  def send_alerts(max_distance = 5)
+    limit = slots_7_days
+    users = reachable_users(max_distance, limit)
+    users.each do |user|
+      SlotAlert.create(vmd_slot_id: id, user_id: user.id)
+    end
   end
 end
