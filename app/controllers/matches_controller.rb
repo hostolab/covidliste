@@ -31,6 +31,7 @@ class MatchesController < ApplicationController
       user.save(validate: false)
       @match.confirm!
       SendConfirmedMatchEmailJob.perform_later(@match.id)
+      SendConfirmedMatchSmsJob.perform_later(@match.id)
     else
       raise ActiveRecord::RecordInvalid.new(user)
     end
