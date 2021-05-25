@@ -19,10 +19,4 @@ class DeviseMailer < Devise::Mailer
       format.mjml
     end
   end
-
-  def magic_link(record, token, remember_me, opts = {})
-    super do |format|
-      format.mjml
-    end
-  end
 end

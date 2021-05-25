@@ -39,5 +39,6 @@
         @match_confirmation_token) %>
       </p>
     </mj-text>
+    <%= render partial: "mailer/social_networks", formats: [:html] %>
   </mj-column>
 </mj-section>
