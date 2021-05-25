@@ -1,6 +1,6 @@
 class SlotAlert < ApplicationRecord
-  THROTTLING_RATE = 1
-  THROTTLING_INTERVAL = 6.hours
+  THROTTLING_RATE = 4
+  THROTTLING_INTERVAL = 12.hours
 
   has_secure_token :token
   encrypts :token
