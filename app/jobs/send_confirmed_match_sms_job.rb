@@ -9,7 +9,7 @@ class SendConfirmedMatchSmsJob < ApplicationJob
 
     provider = Flipper.enabled?(:sendinblue, match) ? Sms::SendInBlue : Sms::Twilio
 
-    sms_provider_id = provider.new(Sms::ConfirmedMessage.new(match)).send
+    sms_provider_id = provider.new(Sms::ConfirmedMessage.new(match)).send_message
 
     match.update(confirmed_sms_sent_at: Time.now.utc, conf_sms_provider: provider.to_enum_value, conf_sms_provider_id: sms_provider_id, conf_sms_status: Match.conf_sms_statuses[:success])
   rescue Sms::Error => e
