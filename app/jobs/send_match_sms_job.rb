@@ -22,7 +22,7 @@ class SendMatchSmsJob < ApplicationJob
   def log_error(provider, e)
     Rails.logger.info("[SendMatchSmsJob][#{provider}] error #{e.message}")
     if Rails.env.development?
-      puts "[SendMatchSmsJob][#{provider}] error #{e.message}"
+      Rails.logger.debug "[SendMatchSmsJob][#{provider}] error #{e.message}"
     end
   end
 end
