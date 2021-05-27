@@ -12,19 +12,19 @@
   <mj-social-element
     name="twitter"
     alt="twitter-logo"
-    src="https://codedmails.com/images/social/color/twitter-logo-transparent.png"
+    src="/social/twitter.png"
     href="https://twitter.com/covidliste"
   ></mj-social-element>
   <mj-social-element
     name="facebook"
     alt="facebook-logo"
-    src="https://codedmails.com/images/social/color/facebook-logo-transparent.png"
+    src="/social/facebook.png"
     href="https://www.facebook.com/covidliste"
   ></mj-social-element>
   <mj-social-element
     name="instagram"
     alt="instagram-logo"
-    src="https://codedmails.com/images/social/color/insta-logo-transparent.png"
+    src="/social/instagram.png"
     href="https://www.instagram.com/covidliste/"
   ></mj-social-element>
 </mj-social>

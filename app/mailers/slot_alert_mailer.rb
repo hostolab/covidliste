@@ -9,10 +9,13 @@ class SlotAlertMailer < ApplicationMailer
 
     @alert_token = @alert.token
     @slot = @alert.vmd_slot
+
     mail(
       to: @alert.user.email,
       subject: "Des rendez-vous de vaccination sont disponibles près de chez vous."
-    )
+    ) do |format|
+      format.mjml
+    end
   end
 
   def follow_up
@@ -26,6 +29,8 @@ class SlotAlertMailer < ApplicationMailer
     mail(
       to: @alert.user.email,
       subject: "Avez-vous pu trouver un rendez-vous de vaccination?"
-    )
+    ) do |format|
+      format.mjml
+    end
   end
 end
