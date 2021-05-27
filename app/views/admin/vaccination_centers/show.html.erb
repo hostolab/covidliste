@@ -187,10 +187,11 @@
         <thead class="thead-light">
         <tr>
           <th class="text-right"> #</th>
-          <th> Nom</th>
-          <th> Email</th>
-          <th> Téléphone</th>
-          <th class="text-center"> Confirmé ?</th>
+          <th scope="col">Nom</th>
+          <th scope="col">Email</th>
+          <th scope="col">Téléphone</th>
+          <th scope="col" class="text-center">Comptes liés</th>
+          <th scope="col" class="text-center">Confirmé ?</th>
         </tr>
         </thead>
 
@@ -201,6 +202,45 @@
             <td> <%= partner.name %> </td>
             <td> <%= partner.email %> </td>
             <td> <%= partner.human_friendly_phone_number %> </td>
+            <td>
+              <%= render(ModalComponent.new(title: "Comptes liés", class_names: "modal-lg modal-dialog-scrollable", modal_id: "modalProAccounts#{partner.id}")) do %>
+                <div class="p-3">
+                  <p>
+                    <strong>Nom</strong>: <%= partner.name %><br />
+                    <strong>Email</strong>: <%= partner.email %><br />
+                  </p>
+                  <table class="table table-bordered table-sm small text-center" aria-describedby="Vos comptes liés">
+                    <thead class="thead-light">
+                    <tr>
+                      <th scope="col">Type de compte</th>
+                      <th scope="col">Informations d'identité</th>
+                      <th scope="col">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <% partner.partner_external_accounts.order(id: :desc).each do |external_account| %>
+                      <tr>
+                        <td>
+                          <%= image_tag("openid/#{external_account.provider_id}.png", alt: "#{external_account.service_name}", height: 40) %>
+                        </td>
+                        <td>
+                          <%= external_account.full_name %><br />
+                          <em><%= external_account.identifier %></em>
+                        </td>
+                        <td>
+                          <%= link_to icon("fas", "times", "Délier", class: "text-danger"), partners_partner_external_account_path(external_account.id), method: :delete, data: {confirm: "Êtes-vous sûr de vouloir délier ce compte #{external_account.service_name} ?"} %>
+                        </td>
+                      </tr>
+                    <% end %>
+                    </tbody>
+                  </table>
+                </div>
+              <% end %>
+              <%= link_to "#modalProAccounts#{partner.id}", "data-toggle": "modal" do %>
+                <%= humanize_boolean(partner.partner_external_accounts.any?) %>
+                <%= partner.partner_external_accounts.size %>
+              <% end %>
+            </td>
             <td class="text-center" title="<%= partner.confirmed_at.present? ? "Confirmé le #{l(partner.confirmed_at)}" : "" %>">
               <%= humanize_boolean partner.confirmed_at.present? %>
             </td>
