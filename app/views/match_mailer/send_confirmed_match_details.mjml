@@ -1,44 +1,34 @@
-<mj-section padding-top="0" padding-bottom="0">
+<mj-section padding-top="15px" padding-bottom="15px">
   <mj-column>
     <mj-text>
-      <h1 mj-class="h1">
+      <h1>
         Votre dose de vaccin <%= @match.campaign.vaccine_type.capitalize %> est bien réservée !
       </h1>
-      <p>
-        <strong>Informations et accès</strong>
-        <ul>
-          <li>Nom : <%= @match.vaccination_center.name %> (<%= @match.vaccination_center.kind %>) </li>
-          <li>Adresse : <%= @match.vaccination_center.address %></li>
-          <li>Créneau horaire : <%= l(@match.campaign.starts_at, format: '%A %e %B %Y').capitalize %> entre <%= l(@match.campaign.starts_at, format: '%Hh%M') %>
-          et <%= l(@match.campaign.ends_at, format: '%Hh%M') %> </li>
-          <% if @match.campaign.extra_info.present? %>
-            <li>Détails d’accès : <%= @match.campaign.extra_info %></li>
-          <% end %>
-          <li>Numéro de téléphone : <%= @match.vaccination_center.human_friendly_phone_number %></li>
-        </ul>
-      </p>
-      <p>
-        <strong>Rappel de vos informations</strong>
-        <ul>
-          <li>Identité : <%= @match.user.full_name %></li>
-          <li>Date de naissance : <%= @match.user.birthdate.strftime('%d/%m/%Y') %></li>
-        </ul>
-      </p>
-      <p>
-        <strong>N’oubliez-pas d’apporter :</strong>
-        <ul>
-          <li>votre <strong>carte Vitale</strong> (ou attestation de droit)</li>
-          <li>votre <strong>pièce d’identité</strong> (aux nom et date de naissance renseignés ci-dessus)</li>
-        </ul>
-      </p>
-      <p>
-        <strong>Notre mission s’arrête ici !</strong> Nous sommes heureux de vous permettre d'accéder à la vaccination. Votre compte sera automatiquement désactivé dans 72h. Si votre vaccination n’a pas pu avoir lieu, vous pourrez vous réinscrire sur Covidliste après 72h.
-      </p>
-      <p>
-        <strong>
-        En cas de problème, contactez <%= mail_to "hello@covidliste.com", "hello@covidliste.com" %>.
-        </strong>
-      </p>
+      <br />
+      <strong>Informations et accès</strong>
+      <ul>
+        <li>Nom : <%= @match.vaccination_center.name %> (<%= @match.vaccination_center.kind %>) </li>
+        <li>Adresse : <%= @match.vaccination_center.address %></li>
+        <li>Créneau horaire : <%= l(@match.campaign.starts_at, format: '%A %e %B %Y').capitalize %> entre <%= l(@match.campaign.starts_at, format: '%Hh%M') %>
+        et <%= l(@match.campaign.ends_at, format: '%Hh%M') %> </li>
+        <% if @match.campaign.extra_info.present? %>
+          <li>Détails d’accès : <%= @match.campaign.extra_info %></li>
+        <% end %>
+        <li>Numéro de téléphone : <%= @match.vaccination_center.human_friendly_phone_number %></li>
+      </ul>
+      <strong>Rappel de vos informations</strong>
+      <ul>
+        <li>Identité : <%= @match.user.full_name %></li>
+        <li>Date de naissance : <%= @match.user.birthdate.strftime('%d/%m/%Y') %></li>
+      </ul>
+      <strong>N’oubliez-pas d’apporter :</strong>
+      <ul>
+        <li>votre <strong>carte Vitale</strong> (ou attestation de droit)</li>
+        <li>votre <strong>pièce d’identité</strong> (aux nom et date de naissance renseignés ci-dessus)</li>
+      </ul>
+      <strong>Notre mission s’arrête ici !</strong> Nous sommes heureux de vous permettre d'accéder à la vaccination. Votre compte sera automatiquement désactivé dans 72h. Si votre vaccination n’a pas pu avoir lieu, vous pourrez vous réinscrire sur Covidliste après 72h.
+      <br />
+      <strong>En cas de problème, contactez <%= mail_to "hello@covidliste.com", "hello@covidliste.com" %>.</strong>
     </mj-text>
     <%= render partial: "mailer/social_networks", formats: [:html] %>
   </mj-column>

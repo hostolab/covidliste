@@ -6,10 +6,10 @@
       Votre compte a été verrouillé en raison d'un nombre excessif de tentatives
       de connexion infructueuses.
     </mj-text>
-    <mj-text>
+    <mj-text padding-bottom="0px">
       Cliquez sur le lien ci-dessous pour déverrouiller votre compte :
     </mj-text>
-    <mj-button href="<%= unlock_url(@resource, unlock_token: @token) %>">
+    <mj-button href="<%= unlock_url(@resource, unlock_token: @token) %>" padding-bottom="0px">
       Déverrouiller mon compte
     </mj-button>
     <mj-text>

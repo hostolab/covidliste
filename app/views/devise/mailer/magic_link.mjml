@@ -2,14 +2,14 @@
 Hash[@scope_name, {email: @resource.email, token: @token}]) %>
 <mj-section padding-top="15px" padding-bottom="15px">
   <mj-column>
-    <mj-text>
+    <mj-text padding-bottom="0px">
       <h1>Mon lien de connexion</h1>
       <br />
       <strong>Connectez-vous en toute sécurité</strong> à Covidliste en cliquant
       sur le lien suivant (valide pendant <%=
       Devise.passwordless_login_within.inspect %>) :
     </mj-text>
-    <mj-button href="<%= magic_link_url %>">
+    <mj-button href="<%= magic_link_url %>" padding-bottom="0px">
       Me connecter à mon compte
     </mj-button>
     <mj-text>

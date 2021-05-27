@@ -1,6 +1,6 @@
 <mj-section padding-top="15px" padding-bottom="15px">
   <mj-column>
-    <mj-text>
+    <mj-text padding-bottom="0px">
       <h1>Bonjour,</h1>
       <br />
       <strong>Vous venez de vous enregistrer sur Covidliste</strong>.
@@ -8,9 +8,7 @@
       Finalisez votre inscription en cliquant sur le lien suivant (valide
       pendant 24 heures) :
     </mj-text>
-    <mj-button
-      href="<%= confirmation_url(@resource, confirmation_token: @token) %>"
-    >
+    <mj-button href="<%= confirmation_url(@resource, confirmation_token: @token) %>" padding-bottom="0px">
       Valider mon inscription
     </mj-button>
     <mj-text>
