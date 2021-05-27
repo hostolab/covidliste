@@ -52,10 +52,15 @@ Rails.application.routes.draw do
 
       authenticate :user, lambda { |u| u.has_role?(:super_admin) } do
         # Super Admin
+        resources :power_users, only: [:create, :update, :destroy]
         mount PgHero::Engine, at: "/pghero"
         mount Sidekiq::Web => "/sidekiq"
       end
     end
+  end
+
+  namespace :api do
+    resources :power_users, only: [:index]
   end
 
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
