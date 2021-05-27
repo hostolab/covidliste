@@ -12,6 +12,7 @@ class UsersController < ApplicationController
   end
 
   def new
+    @reviews = Review.all
     skip_authorization
     if current_partner
       redirect_to partners_vaccination_centers_path

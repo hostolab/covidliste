@@ -94,6 +94,24 @@
   </div>
 </div>
 
+
+<div class="bg-gradient-theme-reverse py-4 py-lg-5">
+  <div class="container">
+    <div class="h1 font-weight-bold mb-3"><span class="text-secondary"><%= pretty_number(@vaccination_centers_count) %> professionnels de santé équipés<br><%= pretty_number(@confirmed_matched_users_count) %> citoyens vaccinés,</span><br><span class="text-dark">leur expérience</span></div>
+    <% @reviews[0..2].each do |review| %>
+      <div class="mt-1 d-flex align-items-center align-items-sm-end">
+        <%= image_tag review.avatar_path, alt: "Avatar", loading: "lazy" %>
+        <div class="rounded overflow-hidden p-3 bg-white ml-2">
+          <p class="mb-0 font-weight-bold"><%= review.message %></p>
+        </div>
+      </div>
+    <% end %>
+    <div class="text-center">
+      <%= link_to "Lire tous les témoignages", temoignages_path, class: "btn btn-secondary btn-large font-weight-bold mt-4" %>
+    </div>
+  </div>
+</div>
+
 <%= render partial: "users/shared/box_cta", locals: {title: "S’inscrire à Covidliste", text: "Vous serez contacté dès qu’une dose sera disponible !", cta_text: "S’inscrire à Covidliste", cta_href: "#inscription", cta_target: "_self"} %>
 
 <div class="bg-white">
