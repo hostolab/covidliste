@@ -1,8 +1,3 @@
-MAX_SMS_BODY_LENGTH = 160
-# Unicode '…' (U+2026) is not supported by GSM charset
-# https://www.textmagic.com/free-tools/unicode-detector
-ELLIPSIS = "..."
-
 class Sms::ConfirmedMessage
   def initialize(match)
     @match = match
@@ -16,6 +11,10 @@ class Sms::ConfirmedMessage
     "Covidliste"
   end
 
+  MAX_SMS_BODY_LENGTH = 160
+  # Unicode '…' (U+2026) is not supported by GSM charset
+  # https://www.textmagic.com/free-tools/unicode-detector
+  ELLIPSIS = "..."
   def body
     ## body example
     #  RDV confirmé Dim 26/05 entre 12h50 - 13h15
