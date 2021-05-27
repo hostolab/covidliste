@@ -44,7 +44,7 @@
 
         <%= simple_form_for [:partners, @vaccination_center] do |f| %>
           <%= f.input :name, label: "Nom du lieu de vaccination", error: "Nom requis", placeholder: "Centre de vaccination Marseille", required: true %>
-          <%= f.input :description, label: "Description", error: "Description requise", placeholder: "Description du lieu de vaccination (accès, détails...)", required: true %>
+          <%= f.input :description, label: "Description", error: "Description requise", placeholder: "Description du lieu de vaccination (accès, détails...)" %>
           <%= f.input :kind, label: "Type de lieu de vaccination", collection: VaccinationCenter::Kinds::ALL %>
           <p class="small text-primary">
             <%= icon("fas", "info-circle", class: "text-secondary") %>
