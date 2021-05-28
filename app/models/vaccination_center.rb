@@ -73,6 +73,9 @@ class VaccinationCenter < ApplicationRecord
       "Nom du contact",
       "Email du contact",
       "Téléphone du contact",
+      "Type du compte de validation",
+      "Nom du compte de validation",
+      "Numéro du compte de validation",
       "Validé",
       "Validé par",
       "Validé le"
@@ -115,6 +118,9 @@ class VaccinationCenter < ApplicationRecord
           vaccination_center.partners&.first&.name,
           vaccination_center.partners&.first&.email,
           vaccination_center.partners&.first&.human_friendly_phone_number,
+          vaccination_center.partners&.first&.partner_external_accounts&.first&.service_name,
+          vaccination_center.partners&.first&.partner_external_accounts&.first&.full_name,
+          vaccination_center.partners&.first&.partner_external_accounts&.first&.identifier,
           confirmed
         ]
         if confirmed
