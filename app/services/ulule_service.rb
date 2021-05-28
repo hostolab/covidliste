@@ -50,7 +50,7 @@ class UluleService
         results["orders"]
         all_orders = all_orders.concat(results["orders"])
       end
-      all_orders = all_orders.select { |order| !order["refunded"] && order["status"] == "payment-completed" }.uniq
+      all_orders = all_orders.select { |order| !order["refunded"] && order["status"].in?(["payment-completed", "payment-done"]) }.uniq
       all_orders
     end
   end

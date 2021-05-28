@@ -33,6 +33,17 @@
           </p>
         </div>
       <% else %>
+
+        <% @external_accounts = current_partner.partner_external_accounts.order(id: :desc) %>
+        <% unless @external_accounts.any? %>
+          <% if PartnerExternalAccountProvider::Providers::ALL.any? %>
+            <div class="alert alert-primary" role="alert">
+              Vous êtes un <strong>professionnel de santé</strong> ?<br />
+              <%= link_to "Liez votre carte CPS, e-CPS ou votre compte professionnel", "#externalAccountsLink", "data-toggle": "modal", class: "mt-2 btn btn-primary btn-sm" %>
+            </div>
+          <% end %>
+        <% end %>
+
         <% if @vaccination_center.errors.present? %>
           <div class="alert alert-danger mt-2">
             <% @vaccination_center.errors.full_messages.each do |msg| %>
@@ -44,7 +55,7 @@
 
         <%= simple_form_for [:partners, @vaccination_center] do |f| %>
           <%= f.input :name, label: "Nom du lieu de vaccination", error: "Nom requis", placeholder: "Centre de vaccination Marseille", required: true %>
-          <%= f.input :description, label: "Description", error: "Description requise", placeholder: "Description du lieu de vaccination (accès, détails...)", required: true %>
+          <%= f.input :description, label: "Description", error: "Description requise", placeholder: "Description du lieu de vaccination (accès, détails...)" %>
           <%= f.input :kind, label: "Type de lieu de vaccination", collection: VaccinationCenter::Kinds::ALL %>
           <p class="small text-primary">
             <%= icon("fas", "info-circle", class: "text-secondary") %>

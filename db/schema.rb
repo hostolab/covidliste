@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_24_170000) do
+ActiveRecord::Schema.define(version: 2021_05_28_185732) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -378,6 +378,7 @@ ActiveRecord::Schema.define(version: 2021_05_24_170000) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["center_id", "last_updated_at"], name: "index_vmd_slots_on_center_id_and_last_updated_at"
     t.index ["center_id"], name: "index_vmd_slots_on_center_id"
+    t.index ["created_at"], name: "index_vmd_slots_on_created_at"
     t.index ["department"], name: "index_vmd_slots_on_department"
   end
 

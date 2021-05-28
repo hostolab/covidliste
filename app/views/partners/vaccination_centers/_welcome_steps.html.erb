@@ -1,0 +1,108 @@
+
+<p class="h4 text-center mt-4 mb-3">
+  Prochaines étapes avant de pouvoir créer votre première campagne
+</p>
+<div class="row">
+  <div class="col-lg mb-2 border <%= (@external_accounts.any? or @unconfirmed_vaccination_centers.any? or params[:bypass_identity_check]) ? "text-muted" : "border-dark" %> rounded px-2 py-3 mx-2">
+    <div class="text-center">
+      <div class="font-weight-bold">Étape 1 <span class="small text-muted">(optionnel)</span></div>
+      <div>
+        Validez votre identité<br />de professionnel de santé
+      </div>
+      <div>
+        <% if @external_accounts.any? %>
+          <div><%= icon("fas", "check", class: "text-success fa-2x my-2") %></div>
+          <% external_account = @external_accounts.first %>
+          <div class="mt-4">
+            <strong>
+              <%= external_account.full_name %>
+            </strong><br />
+            <em><%= external_account.identifier %></em>
+          </div>
+          <div class="mt-4">
+            <%= link_to "Voir la carte CPS, e-CPS ou le compte professionnel lié", partners_path %>
+          </div>
+        <% else %>
+          <div><%= icon("fas", "times", class: "#{(@unconfirmed_vaccination_centers.any? or params[:bypass_identity_check]) ? "text-light" : "text-danger"} fa-2x my-2") %></div>
+          <% if PartnerExternalAccountProvider::Providers::ALL.any? %>
+            <div class="p-2 border-dark mt-2">
+              Vous êtes un <strong>professionnel de santé</strong> ?<br />
+              <%= link_to "Liez votre carte CPS, e-CPS ou votre compte professionnel", "#externalAccountsLink", "data-toggle": "modal", class: "mt-2 btn #{(@unconfirmed_vaccination_centers.any? or params[:bypass_identity_check]) ? "btn-outline-primary" : "btn-primary"} btn-sm" %>
+            </div>
+            <% unless @unconfirmed_vaccination_centers.any? or params[:bypass_identity_check] %>
+              <div class="mt-4 text-muted small">
+                Si vous n'êtes pas professionnel de santé,
+                <%= link_to "cliquez ici", partners_vaccination_centers_path(bypass_identity_check: true) %>.
+              </div>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg mb-2 border <%= (@external_accounts.any? and not @unconfirmed_vaccination_centers.any? or params[:bypass_identity_check]) ? "border-dark" : "text-muted" %> rounded px-2 py-3 mx-2">
+    <div class="text-center">
+      <div class="font-weight-bold">Étape 2</div>
+      <div>Demandez la création<br />de votre lieu de vaccination</div>
+      <div>
+        <% if @unconfirmed_vaccination_centers.any? %>
+          <div><%= icon("fas", "check", class: "text-success fa-2x my-2") %></div>
+          <div class="mt-3">
+            <div class="text-muted">Votre lieu de vaccination :</div>
+            <% vaccination_center = @unconfirmed_vaccination_centers.first %>
+            <strong>
+              <%= link_to vaccination_center.name, partners_vaccination_center_path(vaccination_center.id) %>
+            </strong><br />
+            <em><%= vaccination_center.kind %></em>
+            <br />
+            <%= vaccination_center.description %>
+            <br />
+            <em class="small"><%= vaccination_center.address %></em>
+            <br />
+            <%= icon("fas", "phone") %> <%= vaccination_center.human_friendly_phone_number %>
+          </div>
+        <% else %>
+          <div><%= icon("fas", "times", class: "#{(@external_accounts.any? or params[:bypass_identity_check]) ? "text-danger" : "text-light"} fa-2x my-2") %></div>
+          <div class="mt-2">
+            <%= link_to "Demander la création d’un nouveau lieu de vaccination", new_partners_vaccination_center_path, class: "btn #{(@external_accounts.any? or params[:bypass_identity_check]) ? "btn-primary" : "btn-outline-primary"} btn-sm" %>
+          </div>
+          <div class="mt-2 small">
+            Si vous souhaitez rejoindre un lieu de vaccination déjà existant sur Covidliste, contactez-nous sur
+            <%= link_to "partenaires@covidliste.com", "mailto:partenaires@covidliste.com" %>.
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg mb-2 border <%= @unconfirmed_vaccination_centers.any? ? "border-dark" : "text-muted" %> rounded px-2 py-3 mx-2">
+    <div class="text-center">
+      <div class="font-weight-bold">Étape 3</div>
+      <div>L'équipe Covidliste valide<br />votre lieu de vaccination</div>
+      <div>
+        <% if @unconfirmed_vaccination_centers.any? %>
+          <div><%= icon("far", "clock", class: "text-dark fa-2x my-2") %></div>
+          <div class="mt-1 text-muted">Vérification en cours...</div>
+          <div class="alert alert-primary mt-4" role="alert">
+            <div>
+              Nous allons vous contacter dans les prochaines heures ou les prochains jours pour valider votre
+              lieu de vaccination.
+            </div>
+            <div class="mt-2">
+              Vérifiez particulièrement votre numéro de téléphone portable :<br />
+              <strong><%= icon("fas", "phone") %> <%= current_partner.human_friendly_phone_number %></strong>
+            </div>
+            <div class="mt-2">
+              Numéro incorrect ?<br />
+              <%= link_to "Modifiez-le sur votre page profil", partners_path %>
+            </div>
+          </div>
+        <% else %>
+          <div><%= icon("fas", "times", class: "text-light fa-2x my-2") %></div>
+        <% end %>
+        <div class="mt-5 text-muted">
+          Une fois le lieu validé, vous pourrez lancer une campagne ! 🚀
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
