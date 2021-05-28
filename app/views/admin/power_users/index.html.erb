@@ -1,32 +1,34 @@
-<div class="container">
+<div class="container-fluid">
   <h2 class="mb-5" id="page-title">
     Gestion des rôles
   </h2>
 
   <div class="table-responsive">
-    <table class="table table-bordered table-hover" aria-describedby="users with roles">
+    <table class="table table-bordered table-hover table-sm" aria-describedby="users with roles">
       <thead class="thead-light">
       <tr>
         <th scope="col">Nom</th>
         <th scope="col">
           Roles
-          <span class="ml-3">
-              (
-              Légende :
-              <span class="badge badge-primary">
-                Possédé
-              </span>
-              <span class="badge badge-info">
-                Hérité
-              </span>
-              <span class="badge badge-secondary">
-                Non possédé
-              </span>
-              <span class="badge badge-danger">
-                Possédé mais inconnu
-              </span>
-              )
+          <span class="small ml-3">
+            Légende :
+            <span class="badge badge-light">
+              <%= icon("fas", "times") %>
+              Non possédé
             </span>
+            <span class="badge badge-secondary">
+              <%= icon("fas", "check") %>
+              Possédé
+            </span>
+            <span class="badge badge-primary">
+              <%= icon("fas", "check") %>
+              Hérité
+            </span>
+            <span class="badge badge-danger">
+              <%= icon("fas", "check") %>
+              Possédé mais inconnu
+            </span>
+          </span>
         </th>
       </tr>
       </thead>
@@ -34,11 +36,93 @@
       <% @users.each do |user| %>
         <tr>
           <td>
-            <%= user.full_name %><br/>
             <%= user.email %>
+            <%= link_to icon("fas", "info-circle"), "#modalRoles#{user.id}", "data-toggle": "modal", class: "text-info small" %>
+            <br/>
+            <small class="text-muted"><%= user.full_name %></small>
           </td>
           <td>
-            <%= render partial: "admin/users/user_roles", locals: {user: user} %>
+            <%= render partial: "admin/users/user_roles", locals: {user: user, show_inactive: true} %>
+            <%= render(ModalComponent.new(title: "Rôles #{user.email}", class_names: "modal-lg modal-dialog-scrollable", modal_id: "modalRoles#{user.id}")) do %>
+              <div class="p-3">
+                <div>
+                  L'utilisateur <%= user.email %> possède les rôles suivants :<br />
+                </div>
+                <div class="mt-2">
+                  <%= render partial: "admin/users/user_roles", locals: {user: user, show_inactive: true} %>
+                </div>
+                <div class="mt-4 small">
+                  <span>
+                    Légende :
+                    <span class="badge badge-light">
+                      <%= icon("fas", "times") %>
+                      Non possédé
+                    </span>
+                    <span class="badge badge-secondary">
+                      <%= icon("fas", "check") %>
+                      Possédé
+                    </span>
+                    <span class="badge badge-primary">
+                      <%= icon("fas", "check") %>
+                      Hérité
+                    </span>
+                    <span class="badge badge-danger">
+                      <%= icon("fas", "check") %>
+                      Possédé mais inconnu
+                    </span>
+                  </span>
+                </div>
+                <% if current_user.has_role?(:super_admin) %>
+                  <div class="mt-5 border rounded border-success p-2">
+                    <p class="mb-1 small">Sélectionnez le rôle à ajouter : </p>
+                    <%= simple_form_for :power_user,
+                                        url: admin_power_user_path(user.id),
+                                        html: { class: "form-inline inline-block mr-4" },
+                                        defaults: { label: false, required: true, input_html: { class: "form-control-sm selectpicker mr-2", multiple: false } },
+                                        method: :put do |f| %>
+                      <%= f.input :role, placeholder: "Rôle", as: :select, collection: Rails.application.config.x.covidliste["admin_roles"].map{ |role_id, role| [role[:name], role_id] }.to_h %>
+                      <%= f.button :submit, "Ajouter le rôle", class: "btn btn-sm btn-success", data: {disable_with: "Ajout...", confirm: "Êtes vous sûr de vouloir ajouter ce rôle ?"} %>
+                    <% end %>
+                  </div>
+                  <div class="mt-2 border rounded border-danger p-2">
+                    <p class="mb-1 small">Sélectionnez le rôle à supprimer : </p>
+                    <% user_roles = user.roles.map{ |user_role|
+                      if Rails.application.config.x.covidliste["admin_roles"].include? :"#{user_role.name}"
+                        [Rails.application.config.x.covidliste["admin_roles"][:"#{user_role.name}"][:name], user_role.name]
+                      else
+                        [user_role.name, user_role.name]
+                      end
+                    }.to_h %>
+                    <%= simple_form_for :power_user,
+                                        url: admin_power_user_path(user.id),
+                                        html: { class: "form-inline inline-block mr-4" },
+                                        defaults: { label: false, required: true, input_html: { class: "form-control-sm selectpicker mr-2", multiple: false } },
+                                        method: :delete do |f| %>
+                      <%= f.input :role, placeholder: "Rôle", as: :select, collection: user_roles %>
+                      <%= f.button :submit, "Supprimer le rôle", class: "btn btn-sm btn-danger", data: {disable_with: "Supression...", confirm: "Êtes vous sûr de vouloir supprimer ce rôle à #{user.email} ?"} %>
+                    <% end %>
+                  </div>
+                <% end %>
+              </div>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+      <% if current_user.has_role?(:super_admin) %>
+        <tr>
+          <td></td>
+          <td>
+              <div>
+                <%= simple_form_for :power_user,
+                                    url: admin_power_users_path,
+                                    html: { class: "form-inline inline-block mr-4" },
+                                    defaults: { label: false, required: true, input_html: { class: "form-control-sm selectpicker mr-2", multiple: false } },
+                                    method: :post do |f| %>
+                  <%= f.input :email, placeholder: "jean@dupont.com", input_html: { style: "width: 300px;" } %>
+                  <%= f.input :role, placeholder: "Rôle", as: :select, collection: Rails.application.config.x.covidliste["admin_roles"].map{ |role_id, role| [role[:name], role_id] }.to_h %>
+                  <%= f.button :submit, "Ajouter le rôle", class: "btn btn-sm", data: {disable_with: "Ajout...", confirm: "Êtes vous sûr de vouloir ajouter ce rôle ?"} %>
+                <% end %>
+              </div>
           </td>
         </tr>
       <% end %>
