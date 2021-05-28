@@ -76,7 +76,7 @@ class VmdSlot < ApplicationRecord
       with users_stats as (
         select
         u.id as user_id,
-        ((SQRT((((:lat) - u.lat)*110.574)^2 + (((:lon) - u.lon)*111.320*COS(u.lat::float*3.14159/180))^2)) / 5.0)::int * 5 as distance_bucket,
+        ((SQRT((((:lat) - u.lat)*110.574)^2 + (((:lon) - u.lon)*111.320*COS(u.lat::float*3.14159/180))^2)) / 1.0)::int * 1 as distance_bucket,
         COUNT(a.id) as total_alerts,
         COUNT(m.id) as total_matches
         from users u
@@ -97,8 +97,8 @@ class VmdSlot < ApplicationRecord
         from users_stats
         order by
         total_alerts asc,
-        total_matches asc,
-        distance_bucket asc
+        distance_bucket asc,
+        total_matches asc
       limit (:limit)
     SQL
     min_age = astrazeneca || janssen ? 55 : 18
@@ -114,8 +114,8 @@ class VmdSlot < ApplicationRecord
     User.where(id: ActiveRecord::Base.connection.execute(query).to_a.pluck("user_id"))
   end
 
-  def send_alerts(max_distance = 5)
-    limit = slots_7_days
+  def send_alerts(max_distance = 25, limit = nil)
+    limit ||= slots_7_days
     users = reachable_users(max_distance, limit)
     users.each do |user|
       SlotAlert.create(vmd_slot_id: id, user_id: user.id)

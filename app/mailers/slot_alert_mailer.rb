@@ -1,6 +1,6 @@
 class SlotAlertMailer < ApplicationMailer
   helper ApplicationHelper
-  default from: "Covidliste <dose@covidliste.com>"
+  default from: "Covidliste <alerte@covidliste.com>"
 
   def notify
     @alert = params[:alert]

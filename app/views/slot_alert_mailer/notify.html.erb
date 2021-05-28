@@ -1,11 +1,11 @@
 <div>
-  <h1>Covidliste vous alerte aussi de RDV disponibles.</h1>
+  <h1>Covidliste vous alerte aussi de rendez-vous disponibles.</h1>
 
   <p>
     Nous avons trouvé un centre situé à
     <% distance = distance_delta({lat: @alert.user.lat, lon: @alert.user.lon}, {lat: @slot.latitude, lon: @slot.longitude}) %>
     <%= distance[:delta_in_words] %>
-    de chez vous qui dispose de RDV de vaccination:
+    de chez vous qui dispose de rendez-vous de vaccination:
   </p>
 
   <div class="row">
@@ -34,7 +34,7 @@
 
   </div>
   <h2>
-    <%= link_to "Réserver mon rdv", slot_alert_url(token: @alert_token) %>
+    <%= link_to "Réserver mon rendez-vous", slot_alert_url(token: @alert_token) %>
   </h2>
 
   <p>
