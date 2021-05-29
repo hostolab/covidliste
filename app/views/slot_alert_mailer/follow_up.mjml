@@ -1,9 +1,7 @@
 <mj-section padding-top="15px" padding-bottom="15px">
   <mj-column>
     <mj-text padding-bottom="0px">
-      <h1>
-        Avez-vous pu trouver un rdv ?
-      </h1>
+      <h1>Avez-vous pu trouver un rdv ?</h1>
       <br />
       Il y a quelques heures, nous vous avons alerté de rdv de vaccination disponibles.
       <br />
@@ -15,9 +13,7 @@
       Supprimer mon compte
     </mj-button>
     <mj-text>
-      <h1>
-        Et si je suis arrivé trop tard ?
-      </h1>
+      <h1>Et si je suis arrivé trop tard ?</h1>
       <br />
       Ne vous inquiétez pas. Covidliste continue à vous notifier dès qu'une dose sur le point d'être perdue est disponible près de chez vous !
     </mj-text>

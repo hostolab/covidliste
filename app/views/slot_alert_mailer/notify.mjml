@@ -2,9 +2,7 @@
 <mj-section padding-top="15px" padding-bottom="0px">
   <mj-column>
     <mj-text padding-bottom="0px">
-      <h1>
-        Covidliste vous alerte aussi de rendez-vous disponibles.
-      </h1>
+      <h1>Covidliste vous alerte aussi de rendez-vous disponibles.</h1>
       <br />
       Nous avons trouvé un centre situé à <%= distance[:delta_in_words] %> de chez vous qui dispose de rendez-vous de vaccination:
     </mj-text>
@@ -54,9 +52,7 @@
       </strong>
     </mj-text>
     <mj-text padding-top="20px" padding-bottom="0px">
-      <h1>
-        Et si j'arrive trop tard ?
-      </h1>
+      <h1>Et si j'arrive trop tard ?</h1>
       <br />
       Si vous n'arrivez pas à réserver un créneau ne vous inquiétez pas. Covidliste continue à vous notifier dès qu'une dose sur le point d'être perdue est disponible près de chez vous !
     </mj-text>

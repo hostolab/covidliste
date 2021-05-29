@@ -1,16 +1,13 @@
 <mj-section padding-top="15px" padding-bottom="15px">
   <mj-column>
     <mj-text>
-      <h1>
-        Votre dose de vaccin <%= @match.campaign.vaccine_type.capitalize %> est bien réservée !
-      </h1>
+      <h1>Votre dose de vaccin <%= @match.campaign.vaccine_type.capitalize %> est bien réservée !</h1>
       <br />
       <strong>Informations et accès</strong>
       <ul>
-        <li>Nom : <%= @match.vaccination_center.name %> (<%= @match.vaccination_center.kind %>) </li>
+        <li>Nom : <%= @match.vaccination_center.name %> (<%= @match.vaccination_center.kind %>)</li>
         <li>Adresse : <%= @match.vaccination_center.address %></li>
-        <li>Créneau horaire : <%= l(@match.campaign.starts_at, format: '%A %e %B %Y').capitalize %> entre <%= l(@match.campaign.starts_at, format: '%Hh%M') %>
-        et <%= l(@match.campaign.ends_at, format: '%Hh%M') %> </li>
+        <li>Créneau horaire : <%= l(@match.campaign.starts_at, format: '%A %e %B %Y').capitalize %> entre <%= l(@match.campaign.starts_at, format: '%Hh%M') %> et <%= l(@match.campaign.ends_at, format: '%Hh%M') %></li>
         <% if @match.campaign.extra_info.present? %>
           <li>Détails d’accès : <%= @match.campaign.extra_info %></li>
         <% end %>
