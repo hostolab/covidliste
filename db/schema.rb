@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_28_185732) do
+ActiveRecord::Schema.define(version: 2021_05_29_122300) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -124,6 +124,9 @@ ActiveRecord::Schema.define(version: 2021_05_28_185732) do
     t.datetime "canceled_at"
     t.string "algo_version"
     t.jsonb "parameters"
+    t.integer "canceled_doses", default: 0, null: false
+    t.integer "matches_count", default: 0, null: false
+    t.integer "matches_confirmed_count", default: 0, null: false
     t.index ["partner_id"], name: "index_campaigns_on_partner_id"
     t.index ["status"], name: "index_campaigns_on_status"
     t.index ["vaccination_center_id"], name: "index_campaigns_on_vaccination_center_id"
