@@ -82,6 +82,7 @@ class Match < ApplicationRecord
 
   def find_other_available_match_for_user
     return if confirmed?
+    return if refused?
     other_confirmed = find_other_confirmed_match_for_user
     return other_confirmed if other_confirmed
 
