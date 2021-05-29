@@ -5,20 +5,18 @@
       <br />
       <strong>Vous venez de vous enregistrer sur Covidliste</strong>.
       <br />
-      Finalisez votre inscription en cliquant sur le lien suivant (valide
-      pendant 24 heures) :
+      Finalisez votre inscription en cliquant sur le lien suivant (valide pendant 24 heures) :
     </mj-text>
     <mj-button href="<%= confirmation_url(@resource, confirmation_token: @token) %>" padding-bottom="0px">
       Valider mon inscription
     </mj-button>
     <mj-text>
-      <strong>Si le lien ne fonctionne pas</strong>, copiez et collez l’adresse
-      suivante dans votre navigateur :
+      <strong>Si le lien ne fonctionne pas</strong>, copiez et collez l’adresse suivante dans votre navigateur :
       <br />
       <%= confirmation_url(@resource, confirmation_token: @token) %>
     </mj-text>
-    <%= render partial: "mailer/faq", formats: [:html] %> <%= render partial:
-    "mailer/social_networks", formats: [:html] %>
+    <%= render partial: "mailer/faq", formats: [:html] %>
+    <%= render partial: "mailer/social_networks", formats: [:html] %>
   </mj-column>
 </mj-section>
 <mj-section background-color="#EDE2EE" padding-bottom="10px">
