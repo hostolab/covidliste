@@ -57,6 +57,7 @@ class MatchesController < ApplicationController
 
   def verify_redirect_to_other_match
     return if @match.confirmable?
+    track_click
     if (other = @match.find_other_confirmed_match_for_user)
       flash[:notice] = "Vous avez un RDV confirmé, nous vous avons donc redirigé dessus automatiquement."
     else
