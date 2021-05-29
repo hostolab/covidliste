@@ -12,6 +12,8 @@ module Admin
       campaigns = campaigns.where(status: @statuses) if @statuses.present?
       campaigns = campaigns.where(vaccine_type: @vaccines) if @vaccines.present?
 
+      @campaigns_today = policy_scope(Campaign).where("starts_at >= ?", Date.today.midnight)
+
       respond_to do |format|
         format.html {
           @pagy_campaigns, @campaigns = pagy(campaigns.includes(:vaccination_center).order(ActiveRecord::Base.sanitize_sql("#{sort_column} #{sort_direction}")))

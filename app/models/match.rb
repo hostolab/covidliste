@@ -30,6 +30,7 @@ class Match < ApplicationRecord
   before_create :save_user_info
   before_save :cache_distance_in_meters_between_user_and_vaccination_center
   after_create_commit :notify
+  after_commit :compute_campaign_matches, on: [:create, :update]
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
   scope :refused, -> { where.not(refused_at: nil) }
@@ -46,6 +47,10 @@ class Match < ApplicationRecord
     self.geo_citycode = user.geo_citycode
     self.geo_context = user.geo_context
     self
+  end
+
+  def compute_campaign_matches
+    campaign.compute_matches
   end
 
   def confirmed?

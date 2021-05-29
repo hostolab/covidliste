@@ -41,6 +41,9 @@
     <span class="d-none d-print-inline ml-5">
       <%= icon("fas", "syringe") %>
       <%= @campaign.matches.confirmed.size %> doses attribuées / <%= @campaign.available_doses %>
+      <% if @campaign.canceled_doses and @campaign.canceled_doses > 0 %>
+        <small class="ml-4">(<%= @campaign.canceled_doses %> doses annulées)</small>
+      <% end %>
     </span>
   </p>
 
@@ -72,6 +75,9 @@
 
       <h2 class="text-center mt-4">
         <%= @campaign.matches.confirmed.size %> doses attribuées / <%= @campaign.available_doses %>
+        <% if @campaign.canceled_doses and @campaign.canceled_doses > 0 %>
+          <small class="ml-4">(<%= @campaign.canceled_doses %> doses annulées)</small>
+        <% end %>
       </h2>
     </div>
 

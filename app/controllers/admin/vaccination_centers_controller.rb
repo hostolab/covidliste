@@ -48,7 +48,7 @@ module Admin
         format.html {
           @pagy_vaccination_centers, @vaccination_centers = pagy(vaccination_centers.order(ActiveRecord::Base.sanitize_sql("#{sort_column} #{sort_direction}")))
         }
-        format.csv { send_data vaccination_centers.includes([:partners, :confirmer]).order(id: :asc).to_csv, filename: "vaccination_centers-#{Date.today}.csv" }
+        format.csv { send_data vaccination_centers.includes(:confirmer, partners: [:partner_external_accounts]).order(id: :asc).to_csv, filename: "vaccination_centers-#{Date.today}.csv" }
       end
     end
 
