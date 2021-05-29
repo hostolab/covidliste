@@ -20,5 +20,5 @@ FactoryBot.define do
     end
     phone_number
   end
-  sequence(:unique_email) { Faker::Internet.unique.email(domain: "covidliste.com") }
+  sequence(:unique_email) { |n| "#{n}#{Faker::Internet.unique.email(domain: "covidliste.com")}" }
 end

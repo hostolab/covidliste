@@ -32,7 +32,7 @@ function waitForFrameLoaded(frame) {
 
   function checkFrame(eventFrame) {
     if (eventFrame == frame) {
-      console.log(eventFrame._lifecycleEvents);
+      // console.log(eventFrame._lifecycleEvents);
       if (eventFrame._lifecycleEvents.has("DOMContentLoaded")) {
         fulfill(frame);
       }
@@ -47,13 +47,12 @@ const work = async (worker) => {
   try {
     browser = await puppeteer.launch({
       devtools: false,
-      headless: true,
-      // slowMo: 250,
+      headless: false,
+      slowMo: 250,
       defaultViewport: null,
       args: [
         "--no-sandbox",
         "--disable-setuid-sandbox",
-        "--disable-gpu",
         "--window-size=850,2160",
         "--window-position=0,0",
       ],

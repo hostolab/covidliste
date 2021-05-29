@@ -20,7 +20,9 @@ mailer_preview_urls = [
   "http://localhost:3000/rails/mailers/match_mailer/send_confirmed_match_details",
 
   "http://localhost:3000/rails/mailers/slot_alert_mailer/follow_up",
-  "http://localhost:3000/rails/mailers/slot_alert_mailer/notify"
+  "http://localhost:3000/rails/mailers/slot_alert_mailer/notify",
+
+  "http://localhost:3000/rails/mailers/vaccination_center_mailer/confirmed_vaccination_center_onboarding"
 ]
 
 cwd = "/tmp/rails_mailers"
@@ -48,7 +50,7 @@ if jobs.length > 0
   data = {cwd: cwd, jobs: jobs.reverse, browser_dir: browser_dir}
   command = "#{bin} '#{data.to_json}'"
   puts command
-  stdout, stderr, _status = Open3.capture3(command)
-  Rails.logger.debug stdout
-  Rails.logger.debug stderr
+  # stdout, stderr, _status = Open3.capture3(command)
+  # Rails.logger.debug stdout
+  # Rails.logger.debug stderr
 end

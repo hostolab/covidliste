@@ -1,0 +1,24 @@
+<mj-section padding-top="15px" padding-bottom="15px">
+  <mj-column>
+    <mj-text padding-bottom="0px">
+      Bonjour,
+      <br />
+      <br />
+      Nous venons de valider votre lieu de vaccination <%= @vaccination_center.name %> sur Covidliste.
+      <br />
+      Vous allez pouvoir lancer votre première campagne de recherche de volontaires à la vaccination sur Covidliste. La création d'une campagne prend moins de 5 minutes.
+      <br />
+      <br />
+      Découvrez les quelques étapes à suivre dans notre tutoriel :
+    </mj-text>
+    <mj-button href="<%= @tutorial_url %>" padding-bottom="0px">
+      TUTORIEL CREATION DE CAMPAGNE
+    </mj-button>
+    <mj-text>
+      Si vous avez besoin d'assistance, n'hésitez pas à nous contacter sur
+      <%= mail_to "partenaires@covidliste.com" %>
+    </mj-text>
+    <%= render partial: "mailer/faq", formats: [:html] %>
+    <%= render partial: "mailer/social_networks", formats: [:html] %>
+  </mj-column>
+</mj-section>

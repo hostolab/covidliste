@@ -9,9 +9,7 @@ class MatchMailer < ApplicationMailer
     mail(
       to: @match.user.email,
       subject: "Une dose de vaccin est disponible près de chez vous"
-    ) do |format|
-      format.mjml
-    end
+    )
   end
 
   def send_confirmed_match_details
@@ -21,9 +19,7 @@ class MatchMailer < ApplicationMailer
     mail(
       to: @match.user.email,
       subject: "Votre rendez-vous de vaccination est confirmé"
-    ) do |format|
-      format.mjml
-    end
+    )
   end
 
   def send_anonymisation_notice
@@ -34,8 +30,6 @@ class MatchMailer < ApplicationMailer
     mail(
       to: user_email,
       subject: "Merci pour votre confiance"
-    ) do |format|
-      format.mjml
-    end
+    )
   end
 end
