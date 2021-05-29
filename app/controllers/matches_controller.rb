@@ -57,9 +57,12 @@ class MatchesController < ApplicationController
 
   def verify_redirect_to_other_match
     return if @match.confirmable?
-    return unless (other = @match.find_other_available_match_for_user)
-
-    flash[:notice] = "La dose correspondant au lien sur lequel vous avez cliqué n'est plus disponible. Bonne nouvelle, nous avons trouvé une autre dose pour laquelle vous correspondez aux critères, nous vous avons donc redirigé dessus automatiquement."
+    if (other = @match.find_other_confirmed_match_for_user)
+      flash[:notice] = "Vous avez un RDV confirmé, nous vous avons donc redirigé dessus automatiquement."
+    else
+      return unless (other = @match.find_other_available_match_for_user)
+      flash[:notice] = "La dose correspondant au lien sur lequel vous avez cliqué n'est plus disponible. Bonne nouvelle, nous avons trouvé une autre dose pour laquelle vous correspondez aux critères, nous vous avons donc redirigé dessus automatiquement."
+    end
     redirect_to Rails.application.routes.url_helpers.match_url(match_confirmation_token: other.match_confirmation_token, source: "redirect")
   end
 

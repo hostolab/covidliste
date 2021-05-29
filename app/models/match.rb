@@ -76,58 +76,21 @@ class Match < ApplicationRecord
     save!
   end
 
+  def find_other_confirmed_match_for_user
+    user.matches.confirmed.where.not(id: id).first
+  end
+
   def find_other_available_match_for_user
     return if confirmed?
-
-    other_confirmed = Match
-      .where.not(id: id)
-      .where.not(confirmed_at: nil)
-      .find_by(user_id: user_id)
+    other_confirmed = find_other_confirmed_match_for_user
     return other_confirmed if other_confirmed
 
-    sql = <<~SQL.tr("\n", " ").squish
-      WITH user_campaigns AS (
-        SELECT DISTINCT c.id, c.available_doses
-        FROM
-          campaigns c
-          JOIN matches m ON (m.campaign_id=c.id)
-        WHERE
-          m.user_id = :user_id
-          AND m.confirmed_at IS NULL
-          AND m.refused_at IS NULL
-          AND m.expires_at >= now()
-      ), remaining_doses_campaigns AS (
-        SELECT id
-        FROM (
-          SELECT uc.id, GREATEST(0, uc.available_doses - SUM(CASE WHEN confirmed_at IS NOT NULL THEN 1 ELSE 0 END)) remaining_doses
-          FROM
-            matches m
-            JOIN user_campaigns uc ON (m.campaign_id=uc.id)
-          GROUP BY uc.id, uc.available_doses
-        ) a
-        WHERE remaining_doses > 0
-      )
-
-      SELECT
-        m.id
-      FROM
-        matches m
-        JOIN remaining_doses_campaigns c ON (m.campaign_id=c.id)
-      WHERE
-        m.id != :match_id
-        AND m.user_id = :user_id
-        AND m.confirmed_at IS NULL
-        AND m.refused_at IS NULL
-        AND m.expires_at >= now()
-      ORDER BY m.id
-      LIMIT 1
-    SQL
-    params = {
-      user_id: user_id,
-      match_id: id
-    }
-    query = ActiveRecord::Base.send(:sanitize_sql_array, [sql, params])
-    Match.where(id: ActiveRecord::Base.connection.execute(query).to_a.pluck("id")).first
+    user.matches.pending.where.not(id: id).order(id: :asc).each do |match|
+      if match.confirmable?
+        return match
+      end
+    end
+    nil
   end
 
   def confirmable?
