@@ -34,12 +34,14 @@
           <div class="px-1">
             <%= icon("far", "clock", class: "fa-2x") %><br />
             <%= campaigns_today_running.size %> campagnes <span class="badge badge-primary">en cours</span><br />
-            <%= campaigns_today_running.sum(:available_doses) %> <small class="text-muted">doses attribuées</small><br />
-            <%= campaigns_today_running.sum(:matches_confirmed_count) %> <small class="text-muted">doses en attente</small><br />
+            <%= campaigns_today_running.sum(:matches_confirmed_count) %> <small class="text-muted">doses attribuées</small><br />
+            <%= campaigns_today_running.sum(:available_doses) - campaigns_today_running.sum(:matches_confirmed_count) %> <small class="text-muted">doses en attente</small><br />
             <small>
               <% Vaccine::Brands::ALL.each do |vaccine| %>
-                <% if campaigns_today_running.where(vaccine_type: vaccine).sum(:matches_confirmed_count) > 0 %>
-                  <%= campaigns_today_running.where(vaccine_type: vaccine).sum(:matches_confirmed_count) %> <small class="text-muted"><%= vaccine.capitalize %></small>
+                <% _campaigns = campaigns_today_running.where(vaccine_type: vaccine) %>
+                <% _unattributed_doses = _campaigns.sum(:available_doses)-_campaigns.sum(:matches_confirmed_count) %>
+                <% if _unattributed_doses > 0 %>
+                  <%= _unattributed_doses %> <small class="text-muted"><%= vaccine.capitalize %></small>
                 <% end %>
               <% end %>
             </small>
@@ -47,12 +49,14 @@
           <div class="px-1">
             <%= icon("far", "check-square", class: "fa-2x") %><br />
             <%= campaigns_today_completed.size %> campagnes <span class="badge badge-success">terminées</span><br />
-            <%= campaigns_today_completed.sum(:available_doses) %> <small class="text-muted">doses attribuées</small><br />
-            <%= campaigns_today_completed.sum(:matches_confirmed_count) %> <small class="text-muted">doses non attribuées</small><br />
+            <%= campaigns_today_completed.sum(:matches_confirmed_count) %> <small class="text-muted">doses attribuées</small><br />
+            <%= campaigns_today_completed.sum(:available_doses)-campaigns_today_completed.sum(:matches_confirmed_count) %> <small class="text-muted">doses non attribuées</small><br />
             <small>
               <% Vaccine::Brands::ALL.each do |vaccine| %>
-                <% if campaigns_today_completed.where(vaccine_type: vaccine).sum(:matches_confirmed_count) > 0 %>
-                  <%= campaigns_today_completed.where(vaccine_type: vaccine).sum(:matches_confirmed_count) %> <small class="text-muted"><%= vaccine.capitalize %></small>
+                <% _campaigns = campaigns_today_completed.where(vaccine_type: vaccine) %>
+                <% _unattributed_doses = _campaigns.sum(:available_doses)-_campaigns.sum(:matches_confirmed_count) %>
+                <% if _unattributed_doses > 0 %>
+                  <%= _unattributed_doses %> <small class="text-muted"><%= vaccine.capitalize %></small>
                 <% end %>
               <% end %>
             </small>
@@ -60,12 +64,14 @@
           <div class="px-1">
             <%= icon("far", "hand-paper", class: "fa-2x") %><br />
             <%= campaigns_today_canceld.size %> campagnes <span class="badge badge-danger">interrompues</span><br />
-            <%= campaigns_today_canceld.sum(:available_doses) %> <small class="text-muted">doses attribuées</small><br />
+            <%= campaigns_today_canceld.sum(:matches_confirmed_count) %> <small class="text-muted">doses attribuées</small><br />
             <%= campaigns_today_canceld.sum(:canceled_doses) %> <small class="text-muted">doses annulées</small><br />
             <small>
               <% Vaccine::Brands::ALL.each do |vaccine| %>
-                <% if campaigns_today_canceld.where(vaccine_type: vaccine).sum(:canceled_doses) > 0 %>
-                  <%= campaigns_today_canceld.where(vaccine_type: vaccine).sum(:canceled_doses) %> <small class="text-muted"><%= vaccine.capitalize %></small>
+                <% _campaigns = campaigns_today_canceld.where(vaccine_type: vaccine) %>
+                <% _canceled_doses = _campaigns.sum(:canceled_doses) %>
+                <% if _canceled_doses > 0 %>
+                  <%= _canceled_doses %> <small class="text-muted"><%= vaccine.capitalize %></small>
                 <% end %>
               <% end %>
             </small>
