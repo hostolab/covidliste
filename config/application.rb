@@ -23,9 +23,9 @@ module Covidliste
       app.routes.default_url_options = app.config.action_mailer.default_url_options
     end
 
-    # config.action_dispatch.default_headers = {
-    #   "Permissions-Policy" => "interest-cohort=()"
-    # }
+    config.action_dispatch.default_headers = {
+      "Permissions-Policy" => "interest-cohort=()"
+    }
 
     # Configuration for the application, engines, and railties goes here.
     #

@@ -12,7 +12,7 @@
 </mj-section>
 <mj-section padding-top="0px" padding-bottom="0px">
   <mj-column>
-    <mj-table border="1">
+    <mj-table>
       <tr>
         <td style="padding: 0 15px 0 0;" width="30%">Prochain RDV</td>
         <td style="padding: 0 0 0 15px;" width="70%">
