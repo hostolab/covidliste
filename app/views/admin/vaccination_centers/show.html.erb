@@ -96,20 +96,15 @@
   <% end %>
 
   <p>
+    <%= humanize_boolean @vaccination_center.visible_optin_at.present? %> Affichage sur la carte publique<br />
+    <%= humanize_boolean @vaccination_center.media_optin_at.present? %> Communication presse et réseaux sociaux
+  </p>
+  <p class="mb-1">
     Vaccins :
   </p>
   <ul>
-    <% if @vaccination_center.pfizer %>
-      <li> <%= Vaccine::Brands::PFIZER.capitalize %> </li>
-    <% end %>
-    <% if @vaccination_center.moderna %>
-      <li> <%= Vaccine::Brands::MODERNA.capitalize %> </li>
-    <% end %>
-    <% if @vaccination_center.astrazeneca %>
-      <li> <%= Vaccine::Brands::ASTRAZENECA.capitalize %> </li>
-    <% end %>
-    <% if @vaccination_center.janssen %>
-      <li> <%= Vaccine::Brands::JANSSEN.capitalize %> </li>
+    <% @vaccination_center.vaccines.each do |vaccine| %>
+      <li> <%= vaccine.capitalize %> </li>
     <% end %>
   </ul>
 
