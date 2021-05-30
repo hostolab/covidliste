@@ -4,8 +4,8 @@ require "rails_helper"
 
 RSpec.describe Vaccine, type: :model do
   describe "::minimum_reach_to_dose_ratio" do
-    it "returns 20 for ASTRAZENECA" do
-      expect(Vaccine.minimum_reach_to_dose_ratio(Vaccine::Brands::ASTRAZENECA)).to eq 20
+    it "returns 5 for ASTRAZENECA" do
+      expect(Vaccine.minimum_reach_to_dose_ratio(Vaccine::Brands::ASTRAZENECA)).to eq 5
     end
 
     it "returns 5 for JANSSEN" do
