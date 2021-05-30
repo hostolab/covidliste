@@ -2,8 +2,8 @@ class SendInactiveUserEmailsJob < ApplicationJob
   queue_as :low
 
   DEFAULT_MIN_REFUSED_MATCHES = 2 # At least two refused matches
-  DEFAULT_AGE_RANGE = nil..nil # Covers all ages
-  DEFAULT_SIGNED_IN_RANGE = nil..nil # Covers all dates
+  DEFAULT_AGE_RANGE = 0..200 # Covers all ages
+  DEFAULT_SIGNED_UP_RANGE = nil..nil # Covers all dates
 
   def perform(*args)
     self.class.inactive_user_ids(*args).each do |user_id|
@@ -14,7 +14,7 @@ class SendInactiveUserEmailsJob < ApplicationJob
     end
   end
 
-  def self.inactive_user_ids(min_refused_matches = DEFAULT_MIN_REFUSED_MATCHES, age_range = DEFAULT_AGE_RANGE, signed_in_date_range = DEFAULT_SIGNED_IN_RANGE)
+  def self.inactive_user_ids(min_refused_matches = DEFAULT_MIN_REFUSED_MATCHES, age_range = DEFAULT_AGE_RANGE, signed_up_date_range = DEFAULT_SIGNED_UP_RANGE)
     sql = <<~SQL.squish
       with target_users as (
         select id
@@ -45,8 +45,8 @@ class SendInactiveUserEmailsJob < ApplicationJob
       min_refused_matches: min_refused_matches,
       min_birthdate: (age_range.end || 200).years.ago.to_date,
       max_birthdate: (age_range.begin || 0).years.ago.to_date,
-      min_created_at: signed_in_date_range.begin || 200.years.ago,
-      max_created_at: signed_in_date_range.end || Date.current.end_of_day
+      min_created_at: signed_up_date_range.begin || 200.years.ago,
+      max_created_at: signed_up_date_range.end || Date.current.end_of_day
     }
     User.connection.select_values(
       ActiveRecord::Base.send(:sanitize_sql_array, [sql, params])

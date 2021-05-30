@@ -2,11 +2,11 @@ require "rails_helper"
 
 RSpec.describe SendInactiveUserEmailsJob do
   describe ".inactive_user_ids" do
-    subject(:inactive_user_ids) { described_class.inactive_user_ids(min_refused_matches, age_range, signed_in_date_range) }
+    subject(:inactive_user_ids) { described_class.inactive_user_ids(min_refused_matches, age_range, signed_up_date_range) }
 
     let(:min_refused_matches) { described_class::DEFAULT_MIN_REFUSED_MATCHES }
     let(:age_range) { described_class::DEFAULT_AGE_RANGE }
-    let(:signed_in_date_range) { described_class::DEFAULT_SIGNED_IN_RANGE }
+    let(:signed_up_date_range) { described_class::DEFAULT_SIGNED_UP_RANGE }
 
     let!(:matching_user) do
       create(:user, {
@@ -67,7 +67,7 @@ RSpec.describe SendInactiveUserEmailsJob do
     end
 
     context "when a user was created too recently" do
-      let(:signed_in_date_range) { ..1.month.ago }
+      let(:signed_up_date_range) { ..1.month.ago }
 
       it "excludes users creted too recently" do
         expect(inactive_user_ids).not_to include(matching_user.id)
@@ -75,7 +75,7 @@ RSpec.describe SendInactiveUserEmailsJob do
     end
 
     context "when a user was created too far in the past" do
-      let(:signed_in_date_range) { 10.days.ago.. }
+      let(:signed_up_date_range) { 10.days.ago.. }
 
       it "excludes users created too far in the past" do
         expect(inactive_user_ids).not_to include(matching_user.id)
