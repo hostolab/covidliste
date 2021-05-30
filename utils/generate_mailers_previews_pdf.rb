@@ -50,7 +50,7 @@ if jobs.length > 0
   data = {cwd: cwd, jobs: jobs.reverse, browser_dir: browser_dir}
   command = "#{bin} '#{data.to_json}'"
   puts command
-  # stdout, stderr, _status = Open3.capture3(command)
-  # Rails.logger.debug stdout
-  # Rails.logger.debug stderr
+  stdout, stderr, _status = Open3.capture3(command)
+  Rails.logger.debug stdout
+  Rails.logger.debug stderr
 end
