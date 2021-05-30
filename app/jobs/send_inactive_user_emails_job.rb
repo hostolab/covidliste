@@ -1,7 +1,7 @@
 class SendInactiveUserEmailsJob < ApplicationJob
   queue_as :low
 
-  DEFAULT_MIN_REFUSED_MATCHES = 2 # At least two refused matches
+  DEFAULT_MIN_REFUSED_MATCHES = 2 # At least two refused OR unanswered matches
   DEFAULT_AGE_RANGE = 0..200 # Covers all ages
   DEFAULT_SIGNED_UP_RANGE = nil..nil # Covers all dates
 
@@ -29,6 +29,7 @@ class SendInactiveUserEmailsJob < ApplicationJob
           user_id
           , count(*) filter (where confirmed_at is not null) as confirmed_matches_count
           , count(*) filter (where refused_at is not null) as refused_matches_count
+          , count(*) filter (where expires_at < now() and confirmed_at is null and refused_at is null) as unanswered_matches_count
           , count(*) filter (where expires_at >= now() and confirmed_at is null and refused_at is null) as pending_matches_count
         from matches
         group by user_id
@@ -37,7 +38,7 @@ class SendInactiveUserEmailsJob < ApplicationJob
       from target_users as u
       join match_stats_per_user as s
         on s.user_id = u.id
-       and s.refused_matches_count >= :min_refused_matches
+       and (s.refused_matches_count + s.unanswered_matches_count) >= :min_refused_matches
        and s.pending_matches_count = 0
        and s.confirmed_matches_count = 0
     SQL

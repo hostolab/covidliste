@@ -3,6 +3,7 @@ FactoryBot.define do
     transient do
       confirmed_matches_count { 0 }
       refused_matches_count { 0 }
+      unanswered_matches_count { 0 }
       pending_matches_count { 0 }
     end
 
@@ -53,6 +54,7 @@ FactoryBot.define do
     after(:create) do |user, evaluator|
       create_list(:match, evaluator.confirmed_matches_count, :confirmed, user: user)
       create_list(:match, evaluator.refused_matches_count, :refused, user: user)
+      create_list(:match, evaluator.unanswered_matches_count, :expired, user: user)
       create_list(:match, evaluator.pending_matches_count, :pending, user: user)
     end
   end

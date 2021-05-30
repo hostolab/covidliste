@@ -14,15 +14,17 @@ RSpec.describe SendInactiveUserEmailsJob do
         created_at: 20.days.ago,
         confirmed_matches_count: confirmed_matches_count,
         refused_matches_count: refused_matches_count,
-        pending_matches_count: pending_matches_count
+        pending_matches_count: pending_matches_count,
+        unanswered_matches_count: unanswered_matches_count
       })
     end
 
     let(:confirmed_matches_count) { 0 }
-    let(:refused_matches_count) { 2 }
+    let(:refused_matches_count) { 1 }
+    let(:unanswered_matches_count) { 1 }
     let(:pending_matches_count) { 0 }
 
-    it "returns the ids of users having refused 2 or more matches" do
+    it "returns the ids of users having refused, including unanswered matches, 2 or more matches" do
       expect(inactive_user_ids).to include(matching_user.id)
     end
 
