@@ -3,7 +3,7 @@ namespace :emails do
   task inactive_users: :environment do |_t, args|
     tz = ActiveSupport::TimeZone["Europe/Paris"]
 
-    min_refused_matches = ENV["MIN_REFUSED_MATCHES"]&.to_i || 2
+    min_unanswered_matches = ENV["MIN_REFUSED_MATCHES"]&.to_i || 2
 
     min_age_range = ENV["MIN_AGE_RANGE"]&.to_i || 0
     max_age_range = ENV["MAX_AGE_RANGE"]&.to_i || 200
@@ -14,11 +14,11 @@ namespace :emails do
     signed_up_date_range = min_signed_up_date_range..max_signed_up_date_range
 
     puts "The following filter will apply:"
-    puts "- Refused Matches >= #{min_refused_matches}"
+    puts "- Refused Matches >= #{min_unanswered_matches}"
     puts "- #{min_age_range} <= Age <= #{max_age_range}"
     puts "- #{min_signed_up_date_range} <= Sign-up Date <= #{max_signed_up_date_range}"
     puts ""
-    puts "Number of emails to send: ##{SendInactiveUserEmailsJob.inactive_user_ids(min_refused_matches, age_range, signed_up_date_range).size}"
+    puts "Number of emails to send: ##{SendInactiveUserEmailsJob.inactive_user_ids(min_unanswered_matches, age_range, signed_up_date_range).size}"
     puts ""
 
     if ENV["NO_HELP"].nil?
@@ -37,7 +37,7 @@ namespace :emails do
       gets
     end
 
-    SendInactiveUserEmailsJob.perform_later(min_refused_matches, age_range, signed_up_date_range)
+    SendInactiveUserEmailsJob.perform_later(min_unanswered_matches, age_range, signed_up_date_range)
 
     puts "Emails are enqueued!"
   end

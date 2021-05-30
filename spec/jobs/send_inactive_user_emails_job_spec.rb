@@ -2,9 +2,9 @@ require "rails_helper"
 
 RSpec.describe SendInactiveUserEmailsJob do
   describe ".inactive_user_ids" do
-    subject(:inactive_user_ids) { described_class.inactive_user_ids(min_refused_matches, age_range, signed_up_date_range) }
+    subject(:inactive_user_ids) { described_class.inactive_user_ids(min_unanswered_matches, age_range, signed_up_date_range) }
 
-    let(:min_refused_matches) { described_class::DEFAULT_MIN_REFUSED_MATCHES }
+    let(:min_unanswered_matches) { described_class::DEFAULT_MIN_UNANSWERED_MATCHES }
     let(:age_range) { described_class::DEFAULT_AGE_RANGE }
     let(:signed_up_date_range) { described_class::DEFAULT_SIGNED_UP_RANGE }
 
@@ -20,11 +20,11 @@ RSpec.describe SendInactiveUserEmailsJob do
     end
 
     let(:confirmed_matches_count) { 0 }
-    let(:refused_matches_count) { 1 }
-    let(:unanswered_matches_count) { 1 }
+    let(:refused_matches_count) { 0 }
+    let(:unanswered_matches_count) { 2 }
     let(:pending_matches_count) { 0 }
 
-    it "returns the ids of users having refused, including unanswered matches, 2 or more matches" do
+    it "returns the ids of users having 2 or more unanswered matches" do
       expect(inactive_user_ids).to include(matching_user.id)
     end
 
@@ -44,10 +44,18 @@ RSpec.describe SendInactiveUserEmailsJob do
       end
     end
 
-    context "when a user refused too few matches" do
-      let(:min_refused_matches) { 3 }
+    context "when a user have at least a refused match" do
+      let(:refused_matches_count) { 1 }
 
-      it "excludes users having refused too few matches" do
+      it "excludes users having refused matches, they are considered active users" do
+        expect(inactive_user_ids).not_to include(matching_user.id)
+      end
+    end
+
+    context "when a user refused too few unanswered matches" do
+      let(:min_unanswered_matches) { 3 }
+
+      it "excludes users having unanswered too few matches to be considered as inactive" do
         expect(inactive_user_ids).not_to include(matching_user.id)
       end
     end

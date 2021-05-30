@@ -1,8 +1,8 @@
 class SendInactiveUserEmailsJob < ApplicationJob
   queue_as :low
 
-  DEFAULT_MIN_REFUSED_MATCHES = 2 # At least two refused OR unanswered matches
-  DEFAULT_AGE_RANGE = 0..200 # Covers all ages
+  DEFAULT_MIN_UNANSWERED_MATCHES = 2 # At least two refused OR unanswered matches
+  DEFAULT_AGE_RANGE = 0..200 # Covers all ages (except unborns)
   DEFAULT_SIGNED_UP_RANGE = nil..nil # Covers all dates
 
   def perform(*args)
@@ -14,7 +14,7 @@ class SendInactiveUserEmailsJob < ApplicationJob
     end
   end
 
-  def self.inactive_user_ids(min_refused_matches = DEFAULT_MIN_REFUSED_MATCHES, age_range = DEFAULT_AGE_RANGE, signed_up_date_range = DEFAULT_SIGNED_UP_RANGE)
+  def self.inactive_user_ids(min_unanswered_matches = DEFAULT_MIN_UNANSWERED_MATCHES, age_range = DEFAULT_AGE_RANGE, signed_up_date_range = DEFAULT_SIGNED_UP_RANGE)
     sql = <<~SQL.squish
       with target_users as (
         select id
@@ -38,12 +38,13 @@ class SendInactiveUserEmailsJob < ApplicationJob
       from target_users as u
       join match_stats_per_user as s
         on s.user_id = u.id
-       and (s.refused_matches_count + s.unanswered_matches_count) >= :min_refused_matches
+       and s.unanswered_matches_count >= :min_unanswered_matches
+       and s.refused_matches_count = 0
        and s.pending_matches_count = 0
        and s.confirmed_matches_count = 0
     SQL
     params = {
-      min_refused_matches: min_refused_matches,
+      min_unanswered_matches: min_unanswered_matches,
       min_birthdate: (age_range.end || 200).years.ago.to_date,
       max_birthdate: (age_range.begin || 0).years.ago.to_date,
       min_created_at: signed_up_date_range.begin || 200.years.ago,
