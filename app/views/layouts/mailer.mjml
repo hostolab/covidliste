@@ -62,9 +62,7 @@
         <mj-text mj-class="text-logo">Covidliste</mj-text>
       </mj-column>
       <mj-column>
-        <mj-text mj-class="text-headline"
-          >La plus grande liste<br />d'attente de vaccination.</mj-text
-        >
+        <mj-text mj-class="text-headline">La plus grande liste<br />d’attente à la vaccination.</mj-text>
       </mj-column>
     </mj-section>
     <%= yield %>

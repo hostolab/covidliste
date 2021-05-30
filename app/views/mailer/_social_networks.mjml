@@ -12,19 +12,19 @@
   <mj-social-element
     name="twitter"
     alt="twitter-logo"
-    src="/social/twitter.png"
+    src="https://covidliste-files.s3.fr-par.scw.cloud/images/twitter.png"
     href="https://twitter.com/covidliste"
   ></mj-social-element>
   <mj-social-element
     name="facebook"
     alt="facebook-logo"
-    src="/social/facebook.png"
+    src="https://covidliste-files.s3.fr-par.scw.cloud/images/facebook.png"
     href="https://www.facebook.com/covidliste"
   ></mj-social-element>
   <mj-social-element
     name="instagram"
     alt="instagram-logo"
-    src="/social/instagram.png"
+    src="https://covidliste-files.s3.fr-par.scw.cloud/images/instagram.png"
     href="https://www.instagram.com/covidliste/"
   ></mj-social-element>
 </mj-social>
