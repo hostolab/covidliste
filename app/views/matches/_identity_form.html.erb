@@ -1,4 +1,5 @@
 <% user = match.user %>
+<% vaccination_center = match.vaccination_center %>
 
 <h2 class="mt-4">Confirmez votre identité</h2>
 <form action="<%= match_path(match_confirmation_token: match.match_confirmation_token) %>" method="POST" class="needs-validation row" novalidate>
@@ -55,6 +56,38 @@
       <div class="invalid-feedback w-100">
         Vous devez confirmer votre date de naissance. <br>
         Si elle est inexacte, le practicien ne pourra pas vous vacciner.
+      </div>
+    </div>
+  </div>
+  <div class="col-12 mb-2">
+    <div class="form-check flex-wrap">
+      <input class="form-check-input" type="checkbox" value="1" id="confirm_hours" name="confirm_hours" required>
+      <label class="form-check-label w-75" for="confirm_hours">
+        Je confirme être disponible
+        <strong>
+          <% starts_at = match.campaign.starts_at %>
+          <% ends_at = match.campaign.ends_at %>
+          <%= l(starts_at, format: '%A %e %B %Y') %> entre <%= l(starts_at, format: '%Hh%M') %>
+          et <%= l(ends_at, format: '%Hh%M') %>
+        </strong>
+      </label>
+      <div class="invalid-feedback w-100">
+        Vous devez confirmer votre disponibilité pendant le créneau horaire du RDV.
+      </div>
+    </div>
+  </div>
+  <div class="col-12 mb-2">
+    <div class="form-check flex-wrap">
+      <input class="form-check-input" type="checkbox" value="1" id="confirm_distance" name="confirm_distance" required>
+      <label class="form-check-label w-75" for="confirm_distance">
+        Je confirme pouvoir me rendre à
+        <strong>
+          <% distance = distance_delta({lat: user.lat, lon: user.lon}, {lat: vaccination_center.lat, lon: vaccination_center.lon}) %>
+          <%= distance[:delta_in_words] %><%= ", à #{vaccination_center.human_friendly_geo_area}" if vaccination_center.human_friendly_geo_area %>
+        </strong>
+      </label>
+      <div class="invalid-feedback w-100">
+        Vous devez confirmer que vous pouvez vous déplacer sur le lieu de vaccination.
       </div>
     </div>
   </div>

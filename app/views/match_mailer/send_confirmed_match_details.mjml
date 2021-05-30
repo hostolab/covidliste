@@ -25,7 +25,7 @@
       </ul>
       <strong>Notre mission s’arrête ici !</strong> Nous sommes heureux de vous permettre d'accéder à la vaccination. Votre compte sera automatiquement désactivé dans 72h. Si votre vaccination n’a pas pu avoir lieu, vous pourrez vous réinscrire sur Covidliste après 72h.
       <br />
-      <strong>En cas de problème, contactez <%= mail_to "hello@covidliste.com", "hello@covidliste.com" %>.</strong>
+      <strong>En cas de problème pour vous rendre au RDV, contactez le lieu de vaccination au <%= @match.vaccination_center.human_friendly_phone_number %>.</strong>
     </mj-text>
     <%= render partial: "mailer/social_networks", formats: [:html] %>
   </mj-column>
