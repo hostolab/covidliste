@@ -1,0 +1,22 @@
+<mj-section padding-top="15px" padding-bottom="15px">
+  <mj-column>
+    <mj-text padding-bottom="0px">
+      <h1>Avez-vous pu trouver un rdv ?</h1>
+      <br />
+      Il y a quelques heures, nous vous avons alerté de rdv de vaccination disponibles.
+      <br />
+      Nous espérons que vous avez pu en réserver un.
+      <br />
+      Si c'est le cas nous vous invitons à supprimer votre compte Covidliste.
+    </mj-text>
+    <mj-button href="<%= edit_slot_alerts_users_url(token: @alert_token) %>" padding-bottom="20px">
+      Supprimer mon compte
+    </mj-button>
+    <mj-text>
+      <h1>Et si je suis arrivé trop tard ?</h1>
+      <br />
+      Ne vous inquiétez pas. Covidliste continue à vous notifier dès qu'une dose sur le point d'être perdue est disponible près de chez vous !
+    </mj-text>
+    <%= render partial: "mailer/social_networks", formats: [:html] %>
+  </mj-column>
+</mj-section>

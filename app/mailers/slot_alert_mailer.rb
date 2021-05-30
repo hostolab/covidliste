@@ -9,6 +9,7 @@ class SlotAlertMailer < ApplicationMailer
 
     @alert_token = @alert.token
     @slot = @alert.vmd_slot
+
     mail(
       to: @alert.user.email,
       subject: "Des rendez-vous de vaccination sont disponibles près de chez vous."

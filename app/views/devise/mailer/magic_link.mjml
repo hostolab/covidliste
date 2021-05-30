@@ -1,0 +1,26 @@
+<%- magic_link_url = send("#{@scope_name.to_s.pluralize}_magic_link_url",
+Hash[@scope_name, {email: @resource.email, token: @token}]) %>
+<mj-section padding-top="15px" padding-bottom="15px">
+  <mj-column>
+    <mj-text padding-bottom="0px">
+      <h1>Mon lien de connexion</h1>
+      <br />
+      <strong>Connectez-vous en toute sécurité</strong> à Covidliste en cliquant sur le lien suivant (valide pendant <%= Devise.passwordless_login_within.inspect %>) :
+    </mj-text>
+    <mj-button href="<%= magic_link_url %>" padding-bottom="0px">
+      Me connecter à mon compte
+    </mj-button>
+    <mj-text>
+      <strong>Si le lien ne fonctionne pas</strong>, copiez et collez l’adresse suivante dans votre navigateur :
+      <br />
+      <%= magic_link_url %>
+    </mj-text>
+    <%= render partial: "mailer/faq", formats: [:html] %>
+    <%= render partial: "mailer/social_networks", formats: [:html] %>
+  </mj-column>
+</mj-section>
+<mj-section background-color="#EDE2EE" padding-bottom="10px">
+  <mj-column>
+    <%= render partial: "mailer/share", formats: [:html] %>
+  </mj-column>
+</mj-section>
