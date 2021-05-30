@@ -87,7 +87,7 @@ class Match < ApplicationRecord
     return other_confirmed if other_confirmed
 
     user.matches.pending.where.not(id: id).order(id: :asc).each do |match|
-      if match.confirmable?
+      if match.confirmable? && !match.expired?
         return match
       end
     end
