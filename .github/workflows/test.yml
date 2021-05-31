@@ -1,7 +1,7 @@
 name: Test
 
 # triggers on
-on: [push, pull_request]
+on: [push, pull_request_target]
 
 jobs:
   test:
