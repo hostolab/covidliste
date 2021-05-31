@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_23_170000) do
+ActiveRecord::Schema.define(version: 2021_05_30_200536) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -124,6 +124,9 @@ ActiveRecord::Schema.define(version: 2021_05_23_170000) do
     t.datetime "canceled_at"
     t.string "algo_version"
     t.jsonb "parameters"
+    t.integer "canceled_doses", default: 0, null: false
+    t.integer "matches_count", default: 0, null: false
+    t.integer "matches_confirmed_count", default: 0, null: false
     t.index ["partner_id"], name: "index_campaigns_on_partner_id"
     t.index ["status"], name: "index_campaigns_on_status"
     t.index ["vaccination_center_id"], name: "index_campaigns_on_vaccination_center_id"
@@ -338,6 +341,8 @@ ActiveRecord::Schema.define(version: 2021_05_23_170000) do
     t.string "geo_context"
     t.datetime "confirmation_mail_sent_at"
     t.string "timezone", default: "Europe/Paris", null: false
+    t.datetime "visible_optin_at"
+    t.datetime "media_optin_at"
     t.index ["city"], name: "index_vaccination_centers_on_city"
     t.index ["confirmer_id"], name: "index_vaccination_centers_on_confirmer_id"
     t.index ["geo_citycode"], name: "index_vaccination_centers_on_geo_citycode"
@@ -374,6 +379,7 @@ ActiveRecord::Schema.define(version: 2021_05_23_170000) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["center_id", "last_updated_at"], name: "index_vmd_slots_on_center_id_and_last_updated_at"
     t.index ["center_id"], name: "index_vmd_slots_on_center_id"
+    t.index ["created_at"], name: "index_vmd_slots_on_created_at"
     t.index ["department"], name: "index_vmd_slots_on_department"
   end
 

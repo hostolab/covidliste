@@ -19,7 +19,7 @@ class VaccinationCentersController < ApplicationController
             weight: 5,
             opacity: 0.8,
             fillOpacity: 0.5,
-            color: "#3388ff",
+            color: vaccination_center.visible_optin ? "#2c1b2d" : "#8c588f",
             fillColor: vaccination_center.map_color
           },
           popupContent: "<strong>#{vaccination_center.public_name}</strong><br />#{vaccination_center.public_description}<br /><em>#{vaccination_center.public_location}</em>"

@@ -10,6 +10,7 @@ module Partners
     def index
       @vaccination_centers = current_partner.vaccination_centers.includes([:partner_vaccination_centers, :partners])
       @unconfirmed_vaccination_centers = current_partner.unconfirmed_vaccination_centers
+      @external_accounts = current_partner.partner_external_accounts.order(id: :desc)
     end
 
     def show
@@ -21,6 +22,8 @@ module Partners
 
     def create
       @vaccination_center = VaccinationCenter.new(vaccination_center_params)
+      @vaccination_center.visible_optin_at = Time.now.utc if ActiveRecord::Type::Boolean.new.cast(vaccination_center_optin_params["visible_optin"])
+      @vaccination_center.media_optin_at = Time.now.utc if ActiveRecord::Type::Boolean.new.cast(vaccination_center_optin_params["media_optin"])
       @vaccination_center.save
       @partner_vaccination_center = PartnerVaccinationCenter.new(partner: current_partner,
                                                                  vaccination_center: @vaccination_center)
@@ -57,6 +60,10 @@ module Partners
         :kind, :pfizer, :moderna, :astrazeneca, :janssen,
         :phone_number
       )
+    end
+
+    def vaccination_center_optin_params
+      params.require(:vaccination_center).permit(:visible_optin, :media_optin)
     end
 
     def sort_column

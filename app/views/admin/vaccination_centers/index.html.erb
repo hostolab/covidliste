@@ -55,7 +55,7 @@
         <tbody>
           <% @vaccination_centers.each do |vaccination_center| %>
             <tr>
-              <th><%= vaccination_center.id %></th>
+              <td class="font-weight-bold"><%= vaccination_center.id %></td>
               <td>
                 <strong><%= link_to vaccination_center.name, admin_vaccination_center_path(vaccination_center.id) %></strong>
                 <br>
@@ -65,17 +65,8 @@
               <td><%= vaccination_center.address %></td>
               <td class="text-nowrap"><%= vaccination_center.human_friendly_phone_number %></td>
               <td>
-                <% if vaccination_center.pfizer %>
-                  <span class="mr-1"><%= Vaccine::Brands::PFIZER.capitalize %></span>
-                <% end %>
-                <% if vaccination_center.moderna %>
-                  <span class="mr-1"><%= Vaccine::Brands::MODERNA.capitalize %></span>
-                <% end %>
-                <% if vaccination_center.astrazeneca %>
-                  <span class="mr-1"><%= Vaccine::Brands::ASTRAZENECA.capitalize %></span>
-                <% end %>
-                <% if vaccination_center.janssen %>
-                  <span class="mr-1"><%= Vaccine::Brands::JANSSEN.capitalize%></span>
+                <% vaccination_center.vaccines.each do |vaccine| %>
+                  <span class="mr-1"> <%= vaccine.capitalize %> </span>
                 <% end %>
               </td>
               <td class="text-nowrap">

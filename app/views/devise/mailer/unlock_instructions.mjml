@@ -1,0 +1,27 @@
+<mj-section padding-top="15px" padding-bottom="15px">
+  <mj-column>
+    <mj-text>
+      <h1>Bonjour,</h1>
+      <br />
+      Votre compte a été verrouillé en raison d'un nombre excessif de tentatives de connexion infructueuses.
+    </mj-text>
+    <mj-text padding-bottom="0px">
+      Cliquez sur le lien ci-dessous pour déverrouiller votre compte :
+    </mj-text>
+    <mj-button href="<%= unlock_url(@resource, unlock_token: @token) %>" padding-bottom="0px">
+      Déverrouiller mon compte
+    </mj-button>
+    <mj-text>
+      <strong>Si le lien ne fonctionne pas</strong>, copiez et collez l’adresse suivante dans votre navigateur :
+      <br />
+      <%= unlock_url(@resource, unlock_token: @token) %>
+    </mj-text>
+    <%= render partial: "mailer/faq", formats: [:html] %>
+    <%= render partial: "mailer/social_networks", formats: [:html] %>
+  </mj-column>
+</mj-section>
+<mj-section background-color="#EDE2EE" padding-bottom="10px">
+  <mj-column>
+    <%= render partial: "mailer/share", formats: [:html] %>
+  </mj-column>
+</mj-section>

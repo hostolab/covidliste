@@ -39,6 +39,8 @@ RSpec.describe "Destroy user account from match email", type: :system do
       fill_in :user_lastname, with: user.lastname
       check :confirm_age
       check :confirm_name
+      check :confirm_distance
+      check :confirm_hours
       click_on("Je confirme le RDV")
     end
     scenario "the user cannot destroy their account" do

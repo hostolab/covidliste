@@ -25,6 +25,8 @@ RSpec.describe MatchesController, type: :system do
         fill_in :user_lastname, with: ""
         check :confirm_age
         check :confirm_name
+        check :confirm_distance
+        check :confirm_hours
         click_on("Je confirme le RDV")
         expect(page).to have_text("Vous devez renseigner votre")
 
@@ -32,6 +34,8 @@ RSpec.describe MatchesController, type: :system do
         fill_in :user_lastname, with: user.lastname
         check :confirm_age
         check :confirm_name
+        check :confirm_distance
+        check :confirm_hours
         click_on("Je confirme le RDV")
         expect(page).to have_text("Vous devez renseigner votre")
 
@@ -39,6 +43,8 @@ RSpec.describe MatchesController, type: :system do
         fill_in :user_lastname, with: user.lastname
         check :confirm_age
         check :confirm_name
+        check :confirm_distance
+        check :confirm_hours
         click_on("Je confirme le RDV")
         expect(page).not_to have_text("Vous devez renseigner votre")
         expect(page).to have_text("Votre rendez-vous est confirmé")
@@ -123,6 +129,8 @@ RSpec.describe MatchesController, type: :system do
         fill_in :user_lastname, with: generate(:lastname)
         check :confirm_age
         check :confirm_name
+        check :confirm_distance
+        check :confirm_hours
         click_on("Je confirme le RDV")
         expect(page).to have_text("Mince 😔, toutes les doses disponibles ont déjà été réservées")
         Match.where(confirmation_failed_reason: "Match::AlreadyConfirmedError").count == already_confirmed_count + 1

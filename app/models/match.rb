@@ -30,6 +30,7 @@ class Match < ApplicationRecord
   before_create :save_user_info
   before_save :cache_distance_in_meters_between_user_and_vaccination_center
   after_create_commit :notify
+  after_commit :compute_campaign_matches, on: [:create, :update]
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
   scope :refused, -> { where.not(refused_at: nil) }
@@ -46,6 +47,10 @@ class Match < ApplicationRecord
     self.geo_citycode = user.geo_citycode
     self.geo_context = user.geo_context
     self
+  end
+
+  def compute_campaign_matches
+    campaign.compute_matches
   end
 
   def confirmed?
@@ -69,6 +74,24 @@ class Match < ApplicationRecord
     self.geo_context = user.geo_context if geo_context.nil?
 
     save!
+  end
+
+  def find_other_confirmed_match_for_user
+    user.matches.confirmed.where.not(id: id).first
+  end
+
+  def find_other_available_match_for_user
+    return if confirmed?
+    return if refused?
+    other_confirmed = find_other_confirmed_match_for_user
+    return other_confirmed if other_confirmed
+
+    user.matches.pending.where.not(id: id).order(id: :asc).each do |match|
+      if match.confirmable? && !match.expired?
+        return match
+      end
+    end
+    nil
   end
 
   def confirmable?
@@ -97,6 +120,11 @@ class Match < ApplicationRecord
     return unless user
     matches_count = user.matches.where("created_at >= ?", THROTTLING_INTERVAL.ago).count
     errors.add(:base, "Too many matches for this user") if matches_count >= THROTTLING_RATE
+    if (campaign.vaccine_type == Vaccine::Brands::ASTRAZENECA) || (campaign.vaccine_type == Vaccine::Brands::JANSSEN)
+      if matches_count >= 1
+        errors.add(:base, "Too many matches for this user with this vaccine")
+      end
+    end
   end
 
   def cache_distance_in_meters_between_user_and_vaccination_center

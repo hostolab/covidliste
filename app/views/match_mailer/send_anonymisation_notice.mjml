@@ -1,0 +1,52 @@
+<mj-section padding-top="15px" padding-bottom="15px">
+  <mj-column>
+    <mj-text>
+      <h1>Merci pour votre confiance</h1>
+      <br />
+      Nous espérons que vous avez pu vous rendre au rendez-vous de vaccination.
+      <br />
+      <strong>Nous avons supprimé vos données de Covidliste </strong>conformément à nos <%= link_to "Conditions Générales d’Utilisation", cgu_volontaires_url %>.
+    </mj-text>
+    <mj-text>
+      <h1>Vous pouvez nous aider !</h1>
+      <br />
+        <strong>Faites connaître Covidliste à votre entourage</strong> pour accélérer la campagne vaccinale :
+        <br />
+        Partager à mes proches sur
+        <a
+          href="https://twitter.com/intent/tweet?source=https%3A%2F%2Fwww.covidliste.com%2F&text=J%27ai%20%C3%A9t%C3%A9%20vaccin%C3%A9%20gr%C3%A2ce%20%C3%A0%20@covidliste%2C%20pourquoi%20pas%20vous%20%3F%20https%3A%2F%2Fwww.covidliste.com%2F&"
+          target="_blank"
+          title="Tweet"
+          >Twitter</a
+        >,
+        <a
+          href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.covidliste.com%2F&quote=J'ai%20%C3%A9t%C3%A9%20vaccin%C3%A9%20grâce%20à%20Covidliste%2C%20pourquoi%20pas%20vous%20%3F"
+          title="Share on Facebook"
+          target="_blank"
+          >Facebook</a
+        >,
+        <a
+          href="http://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fwww.covidliste.com%2F&title=J'ai%20%C3%A9t%C3%A9%20vaccin%C3%A9%20avec%20Covidliste%2C%20pourquoi%20pas%20vous%20%3F&summary=&source=https%3A%2F%2Fwww.covidliste.com%2F"
+          target="_blank"
+          title="Share on LinkedIn"
+          >Linkedin</a
+        >
+        ou
+        <a
+          href="mailto:?subject=J'ai%20%C3%A9t%C3%A9%20vaccin%C3%A9%grâce%20à%20Covidliste%2C%20pourquoi%20pas%20vous%20%3F&body=:%20https%3A%2F%2Fwww.covidliste.com%2F"
+          target="_blank"
+          title="Send email"
+          >par email</a
+        >
+      </p>
+      <p>
+        <strong>Parlez-nous de votre expérience Covidliste</strong> : <%= link_to "Témoigner", "https://form.typeform.com/to/rHTAEqUZ", target: "_blank" %>
+      </p>
+      <p>
+        <strong>Nous lançons un appel aux dons !</strong>
+        <%= link_to "Contribuer à partir d’1€", "https://fr.ulule.com/projects/129093/checkout/", target: "_blank" %>.
+      </p>
+    </mj-text>
+    <%= render partial: "mailer/social_networks", formats: [:html] %>
+  </mj-column>
+</mj-section>

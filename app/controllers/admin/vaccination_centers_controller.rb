@@ -48,7 +48,7 @@ module Admin
         format.html {
           @pagy_vaccination_centers, @vaccination_centers = pagy(vaccination_centers.includes(:confirmer).order(ActiveRecord::Base.sanitize_sql("#{sort_column} #{sort_direction}")))
         }
-        format.csv { send_data vaccination_centers.order(id: :asc).to_csv, filename: "vaccination_centers-#{Date.today}.csv" }
+        format.csv { send_data vaccination_centers.includes(:confirmer, partners: [:partner_external_accounts]).order(id: :asc).to_csv, filename: "vaccination_centers-#{Date.today}.csv" }
       end
     end
 
@@ -65,6 +65,8 @@ module Admin
       authorize(VaccinationCenter)
 
       @vaccination_center = VaccinationCenter.new(vaccination_center_params)
+      @vaccination_center.visible_optin_at = Time.now.utc if ActiveRecord::Type::Boolean.new.cast(vaccination_center_optin_params["visible_optin"])
+      @vaccination_center.media_optin_at = Time.now.utc if ActiveRecord::Type::Boolean.new.cast(vaccination_center_optin_params["media_optin"])
       @vaccination_center.save
       render action: :new
     end
@@ -111,7 +113,18 @@ module Admin
     end
 
     def update
-      if @vaccination_center.update(vaccination_center_params)
+      if !@vaccination_center.visible_optin && ActiveRecord::Type::Boolean.new.cast(vaccination_center_optin_params["visible_optin"])
+        @vaccination_center.visible_optin_at = Time.now.utc
+      elsif @vaccination_center.visible_optin && !ActiveRecord::Type::Boolean.new.cast(vaccination_center_optin_params["visible_optin"])
+        @vaccination_center.visible_optin_at = nil
+      end
+      if !@vaccination_center.media_optin && ActiveRecord::Type::Boolean.new.cast(vaccination_center_optin_params["media_optin"])
+        @vaccination_center.media_optin_at = Time.now.utc
+      elsif @vaccination_center.media_optin && !ActiveRecord::Type::Boolean.new.cast(vaccination_center_optin_params["media_optin"])
+        @vaccination_center.media_optin_at = nil
+      end
+      @vaccination_center.assign_attributes(vaccination_center_params)
+      if @vaccination_center.save
         flash[:success] = "Ce centre a bien été modifié"
       else
         flash[:alert] = "Une erreur est survenue : #{@vaccination_center.errors.full_messages.join(", ")}"
@@ -166,6 +179,10 @@ module Admin
         :kind, :pfizer, :moderna, :astrazeneca, :janssen,
         :phone_number
       )
+    end
+
+    def vaccination_center_optin_params
+      params.require(:vaccination_center).permit(:visible_optin, :media_optin)
     end
 
     def sort_column

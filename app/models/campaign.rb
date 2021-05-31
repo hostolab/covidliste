@@ -26,8 +26,15 @@ class Campaign < ApplicationRecord
 
   def canceled!
     update_attribute(:canceled_at, Time.now.utc)
+    update_attribute(:canceled_doses, remaining_doses)
     update_attribute(:available_doses, matches.confirmed.count)
+    compute_matches
     super
+  end
+
+  def compute_matches
+    update_attribute(:matches_count, (matches.count || 0))
+    update_attribute(:matches_confirmed_count, (matches.confirmed.count || 0))
   end
 
   def remaining_doses

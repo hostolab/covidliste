@@ -6,6 +6,7 @@
   <p class="mt-4 mb-1 font-weight-bold">
     Bonjour <%= current_partner.name %>
   </p>
+  <%= render partial: "partners/link_external_account" %>
 
   <p class="small">
     <%= icon("fas", "phone", current_partner.human_friendly_phone_number) %>
@@ -23,178 +24,61 @@
     <%= link_to "partenaires@covidliste.com", "mailto:partenaires@covidliste.com" %>
   </p>
 
-  <% if @vaccination_centers.any? %>
-    <p class="mt-4">
-      Vous avez accès aux lieux de vaccination suivants :
-    </p>
 
-    <div class="table-responsive">
-      <table class="table table-bordered table-sm">
-        <thead class="thead-light">
-        <tr>
-          <th scope="col"> Nom</th>
-          <th scope="col"> Coordonnées</th>
-          <th scope="col"><abbr data-toggle="tooltip" title="Collaborateurs">Collab.</abbr></th>
-          <th scope="col" class="text-center"> Actions</th>
-        </tr>
-        </thead>
+  <% if @vaccination_centers.any? and @vaccination_centers.any? %>
+    <% if @vaccination_centers.any? %>
+      <p class="mt-4">
+        Vous avez accès aux lieux de vaccination suivants :
+      </p>
 
-        <tbody>
-        <% @vaccination_centers.each do |vaccination_center| %>
-          <tr>
-            <td>
-              <strong>
-                <%= link_to vaccination_center.name, partners_vaccination_center_path(vaccination_center.id) %>
-              </strong>
-              <br>
-              <i><%= vaccination_center.kind %></i>
-              <br>
-              <%= vaccination_center.description %>
-            </td>
-
-            <td class="small">
-              <%= icon("fas", "phone", vaccination_center.human_friendly_phone_number) %>
-              <br>
-              <%= vaccination_center.address %>
-              <br>
-              <% if vaccination_center.pfizer %>
-                <span class="mr-1"> <%= Vaccine::Brands::PFIZER.capitalize %> </span>
-              <% end %>
-              <% if vaccination_center.moderna %>
-                <span class="mr-1"> <%= Vaccine::Brands::MODERNA.capitalize %> </span>
-              <% end %>
-              <% if vaccination_center.astrazeneca %>
-                <span class="mr-1"> <%= Vaccine::Brands::ASTRAZENECA.capitalize %> </span>
-              <% end %>
-              <% if vaccination_center.janssen %>
-                <span class="mr-1"> <%= Vaccine::Brands::JANSSEN.capitalize %> </span>
-              <% end %>
-            </td>
-
-            <td class="small text-center" data-toggle="tooltip" data-html="true" title="
-                Collaborateurs : <br>
-                <% vaccination_center.partners.each do |partner| %>
-                  - <%= partner.name %>
-                  <br>
-                <% end %>">
-              <%= icon("fas", "user", vaccination_center.partners.count) %>
-            </td>
-
-            <td class="text-center">
-              <%= link_to "Voir / Gérer les campagnes", partners_vaccination_center_path(vaccination_center.id), class: "btn btn-primary btn-sm" %>
-            </td>
-          </tr>
-        <% end %>
-        </tbody>
-      </table>
-    </div>
-  <% else %>
-    <p class="mt-4">
-      Vous n’avez actuellement accès à aucun lieu de vaccination.
-    </p>
-  <% end %>
-
-  <% if @unconfirmed_vaccination_centers.any? %>
-    <p class="mt-4">
-      Vos lieux de vaccination en attente de validation :
-    </p>
-
-    <div class="alert alert-primary" role="alert">
-      Nous allons vous contacter dans les prochaines heures ou les prochains jours pour valider vos lieux de vaccination
-      en attente.
-      <br/>
-      Vérifiez vos informations, et particulièrement votre numéro de téléphone portable :
-      <strong><%= current_partner.human_friendly_phone_number %></strong>
-      <br/>
-      Numéro incorrect ?
-      <%= link_to "Modifiez-le sur votre page profil", partners_path %>
-    </div>
-
-    <% @external_accounts = current_partner.partner_external_accounts.order(id: :desc) %>
-    <% unless @external_accounts.any? %>
-      <% if PartnerExternalAccountProvider::Providers::ALL.any? %>
-        <div class="alert alert-primary" role="alert">
-          <strong>Accélérez la validation de vos lieux de vaccination</strong> en
-          liant un compte ou une carte professionnelle (CPS ou e-CPS) depuis
-          <%=  link_to "votre page profil", partners_path  %>
-        </div>
-      <% end %>
+      <%= render partial: "partners/vaccination_centers/vaccination_centers_table", locals: {vaccination_centers: @vaccination_centers} %>
+      <p class="small text-muted text-center">
+        Besoin de corriger les informations de ce tableau ? Contactez-nous sur
+        <%= link_to "partenaires@covidliste.com", "mailto:partenaires@covidliste.com" %>.
+      </p>
+    <% else %>
+      <p class="mt-4">
+        Vous n’avez actuellement accès à aucun lieu de vaccination.
+      </p>
     <% end %>
 
-    <div class="table-responsive">
-      <table class="table table-bordered table-sm">
-        <thead class="thead-light">
-        <tr>
-          <th scope="col"> Nom</th>
-          <th scope="col"> Coordonnées</th>
-          <th scope="col"><abbr data-toggle="tooltip" title="Collaborateurs">Collab.</abbr></th>
-          <th scope="col"> État</th>
-        </tr>
-        </thead>
+    <% if @unconfirmed_vaccination_centers.any? %>
+      <p class="mt-4">
+        Vos lieux de vaccination en attente de validation :
+      </p>
 
-        <tbody>
-        <% @unconfirmed_vaccination_centers.each do |vaccination_center| %>
-          <tr>
-            <td>
-              <strong>
-                <%= link_to vaccination_center.name, partners_vaccination_center_path(vaccination_center.id) %>
-              </strong>
-              <br>
-              <i><%= vaccination_center.kind %></i>
-              <br>
-              <%= vaccination_center.description %>
-            </td>
+      <div class="alert alert-primary" role="alert">
+        Nous allons vous contacter dans les prochaines heures ou les prochains jours pour valider vos lieux de vaccination
+        en attente.
+        <br/>
+        Vérifiez vos informations, et particulièrement votre numéro de téléphone portable :
+        <strong><%= current_partner.human_friendly_phone_number %></strong>
+        <br/>
+        Numéro incorrect ?
+        <%= link_to "Modifiez-le sur votre page profil", partners_path %>
+      </div>
 
-            <td class="small">
-              <%= icon("fas", "phone", vaccination_center.human_friendly_phone_number) %>
-              <br>
-              <%= vaccination_center.address %>
-              <br>
-              <% if vaccination_center.pfizer %>
-                <span class="mr-1"> <%= Vaccine::Brands::PFIZER.capitalize %> </span>
-              <% end %>
-              <% if vaccination_center.moderna %>
-                <span class="mr-1"> <%= Vaccine::Brands::MODERNA.capitalize %> </span>
-              <% end %>
-              <% if vaccination_center.astrazeneca %>
-                <span class="mr-1"> <%= Vaccine::Brands::ASTRAZENECA.capitalize %> </span>
-              <% end %>
-              <% if vaccination_center.janssen %>
-                <span class="mr-1"> <%= Vaccine::Brands::JANSSEN.capitalize %> </span>
-              <% end %>
-            </td>
-
-            <td class="small text-center" data-toggle="tooltip" data-html="true" title="
-                Collaborateurs : <br>
-                <% vaccination_center.partners.each do |partner| %>
-                  - <%= partner.name %>
-                  <br>
-                <% end %>">
-              <%= icon("fas", "user", vaccination_center.partners.count) %>
-            </td>
-
-            <td>
-              En attente de validation
-            </td>
-          </tr>
+      <% @external_accounts = current_partner.partner_external_accounts.order(id: :desc) %>
+      <% unless @external_accounts.any? %>
+        <% if PartnerExternalAccountProvider::Providers::ALL.any? %>
+          <div class="alert alert-info mt-2" role="alert">
+            Vous êtes un <strong>professionnel de santé</strong> ?<br />
+            <strong>Accélérez la validation de vos lieux de vaccination</strong> en
+            <%= link_to "liant une carte CPS, e-CPS ou un compte professionnel", "#externalAccountsLink", "data-toggle": "modal" %>
+          </div>
         <% end %>
-        </tbody>
-      </table>
-    </div>
-  <% end %>
+      <% end %>
 
-  <% if @vaccination_centers.any? || @unconfirmed_vaccination_centers.any? %>
-    <p class="small">
+      <%= render partial: "partners/vaccination_centers/vaccination_centers_table", locals: {vaccination_centers: @unconfirmed_vaccination_centers} %>
+
+    <% end %>
+
+    <p class="small mt-2">
       Vous gèrez une autre lieu de vaccination ?
       <%= link_to "Demandez la création d’un autre lieu de vaccination", new_partners_vaccination_center_path %>
     </p>
-  <% else %>
-    <p class="small">
-      <%= link_to "Demander la création d’un nouveau lieu de vaccination", new_partners_vaccination_center_path, class: "btn btn-primary" %>
-    </p>
-  <% end %>
 
-    <p class="mt-4 small">
+    <p class="mt-2 small">
       Si vous souhaitez rejoindre un lieu de vaccination déjà existant sur Covidliste, contactez-nous sur
       <%= link_to "partenaires@covidliste.com", "mailto:partenaires@covidliste.com" %>.
     </p>
@@ -255,15 +139,22 @@
         </div>
       </div>
     <% end %>
+  <% else %>
+    <%= render partial: "partners/vaccination_centers/welcome_steps", locals: {
+      external_accounts: @external_accounts,
+      unconfirmed_vaccination_centers: @unconfirmed_vaccination_centers,
+      vaccination_centers: @vaccination_centers
+    } %>
+  <% end %>
 
-    <p class="mb-5">
-      Besoin de documents pour communiquer à propos de Covidliste avec vos collègues, confrères, visiteurs ou patients ?<br/>
-      <small>Nous vous mettons à disposition un ensemble de documents imprimables adaptés à chaque public.</small>
-      <br />
-      <%= link_to "Documents pour les professionnels", "https://drive.google.com/drive/folders/1g79baMWlOFjZAcCrK7sa6uUNlyQBuzyC?usp=sharing", class: "btn btn-info btn-sm mt-2", target: "_blank", rel: "noopener" %>
-    </p>
+  <p class="mb-5 mt-5">
+    Besoin de documents pour communiquer à propos de Covidliste avec vos collègues, confrères, visiteurs ou patients ?<br/>
+    <small>Nous vous mettons à disposition un ensemble de documents imprimables adaptés à chaque public.</small>
+    <br />
+    <%= link_to "Documents pour les professionnels", "https://drive.google.com/drive/folders/1g79baMWlOFjZAcCrK7sa6uUNlyQBuzyC?usp=sharing", class: "btn btn-info btn-sm mt-2", target: "_blank", rel: "noopener" %>
+  </p>
 
-    <hr>
+  <hr>
 
-    <%= link_to "Se déconnecter", destroy_partner_session_path, method: :delete, class: "btn btn-warning" %>
-    </div>
+  <%= link_to "Se déconnecter", destroy_partner_session_path, method: :delete, class: "btn btn-warning" %>
+</div>

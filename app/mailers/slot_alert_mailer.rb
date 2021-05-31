@@ -1,6 +1,6 @@
 class SlotAlertMailer < ApplicationMailer
   helper ApplicationHelper
-  default from: "Covidliste <dose@covidliste.com>"
+  default from: "Covidliste <alerte@covidliste.com>"
 
   def notify
     @alert = params[:alert]
@@ -9,6 +9,7 @@ class SlotAlertMailer < ApplicationMailer
 
     @alert_token = @alert.token
     @slot = @alert.vmd_slot
+
     mail(
       to: @alert.user.email,
       subject: "Des rendez-vous de vaccination sont disponibles près de chez vous."

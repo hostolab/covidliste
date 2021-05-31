@@ -33,6 +33,17 @@
           </p>
         </div>
       <% else %>
+
+        <% @external_accounts = current_partner.partner_external_accounts.order(id: :desc) %>
+        <% unless @external_accounts.any? %>
+          <% if PartnerExternalAccountProvider::Providers::ALL.any? %>
+            <div class="alert alert-primary" role="alert">
+              Vous êtes un <strong>professionnel de santé</strong> ?<br />
+              <%= link_to "Liez votre carte CPS, e-CPS ou votre compte professionnel", "#externalAccountsLink", "data-toggle": "modal", class: "mt-2 btn btn-primary btn-sm" %>
+            </div>
+          <% end %>
+        <% end %>
+
         <% if @vaccination_center.errors.present? %>
           <div class="alert alert-danger mt-2">
             <% @vaccination_center.errors.full_messages.each do |msg| %>
@@ -44,7 +55,7 @@
 
         <%= simple_form_for [:partners, @vaccination_center] do |f| %>
           <%= f.input :name, label: "Nom du lieu de vaccination", error: "Nom requis", placeholder: "Centre de vaccination Marseille", required: true %>
-          <%= f.input :description, label: "Description", error: "Description requise", placeholder: "Description du lieu de vaccination (accès, détails...)", required: true %>
+          <%= f.input :description, label: "Description", error: "Description requise", placeholder: "Description du lieu de vaccination (accès, détails...)" %>
           <%= f.input :kind, label: "Type de lieu de vaccination", collection: VaccinationCenter::Kinds::ALL %>
           <p class="small text-primary">
             <%= icon("fas", "info-circle", class: "text-secondary") %>
@@ -56,10 +67,9 @@
             Type(s) de vaccins disponibles
           </p>
 
-          <%= f.input :pfizer, as: :boolean, label: Vaccine::Brands::PFIZER.capitalize, class: "form-check-inline" %>
-          <%= f.input :moderna, as: :boolean, label: Vaccine::Brands::MODERNA.capitalize, class: "form-check-inline" %>
-          <%= f.input :astrazeneca, as: :boolean, label: Vaccine::Brands::ASTRAZENECA.capitalize, class: "form-check-inline" %>
-          <%= f.input :janssen, as: :boolean, label: Vaccine::Brands::JANSSEN.capitalize %>
+          <% Vaccine::Brands::ALL.each do |vaccine| %>
+            <%= f.input :"#{vaccine}", as: :boolean, label: vaccine.capitalize, class: 'form-check-inline' %>
+          <% end %>
           <%= f.input :address, label: "Adresse", error: "Adresse requise", placeholder: "5 rue Larue, 13600 Marseille", required: true %>
           <%= f.input :phone_number, label: "Numéro de téléphone", error: "Numéro de téléphone requis", placeholder: "01 02 03 04 05", required: true %>
           <%= f.input :department, as: :hidden %>
@@ -67,7 +77,8 @@
             <%= icon("fas", "info-circle", class: "text-secondary") %>
             Ce numéro sera utilisé pour la <strong>vérification de votre centre de vaccination</strong> et il sera <strong>communiqué aux volontaires ayant confirmé leur RDV</strong>.
           </p>
-
+          <%= f.input :visible_optin, as: :boolean, label: "En cochant cette case, vous acceptez que les coordonnées du centre (nom, adresse) soient visibles sur le site Covidliste." %>
+          <%= f.input :media_optin, as: :boolean, label: "En cochant cette case, vous acceptez que Covidliste diffuse sur les réseaux sociaux et autres médias, des informations concernant l'inscription de ce centre." %>
           <%= f.button :submit, "Envoyer la demande", class: "btn btn-primary", data: { disable_with: "Validation..." } %>
         <% end %>
       <% end %>

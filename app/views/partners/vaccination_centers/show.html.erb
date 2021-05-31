@@ -65,7 +65,7 @@
         </thead>
 
         <tbody>
-          <% @vaccination_center.campaigns.order(id: :desc).each do |campaign| %>
+          <% @vaccination_center.campaigns.includes([:partner]).order(id: :desc).each do |campaign| %>
             <tr>
               <td class="font-weight-bold"> <%= link_to campaign.id, partners_campaign_path(campaign) %> </td>
               <td>

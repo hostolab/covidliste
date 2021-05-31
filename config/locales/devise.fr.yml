@@ -77,7 +77,7 @@ fr:
         action: Confirmer mon email
         greeting: Bienvenue %{recipient} !
         instruction: "Vous pouvez confirmer votre email grâce au lien ci-dessous :"
-        subject: Validez votre inscription sur Covidliste
+        subject: Validez votre inscription
       email_changed:
         greeting: Bonjour %{recipient} !
         message: Nous vous contactons pour vous notifier que votre adresse email a été changée en %{email}.
