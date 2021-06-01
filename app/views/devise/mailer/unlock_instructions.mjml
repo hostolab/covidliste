@@ -20,8 +20,3 @@
     <%= render partial: "mailer/social_networks", formats: [:html] %>
   </mj-column>
 </mj-section>
-<mj-section background-color="#EDE2EE" padding-bottom="10px">
-  <mj-column>
-    <%= render partial: "mailer/share", formats: [:html] %>
-  </mj-column>
-</mj-section>
