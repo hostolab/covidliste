@@ -174,4 +174,12 @@ class Match < ApplicationRecord
   def can_receive_sms?
     user.present? && user.phone_number.present?
   end
+
+  def Match.throttling_rate
+    THROTTLING_RATE
+  end
+
+  def Match.throttling_interval
+    THROTTLING_INTERVAL
+  end
 end
