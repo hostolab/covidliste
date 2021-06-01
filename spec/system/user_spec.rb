@@ -139,24 +139,6 @@ RSpec.describe "Users", type: :system do
       end
     end
 
-    it "it allows me to delete my account" do
-      expect do
-        accept_confirm_modal do
-          click_on "Supprimer mon compte"
-        end
-      end.to change { User.active.count }.by(-1)
-
-      expect(page).to have_text("Votre compte a été supprimé")
-    end
-
-    it "it allows me to decline the delete" do
-      expect do
-        decline_confirm_modal do
-          click_on "Supprimer mon compte"
-        end
-      end.to change { User.active.count }.by(0)
-    end
-
     context "with a confirmed match" do
       let(:campaign) { build(:campaign) }
       let!(:match) { create(:match, campaign: campaign, confirmed_at: Time.now, user: user) }
@@ -165,17 +147,6 @@ RSpec.describe "Users", type: :system do
         click_on "Je modifie mes informations"
         expect(page).not_to have_text("Modifications enregistrées.")
         expect(page).to have_text("Vous ne pouvez pas modifier vos informations actuellement car vous avez confirmé un rendez-vous de vaccination.")
-      end
-
-      it "it does not allow te delete my account" do
-        expect do
-          accept_confirm_modal do
-            click_on "Supprimer mon compte"
-          end
-        end.to change { User.active.count }.by(0)
-
-        expect(page).to_not have_text("Votre compte a été supprimé")
-        expect(page).to have_text("Vous ne pouvez pas supprimer votre compte actuellement car vous avez confirmé un rendez-vous de vaccination.")
       end
     end
 
@@ -187,17 +158,6 @@ RSpec.describe "Users", type: :system do
         click_on "Je modifie mes informations"
         expect(page).not_to have_text("Modifications enregistrées.")
         expect(page).to have_text("Vous ne pouvez pas modifier vos informations actuellement car vous avez une proposition rendez vous de vaccination en cours.")
-      end
-
-      it "it allows me to delete my account" do
-        choose "reason_covidliste"
-        expect do
-          accept_confirm_modal do
-            click_on "Supprimer mon compte"
-          end
-        end.to change { User.active.count }.by(-1)
-
-        expect(page).to have_text("Votre compte a été supprimé")
       end
     end
   end

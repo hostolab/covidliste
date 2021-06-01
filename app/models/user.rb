@@ -54,7 +54,7 @@ class User < ApplicationRecord
   ANONYMIZED_REASONS = {
     covidliste: "J'ai trouvé un rdv grâce à Covidliste",
     not_interested: "Je ne suis plus intéressé",
-    other: "Ignorer"
+    other: "Autre"
   }.freeze
 
   def randomize_lat_lon
