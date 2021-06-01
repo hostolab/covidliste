@@ -64,40 +64,40 @@ class ReachableUsersService
 
   def get_users_count
     sql = <<~SQL.tr("\n", " ").squish
-        with reachable_users as
-        (
-              SELECT
-                DISTINCT u.id
-              FROM users u
-              left outer join matches m on (m.user_id = u.id and m.confirmed_at is not null)
-              WHERE u.confirmed_at IS NOT NULL
-              AND u.anonymized_at is NULL
-              AND u.birthdate between (:min_date) and (:max_date)
-              AND u.grid_i >= :min_i AND u.grid_i <= :max_i
-              AND u.grid_j >= :min_j AND u.grid_j <= :max_j
-              AND (SQRT((((:lat) - u.lat)*110.574)^2 + (((:lon) - u.lon)*111.320*COS(u.lat::float*3.14159/180))^2)) < (:rayon_km)
-              AND m.id IS NULL
-        ),
-        matchable_users_count as (
-            select count(distinct id) matchable_users_count
-            from
-            (
-                select ru.id, sum(case when m.id is not null then 1 else 0 end) count
-                from
-                    reachable_users ru
-                    left join matches m on (ru.id=m.user_id)
-                where
-                    created_at >= :throttling_interval
-                    or m.id is null
-                group by ru.id
-            ) a
-            where count < :throttling_rate
-        )
-
-        select *
+      with reachable_users as
+      (
+        SELECT
+          DISTINCT u.id
+        FROM users u
+        left outer join matches m on (m.user_id = u.id and m.confirmed_at is not null)
+        WHERE u.confirmed_at IS NOT NULL
+        AND u.anonymized_at is NULL
+        AND u.birthdate between (:min_date) and (:max_date)
+        AND u.grid_i >= :min_i AND u.grid_i <= :max_i
+        AND u.grid_j >= :min_j AND u.grid_j <= :max_j
+        AND (SQRT((((:lat) - u.lat)*110.574)^2 + (((:lon) - u.lon)*111.320*COS(u.lat::float*3.14159/180))^2)) < (:rayon_km)
+        AND m.id IS NULL
+      ),
+      matchable_users_count as (
+        select count(distinct id) matchable_users_count
         from
-            (select count(1) reachable_users_count from reachable_users) a
-            join matchable_users_count on (1=1)
+        (
+          select ru.id, sum(case when m.id is not null then 1 else 0 end) count
+          from
+            reachable_users ru
+            left join matches m on (ru.id=m.user_id)
+          where
+            created_at >= :throttling_interval
+            or m.id is null
+         group by ru.id
+        ) a
+        where count < :throttling_rate
+      )
+
+      select *
+      from
+        (select count(1) reachable_users_count from reachable_users) a
+        join matchable_users_count on (1=1)
     SQL
     params = {
       min_date: @campaign.max_age.years.ago,

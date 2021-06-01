@@ -175,11 +175,11 @@ class Match < ApplicationRecord
     user.present? && user.phone_number.present?
   end
 
-  def Match.throttling_rate
+  def self.throttling_rate
     THROTTLING_RATE
   end
 
-  def Match.throttling_interval
+  def self.throttling_interval
     THROTTLING_INTERVAL
   end
 end
