@@ -89,7 +89,7 @@ class Match < ApplicationRecord
     return other_confirmed if other_confirmed
 
     user.matches.pending.where.not(id: id).order(id: :asc).each do |match|
-      if match.confirmable?
+      if match.confirmable? && !match.expired?
         return match
       end
     end
@@ -122,6 +122,11 @@ class Match < ApplicationRecord
     return unless user
     matches_count = user.matches.where("created_at >= ?", THROTTLING_INTERVAL.ago).count
     errors.add(:base, "Too many matches for this user") if matches_count >= THROTTLING_RATE
+    if (campaign.vaccine_type == Vaccine::Brands::ASTRAZENECA) || (campaign.vaccine_type == Vaccine::Brands::JANSSEN)
+      if matches_count >= 1
+        errors.add(:base, "Too many matches for this user with this vaccine")
+      end
+    end
   end
 
   def cache_distance_in_meters_between_user_and_vaccination_center

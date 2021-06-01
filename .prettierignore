@@ -9,6 +9,7 @@ lib/tasks/*.rake
 
 # Ignore Ruby files
 **/*.rb
+**/*.mjml
 
 # Ignore all logfiles and tempfiles.
 /log/*

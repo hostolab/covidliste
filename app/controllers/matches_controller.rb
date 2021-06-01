@@ -57,7 +57,8 @@ class MatchesController < ApplicationController
   end
 
   def verify_redirect_to_other_match
-    return if @match.confirmable?
+    return if @match.confirmed?
+    return if @match.confirmable? && !@match.expired?
     return if @match.refused?
     track_click
     if (other = @match.find_other_confirmed_match_for_user)
@@ -119,8 +120,10 @@ class MatchesController < ApplicationController
 
   def check_age_and_name_confirmed!
     unless ActiveRecord::Type::Boolean.new.cast(params["confirm_age"]) &&
-        ActiveRecord::Type::Boolean.new.cast(params["confirm_name"])
-      raise MissingConfirmation, "Vous devez confirmer votre âge et votre nom"
+        ActiveRecord::Type::Boolean.new.cast(params["confirm_name"]) &&
+        ActiveRecord::Type::Boolean.new.cast(params["confirm_distance"]) &&
+        ActiveRecord::Type::Boolean.new.cast(params["confirm_hours"])
+      raise MissingConfirmation, "Vous devez confirmer votre âge, votre nom, votre disponibilité et la possibilité de vous déplacer"
     end
   end
 end

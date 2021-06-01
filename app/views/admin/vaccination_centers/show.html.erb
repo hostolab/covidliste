@@ -96,20 +96,15 @@
   <% end %>
 
   <p>
+    <%= humanize_boolean @vaccination_center.visible_optin_at.present? %> Affichage sur la carte publique<br />
+    <%= humanize_boolean @vaccination_center.media_optin_at.present? %> Communication presse et réseaux sociaux
+  </p>
+  <p class="mb-1">
     Vaccins :
   </p>
   <ul>
-    <% if @vaccination_center.pfizer %>
-      <li> <%= Vaccine::Brands::PFIZER.capitalize %> </li>
-    <% end %>
-    <% if @vaccination_center.moderna %>
-      <li> <%= Vaccine::Brands::MODERNA.capitalize %> </li>
-    <% end %>
-    <% if @vaccination_center.astrazeneca %>
-      <li> <%= Vaccine::Brands::ASTRAZENECA.capitalize %> </li>
-    <% end %>
-    <% if @vaccination_center.janssen %>
-      <li> <%= Vaccine::Brands::JANSSEN.capitalize %> </li>
+    <% @vaccination_center.vaccines.each do |vaccine| %>
+      <li> <%= vaccine.capitalize %> </li>
     <% end %>
   </ul>
 
@@ -133,45 +128,85 @@
 
   <% if @vaccination_center.campaigns.present? %>
     <div class="table-responsive">
-      <table class="table table-bordered table-sm">
+      <table class="table table-hover table-bordered table-sm small">
         <thead class="thead-light">
-        <tr>
-          <th scope="col"> #</th>
-          <th scope="col"> Date et heure du RDV</th>
-          <th scope="col"> Statut</th>
-          <th scope="col"> Âge</th>
-          <th scope="col" title="Distance" data-toggle="tooltip"> Dist.</th>
-          <th scope="col"> Doses</th>
-          <th scope="col"> Matchs</th>
-          <th scope="col"> Création</th>
-        </tr>
+          <tr>
+            <th scope="col" class="text-right">#</th>
+            <th scope="col" class="text-center">Statut</th>
+            <th scope="col" class="text-center">Lancée</th>
+            <th scope="col" class="text-center">Début</th>
+            <th scope="col" class="text-center">Fin</th>
+            <th scope="col" class="text-center">Critères</th>
+            <th scope="col" class="text-center">
+              Doses<br />
+              Vaccin
+            </th>
+            <th scope="col" class="text-center">
+              Confirmés<br />
+              Contactés
+            </th>
+            <th scope="col" class="text-center">
+              Taux<br />
+              Confirm.
+            </th>
+            <th scope="col" class="text-center">
+              Taux<br />
+              Remplissage
+            </th>
+          </tr>
         </thead>
 
         <tbody>
-        <% @vaccination_center.campaigns.order(id: :desc).each do |campaign| %>
-          <tr>
-            <td class="text-right"> <%= campaign.id %> </td>
-            <td>
-              <%= l(campaign.starts_at, format: '%e %B %Y') %>
-              entre <%= l(campaign.starts_at, format: '%Hh%M') %>
-              et <%= l(campaign.ends_at, format: '%Hh%M') %>
-            </td>
-            <td> <%= french_status(campaign) %> </td>
-            <td> <%= campaign.min_age %> - <%= campaign.max_age %> </td>
-            <td> <%= campaign.max_distance_in_meters / 1000 %> km</td>
-            <td>
-              <%= campaign.vaccine_type.capitalize %>
-              <span class="text-muted">x</span>
-              <%= campaign.available_doses %>
-            </td>
-            <td title="<%= campaign.matches.confirmed.size %> confirmés / <%= campaign.matches.count %> matchés" data-toggle="tooltip">
-              <%= campaign.matches.confirmed.size %> / <%= campaign.matches.count %>
-            </td>
-            <td title="<%= l campaign.created_at %> par <%= campaign.partner.name %>" data-toggle="tooltip">
-              <%= l campaign.created_at %>
-            </td>
-          </tr>
-        <% end %>
+          <% @vaccination_center.campaigns.order(id: :desc).each do |campaign| %>
+            <% matches = campaign.matches %>
+            <% fill_rate = campaign.available_doses > 0 ? (100 * matches.confirmed.size.to_f / campaign.available_doses).round(1) : 0.0 %>
+            <% confirm_rate = matches.size > 0 ? (100 * matches.confirmed.size.to_f / matches.size).round(1) : 0.0 %>
+            <tr>
+              <td class="text-right font-weight-bold"><%= campaign.id %></td>
+              <td class="text-center text-nowrap">
+                <%= content_tag :span, french_status(campaign), class: "badge badge-sm #{status_badge(campaign)}" %>
+                <% if campaign.canceled_doses and campaign.canceled_doses > 0 %>
+                  <br />
+                  <%= campaign.canceled_doses %> <small class="text-muted">doses annulées</small><br />
+                <% end %>
+              </td>
+              <td class="text-center text-nowrap">
+                <%= l(campaign.created_at, format: "%d/%m") %><br />
+                <%= l(campaign.created_at, format: "%Hh%M") %>
+              </td>
+              <td class="text-center text-nowrap">
+                <%= l(campaign.starts_at, format: "%d/%m") %><br />
+                <%= l(campaign.starts_at, format: "%Hh%M") %>
+              </td>
+              <td class="text-center text-nowrap">
+                <%= l(campaign.ends_at, format: "%d/%m") %><br />
+                <%= l(campaign.ends_at, format: "%Hh%M") %>
+              </td>
+              <td class="text-center">
+                <%= campaign.min_age %>-<%= campaign.max_age %> <small class="text-muted">ans</small><br />
+                <%= (campaign.max_distance_in_meters / 1000).to_i.to_s %> <small class="text-muted">km</small>
+              </td>
+              <td class="text-center">
+                <%= campaign.available_doses %> <small class="text-muted">doses</small><br />
+                <%= campaign.vaccine_type.to_s.capitalize %>
+              </td>
+              <td class="text-center">
+                <%= matches.confirmed.size %> <small class="text-muted">confirmés</small><br />
+                <%= matches.size %> <small class="text-muted">contactés</small>
+              </td>
+              <td class="text-center"><%= "#{confirm_rate} %" %></td>
+              <td>
+                <div class="progress position-relative">
+                  <div class="d-flex flex-row align-items-center justify-content-center position-absolute w-100 h-100">
+                    <span class="text-dark"><%= "#{fill_rate} %" %></span>
+                  </div>
+                  <div class="progress-bar" role="progressbar" aria-valuemin="0"
+                       style="width: <%= fill_rate %>%"  aria-valuenow=<%= "#{fill_rate}" %> aria-valuemax="100">
+                  </div>
+                </div>
+              </td>
+            </tr>
+          <% end %>
         </tbody>
       </table>
     </div>
@@ -181,9 +216,9 @@
     Professionnels de santé liés
   </h5>
 
-  <% if @vaccination_center.partners.present? %>
+  <% if @vaccination_center.partners.includes(:partner_external_accounts).present? %>
     <div class="table-responsive">
-      <table class="table table-bordered table-sm">
+      <table class="table table-hover table-bordered table-sm small" aria-describedby="Professionnels de santé liés">
         <thead class="thead-light">
         <tr>
           <th class="text-right"> #</th>

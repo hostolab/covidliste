@@ -19,6 +19,7 @@ class VaccinationCenter < ApplicationRecord
   validates :lat, :lon, presence: true, on: :validation_by_admin
   validates :kind, inclusion: {in: VaccinationCenter::Kinds::ALL}
   validates :address, postal_address: {with_zipcode: true}, on: :create
+  validates :media_optin, :visible_optin, acceptance: false
 
   has_many :partner_vaccination_centers
   has_many :partners, through: :partner_vaccination_centers
@@ -56,6 +57,10 @@ class VaccinationCenter < ApplicationRecord
     GeocodeResourceJob.perform_later(self)
   end
 
+  def vaccines
+    Vaccine::Brands::ALL.filter_map { |vaccine| vaccine if send(vaccine) }
+  end
+
   def self.to_csv
     headers = [
       "ID",
@@ -68,6 +73,8 @@ class VaccinationCenter < ApplicationRecord
       "Code postal",
       "Ville",
       "Département",
+      "Carte du site",
+      "Communication media",
       "Téléphone",
       "Type de vaccin",
       "Nom du contact",
@@ -113,6 +120,8 @@ class VaccinationCenter < ApplicationRecord
           vaccination_center.zipcode,
           vaccination_center.city,
           vaccination_center.geo_context,
+          vaccination_center.visible_optin ? "Oui" : "Non",
+          vaccination_center.media_optin ? "Oui" : "Non",
           vaccination_center.human_friendly_phone_number,
           vaccin_types,
           vaccination_center.partners&.first&.name,
@@ -152,8 +161,12 @@ class VaccinationCenter < ApplicationRecord
     end
   end
 
+  def media_optin
+    media_optin_at.present?
+  end
+
   def visible_optin
-    false # waiting for https://github.com/hostolab/covidliste/issues/473
+    visible_optin_at.present?
   end
 
   def public_name

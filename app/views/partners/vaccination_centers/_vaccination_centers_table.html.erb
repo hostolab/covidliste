@@ -1,0 +1,65 @@
+<div class="table-responsive">
+  <table class="table table-bordered table-sm mb-0" aria-label="Lieux de vaccination">
+    <thead class="thead-light">
+    <tr>
+      <th scope="col">Nom</th>
+      <th scope="col">Coordonnées</th>
+      <th scope="col">Collaborateurs</th>
+      <th scope="col" class="text-center">Actions</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% vaccination_centers.each do |vaccination_center| %>
+      <tr>
+        <td>
+          <strong>
+            <%= link_to vaccination_center.name, partners_vaccination_center_path(vaccination_center.id) %>
+          </strong>
+          <br>
+          <em><%= vaccination_center.kind %></em>
+          <br>
+          <small><%= vaccination_center.description %></small>
+        </td>
+
+        <td class="small">
+          <%= icon("fas", "phone", vaccination_center.human_friendly_phone_number) %>
+          <small class="text-muted">(numéro transmis aux volontaires)</small>
+          <br>
+          <%= vaccination_center.address %>
+          <br>
+          Vaccins :
+          <% vaccination_center.vaccines.each do |vaccine| %>
+            <span class="ml-1"> <%= vaccine.capitalize %> </span>
+          <% end %>
+          <br>
+          <span data-toggle="tooltip" data-html="true"
+                title="Les coordonnées du lieu (nom, adresse) sont-elles visibles sur le site Covidliste ?">
+                  <%= humanize_boolean vaccination_center.visible_optin_at.present? %> Affiché sur la carte
+          </span>
+          <span data-toggle="tooltip" data-html="true" class="ml-4"
+                title="L'inscription de ce lieu peut-elle être utilisée dans les communications de Covidliste ?">
+                  <%= humanize_boolean vaccination_center.media_optin_at.present? %> Communication
+          </span>
+        </td>
+
+        <td class="small text-left">
+          <% vaccination_center.partners.each do |partner| %>
+            - <%= partner.name %><br />
+          <% end %>
+        </td>
+
+        <td class="text-center">
+          <% if vaccination_center.active? %>
+            <%= link_to "Voir / Gérer les campagnes", partners_vaccination_center_path(vaccination_center.id), class: "btn btn-primary btn-sm" %>
+          <% elsif !vaccination_center.confirmed? %>
+            <em>En attente de validation</em>
+          <% else %>
+            <em>Désactivé</em>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
