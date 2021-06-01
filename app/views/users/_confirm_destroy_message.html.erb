@@ -7,7 +7,7 @@
     
     <%= simple_form_for "", url: profile_path(authentication_token: token), method: :delete do |f| %>
       <div class="mt-4">
-          <%= f.input :reason, required: true, label: '', class: 'mt-4', collection: User::ANONYMIZED_REASONS.map{|k, v| [v, k]}, as: :radio_buttons, item_label_class: 'mt-y' %>         
+          <%= f.input :reason, required: false, label: '', class: 'mt-4', collection: User::ANONYMIZED_REASONS.map{|k, v| [v, k]}, as: :radio_buttons, item_label_class: 'mt-y' %>         
           <%= f.submit "Supprimer mon compte !", 
           id: dom_id(user, :delete),
           class: "btn btn-outline-danger btn-lg mt-4",
