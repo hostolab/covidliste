@@ -33,15 +33,22 @@ export const CampaignCreatorVaccineType = () => {
           </div>
         );
       })}
-      {values.vaccineType === "astrazeneca" && (
-        <p className="small">
-          Il est de plus en plus difficile de trouver des volontaires pour
-          AstraZeneca. Pour maximiser vos chances, regroupez vos campagnes : une
-          seule grosse campagne est plus efficace que plusieurs petites. Et
-          surtout, n'interrompez pas vos campagnes pour les relancer si elles ne
-          se remplissent pas bien, cela empire le problème. Chaque dose sauvée
-          est une victoire !
-        </p>
+      {(values.vaccineType === "astrazeneca" ||
+        values.vaccineType === "janssen") && (
+        <div className="alert alert-warning mt-2">
+          <strong>
+            Il est maintenant extrêmement difficile de trouver des volontaires
+            pour AstraZeneca et Janssen.
+          </strong>
+          <br />
+          <small>
+            Pour augmenter vos chances :<br />
+            - regroupez vos campagnes : une seule grosse campagne est plus
+            efficace que plusieurs petites
+            <br />- n'interrompez pas vos campagnes pour les relancer si elles
+            ne se remplissent pas bien, cela empire le problème
+          </small>
+        </div>
       )}
     </CampaignCreatorField>
   );
