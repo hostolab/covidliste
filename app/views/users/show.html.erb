@@ -162,10 +162,7 @@
             Votre profil sera anonymisé quelques jours après le RDV.
           </div>
         <% end %>
-      <%= button_to "Supprimer mon compte", profile_path, method: :delete, class: "btn btn-danger",
-        data: {confirm: "En confirmant, votre compte ainsi que toutes les données associées seront supprimées de nos serveurs. Êtes-vous sûr ?"} %>
-      </p>
-
+      <%= link_to "Supprimer mon compte", confirm_destroy_profile_path, class: 'btn btn-danger' %>
       <hr class="my-4"/>
 
       <%= button_to "Se déconnecter", destroy_user_session_path, method: :delete, class: "btn btn-warning" %>

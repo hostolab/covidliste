@@ -1,14 +1,29 @@
 <div class="container">
   <div class="d-flex align-items-center flex-column my-4 my-lg-5">
     <h4 class="text-center">
-      Vous souhaitez vous désinscrire de Covidliste en supprimant votre compte ?
+      Pourquoi souhaitez vous supprimer votre compte ?
     </h4>
     <% token = user.signed_id(purpose: "users.destroy", expires_in: 1.hour) %>
-    <%= button_to "Supprimer mon compte", profile_path(authentication_token: token),
-      method: :delete,
-      id: dom_id(user, :delete),
-      class: "btn btn-outline-danger btn-lg mt-4",
-      data: {
-        confirm: "En confirmant, votre compte ainsi que toutes les données associées seront supprimées de nos serveurs. Êtes-vous sûr(e) ?"} %>
+    
+    <%= simple_form_for "", url: profile_path(authentication_token: token), method: :delete do |f| %>
+      <div class="mt-4">
+          <%= f.input :reason, required: false, label: '', class: 'mt-4', collection: User::ANONYMIZED_REASONS.map{|k, v| [v, k]}, as: :radio_buttons, item_label_class: 'mt-y' %>         
+          <%= f.submit "Supprimer mon compte !", 
+          id: dom_id(user, :delete),
+          class: "btn btn-outline-danger btn-lg mt-4",
+          data: {confirm: "En confirmant, votre compte ainsi que toutes les données associées seront supprimées de nos serveurs. Êtes-vous sûr(e) ?"} %>
+      </div>
+    <% end %>
+
+    <div class="mt-4">
+      <p class="small">
+        Covidliste demande cette information afin de s'assurer que vous avez pu être mise en relation. Cette information n'est pas associée à votre compte.
+      </p>
+    </div>
+
+
+
+
+
   </div>
 </div>

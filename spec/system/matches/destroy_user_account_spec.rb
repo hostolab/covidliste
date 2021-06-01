@@ -16,6 +16,7 @@ RSpec.describe "Destroy user account from match email", type: :system do
       visit edit_matches_users_path(match_confirmation_token: match_confirmation_token)
       expect(page).to have_current_path(edit_matches_users_path, ignore_query: true)
       expect(page).to have_selector(:id, dom_id(user, :delete))
+      choose "reason_covidliste"
       expect do
         accept_confirm_modal do
           click_on dom_id(user, :delete)
