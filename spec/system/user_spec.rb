@@ -190,6 +190,7 @@ RSpec.describe "Users", type: :system do
       end
 
       it "it allows me to delete my account" do
+        choose "reason_covidliste"
         expect do
           accept_confirm_modal do
             click_on "Supprimer mon compte"
@@ -241,6 +242,7 @@ RSpec.describe "Users", type: :system do
 
     scenario "it confirms then delete the account" do
       visit confirm_destroy_profile_path
+      choose "reason_covidliste"
 
       expect do
         accept_confirm_modal do
