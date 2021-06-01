@@ -8,7 +8,10 @@
         Vous êtes inscrit sur Covidliste depuis le <%= @user.created_at.strftime("%d/%m/%Y") %>
       </p>
 
-      <%= twitter_share %>
+      <div class="d-flex align-items-center">
+        <div><%= twitter_share %></div>
+        <div class="ml-2"><%= facebook_share %></div>
+      </div>
 
       <p class="mt-3">
         <strong>Vos informations</strong>
