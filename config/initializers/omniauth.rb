@@ -24,7 +24,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
 
       authorization_endpoint: "https://" + bimedoc_auth_host + "/auth-request",
       token_endpoint: "https://" + bimedoc_server_host + "/o/token/",
-      userinfo_endpoint: "https://" + bimedoc_server_host + "/o/token/",
+      userinfo_endpoint: "https://" + bimedoc_server_host + "/o/userinfo/",
       jwks_uri: "https://" + bimedoc_server_host + "/o/.well-known/jwks.json",
       post_logout_redirect_uri: "/"
     })
