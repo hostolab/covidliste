@@ -26,7 +26,7 @@
           <%= link_to "Professionnels de santé", landing_page_pro_path, class: "nav-link" %>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#dropdownHelpers" role="button" aria-haspopup="true" aria-expanded="false">Ils nous aident</a>
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#dropdownHelpers" aria-haspopup="true" aria-expanded="false">Ils nous aident</a>
           <div class="dropdown-menu" aria-labelledby="dropdownHelpers">
             <%= link_to "Donateurs", donateurs_path, class: class_names("dropdown-item", active: current_page?(donateurs_path)) %>
             <%= link_to "Sponsors", sponsors_path, class: class_names("dropdown-item", active: current_page?(sponsors_path)) %>
