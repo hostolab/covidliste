@@ -3,6 +3,6 @@ class SendSlotAlertsJob < ApplicationJob
 
   def perform(params)
     return unless params[:days]
-    SlotAlertService.new(params[:days]).call
+    SlotAlertService.new(params[:days], params[:threshold]).call
   end
 end
