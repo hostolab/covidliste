@@ -59,7 +59,7 @@
           <div class="mt-4 mb-4"
                id="user_map"
                style="height: 250px;"
-               data-rayon="<%= @user.alerting_optin_at.present? ? @user.max_distance_km : 0.5 %>"
+               data-rayon="<%= Flipper.enabled?(:slot_alerting_preference, @user) ? @user.max_distance_km : 0.5 %>"
                data-lat="<%= @user.lat %>"
                data-lon="<%= @user.lon %>"
           >
@@ -93,13 +93,6 @@
           <p class="mt-4">
             <strong>Préférences de notifications de rendez-vous de vaccination</strong>
           </p>
-          <%= f.input :alerting_optin_at,
-            as: :boolean,
-            input_html: { checked: @user.alerting_optin_at.present? },
-            label_html: { class: "small" },
-            label: "Je souhaite recevoir des notifications lorsque des rendez-vous de vaccinations sont disponibles près de chez moi".html_safe,
-            required: false
-          %>
           <%= f.input :max_distance_km, label: "Rayon maximum (km)", error: "", placeholder: "Nombre de kms maximum que vous êtes prêt à parcourir pour une dose de vaccin." %>
           <%= f.button :submit, "Enregistrer", class: "btn btn-primary", data: {disable_with: "Validation..."} %>
         <% end %>
