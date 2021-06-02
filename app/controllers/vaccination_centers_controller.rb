@@ -60,7 +60,7 @@ class VaccinationCentersController < ApplicationController
 
     departments = {}
     results.each do |result|
-      if (m = result["geo_context"].match(/^(\d+),/))
+      if (m = result["geo_context"].match(/^([\dAB]{2,3}),/))
         department_code = m[1]
         departments[department_code] = {count: 0, name: result["geo_context"]} unless departments[department_code]
         departments[department_code][:count] += result["doses"]
@@ -79,14 +79,14 @@ class VaccinationCentersController < ApplicationController
       if departments[feature["properties"]["code"]]
         department = departments[feature["properties"]["code"]]
         if department[:count] > 0
-          # convert doses (between 1-infinite) into a number between 0.01 and 0.95
+          # convert doses (between 1-infinite) into a number between 0.1 and 0.95
           # to scale your variable x into a range [a,b] you can use:
           # f(x) = ( b - a ) * ( ( x - xmin ) / ( xmax - xmin ) ) + a
           x = (department[:count] > 200 ? 200 : department[:count]).to_f # capping to 200 for calculation
           xmin = 1.to_f
           xmax = 300.to_f
           b = 0.95.to_f
-          a = 0.01.to_f
+          a = 0.1.to_f
           y = (b - a) * ((x - xmin) / (xmax - xmin)) + a
 
           feature["properties"]["style"] = {
