@@ -12,11 +12,10 @@ class OmniauthBimedocService < BaseOmniauthService
       provider_id: provider_id,
       service_name: service_name,
       sub: sub,
-      # TODO remove omniauth_info DEBUG
-      DEBUG_RAW_DATA: omniauth_info
       # first_name: omniauth_info.given_name,
       # last_name: omniauth_info.family_name,
       # identifier: omniauth_info.SubjectNameID,
+      raw: omniauth_info
     }
   end
 end

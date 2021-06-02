@@ -13,7 +13,8 @@ class OmniauthProSanteConnectService < BaseOmniauthService
       sub: sub,
       first_name: omniauth_info.given_name,
       last_name: omniauth_info.family_name,
-      identifier: omniauth_info.SubjectNameID
+      identifier: omniauth_info.SubjectNameID,
+      raw: omniauth_info
     }
   end
 end
