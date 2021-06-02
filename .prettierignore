@@ -49,3 +49,6 @@ yarn-debug.log*
 *.dump
 .idea/*
 coverage/*
+
+Ignore geojson assets
+/app/assets/geojson/*.geojson
