@@ -96,7 +96,7 @@ class VaccinationCentersController < ApplicationController
             fillColor: "#8c588f",
             fillOpacity: y.round(2)
           }
-          feature["properties"]["popupContent"] = "<strong>#{feature["properties"]["nom"]}</strong><br />#{department[:count]} doses n'ont pas trouvé prenneur dans les 7 derniers jours</em>"
+          feature["properties"]["popupContent"] = "<strong>#{feature["properties"]["nom"]}</strong><br />#{department[:count]} doses n'ont pas trouvé preneur dans les 7 derniers jours</em>"
         end
       end
     end
