@@ -60,7 +60,7 @@ class VaccinationCentersController < ApplicationController
 
     departments = {}
     results.each do |result|
-      if (m = result["geo_context"].match(/^(\d+),/))
+      if (m = result["geo_context"].match(/^([\dAB]{2,3}),/))
         department_code = m[1]
         departments[department_code] = {count: 0, name: result["geo_context"]} unless departments[department_code]
         departments[department_code][:count] += result["doses"]
