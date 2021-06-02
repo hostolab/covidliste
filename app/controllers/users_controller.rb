@@ -37,6 +37,7 @@ class UsersController < ApplicationController
     @user = current_user
     authorize @user
     @user.statement_accepted_at = Time.now.utc if !@user.statement && ActiveRecord::Type::Boolean.new.cast(user_params["statement"])
+    @user.alerting_optin_at = user_params.fetch(:alerting_optin_at, false) == "1" ? Time.now.utc : nil
     @user.assign_attributes(user_params)
     if @user.save
       flash.now[:success] = "Modifications enregistrées."
@@ -88,7 +89,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:email, :phone_number, :toc, :address, :lat, :lon, :birthdate, :password, :statement)
+    params.require(:user).permit(:email, :phone_number, :toc, :address, :lat, :lon, :birthdate, :password, :statement, :max_distance_km, :alerting_optin_at)
   end
 
   def sign_out_if_anonymized!

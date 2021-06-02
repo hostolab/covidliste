@@ -189,6 +189,10 @@ class User < ApplicationRecord
     Counter.increment(:total_users)
   end
 
+  def flipper_id
+    "#{self.class.name}_#{id}"
+  end
+
   protected
 
   def skip_password_complexity?
