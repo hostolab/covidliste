@@ -139,6 +139,7 @@ Rails.application.routes.draw do
 
   ## Pages
   get "/vaccination_centers/geojson.json" => "vaccination_centers#geojson", :as => :vaccination_centers_geojson
+  get "/vaccination_centers/missing_users/geojson.json" => "vaccination_centers#missing_users_geojson", :as => :vaccination_centers_missing_users_geojson
   get "/carte" => "pages#carte", :as => :carte
   get "/donateurs" => "pages#donateurs", :as => :donateurs
   get "/sponsors" => "pages#sponsors", :as => :sponsors
