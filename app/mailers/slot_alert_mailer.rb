@@ -12,7 +12,7 @@ class SlotAlertMailer < ApplicationMailer
 
     mail(
       to: @alert.user.email,
-      subject: "Des rendez-vous de vaccination sont disponibles près de chez vous."
+      subject: "#{@slot.slots_7_days} créneaux sont disponibles près de chez vous."
     )
   end
 
