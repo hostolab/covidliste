@@ -75,7 +75,7 @@ class VaccinationCentersController < ApplicationController
         fillColor: "#8c588f",
         fillOpacity: 0.01
       }
-      feature["properties"]["popupContent"] = "<strong>#{feature["properties"]["nom"]}</strong>"
+      feature["properties"]["popupContent"] = "<strong>#{feature["properties"]["nom"]}</strong><br /><em>0 doses n'ont pas trouvé preneur dans les 7 derniers jours</em>"
       if departments[feature["properties"]["code"]]
         department = departments[feature["properties"]["code"]]
         if department[:count] > 0
@@ -86,7 +86,7 @@ class VaccinationCentersController < ApplicationController
           xmin = 1.to_f
           xmax = 300.to_f
           b = 0.95.to_f
-          a = 0.2.to_f
+          a = 0.01.to_f
           y = (b - a) * ((x - xmin) / (xmax - xmin)) + a
 
           feature["properties"]["style"] = {
@@ -96,7 +96,7 @@ class VaccinationCentersController < ApplicationController
             fillColor: "#8c588f",
             fillOpacity: y.round(2)
           }
-          feature["properties"]["popupContent"] = "<strong>#{feature["properties"]["nom"]}</strong><br />#{department[:count]} doses n'ont pas trouvé preneur dans les 7 derniers jours</em>"
+          feature["properties"]["popupContent"] = "<strong>#{feature["properties"]["nom"]}</strong><br /><em>#{department[:count]} doses n'ont pas trouvé preneur dans les 7 derniers jours</em>"
         end
       end
     end
