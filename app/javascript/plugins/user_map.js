@@ -5,14 +5,13 @@ const userMap = () => {
   if (user_map) {
     let lat = user_map.getAttribute("data-lat");
     let lon = user_map.getAttribute("data-lon");
-    let radius = (user_map.getAttribute("data-rayon") || 0.5) * 1000
+    let radius = (user_map.getAttribute("data-rayon") || 0.5) * 1000;
     let zoom = 9;
-    if (radius <= 5000){
+    if (radius <= 5000) {
       zoom = 11;
-    }else if (radius <= 2000){
+    } else if (radius <= 2000) {
       zoom = 12;
-    }
-    else if (radius <= 1000){
+    } else if (radius <= 1000) {
       zoom = 13;
     }
     var lmap = L.map(user_map).setView([lat, lon], zoom);
