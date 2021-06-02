@@ -79,14 +79,14 @@ class VaccinationCentersController < ApplicationController
       if departments[feature["properties"]["code"]]
         department = departments[feature["properties"]["code"]]
         if department[:count] > 0
-          # convert doses (between 1-infinite) into a number between 0.5 and 0.8
+          # convert doses (between 1-infinite) into a number between 0.01 and 0.95
           # to scale your variable x into a range [a,b] you can use:
           # f(x) = ( b - a ) * ( ( x - xmin ) / ( xmax - xmin ) ) + a
           x = (department[:count] > 200 ? 200 : department[:count]).to_f # capping to 200 for calculation
           xmin = 1.to_f
           xmax = 300.to_f
           b = 0.95.to_f
-          a = 0.4.to_f
+          a = 0.2.to_f
           y = (b - a) * ((x - xmin) / (xmax - xmin)) + a
 
           feature["properties"]["style"] = {
@@ -96,7 +96,7 @@ class VaccinationCentersController < ApplicationController
             fillColor: "#8c588f",
             fillOpacity: y.round(2)
           }
-          feature["properties"]["popupContent"] = "<strong>#{feature["properties"]["nom"]}</strong><br />#{department[:count]} doses</em>"
+          feature["properties"]["popupContent"] = "<strong>#{feature["properties"]["nom"]}</strong><br />#{department[:count]} doses n'ont pas trouvé prenneur dans les 7 derniers jours</em>"
         end
       end
     end
