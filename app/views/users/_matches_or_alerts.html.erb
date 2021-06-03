@@ -1,0 +1,54 @@
+<p class="mt-4">
+    <strong>Vos propositions de RDV</strong>
+</p>
+
+<%- @matches = @user.matches.includes([:campaign, :vaccination_center]).order(id: :desc) %>
+<% if @matches.any? %>
+  <div class="table-responsive">
+    <table class="table table-bordered table-sm small text-center" aria-describedby="Vos propositions de RDV">
+      <thead class="thead-light">
+      <tr>
+        <th scope="col"> Vaccin</th>
+        <th scope="col"> Lieu</th>
+        <th scope="col"> Notification</th>
+        <th scope="col"> État</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @matches.order(id: :desc).each do |match| %>
+        <% vaccination_center = match.vaccination_center %>
+        <tr>
+          <td> <%= match.campaign&.vaccine_type.capitalize %> </td>
+          <td data-toggle="tooltip" title="<%= "#{vaccination_center.human_friendly_geo_area}" if vaccination_center.human_friendly_geo_area %>">
+            <%= icon("fas", "map-marked-alt") if vaccination_center.human_friendly_geo_area %>
+          </td>
+          <td>
+            <% if match.mail_sent_at %>
+              Mail envoyé le <%= l match.mail_sent_at %><br />
+            <% end %>
+            <% if match.sms_sent_at %>
+              SMS envoyé le <%= l match.sms_sent_at %><br />
+            <% end %>
+          </td>
+          <td>
+            <% if match.confirmed? %>
+              <abbr title="RDV confirmé le <%= l match.confirmed_at %>" data-toggle="tooltip">Confirmée</abbr>
+            <% elsif match.refused? %>
+              <abbr title="RDV refusée le <%= l match.refused_at %>" data-toggle="tooltip">Refusée</abbr>
+            <% elsif match.expired? %>
+              <abbr title="Proposition de RDV expirée le <%= l match.expires_at %>" data-toggle="tooltip">Expirée</abbr>
+            <% elsif !match.confirmable? %>
+              <abbr title="Proposition de RDV expirée" data-toggle="tooltip">Expirée</abbr>
+            <% elsif !match.expired? %>
+              <abbr title="Proposition de RDV en attente de réponse" data-toggle="tooltip">En attente</abbr>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+<% else %>
+  <p>Vous n'avez pas encore reçu de propositions de rendez-vous.</p>
+<% end %>
+
