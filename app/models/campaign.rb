@@ -83,7 +83,7 @@ class Campaign < ApplicationRecord
 
   def set_parameters
     matching_algo = Flipper.enabled?(:matching_algo_v3) ? "v3" : "v2"
-    ranking_method = Flipper.enabled?(:ranking_method_v2) ? "v2" : "v1"
+    ranking_method = Flipper.enabled?(:ranking_method_v3) ? "v3" : "v2"
     self.parameters =
       {
         algo_version: matching_algo,
@@ -99,7 +99,7 @@ class Campaign < ApplicationRecord
   end
 
   def ranking_method
-    (parameters || {}).symbolize_keys[:ranking_method] || "v1"
+    (parameters || {}).symbolize_keys[:ranking_method] || "v2"
   end
 
   def matching_algo_v2?

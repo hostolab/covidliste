@@ -90,34 +90,20 @@ const leafletMap = () => {
         "leaflet-geojson"
       );
       if (leafletGeojsons) {
+        let geojsonCodes = {};
         for (let i = 0; i < leafletGeojsons.length; ++i) {
           let leafletGeojson = leafletGeojsons[i];
           let geojsonUrl = leafletGeojson.getAttribute("data-url");
           let geojsonData = leafletGeojson.getAttribute("data-geojson");
+          let geojsonHide = !!leafletGeojson.getAttribute("data-hide");
+          let geojsonPane =
+            leafletGeojson.getAttribute("data-pane") || "overlayPane";
+          let geojsonName =
+            leafletGeojson.getAttribute("data-name") ||
+            Math.random().toString(36).substring(2);
           if (geojsonUrl) {
-            L.geoJSON
-              .ajax(geojsonUrl, {
-                pointToLayer: function (feature, latlng) {
-                  let style = { radius: 10 };
-                  if (feature.properties && feature.properties.style) {
-                    style = feature.properties.style;
-                  }
-                  return L.circle(latlng, style);
-                },
-                style: function (feature) {
-                  if (feature.properties && feature.properties.style) {
-                    return feature.properties.style;
-                  }
-                },
-                onEachFeature: function (feature, layer) {
-                  if (feature.properties && feature.properties.popupContent) {
-                    layer.bindPopup(feature.properties.popupContent);
-                  }
-                },
-              })
-              .addTo(lmap);
-          } else if (geojsonData) {
-            L.geoJSON(geojsonData, {
+            let geoLayer = L.geoJSON.ajax(geojsonUrl, {
+              pane: geojsonPane,
               pointToLayer: function (feature, latlng) {
                 let style = { radius: 10 };
                 if (feature.properties && feature.properties.style) {
@@ -135,9 +121,39 @@ const leafletMap = () => {
                   layer.bindPopup(feature.properties.popupContent);
                 }
               },
-            }).addTo(lmap);
+            });
+            if (!geojsonHide) {
+              geoLayer.addTo(lmap);
+            }
+            geojsonCodes[geojsonName] = geoLayer;
+          } else if (geojsonData) {
+            let geoLayer = L.geoJSON(geojsonData, {
+              pane: geojsonPane,
+              pointToLayer: function (feature, latlng) {
+                let style = { radius: 10 };
+                if (feature.properties && feature.properties.style) {
+                  style = feature.properties.style;
+                }
+                return L.circle(latlng, style);
+              },
+              style: function (feature) {
+                if (feature.properties && feature.properties.style) {
+                  return feature.properties.style;
+                }
+              },
+              onEachFeature: function (feature, layer) {
+                if (feature.properties && feature.properties.popupContent) {
+                  layer.bindPopup(feature.properties.popupContent);
+                }
+              },
+            });
+            if (!geojsonHide) {
+              geoLayer.addTo(lmap);
+            }
+            geojsonCodes[geojsonName] = geoLayer;
           }
         }
+        L.control.layers({}, geojsonCodes, { collapsed: false }).addTo(lmap);
       }
 
       let leafletFlyBtns = leafletMapContainer.getElementsByClassName(

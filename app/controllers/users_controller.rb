@@ -68,7 +68,7 @@ class UsersController < ApplicationController
 
   def destroy
     authorize current_user
-    current_user.anonymize!
+    current_user.anonymize!(params[:reason])
     sign_out current_user
     flash[:success] = "🎉 🎉 🎉 Votre compte a été supprimé de nos serveurs. Portez-vous bien."
     redirect_to root_path
@@ -88,7 +88,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:email, :phone_number, :toc, :address, :lat, :lon, :birthdate, :password, :statement)
+    params.require(:user).permit(:email, :phone_number, :toc, :address, :lat, :lon, :birthdate, :password, :statement, :max_distance_km)
   end
 
   def sign_out_if_anonymized!

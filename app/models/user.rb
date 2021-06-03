@@ -51,6 +51,12 @@ class User < ApplicationRecord
 
   PASSWORD_HINT = "Le mot de passe choisi doit être robuste ou très robuste pour pouvoir compléter votre inscription. Il doit notamment comporter au moins 8 caractères avec un mélange de chiffres et de lettres."
 
+  ANONYMIZED_REASONS = {
+    covidliste: "J'ai trouvé un rendez-vous grâce à Covidliste",
+    not_interested: "Je ne suis plus intéressé",
+    other: "Autre"
+  }.freeze
+
   def randomize_lat_lon
     return if lat.nil? || lon.nil?
     results = ::RandomizeCoordinatesService.new(lat, lon).call
@@ -138,7 +144,7 @@ class User < ApplicationRecord
   end
   memoize :has_role?
 
-  def anonymize!
+  def anonymize!(reason = nil)
     return unless anonymized_at.nil?
     refuse_pending_matching
 
@@ -157,6 +163,7 @@ class User < ApplicationRecord
     self.grid_i = nil
     self.grid_j = nil
     self.anonymized_at = Time.now.utc
+    self.anonymized_reason = reason
     save(validate: false)
   end
 
@@ -180,6 +187,10 @@ class User < ApplicationRecord
 
   def increment_total_users_counter
     Counter.increment(:total_users)
+  end
+
+  def flipper_id
+    "#{self.class.name}_#{id}"
   end
 
   protected
