@@ -57,8 +57,10 @@ class ReachableUsersService
 
   def get_users_count
     sql = <<~SQL.tr("\n", " ").squish
-      SELECT
-        COUNT(DISTINCT u.id) as count
+      with reachable_users as
+      (
+        SELECT
+          DISTINCT u.id
         FROM users u
         left outer join matches m on (m.user_id = u.id and m.confirmed_at is not null)
         WHERE u.confirmed_at IS NOT NULL
@@ -68,6 +70,27 @@ class ReachableUsersService
         AND u.grid_j >= :min_j AND u.grid_j <= :max_j
         AND (SQRT((((:lat) - u.lat)*110.574)^2 + (((:lon) - u.lon)*111.320*COS(u.lat::float*3.14159/180))^2)) < (:rayon_km)
         AND m.id IS NULL
+      ),
+      matchable_users_count as (
+        select count(distinct id) matchable_users_count
+        from
+        (
+          select ru.id, sum(case when m.id is not null then 1 else 0 end) count
+          from
+            reachable_users ru
+            left join matches m on (ru.id=m.user_id)
+          where
+            created_at >= :throttling_interval
+            or m.id is null
+         group by ru.id
+        ) a
+        where count < :throttling_rate
+      )
+
+      select *
+      from
+        (select count(1) reachable_users_count from reachable_users) a
+        join matchable_users_count on (1=1)
     SQL
     params = {
       min_date: @campaign.max_age.years.ago,
@@ -79,9 +102,11 @@ class ReachableUsersService
       max_i: @covering[:center_cell][:i] + @covering[:dist_cells],
       min_j: @covering[:center_cell][:j] - @covering[:dist_cells],
       max_j: @covering[:center_cell][:j] + @covering[:dist_cells],
-      vaccine_type: @campaign.vaccine_type
+      vaccine_type: @campaign.vaccine_type,
+      throttling_rate: Match.throttling_rate,
+      throttling_interval: Match.throttling_interval.ago
     }
     query = ActiveRecord::Base.send(:sanitize_sql_array, [sql, params])
-    ActiveRecord::Base.connection.execute(query).to_a.first["count"].to_i
+    ActiveRecord::Base.connection.execute(query).to_a.first
   end
 end

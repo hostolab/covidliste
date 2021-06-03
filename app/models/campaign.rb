@@ -60,7 +60,7 @@ class Campaign < ApplicationRecord
   end
 
   def reachable_users_count
-    ::ReachableUsersService.new(self).get_users_count
+    ::ReachableUsersService.new(self).get_users_count["matchable_users_count"]
   end
 
   def to_csv
