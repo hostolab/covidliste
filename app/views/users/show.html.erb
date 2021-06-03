@@ -35,13 +35,13 @@
         </ul>
 
         <% if tab.blank? || tab == "infos" %>
-          <%= render 'user_infos', locals: {user: @user} %>
+          <%= render partial: 'user_infos', locals: {user: @user} %>
         <% elsif tab == "preferences" %>
-          <%= render 'alerting_preferences', locals: {user: @user} %>
+          <%= render partial: 'alerting_preferences', locals: {user: @user} %>
         <% elsif tab == "rdv" %>
-          <%= render 'matches_or_alerts', locals: {user: @user} %>
+          <%= render partial: 'matches_or_alerts', locals: {user: @user} %>
         <% elsif tab == "data" %>
-          <%= render 'personal_data', locals: {user: @user} %>      
+          <%= render partial: 'personal_data', locals: {user: @user} %>      
         <% end %>
       </div>
 

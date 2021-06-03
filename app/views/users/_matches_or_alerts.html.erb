@@ -2,7 +2,7 @@
     <strong>Vos propositions de RDV</strong>
 </p>
 
-<%- @matches = @user.matches.includes([:campaign, :vaccination_center]).order(id: :desc) %>
+<%- @matches = user.matches.includes([:campaign, :vaccination_center]).order(id: :desc) %>
 <% if @matches.any? %>
   <div class="table-responsive">
     <table class="table table-bordered table-sm small text-center" aria-describedby="Vos propositions de RDV">

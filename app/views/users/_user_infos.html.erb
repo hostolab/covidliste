@@ -2,7 +2,7 @@
   <strong>Vos informations</strong>
 </p>
 
-<% if @user.errors.any? %>
+<% if user.errors.any? %>
   <div class="alert alert-danger" role="alert" style="position: inherit">
     <% user.errors.full_messages.each do |msg| %>
       <%= msg %><br/>
@@ -10,7 +10,7 @@
   </div>
 <% end %>
 
-<%= simple_form_for(@user, url: :profile, method: :put, wrapper: :horizontal_form) do |f| %>
+<%= simple_form_for(user, url: :profile, method: :put, wrapper: :horizontal_form) do |f| %>
   <div class="row">
     <div class="col-12 col-sm-3">
       <label class="col-form-label">
@@ -33,7 +33,7 @@
     informations".
   </small>
 
-  <%- if @user.lat.nil? || @user.lon.nil? %>
+  <%- if user.lat.nil? || user.lon.nil? %>
     <div class="alert alert-danger mb-4 small" role="alert" style="position: inherit">
       Nous n'avons pas pu géolocaliser l'adresse que vous avez renseignée lors de votre inscription.
       Sans cette information, il nous sera impossible de vous mettre en relation avec l'un de nos centres
@@ -45,8 +45,8 @@
           id="user_map"
           style="height: 250px;"
           data-rayon="0.5"
-          data-lat="<%= @user.lat %>"
-          data-lon="<%= @user.lon %>"
+          data-lat="<%= user.lat %>"
+          data-lon="<%= user.lon %>"
     >
     </div>
   <% end %>
@@ -56,13 +56,13 @@
 
   <%= render partial: "input_statement", locals: {f: f, local_cgu_path: cgu_volontaires_path} %>
 
-  <% if @user.matches.confirmed.any? %>
+  <% if user.matches.confirmed.any? %>
     <div class="alert alert-primary">
       Vous ne pouvez pas modifier votre compte actuellement car vous avez confirmé un rendez-vous de
       vaccination.<br/>
       Votre profil sera anonymisé quelques jours après le RDV.
     </div>
-  <% elsif @user.matches.pending.any? %>
+  <% elsif user.matches.pending.any? %>
     <div class="alert alert-primary">
       Vous ne pouvez pas modifier vos informations actuellement car vous avez une proposition rendez vous de
       vaccination en cours.<br/>

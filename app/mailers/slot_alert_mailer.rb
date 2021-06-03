@@ -10,6 +10,9 @@ class SlotAlertMailer < ApplicationMailer
     @alert_token = @alert.token
     @slot = @alert.vmd_slot
 
+    @user = @alert.user
+    @passwordless_token = Devise::Passwordless::LoginToken.encode(@user)
+
     mail(
       to: @alert.user.email,
       subject: "#{@slot.slots_7_days} créneaux sont disponibles près de chez vous."
