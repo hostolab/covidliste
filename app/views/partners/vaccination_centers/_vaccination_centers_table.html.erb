@@ -28,11 +28,6 @@
           <br>
           <%= vaccination_center.address %>
           <br>
-          Vaccins :
-          <% vaccination_center.vaccines.each do |vaccine| %>
-            <span class="ml-1"> <%= vaccine.capitalize %> </span>
-          <% end %>
-          <br>
           <span data-toggle="tooltip" data-html="true"
                 title="Les coordonnées du lieu (nom, adresse) sont-elles visibles sur le site Covidliste ?">
                   <%= humanize_boolean vaccination_center.visible_optin_at.present? %> Affiché sur la carte
