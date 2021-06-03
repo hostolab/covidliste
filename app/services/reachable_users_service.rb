@@ -12,11 +12,8 @@ class ReachableUsersService
         select
         u.id as user_id,
         ((SQRT((((:lat) - u.lat)*110.574)^2 + (((:lon) - u.lon)*111.320*COS(u.lat::float*3.14159/180))^2)) / 5.0)::int * 5 as distance_bucket,
-        u.created_at::date as created_at,
-        COUNT(m.id) filter (where vaccine_type = (:vaccine_type)) as vaccine_matches_count,
-        COUNT(m.id) as total_matches_count,
-        MAX(m.created_at) filter (where vaccine_type = (:vaccine_type))  as last_vaccine_match,
-        MAX(m.created_at)::date as last_match
+        EXTRACT(EPOCH FROM (now() - u.created_at)) as created_at,
+        COUNT(m.id) as total_matches_count
         from users u
         left outer join matches m on (m.user_id = u.id)
         left outer join campaigns c on (c.id = m.campaign_id and c.status != 2)
@@ -32,17 +29,12 @@ class ReachableUsersService
       )
 
       select
-        user_id,
-        vaccine_matches_count,
-        distance_bucket,
-        total_matches_count,
-        COALESCE(last_match, created_at) as last_match_or_signup
+        *
         from users_stats
         order by
-        vaccine_matches_count asc,
+        total_matches_count asc,
         distance_bucket asc,
-        total_matches_count,
-        COALESCE(last_match, created_at) asc
+        case when :ranking_method = 'v1' then - created_at else created_at end asc
       limit (:limit)
     SQL
     params = {
@@ -56,7 +48,8 @@ class ReachableUsersService
       min_j: @covering[:center_cell][:j] - @covering[:dist_cells],
       max_j: @covering[:center_cell][:j] + @covering[:dist_cells],
       vaccine_type: @campaign.vaccine_type,
-      limit: limit
+      limit: limit,
+      ranking_method: @campaign.ranking_method
     }
     query = ActiveRecord::Base.send(:sanitize_sql_array, [sql, params])
     User.where(id: ActiveRecord::Base.connection.execute(query).to_a.pluck("user_id"))
