@@ -52,7 +52,7 @@ class User < ApplicationRecord
   PASSWORD_HINT = "Le mot de passe choisi doit être robuste ou très robuste pour pouvoir compléter votre inscription. Il doit notamment comporter au moins 8 caractères avec un mélange de chiffres et de lettres."
 
   ANONYMIZED_REASONS = {
-    covidliste: "J'ai trouvé un rdv grâce à Covidliste",
+    covidliste: "J'ai trouvé un rendez-vous grâce à Covidliste",
     not_interested: "Je ne suis plus intéressé",
     other: "Autre"
   }.freeze
