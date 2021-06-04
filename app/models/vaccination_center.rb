@@ -135,15 +135,13 @@ class VaccinationCenter < ApplicationRecord
     return nil if finess.blank?
     partners.includes([:partner_external_accounts]).each do |partner|
       partner.partner_external_accounts.each do |partner_external_account|
-        if partner_external_account.info.key?("locations")
-          partner_external_account.info["locations"].each do |location|
-            if location["finess"] == finess
-              return {
-                location: location,
-                partner: partner,
-                partner_external_account: partner_external_account
-              }
-            end
+        partner_external_account.locations.each do |location|
+          if location["finess"] == finess
+            return {
+              location: location,
+              partner: partner,
+              partner_external_account: partner_external_account
+            }
           end
         end
       end
