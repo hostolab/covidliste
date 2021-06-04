@@ -103,9 +103,10 @@ class ReachableUsersService
       min_j: @covering[:center_cell][:j] - @covering[:dist_cells],
       max_j: @covering[:center_cell][:j] + @covering[:dist_cells],
       vaccine_type: @campaign.vaccine_type,
-      throttling_rate: Match.throttling_rate,
-      throttling_interval: Match.throttling_interval.ago
+      throttling_rate: @campaign.throttling_rate,
+      throttling_interval: @campaign.throttling_interval.ago
     }
+
     query = ActiveRecord::Base.send(:sanitize_sql_array, [sql, params])
     ActiveRecord::Base.connection.execute(query).to_a.first
   end
