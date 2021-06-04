@@ -121,4 +121,15 @@ class VmdSlot < ApplicationRecord
       SlotAlert.create(vmd_slot_id: id, user_id: user.id)
     end
   end
+
+  def self.find_slots_for_user(user_id)
+    user = User.find(user_id)
+    VmdSlot
+      .where("last_updated_at >= ?", 11.minutes.ago)
+      .where("(pfizer is true or moderna is true) and astrazeneca is false")
+      .where("(SQRT(((latitude - ?)*110.574)^2 + ((longitude - ?)*111.320*COS(latitude::float*3.14159/180))^2)) < ? ", user.lat, user.lon, user.max_distance_km)
+      .where("slots_7_days > 10")
+      .order("next_rdv asc")
+      .limit(100)
+  end
 end

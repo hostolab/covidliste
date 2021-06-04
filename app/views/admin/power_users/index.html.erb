@@ -7,6 +7,7 @@
     <table class="table table-bordered table-hover table-sm" aria-describedby="users with roles">
       <thead class="thead-light">
       <tr>
+        <th scope="col">ID</th>
         <th scope="col">Nom</th>
         <th scope="col">
           Roles
@@ -35,6 +36,7 @@
       <tbody>
       <% @users.each do |user| %>
         <tr>
+          <td><%= user.id %></td>
           <td>
             <%= user.email %>
             <%= link_to icon("fas", "info-circle"), "#modalRoles#{user.id}", "data-toggle": "modal", class: "text-info small" %>
@@ -110,6 +112,7 @@
       <% end %>
       <% if current_user.has_role?(:super_admin) %>
         <tr>
+          <td></td>
           <td></td>
           <td>
               <div>
