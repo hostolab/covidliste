@@ -55,62 +55,64 @@
 
         <%= simple_form_for [:partners, @vaccination_center] do |f| %>
           <%= f.input :name, label: "Nom du lieu de vaccination", error: "Nom requis", placeholder: "Centre de vaccination Marseille", required: true %>
-          <%= f.input :finess, label: "Numéro FINESS (géographique)", error: "Numéro FINESS invalide", placeholder: "140000032", pattern: "[0-9]{9}", input_html: { inputmode: "numeric" } %>
+          <%= f.input :finess, label: "Numéro FINESS de l'établissement (géographique)", placeholder: "Numéro FINESS (différent du numéro AM/Ameli/CPAM et du SIRET)", pattern: "[0-9]{9}", input_html: { inputmode: "numeric" } %>
           <div class="small mb-3 text-primary">
-            <div class="mb-1">
-              <%= icon("fas", "info-circle", class: "text-secondary") %>
-              Attention, veillez bien à entrer ici votre "<strong>numéro FINESS</strong>", parfois appelé "<strong>numéro FINESS géographique</strong>".<br />
-              Ce numéro est (souvent) <strong>différent du "numéro d'Assurance Maladie / numéro CPAM"</strong>.<br />
-            </div>
             <% if @external_accounts.any? %>
-              <div class="mb-1">
-                Pour vous aider, vous pouvez
-                <%= link_to "consulter les données des établissements liés à votre carte ou votre compte professionnel, en cliquant ici", "#modalLocations", "data-toggle": "modal", class: "text-secondary" %>
-                <%= render(ModalComponent.new(title: "Établissements liés à votre carte ou votre compte professionnel", class_names: "modal-lg modal-dialog-scrollable", modal_id: "modalLocations")) do %>
-                  <div class="p-4">
-                    <% @external_accounts.each do |external_account| %>
-                      <div>
-                        Etablissements liés au compte <%= external_account.service_name %><br />
-                        <%= external_account.full_name %> (<%= external_account.identifier %>) :
-                      </div>
-                      <% if external_account.locations.present? %>
-                        <% external_account.locations.each do |location| %>
-                          <div class="m-2 p-2 alert alert-dark small">
-                            <div><%= location["name"] %></div>
-                            <div><%= location["commercial_name"] %></div>
-                            <div><%= location["address"] %></div>
-                            <div><%= location["address2"] %></div>
-                            <div><%= location["address3"] %></div>
-                            <div><%= location["phone"] %></div>
-                            <div class="text-muted">
-                              Numéro FINESS : <em><%= location["finess"] %></em>
-                            </div>
-                          </div>
-                        <% end %>
-                      <% else %>
-                        <div class="small">
-                          <em class="text-muted">Aucun établissement lié à cette carte ou ce compte professionnel</em><br />
-                          <div class="mt-1">
-                            Si vous ne conaissez pas votre numéro FINESS, consultez
-                            <%= link_to "http://finess.sante.gouv.fr", "http://finess.sante.gouv.fr/fininter/jsp/rechercheSimple.jsp", target: "_blank", rel: "noopener" %><br />
+              <%= render(ModalComponent.new(title: "Établissements liés à votre carte ou votre compte professionnel", class_names: "modal-lg modal-dialog-scrollable", modal_id: "modalLocations")) do %>
+                <div class="p-4">
+                  <% @external_accounts.each do |external_account| %>
+                    <div>
+                      Etablissements liés au compte <%= external_account.service_name %><br />
+                      <%= external_account.full_name %> (<%= external_account.identifier %>) :
+                    </div>
+                    <% if external_account.locations.present? %>
+                      <% external_account.locations.each do |location| %>
+                        <div class="m-2 p-2 alert alert-dark small">
+                          <div><%= location["name"] %></div>
+                          <div><%= location["commercial_name"] %></div>
+                          <div><%= location["address"] %></div>
+                          <div><%= location["address2"] %></div>
+                          <div><%= location["address3"] %></div>
+                          <div><%= location["phone"] %></div>
+                          <div class="text-muted">
+                            Numéro FINESS : <em><%= location["finess"] %></em>
                           </div>
                         </div>
                       <% end %>
+                    <% else %>
+                      <div class="small">
+                        <em class="text-muted">Aucun établissement lié à cette carte ou ce compte professionnel</em><br />
+                        <div class="mt-1">
+                          Si vous ne conaissez pas votre numéro FINESS, consultez
+                          <%= link_to "http://finess.sante.gouv.fr", "http://finess.sante.gouv.fr/fininter/jsp/rechercheSimple.jsp", target: "_blank", rel: "noopener" %><br />
+                        </div>
+                      </div>
                     <% end %>
-                  </div>
-                <% end %>
+                  <% end %>
+                </div>
+              <% end %>
+              <div class="mb-1">
+                <%= icon("fas", "info-circle", class: "text-secondary") %>
+                Besoin d'aide ?
+                <%= link_to "Cliquez ici pour voir le(s) numéro(s) FINESS de votre compte #{@external_accounts.first.service_name}", "#modalLocations", "data-toggle": "modal", class: "text-info" %>
               </div>
               <div class="mb-1">
-                Sinon, vous pouvez le trouver sur
-                <%= link_to "http://finess.sante.gouv.fr", "http://finess.sante.gouv.fr/fininter/jsp/rechercheSimple.jsp", target: "_blank", rel: "noopener", class: "text-secondary" %><br />
+                Vous pouvez aussi retrouver votre numéro FINESS sur
+                <%= link_to "http://finess.sante.gouv.fr", "http://finess.sante.gouv.fr/fininter/jsp/rechercheSimple.jsp", target: "_blank", rel: "noopener", class: "text-info" %><br />
               </div>
             <% else %>
               <div class="mb-1">
-                Si vous ne le conaissez pas, vous pouvez le trouver sur
-                <%= link_to "http://finess.sante.gouv.fr", "http://finess.sante.gouv.fr/fininter/jsp/rechercheSimple.jsp", target: "_blank", rel: "noopener", class: "text-secondary" %><br />
+                <%= icon("fas", "info-circle", class: "text-secondary") %>
+                Besoin d'aide ? Retrouvez votre numéro FINESS sur
+                <%= link_to "http://finess.sante.gouv.fr", "http://finess.sante.gouv.fr/fininter/jsp/rechercheSimple.jsp", target: "_blank", rel: "noopener", class: "text-info" %><br />
               </div>
             <% end %>
-            Si vous n'avez pas de numéro FINESS pour votre lieu de vaccination, laissez cette case vide.
+            <div class="mb-1">
+              Si vous n'avez pas de numéro FINESS pour votre lieu de vaccination, laissez cette case vide.
+            </div>
+            <div class="mb-1">
+              Attention, le numéro FINESS établissement est <strong>différent du "numéro Assurance Maladie / Ameli / CPAM" et différent du SIRET</strong>.<br />
+            </div>
           </div>
 
           <%= f.input :description, label: "Description", error: "Description requise", placeholder: "Description du lieu de vaccination (accès, détails...)" %>
