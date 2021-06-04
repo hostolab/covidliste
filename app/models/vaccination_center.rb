@@ -114,13 +114,13 @@ class VaccinationCenter < ApplicationRecord
           vaccination_center.media_optin ? "Oui" : "Non",
           vaccination_center.human_friendly_phone_number,
           vaccination_center.finess,
-          finess_text,
           vaccination_center.partners&.first&.name,
           vaccination_center.partners&.first&.email,
           vaccination_center.partners&.first&.human_friendly_phone_number,
           vaccination_center.partners&.first&.partner_external_accounts&.first&.service_name,
           vaccination_center.partners&.first&.partner_external_accounts&.first&.full_name,
           vaccination_center.partners&.first&.partner_external_accounts&.first&.identifier,
+          finess_text,
           confirmed
         ]
         if confirmed
