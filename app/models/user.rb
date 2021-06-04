@@ -57,6 +57,12 @@ class User < ApplicationRecord
     other: "Autre"
   }.freeze
 
+  ALERTING_INTENISITIES = {
+    "1": "1 fois par jour",
+    "2": "Moins de 3 fois par jour",
+    "3": "Toutes les alertes"
+  }.freeze
+
   def randomize_lat_lon
     return if lat.nil? || lon.nil?
     results = ::RandomizeCoordinatesService.new(lat, lon).call

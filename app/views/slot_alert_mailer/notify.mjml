@@ -52,6 +52,16 @@
     </mj-text>
 
     <mj-text padding-top="20px" padding-bottom="0px">
+      <h1>Vous souhaitez modifier vos paramètres d'alertes?</h1>
+      <br /> 
+      <strong>
+        <%= link_to "Accéder à mon compte", users_magic_link_url({user: {email: @user.email, token: @passwordless_token}}) %>
+      </strong>  
+      <br /> 
+      <br /> 
+    </mj-text>
+
+    <mj-text padding-top="20px" padding-bottom="0px">
       <h1>Vous ne souhaitez plus être informé de doses disponibles ?</h1>
       <br /> 
       <strong>
@@ -59,7 +69,6 @@
       </strong>  
       <br /> 
       <br /> 
-
     </mj-text>
 
     <%= render partial: "mailer/social_networks", formats: [:html] %>
