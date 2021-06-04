@@ -199,6 +199,12 @@ class User < ApplicationRecord
     "#{self.class.name}_#{id}"
   end
 
+  def send_slot_alert!
+    best_slot = VmdSlot.find_slots_for_user(id).first
+    return unless best_slot
+    SlotAlert.create!(vmd_slot: best_slot, user_id: id)
+  end
+
   protected
 
   def skip_password_complexity?
