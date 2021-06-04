@@ -55,6 +55,11 @@
 
         <%= simple_form_for [:partners, @vaccination_center] do |f| %>
           <%= f.input :name, label: "Nom du lieu de vaccination", error: "Nom requis", placeholder: "Centre de vaccination Marseille", required: true %>
+          <%= f.input :finess, label: "Numéro FINESS", error: "Numéro FINESS invalide", placeholder: "140000032", pattern: "[0-9]{9}", input_html: { inputmode: "numeric" } %>
+          <p class="small text-primary">
+            <%= icon("fas", "info-circle", class: "text-secondary") %>
+            Si vous n'avez pas de numéro FINESS pour votre lieu de vaccination, laissez cette case vide.
+          </p>
           <%= f.input :description, label: "Description", error: "Description requise", placeholder: "Description du lieu de vaccination (accès, détails...)" %>
           <%= f.input :kind, label: "Type de lieu de vaccination", collection: VaccinationCenter::Kinds::ALL %>
           <p class="small text-primary">
@@ -63,13 +68,6 @@
             Choisissez la valeur qui s'en approche le plus et ajoutez votre type de lieu comme préfixe dans le champ "Nom" ou "Description" ci-dessus.
           </p>
 
-          <p class="mt-2">
-            Type(s) de vaccins disponibles
-          </p>
-
-          <% Vaccine::Brands::ALL.each do |vaccine| %>
-            <%= f.input :"#{vaccine}", as: :boolean, label: vaccine.capitalize, class: 'form-check-inline' %>
-          <% end %>
           <%= f.input :address, label: "Adresse", error: "Adresse requise", placeholder: "5 rue Larue, 13600 Marseille", required: true %>
           <%= f.input :phone_number, label: "Numéro de téléphone public", error: "Numéro de téléphone requis", placeholder: "01 02 03 04 05", required: true %>
           <p class="small text-primary">

@@ -10,6 +10,10 @@
     </span>
   </h3>
 
+  <p class="small">
+    <%= link_to icon("fas", "edit", "Editer (ou supprimer) ce centre"), edit_admin_vaccination_center_path(@vaccination_center) %>
+  </p>
+
   <p class="small mb-2">
     <% if @vaccination_center.confirmed? %>
       <%= icon("fas", "check", class: "text-success") %>
@@ -57,16 +61,53 @@
     <% end %>
   </p>
 
-  <p class="mb-2">
-    <%= @vaccination_center.address %>
-    <br>
-    <%= @vaccination_center.description %>
-  </p>
+  <div class="row mt-4">
+    <div class="col">
+      <div class="mb-2">
+        N°FINESS :
+        <% if @vaccination_center.finess.present? %>
+          <a href="http://finess.sante.gouv.fr/fininter/jsp/actionRechercheSimple.do?nofiness=<%= @vaccination_center.finess %>" target="_blank" rel="noopener">
+            <%= @vaccination_center.finess %> <%= icon("fas", "external-link-alt") %>
+          </a>
+        <% else %>
+          <em class="text-muted">Aucun</em>
+        <% end %>
+      </div>
 
-  <p class="mb-2">
-    <%= icon("fas", "phone", @vaccination_center.human_friendly_phone_number) %>
-  </p>
+      <p class="mb-2">
+        <%= @vaccination_center.address %><br />
+        Description : <%= @vaccination_center.description %><br />
+        <%= icon("fas", "phone", @vaccination_center.human_friendly_phone_number) %>
+      </p>
 
+      <p class="mb-2">
+        <%= humanize_boolean @vaccination_center.visible_optin_at.present? %> Affichage sur la carte publique<br />
+        <%= humanize_boolean @vaccination_center.media_optin_at.present? %> Communication presse et réseaux sociaux
+      </p>
+    </div>
+    <div class="col">
+      <% if (finess_info = @vaccination_center.find_finess_info) %>
+        <% partner = finess_info[:partner] %>
+        <% partner_external_account = finess_info[:partner_external_account] %>
+        <% location = finess_info[:location] %>
+        <div class="alert alert-dark small" title="Source des données :
+Professionnel de santé :
+<%= partner.name %> (#<%= partner.id %>)
+Compte <%= partner_external_account.service_name %> :
+<%= partner_external_account.full_name %> - <%= partner_external_account.identifier %>">
+          <div class="text-muted">
+            Données FINESS <em><%= location["finess"] %></em> (<em><%= partner_external_account.service_name %></em>)
+          </div>
+          <div><%= location["name"] %></div>
+          <div><%= location["commercial_name"] %></div>
+          <div><%= location["address"] %></div>
+          <div><%= location["address2"] %></div>
+          <div><%= location["address3"] %></div>
+          <div><%= location["phone"] %></div>
+        </div>
+      <% end %>
+    </div>
+  </div>
 
   <%- if @vaccination_center.lat && @vaccination_center.lon %>
     <div class="my-3 leaflet_map_container">
@@ -95,39 +136,123 @@
     </div>
   <% end %>
 
-  <p>
-    <%= humanize_boolean @vaccination_center.visible_optin_at.present? %> Affichage sur la carte publique<br />
-    <%= humanize_boolean @vaccination_center.media_optin_at.present? %> Communication presse et réseaux sociaux
-  </p>
-  <p class="mb-1">
-    Vaccins :
-  </p>
-  <ul>
-    <% @vaccination_center.vaccines.each do |vaccine| %>
-      <li> <%= vaccine.capitalize %> </li>
+  <div>
+    <h5 class="mt-4">
+      Professionnels de santé liés
+    </h5>
+
+    <% if @vaccination_center.partners.includes(:partner_external_accounts).present? %>
+      <div class="table-responsive">
+        <table class="table table-hover table-bordered table-sm small" aria-describedby="Professionnels de santé liés">
+          <thead class="thead-light">
+          <tr>
+            <th class="text-right"> #</th>
+            <th scope="col">Nom</th>
+            <th scope="col">Email</th>
+            <th scope="col">Téléphone</th>
+            <th scope="col" class="text-center">Comptes liés</th>
+            <th scope="col" class="text-center">Confirmé ?</th>
+          </tr>
+          </thead>
+
+          <tbody>
+          <% @vaccination_center.partners.order(id: :desc).each do |partner| %>
+            <tr>
+              <td class="text-right"> <%= partner.id %> </td>
+              <td> <%= partner.name %> </td>
+              <td> <%= partner.email %> </td>
+              <td> <%= partner.human_friendly_phone_number %> </td>
+              <td>
+                <%= render(ModalComponent.new(title: "Comptes liés", class_names: "modal-lg modal-dialog-scrollable", modal_id: "modalProAccounts#{partner.id}")) do %>
+                  <div class="p-3">
+                    <p>
+                      <strong>Nom</strong>: <%= partner.name %><br />
+                      <strong>Email</strong>: <%= partner.email %><br />
+                    </p>
+                    <table class="table table-bordered table-sm small text-center" aria-describedby="Vos comptes liés">
+                      <thead class="thead-light">
+                      <tr>
+                        <th scope="col">Type de compte</th>
+                        <th scope="col">Informations d'identité</th>
+                        <th scope="col">Actions</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <% partner.partner_external_accounts.order(id: :desc).each do |external_account| %>
+                        <tr>
+                          <td>
+                            <%= image_tag("openid/#{external_account.provider_id}.png", alt: "#{external_account.service_name}", height: 40) %>
+                          </td>
+                          <td>
+                            <%= external_account.full_name %><br />
+                            <em><%= external_account.identifier %></em><br />
+                            <% if external_account&.info.key?("locations") %>
+                              <div class="text-muted">
+                                Établissements : <br />
+                                <div class="small">
+                                  <% external_account&.info["locations"].each do |location| %>
+                                    <a href="http://finess.sante.gouv.fr/fininter/jsp/actionRechercheSimple.do?nofiness=<%= location["finess"] %>" target="_blank" rel="noopener">
+                                      <%= location["name"] %> - FINESS : <em><%= location["finess"] %></em> <%= icon("fas", "external-link-alt") %>
+                                    </a>
+                                    <br />
+                                  <% end %>
+                                </div>
+                              </div>
+                            <% end %>
+                          </td>
+                          <td>
+                            <%= link_to icon("fas", "times", "Délier", class: "text-danger"), partners_partner_external_account_path(external_account.id), method: :delete, data: {confirm: "Êtes-vous sûr de vouloir délier ce compte #{external_account.service_name} ?"} %>
+                          </td>
+                        </tr>
+                      <% end %>
+                      </tbody>
+                    </table>
+                  </div>
+                <% end %>
+                <%= link_to "#modalProAccounts#{partner.id}", "data-toggle": "modal" do %>
+                  <%= humanize_boolean(partner.partner_external_accounts.any?) %>
+                  <%= partner.partner_external_accounts.size %>
+                <% end %>
+              </td>
+              <td class="text-center" title="<%= partner.confirmed_at.present? ? "Confirmé le #{l(partner.confirmed_at)}" : "" %>">
+                <%= humanize_boolean partner.confirmed_at.present? %>
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% else %>
+      <p class="small text-muted">
+        <%= icon("fas", "info-circle") %>
+        Aucun professionnel de santé lié
+      </p>
     <% end %>
-  </ul>
 
-  <h5 class="mt-4">
-    Ajouter un professionnel de santé
-  </h5>
+    <div class="mb-5 mt-1 mx-5">
+      <h6>
+        Ajouter un professionnel de santé
+      </h6>
 
-  <%= simple_form_for :new_partner_email,
-    url: add_partner_admin_vaccination_center_path(@vaccination_center),
-    method: :post,
-    wrapper: :inline_form,
-    html: {class: "form-inline"} do |f| %>
+      <%= simple_form_for :new_partner_email,
+                          url: add_partner_admin_vaccination_center_path(@vaccination_center),
+                          method: :post,
+                          defaults: { input_html: { class: "form-control-sm selectpicker mr-2" } },
+                          wrapper: :inline_form,
+                          html: {class: "form-inline"} do |f| %>
 
-    <%= f.input :email, type: :email, label: false, placeholder: "jean.dupont@email.com", required: true %>
-    <%= f.submit "Ajouter ce professionnel de santé", class: "ml-3 btn btn-primary" %>
-  <% end %>
+        <%= f.input :email, type: :email, label: false, placeholder: "jean.dupont@email.com", required: true, input_html: { style: "width: 300px;" } %>
+        <%= f.submit "Ajouter ce professionnel de santé", class: "btn-sm btn btn-primary" %>
+      <% end %>
+    </div>
+  </div>
 
   <h5 class="mt-4">
     Campagnes réalisées
   </h5>
 
   <% if @vaccination_center.campaigns.present? %>
-    <div class="table-responsive">
+    <div class="table-responsive mb-4">
       <table class="table table-hover table-bordered table-sm small">
         <thead class="thead-light">
           <tr>
@@ -210,84 +335,10 @@
         </tbody>
       </table>
     </div>
-  <% end %>
-
-  <h5 class="mt-4">
-    Professionnels de santé liés
-  </h5>
-
-  <% if @vaccination_center.partners.includes(:partner_external_accounts).present? %>
-    <div class="table-responsive">
-      <table class="table table-hover table-bordered table-sm small" aria-describedby="Professionnels de santé liés">
-        <thead class="thead-light">
-        <tr>
-          <th class="text-right"> #</th>
-          <th scope="col">Nom</th>
-          <th scope="col">Email</th>
-          <th scope="col">Téléphone</th>
-          <th scope="col" class="text-center">Comptes liés</th>
-          <th scope="col" class="text-center">Confirmé ?</th>
-        </tr>
-        </thead>
-
-        <tbody>
-        <% @vaccination_center.partners.order(id: :desc).each do |partner| %>
-          <tr>
-            <td class="text-right"> <%= partner.id %> </td>
-            <td> <%= partner.name %> </td>
-            <td> <%= partner.email %> </td>
-            <td> <%= partner.human_friendly_phone_number %> </td>
-            <td>
-              <%= render(ModalComponent.new(title: "Comptes liés", class_names: "modal-lg modal-dialog-scrollable", modal_id: "modalProAccounts#{partner.id}")) do %>
-                <div class="p-3">
-                  <p>
-                    <strong>Nom</strong>: <%= partner.name %><br />
-                    <strong>Email</strong>: <%= partner.email %><br />
-                  </p>
-                  <table class="table table-bordered table-sm small text-center" aria-describedby="Vos comptes liés">
-                    <thead class="thead-light">
-                    <tr>
-                      <th scope="col">Type de compte</th>
-                      <th scope="col">Informations d'identité</th>
-                      <th scope="col">Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <% partner.partner_external_accounts.order(id: :desc).each do |external_account| %>
-                      <tr>
-                        <td>
-                          <%= image_tag("openid/#{external_account.provider_id}.png", alt: "#{external_account.service_name}", height: 40) %>
-                        </td>
-                        <td>
-                          <%= external_account.full_name %><br />
-                          <em><%= external_account.identifier %></em>
-                        </td>
-                        <td>
-                          <%= link_to icon("fas", "times", "Délier", class: "text-danger"), partners_partner_external_account_path(external_account.id), method: :delete, data: {confirm: "Êtes-vous sûr de vouloir délier ce compte #{external_account.service_name} ?"} %>
-                        </td>
-                      </tr>
-                    <% end %>
-                    </tbody>
-                  </table>
-                </div>
-              <% end %>
-              <%= link_to "#modalProAccounts#{partner.id}", "data-toggle": "modal" do %>
-                <%= humanize_boolean(partner.partner_external_accounts.any?) %>
-                <%= partner.partner_external_accounts.size %>
-              <% end %>
-            </td>
-            <td class="text-center" title="<%= partner.confirmed_at.present? ? "Confirmé le #{l(partner.confirmed_at)}" : "" %>">
-              <%= humanize_boolean partner.confirmed_at.present? %>
-            </td>
-          </tr>
-        <% end %>
-        </tbody>
-      </table>
-    </div>
   <% else %>
-    <p>
+    <p class="small text-muted mb-4">
       <%= icon("fas", "info-circle") %>
-      Aucun professionnel de santé lié
+      Aucune campagne actuellement
     </p>
   <% end %>
 
