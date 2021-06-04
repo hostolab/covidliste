@@ -34,7 +34,7 @@ class ReachableUsersService
         order by
         total_matches_count asc,
         distance_bucket asc,
-        case when :ranking_method = 'v1' then - created_at else created_at end asc
+        case when :ranking_method = 'v3' then - created_at else created_at end asc
       limit (:limit)
     SQL
     params = {
