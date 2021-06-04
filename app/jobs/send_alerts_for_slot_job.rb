@@ -4,6 +4,6 @@ class SendAlertsForSlotJob < ApplicationJob
   def perform(params)
     return unless params[:slot_id]
     slot = VmdSlot.find(params[:slot_id])
-    slot.send_alerts(params[:max_distance], params[:limit])
+    slot.send_alerts
   end
 end

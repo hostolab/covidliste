@@ -1,16 +1,12 @@
 class SlotAlertService
-  OVERBOOKING_FACTOR = 2
-  MAX_DISTANCE_KM = 20
-
-  def initialize(days = 2, threshold = 10)
+  def initialize(days = 2, threshold = 20)
     @days = days
     @threshold = threshold
   end
 
   def call
     slots.each do |slot|
-      limit = slot.send("slots_#{@days}_days") * OVERBOOKING_FACTOR
-      SendAlertsForSlotJob.perform_later({slot_id: slot.id, max_distance: MAX_DISTANCE_KM, limit: limit})
+      SendAlertsForSlotJob.perform_later({slot_id: slot.id})
     end
   end
 
