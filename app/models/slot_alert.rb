@@ -1,6 +1,10 @@
 class SlotAlert < ApplicationRecord
-  THROTTLING_RATE = 1
-  THROTTLING_INTERVAL = 6.hours
+  THROTTLING_RATES = {
+    "1": 1,
+    "2": 3,
+    "3": 20
+  }
+  THROTTLING_INTERVAL = 24.hours
 
   has_secure_token :token
   encrypts :token
@@ -16,8 +20,9 @@ class SlotAlert < ApplicationRecord
 
   def throttling
     return unless user
+    throttling_rate = THROTTLING_RATES[user.alerting_intensity.to_s] || 1
     alerts_count = user.slot_alerts.where("created_at >= ?", THROTTLING_INTERVAL.ago).count
-    errors.add(:base, "Too many alerts for this user") if alerts_count >= THROTTLING_RATE
+    errors.add(:base, "Too many alerts for this user") if alerts_count >= throttling_rate
   end
 
   def notify

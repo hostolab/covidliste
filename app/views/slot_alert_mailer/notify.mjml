@@ -8,7 +8,7 @@
     </mj-text>
   </mj-column>
 </mj-section>
-<mj-section padding-top="0px" padding-bottom="0px">
+<mj-section padding-top="40px" padding-bottom="20px">
   <mj-column>
     <mj-table>
       <tr>
@@ -69,6 +69,10 @@
       </strong>  
       <br /> 
       <br /> 
+    </mj-text>
+
+    <mj-text padding-top="20px" padding-bottom="20px">
+      <p class='small'>Cette alerte vous a été envoyée grâce aux données mises à disposition par Vite Ma Dose.</p> 
     </mj-text>
 
     <%= render partial: "mailer/social_networks", formats: [:html] %>
