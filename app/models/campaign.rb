@@ -60,7 +60,7 @@ class Campaign < ApplicationRecord
   end
 
   def reachable_users_count
-    ::ReachableUsersService.new(self).get_users_count["matchable_users_count"]
+    ::ReachableUsersService.new(self).get_users_count
   end
 
   def to_csv
@@ -134,6 +134,17 @@ class Campaign < ApplicationRecord
         matches.count
       ].min
     end
+  end
+
+  def throttling_rate
+    if (vaccine_type == Vaccine::Brands::ASTRAZENECA) || (vaccine_type == Vaccine::Brands::JANSSEN)
+      return 1
+    end
+    Match.throttling_rate
+  end
+
+  def throttling_interval
+    Match.throttling_interval
   end
 
   def notify_to_slack

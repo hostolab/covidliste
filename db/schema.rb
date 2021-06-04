@@ -305,7 +305,7 @@ ActiveRecord::Schema.define(version: 2021_06_04_002053) do
     t.string "anonymized_reason"
     t.integer "max_distance_km", default: 10
     t.datetime "alerting_optin_at"
-    t.integer "alerting_intensity"
+    t.integer "alerting_intensity", default: 1
     t.index ["alerting_intensity"], name: "index_users_on_alerting_intensity"
     t.index ["alerting_optin_at"], name: "index_users_on_alerting_optin_at"
     t.index ["anonymized_at"], name: "index_users_on_anonymized_at"
