@@ -174,7 +174,6 @@ Compte <%= partner_external_account.service_name %> :
                       <tr>
                         <th scope="col">Type de compte</th>
                         <th scope="col">Informations d'identité</th>
-                        <th scope="col">Actions</th>
                       </tr>
                       </thead>
                       <tbody>
@@ -186,11 +185,11 @@ Compte <%= partner_external_account.service_name %> :
                           <td>
                             <%= external_account.full_name %><br />
                             <em><%= external_account.identifier %></em><br />
-                            <% if external_account&.info.key?("locations") %>
+                            <% if external_account.locations.present? %>
                               <div class="text-muted">
                                 Établissements : <br />
                                 <div class="small">
-                                  <% external_account&.info["locations"].each do |location| %>
+                                  <% external_account.locations.each do |location| %>
                                     <a href="http://finess.sante.gouv.fr/fininter/jsp/actionRechercheSimple.do?nofiness=<%= location["finess"] %>" target="_blank" rel="noopener">
                                       <%= location["name"] %> - FINESS : <em><%= location["finess"] %></em> <%= icon("fas", "external-link-alt") %>
                                     </a>
@@ -199,9 +198,6 @@ Compte <%= partner_external_account.service_name %> :
                                 </div>
                               </div>
                             <% end %>
-                          </td>
-                          <td>
-                            <%= link_to icon("fas", "times", "Délier", class: "text-danger"), partners_partner_external_account_path(external_account.id), method: :delete, data: {confirm: "Êtes-vous sûr de vouloir délier ce compte #{external_account.service_name} ?"} %>
                           </td>
                         </tr>
                       <% end %>
