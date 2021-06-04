@@ -1,12 +1,13 @@
 class SlotAlertService
-  def initialize(days = 2, threshold = 20)
+  def initialize(days = 2, threshold = 20, user_alerting_intensity = nil)
     @days = days
     @threshold = threshold
+    @user_alerting_intensity = user_alerting_intensity
   end
 
   def call
     slots.each do |slot|
-      SendAlertsForSlotJob.perform_later({slot_id: slot.id})
+      SendAlertsForSlotJob.perform_later({slot_id: slot.id, user_alerting_intensity: @user_alerting_intensity})
     end
   end
 

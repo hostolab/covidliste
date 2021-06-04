@@ -73,7 +73,7 @@ class VmdSlot < ApplicationRecord
     end
   end
 
-  def reachable_users
+  def reachable_users(user_alerting_intensity = nil)
     sql = <<~SQL.tr("\n", " ").squish
       with users_stats as (
         select
@@ -88,6 +88,7 @@ class VmdSlot < ApplicationRecord
         WHERE
           u.confirmed_at IS NOT NULL
           AND u.anonymized_at is NULL
+          AND (u.alerting_intensity >= :user_alerting_intensity or :user_alerting_intensity is null)
           AND u.birthdate between (:min_date) and (:max_date)
           AND (SQRT((((:lat) - u.lat)*110.574)^2 + (((:lon) - u.lon)*111.320*COS(u.lat::float*3.14159/180))^2)) < u.max_distance_km
         group by 1,2
@@ -108,14 +109,15 @@ class VmdSlot < ApplicationRecord
       max_date: min_age.years.ago,
       lat: latitude,
       lon: longitude,
+      user_alerting_intensity: user_alerting_intensity,
       limit: slots_7_days * OVERBOOKING_FACTOR
     }
     query = ActiveRecord::Base.send(:sanitize_sql_array, [sql, params])
     User.where(id: ActiveRecord::Base.connection.execute(query).to_a.pluck("user_id"))
   end
 
-  def send_alerts
-    reachable_users.each do |user|
+  def send_alerts(user_alerting_intensity = nil)
+    reachable_users(user_alerting_intensity).each do |user|
       SlotAlert.create(vmd_slot_id: id, user_id: user.id)
     end
   end
