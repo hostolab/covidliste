@@ -18,7 +18,7 @@ module Partners
               flash[:alert] = "Une erreur est survenue : #{@external_account.errors.full_messages.join(", ")}"
             end
           else # External account is not liked to current logged-in partner but with another partner
-            flash[:alert] = "Une erreur est survenue : Ce compte #{service.service_name} est déjà lié à un autee compte professionnel Covidliste"
+            flash[:alert] = "Une erreur est survenue : Ce compte #{service.service_name} est déjà lié à un autre compte professionnel Covidliste"
           end
         else # External account does not exist in DB yet
           @external_account = PartnerExternalAccount.new(

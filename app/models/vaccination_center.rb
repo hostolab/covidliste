@@ -20,6 +20,7 @@ class VaccinationCenter < ApplicationRecord
   validates :kind, inclusion: {in: VaccinationCenter::Kinds::ALL}
   validates :address, postal_address: {with_zipcode: true}, on: :create
   validates :media_optin, :visible_optin, acceptance: false
+  validates :finess, presence: false, allow_blank: true, format: {with: /\A\d{9}\z/, message: "n'est pas un numéro valide"}
 
   has_many :partner_vaccination_centers
   has_many :partners, through: :partner_vaccination_centers
@@ -57,10 +58,6 @@ class VaccinationCenter < ApplicationRecord
     GeocodeResourceJob.perform_later(self)
   end
 
-  def vaccines
-    Vaccine::Brands::ALL.filter_map { |vaccine| vaccine if send(vaccine) }
-  end
-
   def self.to_csv
     headers = [
       "ID",
@@ -76,13 +73,14 @@ class VaccinationCenter < ApplicationRecord
       "Carte du site",
       "Communication media",
       "Téléphone",
-      "Type de vaccin",
+      "Numéro FINESS",
       "Nom du contact",
       "Email du contact",
       "Téléphone du contact",
       "Type du compte de validation",
       "Nom du compte de validation",
       "Numéro du compte de validation",
+      "Activité du contact correspondant au FINESS",
       "Validé",
       "Validé par",
       "Validé le"
@@ -92,20 +90,12 @@ class VaccinationCenter < ApplicationRecord
       csv << headers
 
       all.each do |vaccination_center|
-        vaccin_types = ""
+        finess_text = nil
+        if (finess_info = vaccination_center.find_finess_info)
+          location = finess_info[:location]
+          finess_text = "#{location["name"]} - FINESS : #{location["finess"]}"
+        end
         confirmed = false
-        if vaccination_center.pfizer
-          vaccin_types += Vaccine::Brands::PFIZER + " "
-        end
-        if vaccination_center.moderna
-          vaccin_types += Vaccine::Brands::MODERNA + " "
-        end
-        if vaccination_center.astrazeneca
-          vaccin_types += Vaccine::Brands::ASTRAZENECA + " "
-        end
-        if vaccination_center.janssen
-          vaccin_types += Vaccine::Brands::JANSSEN
-        end
         if vaccination_center.confirmed_at
           confirmed = true
         end
@@ -123,13 +113,14 @@ class VaccinationCenter < ApplicationRecord
           vaccination_center.visible_optin ? "Oui" : "Non",
           vaccination_center.media_optin ? "Oui" : "Non",
           vaccination_center.human_friendly_phone_number,
-          vaccin_types,
+          vaccination_center.finess,
           vaccination_center.partners&.first&.name,
           vaccination_center.partners&.first&.email,
           vaccination_center.partners&.first&.human_friendly_phone_number,
           vaccination_center.partners&.first&.partner_external_accounts&.first&.service_name,
           vaccination_center.partners&.first&.partner_external_accounts&.first&.full_name,
           vaccination_center.partners&.first&.partner_external_accounts&.first&.identifier,
+          finess_text,
           confirmed
         ]
         if confirmed
@@ -138,6 +129,24 @@ class VaccinationCenter < ApplicationRecord
         csv << line
       end
     end
+  end
+
+  def find_finess_info
+    return nil if finess.blank?
+    partners.includes([:partner_external_accounts]).each do |partner|
+      partner.partner_external_accounts.each do |partner_external_account|
+        partner_external_account.locations.each do |location|
+          if location["finess"] == finess
+            return {
+              location: location,
+              partner: partner,
+              partner_external_account: partner_external_account
+            }
+          end
+        end
+      end
+    end
+    nil
   end
 
   def flipper_id

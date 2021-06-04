@@ -61,17 +61,13 @@
             <br />
             <%= icon("fas", "phone") %> <%= vaccination_center.human_friendly_phone_number %>
             <br />
-            <small>
-              Vaccins :
-              <% vaccination_center.vaccines.each do |vaccine| %>
-                <span class="ml-1"> <%= vaccine.capitalize %> </span>
-              <% end %>
-            </small>
+            FINESS : <em><%= vaccination_center.finess %></em>
             <br />
             <small data-toggle="tooltip" data-html="true"
                   title="Les coordonnées du lieu (nom, adresse) sont-elles visibles sur le site Covidliste ?">
                   <%= humanize_boolean vaccination_center.visible_optin_at.present? %> Affiché sur la carte
             </small>
+            <br />
             <small data-toggle="tooltip" data-html="true" class="ml-2"
                   title="L'inscription de ce lieu peut-elle être utilisée dans les communications de Covidliste ?">
                   <%= humanize_boolean vaccination_center.media_optin_at.present? %> Communication
@@ -100,11 +96,10 @@
           <div class="mt-1 text-muted">Vérification en cours...</div>
           <div class="alert alert-primary mt-4" role="alert">
             <div>
-              Nous allons vous contacter dans les prochaines heures ou les prochains jours pour valider votre
-              lieu de vaccination.
+              Nous allons valider votre lieu de vaccination dans les prochaines heures ou les prochains jours.
             </div>
             <div class="mt-2">
-              Vérifiez particulièrement votre numéro de téléphone portable :<br />
+              Vérifiez bien vos informations, et particulièrement votre numéro de téléphone portable :<br />
               <strong><%= icon("fas", "phone") %> <%= current_partner.human_friendly_phone_number %></strong>
             </div>
             <div class="mt-2">

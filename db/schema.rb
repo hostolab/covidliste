@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_03_183916) do
+ActiveRecord::Schema.define(version: 2021_06_04_002053) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -336,10 +336,6 @@ ActiveRecord::Schema.define(version: 2021_06_03_183916) do
     t.float "lat"
     t.float "lon"
     t.string "kind"
-    t.boolean "pfizer"
-    t.boolean "moderna"
-    t.boolean "astrazeneca"
-    t.boolean "janssen"
     t.datetime "confirmed_at"
     t.string "phone_number"
     t.datetime "created_at", precision: 6, null: false
@@ -353,6 +349,7 @@ ActiveRecord::Schema.define(version: 2021_06_03_183916) do
     t.datetime "confirmation_mail_sent_at"
     t.datetime "visible_optin_at"
     t.datetime "media_optin_at"
+    t.string "finess"
     t.index ["city"], name: "index_vaccination_centers_on_city"
     t.index ["confirmer_id"], name: "index_vaccination_centers_on_confirmer_id"
     t.index ["geo_citycode"], name: "index_vaccination_centers_on_geo_citycode"
