@@ -7,14 +7,9 @@
 
   <%= simple_form_for [:admin, @vaccination_center] do |f| %>
     <%= f.input :name, label: 'Nom du centre', error: 'Nom requis', placeholder: 'Centre de vaccination Marseille' %>
+    <%= f.input :finess, label: "Numéro FINESS", error: "Numéro FINESS invalide", placeholder: "140000032", pattern: "[0-9]{9}", input_html: { inputmode: "numeric" } %>
     <%= f.input :description, label: 'Description', error: 'Description requise', placeholder: 'Description du lieu de vaccination' %>
     <%= f.input :kind, label: 'Type de centre de vaccination', collection: VaccinationCenter::Kinds::ALL %>
-    <p class="mt-3">
-      Type(s) de vaccins disponibles
-    </p>
-    <% Vaccine::Brands::ALL.each do |vaccine| %>
-      <%= f.input :"#{vaccine}", as: :boolean, label: vaccine.capitalize, class: 'form-check-inline' %>
-    <% end %>
     <%= f.input :address, label: 'Adresse', error: 'Adresse requise', placeholder: '5 rue larue, 13600 Marseille' %>
     <%= f.input :lat, hint: 'Si vide, le geocoding se fera automatiquement'%>
     <%= f.input :lon, hint: 'Si vide, le geocoding se fera automatiquement'%>

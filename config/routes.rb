@@ -11,7 +11,7 @@ Rails.application.routes.draw do
       authenticate :user, lambda { |u| u.has_role?(:supply_member) } do
         # Supply
         resources :campaigns, only: [:index]
-        resources :vaccination_centers do
+        resources :vaccination_centers, only: [:index, :edit, :show, :update, :destroy] do
           authenticate :user, lambda { |u| u.has_role?(:supply_admin) } do
             # Supply Admin
             patch :validate, on: :member

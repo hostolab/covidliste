@@ -61,6 +61,8 @@
             <br />
             <%= icon("fas", "phone") %> <%= vaccination_center.human_friendly_phone_number %>
             <br />
+            FINESS : <em><%= vaccination_center.finess %></em>
+            <br />
             <small data-toggle="tooltip" data-html="true"
                   title="Les coordonnées du lieu (nom, adresse) sont-elles visibles sur le site Covidliste ?">
                   <%= humanize_boolean vaccination_center.visible_optin_at.present? %> Affiché sur la carte
