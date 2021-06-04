@@ -148,8 +148,7 @@ Compte <%= partner_external_account.service_name %> :
           <tr>
             <th class="text-right"> #</th>
             <th scope="col">Nom</th>
-            <th scope="col">Email</th>
-            <th scope="col">Téléphone</th>
+            <th scope="col">Email<br />Téléphone</th>
             <th scope="col" class="text-center">Comptes liés</th>
             <th scope="col" class="text-center">Confirmé ?</th>
           </tr>
@@ -160,8 +159,10 @@ Compte <%= partner_external_account.service_name %> :
             <tr>
               <td class="text-right"> <%= partner.id %> </td>
               <td> <%= partner.name %> </td>
-              <td> <%= partner.email %> </td>
-              <td> <%= partner.human_friendly_phone_number %> </td>
+              <td>
+                <%= partner.email %><br />
+                <%= partner.human_friendly_phone_number %>
+              </td>
               <td>
                 <%= render(ModalComponent.new(title: "Comptes liés", class_names: "modal-lg modal-dialog-scrollable", modal_id: "modalProAccounts#{partner.id}")) do %>
                   <div class="p-3">
@@ -183,17 +184,26 @@ Compte <%= partner_external_account.service_name %> :
                             <%= image_tag("openid/#{external_account.provider_id}.png", alt: "#{external_account.service_name}", height: 40) %>
                           </td>
                           <td>
-                            <%= external_account.full_name %><br />
+                            <strong><%= external_account.full_name %></strong><br />
                             <em><%= external_account.identifier %></em><br />
                             <% if external_account.locations.present? %>
-                              <div class="text-muted">
-                                Établissements : <br />
-                                <div class="small">
+                              <div class="mt-2">
+                                <strong>Établissements : </strong><br />
+                                <div>
                                   <% external_account.locations.each do |location| %>
-                                    <a href="http://finess.sante.gouv.fr/fininter/jsp/actionRechercheSimple.do?nofiness=<%= location["finess"] %>" target="_blank" rel="noopener">
-                                      <%= location["name"] %> - FINESS : <em><%= location["finess"] %></em> <%= icon("fas", "external-link-alt") %>
-                                    </a>
-                                    <br />
+                                    <div class="my-1">
+                                      <div><%= location["name"] %> <%= location["commercial_name"].present? ? "(#{location["commercial_name"]})" : "" %></div>
+                                      <div class="text-muted">
+                                        Numéro FINESS :
+                                        <% if location["finess"].present? %>
+                                          <a href="http://finess.sante.gouv.fr/fininter/jsp/actionRechercheSimple.do?nofiness=<%= location["finess"] %>" target="_blank" rel="noopener">
+                                            <em><%= location["finess"] %></em> <%= icon("fas", "external-link-alt", class: "ml-1") %>
+                                          </a>
+                                        <% else %>
+                                          <em>Aucun</em>
+                                        <% end %>
+                                      </div>
+                                    </div>
                                   <% end %>
                                 </div>
                               </div>
@@ -205,9 +215,28 @@ Compte <%= partner_external_account.service_name %> :
                     </table>
                   </div>
                 <% end %>
-                <%= link_to "#modalProAccounts#{partner.id}", "data-toggle": "modal" do %>
+                <% if partner.partner_external_accounts.any? %>
+                  <table class="table table-borderless table-sm m-0 p-0">
+                    <tbody>
+                      <% partner.partner_external_accounts.order(id: :desc).each do |external_account| %>
+                        <tr>
+                          <td class="py-0">
+                            <%= link_to icon("fas", "search", external_account.service_name), "#modalProAccounts#{partner.id}", "data-toggle": "modal" %>
+                          </td>
+                          <td class="py-0">
+                            <%= link_to "#modalProAccounts#{partner.id}", "data-toggle": "modal" do %>
+                              <strong><%= external_account.full_name %></strong>
+                            <% end %>
+                          </td>
+                          <td class="py-0">
+                            <em><%= external_account.identifier %></em>
+                          </td>
+                        </tr>
+                      <% end %>
+                    </tbody>
+                  </table>
+                <% else %>
                   <%= humanize_boolean(partner.partner_external_accounts.any?) %>
-                  <%= partner.partner_external_accounts.size %>
                 <% end %>
               </td>
               <td class="text-center" title="<%= partner.confirmed_at.present? ? "Confirmé le #{l(partner.confirmed_at)}" : "" %>">

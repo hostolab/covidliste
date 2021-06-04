@@ -43,6 +43,7 @@ fr:
         address: Adresse
         phone_number: Numéro de téléphone
         kind: Type de lieu de vaccination
+        finess: Numéro FINESS
         lat: Latitude
         lon: Longitude
     errors:

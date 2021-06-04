@@ -20,7 +20,8 @@ class VaccinationCenter < ApplicationRecord
   validates :kind, inclusion: {in: VaccinationCenter::Kinds::ALL}
   validates :address, postal_address: {with_zipcode: true}, on: :create
   validates :media_optin, :visible_optin, acceptance: false
-  validates :finess, presence: false, allow_blank: true, format: {with: /\A\d{9}\z/, message: "n'est pas un numéro valide"}
+  validates :finess, presence: false, allow_blank: true, format: {with: /\A[0-9]{9}\z/, message: "n'est pas un numéro valide"}
+  validates :finess, presence: false, allow_blank: true, format: {with: /\A[0-9]{2}(?![2-9])[0-9]+\z/, message: "indiqué semble être un numéro Assurance Maladie/CPAM ou un SIRET"}
 
   has_many :partner_vaccination_centers
   has_many :partners, through: :partner_vaccination_centers
