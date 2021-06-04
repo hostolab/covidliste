@@ -41,6 +41,7 @@
               Vous êtes un <strong>professionnel de santé</strong> ?<br />
               <%= link_to "Liez votre carte CPS, e-CPS ou votre compte professionnel", "#externalAccountsLink", "data-toggle": "modal", class: "mt-2 btn btn-primary btn-sm" %>
             </div>
+            <%= render partial: "partners/link_external_account" %>
           <% end %>
         <% end %>
 
@@ -82,7 +83,7 @@
                     <% else %>
                       <div class="small">
                         <em class="text-muted">Aucun établissement lié à cette carte ou ce compte professionnel</em><br />
-                        <div class="mt-1">
+                        <div class="mt-1 mb-3">
                           Si vous ne conaissez pas votre numéro FINESS, consultez
                           <%= link_to "http://finess.sante.gouv.fr", "http://finess.sante.gouv.fr/fininter/jsp/rechercheSimple.jsp", target: "_blank", rel: "noopener" %><br />
                         </div>
