@@ -20,29 +20,35 @@
     adresser les volontaires en quelques clics.</p>
   <p class="text-justify text-sm-left">Vous voulez nous rejoindre ? C'est en bas de la page !</p>
 
-  <div class="row my-5">
-    <% @volunteers.each do |volunteer| %>
-      <div class="col-6 col-lg-3 text-center mb-5">
-        <div data-toggle="tooltip" data-placement="top" title="<%= volunteer.role %>">
-          <div>
-            <%= image_tag volunteer.picture_path, height: 150, loading: "lazy", class: "rounded-circle border", alt: volunteer.display_name %>
+  <div class="mt-2 mb-5">
+    <p class="text-center text-muted mt-4 mb-4">
+      Merci aux <%= @volunteers.size %> bénévoles qui permettent à Covidliste d'exister !<br />
+      Merci également aux <%= @old_volunteers.size %> anciens bénévoles qui ont participé à l'aventure !
+    </p>
+    <div class="row">
+      <% @volunteers.each do |volunteer| %>
+        <div class="col-6 col-lg-3 text-center my-3">
+          <div data-toggle="tooltip" data-placement="top" title="<%= volunteer.role %>">
+            <div>
+              <%= image_tag volunteer.picture_path, height: 150, loading: "lazy", class: "rounded-circle border", alt: volunteer.display_name %>
+            </div>
+            <div class="<%= class_names("mt-3", "text-muted font-italic": volunteer.anon) %>"><%= volunteer.display_name %></div>
           </div>
-          <div class="<%= class_names("mt-3", "text-muted font-italic": volunteer.anon) %>"><%= volunteer.display_name %></div>
+          <div class="small text-muted" data-toggle="tooltip" data-placement="top" title="<%= volunteer.specialty %>"><%= volunteer.bio %></div>
+          <div class="mx-1">
+            <% if volunteer.twitter.present? %>
+              <%= link_to icon("fab", "twitter"), "https://twitter.com/" + volunteer.twitter, class: "text-info", target: "_blank", rel: "noopener" %>
+            <% end %>
+            <% if volunteer.linkedin.present? %>
+              <%= link_to icon("fab", "linkedin"), "" + volunteer.linkedin, class: "text-info mx-2", target: "_blank", rel: "noopener" %>
+            <% end %>
+            <% if volunteer.github.present? %>
+              <%= link_to icon("fab", "github"), "https://github.com/" + volunteer.github, class: "text-dark", target: "_blank", rel: "noopener" %>
+            <% end %>
+          </div>
         </div>
-        <div class="small text-muted" data-toggle="tooltip" data-placement="top" title="<%= volunteer.specialty %>"><%= volunteer.bio %></div>
-        <div class="mx-1">
-          <% if volunteer.twitter.present? %>
-            <%= link_to icon("fab", "twitter"), "https://twitter.com/" + volunteer.twitter, class: "text-info", target: "_blank", rel: "noopener" %>
-          <% end %>
-          <% if volunteer.linkedin.present? %>
-            <%= link_to icon("fab", "linkedin"), "" + volunteer.linkedin, class: "text-info mx-2", target: "_blank", rel: "noopener" %>
-          <% end %>
-          <% if volunteer.github.present? %>
-            <%= link_to icon("fab", "github"), "https://github.com/" + volunteer.github, class: "text-dark", target: "_blank", rel: "noopener" %>
-          <% end %>
-        </div>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
   </div>
 
   <h2 id="devenir-benevole">Envie de prendre part au projet ?</h2>
