@@ -21,6 +21,7 @@
       <%= f.input :birthdate, as: :date, label: false, start_year: Date.today.year - 120, end_year: Date.today.year - 18, order: [:day, :month, :year] %>
     </div>
   </div>
+  <%= f.input :email, error: "", disabled: true %>
   <%= f.input :phone_number, label: "Numéro de téléphone", error: "", placeholder: "06 06 06 06 06" %>
   <%= f.input :address, label: "Adresse", error: "Adresse requise", placeholder: "Choisir une nouvelle adresse" %>
 

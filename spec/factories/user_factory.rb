@@ -14,13 +14,13 @@ FactoryBot.define do
     statement { true }
     toc { true }
 
-    trait :from_lyon do
+    trait :from_paris do
       address { "21 Rue Bergère 75009 Paris France" }
       lat { "48.87242501471677" }
       lon { "2.344941896580627" }
     end
 
-    trait :from_paris do
+    trait :from_lyon do
       address { "7 Rue Auguste Comte 69002 Lyon France" }
       lat { "45.75620064462772" }
       lon { "4.8319385046869945" }

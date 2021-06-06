@@ -34,7 +34,7 @@ class RunCampaignJob < ApplicationJob
         )
       end
     rescue Redlock::LockError
-      Rails.logger.warning("Could not obtain lock to create match for user_id #{user.id}")
+      Rails.logger.warn("Could not obtain lock to create match for user_id #{user.id}")
     end
   end
 
