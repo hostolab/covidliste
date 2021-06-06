@@ -64,12 +64,14 @@
       Votre profil sera anonymisé quelques jours après le RDV.
     </div>
   <% elsif user.matches.pending.any? %>
-    <div class="alert alert-primary">
-      Vous ne pouvez pas modifier vos informations actuellement car vous avez une proposition rendez vous de
-      vaccination en cours.<br/>
-      Si vous ne confirmez pas le RDV, vous pourrez de nouveau modifier vos informations à partir du
-      <%= l(user.matches.pending.maximum(:expires_at)) %>.<br/>
-    </div>
+    <% if @match&.present? %>
+      <div class="alert alert-primary">
+        Vous ne pouvez pas modifier vos informations actuellement car vous avez une proposition rendez vous de
+        vaccination en cours.<br/>
+        Si vous ne confirmez pas le RDV, vous pourrez de nouveau modifier vos informations à partir du
+        <%= l(user.matches.pending.maximum(:expires_at)) %>.<br/>
+      </div>
+    <% end %>
   <% end %>
   <%= render partial: "mentions", locals: {text_color: 'black'} %>
   <%= hidden_field_tag :tab, params[:tab]  %>

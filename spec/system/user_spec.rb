@@ -193,11 +193,9 @@ RSpec.describe "Users", type: :system do
         create(:campaign, vaccination_center: center)
       end
 
-      it "it does not warn about match" do
-        # When match auto-creation is prodded, switch "does not warn" to "warns"
+      it "it warns about match" do
         visit profile_url
-        expect(page).not_to have_text("Nous avons trouvé une dose de vaccin pour vous !")
-        # When match auto-creation is prodded, switch "not_to" to "to"
+        expect(page).to have_text("Nous avons trouvé une dose de vaccin pour vous !")
       end
     end
 
