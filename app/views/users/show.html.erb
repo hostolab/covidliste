@@ -1,4 +1,20 @@
 <div class="container">
+  <% if @match&.present? %>
+    <% if @match.confirmed? %>
+      <div class="alert alert-primary">
+        <span class="mr-2">Vous avez un confirmé un RDV de vaccination :</span>
+        <%= link_to "Cliquez ici pour voir les informations du RDV", match_url(match_confirmation_token: @match.match_confirmation_token, source: 'profile'), class: "btn btn-sm btn-primary" %>
+      </div>
+    <% else %>
+      <div class="alert alert-primary">
+        <span class="mr-2">
+          Bonne nouvelle !
+          Nous avons trouvé une dose de vaccin pour vous !
+        </span>
+        <%= link_to "Cliquez ici pour accéder à la proposition de RDV", match_url(match_confirmation_token: @match.match_confirmation_token, source: 'profile'), class: "btn btn-sm btn-primary" %>
+      </div>
+    <% end %>
+  <% end %>
   <div class="row">
     <div class="col-12 col-sm-12">
       <p>

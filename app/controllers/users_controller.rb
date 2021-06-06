@@ -4,11 +4,13 @@ class UsersController < ApplicationController
   before_action :authenticate_user!, except: %i[new create destroy]
   before_action -> { authenticate_user_via_signed_id!(purpose: "users.destroy") }, only: %i[confirm_destroy destroy]
   before_action :sign_out_if_anonymized!
+  before_action :find_or_create_match, only: %i[show update]
   invisible_captcha only: [:create], honeypot: :subtitle
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   def index
-    redirect_to action: :new
+    policy_scope(User)
+    redirect_to profile_path
   end
 
   def new
@@ -25,6 +27,7 @@ class UsersController < ApplicationController
     @user = current_user
     authorize @user
     prepare_phone_number
+
     respond_to do |format|
       format.html
       format.csv do
@@ -75,6 +78,12 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def find_or_create_match
+    match = current_user.find_or_create_match
+    return unless match.present?
+    @match = match
+  end
 
   def set_counters
     @users_count = Rails.cache.fetch(:users_count, expires_in: 30.seconds) { Counter.total_users }

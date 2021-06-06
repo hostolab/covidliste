@@ -16,7 +16,7 @@
       </tr>
       </thead>
       <tbody>
-      <% @matches.order(id: :desc).includes([:vaccination_center, :campaign]).each do |match| %>
+      <% @matches.order(id: :desc).each do |match| %>
         <% vaccination_center = match.vaccination_center %>
         <tr>
           <td>

@@ -148,16 +148,93 @@ RSpec.describe "Users", type: :system do
         expect(page).not_to have_text("Modifications enregistrées.")
         expect(page).to have_text("Vous ne pouvez pas modifier vos informations actuellement car vous avez confirmé un rendez-vous de vaccination.")
       end
+
+      it "it warns about match" do
+        visit profile_url
+        expect(page).to have_text("Vous avez un confirmé un RDV de vaccination")
+      end
     end
 
     context "with a pending match" do
       let(:campaign) { build(:campaign) }
       let!(:match) { create(:match, campaign: campaign, confirmed_at: nil, expires_at: 10.minutes.since, user: user) }
 
-      it "it does not allow me to edit personal information " do
+      it "it does not allow me to edit personal information" do
         click_on "Je modifie mes informations"
         expect(page).not_to have_text("Modifications enregistrées.")
         expect(page).to have_text("Vous ne pouvez pas modifier vos informations actuellement car vous avez une proposition rendez vous de vaccination en cours.")
+      end
+
+      it "it warns about match" do
+        visit profile_url
+        expect(page).to have_text("Nous avons trouvé une dose de vaccin pour vous !")
+      end
+    end
+
+    context "with a pending match" do
+      let(:campaign) { build(:campaign) }
+      let!(:match) { create(:match, campaign: campaign, confirmed_at: nil, expires_at: 10.minutes.since, user: user) }
+
+      it "it does not allow me to edit personal information" do
+        click_on "Je modifie mes informations"
+        expect(page).not_to have_text("Modifications enregistrées.")
+        expect(page).to have_text("Vous ne pouvez pas modifier vos informations actuellement car vous avez une proposition rendez vous de vaccination en cours.")
+      end
+
+      it "it warns about match" do
+        visit profile_url
+        expect(page).to have_text("Nous avons trouvé une dose de vaccin pour vous !")
+      end
+    end
+
+    context "with a new campaign" do
+      let!(:center) { create(:vaccination_center, :from_paris) }
+      before do
+        center.lat = user.lat
+        center.lon = user.lon
+        center.save!
+        create(:campaign, vaccination_center: center)
+      end
+
+      it "it does not warn about match" do
+        # When match auto-creation is prodded, switch "does not warn" to "warns"
+        visit profile_url
+        expect(page).not_to have_text("Nous avons trouvé une dose de vaccin pour vous !")
+        # When match auto-creation is prodded, switch "not_to" to "to"
+      end
+    end
+
+    context "with a new campaign and match" do
+      let!(:center) { create(:vaccination_center, :from_paris) }
+      before do
+        center.lat = user.lat
+        center.lon = user.lon
+        center.save!
+        new_campaign = create(:campaign, vaccination_center: center)
+        create(:match, user: user, vaccination_center: center, expires_at: 1.hour.since, campaign: new_campaign)
+      end
+
+      it "it warns about match" do
+        visit profile_url
+        expect(page).to have_text("Nous avons trouvé une dose de vaccin pour vous !")
+      end
+    end
+
+    context "with 5 old matches and a new campaign" do
+      let!(:center) { create(:vaccination_center, :from_paris) }
+      before do
+        5.times.each do |i|
+          create(:match, user: user)
+        end
+        center.lat = user.lat
+        center.lon = user.lon
+        center.save!
+        create(:campaign, vaccination_center: center)
+      end
+
+      it "it does not warn about match" do
+        visit profile_url
+        expect(page).not_to have_text("Nous avons trouvé une dose de vaccin pour vous !")
       end
     end
   end

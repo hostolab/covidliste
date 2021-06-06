@@ -79,21 +79,13 @@ class Match < ApplicationRecord
   end
 
   def find_other_confirmed_match_for_user
-    user.matches.confirmed.where.not(id: id).first
+    user.find_confirmed_match
   end
 
   def find_other_available_match_for_user
     return if confirmed?
     return if refused?
-    other_confirmed = find_other_confirmed_match_for_user
-    return other_confirmed if other_confirmed
-
-    user.matches.pending.where.not(id: id).order(id: :asc).each do |match|
-      if match.confirmable? && !match.expired?
-        return match
-      end
-    end
-    nil
+    user.find_or_create_match
   end
 
   def confirmable?
