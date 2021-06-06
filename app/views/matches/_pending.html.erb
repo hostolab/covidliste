@@ -14,8 +14,9 @@
 
   <div class="alert alert-danger" role="alert">
     Ne réservez votre dose que si vous pouvez vous rendre au centre de vaccination
+    <%= l(match.campaign.starts_at, format: '%A %e %B %Y') %>
     entre <%= l(match.campaign.starts_at, format: '%Hh%M') %>
-    et <%= l(match.campaign.ends_at, format: '%Hh%M') %> aujourd'hui.
+    et <%= l(match.campaign.ends_at, format: '%Hh%M') %>
   </div>
 
   <div class="d-md-none">

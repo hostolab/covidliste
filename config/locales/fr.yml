@@ -10,6 +10,7 @@ fr:
         one: campagne
     attributes:
       user:
+        email: Adresse email
         firstname: Prénom
         lastname: Nom
         birthdate: Date de naissance
@@ -22,6 +23,7 @@ fr:
         statement: Certification sur l'honneur
         toc: Partage des données
       partner:
+        email: Adresse email
         name: Nom et prénom
         phone_number: Téléphone portable
       partner_external_account:
