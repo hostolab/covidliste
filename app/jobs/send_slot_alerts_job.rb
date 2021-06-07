@@ -3,6 +3,8 @@ class SendSlotAlertsJob < ApplicationJob
 
   def perform(params)
     return unless params[:days]
-    SlotAlertService.new(params[:days], params[:threshold], user_alerting_intensity: params[:user_alerting_intensity]).call
+    SlotAlertService.new(params[:days],
+      params[:threshold],
+      params[:user_alerting_intensity]).call
   end
 end

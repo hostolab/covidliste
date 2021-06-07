@@ -1,5 +1,5 @@
 class VmdParserJob < ApplicationJob
-  queue_as :low
+  queue_as :critical
 
   def perform
     VmdParserService.new.parse
