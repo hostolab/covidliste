@@ -205,6 +205,36 @@ class User < ApplicationRecord
     SlotAlert.create!(vmd_slot: best_slot, user_id: id)
   end
 
+  def find_confirmed_match
+    matches.confirmed.first
+  end
+
+  def find_available_matches
+    matches.pending.includes([:campaign]).order(id: :asc)
+  end
+
+  def find_available_match
+    find_available_matches.each do |match|
+      if match.confirmable? && !match.expired?
+        return match
+      end
+    end
+    nil
+  end
+
+  def find_confirmed_or_available_match
+    confirmed_match = find_confirmed_match
+    return confirmed_match if confirmed_match
+    find_available_match
+  end
+
+  def find_or_create_match
+    existing_match = find_confirmed_or_available_match
+    return existing_match if existing_match
+    # TODO : here look for campaigns and create match
+    nil
+  end
+
   protected
 
   def skip_password_complexity?
