@@ -47,7 +47,6 @@ class ReachableUsersService
       max_i: @covering[:center_cell][:i] + @covering[:dist_cells],
       min_j: @covering[:center_cell][:j] - @covering[:dist_cells],
       max_j: @covering[:center_cell][:j] + @covering[:dist_cells],
-      vaccine_type: @campaign.vaccine_type,
       limit: limit,
       ranking_method: @campaign.ranking_method
     }
@@ -99,7 +98,6 @@ class ReachableUsersService
       max_i: @covering[:center_cell][:i] + @covering[:dist_cells],
       min_j: @covering[:center_cell][:j] - @covering[:dist_cells],
       max_j: @covering[:center_cell][:j] + @covering[:dist_cells],
-      vaccine_type: @campaign.vaccine_type,
       throttling_rate: @campaign.throttling_rate,
       throttling_interval: @campaign.throttling_interval.ago
     }
