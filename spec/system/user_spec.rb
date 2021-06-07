@@ -204,9 +204,6 @@ RSpec.describe "Users", type: :system do
     context "with a new campaign and match" do
       let!(:center) { create(:vaccination_center, :from_paris) }
       before do
-        center.lat = user.lat
-        center.lon = user.lon
-        center.save!
         new_campaign = create(:campaign, vaccination_center: center)
         create(:match, user: user, vaccination_center: center, expires_at: 1.hour.since, campaign: new_campaign)
       end
