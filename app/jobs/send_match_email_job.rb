@@ -1,6 +1,6 @@
 class SendMatchEmailJob < ApplicationJob
   # TODO: Define retry_on policy: https://edgeapi.rubyonrails.org/classes/ActiveJob/Exceptions/ClassMethods.html#method-i-retry_on# TODO: # TODO: Define retry_on policy: https://edgeapi.rubyonrails.org/classes/ActiveJob/Exceptions/ClassMethods.html#method-i-retry_on
-  queue_as :critical
+  queue_as :default
 
   def perform(match_id)
     match = Match.find(match_id)
