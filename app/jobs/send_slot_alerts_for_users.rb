@@ -1,7 +1,7 @@
 class SendSlotAlertsForUsers < ApplicationJob
   queue_as :default
 
-  def perform(params)
+  def perform
     User.active.where(user_alerting_intensity: 3).find_each do |user|
       slot = VmdSlot
         .where("last_updated_at >= ?", 7.minutes.ago)
