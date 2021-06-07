@@ -50,7 +50,6 @@ send_slots_alerts_for_high:
   args: { days: 2, threshold: 40, user_alerting_intensity: 2 }
   description: "Send slots alerts who want more alerts"
 
-
 send_slots_alerts_for_power:
   cron: "0 13-21 * * *" # between 1pm to 8pm"
   class: "SendSlotAlertsJob"
