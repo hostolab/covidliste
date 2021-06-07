@@ -47,7 +47,6 @@ class ReachableUsersService
       max_i: @covering[:center_cell][:i] + @covering[:dist_cells],
       min_j: @covering[:center_cell][:j] - @covering[:dist_cells],
       max_j: @covering[:center_cell][:j] + @covering[:dist_cells],
-      vaccine_type: @campaign.vaccine_type,
       limit: limit,
       ranking_method: @campaign.ranking_method
     }
@@ -78,10 +77,7 @@ class ReachableUsersService
           select ru.id, sum(case when m.id is not null then 1 else 0 end) count
           from
             reachable_users ru
-            left join matches m on (ru.id=m.user_id)
-          where
-            created_at >= :throttling_interval
-            or m.id is null
+            left join matches m on (ru.id=m.user_id AND created_at >= :throttling_interval)
          group by ru.id
         ) a
         where count < :throttling_rate
@@ -102,7 +98,6 @@ class ReachableUsersService
       max_i: @covering[:center_cell][:i] + @covering[:dist_cells],
       min_j: @covering[:center_cell][:j] - @covering[:dist_cells],
       max_j: @covering[:center_cell][:j] + @covering[:dist_cells],
-      vaccine_type: @campaign.vaccine_type,
       throttling_rate: @campaign.throttling_rate,
       throttling_interval: @campaign.throttling_interval.ago
     }
