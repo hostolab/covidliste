@@ -78,10 +78,7 @@ class ReachableUsersService
           select ru.id, sum(case when m.id is not null then 1 else 0 end) count
           from
             reachable_users ru
-            left join matches m on (ru.id=m.user_id)
-          where
-            created_at >= :throttling_interval
-            or m.id is null
+            left join matches m on (ru.id=m.user_id AND created_at >= :throttling_interval)
          group by ru.id
         ) a
         where count < :throttling_rate
