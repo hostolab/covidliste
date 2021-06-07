@@ -1,4 +1,4 @@
-class SendSlotAlertsForUsers < ApplicationJob
+class SendSlotAlertsForUsersJob < ApplicationJob
   queue_as :default
 
   def perform
@@ -9,7 +9,7 @@ class SendSlotAlertsForUsers < ApplicationJob
         .where("(SQRT(((latitude - ?)*110.574)^2 + ((longitude - ?)*111.320*COS(latitude::float*3.14159/180))^2)) < ? ", user.lat, user.lon, user.max_distance_km)
         .where("slots_1_days > 10")
         .order("next_rdv asc")
-        .limit(1)
+        .limit(1).first
       next unless slot
       SlotAlert.create!(vmd_slot: slot, user_id: user.id)
     end

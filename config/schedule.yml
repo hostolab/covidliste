@@ -58,5 +58,5 @@ send_slots_alerts_for_power:
 
 send_slots_alerts_for_users:
   cron: "0 * * * *" # every hour
-  class: "SendSlotAlertsForUsers"
+  class: "SendSlotAlertsForUsersJob"
   description: "Send slots alerts using greedy user approach."
