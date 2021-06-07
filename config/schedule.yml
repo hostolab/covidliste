@@ -37,3 +37,26 @@ follow_up_for_slot_alerts:
   cron: "0 */6 * * *"
   class: "FollowUpSlotAlertsJob"
   description: "Follow up slot alert emails"
+
+send_slots_alerts_for_all:
+  cron: "0 7 * * *" # every day at 7am
+  class: "SendSlotAlertsJob"
+  args: { days: 7, threshold: 100, user_alerting_intensity: 1 }
+  description: "Send slots alerts for all users once a day"
+
+send_slots_alerts_for_high:
+  cron: "0 11 * * *" # every day at 11aam
+  class: "SendSlotAlertsJob"
+  args: { days: 2, threshold: 40, user_alerting_intensity: 2 }
+  description: "Send slots alerts who want more alerts"
+
+send_slots_alerts_for_power:
+  cron: "0 13-21 * * *" # between 1pm to 8pm"
+  class: "SendSlotAlertsJob"
+  args: { days: 1, threshold: 20, user_alerting_intensity: 3 }
+  description: "Send slots alerts who want all alerts"
+
+send_slots_alerts_for_users:
+  cron: "0 * * * *" # every hour
+  class: "SendSlotAlertsForUsers"
+  description: "Send slots alerts using greedy user approach."
