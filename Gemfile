@@ -101,3 +101,7 @@ group :test do
   gem "spring-commands-rspec", "~> 1.0"
   gem "webmock"
 end
+
+gem "postmark-rails", "~> 0.21.0"
+
+gem "postmark", "~> 1.21"
