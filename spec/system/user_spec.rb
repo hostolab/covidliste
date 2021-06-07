@@ -17,7 +17,7 @@ def signup_submit
 end
 
 RSpec.describe "Users", type: :system do
-  let(:user) { build(:user) }
+  let(:user) { build(:user, :from_paris) }
 
   before do
     allow_any_instance_of(GeocodingService).to receive(:call).and_return({
@@ -190,9 +190,6 @@ RSpec.describe "Users", type: :system do
     context "with a new campaign" do
       let!(:center) { create(:vaccination_center, :from_paris) }
       before do
-        center.lat = user.lat
-        center.lon = user.lon
-        center.save!
         create(:campaign, vaccination_center: center)
       end
 
@@ -226,9 +223,6 @@ RSpec.describe "Users", type: :system do
         5.times.each do |i|
           create(:match, user: user)
         end
-        center.lat = user.lat
-        center.lon = user.lon
-        center.save!
         create(:campaign, vaccination_center: center)
       end
 
