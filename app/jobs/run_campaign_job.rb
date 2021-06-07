@@ -4,8 +4,8 @@ class RunCampaignJob < ApplicationJob
   SLOW_ADJUSTMENT_FACTOR = 0.25
   FAST_ADJUSTMENT_FACTOR = 0.9
   LOWER_BOUND_CONVERSION_RATE = 0.01
-  V3_JOB_MINUTES_CADENCE = 5
-  V2_JOB_MINUTES_CADENCE = 2
+  V3_JOB_MINUTES_CADENCE = 10
+  V2_JOB_MINUTES_CADENCE = 5
 
   # Job that decides users the be matched for a given campaign at a given point in time.
   # This job creates the matches.
