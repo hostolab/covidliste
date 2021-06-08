@@ -68,6 +68,8 @@ RSpec.describe Match, type: :model do
       match = create(:match, user: user)
       match.confirm!
       expect(match.confirmed?).to be true
+      user.reload
+      expect(user.match_confirmed_at).not_to be_nil
     end
 
     context "When the match itself is already confirmed" do

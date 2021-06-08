@@ -76,6 +76,8 @@ class Match < ApplicationRecord
     self.geo_context = user.geo_context if geo_context.nil?
 
     save!
+
+    user.update_attribute("match_confirmed_at", Time.now.utc) unless user.match_confirmed_at.present?
   end
 
   def find_other_confirmed_match_for_user
