@@ -52,7 +52,7 @@ RSpec.describe Match, type: :model do
     context "user has already too many matches" do
       let(:user) { create(:user) }
       before do
-        5.times.each do |i|
+        10.times.each do |i|
           create(:match, user: user)
         end
       end

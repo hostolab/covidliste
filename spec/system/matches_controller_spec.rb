@@ -164,10 +164,10 @@ RSpec.describe MatchesController, type: :system do
       end
     end
 
-    context "when 5 old matches are canceled but another campaign has been created" do
+    context "when 10 old matches are canceled but another campaign has been created" do
       before do
         campaign.canceled!
-        4.times.each do |i|
+        9.times.each do |i|
           other_campaign = create(:campaign, vaccination_center: center)
           create(:match, user: user, campaign: other_campaign)
           other_campaign.canceled!

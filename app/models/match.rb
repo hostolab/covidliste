@@ -5,8 +5,8 @@ class Match < ApplicationRecord
 
   class MissingNamesError < StandardError; end
 
-  THROTTLING_RATE = 5
-  THROTTLING_INTERVAL = 24.hours
+  THROTTLING_RATE = 10
+  THROTTLING_INTERVAL = 14.hours
 
   MATCH_TTL = 45.minutes
 
