@@ -1,5 +1,5 @@
 class SendSlotAlertsJob < ApplicationJob
-  queue_as :default
+  queue_as :critical
 
   def perform(params)
     return unless params[:days]
