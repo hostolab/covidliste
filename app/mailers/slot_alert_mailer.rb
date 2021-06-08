@@ -1,6 +1,7 @@
 class SlotAlertMailer < ApplicationMailer
   helper ApplicationHelper
-  default from: "Covidliste <alerte@covidliste.com>"
+  default :from => "Covidliste <alerte@covidliste.com>",
+          "X-Auto-Response-Suppress" => "OOF"
 
   def notify
     @alert = params[:alert]

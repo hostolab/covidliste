@@ -301,6 +301,11 @@ GEM
     pghero (2.8.1)
       activerecord (>= 5)
     phonelib (0.6.49)
+    postmark (1.21.3)
+      json
+    postmark-rails (0.21.0)
+      actionmailer (>= 3.0.0)
+      postmark (>= 1.21.3, < 2.0)
     pry (0.13.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -587,6 +592,8 @@ DEPENDENCIES
   pg_search
   pghero
   phonelib
+  postmark (~> 1.21)
+  postmark-rails (~> 0.21.0)
   pry-byebug
   pry-rails
   puma (~> 5.3)
