@@ -214,10 +214,10 @@ RSpec.describe "Users", type: :system do
       end
     end
 
-    context "with 5 old matches and a new campaign" do
+    context "with 10 old matches and a new campaign" do
       let!(:center) { create(:vaccination_center, :from_paris) }
       before do
-        5.times.each do |i|
+        10.times.each do |i|
           create(:match, user: user)
         end
         create(:campaign, vaccination_center: center)
