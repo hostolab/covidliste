@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_04_002053) do
+ActiveRecord::Schema.define(version: 2021_06_08_081832) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -305,7 +305,8 @@ ActiveRecord::Schema.define(version: 2021_06_04_002053) do
     t.string "anonymized_reason"
     t.integer "max_distance_km", default: 10
     t.datetime "alerting_optin_at"
-    t.integer "alerting_intensity", default: 1
+    t.integer "alerting_intensity"
+    t.integer "matches_count", default: 0
     t.index ["alerting_intensity"], name: "index_users_on_alerting_intensity"
     t.index ["alerting_optin_at"], name: "index_users_on_alerting_optin_at"
     t.index ["anonymized_at"], name: "index_users_on_anonymized_at"
@@ -318,6 +319,7 @@ ActiveRecord::Schema.define(version: 2021_06_04_002053) do
     t.index ["geo_context"], name: "index_users_on_geo_context"
     t.index ["grid_i"], name: "index_users_on_grid_i"
     t.index ["grid_j"], name: "index_users_on_grid_j"
+    t.index ["matches_count"], name: "index_users_on_matches_count"
     t.index ["zipcode"], name: "index_users_on_zipcode"
   end
 
