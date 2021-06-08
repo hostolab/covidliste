@@ -27,6 +27,18 @@ RSpec.describe Match, type: :model do
       expect(match.geo_context).to eq "GEO_CONTEXT"
     end
 
+    it "should increment user matches count" do
+      user = create(:user,
+        birthdate: Time.now.utc.to_date - 60.years,
+        zipcode: "75001",
+        city: "Paris",
+        geo_citycode: "75001",
+        geo_context: "GEO_CONTEXT")
+      create(:match, user: user)
+      user.reload
+      expect(user.matches_count).to eq(1)
+    end
+
     context "same campaign" do
       let(:user) { create(:user) }
       before do

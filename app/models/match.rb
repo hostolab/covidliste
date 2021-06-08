@@ -31,7 +31,7 @@ class Match < ApplicationRecord
   validates :user_id, uniqueness: {scope: :campaign_id}
   before_create :save_user_info
   before_save :cache_distance_in_meters_between_user_and_vaccination_center
-  after_create_commit :notify
+  after_create_commit :notify, :increment_user_matches_count
   after_commit :compute_campaign_matches, on: [:create, :update]
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
@@ -149,6 +149,11 @@ class Match < ApplicationRecord
 
   def notify_by_sms
     SendMatchSmsJob.perform_later(id)
+  end
+
+  def increment_user_matches_count
+    user.matches_count += 1
+    user.save(validate: false)
   end
 
   def flipper_id
