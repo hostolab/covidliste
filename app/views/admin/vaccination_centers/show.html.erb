@@ -187,12 +187,17 @@ Compte <%= partner_external_account.service_name %> :
                             <strong><%= external_account.full_name %></strong><br />
                             <em><%= external_account.identifier %></em><br />
                             <% if external_account.locations.present? %>
-                              <div class="mt-2">
+                              <div class="mt-4">
                                 <strong>Établissements : </strong><br />
-                                <div>
+                                <div class="mt-1">
                                   <% external_account.locations.each do |location| %>
-                                    <div class="my-1">
-                                      <div><%= location["name"] %> <%= location["commercial_name"].present? ? "(#{location["commercial_name"]})" : "" %></div>
+                                    <div class="p-2 mx-2 mb-3 border rounded">
+                                      <div><%= location["name"] %></div>
+                                      <div><%= location["commercial_name"] %></div>
+                                      <div><%= location["address"] %></div>
+                                      <div><%= location["address2"] %></div>
+                                      <div><%= location["address3"] %></div>
+                                      <div><%= location["phone"] %></div>
                                       <div class="text-muted">
                                         Numéro FINESS :
                                         <% if location["finess"].present? %>
