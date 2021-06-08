@@ -8,34 +8,24 @@ class ReachableUsersService
 
   def get_users(limit = nil)
     sql = <<~SQL.tr("\n", " ").squish
-      with users_stats as (
-        select
-        u.id as user_id,
-        ((SQRT((((:lat) - u.lat)*110.574)^2 + (((:lon) - u.lon)*111.320*COS(u.lat::float*3.14159/180))^2)) / 5.0)::int * 5 as distance_bucket,
-        EXTRACT(EPOCH FROM (now() - u.created_at)) as created_at,
-        COUNT(m.id) as total_matches_count
-        from users u
-        left outer join matches m on (m.user_id = u.id)
-        left outer join campaigns c on (c.id = m.campaign_id and c.status != 2)
-        WHERE
-          u.confirmed_at IS NOT NULL
-          AND u.anonymized_at is NULL
-          AND u.birthdate between (:min_date) and (:max_date)
-          AND u.grid_i >= :min_i AND u.grid_i <= :max_i
-          AND u.grid_j >= :min_j AND u.grid_j <= :max_j
-          AND (SQRT((((:lat) - u.lat)*110.574)^2 + (((:lon) - u.lon)*111.320*COS(u.lat::float*3.14159/180))^2)) < (:rayon_km)
-        group by 1,2,3
-        having SUM(case when m.confirmed_at is not null then 1 else 0 end) <= 0
-      )
-
       select
-        *
-        from users_stats
-        order by
-        total_matches_count asc,
+      u.id as user_id,
+      matches_count,
+      ((SQRT((((:lat) - u.lat)*110.574)^2 + (((:lon) - u.lon)*111.320*COS(u.lat::float*3.14159/180))^2)) / 5.0)::int * 5 as distance_bucket
+      from users u
+      WHERE
+        u.confirmed_at IS NOT NULL
+        AND u.anonymized_at is NULL
+        AND u.match_confirmed_at is NULL
+        AND u.birthdate between (:min_date) and (:max_date)
+        AND u.grid_i >= :min_i AND u.grid_i <= :max_i
+        AND u.grid_j >= :min_j AND u.grid_j <= :max_j
+        AND (SQRT((((:lat) - u.lat)*110.574)^2 + (((:lon) - u.lon)*111.320*COS(u.lat::float*3.14159/180))^2)) < (:rayon_km)
+      ORDER by
+        matches_count asc,
         distance_bucket asc,
-        case when :ranking_method = 'v3' then - created_at else created_at end asc
-      limit (:limit)
+        created_at desc
+      LIMIT (:limit)
     SQL
     params = {
       min_date: @campaign.max_age.years.ago,
@@ -47,8 +37,7 @@ class ReachableUsersService
       max_i: @covering[:center_cell][:i] + @covering[:dist_cells],
       min_j: @covering[:center_cell][:j] - @covering[:dist_cells],
       max_j: @covering[:center_cell][:j] + @covering[:dist_cells],
-      limit: limit,
-      ranking_method: @campaign.ranking_method
+      limit: limit
     }
     query = ActiveRecord::Base.send(:sanitize_sql_array, [sql, params])
     User.where(id: ActiveRecord::Base.connection.execute(query).to_a.pluck("user_id"))
@@ -61,14 +50,13 @@ class ReachableUsersService
         SELECT
           DISTINCT u.id
         FROM users u
-        left outer join matches m on (m.user_id = u.id and m.confirmed_at is not null)
         WHERE u.confirmed_at IS NOT NULL
         AND u.anonymized_at is NULL
+        AND u.match_confirmed_at is NULL
         AND u.birthdate between (:min_date) and (:max_date)
         AND u.grid_i >= :min_i AND u.grid_i <= :max_i
         AND u.grid_j >= :min_j AND u.grid_j <= :max_j
         AND (SQRT((((:lat) - u.lat)*110.574)^2 + (((:lon) - u.lon)*111.320*COS(u.lat::float*3.14159/180))^2)) < (:rayon_km)
-        AND m.id IS NULL
       ),
       matchable_users_count as (
         select count(distinct id) matchable_users_count

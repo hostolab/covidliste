@@ -45,7 +45,7 @@ class User < ApplicationRecord
   after_create_commit :increment_total_users_counter
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
-  scope :active, -> { where(anonymized_at: nil) }
+  scope :active, -> { where(anonymized_at: nil, match_confirmed_at: nil) }
   scope :between_age, ->(min, max) { where(birthdate: max.years.ago..min.years.ago) }
   scope :with_roles, -> { joins(:roles) }
 
