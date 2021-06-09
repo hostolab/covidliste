@@ -6,6 +6,8 @@ class SendMatchEmailJob < ApplicationJob
     match = Match.find(match_id)
 
     return if match.mail_sent_at.present? || match.expired? || match.refused?
+    return if match.user.nil?
+    return if match.user.anonymized_at?
     match.set_expiration!
     MatchMailer.with(match: match).match_confirmation_instructions.deliver_now
     match.update(mail_sent_at: Time.now.utc)
