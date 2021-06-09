@@ -1,9 +1,9 @@
 default: &default
   admin_roles:
     super_admin:
-      name: "Équipe infrastructure / Super Admin"
+      name: "Responsable infrastructure"
     admin:
-      name: "Responsable Covidliste / Core Team"
+      name: "Core Team"
       parent_role: super_admin
     supply_admin:
       name: "Responsable supply"
@@ -12,10 +12,7 @@ default: &default
       name: "Équipe supply"
       parent_role: supply_admin
     ds_admin:
-      name: "Responsable Data Science"
-      parent_role: admin
-    dev_admin:
-      name: "Responsable dev"
+      name: "Responsable data science"
       parent_role: admin
     support_admin:
       name: "Responsable support"
