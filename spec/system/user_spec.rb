@@ -116,6 +116,13 @@ RSpec.describe "Users", type: :system do
       expect(page).to have_text("Vous êtes inscrit sur Covidliste depuis")
     end
 
+    it "it does not display volunteers form" do
+      expect(page).not_to have_text("Bénévole Covidliste")
+      expect(page).not_to have_text("Prénom")
+      expect(page).not_to have_text("Nom")
+      expect(page).not_to have_text("Clipperton")
+    end
+
     it "it allows me to edit personal information " do
       new_attributes = {
         phone_number: generate(:french_phone_number)

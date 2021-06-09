@@ -11,6 +11,47 @@
 <% end %>
 
 <%= simple_form_for(user, url: :profile, method: :put, wrapper: :horizontal_form) do |f| %>
+  <% if user&.has_role?(:volunteer) %>
+    <div class="border border-primary rounded py-1 px-2 my-3">
+      <div class="row">
+        <div class="col-sm-8">
+          <div class="small mb-2 text-primary">
+            Bénévole Covidliste :<br />
+            Vous voyez cette zone car vous êtes bénévole pour Covidliste.<br />
+            Merci pour votre aide ❤️ !
+          </div>
+        </div>
+        <div class="col-sm-4 text-right">
+          <%= link_to icon("fas", "lock", "Accèder à l'espace bénévoles", class: "mr-1"), admin_path, class: "btn btn-sm btn-outline-secondary" %>
+        </div>
+      </div>
+      <div class="p-1">
+        <%= f.input :firstname %>
+        <%= f.input :lastname %>
+        <div class="row">
+          <div class="col-sm-3">
+            Pas besoin de vaccin ?
+          </div>
+          <div class="col-sm-9">
+            <%= link_to icon("fas", "map-marked-alt", "Se téléporter sur l'Île de Clipperton (Île déserte du Pacifique)"), "#", class: "btn btn-sm btn-outline-primary", id: "btn-clipperton" %>
+          </div>
+        </div>
+        <script nonce="<%= content_security_policy_nonce %>">
+            (function () {
+                var link = document.querySelector("#btn-clipperton")
+                link.addEventListener("click", function (event) {
+                    event.preventDefault();
+                    if(confirm("Êtes vous sûr de vouloir vous téléporter sur l'Île de Clipperton ? Vous ne recevrez plus aucune proposition de dose.")) {
+                        document.querySelector("#user_address").value = "Clipperton Île de Clipperton 99000 France";
+                        document.querySelector("#user_lat").value = "10.311";
+                        document.querySelector("#user_lon").value = "-109.231";
+                    }
+                }, false);
+            })();
+        </script>
+      </div>
+    </div>
+  <%end %>
   <div class="row">
     <div class="col-12 col-sm-3">
       <label class="col-form-label">
@@ -24,6 +65,7 @@
   <%= f.input :email, error: "", disabled: true %>
   <%= f.input :phone_number, label: "Numéro de téléphone", error: "", placeholder: "06 06 06 06 06" %>
   <%= f.input :address, label: "Adresse", error: "Adresse requise", placeholder: "Choisir une nouvelle adresse" %>
+
 
   <small class="form-text text-muted mb-2">
     Pour des raisons de protection des données personnelles, nous ne stockons pas votre adresse. Nous gardons

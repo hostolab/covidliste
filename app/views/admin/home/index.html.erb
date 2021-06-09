@@ -7,14 +7,25 @@
     <strong>
       Bonjour <%= current_user %> 👋
     </strong>
+    <br/>
+    Vous êtes bénévole pour Covidliste.<br />
+    Merci pour votre aide ❤️ !
   </p>
 
   <p>
     Utilisez la barre de navigation pour parcourir les différentes pages.
   </p>
 
+  <p class="small">
+    Besoin de modifier votre nom "<em class="text-muted"><%= current_user %></em>" ?<br />
+    Envie de désactiver les notifications de doses pour votre compte bénévole ?<br />
+    Rendez-vous
+    <%= link_to "sur votre profil", profile_path %>
+    dans l'encart réservé aux bénévoles.
+  </p>
+
   <div class="mt-4">
-    <p class="mb-2">Vous possèdez les rôles/accès suivants :</p>
+    <p class="mb-1 small">Votre compte bénévole possède les accès suivants :</p>
     <%= render partial: "admin/users/user_roles", locals: {user: current_user, show_inactive: false} %>
   </div>
 </div>
