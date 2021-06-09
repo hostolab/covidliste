@@ -231,7 +231,29 @@ class User < ApplicationRecord
   def find_or_create_match
     existing_match = find_confirmed_or_available_match
     return existing_match if existing_match
-    # TODO : here look for campaigns and create match
+
+    campaigns = ::ReachableUsersService.get_running_campaigns_for_user(self)
+    return if campaigns.blank?
+    campaign = campaigns.first
+    return if campaign.blank?
+    return unless campaign.running?
+    return if campaign.remaining_doses <= 0
+    return if Time.now.utc >= campaign.ends_at
+
+    @match = Match.find_by(campaign_id: campaign.id, user_id: id)
+    if @match.blank?
+      REDIS_LOCK.lock!("create_match_for_user_id_#{id}", 2000) do
+        @match = Match.create(
+          campaign: campaign,
+          vaccination_center: campaign.vaccination_center,
+          user: self
+        )
+        return if @match.present? && @match.errors.present?
+        return @match
+      rescue Redlock::LockError
+        Rails.logger.warn("Could not obtain lock to create match for user_id #{id}")
+      end
+    end
     nil
   end
 

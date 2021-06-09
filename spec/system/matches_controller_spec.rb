@@ -143,11 +143,9 @@ RSpec.describe MatchesController, type: :system do
         create(:campaign, vaccination_center: center)
       end
 
-      it "does not redirect the user to the new campaign" do
-        # When match auto-creation is prodded, switch "does not redirect" to "redirects"
+      it "redirects the user to the new campaign" do
         visit match_path(match_confirmation_token)
-        expect(page).not_to have_text("Bonne nouvelle, nous avons trouvé une autre dose")
-        # When match auto-creation is prodded, switch "not_to" to "to"
+        expect(page).to have_text("Bonne nouvelle, nous avons trouvé une autre dose")
       end
     end
 
@@ -189,11 +187,9 @@ RSpec.describe MatchesController, type: :system do
         create(:campaign, vaccination_center: center)
       end
 
-      it "does not redirect the user to the new campaign" do
-        # When match auto-creation is prodded, switch "does not redirect" to "redirects"
+      it "redirects the user to the new campaign" do
         visit match_path(match_confirmation_token)
-        expect(page).not_to have_text("Bonne nouvelle, nous avons trouvé une autre dose")
-        # When match auto-creation is prodded, switch "not_to" to "to"
+        expect(page).to have_text("Bonne nouvelle, nous avons trouvé une autre dose")
       end
     end
 

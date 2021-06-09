@@ -93,4 +93,71 @@ class ReachableUsersService
     query = ActiveRecord::Base.send(:sanitize_sql_array, [sql, params])
     ActiveRecord::Base.connection.execute(query).to_a.first
   end
+
+  def self.get_running_campaigns_for_user(user)
+    sql = <<~SQL.tr("\n", " ").squish
+      WITH active_campaigns_for_user AS (
+        SELECT
+          c.id,
+          c.available_doses,
+          c.min_age,
+          c.max_age,
+          c.status,
+          v.name,
+          c.max_distance_in_meters/1000 as max_distance,
+          (SQRT(((v.lat - (:lat))*110.574)^2 + ((v.lon - (:lon))*111.320*COS((:lat)::float*3.14159/180))^2)) as distance
+        FROM
+          campaigns c
+          JOIN vaccination_centers v on (v.id = c.vaccination_center_id)
+        WHERE
+          c.status = 0
+          AND c.ends_at > NOW()
+          AND c.vaccine_type NOT IN ('astrazeneca', 'janssen')
+          AND (:birthdate) between (NOW() - (c.max_age || ' years')::interval) and (NOW() - (c.min_age || ' years')::interval)
+          AND (SQRT(((v.lat - (:lat))*110.574)^2 + ((v.lon - (:lon))*111.320*COS((:lat)::float*3.14159/180))^2)) < c.max_distance_in_meters/1000
+      )
+
+      SELECT
+        c.id as campaign_id,
+        c.available_doses,
+        COALESCE(cm.n_confirmed_matches, 0) as n_confirmed_matches,
+        COALESCE(um.n_user_matches, 0) as n_user_matches,
+        c.min_age,
+        c.max_age,
+        c.status,
+        c.name,
+        c.max_distance,
+        c.distance
+      FROM
+        active_campaigns_for_user c
+      LEFT JOIN (
+        SELECT campaign_id, COUNT(*) AS n_confirmed_matches
+        FROM
+          matches m
+        JOIN active_campaigns_for_user ac ON (ac.id=m.campaign_id)
+        WHERE m.user_id = (:id)
+        AND confirmed_at IS NOT NULL
+        GROUP BY 1
+      ) cm ON c.id = cm.campaign_id
+      LEFT JOIN (
+        SELECT campaign_id, COUNT(*) AS n_user_matches
+        FROM
+          matches m
+        JOIN active_campaigns_for_user ac ON (ac.id=m.campaign_id)
+        WHERE m.user_id = (:id)
+        GROUP BY 1
+      ) um ON c.id = um.campaign_id
+      WHERE
+        COALESCE(um.n_user_matches, 0) = 0
+      ORDER BY c.id ASC
+    SQL
+    params = {
+      id: user.id,
+      birthdate: user.birthdate,
+      lat: user.lat,
+      lon: user.lon
+    }
+    query = ActiveRecord::Base.send(:sanitize_sql_array, [sql, params])
+    Campaign.where(id: ActiveRecord::Base.connection.execute(query).to_a.pluck("campaign_id")).includes([:vaccination_center])
+  end
 end
