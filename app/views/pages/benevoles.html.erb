@@ -18,7 +18,9 @@
   <p class="text-justify text-sm-left">Grâce à Covidliste, les soignants gagnent de précieuses heures par jour. Finies
     les heures passées au téléphone pour remplir les créneaux disponibles, c'est Covidliste qui se charge de leur
     adresser les volontaires en quelques clics.</p>
-  <p class="text-justify text-sm-left">Vous voulez nous rejoindre ? C'est en bas de la page !</p>
+  <% if @enable_recruitment %>
+    <p class="text-justify text-sm-left">Vous voulez nous rejoindre ? C'est en bas de la page !</p>
+  <% end %>
 
   <div class="mt-2 mb-5">
     <p class="text-center text-muted mt-4 mb-4">
@@ -51,56 +53,58 @@
     </div>
   </div>
 
-  <h2 id="devenir-benevole">Envie de prendre part au projet ?</h2>
+  <% if @enable_recruitment %>
+    <h2 id="devenir-benevole">Envie de prendre part au projet ?</h2>
 
-  <p class="mt-4">Nous avons besoin de bénévoles pour venir renforcer nos rangs 💪</p>
+    <p class="mt-4">Nous avons besoin de bénévoles pour venir renforcer nos rangs 💪</p>
 
-  <p class="text-primary small">
-    Tous les champs du formulaire comportant un astérisque (*) sont obligatoires car nécessaires à Hostolab, en tant que
-    responsable de traitement, pour l’examen de votre candidature. A défaut de les remplir, nous ne pourrons pas traiter
-    votre candidature.
-  </p>
+    <p class="text-primary small">
+      Tous les champs du formulaire comportant un astérisque (*) sont obligatoires car nécessaires à Hostolab, en tant que
+      responsable de traitement, pour l’examen de votre candidature. A défaut de les remplir, nous ne pourrons pas traiter
+      votre candidature.
+    </p>
 
-  <p class="text-primary small">
-    Conformément à la réglementation applicable, vous disposez d’un droit d’accès, de rectification, de suppression et,
-    le cas échéant, de portabilité de vos données personnelles. Vous pouvez également vous opposer au traitement de vos
-    données et, le cas échéant, en demander la limitation. Vous pouvez enfin définir des directives relatives au sort de
-    vos données en cas de décès. Ces droits peuvent être exercés directement auprès de Hostolab par email à l’adresse
-    suivante : <%= mail_to "privacy@covidliste.com" %>. Au besoin, vous bénéficiez du droit d’introduire une réclamation
-    auprès de la CNIL.
-  </p>
+    <p class="text-primary small">
+      Conformément à la réglementation applicable, vous disposez d’un droit d’accès, de rectification, de suppression et,
+      le cas échéant, de portabilité de vos données personnelles. Vous pouvez également vous opposer au traitement de vos
+      données et, le cas échéant, en demander la limitation. Vous pouvez enfin définir des directives relatives au sort de
+      vos données en cas de décès. Ces droits peuvent être exercés directement auprès de Hostolab par email à l’adresse
+      suivante : <%= mail_to "privacy@covidliste.com" %>. Au besoin, vous bénéficiez du droit d’introduire une réclamation
+      auprès de la CNIL.
+    </p>
 
-  <p class="text-primary small">
-    Pour en savoir plus sur l’utilisation de vos données personnelles, veuillez consulter
-    la <%= link_to "politique de protection des données personnelles", privacy_volontaires_path %>.
-  </p>
+    <p class="text-primary small">
+      Pour en savoir plus sur l’utilisation de vos données personnelles, veuillez consulter
+      la <%= link_to "politique de protection des données personnelles", privacy_volontaires_path %>.
+    </p>
 
-  <p class="my-4">
-    <%= link_to "Postuler pour devenir bénévole", "https://bit.ly/recrutement-covidliste", class: "btn btn-primary", target: "_blank", rel: "noopener" %>
-  </p>
+    <p class="my-4">
+      <%= link_to "Postuler pour devenir bénévole", "https://bit.ly/recrutement-covidliste", class: "btn btn-primary", target: "_blank", rel: "noopener" %>
+    </p>
 
-  <p>Exemples de missions :</p>
+    <p>Exemples de missions :</p>
 
-  <ul>
-    <li>Contribuer au développement de la plateforme technologique</li>
-    <li>Travailler sur les interfaces pour que le produit soit utilisable facilement par tout le monde</li>
-    <li>Valider les nouveaux centres de vaccination partenaires</li>
-    <li>Faire connaître le service covidliste auprès de nouveaux centres</li>
-    <li>etc.</li>
-  </ul>
+    <ul>
+      <li>Contribuer au développement de la plateforme technologique</li>
+      <li>Travailler sur les interfaces pour que le produit soit utilisable facilement par tout le monde</li>
+      <li>Valider les nouveaux centres de vaccination partenaires</li>
+      <li>Faire connaître le service covidliste auprès de nouveaux centres</li>
+      <li>etc.</li>
+    </ul>
 
-  <p>Voici des exemples d'engagements de certains de nos bénévoles :</p>
+    <p>Voici des exemples d'engagements de certains de nos bénévoles :</p>
 
-  <ul>
-    <li>3h00 le mardi matin</li>
-    <li>1h00 le mercredi après-midi, jeudi après-midi et vendredi après-midi</li>
-    <li>tout le lundi après-midi</li>
-    <li>3 heures le dimanche matin</li>
-    <li>etc.</li>
-  </ul>
+    <ul>
+      <li>3h00 le mardi matin</li>
+      <li>1h00 le mercredi après-midi, jeudi après-midi et vendredi après-midi</li>
+      <li>tout le lundi après-midi</li>
+      <li>3 heures le dimanche matin</li>
+      <li>etc.</li>
+    </ul>
 
-  <p class="mt-5">
-    Si vous êtes développeur, vous pouvez également apporter votre aide en collaborant sur le
-    <%= link_to "GitHub du projet", "https://github.com/hostolab/covidliste", target: "_blank", rel: "noopener" %>.
-  </p>
+    <p class="mt-5">
+      Si vous êtes développeur, vous pouvez également apporter votre aide en collaborant sur le
+      <%= link_to "GitHub du projet", "https://github.com/hostolab/covidliste", target: "_blank", rel: "noopener" %>.
+    </p>
+  <% end %>
 </div>
