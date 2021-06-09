@@ -40,11 +40,6 @@ Rails.application.routes.draw do
         mount Blazer::Engine, at: "/blazer"
       end
 
-      authenticate :user, lambda { |u| u.has_role?(:dev_admin) } do
-        # Dev admin
-        mount Flipper::UI.app(Flipper), at: "/flipper", as: :flipper_ui
-      end
-
       authenticate :user, lambda { |u| u.has_role?(:admin) } do
         # Core Team
         resources :power_users, only: [:index]
@@ -55,6 +50,7 @@ Rails.application.routes.draw do
         resources :power_users, only: [:create, :update, :destroy]
         mount PgHero::Engine, at: "/pghero"
         mount Sidekiq::Web => "/sidekiq"
+        mount Flipper::UI.app(Flipper), at: "/flipper", as: :flipper_ui
       end
     end
   end
