@@ -20,6 +20,10 @@
       <%- cancel_message = "Vous êtes sur le point d'interrompre cette campagne." %>
       <% if confirmed_matches_count > 0 %>
         <%- cancel_message =  "#{cancel_message} #{confirmed_matches_count} doses sont déjà attribuées à des volontaires ayant confirmé leur RDV et le resteront. Attendez-vous à ce que les #{confirmed_matches_count} volontaires se présentent à l'heure prévue. Les autres doses seront retirées de la campagne et ne pourront plus être réservées." %>
+      <% elsif @campaign.matches.size == 0 && @campaign.created_at > Time.now.utc - 1.hours %>
+        <% if (@campaign.vaccine_type != Vaccine::Brands::ASTRAZENECA) && (@campaign.vaccine_type != Vaccine::Brands::JANSSEN) %>
+          <%- cancel_message =  "#{cancel_message} Votre campagne peut prendre plusieurs dizaines de minutes pour démarrer, nous vous recommandons d'attendre au minimum 1 heure après son lancement avant de l'interrompre." %>
+        <% end %>
       <% end %>
       <span class="small d-print-none">
         <%= link_to "Interrompre",
