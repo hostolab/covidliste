@@ -2,8 +2,8 @@ module Partners
   class VaccinationCentersController < ApplicationController
     before_action :define_as_page_pro
     before_action :authenticate_partner!
-    before_action :find_vaccination_center, only: [:show]
-    before_action :authorize!, except: [:index, :new, :create]
+    before_action :find_vaccination_center, only: [:show, :update]
+    before_action :authorize!, except: [:index, :new, :create, :update]
 
     helper_method :sort_column, :sort_direction
 
@@ -30,6 +30,26 @@ module Partners
       @partner_vaccination_center.save
       prepare_phone_number
       render action: :new
+    end
+
+    def update
+      if !@vaccination_center.visible_optin && ActiveRecord::Type::Boolean.new.cast(vaccination_center_optin_params["visible_optin"])
+        @vaccination_center.visible_optin_at = Time.now.utc
+      elsif @vaccination_center.visible_optin && !ActiveRecord::Type::Boolean.new.cast(vaccination_center_optin_params["visible_optin"])
+        @vaccination_center.visible_optin_at = nil
+      end
+      if !@vaccination_center.media_optin && ActiveRecord::Type::Boolean.new.cast(vaccination_center_optin_params["media_optin"])
+        @vaccination_center.media_optin_at = Time.now.utc
+      elsif @vaccination_center.media_optin && !ActiveRecord::Type::Boolean.new.cast(vaccination_center_optin_params["media_optin"])
+        @vaccination_center.media_optin_at = nil
+      end
+      if @vaccination_center.update(vaccination_center_params)
+        flash[:success] = "Ce centre a bien été modifié"
+        render :show
+      else
+        flash[:success] = "Une erreur est survenue : #{@vaccination_center.errors.full_messages.join(", ")}"
+        render :show
+      end
     end
 
     def prepare_phone_number

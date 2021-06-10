@@ -26,8 +26,23 @@
       </p>
 
       <p class="mb-2">
-        <%= humanize_boolean @vaccination_center.visible_optin_at.present? %> Affichage sur la carte publique<br />
-        <%= humanize_boolean @vaccination_center.media_optin_at.present? %> Communication presse et réseaux sociaux
+        <div class="d-flex align-items-center">
+          <%= humanize_boolean @vaccination_center.visible_optin_at.present? %><span class='ml-2'>Affichage sur la carte publique</span>
+          <%= form_for [:partners, @vaccination_center], html: { class: 'ml-3' } do |f| %>
+            <%= f.hidden_field :visible_optin, value: !@vaccination_center.visible_optin_at.present? %>
+            <%= f.hidden_field :media_optin, value: @vaccination_center.media_optin_at.present? %>
+            <%= f.submit @vaccination_center.visible_optin_at.present? ? "Je ne souhaite plus apparaitre" : "Je souhaite apparaitre", class: 'btn btn-primary', style: 'font-size: 10px;' %>
+          <% end %>
+        </div>
+        <br/>
+        <div class="d-flex align-items-center"">
+          <%= humanize_boolean @vaccination_center.media_optin_at.present? %><span class='ml-2'>Communication presse et réseaux sociaux</span>
+          <%= form_for [:partners, @vaccination_center], html: { class: 'ml-3' } do |f| %>
+            <%= f.hidden_field :visible_optin, value: @vaccination_center.visible_optin_at.present? %>
+            <%= f.hidden_field :media_optin, value: !@vaccination_center.media_optin_at.present? %>
+            <%= f.submit @vaccination_center.media_optin_at.present? ? "Je ne souhaite plus apparaitre" : "Je souhaite apparaitre", class: 'btn btn-primary', style: 'font-size: 10px;' %>
+          <% end %>
+        </div>
       </p>
 
       <%- if @vaccination_center.lat && @vaccination_center.lon%>
