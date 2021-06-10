@@ -20,9 +20,16 @@ class Campaign < ApplicationRecord
   validates :max_distance_in_meters, numericality: {greater_than: 0, less_than_or_equal_to: MAX_DISTANCE_IN_KM * 1000}
   validate :min_age_lesser_than_max_age
   validate :starts_at_lesser_than_ends_at
+  validate :check_dates, if: :validate_dates?
 
   before_create :set_parameters
   after_create_commit :notify_to_slack
+
+  attr_accessor :validate_dates
+
+  def validate_dates?
+    validate_dates == "true" || validate_dates == true
+  end
 
   def canceled!
     update_attribute(:canceled_at, Time.now.utc)
@@ -162,6 +169,24 @@ class Campaign < ApplicationRecord
   def starts_at_lesser_than_ends_at
     if starts_at >= ends_at
       errors.add(:ends_at, "doit être postérieur à la date de début")
+    end
+  end
+
+  def check_dates
+    if Time.now.hour < 7 || Time.now.hour > 22
+      errors.add(:base, "Les campagnes ne peuvent pas être lancées entre 22h et 7h")
+    end
+
+    if starts_at.hour < 7 || starts_at.hour > 22
+      errors.add(:starts_at, "ne peut pas être entre 22h et 7h")
+    end
+
+    if ends_at.hour < 7
+      errors.add(:ends_at, "ne peut pas être avant 7h du matin")
+    end
+
+    if starts_at.to_date != ends_at.to_date
+      errors.add(:ends_at, "doit être le même jour que la date de début")
     end
   end
 end
