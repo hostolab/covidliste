@@ -34,7 +34,7 @@ class PagesController < ApplicationController
   end
 
   def sponsors
-    @sponsors = Sponsor.all.sort_by { |sponsor| sponsor.name }
+    @sponsors = Sponsor.all
   end
 
   def contact
