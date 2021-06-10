@@ -43,13 +43,12 @@ module Partners
       elsif @vaccination_center.media_optin && !ActiveRecord::Type::Boolean.new.cast(vaccination_center_optin_params["media_optin"])
         @vaccination_center.media_optin_at = nil
       end
-      if @vaccination_center.update(vaccination_center_params)
-        flash[:success] = "Ce centre a bien été modifié"
-        render :show
+      flash[:success] = if @vaccination_center.update(vaccination_center_params)
+        "Ce centre a bien été modifié"
       else
-        flash[:success] = "Une erreur est survenue : #{@vaccination_center.errors.full_messages.join(", ")}"
-        render :show
+        "Une erreur est survenue : #{@vaccination_center.errors.full_messages.join(", ")}"
       end
+      render :show
     end
 
     def prepare_phone_number
