@@ -35,12 +35,12 @@ module Partners
     def update
       if !@vaccination_center.visible_optin && ActiveRecord::Type::Boolean.new.cast(vaccination_center_optin_params["visible_optin"])
         @vaccination_center.visible_optin_at = Time.now.utc
-      elsif @vaccination_center.visible_optin && !ActiveRecord::Type::Boolean.new.cast(vaccination_center_optin_params["visible_optin"])
+      elsif @vaccination_center.visible_optin && (ActiveRecord::Type::Boolean.new.cast(vaccination_center_optin_params["visible_optin"]) == false)
         @vaccination_center.visible_optin_at = nil
       end
       if !@vaccination_center.media_optin && ActiveRecord::Type::Boolean.new.cast(vaccination_center_optin_params["media_optin"])
         @vaccination_center.media_optin_at = Time.now.utc
-      elsif @vaccination_center.media_optin && !ActiveRecord::Type::Boolean.new.cast(vaccination_center_optin_params["media_optin"])
+      elsif @vaccination_center.media_optin && (ActiveRecord::Type::Boolean.new.cast(vaccination_center_optin_params["media_optin"]) == false)
         @vaccination_center.media_optin_at = nil
       end
       flash[:success] = if @vaccination_center.update(vaccination_center_params)
