@@ -135,7 +135,7 @@ Rails.application.routes.draw do
   get "/benevoles" => "pages#benevoles", :as => :benevoles
   get "/contact" => "pages#contact", :as => :contact
   get "/algorithme" => "pages#algorithme", :as => :algorithme
-  get "/presse" => "pages#presse", :as => :presse
+  get "/presse", to: redirect("https://blog.covidliste.com/presse/home", status: 302), as: :presse
   get "/faq" => "pages#faq", :as => :faq
 
   ## Pages from frozen_records/static_pages.yml
