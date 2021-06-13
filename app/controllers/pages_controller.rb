@@ -41,9 +41,6 @@ class PagesController < ApplicationController
     @contact_items = FaqItem.where(category: "Collaboration et contact")
   end
 
-  def presse
-  end
-
   def carte
     @vaccination_centers = VaccinationCenter.confirmed
 
