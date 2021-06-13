@@ -23,13 +23,14 @@ module Partners
     def create
       @campaign = @vaccination_center.campaigns.build(create_params)
       @campaign.partner = current_partner
+      @campaign.validate_dates = true
 
       if @campaign.save
         @campaign.update(name: "Campagne ##{@campaign.id} du #{@campaign.created_at.strftime("%d/%m/%Y")}")
         render json: {campaign: @campaign, redirect_to: partners_campaign_url(@campaign)}
       else
         @campaign.max_distance_in_meters = @campaign.max_distance_in_meters / 1000 if request.format.html?
-        render json: {errors: @campaign.errors}, status: 400
+        render json: {errors: @campaign.errors.full_messages}, status: 400
       end
     end
 

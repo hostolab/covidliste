@@ -25,7 +25,6 @@ const _CampaignCreator = ({
   const createCampaign = useCreateCampaignMutation(vaccinationCenter);
   return (
     <div className="CampaignCreator">
-      {createCampaign.isError && <GenericError />}
       <CampaignCreatorAlreadyRunningCampaignWarning
         runningCampaignsPaths={runningCampaignsPaths}
       />
@@ -90,6 +89,11 @@ const _CampaignCreator = ({
               />
               <CampaignCreatorChecks />
 
+              {createCampaign.isError && (
+                <GenericError
+                  messages={createCampaign.error.message.split(", ")}
+                />
+              )}
               <button
                 className="btn btn-primary btn-lg"
                 type="submit"
@@ -97,7 +101,7 @@ const _CampaignCreator = ({
                   !isValid ||
                   !values.checkDoses ||
                   !values.checkNotify ||
-                  !createCampaign.isIdle
+                  (!createCampaign.isIdle && !createCampaign.isError)
                 }
               >
                 <i className="fas fa-bullhorn"></i> Lancer la campagne
@@ -120,7 +124,15 @@ function useCreateCampaignMutation(vaccinationCenter) {
         `/partners/vaccination_centers/${vaccinationCenter.id}/campaigns.json`,
         { campaign }
       ),
-    { onSuccess: (data) => window.location.assign(data.redirectTo) }
+    {
+      onSuccess: (data) => {
+        if (data.redirectTo) {
+          window.location.assign(data.redirectTo);
+        } else {
+          return data;
+        }
+      },
+    }
   );
 }
 
