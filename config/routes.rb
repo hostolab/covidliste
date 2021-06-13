@@ -107,7 +107,7 @@ Rails.application.routes.draw do
   get "/partenaires/faq" => "pages#faq_pro", :as => :partenaires_faq
 
   namespace :partners do
-    resources :vaccination_centers, only: [:index, :show, :new, :create] do
+    resources :vaccination_centers, only: [:index, :show, :new, :create, :update] do
       resources :campaigns, only: [:new, :create] do
         post :simulate_reach, on: :collection
       end
