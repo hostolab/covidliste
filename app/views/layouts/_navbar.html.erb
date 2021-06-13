@@ -22,9 +22,11 @@
         <li class="<%= class_names("nav-item", active: current_page?(faq_path)) %>">
           <%= link_to "Foire aux questions", faq_path, class: "nav-link" %>
         </li>
-        <li class="<%= class_names("nav-item", active: current_page?(landing_page_pro_path)) %>">
-          <%= link_to "Professionnels de santé", landing_page_pro_path, class: "nav-link" %>
-        </li>
+        <% if !current_user %>
+          <li class="<%= class_names("nav-item", active: current_page?(landing_page_pro_path)) %>">
+            <%= link_to "Professionnels de santé", landing_page_pro_path, class: "nav-link" %>
+          </li>
+        <% end %>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#dropdownHelpers" role="button" aria-haspopup="true" aria-expanded="false">Ils nous aident</a>
           <div class="dropdown-menu" aria-labelledby="dropdownHelpers">

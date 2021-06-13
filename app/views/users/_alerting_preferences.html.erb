@@ -1,4 +1,3 @@
-<% if Flipper.enabled?(:slot_alerting_preference, user) %>
 <p class="mt-4">
   <strong>Préférences des alertes des rendez-vous de vaccination</strong>
 </p>
@@ -9,7 +8,7 @@
     <%= simple_form_for(user, url: :profile, method: :put, wrapper: :vertical_form) do |f| %>
       <%= hidden_field_tag :tab, params[:tab]  %>
       <%= f.input :max_distance_km, label: "Distance maximum d'alerte (km)", error: "", placeholder: "Nombre de kms maximum que vous êtes prêt à parcourir pour une dose de vaccin." %>
-      <%= f.input :alerting_intensity, required: true, label: "Fréquence d'alertes", max: 100, class: 'mt-4', collection: User::ALERTING_INTENISITIES.map{|k, v| [v, k]}, as: :radio_buttons, item_label_class: 'mt-y' %>         
+      <%= f.input :alerting_intensity, required: true, label: "Fréquence des alertes", max: 100, class: 'mt-4', collection: User::ALERTING_INTENISITIES.map{|k, v| [v, k]}, as: :radio_buttons, item_label_class: 'mt-y' %>
       <%= f.button :submit, "Enregistrer", class: "btn btn-primary", data: {disable_with: "Validation..."} %>
     <% end %>
   </div>
@@ -24,5 +23,3 @@
     </div>
   </div>
 </div>
-<% end %>
-

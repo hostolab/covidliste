@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   before_action :authenticate_user!, except: %i[new create destroy]
   before_action -> { authenticate_user_via_signed_id!(purpose: "users.destroy") }, only: %i[confirm_destroy destroy]
   before_action :sign_out_if_anonymized!
-  before_action :find_or_create_match, only: %i[show update]
+  before_action :find_or_create_match, only: %i[new show update]
   invisible_captcha only: [:create], honeypot: :subtitle
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
@@ -80,6 +80,7 @@ class UsersController < ApplicationController
   private
 
   def find_or_create_match
+    return unless current_user.present?
     match = current_user.find_or_create_match
     return unless match.present?
     @match = match
