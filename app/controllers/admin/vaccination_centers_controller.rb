@@ -98,7 +98,7 @@ module Admin
       end
       @vaccination_center.assign_attributes(vaccination_center_params)
       if @vaccination_center.save
-        flash[:success] = "Ce centre a bien été modifié"
+        flash[:success] = "Ce lieu a bien été modifié"
         redirect_to admin_vaccination_center_path(@vaccination_center)
       else
         flash[:alert] = "Une erreur est survenue : #{@vaccination_center.errors.full_messages.join(", ")}"
