@@ -30,18 +30,16 @@
       </div>
 
       <div class="mt-2">
-        
+
         <% tab = params[:tab] %>
 
         <ul class="nav nav-tabs">
           <li class="nav-item">
             <a class="<%= class_names("nav-link", active: tab.blank? || tab == 'infos') %>" href="?tab=infos">Vos informations</a>
           </li>
-          <% if Flipper.enabled?(:slot_alerting_preference, @user) %>
           <li class="nav-item">
             <a class="<%= class_names("nav-link", active: tab == 'preferences') %>" href="?tab=preferences">Préférences d'alertes</a>
           </li>
-          <% end %>
           <li class="nav-item">
             <a class="<%= class_names("nav-link", active: tab == 'rdv') %>" href="?tab=rdv">Propositions de rendez-vous</a>
           </li>

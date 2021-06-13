@@ -15,35 +15,73 @@
     <h2 class="font-weight-bold text-light mt-2 mb-3">
       Être contacté dès qu’un rdv de vaccination est disponible près de chez vous.
     </h2>
-    <div class="row">
-      <div class="col-12 col-lg-7">
-        <%= render "layouts/alerts" %>
-        <% if current_user.blank? %>
-          <% if @user.persisted? %>
-            <p class="mb-0 alert alert-primary">
-              Merci ! Vous allez recevoir un email qui vous permettra de confimer votre inscription
-              puis d’accéder à votre compte.
-            </p>
-          <% else %>
-            <%= render "users/form" %>
-          <% end %>
+    <div>
+      <%= render "layouts/alerts" %>
+      <% if current_user.blank? %>
+        <% if @user.persisted? %>
+          <p class="mb-0 alert alert-primary">
+            Merci ! Vous allez recevoir un email qui vous permettra de confimer votre inscription
+            puis d’accéder à votre compte.
+          </p>
         <% else %>
-          <div class="border rounded border-primary p-4 text-white my-4">
-            <p>
-              Bonjour <%= current_user %>,
-            </p>
-            <p>
-              Vous êtes inscrit sur Covidliste depuis le <%= current_user.created_at.strftime("%d/%m/%Y") %>
-            </p>
-            <p class="mb-0">
-              <%= link_to "Accéder à mon profil", profile_path, class: "btn btn-primary" %>
-            </p>
+          <div class="row">
+            <div class="col-12 col-lg-7">
+              <%= render "users/form" %>
+            </div>
+            <div class="col-12 col-lg-5 d-none d-lg-flex align-items-end h-100">
+              <%= image_tag "home/time-value.png", srcset: {"home/time-value-2x.png" => "2x"}, alt: "Accessibilité Smartphone", class: "ml-lg-5 h-100 w-auto", loading: "lazy" %>
+            </div>
           </div>
         <% end %>
-      </div>
-      <% if current_user.blank? && !@user.persisted? %>
-        <div class="col-12 col-lg-5 d-none d-lg-flex align-items-end h-100">
-          <%= image_tag "home/time-value.png", srcset: {"home/time-value-2x.png" => "2x"}, alt: "Accessibilité Smartphone", class: "ml-lg-5 h-100 w-auto", loading: "lazy" %>
+      <% else %>
+        <div class="border rounded border-primary p-4 text-white mt-4">
+          <% if @match&.present? %>
+            <% if @match.confirmed? %>
+              <div class="alert alert-primary mb-3">
+                <span class="mr-2">Vous avez un confirmé un RDV de vaccination :</span>
+                <%= link_to "Cliquez ici pour voir les informations du RDV", match_url(match_confirmation_token: @match.match_confirmation_token, source: 'profile'), class: "btn btn-sm btn-primary" %>
+              </div>
+            <% else %>
+              <div class="alert alert-primary mb-3">
+                <span class="mr-2">
+                  Bonne nouvelle !
+                  Nous avons trouvé une dose de vaccin pour vous !
+                </span>
+                <%= link_to "Cliquez ici pour accéder à la proposition de RDV", match_url(match_confirmation_token: @match.match_confirmation_token, source: 'profile'), class: "btn btn-sm btn-primary" %>
+              </div>
+            <% end %>
+          <% end %>
+          <p>
+            Bonjour <%= current_user %>,
+          </p>
+          <p>
+            Vous êtes inscrit sur Covidliste depuis le <%= current_user.created_at.strftime("%d/%m/%Y") %>
+          </p>
+          <div class="d-flex align-items-center my-3">
+            <div><%= twitter_share %></div>
+            <div class="ml-2"><%= facebook_share %></div>
+          </div>
+          <p class="mb-4">
+            <%= link_to profile_path(tab: :infos), class: "btn btn-outline-light mx-1" do %>
+              <%= icon("fas", "user", class: "fa-2x my-2") %><br />
+              Vos<br />informations
+            <% end %>
+            <%= link_to profile_path(tab: :preferences), class: "btn btn-outline-light mx-1" do %>
+              <%= icon("fas", "bullhorn", class: "fa-2x my-2") %><br />
+              Préférences<br />
+              des alertes
+            <% end %>
+            <%= link_to profile_path(tab: :rdv), class: "btn btn-outline-light mx-1" do %>
+              <%= icon("fas", "calendar-check", class: "fa-2x my-2") %><br />
+              Propositions<br />
+              de RDV
+            <% end %>
+            <%= link_to profile_path(tab: :data), class: "btn btn-outline-light mx-1" do %>
+              <%= icon("fas", "database", class: "fa-2x my-2") %><br />
+              Données<br />
+              personnelles
+            <% end %>
+          </p>
         </div>
       <% end %>
     </div>
