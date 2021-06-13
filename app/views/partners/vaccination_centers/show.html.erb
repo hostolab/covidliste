@@ -26,19 +26,18 @@
       </p>
 
       <p class="mb-2">
-        <div class="d-flex align-items-center">
+        <div class="d-flex align-items-center my-1">
           <%= humanize_boolean @vaccination_center.visible_optin_at.present? %><span class='ml-2'>Affichage sur la carte publique</span>
-          <%= form_for [:partners, @vaccination_center], html: { class: 'ml-3' } do |f| %>
+          <%= form_for [:partners, @vaccination_center], html: { class: 'ml-2' } do |f| %>
             <%= f.hidden_field :visible_optin, value: !@vaccination_center.visible_optin_at.present? %>
-            <%= f.submit @vaccination_center.visible_optin_at.present? ? "Je ne souhaite plus apparaitre" : "Je souhaite apparaitre", class: 'btn btn-primary', style: 'font-size: 10px;' %>
+            <%= f.submit @vaccination_center.visible_optin_at.present? ? "Masquer de la carte" : "Afficher sur la carte", class: 'btn btn-outline-primary px-2 py-1', style: 'font-size: 10px;', data: { confirm: "Êtes-vous sûr(e) ?" }  %>
           <% end %>
         </div>
-        <br/>
-        <div class="d-flex align-items-center">
+        <div class="d-flex align-items-center my-1">
           <%= humanize_boolean @vaccination_center.media_optin_at.present? %><span class='ml-2'>Communication presse et réseaux sociaux</span>
-          <%= form_for [:partners, @vaccination_center], html: { class: 'ml-3' } do |f| %>
+          <%= form_for [:partners, @vaccination_center], html: { class: 'ml-2' } do |f| %>
             <%= f.hidden_field :media_optin, value: !@vaccination_center.media_optin_at.present? %>
-            <%= f.submit @vaccination_center.media_optin_at.present? ? "Je ne souhaite plus apparaitre" : "Je souhaite apparaitre", class: 'btn btn-primary', style: 'font-size: 10px;' %>
+            <%= f.submit @vaccination_center.media_optin_at.present? ? "Refuser la communication" : "Autoriser la communication", class: 'btn btn-outline-primary px-2 py-1', style: 'font-size: 10px;', data: { confirm: "Êtes-vous sûr(e) ?" } %>
           <% end %>
         </div>
       </p>

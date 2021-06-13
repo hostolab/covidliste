@@ -44,7 +44,7 @@ module Partners
         @vaccination_center.media_optin_at = nil
       end
       flash[:success] = if @vaccination_center.update(vaccination_center_params)
-        "Ce centre a bien été modifié"
+        "Ce lieu a bien été modifié"
       else
         "Une erreur est survenue : #{@vaccination_center.errors.full_messages.join(", ")}"
       end
