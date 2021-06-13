@@ -1,5 +1,12 @@
 FactoryBot.define do
   factory :user do
+    transient do
+      confirmed_matches_count { 0 }
+      refused_matches_count { 0 }
+      unanswered_matches_count { 0 }
+      pending_matches_count { 0 }
+    end
+
     address { generate(:french_address) }
     lat { 48.1 }
     lon { 2.3 }
@@ -42,6 +49,13 @@ FactoryBot.define do
       after(:create) do |user|
         user.add_role(:support_member)
       end
+    end
+
+    after(:create) do |user, evaluator|
+      create_list(:match, evaluator.confirmed_matches_count, :confirmed, user: user)
+      create_list(:match, evaluator.refused_matches_count, :refused, user: user)
+      create_list(:match, evaluator.unanswered_matches_count, :expired, user: user)
+      create_list(:match, evaluator.pending_matches_count, :pending, user: user)
     end
   end
 end

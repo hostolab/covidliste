@@ -308,6 +308,7 @@ ActiveRecord::Schema.define(version: 2021_06_08_090936) do
     t.integer "alerting_intensity"
     t.integer "matches_count", default: 0
     t.datetime "match_confirmed_at"
+    t.datetime "last_inactive_user_email_sent_at"
     t.index ["alerting_intensity"], name: "index_users_on_alerting_intensity"
     t.index ["alerting_optin_at"], name: "index_users_on_alerting_optin_at"
     t.index ["anonymized_at"], name: "index_users_on_anonymized_at"

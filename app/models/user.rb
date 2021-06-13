@@ -168,6 +168,7 @@ class User < ApplicationRecord
     self.birthdate = nil
     self.grid_i = nil
     self.grid_j = nil
+    self.last_inactive_user_email_sent_at = nil
     self.anonymized_at = Time.now.utc
     self.anonymized_reason = reason
     save(validate: false)
