@@ -15,17 +15,6 @@ class UserPolicy < ApplicationPolicy
 
   def update?
     return false unless user.confirmed?
-
-    if user.matches.confirmed.any?
-      raise Pundit::NotAuthorizedError, "Vous ne pouvez pas modifier vos informations actuellement car vous avez confirmé un rendez-vous de vaccination. Votre profil sera anonymisé quelques jours après le RDV."
-    elsif user.matches.pending.any?
-      user.matches.pending.each do |match|
-        if match.confirmable? && !match.expired?
-          raise Pundit::NotAuthorizedError, "Vous ne pouvez pas modifier vos informations actuellement car vous avez une proposition rendez vous de vaccination en cours."
-        end
-      end
-    end
-
     user == record
   end
 
