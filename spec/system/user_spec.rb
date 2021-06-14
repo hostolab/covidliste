@@ -146,54 +146,6 @@ RSpec.describe "Users", type: :system do
       end
     end
 
-    context "with a confirmed match" do
-      let(:campaign) { build(:campaign) }
-      let!(:match) { create(:match, campaign: campaign, confirmed_at: Time.now, user: user) }
-
-      it "it does not allow me to edit personal information" do
-        click_on "Je modifie mes informations"
-        expect(page).not_to have_text("Modifications enregistrées.")
-        expect(page).to have_text("Vous ne pouvez pas modifier vos informations actuellement car vous avez confirmé un rendez-vous de vaccination.")
-      end
-
-      it "it warns about match" do
-        visit profile_url
-        expect(page).to have_text("Vous avez un confirmé un RDV de vaccination")
-      end
-    end
-
-    context "with a pending match" do
-      let(:campaign) { build(:campaign) }
-      let!(:match) { create(:match, campaign: campaign, confirmed_at: nil, expires_at: 10.minutes.since, user: user) }
-
-      it "it does not allow me to edit personal information" do
-        click_on "Je modifie mes informations"
-        expect(page).not_to have_text("Modifications enregistrées.")
-        expect(page).to have_text("Vous ne pouvez pas modifier vos informations actuellement car vous avez une proposition rendez vous de vaccination en cours.")
-      end
-
-      it "it warns about match" do
-        visit profile_url
-        expect(page).to have_text("Nous avons trouvé une dose de vaccin pour vous !")
-      end
-    end
-
-    context "with a pending match" do
-      let(:campaign) { build(:campaign) }
-      let!(:match) { create(:match, campaign: campaign, confirmed_at: nil, expires_at: 10.minutes.since, user: user) }
-
-      it "it does not allow me to edit personal information" do
-        click_on "Je modifie mes informations"
-        expect(page).not_to have_text("Modifications enregistrées.")
-        expect(page).to have_text("Vous ne pouvez pas modifier vos informations actuellement car vous avez une proposition rendez vous de vaccination en cours.")
-      end
-
-      it "it warns about match" do
-        visit profile_url
-        expect(page).to have_text("Nous avons trouvé une dose de vaccin pour vous !")
-      end
-    end
-
     context "with a new campaign" do
       let!(:center) { create(:vaccination_center, :from_paris) }
       before do
