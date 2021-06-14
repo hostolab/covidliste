@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   include UserAuthenticationViaSignedId
 
-  before_action :authenticate_user!, except: %i[new create destroy]
+  before_action :authenticate_user!, except: %i[new create destroy confirm_destroy]
   before_action -> { authenticate_user_via_signed_id!(purpose: "users.destroy") }, only: %i[confirm_destroy destroy]
   before_action :sign_out_if_anonymized!
   before_action :find_or_create_match, only: %i[new show update]
