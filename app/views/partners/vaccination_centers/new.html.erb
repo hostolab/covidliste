@@ -29,7 +29,19 @@
           </p>
         </div>
       <% else %>
-
+        <% if @same_existing_vaccination_centers %>
+          <div class="alert alert-warning" role="alert">
+            Nous avons trouvé <strong><%= pluralize(@same_existing_vaccination_centers.size, 'centre similaire', plural: 'centres similaires') %></strong> sur Covidliste :
+            <ul>
+              <% @same_existing_vaccination_centers.each do |v_c| %>
+                <li><%= v_c.join(' / ') %></li>
+              <% end %>
+            </ul>
+            Veuillez vérifier avec votre équipe si le centre n'a pas déjà été créé.<br>
+            Le cas échéant, merci de demander au référent du centre de nous envoyer une demande d’ajout par email à <strong>partenaires@covidliste.com</strong>.<br><br>
+            Sinon, validez la création en cochant la case ci-dessous.
+          </div>
+        <% end %>
         <% @external_accounts = current_partner.partner_external_accounts.order(id: :desc) %>
         <% unless @external_accounts.any? %>
           <% if PartnerExternalAccountProvider::Providers::ALL.any? %>
@@ -51,6 +63,9 @@
         <% end %>
 
         <%= simple_form_for [:partners, @vaccination_center] do |f| %>
+          <% if @same_existing_vaccination_centers %>
+            <%= f.input :confirmation_creation, as: :boolean, label: "Je confirme vouloir créer ce centre", required: true %>
+          <% end %>
           <%= f.input :name, label: "Nom du lieu de vaccination", error: "Nom requis", placeholder: "Centre de vaccination Marseille", required: true %>
           <%= f.input :finess, label: "Numéro FINESS de l'établissement (géographique)", placeholder: "Numéro FINESS (différent du numéro AM/Ameli/CPAM et du SIRET)", pattern: "[0-9]{9}", input_html: { inputmode: "numeric" } %>
           <div class="small mb-3 text-primary">
