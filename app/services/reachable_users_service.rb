@@ -28,8 +28,8 @@ class ReachableUsersService
       LIMIT (:limit)
     SQL
     params = {
-      min_date: @campaign.max_age.years.ago,
-      max_date: @campaign.min_age.years.ago,
+      min_date: @campaign&.max_age&.years&.ago,
+      max_date: @campaign&.min_age&.years&.ago,
       lat: @vaccination_center.lat,
       lon: @vaccination_center.lon,
       rayon_km: @campaign.max_distance_in_meters / 1000,
@@ -77,8 +77,8 @@ class ReachableUsersService
         join matchable_users_count on (1=1)
     SQL
     params = {
-      min_date: @campaign.max_age.years.ago,
-      max_date: @campaign.min_age.years.ago,
+      min_date: @campaign&.max_age&.years&.ago,
+      max_date: @campaign&.min_age&.years&.ago,
       lat: @vaccination_center.lat,
       lon: @vaccination_center.lon,
       rayon_km: @campaign.max_distance_in_meters / 1000,

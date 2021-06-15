@@ -6,7 +6,7 @@ class SlotAlertService
   end
 
   def call
-    Rails.info("[SlotAlertService] for days=#{@days} threshold=#{@threshold} user_alerting_intensity=#{user_alerting_intensity}")
+    Rails.logger.info("[SlotAlertService] for days=#{@days} threshold=#{@threshold} user_alerting_intensity=#{user_alerting_intensity}")
     slots.group_by { |x| x.center_id }.each do |center, slots|
       slot = slots.first
       SendAlertsForSlotJob.perform_later({slot_id: slot.id, user_alerting_intensity: @user_alerting_intensity})

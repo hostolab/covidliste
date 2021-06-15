@@ -52,7 +52,7 @@ module Partners
       render json: {
         all: reachable_users_count,
         reach: matchable_users_count,
-        enough: matchable_users_count >= (Vaccine.minimum_reach_to_dose_ratio(vaccine_type) * available_doses),
+        enough: matchable_users_count >= (Vaccine.minimum_reach_to_dose_ratio(vaccine_type) * available_doses.to_i),
         minimum_reach_to_dose_ratio: Vaccine.minimum_reach_to_dose_ratio(vaccine_type)
       }
     end
