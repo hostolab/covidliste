@@ -16,7 +16,9 @@ RSpec.describe "Matches", type: :request do
             lastname: "Dupont"
           },
           confirm_age: "1",
-          confirm_name: "1"
+          confirm_name: "1",
+          confirm_distance: "1",
+          confirm_hours: "1"
         }
       }.to change { match.reload.confirmed_at }
     end

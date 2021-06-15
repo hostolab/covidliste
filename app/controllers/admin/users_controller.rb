@@ -14,14 +14,7 @@ module Admin
       end
       return unless @user.persisted? && params.dig(:other, :with_mails)
 
-      user_mails = MailProviderService.new.find_mails(@user.email).events
-      @user_mails = {}
-      user_mails.each do |event|
-        unless @user_mails[event.message_id]
-          @user_mails[event.message_id] = []
-        end
-        @user_mails[event.message_id].push(event)
-      end
+      @user_mails = MailProviderService.new.find_mails(@user.email)
     end
 
     def resend_confirmation

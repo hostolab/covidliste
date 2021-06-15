@@ -23,13 +23,14 @@ module Partners
     def create
       @campaign = @vaccination_center.campaigns.build(create_params)
       @campaign.partner = current_partner
+      @campaign.validate_dates = true
 
       if @campaign.save
         @campaign.update(name: "Campagne ##{@campaign.id} du #{@campaign.created_at.strftime("%d/%m/%Y")}")
         render json: {campaign: @campaign, redirect_to: partners_campaign_url(@campaign)}
       else
         @campaign.max_distance_in_meters = @campaign.max_distance_in_meters / 1000 if request.format.html?
-        render json: {errors: @campaign.errors}, status: 400
+        render json: {errors: @campaign.errors.full_messages}, status: 400
       end
     end
 
@@ -46,9 +47,12 @@ module Partners
       available_doses = simulate_params[:available_doses]
       campaign = Campaign.new(simulate_params.merge({vaccination_center: @vaccination_center}))
       reach = campaign.reachable_users_count
+      reachable_users_count = reach["reachable_users_count"]
+      matchable_users_count = reach["matchable_users_count"]
       render json: {
-        reach: reach,
-        enough: reach >= (Vaccine.minimum_reach_to_dose_ratio(vaccine_type) * available_doses),
+        all: reachable_users_count,
+        reach: matchable_users_count,
+        enough: matchable_users_count >= (Vaccine.minimum_reach_to_dose_ratio(vaccine_type) * available_doses),
         minimum_reach_to_dose_ratio: Vaccine.minimum_reach_to_dose_ratio(vaccine_type)
       }
     end

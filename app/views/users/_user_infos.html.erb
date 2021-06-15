@@ -1,0 +1,121 @@
+<p class="mt-3">
+  <strong>Vos informations</strong>
+</p>
+
+<% if user.errors.any? %>
+  <div class="alert alert-danger" role="alert" style="position: inherit">
+    <% user.errors.full_messages.each do |msg| %>
+      <%= msg %><br/>
+    <% end %>
+  </div>
+<% end %>
+
+<%= simple_form_for(user, url: :profile, method: :put, wrapper: :horizontal_form) do |f| %>
+  <% if user&.has_role?(:volunteer) %>
+    <div class="border border-primary rounded py-1 px-2 my-3">
+      <div class="row">
+        <div class="col-sm-8">
+          <div class="small mb-2 text-primary">
+            Bénévole Covidliste :<br />
+            Vous voyez cette zone car vous êtes bénévole pour Covidliste.<br />
+            Merci pour votre aide ❤️ !
+          </div>
+        </div>
+        <div class="col-sm-4 text-right">
+          <%= link_to icon("fas", "lock", "Accèder à l'espace bénévoles", class: "mr-1"), admin_path, class: "btn btn-sm btn-outline-secondary" %>
+        </div>
+      </div>
+      <div class="p-1">
+        <%= f.input :firstname %>
+        <%= f.input :lastname %>
+        <div class="row">
+          <div class="col-sm-3">
+            Pas besoin de vaccin ?
+          </div>
+          <div class="col-sm-9">
+            <%= link_to icon("fas", "map-marked-alt", "Se téléporter sur l'Île de Clipperton (Île déserte du Pacifique)"), "#", class: "btn btn-sm btn-outline-primary", id: "btn-clipperton" %>
+          </div>
+        </div>
+        <script nonce="<%= content_security_policy_nonce %>">
+            (function () {
+                var link = document.querySelector("#btn-clipperton")
+                link.addEventListener("click", function (event) {
+                    event.preventDefault();
+                    if(confirm("Êtes vous sûr de vouloir vous téléporter sur l'Île de Clipperton ? Vous ne recevrez plus aucune proposition de dose.")) {
+                        document.querySelector("#user_address").value = "Clipperton Île de Clipperton 99000 France";
+                        document.querySelector("#user_lat").value = "10.311";
+                        document.querySelector("#user_lon").value = "-109.231";
+                    }
+                }, false);
+            })();
+        </script>
+      </div>
+    </div>
+  <%end %>
+  <div class="row">
+    <div class="col-12 col-sm-3">
+      <label class="col-form-label">
+        Date de naissance
+      </label>
+    </div>
+    <div class="col-12 col-sm-9">
+      <%= f.input :birthdate, as: :date, label: false, start_year: Date.today.year - 120, end_year: Date.today.year - 18, order: [:day, :month, :year] %>
+    </div>
+  </div>
+  <%= f.input :email, error: "", disabled: true %>
+  <%= f.input :phone_number, label: "Numéro de téléphone", error: "", placeholder: "06 06 06 06 06" %>
+  <%= f.input :address, label: "Adresse", error: "Adresse requise", placeholder: "Choisir une nouvelle adresse" %>
+
+
+  <small class="form-text text-muted mb-2">
+    Pour des raisons de protection des données personnelles, nous ne stockons pas votre adresse. Nous gardons
+    seulement une représentation de votre adresse sous la forme d'une coordonnée GPS (latitude/longitude),
+    randomisée à +/- 100 mètres.
+    <br/>
+    Si vous souhaitez modifier cette donnée, entrez une nouvelle adresse et cliquez sur "Je modifie mes
+    informations".
+  </small>
+
+  <%- if user.lat.nil? || user.lon.nil? %>
+    <div class="alert alert-danger mb-4 small" role="alert" style="position: inherit">
+      Nous n'avons pas pu géolocaliser l'adresse que vous avez renseignée lors de votre inscription.
+      Sans cette information, il nous sera impossible de vous mettre en relation avec l'un de nos centres
+      partenaires à proximité.
+      Merci de renseigner votre adresse une nouvelle fois.
+    </div>
+  <% else %>
+    <div class="mt-4 mb-4"
+          id="user_map"
+          style="height: 250px;"
+          data-rayon="0.5"
+          data-lat="<%= user.lat %>"
+          data-lon="<%= user.lon %>"
+    >
+    </div>
+  <% end %>
+
+  <%= f.input_field :lat, as: :hidden %>
+  <%= f.input_field :lon, as: :hidden %>
+
+  <%= render partial: "input_statement", locals: {f: f, local_cgu_path: cgu_volontaires_path} %>
+
+  <% if user.matches.confirmed.any? %>
+    <div class="alert alert-primary">
+      Vous ne pouvez pas modifier votre compte actuellement car vous avez confirmé un rendez-vous de
+      vaccination.<br/>
+      Votre profil sera anonymisé quelques jours après le RDV.
+    </div>
+  <% elsif user.matches.pending.any? %>
+    <% if @match&.present? %>
+      <div class="alert alert-primary">
+        Vous ne pouvez pas modifier vos informations actuellement car vous avez une proposition rendez vous de
+        vaccination en cours.<br/>
+        Si vous ne confirmez pas le RDV, vous pourrez de nouveau modifier vos informations à partir du
+        <%= l(user.matches.pending.maximum(:expires_at)) %>.<br/>
+      </div>
+    <% end %>
+  <% end %>
+  <%= render partial: "mentions", locals: {text_color: 'black'} %>
+  <%= hidden_field_tag :tab, params[:tab]  %>
+  <%= f.button :submit, "Je modifie mes informations", class: "btn btn-primary", data: {disable_with: "Validation..."} %>
+<% end %>

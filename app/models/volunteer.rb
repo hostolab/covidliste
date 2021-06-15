@@ -12,7 +12,9 @@ class Volunteer < FrozenRecord::Base
   end
 
   def display_name
-    @display_name ||= if anon
+    @display_name ||= if old
+      "Ancien bénévole"
+    elsif anon
       "Bénévole anonyme"
     elsif firstname.present? || lastname.present?
       "#{firstname} #{lastname}"

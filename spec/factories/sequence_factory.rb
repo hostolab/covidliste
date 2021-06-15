@@ -1,5 +1,5 @@
 FactoryBot.define do
-  sequence(:birthdate) { Faker::Date.between(from: 100.years.ago, to: 10.years.ago) }
+  sequence(:birthdate) { Faker::Date.between(from: 70.years.ago, to: 20.years.ago) }
   sequence(:company_name) { Faker::Company.name }
   sequence(:description) { Faker::Lorem.paragraph(sentence_count: 2) }
   sequence(:firstname) { Faker::Name.first_name }
@@ -20,5 +20,5 @@ FactoryBot.define do
     end
     phone_number
   end
-  sequence(:unique_email) { Faker::Internet.unique.email(domain: "covidliste.com") }
+  sequence(:unique_email) { |n| "#{n}#{Faker::Internet.unique.email(domain: "covidliste.com")}" }
 end

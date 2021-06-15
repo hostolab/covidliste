@@ -1,27 +1,24 @@
 default: &default
   admin_roles:
     super_admin:
-      name: "Super Admin"
+      name: "Responsable infrastructure"
     admin:
       name: "Core Team"
       parent_role: super_admin
     supply_admin:
-      name: "Supply Lead"
+      name: "Responsable supply"
       parent_role: admin
     supply_member:
-      name: "Supply Member"
+      name: "Équipe supply"
       parent_role: supply_admin
     ds_admin:
-      name: "Data Science Lead"
-      parent_role: admin
-    dev_admin:
-      name: "Dev Lead"
+      name: "Responsable data science"
       parent_role: admin
     support_admin:
-      name: "Support Lead"
+      name: "Responsable support"
       parent_role: admin
     support_member:
-      name: "Support Member"
+      name: "Équipe support"
       parent_role: support_admin
 
 development:

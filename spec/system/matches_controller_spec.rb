@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe MatchesController, type: :system do
-  let!(:user) { create(:user) }
+  let!(:user) { create(:user, :from_paris) }
   let!(:second_user) { create(:user) }
   let!(:partner) { create(:partner) }
   let!(:center) { create(:vaccination_center, :from_paris) }
@@ -25,6 +25,8 @@ RSpec.describe MatchesController, type: :system do
         fill_in :user_lastname, with: ""
         check :confirm_age
         check :confirm_name
+        check :confirm_distance
+        check :confirm_hours
         click_on("Je confirme le RDV")
         expect(page).to have_text("Vous devez renseigner votre")
 
@@ -32,6 +34,8 @@ RSpec.describe MatchesController, type: :system do
         fill_in :user_lastname, with: user.lastname
         check :confirm_age
         check :confirm_name
+        check :confirm_distance
+        check :confirm_hours
         click_on("Je confirme le RDV")
         expect(page).to have_text("Vous devez renseigner votre")
 
@@ -39,6 +43,8 @@ RSpec.describe MatchesController, type: :system do
         fill_in :user_lastname, with: user.lastname
         check :confirm_age
         check :confirm_name
+        check :confirm_distance
+        check :confirm_hours
         click_on("Je confirme le RDV")
         expect(page).not_to have_text("Vous devez renseigner votre")
         expect(page).to have_text("Votre rendez-vous est confirmé")
@@ -123,9 +129,82 @@ RSpec.describe MatchesController, type: :system do
         fill_in :user_lastname, with: generate(:lastname)
         check :confirm_age
         check :confirm_name
+        check :confirm_distance
+        check :confirm_hours
         click_on("Je confirme le RDV")
         expect(page).to have_text("Mince 😔, toutes les doses disponibles ont déjà été réservées")
         Match.where(confirmation_failed_reason: "Match::AlreadyConfirmedError").count == already_confirmed_count + 1
+      end
+    end
+
+    context "when the old campaign is canceled but another campaign has been created" do
+      before do
+        campaign.canceled!
+        create(:campaign, vaccination_center: center)
+      end
+
+      it "redirects the user to the new campaign" do
+        visit match_path(match_confirmation_token)
+        expect(page).to have_text("Bonne nouvelle, nous avons trouvé une autre dose")
+      end
+    end
+
+    context "when the old campaign is canceled but another campaign has been created with match" do
+      before do
+        campaign.canceled!
+        new_campaign = create(:campaign, vaccination_center: center)
+        create(:match, user: user, vaccination_center: center, expires_at: 1.hour.since, campaign: new_campaign)
+      end
+
+      it "redirects the user to the new campaign with match" do
+        visit match_path(match_confirmation_token)
+        expect(page).to have_text("Bonne nouvelle, nous avons trouvé une autre dose")
+      end
+    end
+
+    context "when 10 old matches are canceled but another campaign has been created" do
+      before do
+        campaign.canceled!
+        9.times.each do |i|
+          other_campaign = create(:campaign, vaccination_center: center)
+          create(:match, user: user, campaign: other_campaign)
+          other_campaign.canceled!
+        end
+        create(:campaign, vaccination_center: center)
+      end
+
+      it "does not redirect the user to the new campaign" do
+        visit match_path(match_confirmation_token)
+        expect(page).not_to have_text("Bonne nouvelle, nous avons trouvé une autre dose")
+      end
+    end
+
+    context "when the old campaign has no remaining doses but another campaign has been created" do
+      before do
+        while campaign.remaining_doses > 0
+          create(:match, :confirmed, campaign: campaign)
+        end
+        create(:campaign, vaccination_center: center)
+      end
+
+      it "redirects the user to the new campaign" do
+        visit match_path(match_confirmation_token)
+        expect(page).to have_text("Bonne nouvelle, nous avons trouvé une autre dose")
+      end
+    end
+
+    context "when the old campaign has no remaining doses but another campaign has been created with match" do
+      before do
+        while campaign.remaining_doses > 0
+          create(:match, :confirmed, campaign: campaign)
+        end
+        new_campaign = create(:campaign, vaccination_center: center)
+        create(:match, user: user, vaccination_center: center, expires_at: 1.hour.since, campaign: new_campaign)
+      end
+
+      it "redirects the user to the new campaign with match" do
+        visit match_path(match_confirmation_token)
+        expect(page).to have_text("Bonne nouvelle, nous avons trouvé une autre dose")
       end
     end
   end

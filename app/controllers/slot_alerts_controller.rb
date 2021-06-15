@@ -11,6 +11,10 @@ class SlotAlertsController < ApplicationController
 
   def set_alert
     @alert = SlotAlert.find_by(token: params[:token])
+    if @alert.blank?
+      flash[:error] = "Désolé, ce lien n’est pas valide."
+      redirect_to root_path
+    end
   end
 
   def skip_pundit?

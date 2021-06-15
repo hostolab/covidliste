@@ -1,25 +1,114 @@
-<div class="container-fluid py-4">
-  <h2>
-    Campagnes
-  </h2>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-5 pr-5">
+      <h2>
+        Campagnes
+      </h2>
+      <div class="d-inline-flex mt-2 mb-4">
+        <%= simple_form_for :campaigns_search,
+                            url: admin_campaigns_path,
+                            html: { class: "form-inline inline-block mr-4" },
+                            defaults: { label: false, required: false, input_html: { class: "form-control-sm selectpicker mr-2", multiple: true } },
+                            method: :get do |f| %>
+          <%= f.input :statuses, collection: [["En cours", "running"], ["Terminée", "completed"], ["Interrompue", "canceled"]],
+                      input_html: { name: "statuses[]", "data-none-selected-text": "Statut" },
+                      selected: params["statuses"] %>
 
-  <div class="d-inline-flex my-2">
+          <%= f.input :vaccines, collection: Vaccine::Brands::ALL.map { |v| [v.capitalize, v] },
+                      input_html: { name: "vaccines[]", "data-none-selected-text": "Vaccin" },
+                      selected: params["vaccines"] %>
 
-    <%= simple_form_for :campaigns_search,
-                        url: admin_campaigns_path,
-                        html: { class: "form-inline inline-block mr-4" },
-                        defaults: { label: false, required: false, input_html: { class: "form-control-sm selectpicker mr-2", multiple: true } },
-                        method: :get do |f| %>
-      <%= f.input :statuses, collection: [["En cours", "running"], ["Terminée", "completed"], ["Interrompue", "canceled"]],
-                  input_html: { name: "statuses[]", "data-none-selected-text": "Statut" },
-                  selected: params["statuses"] %>
-
-      <%= f.input :vaccines, collection: Vaccine::Brands::ALL.map { |v| [v.capitalize, v] },
-                  input_html: { name: "vaccines[]", "data-none-selected-text": "Vaccin" },
-                  selected: params["vaccines"] %>
-
-      <%= f.button :submit, "Appliquer", class: "btn-sm", name: nil %>
-    <% end %>
+          <%= f.button :submit, "Appliquer", class: "btn-sm", name: nil %>
+        <% end %>
+      </div>
+    </div>
+    <div class="col-lg-7">
+      <div class="text-center border rounded p-3">
+        <div class="mb-3 h5">
+          Statistiques d'aujourd'hui :
+        </div>
+        <div class="d-flex justify-content-around">
+          <% campaigns_today_running = @campaigns_today.where(status: :running) %>
+          <% campaigns_today_completed = @campaigns_today.where(status: :completed) %>
+          <% campaigns_today_canceld = @campaigns_today.where(status: :canceled) %>
+          <div class="px-1">
+            <%= icon("far", "clock", class: "fa-2x") %><br />
+            <%= campaigns_today_running.size %> campagnes <span class="badge badge-primary">en cours</span><br />
+            <%= campaigns_today_running.sum(:matches_confirmed_count) %> <small class="text-muted">doses attribuées</small><br />
+            <small>
+              <% Vaccine::Brands::ALL.each do |vaccine| %>
+                <% _campaigns = campaigns_today_running.where(vaccine_type: vaccine) %>
+                <% _attributed_doses = _campaigns.sum(:matches_confirmed_count) %>
+                <% if _attributed_doses > 0 %>
+                  <%= _attributed_doses %> <small class="text-muted"><%= vaccine.capitalize %></small>
+                <% end %>
+              <% end %>
+            </small>
+            <br/>
+            <%= campaigns_today_running.sum(:available_doses) - campaigns_today_running.sum(:matches_confirmed_count) %> <small class="text-muted">doses en attente</small><br />
+            <small>
+              <% Vaccine::Brands::ALL.each do |vaccine| %>
+                <% _campaigns = campaigns_today_running.where(vaccine_type: vaccine) %>
+                <% _unattributed_doses = _campaigns.sum(:available_doses)-_campaigns.sum(:matches_confirmed_count) %>
+                <% if _unattributed_doses > 0 %>
+                  <%= _unattributed_doses %> <small class="text-muted"><%= vaccine.capitalize %></small>
+                <% end %>
+              <% end %>
+            </small>
+          </div>
+          <div class="px-1">
+            <%= icon("far", "check-square", class: "fa-2x") %><br />
+            <%= campaigns_today_completed.size %> campagnes <span class="badge badge-success">terminées</span><br />
+            <%= campaigns_today_completed.sum(:matches_confirmed_count) %> <small class="text-muted">doses attribuées</small><br />
+            <small>
+              <% Vaccine::Brands::ALL.each do |vaccine| %>
+                <% _campaigns = campaigns_today_completed.where(vaccine_type: vaccine) %>
+                <% _attributed_doses = _campaigns.sum(:matches_confirmed_count) %>
+                <% if _attributed_doses > 0 %>
+                  <%= _attributed_doses %> <small class="text-muted"><%= vaccine.capitalize %></small>
+                <% end %>
+              <% end %>
+            </small>
+            <br/>
+            <%= campaigns_today_completed.sum(:available_doses)-campaigns_today_completed.sum(:matches_confirmed_count) %> <small class="text-muted">doses non attribuées</small><br />
+            <small>
+              <% Vaccine::Brands::ALL.each do |vaccine| %>
+                <% _campaigns = campaigns_today_completed.where(vaccine_type: vaccine) %>
+                <% _unattributed_doses = _campaigns.sum(:available_doses)-_campaigns.sum(:matches_confirmed_count) %>
+                <% if _unattributed_doses > 0 %>
+                  <%= _unattributed_doses %> <small class="text-muted"><%= vaccine.capitalize %></small>
+                <% end %>
+              <% end %>
+            </small>
+          </div>
+          <div class="px-1">
+            <%= icon("far", "hand-paper", class: "fa-2x") %><br />
+            <%= campaigns_today_canceld.size %> campagnes <span class="badge badge-danger">interrompues</span><br />
+            <%= campaigns_today_canceld.sum(:matches_confirmed_count) %> <small class="text-muted">doses attribuées</small><br />
+            <small>
+              <% Vaccine::Brands::ALL.each do |vaccine| %>
+                <% _campaigns = campaigns_today_canceld.where(vaccine_type: vaccine) %>
+                <% _attributed_doses = _campaigns.sum(:matches_confirmed_count) %>
+                <% if _attributed_doses > 0 %>
+                  <%= _attributed_doses %> <small class="text-muted"><%= vaccine.capitalize %></small>
+                <% end %>
+              <% end %>
+            </small>
+            <br/>
+            <%= campaigns_today_canceld.sum(:canceled_doses) %> <small class="text-muted">doses annulées</small><br />
+            <small>
+              <% Vaccine::Brands::ALL.each do |vaccine| %>
+                <% _campaigns = campaigns_today_canceld.where(vaccine_type: vaccine) %>
+                <% _canceled_doses = _campaigns.sum(:canceled_doses) %>
+                <% if _canceled_doses > 0 %>
+                  <%= _canceled_doses %> <small class="text-muted"><%= vaccine.capitalize %></small>
+                <% end %>
+              <% end %>
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="mt-3"><%= number_with_delimiter(@pagy_campaigns.count, delimiter: ".") %> résultats</div>
@@ -29,55 +118,84 @@
       <table class="table table-hover table-bordered table-sm small">
         <thead class="thead-light">
           <tr>
-            <th class="text-right"><%= sortable("id", "#") %></th>
-            <th><%= sortable("vaccination_center_id", "Centre") %></th>
-            <th class="text-center"><%= sortable("status", "Statut") %></th>
-            <th class="text-center"><%= sortable("created_at", "Date") %></th>
-            <th class="text-center"><%= sortable("created_at", "Lancée") %></th>
-            <th class="text-center"><%= sortable("starts_at", "Début") %></th>
-            <th class="text-center"><%= sortable("ends_at", "Fin") %></th>
-            <th><%= sortable("vaccine_type", "Vaccin") %></th>
-            <th class="text-center"><%= sortable("min_age", "Âge min") %></th>
-            <th class="text-center"><%= sortable("max_age", "Âge max") %></th>
-            <th class="text-center"><%= sortable("max_distance_in_meters", "Rayon") %></th>
-            <th class="text-center"><%= sortable("available_doses", "doses") %></th>
-            <th class="text-center">Contactés</th>
-            <th class="text-center">Confirmés</th>
-            <th class="text-center">Taux Confirm</th>
-            <th class="text-center">Taux Rempli</th>
-            <th>Remplissage</th>
-
+            <th scope="col" class="text-right"><%= sortable("id", "#") %></th>
+            <th scope="col"><%= sortable("vaccination_center_id", "Centre") %></th>
+            <th scope="col" class="text-center"><%= sortable("status", "Statut") %></th>
+            <th scope="col" class="text-center"><%= sortable("created_at", "Lancée") %></th>
+            <th scope="col" class="text-center"><%= sortable("starts_at", "Début") %></th>
+            <th scope="col" class="text-center"><%= sortable("ends_at", "Fin") %></th>
+            <th scope="col" class="text-center">Critères</th>
+            <th scope="col" class="text-center">
+              <%= sortable("available_doses", "Doses") %><br />
+              <%= sortable("vaccine_type", "Vaccin") %>
+            </th>
+            <th scope="col" class="text-center">
+              Confirmés<br />
+              Contactés
+            </th>
+            <th scope="col" class="text-center">
+              Taux<br />
+              Confirm.
+            </th>
+            <th scope="col" class="text-center">
+              Taux<br />
+              Remplissage
+            </th>
           </tr>
         </thead>
 
         <tbody>
           <% @campaigns.each do |campaign| %>
             <% matches = campaign.matches %>
-            <%- fill_rate = campaign.available_doses > 0 ? (100 * matches.confirmed.size.to_f / campaign.available_doses).round(1) : 0%>
+            <% fill_rate = campaign.available_doses > 0 ? (100 * matches.confirmed.size.to_f / campaign.available_doses).round(1) : 0.0 %>
+            <% confirm_rate = matches.size > 0 ? (100 * matches.confirmed.size.to_f / matches.size).round(1) : 0.0 %>
             <tr>
-              <th class="text-right"><%= campaign.id %></th>
-              <td><%= link_to campaign.vaccination_center&.name, admin_vaccination_center_path(campaign.vaccination_center) %></td>
+              <td class="text-right font-weight-bold"><%= campaign.id %></td>
+              <td>
+                <%= link_to campaign.vaccination_center&.name, admin_vaccination_center_path(campaign.vaccination_center) %><br />
+                <small class="text-muted"><%= campaign.vaccination_center&.address %></small>
+              </td>
               <td class="text-center text-nowrap">
                 <%= content_tag :span, french_status(campaign), class: "badge badge-sm #{status_badge(campaign)}" %>
+                <% if campaign.canceled_doses and campaign.canceled_doses > 0 %>
+                  <br />
+                  <%= campaign.canceled_doses %> <small class="text-muted">doses annulées</small><br />
+                <% end %>
               </td>
-              <td class="text-center text-nowrap"><%= l(campaign.created_at, format: "%d/%m") %></td>
-              <td class="text-center text-nowrap"><%= l(campaign.created_at, format: "%H:%M") %></td>
-              <td class="text-center text-nowrap"><%= l(campaign.starts_at, format: "%H:%M") %></td>
-              <td class="text-center text-nowrap"><%= l(campaign.ends_at, format: "%H:%M") %></td>
-              <td><%= campaign.vaccine_type.to_s.capitalize %></td>
-              <td class="text-center"><%= campaign.min_age %></td>
-              <td class="text-center"><%= campaign.max_age %></td>
-              <td class="text-center"><%= (campaign.max_distance_in_meters.to_f / 1000).to_i.to_s + " km" %></td>
-              <td class="text-center"><%= campaign.available_doses %></td>
-              <td class="text-center"><%= matches.size %></td>
-              <td class="text-center"><%= matches.confirmed.size %></td>
-              <td class="text-center"><%= matches.size > 0 ? (100 * matches.confirmed.size.to_f / matches.size).round(1).to_s + "%" : "0%" %></td>
-              <td class="text-center"><%= "#{fill_rate}%" %></td>
+              <td class="text-center text-nowrap">
+                <%= l(campaign.created_at, format: "%d/%m") %><br />
+                <%= l(campaign.created_at, format: "%Hh%M") %>
+              </td>
+              <td class="text-center text-nowrap">
+                <%= l(campaign.starts_at, format: "%d/%m") %><br />
+                <%= l(campaign.starts_at, format: "%Hh%M") %>
+              </td>
+              <td class="text-center text-nowrap">
+                <%= l(campaign.ends_at, format: "%d/%m") %><br />
+                <%= l(campaign.ends_at, format: "%Hh%M") %>
+              </td>
+              <td class="text-center">
+                <%= campaign.min_age %>-<%= campaign.max_age %> <small class="text-muted">ans</small><br />
+                <%= (campaign.max_distance_in_meters / 1000).to_i.to_s %> <small class="text-muted">km</small>
+              </td>
+              <td class="text-center">
+                <%= campaign.available_doses %> <small class="text-muted">doses</small><br />
+                <%= campaign.vaccine_type.to_s.capitalize %>
+              </td>
+              <td class="text-center">
+                <%= matches.confirmed.size %> <small class="text-muted">confirmés</small><br />
+                <%= matches.size %> <small class="text-muted">contactés</small>
+              </td>
+              <td class="text-center"><%= "#{confirm_rate} %" %></td>
               <td>
-              <div class="progress">
-                <div class="progress-bar" role="progressbar" 
-                  style="width: <%= fill_rate %>%"  aria-valuenow=<%= "#{fill_rate}" %> aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
+                <div class="progress position-relative">
+                  <div class="d-flex flex-row align-items-center justify-content-center position-absolute w-100 h-100">
+                    <span class="text-dark"><%= "#{fill_rate} %" %></span>
+                  </div>
+                  <div class="progress-bar" role="progressbar" aria-valuemin="0"
+                       style="width: <%= fill_rate %>%"  aria-valuenow=<%= "#{fill_rate}" %> aria-valuemax="100">
+                  </div>
+                </div>
               </td>
             </tr>
           <% end %>
@@ -88,4 +206,10 @@
       <%= raw pagy_bootstrap_nav(@pagy_campaigns) %>
     <% end %>
   <% end %>
+
+  <div class="mt-5 small text-center">
+    Heure du serveur : <%= Time.now %> <em class="text-muted">(<%= Time.now.zone %>)</em><br />
+    Heure avec TZ : <%= Time.zone.now %> <em class="text-muted">(<%= Time.zone.now.zone %>)</em> - <em class="text-muted"><%= Time.zone.name %></em><br />
+    Heure courante : <%= Time.current %> <em class="text-muted">(<%= Time.current.zone %>)</em>
+  </div>
 </div>

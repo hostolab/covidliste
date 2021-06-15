@@ -1,4 +1,4 @@
-<%= provide(:meta_title, "Rejoignez la liste d’attente Covidliste") %>
+<%= provide(:meta_title, "Covidliste : un vaccin rapidement, sans chercher") %>
 <%= provide(:meta_description, "Volontaires à la vaccination, inscrivez-vous sur Covidliste.") %>
 <%= provide(:meta_image, image_url("meta/main.png")) %>
 
@@ -30,7 +30,6 @@
 
         <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
           <%= f.input :email,
-            autocomplete: 'off',
             autofocus: true,
             required: true,
             id: 'inputEmail',

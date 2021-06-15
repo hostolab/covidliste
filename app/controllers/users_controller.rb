@@ -1,14 +1,16 @@
 class UsersController < ApplicationController
   include UserAuthenticationViaSignedId
 
-  before_action :authenticate_user!, except: %i[new create destroy]
+  before_action :authenticate_user!, except: %i[new create destroy confirm_destroy]
   before_action -> { authenticate_user_via_signed_id!(purpose: "users.destroy") }, only: %i[confirm_destroy destroy]
   before_action :sign_out_if_anonymized!
+  before_action :find_or_create_match, only: %i[new show update]
   invisible_captcha only: [:create], honeypot: :subtitle
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   def index
-    redirect_to action: :new
+    policy_scope(User)
+    redirect_to profile_path
   end
 
   def new
@@ -26,6 +28,7 @@ class UsersController < ApplicationController
     @user = current_user
     authorize @user
     prepare_phone_number
+
     respond_to do |format|
       format.html
       format.csv do
@@ -69,7 +72,7 @@ class UsersController < ApplicationController
 
   def destroy
     authorize current_user
-    current_user.anonymize!
+    current_user.anonymize!(params[:reason])
     sign_out current_user
     flash[:success] = "🎉 🎉 🎉 Votre compte a été supprimé de nos serveurs. Portez-vous bien."
     redirect_to root_path
@@ -77,10 +80,17 @@ class UsersController < ApplicationController
 
   private
 
+  def find_or_create_match
+    return unless current_user.present?
+    match = current_user.find_or_create_match
+    return unless match.present?
+    @match = match
+  end
+
   def set_counters
     @users_count = Rails.cache.fetch(:users_count, expires_in: 30.seconds) { Counter.total_users }
     @confirmed_matched_users_count = Rails.cache.fetch(:confirmed_matched_users_count, expires_in: 30.minutes) { Match.confirmed.count }
-    @matched_users_count = Rails.cache.fetch(:matched_users_count, expires_in: 30.minutes) { Match.distinct.count("user_id") + Match.confirmed.count }
+    @matched_users_count = Rails.cache.fetch(:matched_users_count, expires_in: 30.minutes) { User.where("matches_count > 0").count }
     @vaccination_centers_count = Rails.cache.fetch(:vaccination_centers_count, expires_in: 30.minutes) { VaccinationCenter.confirmed.count }
   end
 
@@ -89,7 +99,11 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:email, :phone_number, :toc, :address, :lat, :lon, :birthdate, :password, :statement)
+    if current_user&.has_role?(:volunteer)
+      params.require(:user).permit(:email, :phone_number, :toc, :address, :lat, :lon, :birthdate, :password, :statement, :max_distance_km, :alerting_intensity, :firstname, :lastname)
+    else
+      params.require(:user).permit(:email, :phone_number, :toc, :address, :lat, :lon, :birthdate, :password, :statement, :max_distance_km, :alerting_intensity)
+    end
   end
 
   def sign_out_if_anonymized!

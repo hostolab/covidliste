@@ -2,7 +2,7 @@ class Campaign < ApplicationRecord
   MAX_DOSES = 200
   MAX_DISTANCE_IN_KM = 50
   MAX_SMS_BUDGET_BY_DOSE = 5
-  MAX_EMAIL_BUDGET_BY_DOSE = 300
+  MAX_EMAIL_BUDGET_BY_DOSE = 200
   OVERBOOKING_FACTOR = 40
   OVERBOOKING_FACTOR_V3 = 20
 
@@ -20,14 +20,28 @@ class Campaign < ApplicationRecord
   validates :max_distance_in_meters, numericality: {greater_than: 0, less_than_or_equal_to: MAX_DISTANCE_IN_KM * 1000}
   validate :min_age_lesser_than_max_age
   validate :starts_at_lesser_than_ends_at
+  validate :check_dates, if: :validate_dates?
 
   before_create :set_parameters
   after_create_commit :notify_to_slack
 
+  attr_accessor :validate_dates
+
+  def validate_dates?
+    validate_dates == "true" || validate_dates == true
+  end
+
   def canceled!
     update_attribute(:canceled_at, Time.now.utc)
+    update_attribute(:canceled_doses, remaining_doses)
     update_attribute(:available_doses, matches.confirmed.count)
+    compute_matches
     super
+  end
+
+  def compute_matches
+    update_attribute(:matches_count, (matches.count || 0))
+    update_attribute(:matches_confirmed_count, (matches.confirmed.count || 0))
   end
 
   def remaining_doses
@@ -76,7 +90,7 @@ class Campaign < ApplicationRecord
 
   def set_parameters
     matching_algo = Flipper.enabled?(:matching_algo_v3) ? "v3" : "v2"
-    ranking_method = Flipper.enabled?(:ranking_method_v2) ? "v2" : "v1"
+    ranking_method = Flipper.enabled?(:ranking_method_v3) ? "v3" : "v2"
     self.parameters =
       {
         algo_version: matching_algo,
@@ -92,7 +106,7 @@ class Campaign < ApplicationRecord
   end
 
   def ranking_method
-    (parameters || {}).symbolize_keys[:ranking_method] || "v1"
+    (parameters || {}).symbolize_keys[:ranking_method] || "v2"
   end
 
   def matching_algo_v2?
@@ -129,6 +143,17 @@ class Campaign < ApplicationRecord
     end
   end
 
+  def throttling_rate
+    if (vaccine_type == Vaccine::Brands::ASTRAZENECA) || (vaccine_type == Vaccine::Brands::JANSSEN)
+      return 1
+    end
+    Match.throttling_rate
+  end
+
+  def throttling_interval
+    Match.throttling_interval
+  end
+
   def notify_to_slack
     PushNewCampaignToSlackJob.perform_later(id)
   end
@@ -144,6 +169,20 @@ class Campaign < ApplicationRecord
   def starts_at_lesser_than_ends_at
     if starts_at >= ends_at
       errors.add(:ends_at, "doit être postérieur à la date de début")
+    end
+  end
+
+  def check_dates
+    if Time.zone.now >= starts_at
+      errors.add(:starts_at, " doit être dans le futur")
+    end
+
+    if Time.zone.now.hour < 7 || Time.zone.now.hour > 22
+      errors.add(:base, "Les campagnes ne peuvent pas être lancées entre 22h et 7h")
+    end
+
+    if starts_at.to_date != ends_at.to_date
+      errors.add(:ends_at, "doit être le même jour que la date de début")
     end
   end
 end

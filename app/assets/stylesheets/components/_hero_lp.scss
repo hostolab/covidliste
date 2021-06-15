@@ -15,7 +15,7 @@
   .h2 {
     @include font-size(1.8rem);
     line-height: 33px;
-    max-width: 600px;
+    max-width: 650px;
 
     @include media-breakpoint-down(sm) {
       line-height: 22px;

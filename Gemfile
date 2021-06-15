@@ -41,7 +41,6 @@ gem "pg_query", ">= 0.9.0"
 gem "pg_search"
 gem "pghero"
 gem "phonelib"
-gem "premailer-rails", "~> 1.11", ">= 1.11.1"
 gem "rolify"
 gem "sidekiq", "5.2.5"
 gem "sidekiq-cron"
@@ -69,6 +68,7 @@ gem "marginalia"
 gem "memoist"
 gem "ddtrace"
 gem "view_component", require: "view_component/engine"
+gem "mjml-rails"
 
 group :development, :test do
   gem "dotenv-rails", "2.7.6"
@@ -101,3 +101,7 @@ group :test do
   gem "spring-commands-rspec", "~> 1.0"
   gem "webmock"
 end
+
+gem "postmark-rails", "~> 0.21.0"
+
+gem "postmark", "~> 1.21"

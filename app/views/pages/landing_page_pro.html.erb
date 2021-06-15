@@ -16,7 +16,7 @@
         <h1 class="font-weight-bold mb-4"><span class="text-secondary">Écoulez des doses,</span> <span class="text-dark">gagnez du temps.</span></h1>
         <h2 class="font-weight-bold mb-3"><span class="text-dark">La</span> <span class="text-secondary">plus grande liste d’attente de vaccination</span> <span class="text-dark">en France avec</span> <span class="text-secondary"><%= pretty_number(@users_count) %> inscrits.</span></h2>
         <p class="mb-3 text-dark">
-          <strong>Découvrez Covidliste</strong>, un outil qui vous <strong>fait gagner un temps considérable</strong> pour vacciner toute la France.
+          Découvrez Covidliste, <strong>un outil gratuit qui vous fait gagner un temps considérable</strong> pour vacciner toute la France.
         </p>
         <div class="row">
           <div class="col-12 col-xl-6">
@@ -38,7 +38,11 @@
 
 <div class="shadow-sm py-3 py-md-4">
   <div class="container">
-    <div class="h4"><span class="text-dark font-weight-lighter">Projet soutenu par le</span> <span class="text-secondary font-weight-bold">Ministère des Solidarités et de la Santé</span></div>
+    <div class="d-flex align-items-center">
+      <h4 class="text-dark font-weight-lighter m-0">Projet soutenu par</h4>
+      <%= image_tag "landing_page_pro/logo-ministere-des-solidarites-et-de-la-sante.svg", alt: "Ministère des solidarités et de la santé", class: "h-100 w-auto ml-2", loading: "lazy" %>
+    </div>
+  </div>
     <!--
     <div class="row">
       <div class="col-6 col-md-3 align-self-center justify">
@@ -56,7 +60,6 @@
     </div>
     -->
   </div>
-</div>
 
 <div class="container py-5 py-sm-0">
   <div class="row">
@@ -86,7 +89,7 @@
 
 <div class="bg-gradient-theme-reverse py-4 py-lg-5">
   <div class="container">
-    <div class="h1 font-weight-bold mb-3"><span class="text-secondary"><%= pretty_number(@vaccination_centers_count) %> professionnels de santé équipés<br><%= pretty_number(@confirmed_matched_users_count) %> citoyens vaccinés,</span><br><span class="text-dark">leur expérience</span></div>
+    <div class="h1 font-weight-bold mb-3"><span class="text-secondary"><%= pretty_number(@vaccination_centers_count) %> professionnels de santé équipés,<br><%= pretty_number(@confirmed_matched_users_count) %> RDV confirmés,</span><br><span class="text-dark">leur expérience</span></div>
     <% @reviews[0..2].each do |review| %>
       <div class="mt-1 d-flex align-items-center align-items-sm-end">
         <%= image_tag review.avatar_path, alt: "Avatar", loading: "lazy" %>

@@ -27,6 +27,18 @@ RSpec.describe Match, type: :model do
       expect(match.geo_context).to eq "GEO_CONTEXT"
     end
 
+    it "should increment user matches count" do
+      user = create(:user,
+        birthdate: Time.now.utc.to_date - 60.years,
+        zipcode: "75001",
+        city: "Paris",
+        geo_citycode: "75001",
+        geo_context: "GEO_CONTEXT")
+      create(:match, user: user)
+      user.reload
+      expect(user.matches_count).to eq(1)
+    end
+
     context "same campaign" do
       let(:user) { create(:user) }
       before do
@@ -40,7 +52,7 @@ RSpec.describe Match, type: :model do
     context "user has already too many matches" do
       let(:user) { create(:user) }
       before do
-        5.times.each do |i|
+        10.times.each do |i|
           create(:match, user: user)
         end
       end
@@ -56,6 +68,8 @@ RSpec.describe Match, type: :model do
       match = create(:match, user: user)
       match.confirm!
       expect(match.confirmed?).to be true
+      user.reload
+      expect(user.match_confirmed_at).not_to be_nil
     end
 
     context "When the match itself is already confirmed" do
@@ -129,6 +143,58 @@ RSpec.describe Match, type: :model do
         match.reload
         expect(match.expires_at).to eq(Time.now.utc)
       end
+    end
+  end
+
+  describe "#multi match fallback" do
+    it "should have other match" do
+      users = create_list(:user, 2, birthdate: Time.now.utc.to_date - 60.years,
+                                    zipcode: "75001",
+                                    city: "Paris",
+                                    geo_citycode: "75001",
+                                    geo_context: "GEO_CONTEXT")
+      u1 = users.first
+      u2 = users.second
+
+      vc1 = create(:vaccination_center, :from_paris)
+      vc2 = create(:vaccination_center, :from_paris)
+
+      c1 = create(:campaign, vaccination_center: vc1, ends_at: 2.hours.from_now, available_doses: 1)
+      c2 = create(:campaign, vaccination_center: vc2, ends_at: 2.hours.from_now, available_doses: 1)
+
+      m1 = create(:match, user: u1, campaign: c1, vaccination_center: vc1)
+      m2 = create(:match, :confirmed, user: u2, campaign: c1, vaccination_center: vc1)
+      m3 = create(:match, user: u1, campaign: c2, vaccination_center: vc2)
+
+      m1.set_expiration!
+      m2.set_expiration!
+      m3.set_expiration!
+
+      other = m1.find_other_available_match_for_user
+      expect(other.id).to eq(m3.id)
+    end
+
+    it "should not have other match" do
+      users = create_list(:user, 2, birthdate: Time.now.utc.to_date - 60.years,
+                                    zipcode: "75001",
+                                    city: "Paris",
+                                    geo_citycode: "75001",
+                                    geo_context: "GEO_CONTEXT")
+      u1 = users.first
+      u2 = users.second
+
+      vc1 = create(:vaccination_center, :from_paris)
+
+      c1 = create(:campaign, vaccination_center: vc1, ends_at: 2.hours.from_now, available_doses: 1)
+
+      m1 = create(:match, user: u1, campaign: c1, vaccination_center: vc1)
+      m2 = create(:match, :confirmed, user: u2, campaign: c1, vaccination_center: vc1)
+
+      m1.set_expiration!
+      m2.set_expiration!
+
+      other = m1.find_other_available_match_for_user
+      expect(other).to eq(nil)
     end
   end
 end

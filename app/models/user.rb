@@ -45,11 +45,23 @@ class User < ApplicationRecord
   after_create_commit :increment_total_users_counter
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
-  scope :active, -> { where(anonymized_at: nil) }
+  scope :active, -> { where(anonymized_at: nil, match_confirmed_at: nil) }
   scope :between_age, ->(min, max) { where(birthdate: max.years.ago..min.years.ago) }
   scope :with_roles, -> { joins(:roles) }
 
   PASSWORD_HINT = "Le mot de passe choisi doit être robuste ou très robuste pour pouvoir compléter votre inscription. Il doit notamment comporter au moins 8 caractères avec un mélange de chiffres et de lettres."
+
+  ANONYMIZED_REASONS = {
+    covidliste: "J'ai trouvé un rendez-vous grâce à Covidliste",
+    not_interested: "Je ne suis plus intéressé",
+    other: "Autre"
+  }.freeze
+
+  ALERTING_INTENISITIES = {
+    "1": "1 fois par jour",
+    "2": "Moins de 3 fois par jour",
+    "3": "Toutes les alertes"
+  }.freeze
 
   def randomize_lat_lon
     return if lat.nil? || lon.nil?
@@ -138,7 +150,7 @@ class User < ApplicationRecord
   end
   memoize :has_role?
 
-  def anonymize!
+  def anonymize!(reason = nil)
     return unless anonymized_at.nil?
     refuse_pending_matching
 
@@ -156,7 +168,9 @@ class User < ApplicationRecord
     self.birthdate = nil
     self.grid_i = nil
     self.grid_j = nil
+    self.last_inactive_user_email_sent_at = nil
     self.anonymized_at = Time.now.utc
+    self.anonymized_reason = reason
     save(validate: false)
   end
 
@@ -180,6 +194,68 @@ class User < ApplicationRecord
 
   def increment_total_users_counter
     Counter.increment(:total_users)
+  end
+
+  def flipper_id
+    "#{self.class.name}_#{id}"
+  end
+
+  def send_slot_alert!
+    best_slot = VmdSlot.find_slots_for_user(id).first
+    return unless best_slot
+    SlotAlert.create!(vmd_slot: best_slot, user_id: id)
+  end
+
+  def find_confirmed_match
+    matches.confirmed.first
+  end
+
+  def find_available_matches
+    matches.pending.includes([:campaign]).order(id: :asc)
+  end
+
+  def find_available_match
+    find_available_matches.each do |match|
+      if match.confirmable? && !match.expired?
+        return match
+      end
+    end
+    nil
+  end
+
+  def find_confirmed_or_available_match
+    confirmed_match = find_confirmed_match
+    return confirmed_match if confirmed_match
+    find_available_match
+  end
+
+  def find_or_create_match
+    existing_match = find_confirmed_or_available_match
+    return existing_match if existing_match
+
+    campaigns = ::ReachableUsersService.get_running_campaigns_for_user(self)
+    return if campaigns.blank?
+    campaign = campaigns.first
+    return if campaign.blank?
+    return unless campaign.running?
+    return if campaign.remaining_doses <= 0
+    return if Time.now.utc >= campaign.ends_at
+
+    @match = Match.find_by(campaign_id: campaign.id, user_id: id)
+    if @match.blank?
+      REDIS_LOCK.lock!("create_match_for_user_id_#{id}", 2000) do
+        @match = Match.create(
+          campaign: campaign,
+          vaccination_center: campaign.vaccination_center,
+          user: self
+        )
+        return if @match.present? && @match.errors.present?
+        return @match
+      rescue Redlock::LockError
+        Rails.logger.warn("Could not obtain lock to create match for user_id #{id}")
+      end
+    end
+    nil
   end
 
   protected

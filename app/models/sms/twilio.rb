@@ -7,7 +7,7 @@ class Sms::Twilio
     Match.sms_providers[:twilio]
   end
 
-  def send
+  def send_message
     client = Twilio::REST::Client.new
     message = client.messages.create(from: @match_message.from, to: @match_message.to, body: @match_message.body)
     message.sid

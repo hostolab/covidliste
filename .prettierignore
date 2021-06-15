@@ -9,6 +9,7 @@ lib/tasks/*.rake
 
 # Ignore Ruby files
 **/*.rb
+**/*.mjml
 
 # Ignore all logfiles and tempfiles.
 /log/*
@@ -48,3 +49,6 @@ yarn-debug.log*
 *.dump
 .idea/*
 coverage/*
+
+Ignore geojson assets
+/app/assets/geojson/*.geojson

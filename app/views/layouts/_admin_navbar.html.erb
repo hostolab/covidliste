@@ -15,7 +15,7 @@
       <% if current_user.has_role?(:volunteer) %>
         <% if current_user.has_role?(:support_member) %>
           <li class="<%= class_names("nav-item", "dropdown", active: current_page?(admin_power_users_path) || current_page?(admin_users_path)) %>">
-            <%= link_to icon("fas", "tools", "Support"), "", class: "nav-link dropdown-toggle", id: "dropdownSupport", "aria-expanded": "false", "aria-haspopup": "true", "data-toggle": "dropdown" %>
+            <%= link_to icon("fas", "phone-alt", "Support"), "", class: "nav-link dropdown-toggle", id: "dropdownSupport", "aria-expanded": "false", "aria-haspopup": "true", "data-toggle": "dropdown" %>
 
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownSupport">
               <%= link_to "Volontaires", admin_users_path, class: "dropdown-item" %>
@@ -25,7 +25,7 @@
 
         <% if current_user.has_role?(:supply_member) %>
           <li class="<%= class_names("nav-item", "dropdown", active: current_page?(admin_vaccination_centers_path) || current_page?(admin_stats_path)) %>">
-            <%= link_to icon("fas", "tools", "Supply"), "", class: "nav-link dropdown-toggle", id: "dropdownSupply", "aria-expanded": "false", "aria-haspopup": "true", "data-toggle": "dropdown" %>
+            <%= link_to icon("fas", "truck", "Supply"), "", class: "nav-link dropdown-toggle", id: "dropdownSupply", "aria-expanded": "false", "aria-haspopup": "true", "data-toggle": "dropdown" %>
 
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownSupply">
               <%= link_to "Lieux de vaccination", admin_vaccination_centers_path, class: "dropdown-item" %>
@@ -39,27 +39,17 @@
 
         <% if current_user.has_role?(:ds_admin) %>
           <li class="nav-item dropdown">
-            <%= link_to icon("fas", "tools", "DataScience"), "", class: "nav-link dropdown-toggle", id: "dropdownData", "aria-expanded": "false", "aria-haspopup": "true", "data-toggle": "dropdown" %>
+            <%= link_to icon("fas", "chart-bar", "DataScience"), "", class: "nav-link dropdown-toggle", id: "dropdownData", "aria-expanded": "false", "aria-haspopup": "true", "data-toggle": "dropdown" %>
 
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownData">
-              <%= link_to icon("fas", "external-link-alt", "Blazer", class: "mr-1"), admin_blazer_path, class: "dropdown-item" %>
-            </div>
-          </li>
-        <% end %>
-
-        <% if current_user.has_role?(:dev_admin) %>
-          <li class="nav-item dropdown">
-            <%= link_to icon("fas", "tools", "Dev"), "", class: "nav-link dropdown-toggle", id: "dropdownDev", "aria-expanded": "false", "aria-haspopup": "true", "data-toggle": "dropdown" %>
-
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownDev">
-              <%= link_to icon("fas", "external-link-alt", "Flipper", class: "mr-1"), admin_flipper_ui_path, class: "dropdown-item", target: "_blank", rel: "noopener" %>
+              <%= link_to icon("fas", "external-link-alt", "Blazer", class: "mr-1"), admin_blazer_path, class: "dropdown-item", target: "_blank", rel: "noopener" %>
             </div>
           </li>
         <% end %>
 
         <% if current_user.has_role?(:admin) %>
           <li class="nav-item dropdown">
-            <%= link_to icon("fas", "tools", "Core Team"), "", class: "nav-link dropdown-toggle", id: "dropdownSuperAdmin", "aria-expanded": "false", "aria-haspopup": "true", "data-toggle": "dropdown" %>
+            <%= link_to icon("fas", "users", "Core Team"), "", class: "nav-link dropdown-toggle", id: "dropdownSuperAdmin", "aria-expanded": "false", "aria-haspopup": "true", "data-toggle": "dropdown" %>
 
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownSuperAdmin">
               <%= link_to "Gestion des rôles", admin_power_users_path, class: "dropdown-item" %>
@@ -69,9 +59,10 @@
 
         <% if current_user.has_role?(:super_admin) %>
           <li class="nav-item dropdown">
-            <%= link_to icon("fas", "tools", "Super Admin"), "", class: "nav-link dropdown-toggle", id: "dropdownDev", "aria-expanded": "false", "aria-haspopup": "true", "data-toggle": "dropdown" %>
+            <%= link_to icon("fas", "crown", "Super Admin"), "", class: "nav-link dropdown-toggle", id: "dropdownDev", "aria-expanded": "false", "aria-haspopup": "true", "data-toggle": "dropdown" %>
 
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownDev">
+              <%= link_to icon("fas", "external-link-alt", "Flipper", class: "mr-1"), admin_flipper_ui_path, class: "dropdown-item", target: "_blank", rel: "noopener" %>
               <%= link_to icon("fas", "external-link-alt", "PgHero", class: "mr-1"), admin_pg_hero_path, class: "dropdown-item", target: "_blank", rel: "noopener" %>
               <%= link_to icon("fas", "external-link-alt", "Sidekiq", class: "mr-1"), admin_sidekiq_web_path, class: "dropdown-item", target: "_blank", rel: "noopener" %>
             </div>
@@ -95,7 +86,7 @@
         </li>
       <% else %>
         <li class="<%= controller_name == "sessions" ? "nav-item active" : "nav-item" %>">
-          <%= link_to "Espace personnel", new_user_session_path, class: "nav-link" %>
+          <%= link_to "Espace personnel", profile_path, class: "nav-link" %>
         </li>
       <% end %>
     </ul>

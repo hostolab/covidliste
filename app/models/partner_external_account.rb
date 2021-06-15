@@ -36,4 +36,10 @@ class PartnerExternalAccount < ApplicationRecord
       info.fetch("identifier", "")
     end
   end
+
+  def locations
+    if info.present?
+      info.fetch("locations", [])
+    end
+  end
 end

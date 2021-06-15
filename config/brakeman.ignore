@@ -7,7 +7,7 @@
       "check_name": "LinkToHref",
       "message": "Potentially unsafe model attribute in `link_to` href",
       "file": "app/views/pages/sponsors.html.erb",
-      "line": 25,
+      "line": 29,
       "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
       "code": "link_to(Sponsor.new.website_url, :target => \"_blank\", :rel => \"noopener\", :title => Sponsor.new.role, :class => \"bg-white p-3 shadow-sm rounded h-100\", :\"data-toggle\" => \"tooltip\", :\"data-placement\" => \"top\")",
       "render_path": [
@@ -30,8 +30,28 @@
       "user_input": "Sponsor.new.website_url",
       "confidence": "Weak",
       "note": "sponsor website homepage manually entered in sponsors.json"
+    },
+    {
+      "warning_type": "Mass Assignment",
+      "warning_code": 105,
+      "fingerprint": "ec7616e3d03d73ba2465d720dddbbcce5eb876ef3cde570e9230e0d6dce24fbe",
+      "check_name": "PermitAttributes",
+      "message": "Potentially dangerous key allowed for mass assignment",
+      "file": "app/controllers/admin/power_users_controller.rb",
+      "line": 67,
+      "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
+      "code": "params.require(:power_user).permit(:email, :role)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Admin::PowerUsersController",
+        "method": "power_user_params"
+      },
+      "user_input": ":role",
+      "confidence": "Medium",
+      "note": ""
     }
   ],
-  "updated": "2021-05-21 19:39:30 +0200",
+  "updated": "2021-05-27 19:52:57 +0200",
   "brakeman_version": "5.0.1"
 }

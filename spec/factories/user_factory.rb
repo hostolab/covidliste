@@ -1,5 +1,12 @@
 FactoryBot.define do
   factory :user do
+    transient do
+      confirmed_matches_count { 0 }
+      refused_matches_count { 0 }
+      unanswered_matches_count { 0 }
+      pending_matches_count { 0 }
+    end
+
     address { generate(:french_address) }
     lat { 48.1 }
     lon { 2.3 }
@@ -14,13 +21,13 @@ FactoryBot.define do
     statement { true }
     toc { true }
 
-    trait :from_lyon do
+    trait :from_paris do
       address { "21 Rue Bergère 75009 Paris France" }
       lat { "48.87242501471677" }
       lon { "2.344941896580627" }
     end
 
-    trait :from_paris do
+    trait :from_lyon do
       address { "7 Rue Auguste Comte 69002 Lyon France" }
       lat { "45.75620064462772" }
       lon { "4.8319385046869945" }
@@ -42,6 +49,13 @@ FactoryBot.define do
       after(:create) do |user|
         user.add_role(:support_member)
       end
+    end
+
+    after(:create) do |user, evaluator|
+      create_list(:match, evaluator.confirmed_matches_count, :confirmed, user: user)
+      create_list(:match, evaluator.refused_matches_count, :refused, user: user)
+      create_list(:match, evaluator.unanswered_matches_count, :expired, user: user)
+      create_list(:match, evaluator.pending_matches_count, :pending, user: user)
     end
   end
 end

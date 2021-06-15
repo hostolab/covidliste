@@ -4,22 +4,61 @@
   </p>
 
   <h3> Modification du centre de vaccination « <%= @vaccination_center.name %> »</h3>
+  <% @partners = @vaccination_center.partners.order(id: :desc).includes([:partner_external_accounts]) %>
 
   <%= simple_form_for [:admin, @vaccination_center] do |f| %>
     <%= f.input :name, label: 'Nom du centre', error: 'Nom requis', placeholder: 'Centre de vaccination Marseille' %>
+    <%= f.input :finess, label: "Numéro FINESS de l'établissement (géographique)", placeholder: "Numéro FINESS (différent du numéro AM/Ameli/CPAM et du SIRET)", pattern: "[0-9]{9}", input_html: { inputmode: "numeric" } %>
+    <div class="small mb-3 text-primary">
+      <% if @partners.any? %>
+        <%= render(ModalComponent.new(title: "Établissements liés aux comptes pro", class_names: "modal-lg modal-dialog-scrollable", modal_id: "modalLocations")) do %>
+          <div class="p-4">
+            <% @partners.each do |partner| %>
+              <% partner.partner_external_accounts.each do |external_account| %>
+                <div>
+                  Etablissements liés au compte <%= external_account.service_name %><br />
+                  <%= external_account.full_name %> (<%= external_account.identifier %>) :
+                </div>
+                <% if external_account.locations.present? %>
+                  <% external_account.locations.each do |location| %>
+                    <div class="m-2 p-2 alert alert-dark small">
+                      <div><%= location["name"] %></div>
+                      <div><%= location["commercial_name"] %></div>
+                      <div><%= location["address"] %></div>
+                      <div><%= location["address2"] %></div>
+                      <div><%= location["address3"] %></div>
+                      <div><%= location["phone"] %></div>
+                      <div class="text-muted">
+                        Numéro FINESS : <em><%= location["finess"] %></em>
+                      </div>
+                    </div>
+                  <% end %>
+                <% else %>
+                  <div class="small">
+                    <em class="text-muted">Aucun établissement lié à cette carte ou ce compte professionnel</em><br />
+                    <div class="mt-1 mb-3">
+                      Si vous ne conaissez pas votre numéro FINESS, consultez
+                      <%= link_to "http://finess.sante.gouv.fr", "http://finess.sante.gouv.fr/fininter/jsp/rechercheSimple.jsp", target: "_blank", rel: "noopener" %><br />
+                    </div>
+                  </div>
+                <% end %>
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
+        <div class="mb-1">
+          <%= link_to "Cliquez ici pour voir le(s) numéro(s) FINESS des comptes pro liés", "#modalLocations", "data-toggle": "modal", class: "text-info" %>
+        </div>
+      <% end %>
+    </div>
     <%= f.input :description, label: 'Description', error: 'Description requise', placeholder: 'Description du lieu de vaccination' %>
     <%= f.input :kind, label: 'Type de centre de vaccination', collection: VaccinationCenter::Kinds::ALL %>
-    <p class="mt-3">
-      Type(s) de vaccins disponibles
-    </p>
-    <%= f.input :pfizer, as: :boolean, label: Vaccine::Brands::PFIZER.capitalize, class: 'form-check-inline' %>
-    <%= f.input :moderna, as: :boolean, label: Vaccine::Brands::MODERNA.capitalize, class: 'form-check-inline' %>
-    <%= f.input :astrazeneca, as: :boolean, label: Vaccine::Brands::ASTRAZENECA.capitalize, class: 'form-check-inline' %>
-    <%= f.input :janssen, as: :boolean, label: Vaccine::Brands::JANSSEN.capitalize %>
     <%= f.input :address, label: 'Adresse', error: 'Adresse requise', placeholder: '5 rue larue, 13600 Marseille' %>
     <%= f.input :lat, hint: 'Si vide, le geocoding se fera automatiquement'%>
     <%= f.input :lon, hint: 'Si vide, le geocoding se fera automatiquement'%>
     <%= f.input :phone_number, label: 'Numéro de téléphone', error: 'Numéro de téléphone requis', placeholder: '06 06 06 06 06' %>
+    <%= f.input :visible_optin, as: :boolean, label: "En cochant cette case, vous acceptez que les coordonnées du centre (nom, adresse) soient visibles sur le site Covidliste." %>
+    <%= f.input :media_optin, as: :boolean, label: "En cochant cette case, vous acceptez que Covidliste diffuse sur les réseaux sociaux et autres médias, des informations concernant l'inscription de ce centre." %>
     <%= f.button :submit, "Modifier le centre", class: 'btn btn-primary', data: { disable_with: 'Validation...' } %>
   <% end %>
 

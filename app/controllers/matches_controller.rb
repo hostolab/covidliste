@@ -3,6 +3,7 @@ class MatchesController < ApplicationController
 
   before_action :set_match, only: [:show, :update, :destroy]
   before_action :verify_match_validity, only: [:show]
+  before_action :verify_redirect_to_other_match, only: [:show, :update]
   before_action :verify_age, only: [:show, :update]
   before_action :verify_expiration, only: [:update]
 
@@ -31,6 +32,7 @@ class MatchesController < ApplicationController
       user.save(validate: false)
       @match.confirm!
       SendConfirmedMatchEmailJob.perform_later(@match.id)
+      SendConfirmedMatchSmsJob.perform_later(@match.id)
     else
       raise ActiveRecord::RecordInvalid.new(user)
     end
@@ -52,6 +54,20 @@ class MatchesController < ApplicationController
 
   def user_params
     params.require(:user).permit(:firstname, :lastname, :statement, :toc)
+  end
+
+  def verify_redirect_to_other_match
+    return if @match.confirmed?
+    return if @match.confirmable? && !@match.expired?
+    return if @match.refused?
+    track_click
+    if (other = @match.find_other_confirmed_match_for_user)
+      flash[:notice] = "Vous avez un RDV confirmé, nous vous avons donc redirigé dessus automatiquement."
+    else
+      return unless (other = @match.find_other_available_match_for_user)
+      flash[:notice] = "La dose correspondant au lien sur lequel vous avez cliqué n'est plus disponible. Bonne nouvelle, nous avons trouvé une autre dose pour laquelle vous correspondez aux critères, nous vous avons donc redirigé dessus automatiquement."
+    end
+    redirect_to Rails.application.routes.url_helpers.match_url(match_confirmation_token: other.match_confirmation_token, source: "redirect")
   end
 
   def verify_match_validity
@@ -104,8 +120,10 @@ class MatchesController < ApplicationController
 
   def check_age_and_name_confirmed!
     unless ActiveRecord::Type::Boolean.new.cast(params["confirm_age"]) &&
-        ActiveRecord::Type::Boolean.new.cast(params["confirm_name"])
-      raise MissingConfirmation, "Vous devez confirmer votre âge et votre nom"
+        ActiveRecord::Type::Boolean.new.cast(params["confirm_name"]) &&
+        ActiveRecord::Type::Boolean.new.cast(params["confirm_distance"]) &&
+        ActiveRecord::Type::Boolean.new.cast(params["confirm_hours"])
+      raise MissingConfirmation, "Vous devez confirmer votre âge, votre nom, votre disponibilité et la possibilité de vous déplacer"
     end
   end
 end

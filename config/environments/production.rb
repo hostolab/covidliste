@@ -58,8 +58,9 @@ Rails.application.configure do
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
   config.cache_store = :redis_cache_store, {url: ENV["REDIS_URL"]}
+
   # Use a real queuing backend for Active Job (and separate queues per environment).
-  # config.active_job.queue_adapter     = :resque
+  config.active_job.queue_adapter = :sidekiq
   # config.active_job.queue_name_prefix = "covidliste_production"
 
   config.action_mailer.perform_caching = false
@@ -99,7 +100,10 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.action_mailer.default_url_options = {host: ENV["PLATFORM_URL"]}
-  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.delivery_method = ENV["EMAIL_DELIVERY"] ? :"#{ENV["EMAIL_DELIVERY"]}" : :smtp
+  config.action_mailer.postmark_settings = {
+    api_token: ENV["POSTMARK_API_TOKEN"]
+  }
   ActionMailer::Base.smtp_settings = {
     address: ENV["SMTP_ADDRESS"],
     port: ENV["SMTP_PORT"] || 587,
