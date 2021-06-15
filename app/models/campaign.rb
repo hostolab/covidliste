@@ -173,16 +173,12 @@ class Campaign < ApplicationRecord
   end
 
   def check_dates
-    if Time.now.hour < 7 || Time.now.hour > 22
+    if Time.zone.now >= starts_at
+      errors.add(:starts_at, " doit être dans le futur")
+    end
+
+    if Time.zone.now.hour < 7 || Time.zone.now.hour > 22
       errors.add(:base, "Les campagnes ne peuvent pas être lancées entre 22h et 7h")
-    end
-
-    if starts_at.hour < 7 || starts_at.hour > 22
-      errors.add(:starts_at, "ne peut pas être entre 22h et 7h")
-    end
-
-    if ends_at.hour < 7
-      errors.add(:ends_at, "ne peut pas être avant 7h du matin")
     end
 
     if starts_at.to_date != ends_at.to_date

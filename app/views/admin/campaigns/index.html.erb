@@ -208,6 +208,8 @@
   <% end %>
 
   <div class="mt-5 small text-center">
-    Heure du serveur : <%= Time.now %> <em class="text-muted"><%= Time.zone %></em>
+    Heure du serveur : <%= Time.now %> <em class="text-muted">(<%= Time.now.zone %>)</em><br />
+    Heure avec TZ : <%= Time.zone.now %> <em class="text-muted">(<%= Time.zone.now.zone %>)</em> - <em class="text-muted"><%= Time.zone.name %></em><br />
+    Heure courante : <%= Time.current %> <em class="text-muted">(<%= Time.current.zone %>)</em>
   </div>
 </div>
