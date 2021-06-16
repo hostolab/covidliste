@@ -24,8 +24,8 @@ module Partners
       @vaccination_center = VaccinationCenter.new(vaccination_center_params)
       @vaccination_center.visible_optin_at = Time.now.utc if ActiveRecord::Type::Boolean.new.cast(vaccination_center_optin_params["visible_optin"])
       @vaccination_center.media_optin_at = Time.now.utc if ActiveRecord::Type::Boolean.new.cast(vaccination_center_optin_params["media_optin"])
-      @same_existing_vaccination_centers = check_if_already_exists(@vaccination_center, :name, :address)
-      unless @same_existing_vaccination_centers && !@vaccination_center.confirmation_creation
+      @same_existing_vaccination_centers = check_if_already_exists(@vaccination_center, :address, :phone_number, :finess)
+      unless @same_existing_vaccination_centers && @vaccination_center.confirmation_creation.to_i.zero?
         @vaccination_center.save
         @partner_vaccination_center = PartnerVaccinationCenter.new(partner: current_partner,
                                                                    vaccination_center: @vaccination_center)
@@ -99,10 +99,10 @@ module Partners
 
     def check_if_already_exists(instance, *attributes)
       corresponding_centers = []
-      vaccination_centers = VaccinationCenter.pluck(*attributes)
+      vaccination_centers = VaccinationCenter.all
       instance_attributes = attributes.map { |attr| instance.send(attr) }
       vaccination_centers.each do |vaccination_center|
-        corresponding_centers << vaccination_center if vaccination_center.intersection(instance_attributes).present?
+        corresponding_centers << vaccination_center if vaccination_center.slice(*attributes).map { |_k, v| v }.intersection(instance_attributes).present?
       end
       corresponding_centers.empty? ? false : corresponding_centers
     end
