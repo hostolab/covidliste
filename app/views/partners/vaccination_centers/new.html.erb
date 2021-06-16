@@ -55,7 +55,7 @@
               Nous avons trouvé <strong><%= pluralize(@same_existing_vaccination_centers.size, 'centre similaire', plural: 'centres similaires') %></strong> sur Covidliste :
               <ul>
                 <% @same_existing_vaccination_centers.each do |v_c| %>
-                  <li><%= v_c.name %> / <%= v_c.address %></li>
+                  <li><%= v_c.name %> - <%= v_c.address %></li>
                 <% end %>
               </ul>
               Veuillez vérifier avec votre équipe si le centre n'a pas déjà été créé.<br>
