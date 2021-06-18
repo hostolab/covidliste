@@ -33,6 +33,7 @@ class VaccinationCenter < ApplicationRecord
 
   after_initialize :approximated_lat_lon
   attr_reader :approximated_lat, :approximated_lon
+  attr_accessor :confirmation_creation
 
   after_commit :push_to_slack, on: :create
   after_commit :geocode_address, if: -> { saved_change_to_address? }
