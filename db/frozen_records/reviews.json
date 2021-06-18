@@ -2,7 +2,7 @@
   {
     "avatar_path": "reviews/avatar-men-1.svg",
     "message": "Très bien organisé, permet rapidement d'éviter de jeter des doses et de satisfaire des patients en attente de vaccination.",
-    "from": "user"
+    "from": "partner"
   },
   {
     "avatar_path": "reviews/avatar-women-1.svg",
@@ -11,240 +11,312 @@
   },
   {
     "avatar_path": "reviews/avatar-men-2.svg",
+    "message": "Un énorme merci pour votre démarche. C'est grâce à des initiatives comme les vôtres que nos vies s'éclairent !",
+    "from": "user"
+  },
+  {
+    "avatar_path": "",
     "message": "Outil génial, un gain de temps incroyable.",
+    "from": "user"
+  },
+  {
+    "avatar_path": "",
+    "message": "Ce matin, ce sont 2 doses qui n’ont pas été jetées grâce à Covidliste ! Merci aux bénévoles, le site est très simple et très efficace pour les pro de santé.",
     "from": "partner"
   },
-
- {
-   "message": "Très efficace ! Inscrit sur Covidliste depuis 3 semaines, j'ai reçu un mail lundi en fin de matinée et j'étais vacciné moins d'une heure plus tard. Merci !",
-   "from": "user"
- },
- {
-   "message": "Ce matin, ce sont 2 doses qui n’ont pas été jetées grâce à Covidliste ! Merci aux bénévoles, le site est très simple et très efficace pour les pro de santé.",
-   "from": "partner"
- },
- {
-   "message": "J’ai beaucoup apprécié la simplicité d’inscription et la simplicité des propositions. Pas de clic superflus, bravo pour l’approche. Merci pour le service.",
-   "from": "user"
- },
- {
-   "message": "Je me suis inscrit sur la liste et deux jours plus tard je recevais ma première dose de vaccin. Le médecin gérant le centre était ravie de ne pas perdre de dose. Merci de l'initiative Covidliste !",
-   "from": "user"
- },
- {
-   "message": "Je vous remercie à nouveau pour l'effort et la mobilisation sur votre temps personnel via cette initiative envers vos concitoyens. Réellement apprécié, mille mercis. Bon courage pour la suite.",
-   "from": "partner"
- },
- {
-   "message": "Merci beaucoup ! Je trouvais injuste de ne pas être éligible en tant que mère alors que les accompagnants d’élèves handicapés le sont. Je ne m’attendais pas à ce que j’ai ressenti au moment de l’injection : une grande émotion.",
-   "from": "user"
- },
- {
-   "message": "Un énorme merci pour votre démarche. C'est grâce à des initiatives comme les vôtres que nos vies s'éclairent !",
-   "from": "user"
- },
- {
-   "message": "Parfait ! Merci à toute l'équipe ! Deux ou trois doses utilisées en plus c'est une goutte d'eau dans l'océan, mais c'est toujours plus satisfaisant que les perdre. Bonne continuation.",
-   "from": "partner"
- },
- {
-   "message": "Merci beaucoup pour votre service très pertinent et d’une grande simplicité. De ce fait, je vous assure une publicité digne de vos services. Encore merci.",
-   "from": "user"
- },
- {
-   "message": "Du début à la fin de mon passage sur place : tout était parfait. Bravo pour l’idée de ce concept et bravo pour la réalisation : tout est fluide et très efficace : j’étais enchantée de l’expérience. ",
-   "from": "user"
- },
- {
-   "message": "Quelle magnifique initiative, l’impression d’avoir gagné au loto. Continuez, c’est un très beau projet.",
-   "from": "user"
- },
- {
-   "message": "Je viens de faire ma première campagne ce matin pour 2 doses. Tout d'abord merci car c'est ultra simple et la réactivité a été quasi immédiate. Merci à vous !",
-   "from": "partner"
- },
- {
-   "message": "J'ai reçu un mail que j'ai tout de suite accepté. Tout était très bien organisé au centre de vaccination avec une file pour les gens de covidliste. C'était fluide et le personnel aux petits soins ! Je recommande vivement, c'est efficace. Top !",
-   "from": "user"
- },
- {
-   "message": "Simple, pratique et efficace. Je recommande Covidliste ! J'ai pu être vaccinée sans attendre.",
-   "from": "user"
- },
- {
-   "message": "Merci beaucoup pour ce que vous faites ! Vous êtes un partenaire indispensable dans la lutte face à la pandémie. On compte sur vous et vous pouvez compter sur nous.",
-   "from": "partner"
- },
- {
-   "message": "Merci d’avoir penser à moi pour l’opportunité de recevoir une première injection. Je n’ai pas hésité une seconde !",
-   "from": "user"
- },
- {
-   "message": "Enregistrée il y a 2 ou 3 semaines, j'ai eu l'opportunité d'être contactée pour la vaccination dans ma commune dans un centre CPAM bien organisé. Je le souhaite à tout le monde.",
-   "from": "user"
- },
- {
-   "message": "Toujours nickel... 5 volontaires trouvés en une heure ! Continuez !",
-   "from": "partner"
- },
- {
-   "message": "Cela s’est passé très rapidement et j’en suis très contente. De plus j’ai recommandé votre site à des personnes de mon entourage pour bénéficier de doses de vaccin qui seraient perdues si vous n’étiez pas là. Je vous en remercie.",
-   "from": "user"
- },
- {
-   "message": "Je suis infiniment reconnaissante de la création du site Covidliste, merci à tous ceux qui ont participé à sa création. Grâce à vous les doses disponibles au CHU n'ont pas été perdues et moi je suis immunisée, tout le monde est gagnant ! Je suis à fond avec vous, et merci encore !",
-   "from": "user"
- },
- {
-   "message": "A peine inscrit (une semaine) je reçois une proposition de dose. C’est extrêmement efficace et simple. \nEn tous cas, j’ai recommandé et partagé le lien avec beaucoup de monde.",
-   "from": "user"
- },
- {
-   "message": "Parfait Covidliste ce soir... Cela nous a bien aidé et retour très positif des personnes rappelées qui étaient enchantées de votre appli. Bilan... Aucune perte de doses à nouveau.",
-   "from": "partner"
- },
- {
-   "message": "Je me suis inscrite en début de semaine et 3 jours plus tard un rdv m'a été proposé.  Bravo pour l'organisation super efficace !",
-   "from": "user"
- },
- {
-   "message": "Je vous remercie pour votre initiative. L'expérience a été vraiment impeccable. Votre message a été une très belle surprise et en moins de 2 heures j'étais vacciné. Je vous remercie encore pour votre activité.",
-   "from": "user"
- },
- {
-   "message": "Merci à vous et de votre précieuse aide dans la gestion de la pandémie. Nous avons pu remplir tous les trous de nos listes assez efficacement, les doses ont été comblées et nous n'en avons jamais jetée.",
-   "from": "partner"
- },
- {
-   "message": "L'inscription est très simple à réaliser. J'ai reçu un message pour un vaccin dispo et je me suis rendue au centre de vaccination. Sur place mon rdv était enregistré. Je n'ai pas attendu. C'est juste parfait et très bien organisé. Merci Covidliste",
-   "from": "user"
- },
- {
-   "message": "Merci à vous, d’avoir eu cette idée géniale 😀 Je suis ravie d’avoir pu être contactée aussi rapidement et sans stress, bien évidemment,  je n’ai pas hésité à diffuser à mon entourage le lien avec votre site.",
-   "from": "user"
- },
- {
-   "message": "Je ne peux que vous remercier.  Dès le départ, l'inscription est très simple. Je vous remercie d'avoir mis en place votre site si utile. Je salue la pertinence de votre démarche. Il a suffit de quelques click pour confirmer mon rdv. Simple, Utile, Pertinent, Efficace, Réussite SUPER quoi !",
-   "from": "user"
- },
- {
-   "message": "Ça marche du feu de dieu votre site !                                                                                                                                                                                                ",
-   "from": "partner"
- },
- {
-   "message": "Magnifique initiative, parfaitement organisée, qui m'a permis en quelques jours de bénéficier d'un vaccin dans de très bonnes conditions simple et rapides qui se serait peut être perdu sans ça. Bravo à Covidliste !",
-   "from": "user"
- },
- {
-   "message": "Merci covidliste ! J'ai eu la chance d'être contacté, cela s'est très bien déroulé, pas d'attente, et une équipe médicale au top au centre de vaccination de Biarritz. Je recommande l'efficacité du site !",
-   "from": "user"
- },
- {
-   "message": "Très satisfaite de mon expérience avec Covidliste. Je me suis inscrite et ai été contactée par mail 2 jours plus tard avec une proposition de RDV pour un vaccin, dans l'après-midi même. J'ai validé et ai été dans la foulée contactée par la pharmacie.",
-   "from": "user"
- },
- {
-   "message": "Bravo ! Chapeau ! Merci ! Première utilisation ce jour et je suis bluffé par votre logiciel ! Quand des codeurs compétents et motivés se mettent au boulot, on obtient de beaux outils, clairs, simples et redoutablement efficaces. Jusqu'ici, être un bouche-trou n'était pas un titre glorieux mais appliqué à votre outil, il le devient au plus haut point :)",
-   "from": "partner"
- },
- {
-   "message": "Excellent service. Je ne pensais pas être contactée si vite (inscription le mercredi, contact le vendredi).\nMoi qui m'apprêtais à aller faire le pied de grue dans un centre pour guetter une dose non utilisée !\nMerci !",
-   "from": "user"
- },
- {
-   "message": "Je tiens à vous féliciter pour cette initiative parce que non seulement cela a fonctionné très bien mais c’était aussi d’une facilité absolue. J’en suis ravi et je vous en suis très reconnaissant. C’est du très bon travail. Votre contribution à faire avancer la campagne de vaccination est énorme.",
-   "from": "user"
- },
- {
-   "message": "Simplicité, sobriété, efficacité : les 3 mots qui me viennent à l'esprit après avoir utilisé Covidliste.",
-   "from": "user"
- },
- {
-   "message": "Je viens d'utiliser Covidliste. C'est très efficace et très pratique!",
-   "from": "partner"
- },
- {
-   "message": "Je suis très satisfaite de ce service... et j'ai fait des jaloux autours de moi !",
-   "from": "user"
- },
- {
-   "message": "J'ai répondu favorablement à la proposition. Le message était clair. Quand je suis arrivée, une queue était réservée à COVIDLISTE. J'ai fait de la publicité pour votre site en espérant que d'autres puissent en bénéficier !",
-   "from": "user"
- },
- {
-   "message": "Merci à vous d'avoir organisé tout ça. J'ai confirmé ma disponibilité grâce au lien indiqué dans le mail. Je me suis rendue au Centre et j'étais vaccinée une heure plus tard. Nous étions une centaine envoyés par Covidliste pour terminer les stocks de la semaine et nous sentions tous très chanceux. J'ai partagé mon expérience avec des amis qui se sont donc inscrits depuis.",
-   "from": "user"
- },
- {
-   "message": "Top votre service ! Merci et bravo. Des gens heureux aussi d'être vaccinés. Merci encore.",
-   "from": "partner"
- },
- {
-   "message": "Covidliste m'a trouvé un rdv pour me faire vacciner en moins de temps qu'il ne faut pour le dire... merci",
-   "from": "user"
- },
- {
-   "message": "Ravie et soulagée.",
-   "from": "user"
- },
- {
-   "message": "À l’arrivée au centre de vaccination nous étions beaucoup de monde à venir par le biais de Covidliste. Le centre avait en fait 130 doses qui se périmaient... et Covidliste a permis 130 heureux pour en bénéficier !\nMerci à vous en tout cas pour cette belle initiative !",
-   "from": "user"
- },
- {
-   "message": "Merci pour votre travail. Ce soir nous avons pu grâce à vous vacciner une personne éligible avec une dose restante. Chaque soir, 1 à 6 doses sauvables grâce à votre initiative, multipliées par de le nombre de centres : vous êtes indispensables !",
-   "from": "partner"
- },
- {
-   "message": "Bravo, c'était très efficace. J'ai reçu une proposition de vaccin d'une pharmacie près de chez moi. Je crois que c'était la première fois qu'ils utilisaient  Covidliste. Merci !",
-   "from": "user"
- },
- {
-   "message": "Inscription ultra simple aucune obligation et un rendez-vous proposé le jour suivant que l’on réserve en 3 clics en toute sécurité. Le hasard a bien fait les choses: je suis tombée sur un médecin super sympa ! Je recommande vivement Covidliste !",
-   "from": "user"
- },
- {
-   "message": "Bravo ! Service super efficace ! J’ai été vaccinée moins de 48 h après mon inscription",
-   "from": "user"
- },
- {
-   "message": "Je vais faire participer mes 3 associés, le retour patient de ce matin était excellent lui aussi. Heureusement qu’il y a des équipes comme vous.",
-   "from": "partner"
- },
- {
-   "message": "Inscrite depuis plusieurs semaines sur votre site, j'ai été très heureuse de l'opportunité que vous m'avez offerte de pouvoir enfin accéder au vaccin. Votre site est vraiment performant.",
-   "from": "user"
- },
- {
-   "message": "Un grand merci d'avoir créé ce service, ça m'a permis de me faire vacciner pour ne pas gâcher une dose. Votre site et les emails envoyés sont clairs.",
-   "from": "user"
- },
- {
-   "message": "Tout a parfaitement fonctionné, depuis mon inscription jusqu'à la vaccination en l'espace de quelques jours. J'ai recommandé Covidliste à plusieurs amis. Très impressionné par le fonctionnement simple, intuitif et rapide de Covidliste. Félicitations et un grand merci !",
-   "from": "user"
- },
- {
-   "message": "Merci c'est une très bonne initiative, la meilleure depuis des semaines !",
-   "from": "partner"
- },
- {
-   "message": "Ce qui m'a le plus surpris et touché, c'est la gentillesse du personnel sur place, la personne de l'accueil, les personnes de la sécurité, l'infirmière et le médecin... Je suis très contente de cette expérience, au moins on ne gaspille pas des doses et comme ça on avance la vaccination, on se protège et surtout on protège les autres.",
-   "from": "user"
- },
- {
-   "message": "C'est génial. Ça fonctionne ! On a pu vacciner les trois volontaires.",
-   "from": "partner"
- },
- {
-   "message": "Félicitations pour cette initiative citoyenne et indépendante. Le service est simple et efficace. La communication est très claire. Mon rendez-vous s'est parfaitement déroulé.\nDu travail de pro : bravo à toute l'équipe Covidliste !",
-   "from": "user"
- },
- {
-   "message": "J'ai été ravie de l'efficacité du service. Lassée de chercher des créneaux sur Doctolib, je me suis inscrite sur votre app. En 48 heures j'ai reçu une proposition de rdv et j'ai pu m'y rendre. \nMerci Covidliste !",
-   "from": "user"
- },
- {
-   "message": "Bonjour, merci. Ne changez rien c'est génial ce que vous faites. Prenez soin de vous, à bientôt.",
-   "from": "partner"
- }
+  {
+    "avatar_path": "",
+    "message": "Quelle magnifique initiative, l’impression d’avoir gagné au loto. Continuez, c’est un très beau projet.",
+    "from": "user"
+  },
+  {
+    "avatar_path": "",
+    "message": "Je vous remercie à nouveau pour l'effort et la mobilisation sur votre temps personnel via cette initiative envers vos concitoyens. Réellement apprécié, mille mercis. Bon courage pour la suite.",
+    "from": "partner"
+  },
+  {
+    "avatar_path": "",
+    "message": "Du début à la fin de mon passage sur place : tout était parfait. Bravo pour l’idée de ce concept et bravo pour la réalisation : tout est fluide et très efficace : j’étais enchantée de l’expérience.",
+    "from": "user"
+  },
+  {
+    "avatar_path": "",
+    "message": "Chaque soir, 1 à 6 doses sauvables grâce à votre initiative, multipliées par de le nombre de centres : vous êtes indispensables !",
+    "from": "partner"
+  },
+  {
+    "avatar_path": "",
+    "message": "Je me suis inscrit sur la liste et deux jours plus tard je recevais ma première dose de vaccin. Le médecin gérant le centre était ravie de ne pas perdre de dose. Merci de l'initiative Covidliste !",
+    "from": "user"
+  },
+  {
+    "avatar_path": "",
+    "message": "Merci beaucoup ! Je trouvais injuste de ne pas être éligible en tant que mère d'un enfant handicapé. Je ne m’attendais pas à ce que j’ai ressenti au moment de l’injection : une grande émotion.",
+    "from": "user"
+  },
+  {
+    "avatar_path": "",
+    "message": "Très efficace ! Inscrit sur Covidliste depuis 3 semaines, j'ai reçu un mail lundi en fin de matinée et j'étais vacciné moins d'une heure plus tard. Merci !",
+    "from": "user"
+  },
+  {
+    "avatar_path": "",
+    "message": "Parfait ! Merci à toute l'équipe ! Deux ou trois doses utilisées en plus c'est une goutte d'eau dans l'océan, mais c'est toujours plus satisfaisant que les perdre. Bonne continuation.",
+    "from": "partner"
+  },
+  {
+    "avatar_path": "",
+    "message": "Merci beaucoup pour votre service très pertinent et d’une grande simplicité. De ce fait, je vous assure une publicité digne de vos services. Encore merci.",
+    "from": "user"
+  },
+  {
+    "avatar_path": "",
+    "message": "J’ai beaucoup apprécié la simplicité d’inscription et la simplicité des propositions. Pas de clic superflus, bravo pour l’approche. Merci pour le service.",
+    "from": "user"
+  },
+  {
+    "avatar_path": "",
+    "message": "Je me suis inscrite en début de semaine et 3 jours plus tard un rdv m'a été proposé.  Bravo pour l'organisation super efficace !",
+    "from": "user"
+  },
+  {
+    "avatar_path": "",
+    "message": "Je viens de faire ma première campagne ce matin pour 2 doses. Tout d'abord merci car c'est ultra simple et la réactivité a été quasi immédiate. Merci à vous !",
+    "from": "partner"
+  },
+  {
+    "avatar_path": "",
+    "message": "Tout était très bien organisé au centre de vaccination avec une file pour les gens de covidliste. C'était fluide et le personnel aux petits soins ! Je recommande vivement, c'est efficace. Top !",
+    "from": "user"
+  },
+  {
+    "avatar_path": "",
+    "message": "Merci beaucoup pour ce que vous faites ! Vous êtes un partenaire indispensable dans la lutte face à la pandémie. On compte sur vous et vous pouvez compter sur nous.",
+    "from": "partner"
+  },
+  {
+    "avatar_path": "",
+    "message": "Simple, pratique et efficace. Je recommande Covidliste ! J'ai pu être vaccinée sans attendre.",
+    "from": "user"
+  },
+  {
+    "avatar_path": "",
+    "message": "Merci d’avoir penser à moi pour l’opportunité de recevoir une première injection. Je n’ai pas hésité une seconde !",
+    "from": "user"
+  },
+  {
+    "avatar_path": "",
+    "message": "Enregistrée il y a 2 ou 3 semaines, j'ai eu l'opportunité d'être contactée pour la vaccination dans ma commune dans un centre CPAM bien organisé. Je le souhaite à tout le monde.",
+    "from": "user"
+  },
+  {
+    "avatar_path": "",
+    "message": "Toujours nickel... 5 volontaires trouvés en une heure ! Continuez !",
+    "from": "partner"
+  },
+  {
+    "avatar_path": "",
+    "message": "Cela s’est passé très rapidement et j’en suis très contente. J'’ai recommandé votre site à des personnes de mon entourage pour bénéficier de doses de vaccin qui seraient perdues sans vous !",
+    "from": "user"
+  },
+  {
+    "avatar_path": "",
+    "message": "Je suis infiniment reconnaissante de la création du site Covidliste, merci à tous ceux qui ont participé à sa création. Je suis à fond avec vous, et merci encore !",
+    "from": "user"
+  },
+  {
+    "avatar_path": "",
+    "message": "A peine inscrit (une semaine) je reçois une proposition de dose. C’est extrêmement efficace et simple. En tous cas, j’ai recommandé et partagé le lien avec beaucoup de monde.",
+    "from": "user"
+  },
+  {
+    "avatar_path": "",
+    "message": "Parfait Covidliste ce soir... Cela nous a bien aidé et retour très positif des personnes rappelées qui étaient enchantées de votre appli. Bilan... Aucune perte de doses à nouveau.",
+    "from": "partner"
+  },
+  {
+    "avatar_path": "",
+    "message": "Je vous remercie pour votre initiative. L'expérience a été vraiment impeccable. Votre message a été une très belle surprise et en moins de 2 heures j'étais vacciné.",
+    "from": "user"
+  },
+  {
+    "avatar_path": "",
+    "message": "Merci à vous et de votre précieuse aide dans la gestion de la pandémie. Nous avons pu remplir tous les trous de nos listes assez efficacement, les doses ont été comblées et nous n'en avons jamais jetée.",
+    "from": "partner"
+  },
+  {
+    "avatar_path": "",
+    "message": "L'inscription est très simple à réaliser. J'ai reçu un message pour un vaccin dispo. Sur place mon rdv était enregistré. Je n'ai pas attendu. C'est juste parfait et très bien organisé.",
+    "from": "user"
+  },
+  {
+    "avatar_path": "",
+    "message": "Merci à vous, d’avoir eu cette idée géniale 😀 Je suis ravie d’avoir pu être contactée aussi rapidement et sans stress, je n’ai pas hésité à diffuser à mon entourage le lien avec votre site.",
+    "from": "user"
+  },
+  {
+    "avatar_path": "",
+    "message": "Je salue la pertinence de votre démarche. Il a suffit de quelques clics pour confirmer mon rdv. Simple, Utile, Pertinent, Efficace, Réussite SUPER quoi !",
+    "from": "user"
+  },
+  {
+    "avatar_path": "",
+    "message": "Une seule chose à dire : ça marche du feu de dieu votre site !",
+    "from": "partner"
+  },
+  {
+    "avatar_path": "",
+    "message": "Magnifique initiative, parfaitement organisée, qui m'a permis en quelques jours de bénéficier d'un vaccin dans de très bonnes conditions simple et rapides. Bravo à Covidliste !",
+    "from": "user"
+  },
+  {
+    "avatar_path": "",
+    "message": "Merci covidliste ! J'ai eu la chance d'être contacté, cela s'est très bien déroulé, pas d'attente, et une équipe médicale au top au centre. Je recommande l'efficacité du site !",
+    "from": "user"
+  },
+  {
+    "avatar_path": "",
+    "message": "Bravo ! Chapeau ! Merci ! Première utilisation ce jour et je suis bluffé par votre logiciel !",
+    "from": "partner"
+  },
+  {
+    "avatar_path": "",
+    "message": "De beaux outils, clairs, simples et redoutablement efficaces. Jusqu'ici, être un bouche-trou n'était pas un titre glorieux mais appliqué à votre outil, il le devient au plus haut point :)",
+    "from": "partner"
+  },
+  {
+    "avatar_path": "",
+    "message": "Excellent service. Je ne pensais pas être contactée si vite. Moi qui m'apprêtais à aller faire le pied de grue dans un centre pour guetter une dose non utilisée ! Merci !",
+    "from": "user"
+  },
+  {
+    "avatar_path": "",
+    "message": "Je tiens à vous féliciter pour cette initiative parce que non seulement cela a fonctionné très bien mais c’était aussi d’une facilité absolue. J’en suis ravi et je vous en suis très reconnaissant.",
+    "from": "user"
+  },
+  {
+    "avatar_path": "",
+    "message": "Simplicité, sobriété, efficacité : les 3 mots qui me viennent à l'esprit après avoir utilisé Covidliste.",
+    "from": "user"
+  },
+  {
+    "avatar_path": "",
+    "message": "Je viens d'utiliser Covidliste. C'est très efficace et très pratique!",
+    "from": "partner"
+  },
+  {
+    "avatar_path": "",
+    "message": "Je suis très satisfaite de ce service... et j'ai fait des jaloux autours de moi !",
+    "from": "user"
+  },
+  {
+    "avatar_path": "",
+    "message": "Je suis très contente de cette expérience, au moins on ne gaspille pas des doses et comme ça on avance la vaccination, on se protège et surtout on protège les autres.",
+    "from": "user"
+  },
+  {
+    "avatar_path": "",
+    "message": "Merci à vous d'avoir organisé tout ça. J'ai confirmé ma disponibilité grâce au lien indiqué dans le mail. Je me suis rendue au Centre et j'étais vaccinée une heure plus tard.",
+    "from": "user"
+  },
+  {
+    "avatar_path": "",
+    "message": "Top votre service ! Merci et bravo. Des gens heureux aussi d'être vaccinés. Merci encore.",
+    "from": "partner"
+  },
+  {
+    "avatar_path": "",
+    "message": "Covidliste m'a trouvé un rdv pour me faire vacciner en moins de temps qu'il ne faut pour le dire... merci",
+    "from": "user"
+  },
+  {
+    "avatar_path": "",
+    "message": "Ravie et soulagée.",
+    "from": "user"
+  },
+  {
+    "avatar_path": "",
+    "message": "Au centre de vaccination nous étions beaucoup à venir par le biais de Covidliste. Le centre avait 130 doses qui se périmaient... et Covidliste a permis 130 heureux pour en bénéficier !",
+    "from": "user"
+  },
+  {
+    "avatar_path": "",
+    "message": "Merci pour votre travail. Ce soir nous avons pu grâce à vous vacciner une personne éligible avec une dose restante.",
+    "from": "partner"
+  },
+  {
+    "avatar_path": "",
+    "message": "Bravo, c'était très efficace. J'ai reçu une proposition de vaccin d'une pharmacie près de chez moi. Je crois que c'était la première fois qu'ils utilisaient  Covidliste. Merci !",
+    "from": "user"
+  },
+  {
+    "avatar_path": "",
+    "message": "Inscription ultra simple et un rdv que l’on réserve en 3 clics en toute sécurité. Le hasard fait bien les choses : je suis tombée sur un médecin super sympa ! Je recommande vivement Covidliste !",
+    "from": "user"
+  },
+  {
+    "avatar_path": "",
+    "message": "Bravo ! Service super efficace ! J’ai été vaccinée moins de 48 h après mon inscription",
+    "from": "user"
+  },
+  {
+    "avatar_path": "",
+    "message": "Je vais faire participer mes 3 associés, le retour patient de ce matin était excellent lui aussi. Heureusement qu’il y a des équipes comme vous.",
+    "from": "partner"
+  },
+  {
+    "avatar_path": "",
+    "message": "Inscrite depuis plusieurs semaines sur votre site, j'ai été très heureuse de l'opportunité que vous m'avez offerte de pouvoir enfin accéder au vaccin. Votre site est vraiment performant.",
+    "from": "user"
+  },
+  {
+    "avatar_path": "",
+    "message": "Un grand merci d'avoir créé ce service, ça m'a permis de me faire vacciner pour ne pas gâcher une dose. Votre site et les emails envoyés sont clairs.",
+    "from": "user"
+  },
+  {
+    "avatar_path": "",
+    "message": "Tout a parfaitement fonctionné, depuis mon inscription jusqu'à la vaccination en l'espace de quelques jours. J'ai recommandé Covidliste à plusieurs amis !",
+    "from": "user"
+  },
+  {
+    "avatar_path": "",
+    "message": "Merci c'est une très bonne initiative, la meilleure depuis des semaines !",
+    "from": "partner"
+  },
+  {
+    "avatar_path": "",
+    "message": "Ce qui m'a le plus surpris et touché, c'est la gentillesse du personnel sur place, la personne de l'accueil, les personnes de la sécurité, l'infirmière et le médecin...",
+    "from": "user"
+  },
+  {
+    "avatar_path": "",
+    "message": "C'est génial. Ça fonctionne ! On a pu vacciner les trois volontaires.",
+    "from": "partner"
+  },
+  {
+    "avatar_path": "",
+    "message": "Félicitations pour cette initiative citoyenne et indépendante. Un service est simple et efficace, un communication très claire, un rdv qui s'est parfaitement déroulé. Du travail de pro : bravo à toute l'équipe !",
+    "from": "user"
+  },
+  {
+    "avatar_path": "",
+    "message": "Nous étions une centaine envoyés par Covidliste pour terminer les stocks de la semaine et nous sentions tous très chanceux. J'ai partagé mon expérience avec des amis !",
+    "from": "user"
+  },
+  {
+    "avatar_path": "",
+    "message": "Très impressionné par le fonctionnement simple, intuitif et rapide de Covidliste. Félicitations et un grand merci !",
+    "from": "user"
+  },
+  {
+    "avatar_path": "",
+    "message": "Bonjour, merci. Ne changez rien c'est génial ce que vous faites. Prenez soin de vous, à bientôt.",
+    "from": "partner"
+  },
+  {
+    "avatar_path": "",
+    "message": "Je suis très contente de cette expérience, au moins on ne gaspille pas des doses et comme ça on avance la vaccination, on se protège et surtout on protège les autres.",
+    "from": "user"
+  }
 ]
