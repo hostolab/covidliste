@@ -28,6 +28,7 @@ class RedirectsController < ApplicationController
   end
 
   def confirm_destroy_path(user)
+    raise ArgumentError unless user&.present?
     raise ArgumentError if user.anonymized_at
 
     token = user.signed_id(purpose: "users.destroy", expires_in: 1.minute)

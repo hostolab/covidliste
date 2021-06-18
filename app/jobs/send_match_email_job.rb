@@ -11,5 +11,15 @@ class SendMatchEmailJob < ApplicationJob
     match.set_expiration!
     MatchMailer.with(match: match).match_confirmation_instructions.deliver_now
     match.update(mail_sent_at: Time.now.utc)
+  rescue Postmark::InactiveRecipientError => e
+    Rails.logger.error(e.message)
+    match.user.anonymize!
+  rescue Postmark::ApiInputError => e
+    if e.message.start_with?("Invalid 'To' address:")
+      Rails.logger.error(e.message)
+      match.user.anonymize!
+    else
+      raise e
+    end
   end
 end
