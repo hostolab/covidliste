@@ -9,5 +9,15 @@ class SendSlotAlertEmailJob < ApplicationJob
 
     SlotAlertMailer.with(alert: alert).notify.deliver_now
     alert.update(sent_at: Time.now.utc)
+  rescue Postmark::InactiveRecipientError => e
+    Rails.logger.error(e.message)
+    alert.user.anonymize!
+  rescue Postmark::ApiInputError => e
+    if e.message.start_with?("Invalid 'To' address:")
+      Rails.logger.error(e.message)
+      alert.user.anonymize!
+    else
+      raise e
+    end
   end
 end

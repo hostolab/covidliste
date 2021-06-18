@@ -145,5 +145,19 @@
     "website_url": "https://oplus.law/",
     "description": "Cabinet d'avocats",
     "role": ""
+  },
+  {
+    "name": "Mention",
+    "logo_path": "sponsors/logo-mention.png",
+    "website_url": "https://mention.com/fr/",
+    "description": "Outil de veille digitale",
+    "role": ""
+  },
+  {
+    "name": "Scaleway",
+    "logo_path": "sponsors/logo-scaleway.png",
+    "website_url": "https://www.scaleway.com/fr/",
+    "description": "Fournisseur cloud : colocation en DC, cloud public, cloud privé",
+    "role": ""
   }
 ]
