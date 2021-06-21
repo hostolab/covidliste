@@ -6,12 +6,16 @@ class PagesController < ApplicationController
     @confirmed_matched_users_count = Rails.cache.fetch(:confirmed_matched_users_count, expires_in: 30.minutes) { Match.confirmed.count }
     @vaccination_centers_count = Rails.cache.fetch(:vaccination_centers_count, expires_in: 30.minutes) { VaccinationCenter.confirmed.count }
     @typeform_url = "https://form.typeform.com/to/Gj2d2iue"
-    @reviews = Review.where(from: "volunteer")
+    # @typeform_url = nil # "https://form.typeform.com/to/Gj2d2iue"
+    @reviews = Review.all
+    # @reviews = Review.where(from: "volunteer")
     @faq_items = FaqItem.where(area: "pro").limit(4)
   end
 
   def benevoles
-    @volunteers = Volunteer.where(anon: false).order(sort_name: :asc) + Volunteer.where(anon: true).order(sort_name: :asc)
+    @volunteers = Volunteer.where(old: false, anon: false).order(sort_name: :asc) + Volunteer.where(old: false, anon: true).order(sort_name: :asc)
+    @old_volunteers = Volunteer.where(old: true).order(sort_name: :asc)
+    @enable_recruitment = false
   end
 
   def donateurs
@@ -35,11 +39,13 @@ class PagesController < ApplicationController
     @sponsors = Sponsor.all
   end
 
-  def contact
-    @contact_items = FaqItem.where(category: "Collaboration et contact")
+  def temoignages
+    @reviews = Review.all
+    @typeform_url = "https://form.typeform.com/to/rHTAEqUZ"
   end
 
-  def presse
+  def contact
+    @contact_items = FaqItem.where(category: "Collaboration et contact")
   end
 
   def carte
@@ -51,37 +57,37 @@ class PagesController < ApplicationController
         "lon" => 2.3,
         "lat" => 47.1,
         "zoom" => 5.5
-      },
-      {
-        "label" => "Guyane",
-        "lon" => -53.02730090442361,
-        "lat" => 4,
-        "zoom" => 7
-      },
-      {
-        "label" => "Guadeloupe",
-        "lon" => -61.5,
-        "lat" => 16.176021024448076,
-        "zoom" => 10
-      },
-      {
-        "label" => "La Réunion",
-        "lon" => 55.53913649067738,
-        "lat" => -21.153674695744286,
-        "zoom" => 10
-      },
-      {
-        "label" => "Martinique",
-        "lon" => -60.97336870145841,
-        "lat" => 14.632175285699219,
-        "zoom" => 10
-      },
-      {
-        "label" => "Mayotte",
-        "lon" => 45.16242028163609,
-        "lat" => -12.831199035192768,
-        "zoom" => 11
       }
+      # {
+      #   "label" => "Guyane",
+      #   "lon" => -53.02730090442361,
+      #   "lat" => 4,
+      #   "zoom" => 7
+      # },
+      # {
+      #   "label" => "Guadeloupe",
+      #   "lon" => -61.5,
+      #   "lat" => 16.176021024448076,
+      #   "zoom" => 10
+      # },
+      # {
+      #   "label" => "La Réunion",
+      #   "lon" => 55.53913649067738,
+      #   "lat" => -21.153674695744286,
+      #   "zoom" => 10
+      # },
+      # {
+      #   "label" => "Martinique",
+      #   "lon" => -60.97336870145841,
+      #   "lat" => 14.632175285699219,
+      #   "zoom" => 10
+      # },
+      # {
+      #   "label" => "Mayotte",
+      #   "lon" => 45.16242028163609,
+      #   "lat" => -12.831199035192768,
+      #   "zoom" => 11
+      # }
     ]
   end
 

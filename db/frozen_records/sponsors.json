@@ -70,6 +70,20 @@
     "role": "Outil de support email"
   },
   {
+    "name": "Salesforce",
+    "logo_path": "sponsors/logo-salesforce.svg",
+    "website_url": "https://www.salesforce.com/fr/",
+    "description": "Plateforme et services de CRM dans le cloud",
+    "role": ""
+  },
+  {
+    "name": "Heroku",
+    "logo_path": "sponsors/logo-heroku.svg",
+    "website_url": "https://www.heroku.com/",
+    "description": "Plateforme cloud pour créer et déployer des application",
+    "role": ""
+  },
+  {
     "name": "Aircall",
     "logo_path": "sponsors/logo-aircall.svg",
     "website_url": "https://aircall.io/fr/",
@@ -130,6 +144,20 @@
     "logo_path": "sponsors/logo-oplus.svg",
     "website_url": "https://oplus.law/",
     "description": "Cabinet d'avocats",
+    "role": ""
+  },
+  {
+    "name": "Mention",
+    "logo_path": "sponsors/logo-mention.png",
+    "website_url": "https://mention.com/fr/",
+    "description": "Outil de veille digitale",
+    "role": ""
+  },
+  {
+    "name": "Scaleway",
+    "logo_path": "sponsors/logo-scaleway.png",
+    "website_url": "https://www.scaleway.com/fr/",
+    "description": "Fournisseur cloud : colocation en DC, cloud public, cloud privé",
     "role": ""
   }
 ]

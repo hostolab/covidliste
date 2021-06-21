@@ -1,6 +1,8 @@
 class VmdSlot < ApplicationRecord
   validates :center_id, uniqueness: {scope: :last_updated_at}
 
+  OVERBOOKING_FACTOR = 2
+
   VACCINE_TYPES = {
     pfizer: "Pfizer-BioNTech",
     moderna: "Moderna",
@@ -71,12 +73,13 @@ class VmdSlot < ApplicationRecord
     end
   end
 
-  def reachable_users(max_distance = 5, limit = 1000)
+  def reachable_users(user_alerting_intensity = nil)
     sql = <<~SQL.tr("\n", " ").squish
       with users_stats as (
         select
         u.id as user_id,
         ((SQRT((((:lat) - u.lat)*110.574)^2 + (((:lon) - u.lon)*111.320*COS(u.lat::float*3.14159/180))^2)) / 1.0)::int * 1 as distance_bucket,
+        u.alerting_intensity,
         COUNT(a.id) as total_alerts,
         COUNT(m.id) as total_matches
         from users u
@@ -85,17 +88,16 @@ class VmdSlot < ApplicationRecord
         WHERE
           u.confirmed_at IS NOT NULL
           AND u.anonymized_at is NULL
+          AND (u.alerting_intensity >= :user_alerting_intensity or :user_alerting_intensity is null)
           AND u.birthdate between (:min_date) and (:max_date)
-          AND (SQRT((((:lat) - u.lat)*110.574)^2 + (((:lon) - u.lon)*111.320*COS(u.lat::float*3.14159/180))^2)) < (:max_distance)
+          AND (SQRT((((:lat) - u.lat)*110.574)^2 + (((:lon) - u.lon)*111.320*COS(u.lat::float*3.14159/180))^2)) < u.max_distance_km
         group by 1,2
       )
       select
-        user_id,
-        distance_bucket,
-        total_alerts,
-        total_matches
+        *
         from users_stats
         order by
+        alerting_intensity desc,
         total_alerts asc,
         distance_bucket asc,
         total_matches asc
@@ -107,18 +109,27 @@ class VmdSlot < ApplicationRecord
       max_date: min_age.years.ago,
       lat: latitude,
       lon: longitude,
-      max_distance: max_distance,
-      limit: limit
+      user_alerting_intensity: user_alerting_intensity,
+      limit: slots_7_days * OVERBOOKING_FACTOR
     }
     query = ActiveRecord::Base.send(:sanitize_sql_array, [sql, params])
     User.where(id: ActiveRecord::Base.connection.execute(query).to_a.pluck("user_id"))
   end
 
-  def send_alerts(max_distance = 25, limit = nil)
-    limit ||= slots_7_days
-    users = reachable_users(max_distance, limit)
-    users.each do |user|
+  def send_alerts(user_alerting_intensity = nil)
+    reachable_users(user_alerting_intensity).each do |user|
       SlotAlert.create(vmd_slot_id: id, user_id: user.id)
     end
+  end
+
+  def self.find_slots_for_user(user_id)
+    user = User.find(user_id)
+    VmdSlot
+      .where("last_updated_at >= ?", 11.minutes.ago)
+      .where("(pfizer is true or moderna is true) and astrazeneca is false")
+      .where("(SQRT(((latitude - ?)*110.574)^2 + ((longitude - ?)*111.320*COS(latitude::float*3.14159/180))^2)) < ? ", user.lat, user.lon, user.max_distance_km)
+      .where("slots_7_days > 10")
+      .order("next_rdv asc")
+      .limit(100)
   end
 end

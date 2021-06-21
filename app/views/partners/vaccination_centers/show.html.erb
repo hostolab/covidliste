@@ -13,13 +13,33 @@
       </h3>
 
       <p class="mb-2">
-        <%= @vaccination_center.address %>
-        <br>
-        <%= @vaccination_center.description %>
+        <% if @vaccination_center.finess.present? %>
+          FINESS : <em class="text-muted"><%= @vaccination_center.finess %></em>
+          <br />
+        <% end %>
+        <%= @vaccination_center.address %><br />
+        Description : <%= @vaccination_center.description %><br />
+        <small>
+          <%= icon("fas", "phone", @vaccination_center.human_friendly_phone_number) %>
+          <small class="text-muted">(numéro transmis aux volontaires)</small>
+        </small>
       </p>
-      
-      <p class="mb-2 small">
-        <%= icon("fas", "phone", @vaccination_center.human_friendly_phone_number) %>
+
+      <p class="mb-2">
+        <div class="d-flex align-items-center my-1">
+          <%= humanize_boolean @vaccination_center.visible_optin_at.present? %><span class='ml-2'>Affichage sur la carte publique</span>
+          <%= form_for [:partners, @vaccination_center], html: { class: 'ml-2' } do |f| %>
+            <%= f.hidden_field :visible_optin, value: !@vaccination_center.visible_optin_at.present? %>
+            <%= f.submit @vaccination_center.visible_optin_at.present? ? "Masquer de la carte" : "Afficher sur la carte", class: 'btn btn-outline-primary px-2 py-1', style: 'font-size: 10px;', data: { confirm: "Êtes-vous sûr(e) ?" }  %>
+          <% end %>
+        </div>
+        <div class="d-flex align-items-center my-1">
+          <%= humanize_boolean @vaccination_center.media_optin_at.present? %><span class='ml-2'>Communication presse et réseaux sociaux</span>
+          <%= form_for [:partners, @vaccination_center], html: { class: 'ml-2' } do |f| %>
+            <%= f.hidden_field :media_optin, value: !@vaccination_center.media_optin_at.present? %>
+            <%= f.submit @vaccination_center.media_optin_at.present? ? "Refuser la communication" : "Autoriser la communication", class: 'btn btn-outline-primary px-2 py-1', style: 'font-size: 10px;', data: { confirm: "Êtes-vous sûr(e) ?" } %>
+          <% end %>
+        </div>
       </p>
 
       <%- if @vaccination_center.lat && @vaccination_center.lon%>
@@ -43,6 +63,39 @@
   <p>
     <%= link_to "Créer une nouvelle campagne", new_partners_vaccination_center_campaign_path(@vaccination_center), class: "btn btn-primary" %>
   </p>
+
+  <div>
+    <h5 class="mt-4">
+      Collaborateurs
+    </h5>
+
+    <% if @vaccination_center.partners.present? %>
+      <div class="table-responsive">
+        <table class="table table-hover table-bordered table-sm small" aria-describedby="Collaborateurs">
+          <thead class="thead-light">
+          <tr>
+            <th scope="col">Nom</th>
+            <th scope="col">Email</th>
+          </tr>
+          </thead>
+
+          <tbody>
+          <% @vaccination_center.partners.order(id: :desc).each do |partner| %>
+            <tr>
+              <td> <%= partner.name %> </td>
+              <td> <%= partner.email %> </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% else %>
+      <p class="small text-muted">
+        <%= icon("fas", "info-circle") %>
+        Aucun professionnel de santé lié
+      </p>
+    <% end %>
+  </div>
 
   <% if @vaccination_center.campaigns.present? %>
     <h5 class="mt-2">

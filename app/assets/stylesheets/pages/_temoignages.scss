@@ -1,0 +1,19 @@
+.card-review {
+  border-radius: 10px;
+  box-shadow: 4px 4px 15px rgba(44, 27, 45, 0.13);
+  padding: 20px;
+  height: 100%;
+  max-height: 220px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.card-user {
+  background: $purple500;
+  color: #ffffff;
+}
+
+.card-partner {
+  background: $purple100;
+}

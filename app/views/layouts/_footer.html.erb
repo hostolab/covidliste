@@ -28,7 +28,7 @@
             <%= link_to "Bénévoles", benevoles_path, class: "#{@page_pro ? "text-light" : "text-dark"} mt-2 d-inline-flex" %>
           </li>
           <li>
-            <%= link_to "Mentions légales", :mentions_legales, class: "#{@page_pro ? "text-light" : "text-dark"} mt-2 d-inline-flex" %>
+            <%= link_to "Blog", "https://blog.covidliste.com/", class: "#{@page_pro ? "text-light" : "text-dark"} mt-2 d-inline-flex" %>
           </li>
           <li>
             <%= link_to "Presse", :presse, class: "#{@page_pro ? "text-light" : "text-dark"} mt-2 d-inline-flex" %>
@@ -48,7 +48,10 @@
       <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
         <ul class="list-unstyled mb-0">
           <li>
-            <%= link_to "Politique cookies", :cookies, class: "#{@page_pro ? "text-light" : "text-dark"} d-inline-flex" %>
+            <%= link_to "Mentions légales", :mentions_legales, class: "#{@page_pro ? "text-light" : "text-dark"} d-inline-flex" %>
+          </li>
+          <li>
+            <%= link_to "Politique cookies", :cookies, class: "#{@page_pro ? "text-light" : "text-dark"} mt-2 d-inline-flex" %>
           </li>
           <li>
             <%= link_to "CGU - Volontaires non vaccinés", :cgu_volontaires, class: "#{@page_pro ? "text-light" : "text-dark"} mt-2 d-inline-flex" %>

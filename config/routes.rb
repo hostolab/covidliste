@@ -11,7 +11,7 @@ Rails.application.routes.draw do
       authenticate :user, lambda { |u| u.has_role?(:supply_member) } do
         # Supply
         resources :campaigns, only: [:index]
-        resources :vaccination_centers do
+        resources :vaccination_centers, only: [:index, :edit, :show, :update, :destroy] do
           authenticate :user, lambda { |u| u.has_role?(:supply_admin) } do
             # Supply Admin
             patch :validate, on: :member
@@ -40,11 +40,6 @@ Rails.application.routes.draw do
         mount Blazer::Engine, at: "/blazer"
       end
 
-      authenticate :user, lambda { |u| u.has_role?(:dev_admin) } do
-        # Dev admin
-        mount Flipper::UI.app(Flipper), at: "/flipper", as: :flipper_ui
-      end
-
       authenticate :user, lambda { |u| u.has_role?(:admin) } do
         # Core Team
         resources :power_users, only: [:index]
@@ -55,6 +50,7 @@ Rails.application.routes.draw do
         resources :power_users, only: [:create, :update, :destroy]
         mount PgHero::Engine, at: "/pghero"
         mount Sidekiq::Web => "/sidekiq"
+        mount Flipper::UI.app(Flipper), at: "/flipper", as: :flipper_ui
       end
     end
   end
@@ -111,7 +107,7 @@ Rails.application.routes.draw do
   get "/partenaires/faq" => "pages#faq_pro", :as => :partenaires_faq
 
   namespace :partners do
-    resources :vaccination_centers, only: [:index, :show, :new, :create] do
+    resources :vaccination_centers, only: [:index, :show, :new, :create, :update] do
       resources :campaigns, only: [:new, :create] do
         post :simulate_reach, on: :collection
       end
@@ -120,18 +116,11 @@ Rails.application.routes.draw do
     resources :partner_external_accounts, only: [:destroy]
   end
 
-  ## matches
-  namespace :matches do
-    resource :users, only: [:edit]
-  end
-
   # slot alerts
   get "/s/:token" => "slot_alerts#show", :as => :slot_alert
   patch "/s/:token" => "slot_alerts#update"
-  namespace :slot_alerts do
-    resource :users, only: [:edit]
-  end
 
+  # Matches
   get "/m/:match_confirmation_token(/:source)" => "matches#show", :as => :match
   patch "/m/:match_confirmation_token(/:source)" => "matches#update"
   delete "/m/:match_confirmation_token(/:source)" => "matches#destroy"
@@ -139,14 +128,16 @@ Rails.application.routes.draw do
 
   ## Pages
   get "/vaccination_centers/geojson.json" => "vaccination_centers#geojson", :as => :vaccination_centers_geojson
+  get "/vaccination_centers/missing_users/geojson.json" => "vaccination_centers#missing_users_geojson", :as => :vaccination_centers_missing_users_geojson
   get "/carte" => "pages#carte", :as => :carte
   get "/donateurs" => "pages#donateurs", :as => :donateurs
   get "/sponsors" => "pages#sponsors", :as => :sponsors
   get "/benevoles" => "pages#benevoles", :as => :benevoles
   get "/contact" => "pages#contact", :as => :contact
   get "/algorithme" => "pages#algorithme", :as => :algorithme
-  get "/presse" => "pages#presse", :as => :presse
+  get "/presse", to: redirect("https://blog.covidliste.com/presse/home", status: 302), as: :presse
   get "/faq" => "pages#faq", :as => :faq
+  get "/temoignages" => "pages#temoignages", :as => :temoignages
 
   ## Pages from frozen_records/static_pages.yml
   get "/mentions_legales" => "pages#mentions_legales", :as => :mentions_legales

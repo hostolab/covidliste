@@ -16,5 +16,15 @@ class SendSlotAlertFollowUpJob < ApplicationJob
 
     SlotAlertMailer.with(alert: alert).follow_up.deliver_now
     alert.update(follow_up_sent_at: Time.now.utc)
+  rescue Postmark::InactiveRecipientError => e
+    Rails.logger.error(e.message)
+    alert.user.anonymize!
+  rescue Postmark::ApiInputError => e
+    if e.message.start_with?("Invalid 'To' address:")
+      Rails.logger.error(e.message)
+      alert.user.anonymize!
+    else
+      raise e
+    end
   end
 end

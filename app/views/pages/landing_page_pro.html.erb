@@ -94,23 +94,22 @@
       <div class="mt-1 d-flex align-items-center align-items-sm-end">
         <%= image_tag review.avatar_path, alt: "Avatar", loading: "lazy" %>
         <div class="rounded overflow-hidden p-3 bg-white ml-2">
-          <p class="mb-0 font-weight-bold"><%= review.text %></p>
+          <p class="mb-0 font-weight-bold"><%= review.message %></p>
         </div>
       </div>
     <% end %>
-    <%= render(ModalComponent.new(title: "Tous les témoignages", class_names: "modal-lg modal-dialog-scrollable", modal_id: "modalReviews")) do %>
+<!--     <%= render(ModalComponent.new(title: "Tous les témoignages", class_names: "modal-lg modal-dialog-scrollable", modal_id: "modalReviews")) do %>
       <div class="p-3">
         <% @reviews.each do |review| %>
           <div class="mt-1 d-flex align-items-center align-items-sm-end">
-            <%= image_tag review.avatar_path, alt: "Avatar", loading: "lazy" %>
             <div class="rounded overflow-hidden p-3 bg-white ml-2">
-              <p class="mb-0 font-weight-bold"><%= review.text %></p>
+              <p class="mb-0 font-weight-bold"><%= review.message %></p>
             </div>
           </div>
         <% end %>
       </div>
-    <% end %>
-    <%#= link_to "Lire tous les témoignages", "#modalReviews", "data-toggle": "modal", class: "btn btn-secondary btn-large font-weight-bold mt-4" %>
+    <% end %> -->
+    <%= link_to "Lire tous les témoignages", temoignages_path, class: "btn btn-secondary btn-large font-weight-bold mt-4" %>
   </div>
 </div>
 

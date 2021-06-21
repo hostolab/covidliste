@@ -17,7 +17,7 @@ def signup_submit
 end
 
 RSpec.describe "Users", type: :system do
-  let(:user) { build(:user) }
+  let(:user) { build(:user, :from_paris) }
 
   before do
     allow_any_instance_of(GeocodingService).to receive(:call).and_return({
@@ -116,6 +116,13 @@ RSpec.describe "Users", type: :system do
       expect(page).to have_text("Vous êtes inscrit sur Covidliste depuis")
     end
 
+    it "it does not display volunteers form" do
+      expect(page).not_to have_text("Bénévole Covidliste")
+      expect(page).not_to have_text("Prénom")
+      expect(page).not_to have_text("Nom")
+      expect(page).not_to have_text("Clipperton")
+    end
+
     it "it allows me to edit personal information " do
       new_attributes = {
         phone_number: generate(:french_phone_number)
@@ -139,64 +146,43 @@ RSpec.describe "Users", type: :system do
       end
     end
 
-    it "it allows me to delete my account" do
-      expect do
-        accept_confirm_modal do
-          click_on "Supprimer mon compte"
+    context "with a new campaign" do
+      let!(:center) { create(:vaccination_center, :from_paris) }
+      before do
+        create(:campaign, vaccination_center: center)
+      end
+
+      it "it warns about match" do
+        visit profile_url
+        expect(page).to have_text("Nous avons trouvé une dose de vaccin pour vous !")
+      end
+    end
+
+    context "with a new campaign and match" do
+      let!(:center) { create(:vaccination_center, :from_paris) }
+      before do
+        new_campaign = create(:campaign, vaccination_center: center)
+        create(:match, user: user, vaccination_center: center, expires_at: 1.hour.since, campaign: new_campaign)
+      end
+
+      it "it warns about match" do
+        visit profile_url
+        expect(page).to have_text("Nous avons trouvé une dose de vaccin pour vous !")
+      end
+    end
+
+    context "with 10 old matches and a new campaign" do
+      let!(:center) { create(:vaccination_center, :from_paris) }
+      before do
+        10.times.each do |i|
+          create(:match, user: user)
         end
-      end.to change { User.active.count }.by(-1)
-
-      expect(page).to have_text("Votre compte a été supprimé")
-    end
-
-    it "it allows me to decline the delete" do
-      expect do
-        decline_confirm_modal do
-          click_on "Supprimer mon compte"
-        end
-      end.to change { User.active.count }.by(0)
-    end
-
-    context "with a confirmed match" do
-      let(:campaign) { build(:campaign) }
-      let!(:match) { create(:match, campaign: campaign, confirmed_at: Time.now, user: user) }
-
-      it "it does not allow me to edit personal information" do
-        click_on "Je modifie mes informations"
-        expect(page).not_to have_text("Modifications enregistrées.")
-        expect(page).to have_text("Vous ne pouvez pas modifier vos informations actuellement car vous avez confirmé un rendez-vous de vaccination.")
+        create(:campaign, vaccination_center: center)
       end
 
-      it "it does not allow te delete my account" do
-        expect do
-          accept_confirm_modal do
-            click_on "Supprimer mon compte"
-          end
-        end.to change { User.active.count }.by(0)
-
-        expect(page).to_not have_text("Votre compte a été supprimé")
-        expect(page).to have_text("Vous ne pouvez pas supprimer votre compte actuellement car vous avez confirmé un rendez-vous de vaccination.")
-      end
-    end
-
-    context "with a pending match" do
-      let(:campaign) { build(:campaign) }
-      let!(:match) { create(:match, campaign: campaign, confirmed_at: nil, expires_at: 10.minutes.since, user: user) }
-
-      it "it does not allow me to edit personal information " do
-        click_on "Je modifie mes informations"
-        expect(page).not_to have_text("Modifications enregistrées.")
-        expect(page).to have_text("Vous ne pouvez pas modifier vos informations actuellement car vous avez une proposition rendez vous de vaccination en cours.")
-      end
-
-      it "it allows me to delete my account" do
-        expect do
-          accept_confirm_modal do
-            click_on "Supprimer mon compte"
-          end
-        end.to change { User.active.count }.by(-1)
-
-        expect(page).to have_text("Votre compte a été supprimé")
+      it "it does not warn about match" do
+        visit profile_url
+        expect(page).not_to have_text("Nous avons trouvé une dose de vaccin pour vous !")
       end
     end
   end
@@ -241,6 +227,7 @@ RSpec.describe "Users", type: :system do
 
     scenario "it confirms then delete the account" do
       visit confirm_destroy_profile_path
+      choose "reason_covidliste"
 
       expect do
         accept_confirm_modal do

@@ -2,8 +2,8 @@ module Partners
   class VaccinationCentersController < ApplicationController
     before_action :define_as_page_pro
     before_action :authenticate_partner!
-    before_action :find_vaccination_center, only: [:show]
-    before_action :authorize!, except: [:index, :new, :create]
+    before_action :find_vaccination_center, only: [:show, :update]
+    before_action :authorize!, except: [:index, :new, :create, :update]
 
     helper_method :sort_column, :sort_direction
 
@@ -24,12 +24,34 @@ module Partners
       @vaccination_center = VaccinationCenter.new(vaccination_center_params)
       @vaccination_center.visible_optin_at = Time.now.utc if ActiveRecord::Type::Boolean.new.cast(vaccination_center_optin_params["visible_optin"])
       @vaccination_center.media_optin_at = Time.now.utc if ActiveRecord::Type::Boolean.new.cast(vaccination_center_optin_params["media_optin"])
-      @vaccination_center.save
-      @partner_vaccination_center = PartnerVaccinationCenter.new(partner: current_partner,
-                                                                 vaccination_center: @vaccination_center)
-      @partner_vaccination_center.save
-      prepare_phone_number
+      @same_existing_vaccination_centers = check_if_already_exists(@vaccination_center, :address, :phone_number, :finess)
+      unless @same_existing_vaccination_centers && @vaccination_center.confirmation_creation.to_i.zero?
+        @vaccination_center.save
+        @partner_vaccination_center = PartnerVaccinationCenter.new(partner: current_partner,
+                                                                   vaccination_center: @vaccination_center)
+        @partner_vaccination_center.save
+        prepare_phone_number
+      end
       render action: :new
+    end
+
+    def update
+      if !@vaccination_center.visible_optin && ActiveRecord::Type::Boolean.new.cast(vaccination_center_optin_params["visible_optin"])
+        @vaccination_center.visible_optin_at = Time.now.utc
+      elsif @vaccination_center.visible_optin && (ActiveRecord::Type::Boolean.new.cast(vaccination_center_optin_params["visible_optin"]) == false)
+        @vaccination_center.visible_optin_at = nil
+      end
+      if !@vaccination_center.media_optin && ActiveRecord::Type::Boolean.new.cast(vaccination_center_optin_params["media_optin"])
+        @vaccination_center.media_optin_at = Time.now.utc
+      elsif @vaccination_center.media_optin && (ActiveRecord::Type::Boolean.new.cast(vaccination_center_optin_params["media_optin"]) == false)
+        @vaccination_center.media_optin_at = nil
+      end
+      flash[:success] = if @vaccination_center.update(vaccination_center_params)
+        "Ce lieu a bien été modifié"
+      else
+        "Une erreur est survenue : #{@vaccination_center.errors.full_messages.join(", ")}"
+      end
+      render :show
     end
 
     def prepare_phone_number
@@ -55,11 +77,7 @@ module Partners
     end
 
     def vaccination_center_params
-      params.require(:vaccination_center).permit(
-        :name, :description, :address, :department,
-        :kind, :pfizer, :moderna, :astrazeneca, :janssen,
-        :phone_number
-      )
+      params.require(:vaccination_center).permit(:name, :description, :finess, :department, :address, :kind, :phone_number, :confirmation_creation)
     end
 
     def vaccination_center_optin_params
@@ -77,6 +95,16 @@ module Partners
     def skip_pundit?
       # TODO add a real policy
       true
+    end
+
+    def check_if_already_exists(instance, *attributes)
+      corresponding_centers = []
+      vaccination_centers = VaccinationCenter.all
+      instance_attributes = attributes.map { |attr| instance.send(attr) }
+      vaccination_centers.each do |vaccination_center|
+        corresponding_centers << vaccination_center if vaccination_center.slice(*attributes).map { |_k, v| v }.intersection(instance_attributes).present?
+      end
+      corresponding_centers.empty? ? false : corresponding_centers
     end
   end
 end

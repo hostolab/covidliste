@@ -5,8 +5,8 @@ class Match < ApplicationRecord
 
   class MissingNamesError < StandardError; end
 
-  THROTTLING_RATE = 5
-  THROTTLING_INTERVAL = 24.hours
+  THROTTLING_RATE = 10
+  THROTTLING_INTERVAL = 14.hours
 
   MATCH_TTL = 45.minutes
 
@@ -23,13 +23,15 @@ class Match < ApplicationRecord
 
   enum sms_provider: {twilio: "twilio", sendinblue: "sendinblue"}, _prefix: :sms_provider
   enum sms_status: {pending: "pending", success: "success", error: "error"}, _default: :pending, _prefix: :sms_status
+  enum conf_sms_provider: {twilio: "twilio", sendinblue: "sendinblue"}, _prefix: :conf_sms_provider
+  enum conf_sms_status: {pending: "pending", success: "success", error: "error"}, _default: :pending, _prefix: :conf_sms_status
 
   validates :distance_in_meters, numericality: {greater_than_or_equal_to: 0, only_integer: true}, allow_nil: true
   validate :match_throttling, on: :create
   validates :user_id, uniqueness: {scope: :campaign_id}
   before_create :save_user_info
   before_save :cache_distance_in_meters_between_user_and_vaccination_center
-  after_create_commit :notify
+  after_create_commit :notify, :increment_user_matches_count
   after_commit :compute_campaign_matches, on: [:create, :update]
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
@@ -74,24 +76,18 @@ class Match < ApplicationRecord
     self.geo_context = user.geo_context if geo_context.nil?
 
     save!
+
+    user.update_attribute("match_confirmed_at", Time.now.utc) unless user.match_confirmed_at.present?
   end
 
   def find_other_confirmed_match_for_user
-    user.matches.confirmed.where.not(id: id).first
+    user.find_confirmed_match
   end
 
   def find_other_available_match_for_user
     return if confirmed?
     return if refused?
-    other_confirmed = find_other_confirmed_match_for_user
-    return other_confirmed if other_confirmed
-
-    user.matches.pending.where.not(id: id).order(id: :asc).each do |match|
-      if match.confirmable? && !match.expired?
-        return match
-      end
-    end
-    nil
+    user.find_or_create_match
   end
 
   def confirmable?
@@ -157,6 +153,11 @@ class Match < ApplicationRecord
     SendMatchSmsJob.perform_later(id)
   end
 
+  def increment_user_matches_count
+    user.matches_count += 1
+    user.save(validate: false)
+  end
+
   def flipper_id
     "#{self.class.name}_#{id}"
   end
@@ -165,7 +166,19 @@ class Match < ApplicationRecord
     can_receive_sms? && sms_sent_at.blank? && !expired? && !sms_status_error?
   end
 
+  def sms_confirmed_notification_needed?
+    can_receive_sms? && confirmed? && confirmed_sms_sent_at.blank? && !conf_sms_status_error?
+  end
+
   def can_receive_sms?
     user.present? && user.phone_number.present?
+  end
+
+  def self.throttling_rate
+    THROTTLING_RATE
+  end
+
+  def self.throttling_interval
+    THROTTLING_INTERVAL
   end
 end

@@ -1,0 +1,40 @@
+<% @no_layout_content_padding = true %>
+<% @no_layout_alerts = true %>
+
+
+
+<div class="bg-gradient-theme-reverse hero-lp" id="inscription">
+  <div class="container py-4">
+    <div class="row">
+      <div class="col-12">
+        <h1 class="font-weight-bold"><span class="text-secondary">Les professionnels de santé et les volontaires</span> parlent de nous</h1>
+      </div>
+      <% if current_user %>
+        <div class="col-md-4 col-12 my-4">
+          <%= link_to "Je donne aussi mon avis !", @typeform_url, class: "btn btn-secondary btn-large btn-block font-weight-bold", target: "_blank", rel: "noopener" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="container py-4">
+  <h2 class="mb-3"><strong>Leurs témoignages :</strong></h2>
+  <div class="row d-flex flex-wrap">
+    <% @reviews.each do |review| %>
+      <div class="col-12 col-lg-6 col-xl-4 mt-3">
+        <% if review.from == "user" %>
+          <div class="card-review card-user">
+            <p class="font-weight-bold">"<%= review.message %>"</p>
+            <p class="text-light mb-0">- Volontaire</p>
+          </div>
+        <% elsif review.from == "partner" %>
+          <div class="card-review card-partner">
+            <p class="font-weight-bold">"<%= review.message %>"</p>
+            <p class="text-dark mb-0">- Professionnel de santé</p>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

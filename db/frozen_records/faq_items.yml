@@ -179,7 +179,7 @@
     Félicitations pour cette bonne nouvelle !
 
     Afin de vous désinscrire, connectez-vous sur votre
-    <%= link_to "espace personnel", :new_user_session %>
+    <%= link_to "espace personnel", :profile %>
     puis cliquez sur « Supprimer mon compte ».
 - title: Pourquoi ne puis-je plus me connecter avec le mot de passe choisi, en tant que volontaire non-vacciné ?
   category: Fonctionnement
@@ -301,7 +301,7 @@
   area: main
   body_md_erb: |
     Afin de modifier ou supprimer vos données personnelles, connectez-vous sur votre
-    <%= link_to "espace personnel", :new_user_session %>.
+    <%= link_to "espace personnel", :profile %>.
 
     Si vous souhaitez modifier vos données : modifiez-les puis cliquez sur « Je modifie mes informations ».
 

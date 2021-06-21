@@ -137,30 +137,51 @@
           <table class="table table-bordered table-striped table-sm small table-hover" aria-describedby="mails-sent-title">
             <thead class="thead-light">
               <tr>
+                <th scope="col">Fournisseur</th>
+                <th scope="col">Date</th>
                 <th scope="col">Sujet</th>
                 <th scope="col">De</th>
+                <th scope="col">Statut</th>
               </tr>
             </thead>
             <tbody>
               <% if @user_mails %>
-                <% @user_mails.each do |message_id, events| %>
-                  <tr>
-                    <td><%= events[0].subject %></td>
-                    <td><%= events[0].from %></td>
-                  </tr>
-                  <tr>
-                    <td colspan="2">
-                      <table class="table table-bordered table-sm table-hover mb-0" aria-describedby="mails-sent-title">
-                        <% events.each do |event| %>
-                          <tr>
-                            <th scope="row">
-                              <span class="badge badge-primary"><%= event.event %></span>
-                            </th>
-                            <td><%= event.date %></td>
-                            <td><%= event.reason %></td>
-                          </tr>
-                        <% end %>
-                      </table>
+                <% @user_mails.each do |message_id, message| %>
+                  <tr title="<%= message_id %>">
+                    <td><%= message[:provider] %></td>
+                    <td><%= l message[:date] %></td>
+                    <td><%= message[:subject] %></td>
+                    <td><%= message[:from] %></td>
+                    <td>
+                      <%= message[:state] %>
+                      <%= link_to icon("fas", "external-link-alt"), "#modalMessages#{Digest::SHA1.hexdigest(message_id)}", "data-toggle": "modal", class: "small" %>
+                      <%= render(ModalComponent.new(title: "Message details", class_names: "modal-lg modal-dialog-scrollable", modal_id: "modalMessages#{Digest::SHA1.hexdigest(message_id)}")) do %>
+                        <div class="p-4">
+                          <div>
+                            <div>Fournisseur : <%= message[:provider] %></div>
+                            <div>Date : <%= l message[:date] %></div>
+                            <div>Sujet : <%= message[:subject] %></div>
+                            <div>De: <%= message[:from] %></div>
+                            <div>Statut : <%= message[:state] %></div>
+                          </div>
+                          <table class="table table-bordered table-sm table-hover mb-0 mt-4 small" aria-describedby="mails-sent-title">
+                            <tr>
+                              <th scope="col">Évènement</th>
+                              <th scope="col">Date</th>
+                              <th scope="col">Raison</th>
+                            </tr>
+                            <% message[:events].each do |event| %>
+                              <tr>
+                                <th scope="row">
+                                  <span class="badge badge-primary"><%= event[:name] %></span>
+                                </th>
+                                <td><%= event[:date]? l(event[:date]) : '' %></td>
+                                <td><%= event[:reason] %></td>
+                              </tr>
+                            <% end %>
+                          </table>
+                        </div>
+                      <% end %>
                     </td>
                   </tr>
                 <% end %>
