@@ -14,6 +14,7 @@ class UsersController < ApplicationController
   end
 
   def new
+    @reviews = Review.all
     skip_authorization
     if current_partner
       redirect_to partners_vaccination_centers_path
@@ -51,6 +52,7 @@ class UsersController < ApplicationController
   end
 
   def create
+    @reviews = Review.all
     @user = User.new(user_params)
     @user.ensure_lat_lon # fallback in case lat/lon are not returning from client
     @user.statement_accepted_at = Time.zone.now if @user.statement
