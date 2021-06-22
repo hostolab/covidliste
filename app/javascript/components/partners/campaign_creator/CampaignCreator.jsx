@@ -22,15 +22,18 @@ const _CampaignCreator = ({
   flowImagePath,
   runningCampaignsPaths,
 }) => {
+  const { timezone } = vaccinationCenter;
   const createCampaign = useCreateCampaignMutation(vaccinationCenter);
+  const validate = (values) =>
+    validateCampaignCreatorForm(values, { timezone });
   return (
     <div className="CampaignCreator">
       <CampaignCreatorAlreadyRunningCampaignWarning
         runningCampaignsPaths={runningCampaignsPaths}
       />
       <Formik
-        initialValues={initialFormState(campaignDefaults)}
-        validate={validateCampaignCreatorForm}
+        initialValues={initialFormState(campaignDefaults, { timezone })}
+        validate={validate}
         onSubmit={createCampaign.mutate}
         validateOnMount
       >
@@ -42,7 +45,7 @@ const _CampaignCreator = ({
               </h2>
               <CampaignCreatorAvailableDoses />
               <CampaignCreatorVaccineType />
-              <CampaignCreatorTimeRange />
+              <CampaignCreatorTimeRange timezone={timezone} />
 
               <h2>
                 <i className="fas fa-user"></i> Sélection des volontaires
