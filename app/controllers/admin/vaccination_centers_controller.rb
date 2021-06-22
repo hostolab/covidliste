@@ -147,7 +147,7 @@ module Admin
     end
 
     def vaccination_center_params
-      params.require(:vaccination_center).permit(:name, :description, :department, :finess, :address, :kind, :phone_number, :lat, :lon)
+      params.require(:vaccination_center).permit(:name, :description, :finess, :address, :kind, :phone_number, :lat, :lon)
     end
 
     def vaccination_center_optin_params

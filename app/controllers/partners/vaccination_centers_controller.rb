@@ -77,7 +77,7 @@ module Partners
     end
 
     def vaccination_center_params
-      params.require(:vaccination_center).permit(:name, :description, :finess, :department, :address, :kind, :phone_number, :confirmation_creation)
+      params.require(:vaccination_center).permit(:name, :description, :finess, :address, :kind, :phone_number, :confirmation_creation)
     end
 
     def vaccination_center_optin_params
