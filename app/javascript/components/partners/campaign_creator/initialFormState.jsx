@@ -5,7 +5,6 @@ import { vaccineTypes } from "./vaccineTypes";
 export function initialFormState(campaignDefaults, { timezone }) {
   dayjs.tz.setDefault(timezone);
 
-  window.dayjs = dayjs;
 
   const ceilToFiveMinutes = (date) =>
     date.minute(Math.ceil(date.minute() / 5) * 5);
