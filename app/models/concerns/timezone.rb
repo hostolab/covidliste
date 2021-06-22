@@ -2,17 +2,15 @@ module Timezone
   extend ActiveSupport::Concern
 
   MAPPING = {
-    "Guyane" => "Georgetown",
-    "Guadeloupe" => "America/Guadeloupe",
-    "La Réunion" => "Indian/Reunion",
-    "Martinique" => "America/Martinique",
-    "Mayotte" => "Indian/Mayotte"
+    "971" => "America/Guadeloupe", # Guadeloupe
+    "972" => "America/Martinique", #  Martinique
+    "973" => "Georgetown", # Guyane
+    "974" => "Indian/Reunion", # La Réunion
+    "976" => "Indian/Mayotte" # Mayotte
   }
 
   included do
-    attr_accessor :department
-
-    before_validation :set_timezone, if: :department?
+    before_validation :set_timezone, if: :geo_context?
 
     validates :timezone, presence: true
   end
@@ -20,7 +18,11 @@ module Timezone
   private
 
   def set_timezone
-    self.timezone = MAPPING[department] || "Europe/Paris"
+    self.timezone = (department_number && MAPPING[department_number]) || "Europe/Paris"
+  end
+
+  def department_number
+    geo_context&.split(",")&.first
   end
 
   def department?
