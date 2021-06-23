@@ -13,7 +13,7 @@ class PagesController < ApplicationController
   end
 
   def benevoles
-    @volunteers = Volunteer.where(old: false, anon: false).order(sort_name: :asc) + Volunteer.where(old: false, anon: true).order(sort_name: :asc)
+    @volunteers = Volunteer.where(old: false, anon: false).shuffle + Volunteer.where(old: false, anon: true).order(sort_name: :asc)
     @old_volunteers = Volunteer.where(old: true).order(sort_name: :asc)
     @enable_recruitment = false
   end
