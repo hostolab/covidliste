@@ -3,7 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby ::File.read(::File.expand_path(".ruby-version", __dir__))
 
-gem "rails", "~> 6.1.1"
+gem "rails", "< 6.2"
 
 gem "bootsnap"
 gem "jbuilder", "~> 2.7"
