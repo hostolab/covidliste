@@ -1,0 +1,23 @@
+<mj-section padding-bottom="15px" padding-top="15px">
+  <mj-column>
+    <mj-text padding-bottom="0px">
+      <h1>Vous avez été automatiquement désinscrit de Covidliste</h1>
+      <br/>
+      Nous avons constaté que vous n'étiez plus actif sur Covidliste depuis quelques temps.
+      Nous espérons que vous avez déjà pu vous faire vacciner ! <br>
+      Pour laisser une chance aux nouveaux inscrits d'avoir un vaccin, et protéger vos données personnelles,
+      nous avons supprimé votre compte, et anonymisé vos données.
+    </mj-text>
+
+    <mj-text>
+      <strong> Vous ne serez plus averti lorsqu'un vaccin est disponible.</strong> <br>
+      Vous ne recevrez plus de mails ni de sms de notre part.
+    </mj-text>
+    <mj-text padding-top="15px">
+      <strong><em>Vous cherchez toujours un vaccin ?</em></strong>
+      Recréez un compte sur <%= link_to "covidliste.com", root_url %> ! <br>
+      Vous aurez toutes les chances d'obtenir une dose.
+    </mj-text>
+    <%= render partial: "mailer/social_networks", formats: [:html] %>
+  </mj-column>
+</mj-section>

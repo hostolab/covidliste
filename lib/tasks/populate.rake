@@ -30,12 +30,12 @@ namespace :populate do
   desc "Generate lot of data: this was designed at testing inactive user query"
   task generate_many_users_and_matches: :environment do
     params = {
-      users_count: 2_000_000,
+      users_count: 90_000,
       min_users_id: 5_000_000,
-      matches_count: 500_000,
+      matches_count: 30_000,
       min_matches_id: 5_000_000,
       matches_per_user: 30,
-      matches_cycle: 500_000 / 30
+      matches_cycle: 30_000 / 30
     }
 
     query = ActiveRecord::Base.send(:sanitize_sql_array, [<<~SQL, params])
