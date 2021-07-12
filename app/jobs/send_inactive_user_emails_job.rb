@@ -38,8 +38,7 @@ class SendInactiveUserEmailsJob < ApplicationJob
       from target_users as u
       join match_stats_per_user as s
         on s.user_id = u.id
-       and s.unanswered_matches_count >= :min_unanswered_matches
-       and s.refused_matches_count = 0
+       and (s.unanswered_matches_count + s.refused_matches_count) >= :min_unanswered_matches
        and s.pending_matches_count = 0
        and s.confirmed_matches_count = 0
     SQL
