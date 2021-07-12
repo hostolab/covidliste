@@ -3,14 +3,14 @@ namespace :emails do
   task inactive_users: :environment do |_t, args|
     tz = ActiveSupport::TimeZone["Europe/Paris"]
 
-    min_unanswered_matches = ENV["MIN_REFUSED_MATCHES"]&.to_i || 2
+    min_unanswered_matches = ENV["INACTIVE_USERS_MIN_REFUSED_MATCHES"]&.to_i || 2
 
-    min_age_range = ENV["MIN_AGE_RANGE"]&.to_i || 0
-    max_age_range = ENV["MAX_AGE_RANGE"]&.to_i || 200
+    min_age_range = ENV["INACTIVE_USERS_MIN_AGE_RANGE"]&.to_i || 0
+    max_age_range = ENV["INACTIVE_USERS_MAX_AGE_RANGE"]&.to_i || 200
     age_range = min_age_range..max_age_range
 
-    min_signed_up_date_range = ENV["MIN_SIGN_UP_DATE_RANGE"].try { |dt| tz.parse(dt) } || 200.years.ago
-    max_signed_up_date_range = ENV["MAX_SIGN_UP_DATE_RANGE"].try { |dt| tz.parse(dt) } || Date.current.end_of_day
+    min_signed_up_date_range = ENV["INACTIVE_USERS_MIN_SIGN_UP_DATE_RANGE"].try { |dt| tz.parse(dt) } || 200.years.ago
+    max_signed_up_date_range = ENV["INACTIVE_USERS_MAX_SIGN_UP_DATE_RANGE"].try { |dt| tz.parse(dt) } || Date.current.end_of_day
     signed_up_date_range = min_signed_up_date_range..max_signed_up_date_range
 
     puts "The following filter will apply:"
@@ -23,11 +23,11 @@ namespace :emails do
 
     if ENV["NO_HELP"].nil?
       puts "To customize this, use environment variables:"
-      puts "- MIN_REFUSED_MATCHES: int default 2"
-      puts "- MIN_AGE_RANGE:          integer;  default: 0"
-      puts "- MAX_AGE_RANGE:          integer;  default: 200"
-      puts "- MIN_SIGN_UP_DATE_RANGE: datetime; default: 200 years ago; format: YYYY-MM-DD hh:mm:ss"
-      puts "- MAX_SIGN_UP_DATE_RANGE: datetime; default: end of today;  format: YYYY-MM-DD hh:mm:ss"
+      puts "- INACTIVE_USERS_MIN_REFUSED_MATCHES: int default 2"
+      puts "- INACTIVE_USERS_MIN_AGE_RANGE:          integer;  default: 0"
+      puts "- INACTIVE_USERS_MAX_AGE_RANGE:          integer;  default: 200"
+      puts "- INACTIVE_USERS_MIN_SIGN_UP_DATE_RANGE: datetime; default: 200 years ago; format: YYYY-MM-DD hh:mm:ss"
+      puts "- INACTIVE_USERS_MAX_SIGN_UP_DATE_RANGE: datetime; default: end of today;  format: YYYY-MM-DD hh:mm:ss"
       puts ""
     end
 
@@ -46,15 +46,15 @@ namespace :emails do
   task delete_inactive_users_now: :environment do |_t, args|
     tz = ActiveSupport::TimeZone["Europe/Paris"]
 
-    min_unanswered_matches = ENV["MIN_REFUSED_MATCHES"]&.to_i || 10
-    batch_size = ENV["BATCH_SIZE"]&.to_i || 1000000
+    min_unanswered_matches = ENV["INACTIVE_USERS_MIN_REFUSED_MATCHES"]&.to_i || 10
+    batch_size = ENV["INACTIVE_USERS_BATCH_SIZE"]&.to_i || 1000000
 
-    min_age_range = ENV["MIN_AGE_RANGE"]&.to_i || 0
-    max_age_range = ENV["MAX_AGE_RANGE"]&.to_i || 200
+    min_age_range = ENV["INACTIVE_USERS_MIN_AGE_RANGE"]&.to_i || 0
+    max_age_range = ENV["INACTIVE_USERS_MAX_AGE_RANGE"]&.to_i || 200
     age_range = min_age_range..max_age_range
 
-    min_signed_up_date_range = ENV["MIN_SIGN_UP_DATE_RANGE"].try { |dt| tz.parse(dt) } || 200.years.ago
-    max_signed_up_date_range = ENV["MAX_SIGN_UP_DATE_RANGE"].try { |dt| tz.parse(dt) } || 3.weeks.ago
+    min_signed_up_date_range = ENV["INACTIVE_USERS_MIN_SIGN_UP_DATE_RANGE"].try { |dt| tz.parse(dt) } || 200.years.ago
+    max_signed_up_date_range = ENV["INACTIVE_USERS_MAX_SIGN_UP_DATE_RANGE"].try { |dt| tz.parse(dt) } || 3.weeks.ago
     signed_up_date_range = min_signed_up_date_range..max_signed_up_date_range
 
     puts "The following filters will apply:"
@@ -68,12 +68,12 @@ namespace :emails do
 
     if ENV["NO_HELP"].nil?
       puts "To customize this, use environment variables:"
-      puts "- MIN_REFUSED_MATCHES: int default 10"
-      puts "- BATCH_SIZE: int default 1000000"
-      puts "- MIN_AGE_RANGE:          integer;  default: 0"
-      puts "- MAX_AGE_RANGE:          integer;  default: 200"
-      puts "- MIN_SIGN_UP_DATE_RANGE: datetime; default: 200 years ago; format: YYYY-MM-DD hh:mm:ss"
-      puts "- MAX_SIGN_UP_DATE_RANGE: datetime; default: 3 weeks ago;  format: YYYY-MM-DD hh:mm:ss"
+      puts "- INACTIVE_USERS_MIN_REFUSED_MATCHES: int default 10"
+      puts "- INACTIVE_USERS_BATCH_SIZE: int default 1000000"
+      puts "- INACTIVE_USERS_MIN_AGE_RANGE:          integer;  default: 0"
+      puts "- INACTIVE_USERS_MAX_AGE_RANGE:          integer;  default: 200"
+      puts "- INACTIVE_USERS_MIN_SIGN_UP_DATE_RANGE: datetime; default: 200 years ago; format: YYYY-MM-DD hh:mm:ss"
+      puts "- INACTIVE_USERS_MAX_SIGN_UP_DATE_RANGE: datetime; default: 3 weeks ago;  format: YYYY-MM-DD hh:mm:ss"
       puts ""
     end
 
