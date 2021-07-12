@@ -47,8 +47,8 @@ RSpec.describe SendInactiveUserEmailsJob do
     context "when a user have at least a refused match" do
       let(:refused_matches_count) { 1 }
 
-      it "excludes users having refused matches, they are considered active users" do
-        expect(inactive_user_ids).not_to include(matching_user.id)
+      it "includes users having refused matches, they are not considered active users" do
+        expect(inactive_user_ids).to include(matching_user.id)
       end
     end
 
