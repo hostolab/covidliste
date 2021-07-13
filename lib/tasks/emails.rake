@@ -87,7 +87,11 @@ namespace :emails do
     puts user_ids_to_anonymize
     user_ids_to_anonymize.each do |user_id,|
       user_to_anonymize = User.find(user_id)
-      puts user_to_anonymize.id
+      if user_to_anonymize&.has_role?(:volunteer)
+        puts "Skipping user ##{user_id}, because they're a volunteer"
+        next
+      end
+      puts "Anonymizing user ##{user_id}"
       user_email = user_to_anonymize.email
       user_to_anonymize.anonymize!("delete_inactive_users_now")
       UserMailer.with(user_email: user_email).send_inactive_user_anonymization_notice.deliver_later
