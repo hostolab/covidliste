@@ -2,7 +2,7 @@
 
 <p class="mt-4">
   Si vous ne souhaitez plus être alerté d'une dose de vaccin disponible, nous vous invitons
-  à vous désincrire de Covidliste. Pour ce faire il vous suffit de supprimer votre compte depuis votre espace personnel.
+  à vous désincrire de Covidliste. Pour ce faire, il vous suffit de supprimer votre compte depuis votre espace personnel.
 </p>
 
-<%= link_to "Se connecter", profile_path(tab: :data), class: "btn btn-primary" %>
+<%= link_to (current_user.present? ? "Gérer mon compte" : "Se connecter"), profile_path(tab: :data), class: "btn btn-primary" %>
