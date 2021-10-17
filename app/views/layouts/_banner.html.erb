@@ -1,9 +1,11 @@
 <!-- banner model to render in application layout if needed -->
 <div class="bg-light">
   <div class="container py-2">
-    <%= link_to "https://fr.ulule.com/covidliste/", target: "_blank", class: "d-flex align-items-center justify-content-center flex-column flex-md-row font-weight-light text-primary text-center text-decoration-underline" do %>
-      <div>Covidliste lance sa campagne Ulule !</div>
-      <div class="mt-1 mt-md-0 ml-md-2">Nous soutenir<%= icon("fas", "chevron-right", class: "ml-2") %></div>
-    <% end %>
+    <div class="d-flex align-items-center justify-content-center flex-column flex-md-row font-weight-light text-center">
+      <span>La tension vaccinale est réduite : Covidliste est en pause 👋.</span>
+      <%= link_to "https://twitter.com/covidliste/", target: "_blank", class: "text-decoration-underline text-primary mt-1 mt-md-0 ml-md-2" do %>
+        Suivez-nous sur Twitter<%= icon("fas", "chevron-right", class: "ml-2") %>
+      <% end %>
+    </div>
   </div>
 </div>

@@ -12,11 +12,19 @@ class MatchesController < ApplicationController
   end
 
   def destroy
+    if Flipper.enabled?(:pause_service)
+      flash.now[:error] = "Le service est en pause. Le refus et la prise de rendez-vous sont désactivés."
+      return render action: :show
+    end
     @match.refuse!
     redirect_back(fallback_location: root_path)
   end
 
   def update
+    if Flipper.enabled?(:pause_service)
+      flash.now[:error] = "Le service est en pause. La prise de rendez-vous est désactivée."
+      return
+    end
     check_age_and_name_confirmed!
 
     # This is specific to ensure the validation of the user
