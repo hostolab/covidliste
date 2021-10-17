@@ -14,6 +14,7 @@
 <body>
 <div class="layout">
   <div class="layout__above-footer">
+    <%= render "layouts/banner" %>
     <%= render "layouts/navbar" %>
     <div class="layout__content <%= "layout__content--no-padding" if @no_layout_content_padding ||= false %>">
       <%= render "layouts/alerts" unless @no_layout_alerts ||= false %>
