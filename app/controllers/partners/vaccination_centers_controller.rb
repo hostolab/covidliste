@@ -22,6 +22,10 @@ module Partners
 
     def create
       @vaccination_center = VaccinationCenter.new(vaccination_center_params)
+      if Flipper.enabled?(:pause_service)
+        flash.now[:error] = "Le service est en pause. La création de lieux de vaccination est désactivée."
+        return render action: :new, status: :unprocessable_entity
+      end
       @vaccination_center.visible_optin_at = Time.now.utc if ActiveRecord::Type::Boolean.new.cast(vaccination_center_optin_params["visible_optin"])
       @vaccination_center.media_optin_at = Time.now.utc if ActiveRecord::Type::Boolean.new.cast(vaccination_center_optin_params["media_optin"])
       @same_existing_vaccination_centers = check_if_already_exists(@vaccination_center, :address, :phone_number, :finess)
