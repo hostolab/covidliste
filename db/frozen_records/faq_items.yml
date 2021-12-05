@@ -610,7 +610,7 @@
 
     _Très important : attendre que la première campagne se termine (10/15 minutes) avant de lancer une nouvelle campagne._
 
-- title: "Est-il possible de modifier le nombre de doses d’un une campagne déjà lancée ? (Ex : si un volontaire à été trouvé hors de Covlidlise)"
+- title: "Est-il possible de modifier le nombre de doses d’un une campagne déjà lancée ? (Ex : si un volontaire à été trouvé hors de Covidliste)"
   category: Gestion des campagnes
   area: pro
   body_md_erb: |
