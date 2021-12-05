@@ -46,8 +46,9 @@
   category: Inscription
   area: main
   body_md_erb: |
-    Covidliste s’adresse aux non vaccinés volontaires en se fixant pour mission de permettre
-    à toutes les doses de vaccin disponibles d’être utilisées, en premier lieu
+    Covidliste s’adresse à tous ceux qui cherchent une dose de vaccin (1ère, 2ème, rappel).
+
+    Notre mission est de permettre à toutes les doses de vaccin disponibles d’être utilisées, en premier lieu
     par les publics prioritaires identifiés dans le cadre de la stratégie vaccinale
     du Gouvernement.
 
@@ -130,7 +131,7 @@
   area: main
   body_md_erb: |
     Covidliste est un site de mise en relation en temps réel entre les établissements
-    qui disposent de vaccins non utilisés et des volontaires non vaccinés.
+    qui disposent de vaccins non utilisés et des volontaires cherchant un vaccin.
     Covidliste est complémentaire de la stratégie vaccinale actuelle et
     n’a pas vocation à s’y substituer.
 
@@ -181,12 +182,14 @@
     Afin de vous désinscrire, connectez-vous sur votre
     <%= link_to "espace personnel", :profile %>
     puis cliquez sur « Supprimer mon compte ».
-- title: Pourquoi ne puis-je plus me connecter avec le mot de passe choisi, en tant que volontaire non-vacciné ?
+- title: Pourquoi ne puis-je plus me connecter avec le mot de passe choisi, en tant que volontaire cherchant un vaccin ?
   category: Fonctionnement
   area: main
   body_md_erb: |
-    Toujours sensible à améliorer le niveau de sécurité de notre application, nous avons fait le choix de basculer la connexion des volontaires non-vaccinés sur un mode de connexion dit « PasswordLess ».
-    Ce mode se base sur l’envoi d’un e-mail sécurisé sur votre adresse personnelle. Cet e-mail contient un lien avec un code unique infalsifiable qui vous permettra, en le suivant, de vous connecter à l’application.
+    Toujours sensible à améliorer le niveau de sécurité de notre application, nous avons fait le choix de basculer la
+    connexion des volontaires cherchant un vaccin sur un mode de connexion sans mot de passe.
+    Ce mode se base sur l’envoi d’un e-mail sécurisé sur votre adresse personnelle. Cet e-mail contient un lien avec
+    un code unique infalsifiable qui vous permettra, en le suivant, de vous connecter à l’application.
 
     Ce mode nous permet de déléguer la sécurité de votre connexion au fournisseur de mails dans lequel vous avez déjà placé votre confiance.
 
