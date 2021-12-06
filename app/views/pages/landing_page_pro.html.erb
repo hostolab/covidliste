@@ -13,19 +13,45 @@
   <div class="container pt-4 pb-5">
     <div class="row">
       <div class="col-12 col-xl-7 align-self-center">
-        <h1 class="font-weight-bold mb-4"><span class="text-secondary">Écoulez des doses,</span> <span class="text-dark">gagnez du temps.</span></h1>
-        <h2 class="font-weight-bold mb-3"><span class="text-dark">La</span> <span class="text-secondary">plus grande liste d’attente de vaccination</span> <span class="text-dark">en France avec</span> <span class="text-secondary"><%= pretty_number(@users_count) %> inscrits.</span></h2>
+        <h1 class="font-weight-bold mb-4"><span class="text-secondary">Écoulez des doses,</span>
+          <span class="text-dark">gagnez du temps.</span></h1>
+        <h2 class="font-weight-bold mb-3"><span class="text-dark">La</span>
+          <span class="text-secondary">plus grande liste d’attente de vaccination</span>
+          <span class="text-dark">en France avec</span>
+          <span class="text-secondary"><%= pretty_number(@users_count) %> inscrits.</span></h2>
         <p class="mb-3 text-dark">
-          Découvrez Covidliste, <strong>un outil gratuit qui vous fait gagner un temps considérable</strong> pour vacciner toute la France.
+          Découvrez Covidliste, <strong>un outil gratuit qui vous fait gagner un temps considérable</strong> pour
+          vacciner toute la France.
         </p>
         <div class="row">
-          <div class="col-12 col-xl-6">
-            <%= link_to "M’inscrire à Covidliste Pro", partenaires_inscription_path, class: "btn btn-primary btn-large btn-block font-weight-bold" %>
-          </div>
-          <% if @typeform_url.present? %>
-            <div class="col-12 col-xl-6 mt-3 mt-xl-0">
-              <%= link_to "Être contacté par un bénévole", @typeform_url, class: "btn btn-light btn-large btn-block font-weight-bold", target: "_blank", rel: "noopener" %>
+          <%- if Flipper.enabled?(:pause_service) %>
+            <div class="card bg-light mb-3" style="">
+              <div class="card-body">
+                <h5 class="card-title">Covidliste est en pause. Merci d'avoir été à nos côtés !</h5>
+                <p class="card-text text-justify">La tension vaccinale étant réduite, le service Covidliste est en
+                  pause.
+                  <strong>Il n'est plus
+                    possible de s'inscrire, ni de lancer des campagnes de vaccination.</strong>
+                  Grâce à vous, plus de 1 120 000 volontaires ont été notifiés pour une dose de vaccin supplémentaire.
+                  <br><br>Vous pouvez supprimer vos données depuis <%= link_to "votre compte", new_user_session_path %>.
+                  Selon l'évolution de l'épidémie,
+                  Covidliste sera
+                  définitivement fermé et vos données supprimées, ou nous relancerons le service.
+                  <br><br>Découvrez l'histoire de Covidliste sur
+                  <a href="https://blog.covidliste.com">le blog</a>, ou suivez-nous sur
+                  <a href="https://twitter.com/covidliste">Twitter</a> pour avoir des nouvelles.</p>
+              </div>
+              <div class="card-footer">À bientôt, l'équipe Covidliste 👋</div>
             </div>
+          <% else %>
+            <div class="col-12 col-xl-6">
+              <%= link_to "M’inscrire à Covidliste Pro", partenaires_inscription_path, class: "btn btn-primary btn-large btn-block font-weight-bold" %>
+            </div>
+            <% if @typeform_url.present? %>
+              <div class="col-12 col-xl-6 mt-3 mt-xl-0">
+                <%= link_to "Être contacté par un bénévole", @typeform_url, class: "btn btn-light btn-large btn-block font-weight-bold", target: "_blank", rel: "noopener" %>
+              </div>
+            <% end %>
           <% end %>
         </div>
       </div>
@@ -43,7 +69,7 @@
       <%= image_tag "landing_page_pro/logo-ministere-des-solidarites-et-de-la-sante.svg", alt: "Ministère des solidarités et de la santé", class: "h-100 w-auto ml-2", loading: "lazy" %>
     </div>
   </div>
-    <!--
+  <!--
     <div class="row">
       <div class="col-6 col-md-3 align-self-center justify">
         <%= image_tag "landing_page_pro/logo-elysee-presidence-de-la-republique.svg", alt: "Elysée présidence de la République", class: "grayscale-effect scale-effect h-100 w-auto", loading: "lazy" %>
@@ -59,7 +85,7 @@
       </div>
     </div>
     -->
-  </div>
+</div>
 
 <div class="container py-5 py-sm-0">
   <div class="row">
@@ -67,29 +93,37 @@
       <div class="mb-3" style="height: 48px">
         <%= image_tag "landing_page_pro/icon-alert.svg", alt: "Icone d'un mégaphone", class: "h-100 w-auto", loading: "lazy" %>
       </div>
-      <h3 class="h4 font-weight-bold mb-2"><span class="text-dark">Alerter</span> <span class="text-secondary">les volontaires</span></h3>
-      <p class="mb-0 font-weight-light text-dark">Je lance une campagne de recherche de volontaires pour les doses que j’ai à écouler.</p>
+      <h3 class="h4 font-weight-bold mb-2"><span class="text-dark">Alerter</span>
+        <span class="text-secondary">les volontaires</span></h3>
+      <p class="mb-0 font-weight-light text-dark">Je lance une campagne de recherche de volontaires pour les doses que
+        j’ai à écouler.</p>
     </div>
     <div class="col-12 col-sm-4 py-2 py-sm-5">
       <div class="mb-3" style="height: 48px">
         <%= image_tag "landing_page_pro/icon-booking-phone.svg", alt: "Icone d'un téléphone avec une confirmation", class: "h-100 w-auto", loading: "lazy" %>
       </div>
-      <h3 class="h4 font-weight-bold mb-2"><span class="text-dark">Des</span> <span class="text-secondary">réservations rapides</span></h3>
-      <p class="mb-0 font-weight-light text-dark">Les volontaires correspondant à mes critères sont alertés. Les volontaires réservent leur dose et se déplacent.</p>
+      <h3 class="h4 font-weight-bold mb-2"><span class="text-dark">Des</span>
+        <span class="text-secondary">réservations rapides</span></h3>
+      <p class="mb-0 font-weight-light text-dark">Les volontaires correspondant à mes critères sont alertés. Les
+        volontaires réservent leur dose et se déplacent.</p>
     </div>
     <div class="col-12 col-sm-4 py-2 py-sm-5">
       <div class="mb-3" style="height: 48px">
         <%= image_tag "landing_page_pro/icon-simple-list.svg", alt: "Icone d'une liste d’utilisateur", class: "h-100 w-auto", loading: "lazy" %>
       </div>
-      <h3 class="h4 font-weight-bold mb-2"><span class="text-dark">Une</span> <span class="text-secondary">vaccination simplifiée</span></h3>
-      <p class="mb-0 font-weight-light text-dark">Je peux consulter la liste de tous les volontaires qui ont confirmé leur venue ainsi que leur identité.</p>
+      <h3 class="h4 font-weight-bold mb-2"><span class="text-dark">Une</span>
+        <span class="text-secondary">vaccination simplifiée</span></h3>
+      <p class="mb-0 font-weight-light text-dark">Je peux consulter la liste de tous les volontaires qui ont confirmé
+        leur venue ainsi que leur identité.</p>
     </div>
   </div>
 </div>
 
 <div class="bg-gradient-theme-reverse py-4 py-lg-5">
   <div class="container">
-    <div class="h1 font-weight-bold mb-3"><span class="text-secondary"><%= pretty_number(@vaccination_centers_count) %> professionnels de santé équipés,<br><%= pretty_number(@confirmed_matched_users_count) %> RDV confirmés,</span><br><span class="text-dark">leur expérience</span></div>
+    <div class="h1 font-weight-bold mb-3"><span class="text-secondary"><%= pretty_number(@vaccination_centers_count) %>
+      professionnels de santé équipés,<br><%= pretty_number(@confirmed_matched_users_count) %> RDV confirmés,</span><br><span class="text-dark">leur expérience</span>
+    </div>
     <% @reviews[0..2].each do |review| %>
       <div class="mt-1 d-flex align-items-center align-items-sm-end">
         <%= image_tag review.avatar_path, alt: "Avatar", loading: "lazy" %>
@@ -98,7 +132,7 @@
         </div>
       </div>
     <% end %>
-<!--     <%= render(ModalComponent.new(title: "Tous les témoignages", class_names: "modal-lg modal-dialog-scrollable", modal_id: "modalReviews")) do %>
+    <!--     <%= render(ModalComponent.new(title: "Tous les témoignages", class_names: "modal-lg modal-dialog-scrollable", modal_id: "modalReviews")) do %>
       <div class="p-3">
         <% @reviews.each do |review| %>
           <div class="mt-1 d-flex align-items-center align-items-sm-end">
@@ -119,7 +153,8 @@
       <div class="row">
         <div class="col-12 col-lg-6 order-1 order-lg-0 mt-4 mt-lg-0 pb-4 pb-lg-5">
           <div class="font-weight-bolder mb-4 h1">
-            <span class="text-dark">Et</span> <span class="text-secondary">concrètement</span> <span class="text-dark">?</span>
+            <span class="text-dark">Et</span>
+            <span class="text-secondary">concrètement</span> <span class="text-dark">?</span>
           </div>
           <div class="d-flex align-items-start mb-4 text-justify">
             <%= image_tag "home/icon-check-circle.svg", loading: "lazy", height: 32, width: 32, alt: "solution 1", class: "d-none d-lg-block mr-2" %>

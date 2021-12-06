@@ -1,62 +1,81 @@
-<%= simple_form_for @user do |f| %>
-  <div class="bg-white p-3 py-4 p-lg-4 rounded">
-
-    <% if @user.present? && @user.errors.any? %>
-      <div class="alert alert-danger" role="alert" style="position: inherit">
-        <% @user.errors.full_messages.each do |msg| %>
-          <%= msg %><br/>
-        <% end %>
-      </div>
-    <% end %>
-
-    <%= f.input :email,
-      label: "Adresse email",
-      error: f.error(:email),
-      placeholder: "jean@dupont.com",
-      hint: "Une adresse email ne peut être utilisée que par une seule personne.",
-      required: true,
-      input_html: {autocomplete: "email", autofocus: "true"} %>
-
-    <hr>
-
-    <%= f.input :address,
-      label: "Adresse",
-      error: f.error(:address),
-      placeholder: "5 avenue de Paris",
-      required: true,
-      input_html: {class: "pr-5"} %>
-
-    <%= f.input_field :lat, as: :hidden %>
-    <%= f.input_field :lon, as: :hidden %>
-
-    <%= f.input :phone_number,
-      label: "Numéro de téléphone portable",
-      error: "Numéro de téléphone invalide",
-      placeholder: "06 00 00 00 00",
-      required: true,
-      input_html: {autocomplete: "tel"} %>
-
-    <%= f.input :birthdate,
-      as: :date,
-      label: "Date de naissance",
-      order: [:day, :month, :year],
-      start_year: Date.today.year - 120,
-      end_year: Date.today.year - 18,
-      wrapper_html: {class: "mb-2"} %>
-    <p class="text-secondary">
-      Votre date de naissance sera vérifiée lors du rendez-vous.
-    </p>
-    
-    <hr>
-
-    <%= render partial: "users/input_statement", locals: {f: f, local_cgu_path: cgu_volontaires_path} %>
-    <%= render partial: "users/input_toc", locals: {f: f} %>
-
-    <%= f.invisible_captcha :subtitle %>
-    <%= f.button :submit, "S’inscrire", class: "btn btn-secondary btn-lg btn-block font-weight-bold", data: {disable_with: "Inscription en cours..."} %>
-
+<%- if Flipper.enabled?(:pause_service) %>
+  <div class="card bg-light mb-3" style="">
+    <div class="card-body">
+      <h5 class="card-title">Covidliste est en pause. Merci d'avoir été à nos côtés !</h5>
+      <p class="card-text text-justify">La tension vaccinale étant réduite, le service Covidliste est en pause.
+        <strong>Il n'est plus
+          possible de s'inscrire, ni d'obtenir de rendez-vous.</strong>
+        Grâce à vous, plus de 1 120 000 volontaires ont été notifiés pour une dose de vaccin supplémentaire.
+        <br><br>Vous pouvez supprimer vos données depuis <%= link_to "votre compte", new_user_session_path %>. Selon
+        l'évolution de l'épidémie, Covidliste sera
+        définitivement fermé et vos données supprimées, ou nous relancerons le service.
+        <br><br>Découvrez l'histoire de Covidliste sur
+        <a href="https://blog.covidliste.com">le blog</a>, ou suivez-nous sur
+        <a href="https://twitter.com/covidliste">Twitter</a> pour avoir des nouvelles.</p>
+    </div>
+    <div class="card-footer">À bientôt, l'équipe Covidliste 👋</div>
   </div>
-  <div class="py-1 px-2">
-    <%= render partial: "users/mentions", locals: {text_color: 'white'} %>
-  </div>
+<% else %>
+  <%= simple_form_for @user do |f| %>
+    <div class="bg-white p-3 py-4 p-lg-4 rounded">
+
+      <% if @user.present? && @user.errors.any? %>
+        <div class="alert alert-danger" role="alert" style="position: inherit">
+          <% @user.errors.full_messages.each do |msg| %>
+            <%= msg %><br/>
+          <% end %>
+        </div>
+      <% end %>
+
+      <%= f.input :email,
+        label: "Adresse email",
+        error: f.error(:email),
+        placeholder: "jean@dupont.com",
+        hint: "Une adresse email ne peut être utilisée que par une seule personne.",
+        required: true,
+        input_html: {autocomplete: "email", autofocus: "true"} %>
+
+      <hr>
+
+      <%= f.input :address,
+        label: "Adresse",
+        error: f.error(:address),
+        placeholder: "5 avenue de Paris",
+        required: true,
+        input_html: {class: "pr-5"} %>
+
+      <%= f.input_field :lat, as: :hidden %>
+      <%= f.input_field :lon, as: :hidden %>
+
+      <%= f.input :phone_number,
+        label: "Numéro de téléphone portable",
+        error: "Numéro de téléphone invalide",
+        placeholder: "06 00 00 00 00",
+        required: true,
+        input_html: {autocomplete: "tel"} %>
+
+      <%= f.input :birthdate,
+        as: :date,
+        label: "Date de naissance",
+        order: [:day, :month, :year],
+        start_year: Date.today.year - 120,
+        end_year: Date.today.year - 18,
+        wrapper_html: {class: "mb-2"} %>
+      <p class="text-secondary">
+        Votre date de naissance sera vérifiée lors du rendez-vous.
+      </p>
+
+      <hr>
+
+      <%= render partial: "users/input_statement", locals: {f: f, local_cgu_path: cgu_volontaires_path} %>
+      <%= render partial: "users/input_toc", locals: {f: f} %>
+
+      <%= f.invisible_captcha :subtitle %>
+      <%= f.button :submit, "S’inscrire", class: "btn btn-secondary btn-lg btn-block font-weight-bold", data: {disable_with: "Inscription en cours..."} %>
+
+    </div>
+    <div class="py-1 px-2">
+      <%= render partial: "users/mentions", locals: {text_color: 'white'} %>
+    </div>
+  <% end %>
 <% end %>
