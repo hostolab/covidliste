@@ -1,0 +1,19 @@
+<% authentication_token = @user.signed_id(purpose: "users.destroy", expires_in: 7.days) %>
+<mj-section padding-bottom="15px" padding-top="15px">
+  <mj-column>
+    <mj-text padding-bottom="0px">
+      <h1>Nous avons bien reçu votre email</h1>
+      <br/>
+      Si vous souhaitez supprimer votre compte, vous pouvez le faire directement ici :
+    </mj-text>
+    <mj-button href="<%= confirm_destroy_profile_url(authentication_token: authentication_token) %>" padding-bottom="0px">
+      Supprimer mon compte et mes données personnelles
+    </mj-button>
+    <mj-text>
+      <strong>Si le lien ne fonctionne pas</strong>, copiez et collez l’adresse suivante dans votre navigateur :
+      <br />
+      <%= confirm_destroy_profile_url(authentication_token: authentication_token) %>
+    </mj-text>
+    <%= render partial: "mailer/social_networks", formats: [:html] %>
+  </mj-column>
+</mj-section>
