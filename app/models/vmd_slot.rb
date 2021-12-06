@@ -10,7 +10,7 @@ class VmdSlot < ApplicationRecord
     janssen: "Janssen"
   }.freeze
 
-  def self.build_from_hash(slot, last_updated_at=nil)
+  def self.build_from_hash(slot, last_updated_at = nil)
     slot.deep_symbolize_keys!
     return if VmdSlot.where(center_id: slot[:internal_id]).where("last_updated_at >= ?", last_updated_at - 1.seconds).any?
     VmdSlot.create(

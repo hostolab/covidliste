@@ -19,5 +19,4 @@ class VmdParserService
   def data
     @data ||= self.class.get("/info_centres.json")
   end
-
 end
