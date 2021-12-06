@@ -2,7 +2,7 @@ class PrivacyMailbox < ApplicationMailbox
   before_processing :find_user
 
   def process
-    return if !@user ||@user.anonymized_at?
+    return if !@user || @user.anonymized_at?
 
     Rails.logger.info("[PrivacyMailbox] Auto-sending an email notice to ##{@user.id} with a destroy link")
     SendUserAnonymizationLinkAfterUserRequestedJob.perform_later(@user.id)
