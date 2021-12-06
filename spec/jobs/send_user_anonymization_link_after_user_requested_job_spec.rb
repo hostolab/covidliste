@@ -11,7 +11,7 @@ describe SendUserAnonymizationLinkAfterUserRequestedJob do
     end
     it "sends the email" do
       mail = double(:mail)
-      allow(UserMailer).to receive_message_chain("with.send_user_anonymization_link_after_user_requested").and_return(mail)
+      allow(PrivacyMailer).to receive_message_chain("with.send_user_anonymization_link_after_user_requested").and_return(mail)
       expect(mail).to receive(:deliver_now)
       subject
     end
@@ -23,7 +23,7 @@ describe SendUserAnonymizationLinkAfterUserRequestedJob do
     end
     it "does not send the email" do
       mail = double(:mail)
-      allow(UserMailer).to receive_message_chain("with.send_user_anonymization_link_after_user_requested").and_return(mail)
+      allow(PrivacyMailer).to receive_message_chain("with.send_user_anonymization_link_after_user_requested").and_return(mail)
       expect(mail).not_to receive(:deliver_now)
       subject
     end

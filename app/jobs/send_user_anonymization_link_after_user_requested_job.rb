@@ -5,7 +5,7 @@ class SendUserAnonymizationLinkAfterUserRequestedJob < ApplicationJob
     user = User.find(user_id)
 
     return if user.anonymized_at?
-    UserMailer.with(user_id: user.id).send_user_anonymization_link_after_user_requested.deliver_now
+    PrivacyMailer.with(user_id: user.id).send_user_anonymization_link_after_user_requested.deliver_now
   rescue Postmark::InactiveRecipientError => e
     Rails.logger.error(e.message)
     user.anonymize!
