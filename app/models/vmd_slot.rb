@@ -104,7 +104,7 @@ class VmdSlot < ApplicationRecord
       lat: latitude,
       lon: longitude,
       user_alerting_intensity: user_alerting_intensity,
-      limit: slots_7_days * OVERBOOKING_FACTOR
+      limit: slots_count * OVERBOOKING_FACTOR
     }
     query = ActiveRecord::Base.send(:sanitize_sql_array, [sql, params])
     User.where(id: ActiveRecord::Base.connection.execute(query).to_a.pluck("user_id"))
