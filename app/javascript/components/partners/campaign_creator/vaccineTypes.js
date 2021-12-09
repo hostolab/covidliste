@@ -6,6 +6,7 @@ export const vaccineTypes = [
   {
     value: "moderna",
     label: "Moderna",
+    minimumMinAge: 30,
   },
   {
     value: "janssen",
