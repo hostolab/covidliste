@@ -13,6 +13,7 @@ class RunCampaignJob < ApplicationJob
   def perform(campaign_id)
     Rails.logger.info("Run RunCampaignJob for campaign_id #{campaign_id}")
     @campaign = Campaign.find(campaign_id)
+    return @campaign.canceled! if Flipper.enabled?(:pause_service)
     return unless @campaign.running?
     return @campaign.completed! if @campaign.remaining_doses <= 0
     return @campaign.completed! if Time.now.utc >= @campaign.ends_at
