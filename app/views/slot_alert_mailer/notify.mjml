@@ -4,7 +4,7 @@
   <mj-column>
     <mj-text padding-bottom="0px">
       <h1>
-       <%= "#{@slot.slots_7_days} créneaux sont disponibles à #{distance[:delta_in_words]}" %>
+       <%= "#{@slot.slots_count} créneaux sont disponibles à #{distance[:delta_in_words]}" %>
       </h1>
     </mj-text>
   </mj-column>
