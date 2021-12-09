@@ -34,6 +34,26 @@
           </div>
         <% end %>
       <% else %>
+        <%- if Flipper.enabled?(:pause_service) %>
+          <div class="card bg-light mb-3" style="max-width: 50rem; margin-right: auto;margin-left: auto;">
+            <div class="card-body">
+              <h5 class="card-title">Covidliste est en pause. Merci d'avoir été à nos côtés !</h5>
+              <p class="card-text text-justify">La tension vaccinale étant réduite, le service Covidliste est en pause.
+                <strong>Il n'est plus
+                  possible de s'inscrire, ni d'obtenir de rendez-vous.</strong>
+                Grâce à vous, plus de 1 120 000 volontaires ont été notifiés pour une dose de vaccin supplémentaire.
+                <br><br>Vous pouvez supprimer vos données depuis <%= link_to "votre compte", new_user_session_path %>.
+                Selon l'évolution de l'épidémie,
+                Covidliste
+                sera
+                définitivement fermé et vos données supprimées, ou nous relancerons le service.
+                <br><br>Découvrez l'histoire de Covidliste sur
+                <a href="https://blog.covidliste.com">le blog</a>, ou suivez-nous sur
+                <a href="https://twitter.com/covidliste">Twitter</a> pour avoir des nouvelles.</p>
+            </div>
+            <div class="card-footer">À bientôt, l'équipe Covidliste 👋</div>
+          </div>
+        <% end %>
         <div class="border rounded border-primary p-4 text-white mt-4">
           <% if @match&.present? %>
             <% if @match.confirmed? %>
@@ -63,22 +83,22 @@
           </div>
           <p class="mb-4">
             <%= link_to profile_path(tab: :infos), class: "btn btn-outline-light mx-1" do %>
-              <%= icon("fas", "user", class: "fa-2x my-2") %><br />
-              Vos<br />informations
+              <%= icon("fas", "user", class: "fa-2x my-2") %><br/>
+              Vos<br/>informations
             <% end %>
             <%= link_to profile_path(tab: :preferences), class: "btn btn-outline-light mx-1" do %>
-              <%= icon("fas", "bullhorn", class: "fa-2x my-2") %><br />
-              Préférences<br />
+              <%= icon("fas", "bullhorn", class: "fa-2x my-2") %><br/>
+              Préférences<br/>
               des alertes
             <% end %>
             <%= link_to profile_path(tab: :rdv), class: "btn btn-outline-light mx-1" do %>
-              <%= icon("fas", "calendar-check", class: "fa-2x my-2") %><br />
-              Propositions<br />
+              <%= icon("fas", "calendar-check", class: "fa-2x my-2") %><br/>
+              Propositions<br/>
               de RDV
             <% end %>
             <%= link_to profile_path(tab: :data), class: "btn btn-outline-light mx-1" do %>
-              <%= icon("fas", "database", class: "fa-2x my-2") %><br />
-              Données<br />
+              <%= icon("fas", "database", class: "fa-2x my-2") %><br/>
+              Données<br/>
               personnelles
             <% end %>
           </p>
@@ -150,7 +170,9 @@
 
 <div class="bg-gradient-theme-reverse py-4 py-lg-5">
   <div class="container">
-    <div class="h1 font-weight-bold mb-3"><span class="text-secondary"><%= pretty_number(@vaccination_centers_count) %> professionnels de santé équipés<br><%= pretty_number(@confirmed_matched_users_count) %> citoyens vaccinés,</span><br><span class="text-dark">leur expérience</span></div>
+    <div class="h1 font-weight-bold mb-3"><span class="text-secondary"><%= pretty_number(@vaccination_centers_count) %>
+      professionnels de santé équipés<br><%= pretty_number(@confirmed_matched_users_count) %>
+      citoyens vaccinés,</span><br><span class="text-dark">leur expérience</span></div>
     <% @reviews[0..2].each do |review| %>
       <div class="mt-1 d-flex align-items-center align-items-sm-end">
         <%= image_tag review.avatar_path, alt: "Avatar", loading: "lazy" %>
@@ -164,8 +186,11 @@
     </div>
   </div>
 </div>
-
-<%= render partial: "users/shared/box_cta", locals: {title: "S’inscrire à Covidliste", text: "Vous serez contacté dès qu’une dose sera disponible !", cta_text: "S’inscrire à Covidliste", cta_href: "#inscription", cta_target: "_self"} %>
+<%- if Flipper.enabled?(:pause_service) %>
+  <%= render partial: "users/shared/box_cta", locals: {title: "S’inscrire à Covidliste", text: "Covidliste est en pause, les inscriptions sont désactivées.", cta_text: "Suivez-nous sur Twitter", cta_href: "https://twitter.com/covidliste", cta_target: "_self"} %>
+<% else %>
+  <%= render partial: "users/shared/box_cta", locals: {title: "S’inscrire à Covidliste", text: "Vous serez contacté dès qu’une dose sera disponible !", cta_text: "S’inscrire à Covidliste", cta_href: "#inscription", cta_target: "_self"} %>
+<% end %>
 
 <div class="bg-white">
   <div class="container mt-5 mt-lg-5 mb-lg-5 py-5">
@@ -213,8 +238,11 @@
     </div>
   </div>
 </div>
-
-<%= render partial: "users/shared/box_cta", locals: {title: "Vous êtes professionnel de santé ?", text: "Simplifiez la gestion de votre liste d’attente.<br>Commencez dès maintenant à gagner du temps.", cta_text: "Trouver des volontaires à la vaccination", cta_href: landing_page_pro_path, cta_target: "_self"} %>
+<%- if Flipper.enabled?(:pause_service) %>
+  <%= render partial: "users/shared/box_cta", locals: {title: "Vous êtes professionnel de santé ?", text: "Covidliste est en pause, les inscriptions sont désactivées.", cta_text: "Suivez-nous sur Twitter", cta_href: "https://twitter.com/covidliste", cta_target: "_self"} %>
+<% else %>
+  <%= render partial: "users/shared/box_cta", locals: {title: "Vous êtes professionnel de santé ?", text: "Simplifiez la gestion de votre liste d’attente.<br>Commencez dès maintenant à gagner du temps.", cta_text: "Trouver des volontaires à la vaccination", cta_href: landing_page_pro_path, cta_target: "_self"} %>
+<% end %>
 
 <div class="bg-white">
   <div class="container py-5 my-5">
@@ -240,8 +268,12 @@
     </div>
   </div>
 </div>
+<%- if Flipper.enabled?(:pause_service) %>
+  <%= render partial: "users/shared/box_cta", locals: {title: "Devenir bénévole", text: "Covidliste est en pause, découvrez notre histoire sur notre blog !", cta_text: "Lire le blog", cta_href: "https://blog.covidliste.com", cta_target: "_self"} %>
+<% else %>
+  <%= render partial: "users/shared/box_cta", locals: {title: "Devenir bénévole", text: "Rejoignez une centaine de bénévoles qui chaque<br>jour contribuent à accélérer la campagne de vaccination !", cta_text: "Rejoindre l’équipe Covidliste", cta_href: benevoles_path, cta_target: "_self"} %>
+<% end %>
 
-<%= render partial: "users/shared/box_cta", locals: {title: "Devenir bénévole", text: "Rejoignez une centaine de bénévoles qui chaque<br>jour contribuent à accélérer la campagne de vaccination !", cta_text: "Rejoindre l’équipe Covidliste", cta_href: benevoles_path, cta_target: "_self"} %>
 
 <div class="bg-white">
   <div class="container py-5 my-5">
@@ -252,11 +284,14 @@
             Covidliste ?
           </div>
           <p class="mb-0 text-justify">
-            <%= link_to "Martin Daniel", "https://twitter.com/martindaniel4", target: "_blank", rel: "noopener", class: "text-secondary font-weight-bold text-decoration-underline" %>,
+            <%= link_to "Martin Daniel", "https://twitter.com/martindaniel4", target: "_blank", rel: "noopener", class: "text-secondary font-weight-bold text-decoration-underline" %>
+            ,
             data scientist
-            et <%= link_to "Mathieu Ripert", "https://twitter.com/mathieurip", target: "_blank", rel: "noopener", class: "text-secondary font-weight-bold text-decoration-underline" %>,
+            et <%= link_to "Mathieu Ripert", "https://twitter.com/mathieurip", target: "_blank", rel: "noopener", class: "text-secondary font-weight-bold text-decoration-underline" %>
+            ,
             ingénieur, en collaboration
-            avec <%= link_to "Dr Antoine Roux", "https://www.paristransplantgroup.org/antoine-roux.html", target: "_blank", rel: "noopener", class: "text-secondary font-weight-bold text-decoration-underline" %>,
+            avec <%= link_to "Dr Antoine Roux", "https://www.paristransplantgroup.org/antoine-roux.html", target: "_blank", rel: "noopener", class: "text-secondary font-weight-bold text-decoration-underline" %>
+            ,
             pneumologue, ont lancé Covidliste le 30 mars 2021. Depuis, ils ont été rejoints par plus d’une centaine de
             bénévoles, développeurs informatiques, communicants, spécialistes en droit et designers pour offrir leurs
             compétences au service du projet.
