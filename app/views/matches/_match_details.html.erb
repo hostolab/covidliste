@@ -66,6 +66,12 @@
   <div class="col-sm-12 col-md-6 col-lg-6">
     <%= icon("fas", "check-circle") %>
     <strong>Type de vaccin</strong>
-    <p><%= match.campaign.vaccine_type.capitalize %></p>
+    <p><%= match.campaign.vaccine_type.capitalize %> <br>
+      <% if match.campaign.vaccine_type == Vaccine::Brands::MODERNA || match.campaign.vaccine_type == Vaccine::Brands::PFIZER %>
+        <strong>Utilisable comme dose de rappel peu importe le vaccin utilisé précédemment.</strong>
+      <% else %>
+        Non utilisable comme dose de rappel.
+      <% end %>
+    </p>
   </div>
 </div>
