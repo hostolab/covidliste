@@ -159,5 +159,12 @@
     "website_url": "https://www.scaleway.com/fr/",
     "description": "Fournisseur cloud : colocation en DC, cloud public, cloud privé",
     "role": ""
+  },
+  {
+    "name": "Twilio",
+    "logo_path": "sponsors/logo-twilio.png",
+    "website_url": "https://www.twilio.com/fr/",
+    "description": "Service d’envoi de SMS",
+    "role": ""
   }
 ]

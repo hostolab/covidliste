@@ -44,6 +44,10 @@ class PartnersController < ApplicationController
 
   def create
     @partner = Partner.new(partner_params)
+    if Flipper.enabled?(:pause_service)
+      flash.now[:error] = "Le service est en pause. La création de compte est désactivée."
+      return render action: :new, status: :unprocessable_entity
+    end
     authorize @partner
     @partner.statement_accepted_at = Time.zone.now if @partner.statement
     # @partner.password = Devise.friendly_token.first(12)

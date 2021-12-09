@@ -16,4 +16,15 @@ class UserMailer < ApplicationMailer
       subject: "Attendez-vous toujours une dose de vaccin ?"
     )
   end
+
+  def send_inactive_user_anonymization_notice
+    user_email = params[:user_email]
+
+    return if user_email.blank?
+
+    mail(
+      to: user_email,
+      subject: "Nous avons supprimé votre compte Covidliste"
+    )
+  end
 end

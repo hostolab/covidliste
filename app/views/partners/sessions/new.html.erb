@@ -69,7 +69,7 @@
             </p>
           <% end %>
 
-          <% if controller_name == "sessions" %>
+          <% if controller_name == "sessions" and not Flipper.enabled?(:pause_service) %>
             <p>
               <%= link_to "S’inscrire en tant que professionnel de santé", partenaires_inscription_path %>
             </p>
