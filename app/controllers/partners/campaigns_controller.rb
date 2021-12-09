@@ -21,6 +21,9 @@ module Partners
     end
 
     def create
+      if Flipper.enabled?(:pause_service)
+        return render json: {errors: ["Le service est en pause. La création de campagne est désactivée."]}, status: 400
+      end
       @campaign = @vaccination_center.campaigns.build(create_params)
       @campaign.partner = current_partner
       @campaign.validate_dates = true
