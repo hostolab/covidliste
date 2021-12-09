@@ -57,9 +57,8 @@ const leafletMap = () => {
         lmap.panTo([lat, lon]);
       }
 
-      let leafletMarkers = leafletMapContainer.getElementsByClassName(
-        "leaflet-marker"
-      );
+      let leafletMarkers =
+        leafletMapContainer.getElementsByClassName("leaflet-marker");
       if (leafletMarkers) {
         let leafletMarkersCluster = L.markerClusterGroup();
         for (let i = 0; i < leafletMarkers.length; ++i) {
@@ -86,9 +85,8 @@ const leafletMap = () => {
         lmap.addLayer(leafletMarkersCluster);
       }
 
-      let leafletGeojsons = leafletMapContainer.getElementsByClassName(
-        "leaflet-geojson"
-      );
+      let leafletGeojsons =
+        leafletMapContainer.getElementsByClassName("leaflet-geojson");
       if (leafletGeojsons) {
         let geojsonCodes = {};
         for (let i = 0; i < leafletGeojsons.length; ++i) {
@@ -156,9 +154,8 @@ const leafletMap = () => {
         L.control.layers({}, geojsonCodes, { collapsed: false }).addTo(lmap);
       }
 
-      let leafletFlyBtns = leafletMapContainer.getElementsByClassName(
-        "leaflet_fly_btn"
-      );
+      let leafletFlyBtns =
+        leafletMapContainer.getElementsByClassName("leaflet_fly_btn");
       for (let i = 0; i < leafletFlyBtns.length; ++i) {
         let leafletFlyBtn = leafletFlyBtns[i];
         let elemLat = leafletFlyBtn.getAttribute("data-lat");

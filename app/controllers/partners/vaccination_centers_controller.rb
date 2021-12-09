@@ -31,8 +31,7 @@ module Partners
       @same_existing_vaccination_centers = check_if_already_exists(@vaccination_center, :address, :phone_number, :finess)
       unless @same_existing_vaccination_centers && @vaccination_center.confirmation_creation.to_i.zero?
         @vaccination_center.save
-        @partner_vaccination_center = PartnerVaccinationCenter.new(partner: current_partner,
-                                                                   vaccination_center: @vaccination_center)
+        @partner_vaccination_center = PartnerVaccinationCenter.new(partner: current_partner, vaccination_center: @vaccination_center)
         @partner_vaccination_center.save
         prepare_phone_number
       end

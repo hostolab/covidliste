@@ -1,6 +1,5 @@
 class MatchMailer < ApplicationMailer
-  default :from => "Covidliste <dose@covidliste.com>",
-          "X-Auto-Response-Suppress" => "OOF"
+  default :from => "Covidliste <dose@covidliste.com>", "X-Auto-Response-Suppress" => "OOF"
 
   def match_confirmation_instructions
     @match = params[:match]
