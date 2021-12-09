@@ -1,3 +1,5 @@
+# Testing PR workflow triggers, do not merge
+
 # Covidliste
 
 [![Test](https://github.com/hostolab/covidliste/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/hostolab/covidliste/actions/workflows/test.yml)
