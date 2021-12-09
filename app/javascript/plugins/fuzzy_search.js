@@ -71,9 +71,8 @@ if (engine) {
                     matchesTitles.indexOf(domItemTitle) >= 0
                   ) {
                     domItems[i].classList.remove("d-none");
-                    domItems[i].style.order = matchesTitles.indexOf(
-                      domItemTitle
-                    );
+                    domItems[i].style.order =
+                      matchesTitles.indexOf(domItemTitle);
                   } else {
                     domItems[i].classList.add("d-none");
                     domItems[i].style.order = "inherit";

@@ -38,7 +38,7 @@
   "version": "0.1.0",
   "devDependencies": {
     "pdfkit": "^0.12.1",
-    "prettier": "2.2.1",
+    "prettier": "^2.3.2",
     "puppeteer": "^9.1.1",
     "webpack-dev-server": "^3.11.2"
   }

@@ -24,7 +24,8 @@ export const CampaignCreatorExtraInfo = () => {
 };
 
 const dateInExtraInfoWarning = (info) => {
-  const dateRegex = /(lundi|mardi|mercredi|jeudi|vendredi|janvier|f[eé]vrier|mars|avril|mai|juin|juillet|ao[uû]t|septembre|octobre|novembre|d[eé]cembre|demain)/i;
+  const dateRegex =
+    /(lundi|mardi|mercredi|jeudi|vendredi|janvier|f[eé]vrier|mars|avril|mai|juin|juillet|ao[uû]t|septembre|octobre|novembre|d[eé]cembre|demain)/i;
   if (info.match(dateRegex)) {
     return (
       <>
