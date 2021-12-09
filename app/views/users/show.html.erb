@@ -35,13 +35,16 @@
 
         <ul class="nav nav-tabs">
           <li class="nav-item">
-            <a class="<%= class_names("nav-link", active: tab.blank? || tab == 'infos') %>" href="?tab=infos">Vos informations</a>
+            <a class="<%= class_names("nav-link", active: tab.blank? || tab == 'infos') %>" href="?tab=infos">Vos
+              informations</a>
           </li>
           <li class="nav-item">
-            <a class="<%= class_names("nav-link", active: tab == 'preferences') %>" href="?tab=preferences">Préférences d'alertes</a>
+            <a class="<%= class_names("nav-link", active: tab == 'preferences') %>" href="?tab=preferences">Préférences
+              d'alertes</a>
           </li>
           <li class="nav-item">
-            <a class="<%= class_names("nav-link", active: tab == 'rdv') %>" href="?tab=rdv">Propositions de rendez-vous</a>
+            <a class="<%= class_names("nav-link", active: tab == 'rdv') %>" href="?tab=rdv">Propositions de
+              rendez-vous</a>
           </li>
           <li class="nav-item">
             <a class="<%= class_names("nav-link", active: tab == 'data') %>" href="?tab=data">Données personnelles</a>
@@ -55,7 +58,7 @@
         <% elsif tab == "rdv" %>
           <%= render partial: 'matches_or_alerts', locals: {user: @user} %>
         <% elsif tab == "data" %>
-          <%= render partial: 'personal_data', locals: {user: @user} %>      
+          <%= render partial: 'personal_data', locals: {user: @user} %>
         <% end %>
       </div>
 

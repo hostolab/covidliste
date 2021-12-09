@@ -3,6 +3,7 @@ class SendSlotAlertsJob < ApplicationJob
 
   def perform(params)
     Rails.logger.info("[SendSlotAlertsJob] with params=#{@params}")
+    return if Flipper.enabled?(:pause_service)
     return unless params[:days]
     SlotAlertService.new(params[:days],
       params[:threshold],

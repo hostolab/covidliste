@@ -132,7 +132,7 @@ ActiveRecord::Schema.define(version: 2021_06_15_105445) do
     t.index ["vaccination_center_id"], name: "index_campaigns_on_vaccination_center_id"
     t.check_constraint "(available_doses >= 0) AND (available_doses <= 1000)", name: "available_doses_gt_zero"
     t.check_constraint "(max_age > 0) AND (max_age > min_age)", name: "max_age_gt_zero"
-    t.check_constraint "(vaccine_type)::text = ANY (ARRAY[('pfizer'::character varying)::text, ('moderna'::character varying)::text, ('astrazeneca'::character varying)::text, ('janssen'::character varying)::text])", name: "vaccine_type_is_a_known_brand"
+    t.check_constraint "(vaccine_type)::text = ANY ((ARRAY['pfizer'::character varying, 'moderna'::character varying, 'astrazeneca'::character varying, 'janssen'::character varying])::text[])", name: "vaccine_type_is_a_known_brand"
     t.check_constraint "max_distance_in_meters > 0", name: "max_distance_in_meters_gt_zero"
     t.check_constraint "min_age > 0", name: "min_age_gt_zero"
     t.check_constraint "starts_at < ends_at", name: "starts_at_lt_ends_at"
@@ -303,13 +303,13 @@ ActiveRecord::Schema.define(version: 2021_06_15_105445) do
     t.string "email_domain"
     t.integer "grid_i"
     t.integer "grid_j"
+    t.datetime "last_inactive_user_email_sent_at"
     t.string "anonymized_reason"
     t.integer "max_distance_km", default: 10
     t.datetime "alerting_optin_at"
     t.integer "alerting_intensity", default: 1
     t.integer "matches_count", default: 0
     t.datetime "match_confirmed_at"
-    t.datetime "last_inactive_user_email_sent_at"
     t.index ["alerting_intensity"], name: "index_users_on_alerting_intensity"
     t.index ["alerting_optin_at"], name: "index_users_on_alerting_optin_at"
     t.index ["anonymized_at"], name: "index_users_on_anonymized_at"
