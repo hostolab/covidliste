@@ -10,9 +10,9 @@ class VmdSlot < ApplicationRecord
     janssen: "Janssen"
   }.freeze
 
-  def self.build_from_hash(slot)
+  def self.build_from_hash(slot, last_updated_at = nil)
     slot.deep_symbolize_keys!
-    return if VmdSlot.where(center_id: slot[:internal_id]).where("last_updated_at >= ?", slot[:last_scan_with_availabilities].to_datetime - 1.seconds).any?
+    return if VmdSlot.where(center_id: slot[:internal_id]).where("last_updated_at >= ?", last_updated_at - 1.seconds).any?
     VmdSlot.create(
       center_id: slot[:internal_id],
       url: slot[:url],
@@ -47,13 +47,7 @@ class VmdSlot < ApplicationRecord
       center_type: slot[:type],
       platform: slot[:plateforme],
       slots_count: slot[:appointment_count],
-      last_updated_at: slot[:last_scan_with_availabilities],
-      slots_0_days: VmdSlot.get_appointment_schedule(slot, "chronodose"),
-      slots_1_days: VmdSlot.get_appointment_schedule(slot, "1_days"),
-      slots_2_days: VmdSlot.get_appointment_schedule(slot, "2_days"),
-      slots_7_days: VmdSlot.get_appointment_schedule(slot, "7_days"),
-      slots_28_days: VmdSlot.get_appointment_schedule(slot, "28_days"),
-      slots_49_days: VmdSlot.get_appointment_schedule(slot, "49_days"),
+      last_updated_at: last_updated_at,
       pfizer: (slot[:vaccine_type] || []).include?(VACCINE_TYPES[:pfizer]),
       moderna: (slot[:vaccine_type] || []).include?(VACCINE_TYPES[:moderna]),
       janssen: (slot[:vaccine_type] || []).include?(VACCINE_TYPES[:janssen]),
@@ -110,7 +104,7 @@ class VmdSlot < ApplicationRecord
       lat: latitude,
       lon: longitude,
       user_alerting_intensity: user_alerting_intensity,
-      limit: slots_7_days * OVERBOOKING_FACTOR
+      limit: slots_count * OVERBOOKING_FACTOR
     }
     query = ActiveRecord::Base.send(:sanitize_sql_array, [sql, params])
     User.where(id: ActiveRecord::Base.connection.execute(query).to_a.pluck("user_id"))
@@ -128,7 +122,7 @@ class VmdSlot < ApplicationRecord
       .where("last_updated_at >= ?", 11.minutes.ago)
       .where("(pfizer is true or moderna is true) and astrazeneca is false")
       .where("(SQRT(((latitude - ?)*110.574)^2 + ((longitude - ?)*111.320*COS(latitude::float*3.14159/180))^2)) < ? ", user.lat, user.lon, user.max_distance_km)
-      .where("slots_7_days > 10")
+      .where("slots_count > 10")
       .order("next_rdv asc")
       .limit(100)
   end

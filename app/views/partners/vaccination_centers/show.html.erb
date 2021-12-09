@@ -15,10 +15,10 @@
       <p class="mb-2">
         <% if @vaccination_center.finess.present? %>
           FINESS : <em class="text-muted"><%= @vaccination_center.finess %></em>
-          <br />
+          <br/>
         <% end %>
-        <%= @vaccination_center.address %><br />
-        Description : <%= @vaccination_center.description %><br />
+        <%= @vaccination_center.address %><br/>
+        Description : <%= @vaccination_center.description %><br/>
         <small>
           <%= icon("fas", "phone", @vaccination_center.human_friendly_phone_number) %>
           <small class="text-muted">(numéro transmis aux volontaires)</small>
@@ -26,23 +26,25 @@
       </p>
 
       <p class="mb-2">
-        <div class="d-flex align-items-center my-1">
-          <%= humanize_boolean @vaccination_center.visible_optin_at.present? %><span class='ml-2'>Affichage sur la carte publique</span>
-          <%= form_for [:partners, @vaccination_center], html: { class: 'ml-2' } do |f| %>
-            <%= f.hidden_field :visible_optin, value: !@vaccination_center.visible_optin_at.present? %>
-            <%= f.submit @vaccination_center.visible_optin_at.present? ? "Masquer de la carte" : "Afficher sur la carte", class: 'btn btn-outline-primary px-2 py-1', style: 'font-size: 10px;', data: { confirm: "Êtes-vous sûr(e) ?" }  %>
-          <% end %>
-        </div>
-        <div class="d-flex align-items-center my-1">
-          <%= humanize_boolean @vaccination_center.media_optin_at.present? %><span class='ml-2'>Communication presse et réseaux sociaux</span>
-          <%= form_for [:partners, @vaccination_center], html: { class: 'ml-2' } do |f| %>
-            <%= f.hidden_field :media_optin, value: !@vaccination_center.media_optin_at.present? %>
-            <%= f.submit @vaccination_center.media_optin_at.present? ? "Refuser la communication" : "Autoriser la communication", class: 'btn btn-outline-primary px-2 py-1', style: 'font-size: 10px;', data: { confirm: "Êtes-vous sûr(e) ?" } %>
-          <% end %>
-        </div>
+      <div class="d-flex align-items-center my-1">
+        <%= humanize_boolean @vaccination_center.visible_optin_at.present? %>
+        <span class='ml-2'>Affichage sur la carte publique</span>
+        <%= form_for [:partners, @vaccination_center], html: {class: 'ml-2'} do |f| %>
+          <%= f.hidden_field :visible_optin, value: !@vaccination_center.visible_optin_at.present? %>
+          <%= f.submit @vaccination_center.visible_optin_at.present? ? "Masquer de la carte" : "Afficher sur la carte", class: 'btn btn-outline-primary px-2 py-1', style: 'font-size: 10px;', data: {confirm: "Êtes-vous sûr(e) ?"} %>
+        <% end %>
+      </div>
+      <div class="d-flex align-items-center my-1">
+        <%= humanize_boolean @vaccination_center.media_optin_at.present? %>
+        <span class='ml-2'>Communication presse et réseaux sociaux</span>
+        <%= form_for [:partners, @vaccination_center], html: {class: 'ml-2'} do |f| %>
+          <%= f.hidden_field :media_optin, value: !@vaccination_center.media_optin_at.present? %>
+          <%= f.submit @vaccination_center.media_optin_at.present? ? "Refuser la communication" : "Autoriser la communication", class: 'btn btn-outline-primary px-2 py-1', style: 'font-size: 10px;', data: {confirm: "Êtes-vous sûr(e) ?"} %>
+        <% end %>
+      </div>
       </p>
 
-      <%- if @vaccination_center.lat && @vaccination_center.lon%>
+      <%- if @vaccination_center.lat && @vaccination_center.lon %>
         <div class="my-3 leaflet_map_container">
           <div
             class="leaflet_map"
@@ -59,10 +61,15 @@
       <% end %>
     </div>
   </div>
-
-  <p>
-    <%= link_to "Créer une nouvelle campagne", new_partners_vaccination_center_campaign_path(@vaccination_center), class: "btn btn-primary" %>
-  </p>
+  <%- if Flipper.enabled?(:pause_service) %>
+    <div class="alert alert-dark mb-4 small" role="alert">
+      Covidliste est en pause, la création de campagne est désactivée. À bientôt !
+    </div>
+  <% else %>
+    <p>
+      <%= link_to "Créer une nouvelle campagne", new_partners_vaccination_center_campaign_path(@vaccination_center), class: "btn btn-primary" %>
+    </p>
+  <% end %>
 
   <div>
     <h5 class="mt-4">
@@ -105,52 +112,52 @@
     <div class="table-responsive">
       <table class="table table-bordered table-sm text-center">
         <thead class="thead-light">
-          <tr>
-            <th scope="col"> # </th>
-            <th scope="col"> Statut </th>
-            <th scope="col"> Lancée le </th>
-            <th scope="col"> Volontaires confirmés </th>
-            <th scope="col"> Doses </th>
-            <th scope="col"> Rendez-vous </th>
-            <th scope="col"> Critères </th>
-            <th scope="col"> Actions </th>
-          </tr>
+        <tr>
+          <th scope="col"> #</th>
+          <th scope="col"> Statut</th>
+          <th scope="col"> Lancée le</th>
+          <th scope="col"> Volontaires confirmés</th>
+          <th scope="col"> Doses</th>
+          <th scope="col"> Rendez-vous</th>
+          <th scope="col"> Critères</th>
+          <th scope="col"> Actions</th>
+        </tr>
         </thead>
 
         <tbody>
-          <% @vaccination_center.campaigns.includes([:partner]).order(id: :desc).each do |campaign| %>
-            <tr>
-              <td class="font-weight-bold"> <%= link_to campaign.id, partners_campaign_path(campaign) %> </td>
-              <td>
-                <%= link_to (content_tag :span, french_status(campaign), class: "badge badge-sm #{status_badge(campaign)}"), partners_campaign_path(campaign) %>
-              </td>
-              <td class=" small">
-                <%= l campaign.created_at %><br />
-                <span class="text-muted">par <%= campaign.partner.name %></span>
-              </td>
-              <td> <%= campaign.matches.confirmed.size %> </td>
-              <td>
-                <%= campaign.available_doses %>
-                <small class="text-muted"><%= campaign.available_doses > 1 ? "doses" : "dose" %></small><br />
-                <%= campaign.vaccine_type.capitalize %>
-              </td>
-              <td>
-                <%= l(campaign.starts_at, format: '%e %B %Y') %><br />
-                <small class="text-muted">entre</small>
-                <%= l(campaign.starts_at, format: '%Hh%M') %>
-                <small class="text-muted">et</small>
-                <%= l(campaign.ends_at, format: '%Hh%M') %>
-              </td>
-              <td>
-                <%= campaign.min_age %>-<%= campaign.max_age %> <small class="text-muted">ans</small><br />
-                <%= campaign.max_distance_in_meters/1000 %> <small class="text-muted">km</small>
-              </td>
+        <% @vaccination_center.campaigns.includes([:partner]).order(id: :desc).each do |campaign| %>
+          <tr>
+            <td class="font-weight-bold"> <%= link_to campaign.id, partners_campaign_path(campaign) %> </td>
+            <td>
+              <%= link_to (content_tag :span, french_status(campaign), class: "badge badge-sm #{status_badge(campaign)}"), partners_campaign_path(campaign) %>
+            </td>
+            <td class=" small">
+              <%= l campaign.created_at %><br/>
+              <span class="text-muted">par <%= campaign.partner.name %></span>
+            </td>
+            <td> <%= campaign.matches.confirmed.size %> </td>
+            <td>
+              <%= campaign.available_doses %>
+              <small class="text-muted"><%= campaign.available_doses > 1 ? "doses" : "dose" %></small><br/>
+              <%= campaign.vaccine_type.capitalize %>
+            </td>
+            <td>
+              <%= l(campaign.starts_at, format: '%e %B %Y') %><br/>
+              <small class="text-muted">entre</small>
+              <%= l(campaign.starts_at, format: '%Hh%M') %>
+              <small class="text-muted">et</small>
+              <%= l(campaign.ends_at, format: '%Hh%M') %>
+            </td>
+            <td>
+              <%= campaign.min_age %>-<%= campaign.max_age %> <small class="text-muted">ans</small><br/>
+              <%= campaign.max_distance_in_meters / 1000 %> <small class="text-muted">km</small>
+            </td>
 
-              <td>
-                <%= link_to "Voir la campagne", partners_campaign_path(campaign), class: "btn btn-primary btn-sm" %>
-              </td>
-            </tr>
-          <% end %>
+            <td>
+              <%= link_to "Voir la campagne", partners_campaign_path(campaign), class: "btn btn-primary btn-sm" %>
+            </td>
+          </tr>
+        <% end %>
         </tbody>
       </table>
     </div>

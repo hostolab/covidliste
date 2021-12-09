@@ -2,6 +2,8 @@ class SendSlotAlertsForUsersJob < ApplicationJob
   queue_as :default
 
   def perform
+    return if Flipper.enabled?(:pause_service)
+
     User.active.where(alerting_intensity: 3).find_each do |user|
       slot = VmdSlot
         .where("last_updated_at >= ?", 7.minutes.ago)

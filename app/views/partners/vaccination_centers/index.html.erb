@@ -1,4 +1,24 @@
 <div class="container">
+
+  <%- if Flipper.enabled?(:pause_service) %>
+    <div class="card bg-light mb-3" style="max-width: 50rem; margin-right: auto;margin-left: auto;">
+      <div class="card-body">
+        <h5 class="card-title">Covidliste est en pause. Merci d'avoir été à nos côtés !</h5>
+        <p class="card-text">La tension vaccinale étant réduite, le service Covidliste est en
+          pause.
+          <strong>Il n'est plus
+            possible de s'inscrire, ni de lancer des campagnes de vaccination.</strong>
+          Grâce à vous, plus de 1 120 000 volontaires ont été notifiés pour une dose de vaccin supplémentaire.
+          <br><br>Selon l'évolution de l'épidémie, Covidliste sera définitivement fermé et vos
+          données supprimées, ou nous vous recontacterons pour relancer le service.
+          <br><br>Découvrez l'histoire de Covidliste sur
+          <a href="https://blog.covidliste.com">le blog</a>, ou suivez-nous sur
+          <a href="https://twitter.com/covidliste">Twitter</a> pour avoir des nouvelles.</p>
+      </div>
+      <div class="card-footer">À bientôt, l'équipe Covidliste 👋</div>
+    </div>
+  <% end %>
+
   <h2 class="mt-4">
     Espace professionnels de santé
   </h2>
@@ -61,7 +81,7 @@
       <% unless @external_accounts.any? %>
         <% if PartnerExternalAccountProvider::Providers::ALL.any? %>
           <div class="alert alert-info mt-2" role="alert">
-            Vous êtes un <strong>professionnel de santé</strong> ?<br />
+            Vous êtes un <strong>professionnel de santé</strong> ?<br/>
             <strong>Accélérez la validation de vos lieux de vaccination</strong> en
             <%= link_to "liant une carte CPS, e-CPS ou un compte professionnel", "#externalAccountsLink", "data-toggle": "modal" %>
           </div>
@@ -72,10 +92,13 @@
 
     <% end %>
 
-    <p class="small mt-2">
-      Vous gèrez une autre lieu de vaccination ?
-      <%= link_to "Demandez la création d’un autre lieu de vaccination", new_partners_vaccination_center_path %>
-    </p>
+
+    <%- if not Flipper.enabled?(:pause_service) %>
+      <p class="small mt-2">
+        Vous gèrez une autre lieu de vaccination ?
+        <%= link_to "Demandez la création d’un autre lieu de vaccination", new_partners_vaccination_center_path %>
+      </p>
+    <% end %>
 
     <p class="mt-2 small">
       Si vous souhaitez rejoindre un lieu de vaccination déjà existant sur Covidliste, contactez-nous sur
@@ -147,9 +170,10 @@
   <% end %>
 
   <p class="mb-5 mt-5">
-    Besoin de documents pour communiquer à propos de Covidliste avec vos collègues, confrères, visiteurs ou patients ?<br/>
+    Besoin de documents pour communiquer à propos de Covidliste avec vos collègues, confrères, visiteurs ou patients
+    ?<br/>
     <small>Nous vous mettons à disposition un ensemble de documents imprimables adaptés à chaque public.</small>
-    <br />
+    <br/>
     <%= link_to "Documents pour les professionnels", "https://drive.google.com/drive/folders/1g79baMWlOFjZAcCrK7sa6uUNlyQBuzyC?usp=sharing", class: "btn btn-info btn-sm mt-2", target: "_blank", rel: "noopener" %>
   </p>
 

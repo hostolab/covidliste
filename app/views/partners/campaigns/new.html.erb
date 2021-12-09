@@ -3,6 +3,11 @@
   <%= javascript_pack_tag "partners", "data-turbolinks-track": "reload", defer: !Rails.env.test?, nonce: true %>
 <% end %>
 <div class="container">
+  <%- if Flipper.enabled?(:pause_service) %>
+    <div class="alert alert-danger mb-4" role="alert">
+      Covidliste est en pause, la création de campagne est désactivée. À bientôt !
+    </div>
+  <% end %>
   <%= render "components/page_title", title: "Lancer une campagne", icon_name: "paper-plane" %>
   <%= react_component("CampaignCreator", props: {
     vaccination_center: @vaccination_center,

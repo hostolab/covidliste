@@ -17,7 +17,7 @@ class SlotAlertMailer < ApplicationMailer
     @passwordless_token = Devise::Passwordless::LoginToken.encode(@user)
 
     distance = distance_delta({lat: @alert.user.lat, lon: @alert.user.lon}, {lat: @slot.latitude, lon: @slot.longitude})
-    subject = "#{@slot.slots_7_days} créneaux disponibles à #{distance[:delta_in_words]}, dès #{l(@slot.next_rdv, format: "%A %e %B")}"
+    subject = "#{@slot.slots_count} créneaux disponibles à #{distance[:delta_in_words]}, dès #{l(@slot.next_rdv, format: "%A %e %B")}"
     mail(
       to: @alert.user.email,
       subject: subject
