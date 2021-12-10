@@ -1,5 +1,5 @@
 FactoryBot.define do
-  sequence(:birthdate) { Faker::Date.between(from: 100.years.ago, to: 10.years.ago) }
+  sequence(:birthdate) { Faker::Date.between(from: 70.years.ago, to: 20.years.ago) }
   sequence(:company_name) { Faker::Company.name }
   sequence(:description) { Faker::Lorem.paragraph(sentence_count: 2) }
   sequence(:firstname) { Faker::Name.first_name }

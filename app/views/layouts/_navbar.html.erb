@@ -22,9 +22,11 @@
         <li class="<%= class_names("nav-item", active: current_page?(faq_path)) %>">
           <%= link_to "Foire aux questions", faq_path, class: "nav-link" %>
         </li>
-        <li class="<%= class_names("nav-item", active: current_page?(landing_page_pro_path)) %>">
-          <%= link_to "Professionnels de santé", landing_page_pro_path, class: "nav-link" %>
-        </li>
+        <% if !current_user %>
+          <li class="<%= class_names("nav-item", active: current_page?(landing_page_pro_path)) %>">
+            <%= link_to "Professionnels de santé", landing_page_pro_path, class: "nav-link" %>
+          </li>
+        <% end %>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#dropdownHelpers" aria-haspopup="true" aria-expanded="false">Ils nous aident</a>
           <div class="dropdown-menu" aria-labelledby="dropdownHelpers">
@@ -65,7 +67,7 @@
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown09">
               <%= link_to "Profil", profile_path, class: "dropdown-item" %>
               <% if current_user.has_role?(:volunteer) %>
-                <%= link_to icon("fas", "external-link-alt", "Espace bénévoles", class: "mr-1"), admin_path, class: "dropdown-item" %>
+                <%= link_to icon("fas", "lock", "Espace bénévoles", class: "mr-1"), admin_path, class: "dropdown-item" %>
               <% end %>
               <%= link_to "Déconnexion", destroy_partner_session_path, method: :delete, class: "dropdown-item" %>
             </div>

@@ -1,9 +1,10 @@
 class SendMatchSmsJob < ApplicationJob
   # TODO: Define retry_on policy: https://edgeapi.rubyonrails.org/classes/ActiveJob/Exceptions/ClassMethods.html#method-i-retry_on
-  queue_as :critical
+  queue_as :default
 
   def perform(match_id)
     match = Match.find(match_id)
+    return if Flipper.enabled?(:pause_service)
 
     return unless match.sms_notification_needed?
 

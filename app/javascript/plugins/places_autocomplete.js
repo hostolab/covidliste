@@ -30,10 +30,8 @@ const placesAutocomplete = (appId, apiKey) => {
   const centerAddressInput = document.getElementById(
     "vaccination_center_address"
   );
-  const centerLatInput = document.getElementById("vaccination_center_lat");
-  const centerLonInput = document.getElementById("vaccination_center_lon");
   if (centerAddressInput) {
-    let p = places({
+    const p = places({
       container: centerAddressInput,
       appId: appId,
       apiKey: apiKey,

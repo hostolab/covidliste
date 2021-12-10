@@ -156,7 +156,8 @@ RSpec.describe ReachableUsersService, type: :service do
     end
     it "count 1 user" do
       resp = reachable_users_service.get_users_count
-      expect(resp).to eq(1)
+      expect(resp["matchable_users_count"]).to eq(1)
+      expect(resp["reachable_users_count"]).to eq(1)
     end
   end
 end

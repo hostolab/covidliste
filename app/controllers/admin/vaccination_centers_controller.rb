@@ -28,17 +28,6 @@ module Admin
         vaccination_centers = vaccination_centers.where(id: kinds_ids)
       end
 
-      # Vaccines
-      if @vaccines.present?
-        vaccines_ids = []
-        vaccines_ids += vaccination_centers.where(pfizer: true).ids if Vaccine::Brands::PFIZER.in?(@vaccines)
-        vaccines_ids += vaccination_centers.where(moderna: true).ids if Vaccine::Brands::MODERNA.in?(@vaccines)
-        vaccines_ids += vaccination_centers.where(astrazeneca: true).ids if Vaccine::Brands::ASTRAZENECA.in?(@vaccines)
-        vaccines_ids += vaccination_centers.where(janssen: true).ids if Vaccine::Brands::JANSSEN.in?(@vaccines)
-
-        vaccination_centers = vaccination_centers.where(id: vaccines_ids)
-      end
-
       # Validation
       if @validations.present?
         vaccination_centers = "oui".in?(@validations) ? vaccination_centers.where.not(confirmed_at: nil) : vaccination_centers.where(confirmed_at: nil)
@@ -46,29 +35,13 @@ module Admin
 
       respond_to do |format|
         format.html {
-          @pagy_vaccination_centers, @vaccination_centers = pagy(vaccination_centers.order(ActiveRecord::Base.sanitize_sql("#{sort_column} #{sort_direction}")))
+          @pagy_vaccination_centers, @vaccination_centers = pagy(vaccination_centers.includes(:confirmer).order(ActiveRecord::Base.sanitize_sql("#{sort_column} #{sort_direction}")))
         }
         format.csv { send_data vaccination_centers.includes(:confirmer, partners: [:partner_external_accounts]).order(id: :asc).to_csv, filename: "vaccination_centers-#{Date.today}.csv" }
       end
     end
 
     def show
-    end
-
-    def new
-      authorize(VaccinationCenter)
-
-      @vaccination_center = VaccinationCenter.new
-    end
-
-    def create
-      authorize(VaccinationCenter)
-
-      @vaccination_center = VaccinationCenter.new(vaccination_center_params)
-      @vaccination_center.visible_optin_at = Time.now.utc if ActiveRecord::Type::Boolean.new.cast(vaccination_center_optin_params["visible_optin"])
-      @vaccination_center.media_optin_at = Time.now.utc if ActiveRecord::Type::Boolean.new.cast(vaccination_center_optin_params["media_optin"])
-      @vaccination_center.save
-      render action: :new
     end
 
     def validate
@@ -125,12 +98,12 @@ module Admin
       end
       @vaccination_center.assign_attributes(vaccination_center_params)
       if @vaccination_center.save
-        flash[:success] = "Ce centre a bien été modifié"
+        flash[:success] = "Ce lieu a bien été modifié"
+        redirect_to admin_vaccination_center_path(@vaccination_center)
       else
         flash[:alert] = "Une erreur est survenue : #{@vaccination_center.errors.full_messages.join(", ")}"
+        render action: :edit
       end
-
-      redirect_to admin_vaccination_center_path(@vaccination_center)
     end
 
     def destroy
@@ -174,8 +147,7 @@ module Admin
     end
 
     def vaccination_center_params
-      params.require(:vaccination_center).permit(:name, :description, :address, :kind, :pfizer, :moderna, :astrazeneca,
-        :janssen, :phone_number, :lat, :lon)
+      params.require(:vaccination_center).permit(:name, :description, :finess, :address, :kind, :phone_number, :lat, :lon)
     end
 
     def vaccination_center_optin_params
@@ -194,14 +166,12 @@ module Admin
       params.permit(
         :query,
         kinds: [],
-        vaccines: [],
         validations: []
       )
     end
 
     def set_filters
       @kinds = search_params[:kinds].to_a.reject(&:blank?)
-      @vaccines = search_params[:vaccines].to_a.reject(&:blank?)
       @validations = search_params[:validations].to_a.reject(&:blank?)
     end
   end

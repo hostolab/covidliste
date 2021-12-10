@@ -1,7 +1,8 @@
 name: Quality
 
 # triggers on
-on: [push, pull_request]
+on: [workflow_dispatch] # Disable workflow for now (manual trigger)
+# on: [push, pull_request]
 
 jobs:
   quality:

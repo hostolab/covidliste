@@ -1,11 +1,6 @@
 import Rails from "@rails/ujs";
 import { camelCaseDeep, snakeCaseDeep } from "components/shared/casing";
 
-const handleErrors = (response) => {
-  if (!response.ok) throw Error(response.statusText);
-  return response;
-};
-
 const request = (method) => (path, payload, fetchOptions) => {
   return fetch(window.origin + path, {
     method,
@@ -17,8 +12,14 @@ const request = (method) => (path, payload, fetchOptions) => {
     body: payload ? JSON.stringify(snakeCaseDeep(payload)) : undefined,
     ...fetchOptions,
   })
-    .then(handleErrors)
-    .then((res) => res.json())
+    .then((response) =>
+      response.json().then((data) => {
+        if (!response.ok) {
+          throw Error(data.errors.join(", "));
+        }
+        return data;
+      })
+    )
     .then(camelCaseDeep);
 };
 

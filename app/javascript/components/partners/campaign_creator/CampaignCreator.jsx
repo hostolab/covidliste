@@ -22,16 +22,18 @@ const _CampaignCreator = ({
   flowImagePath,
   runningCampaignsPaths,
 }) => {
+  const { timezone } = vaccinationCenter;
   const createCampaign = useCreateCampaignMutation(vaccinationCenter);
+  const validate = (values) =>
+    validateCampaignCreatorForm(values, { timezone });
   return (
     <div className="CampaignCreator">
-      {createCampaign.isError && <GenericError />}
       <CampaignCreatorAlreadyRunningCampaignWarning
         runningCampaignsPaths={runningCampaignsPaths}
       />
       <Formik
-        initialValues={initialFormState(campaignDefaults)}
-        validate={validateCampaignCreatorForm}
+        initialValues={initialFormState(campaignDefaults, { timezone })}
+        validate={validate}
         onSubmit={createCampaign.mutate}
         validateOnMount
       >
@@ -43,7 +45,7 @@ const _CampaignCreator = ({
               </h2>
               <CampaignCreatorAvailableDoses />
               <CampaignCreatorVaccineType />
-              <CampaignCreatorTimeRange />
+              <CampaignCreatorTimeRange timezone={timezone} />
 
               <h2>
                 <i className="fas fa-user"></i> Sélection des volontaires
@@ -90,6 +92,11 @@ const _CampaignCreator = ({
               />
               <CampaignCreatorChecks />
 
+              {createCampaign.isError && (
+                <GenericError
+                  messages={createCampaign.error.message.split(", ")}
+                />
+              )}
               <button
                 className="btn btn-primary btn-lg"
                 type="submit"
@@ -97,7 +104,7 @@ const _CampaignCreator = ({
                   !isValid ||
                   !values.checkDoses ||
                   !values.checkNotify ||
-                  !createCampaign.isIdle
+                  (!createCampaign.isIdle && !createCampaign.isError)
                 }
               >
                 <i className="fas fa-bullhorn"></i> Lancer la campagne
@@ -120,7 +127,15 @@ function useCreateCampaignMutation(vaccinationCenter) {
         `/partners/vaccination_centers/${vaccinationCenter.id}/campaigns.json`,
         { campaign }
       ),
-    { onSuccess: (data) => window.location.assign(data.redirectTo) }
+    {
+      onSuccess: (data) => {
+        if (data.redirectTo) {
+          window.location.assign(data.redirectTo);
+        } else {
+          return data;
+        }
+      },
+    }
   );
 }
 

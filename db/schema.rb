@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_01_203255) do
+ActiveRecord::Schema.define(version: 2021_06_15_105445) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -273,6 +273,7 @@ ActiveRecord::Schema.define(version: 2021_06_01_203255) do
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "follow_up_sent_at"
     t.index ["token_bidx"], name: "index_slot_alerts_on_token_bidx", unique: true
+    t.index ["user_id", "created_at"], name: "index_slot_alerts_on_user_id_and_created_at"
   end
 
   create_table "users", force: :cascade do |t|
@@ -302,7 +303,15 @@ ActiveRecord::Schema.define(version: 2021_06_01_203255) do
     t.string "email_domain"
     t.integer "grid_i"
     t.integer "grid_j"
+    t.datetime "last_inactive_user_email_sent_at"
     t.string "anonymized_reason"
+    t.integer "max_distance_km", default: 10
+    t.datetime "alerting_optin_at"
+    t.integer "alerting_intensity", default: 1
+    t.integer "matches_count", default: 0
+    t.datetime "match_confirmed_at"
+    t.index ["alerting_intensity"], name: "index_users_on_alerting_intensity"
+    t.index ["alerting_optin_at"], name: "index_users_on_alerting_optin_at"
     t.index ["anonymized_at"], name: "index_users_on_anonymized_at"
     t.index ["birthdate"], name: "index_users_on_birthdate"
     t.index ["city"], name: "index_users_on_city"
@@ -313,6 +322,8 @@ ActiveRecord::Schema.define(version: 2021_06_01_203255) do
     t.index ["geo_context"], name: "index_users_on_geo_context"
     t.index ["grid_i"], name: "index_users_on_grid_i"
     t.index ["grid_j"], name: "index_users_on_grid_j"
+    t.index ["match_confirmed_at"], name: "index_users_on_match_confirmed_at"
+    t.index ["matches_count"], name: "index_users_on_matches_count"
     t.index ["zipcode"], name: "index_users_on_zipcode"
   end
 
@@ -331,10 +342,6 @@ ActiveRecord::Schema.define(version: 2021_06_01_203255) do
     t.float "lat"
     t.float "lon"
     t.string "kind"
-    t.boolean "pfizer"
-    t.boolean "moderna"
-    t.boolean "astrazeneca"
-    t.boolean "janssen"
     t.datetime "confirmed_at"
     t.string "phone_number"
     t.datetime "created_at", precision: 6, null: false
@@ -346,8 +353,10 @@ ActiveRecord::Schema.define(version: 2021_06_01_203255) do
     t.string "geo_citycode"
     t.string "geo_context"
     t.datetime "confirmation_mail_sent_at"
+    t.string "timezone", default: "Europe/Paris", null: false
     t.datetime "visible_optin_at"
     t.datetime "media_optin_at"
+    t.string "finess"
     t.index ["city"], name: "index_vaccination_centers_on_city"
     t.index ["confirmer_id"], name: "index_vaccination_centers_on_confirmer_id"
     t.index ["geo_citycode"], name: "index_vaccination_centers_on_geo_citycode"

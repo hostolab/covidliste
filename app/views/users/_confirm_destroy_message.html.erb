@@ -1,29 +1,39 @@
-<div class="container">
-  <div class="d-flex align-items-center flex-column my-4 my-lg-5">
-    <h4 class="text-center">
-      Pourquoi souhaitez vous supprimer votre compte ?
-    </h4>
-    <% token = user.signed_id(purpose: "users.destroy", expires_in: 1.hour) %>
-    
-    <%= simple_form_for "", url: profile_path(authentication_token: token), method: :delete do |f| %>
-      <div class="mt-4">
-          <%= f.input :reason, required: false, label: '', class: 'mt-4', collection: User::ANONYMIZED_REASONS.map{|k, v| [v, k]}, as: :radio_buttons, item_label_class: 'mt-y' %>         
-          <%= f.submit "Supprimer mon compte !", 
-          id: dom_id(user, :delete),
-          class: "btn btn-outline-danger btn-lg mt-4",
-          data: {confirm: "En confirmant, votre compte ainsi que toutes les données associées seront supprimées de nos serveurs. Êtes-vous sûr(e) ?"} %>
-      </div>
-    <% end %>
-
-    <div class="mt-4">
-      <p class="small">
-        Covidliste demande cette information afin de s'assurer que vous avez pu être mise en relation. Cette information n'est pas associée à votre compte.
+<% if user.matches.confirmed.any? %>
+  <div class="container">
+    <div class="d-flex align-items-center flex-column my-4 my-lg-5">
+      <h4 class="text-center mb-4">
+        Vous avez confirmé votre rendez-vous.
+      </h4>
+      <p class="alert alert-info">
+        Vous ne pouvez pas supprimer vos informations actuellement car vous avez confirmé un rendez-vous de vaccination.
+        <br>
+        Votre profil sera anonymisé quelques jours après le RDV.
       </p>
     </div>
-
-
-
-
-
   </div>
-</div>
+<% else %>
+  <div class="container">
+    <div class="d-flex align-items-center flex-column my-4 my-lg-5">
+      <h4 class="text-center">
+        Pourquoi souhaitez vous supprimer votre compte ?
+      </h4>
+      <% token = user.signed_id(purpose: "users.destroy", expires_in: 1.hour) %>
+
+      <p class="mt-4 text-center"> 
+        <strong>
+        Cette information est nécessaire pour nous améliorer notre service. Prenez le temps d'y répondre sérieusement.
+        Par ailleurs, cette information n'est pas associée à votre compte.
+        </strong>
+      </p>
+      <%= simple_form_for "", url: profile_path(authentication_token: token), method: :delete do |f| %>
+        <div class="mt-4">
+            <%= f.input :reason, required: true, label: '', class: 'mt-4', collection: User::ANONYMIZED_REASONS.map{|k, v| [v, k]}.shuffle, as: :radio_buttons, item_label_class: 'mt-y' %>         
+            <%= f.submit "Supprimer mon compte !", 
+            id: dom_id(user, :delete),
+            class: "btn btn-outline-danger btn-lg mt-4",
+            data: {confirm: "En confirmant, votre compte ainsi que toutes les données associées seront supprimées de nos serveurs. Êtes-vous sûr(e) ?"} %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>

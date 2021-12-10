@@ -151,7 +151,10 @@
             <% confirm_rate = matches.size > 0 ? (100 * matches.confirmed.size.to_f / matches.size).round(1) : 0.0 %>
             <tr>
               <td class="text-right font-weight-bold"><%= campaign.id %></td>
-              <td><%= link_to campaign.vaccination_center&.name, admin_vaccination_center_path(campaign.vaccination_center) %></td>
+              <td>
+                <%= link_to campaign.vaccination_center&.name, admin_vaccination_center_path(campaign.vaccination_center) %><br />
+                <small class="text-muted"><%= campaign.vaccination_center&.address %></small>
+              </td>
               <td class="text-center text-nowrap">
                 <%= content_tag :span, french_status(campaign), class: "badge badge-sm #{status_badge(campaign)}" %>
                 <% if campaign.canceled_doses and campaign.canceled_doses > 0 %>
@@ -203,4 +206,10 @@
       <%= raw pagy_bootstrap_nav(@pagy_campaigns) %>
     <% end %>
   <% end %>
+
+  <div class="mt-5 small text-center">
+    Heure du serveur : <%= Time.now %> <em class="text-muted">(<%= Time.now.zone %>)</em><br />
+    Heure avec TZ : <%= Time.zone.now %> <em class="text-muted">(<%= Time.zone.now.zone %>)</em> - <em class="text-muted"><%= Time.zone.name %></em><br />
+    Heure courante : <%= Time.current %> <em class="text-muted">(<%= Time.current.zone %>)</em>
+  </div>
 </div>

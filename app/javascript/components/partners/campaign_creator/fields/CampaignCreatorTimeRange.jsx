@@ -1,13 +1,15 @@
 import React from "react";
 import { useFormikContext } from "formik";
-import dayjs from "dayjs";
+import dayjs, { utcTimezone } from "../utils/dayjs";
 import { range } from "lodash";
 import { CampaignCreatorField } from "components/partners/campaign_creator/fields/CampaignCreatorField";
 
 const RANGE_MINUTES = range(0, 60, 5);
 const RANGE_HOURS = range(24);
 
-export const CampaignCreatorTimeRange = () => {
+export const CampaignCreatorTimeRange = ({ timezone }) => {
+  dayjs.tz.setDefault(timezone);
+
   const { values } = useFormikContext();
   return (
     <CampaignCreatorField
@@ -25,6 +27,7 @@ export const CampaignCreatorTimeRange = () => {
       <TimePicker name="startsAt" />
       <span>et</span>
       <TimePicker name="endsAt" />
+      <span>({utcTimezone(timezone)})</span>
     </CampaignCreatorField>
   );
 };
@@ -32,6 +35,7 @@ export const CampaignCreatorTimeRange = () => {
 function TimePicker({ name }) {
   const { setFieldValue, values, getFieldMeta } = useFormikContext();
   const value = values[name];
+
   const errorClass = getFieldMeta(name)?.error ? "is-invalid" : "";
   return (
     <>

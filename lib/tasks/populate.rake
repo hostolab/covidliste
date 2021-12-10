@@ -27,6 +27,68 @@ namespace :populate do
     puts "Done."
   end
 
+  desc "Generate lot of data: this was designed at testing inactive user query"
+  task generate_many_users_and_matches: :environment do
+    params = {
+      users_count: 90_000,
+      min_users_id: 5_000_000,
+      matches_count: 30_000,
+      min_matches_id: 5_000_000,
+      matches_per_user: 30,
+      matches_cycle: 30_000 / 30
+    }
+
+    query = ActiveRecord::Base.send(:sanitize_sql_array, [<<~SQL, params])
+      begin;
+      delete from matches where id > :min_matches_id;
+      delete from users where id > :min_users_id;
+      commit;
+    SQL
+    User.connection.execute(query)
+
+    #
+    # Users
+    #
+    query = ActiveRecord::Base.send(:sanitize_sql_array, [<<~SQL, params])
+      insert into users(id, birthdate, created_at, anonymized_at, updated_at)
+      select
+        :min_users_id + c.i as id
+        , now() - (mod(c.i, 80) + 17) * interval '1 year' as birthdate
+        , now() - mod(c.i, 300) * interval '1 minute' as created_at
+        , NULL as anonymized_at
+        , now() as updated_at
+      from generate_series(1, :users_count) c(i)
+    SQL
+    User.connection.execute(query)
+
+    #
+    # Matches
+    #
+    query = ActiveRecord::Base.send(:sanitize_sql_array, [<<~SQL, params])
+      insert into matches(id, user_id, confirmed_at, refused_at, expires_at, created_at, updated_at)
+      select
+        :min_matches_id + c.i as id
+        , :min_users_id + mod(c.i, :matches_cycle) + 1as user_id
+        , case
+          when mod(c.i, 1000) < 1 then -- 1/1000 confirmed
+            now() - mod(c.i, 100) * interval '10 minutes'
+          else
+            null
+          end as confirmed_at
+        , case
+          when mod(c.i, 100) >= 10 then -- 90% refused
+            now() - mod(c.i, 100) * interval '10 minutes'
+          else
+            null
+          end as refused_at
+        , now() - (mod(c.i, 100) - 50) * interval '10 minutes' as expires_at
+        , now() as created_at
+        , now() as updated_at
+      from generate_series(1, :matches_count) c(i)
+    SQL
+    User.connection.execute(query)
+  end
+
   desc "Create a new validated Vaccination center with a new partner"
   task create_vaccination_center_with_partner_and_validate: :environment do
     partner = Partner.new(

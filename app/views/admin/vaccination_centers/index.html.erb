@@ -1,7 +1,6 @@
 <div class="container-fluid py-4">
   <h2>
     Centres de vaccination
-    <%= link_to 'Ajouter un centre', new_admin_vaccination_center_path, class: "btn btn-primary btn-sm float-right" %>
     <%= link_to 'Télécharger en CSV', admin_vaccination_centers_path(@vaccination_centers, format: :csv), class: "btn btn-primary btn-sm mr-2 float-right" %>
   </h2>
 
@@ -17,10 +16,6 @@
       <%= f.input :kinds, collection: VaccinationCenter::Kinds::ALL,
                   input_html: { name: "kinds[]", "data-none-selected-text": "Type de centre" },
                   selected: params["kinds"] %>
-
-      <%= f.input :vaccines, collection: Vaccine::Brands::ALL.map { |v| [v.capitalize, v] },
-                  input_html: { name: "vaccines[]", "data-none-selected-text": "Vaccins" },
-                  selected: params["vaccines"] %>
 
       <%= f.input :validations, collection: ["oui", "non"],
                   input_html: { name: "validations[]", "data-none-selected-text": "Validé ?" },
@@ -45,7 +40,6 @@
             <th><%= sortable("kind", "Type") %></th>
             <th>Adresse</th>
             <th>Téléphone</th>
-            <th>Types de vaccins</th>
             <th><%= sortable("confirmed_at", "Validé") %></th>
             <th>Activé</th>
             <th></th>
@@ -64,11 +58,6 @@
               <td><%= vaccination_center.kind %></td>
               <td><%= vaccination_center.address %></td>
               <td class="text-nowrap"><%= vaccination_center.human_friendly_phone_number %></td>
-              <td>
-                <% vaccination_center.vaccines.each do |vaccine| %>
-                  <span class="mr-1"> <%= vaccine.capitalize %> </span>
-                <% end %>
-              </td>
               <td class="text-nowrap">
                 <% if vaccination_center.confirmed? %>
                   <%= icon("fas", "check", class: "text-success") %>

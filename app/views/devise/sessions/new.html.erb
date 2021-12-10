@@ -1,4 +1,4 @@
-<%= provide(:meta_title, "Rejoignez la liste d’attente Covidliste") %>
+<%= provide(:meta_title, "Covidliste : un vaccin rapidement, sans chercher") %>
 <%= provide(:meta_description, "Volontaires à la vaccination, inscrivez-vous sur Covidliste.") %>
 <%= provide(:meta_image, image_url("meta/main.png")) %>
 
@@ -43,7 +43,7 @@
             </p>
           <% end %>
 
-          <% if controller_name == "sessions" %>
+          <% if controller_name == "sessions" and not Flipper.enabled?(:pause_service) %>
             <p class="mt-3">
               <%= link_to "S’inscrire en tant que volontaire", users_path %>
             </p>

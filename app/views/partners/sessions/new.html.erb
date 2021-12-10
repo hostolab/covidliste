@@ -44,15 +44,15 @@
 
           <% if PartnerExternalAccountProvider::Providers::ALL.any? %>
             <div class="mb-4">
-              <p class="small text-muted text-center my-2">ou</p>
-              <div class="border rounded p-2 text-center">
-                <p class="small">Se connecter avec un compte ou une carte professionnelle (CPS ou e-CPS)</p>
-
-                <p class="mb-1">
-                  <% PartnerExternalAccountProvider::Providers::ALL.each do |provider_id, service_name| %>
-                    <%= link_to image_tag("openid/#{provider_id}.png", alt: "#{service_name}", height: 40), public_send("partner_#{provider_id}_omniauth_authorize_path"), class:"btn btn-outline-light border-primary", method: :post %>
-                  <% end %>
-                </p>
+              <p class="small text-muted text-center my-2">
+                ou se connecter avec un compte ou une <abbr title="carte professionnelle">carte pro.</abbr> (CPS/e-CPS)
+              </p>
+              <div class="border rounded p-4 text-center">
+                <% PartnerExternalAccountProvider::Providers::ALL.each do |provider_id, service_name| %>
+                  <div class="p-3">
+                    <%= link_to image_tag("openid/#{provider_id}.png", alt: "#{service_name}", height: 60), public_send("partner_#{provider_id}_omniauth_authorize_path"), method: :post %>
+                  </div>
+                <% end %>
               </div>
             </div>
           <% end %>
@@ -69,7 +69,7 @@
             </p>
           <% end %>
 
-          <% if controller_name == "sessions" %>
+          <% if controller_name == "sessions" and not Flipper.enabled?(:pause_service) %>
             <p>
               <%= link_to "S’inscrire en tant que professionnel de santé", partenaires_inscription_path %>
             </p>

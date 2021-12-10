@@ -100,7 +100,7 @@
                 <%= f.button :submit, "S’inscrire en tant que professionnel de santé", id: "create-new-partner", class: "btn btn-primary", data: {disable_with: "Validation...", confirm: "Vous êtes bien professionnel de santé ?"} %>
               <% end %>
               <div class="mt-3 small">
-                <%= render partial: "mentions" %>
+                <%= render partial: "mentions", locals: {text_color: 'white'} %>
               </div>
             </div>
           </div>

@@ -1,28 +1,40 @@
+<% authentication_token = @match.user.signed_id(purpose: "users.destroy", expires_in: 7.days) %>
 <mj-section padding-top="15px" padding-bottom="15px">
   <mj-column>
     <mj-text padding-bottom="0px">
-      <h1>Une dose de vaccin est disponible près de chez vous !</h1>
-      <br />
-      <strong>Si vous souhaitez en bénéficier, réservez la dose en confirmant le rendez-vous :</strong>
+      <h1>Une dose de vaccin <%= @match.campaign.vaccine_type.capitalize %> est disponible près de chez vous !</h1>
+      <br/>
+      <% if @match.campaign.vaccine_type == Vaccine::Brands::MODERNA || @match.campaign.vaccine_type ==
+      Vaccine::Brands::PFIZER %>
+      Ce vaccin <%= @match.campaign.vaccine_type.capitalize %> est <strong>utilisable comme dose de rappel peu importe
+      le vaccin
+      utilisé précédemment.</strong>
+      <% else %>
+      Ce vaccin <%= @match.campaign.vaccine_type.capitalize %> n'est pas utilisable comme dose de rappel.
+      <% end %>
+      <br/>
+      Si vous souhaitez en bénéficier, <strong>réservez la dose en confirmant le rendez-vous :</strong>
     </mj-text>
-    <mj-button href="<%= match_url(match_confirmation_token: @match_confirmation_token, source: 'email') %>" padding-bottom="0px">
+    <mj-button href="<%= match_url(match_confirmation_token: @match_confirmation_token, source: 'email') %>"
+               padding-bottom="0px">
       Réserver mon vaccin
     </mj-button>
     <mj-text>
       <strong>Si le lien ne fonctionne pas</strong>, copiez et collez l’adresse suivante dans votre navigateur :
-      <br />
+      <br/>
       <%= match_url(match_confirmation_token: @match_confirmation_token, source: 'email') %>
     </mj-text>
     <mj-text padding-bottom="0px">
       <strong>Vous ne souhaitez plus être informé de doses disponibles ?</strong>
     </mj-text>
-    <mj-button href="<%= edit_matches_users_url(match_confirmation_token: @match_confirmation_token) %>" padding-bottom="0px">
+    <mj-button href="<%= confirm_destroy_profile_url(authentication_token: authentication_token) %>"
+               padding-bottom="0px">
       Supprimer mon compte
     </mj-button>
     <mj-text>
       <strong>Si le lien ne fonctionne pas</strong>, copiez et collez l’adresse suivante dans votre navigateur :
-      <br />
-      <%= edit_matches_users_url(match_confirmation_token: @match_confirmation_token) %>
+      <br/>
+      <%= confirm_destroy_profile_url(authentication_token: authentication_token) %>
     </mj-text>
     <%= render partial: "mailer/social_networks", formats: [:html] %>
   </mj-column>

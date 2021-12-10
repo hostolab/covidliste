@@ -3,11 +3,11 @@ import {
   vaccineTypes,
   vaccineTypesValues,
 } from "components/partners/campaign_creator/vaccineTypes";
-import dayjs from "dayjs";
+import dayjs, { utcTimezone } from "./utils/dayjs";
 
-export const validateCampaignCreatorForm = (values) => {
+export const validateCampaignCreatorForm = (values, { timezone }) => {
   const errors = {};
-  const now = dayjs();
+  const now = dayjs.tz(undefined, timezone);
 
   // Available doses
   if (isNil(values.availableDoses) || values.availableDoses === "")
@@ -34,7 +34,7 @@ export const validateCampaignCreatorForm = (values) => {
   else if (values.startsAt.isBefore(now.add(9, "minutes"))) {
     errors.startsAt = `Pour laisser le temps aux premiers volontaires de se rendre dans votre établissement, la campagne ne peut commencer que dans 10 minutes, à partir de ${now
       .add(10, "minutes")
-      .format("HH:mm")}`;
+      .format("HH:mm")} (${utcTimezone(timezone)})`;
   } else if (!values.startsAt.isSame(now, "day")) {
     errors.startsAt = `La campagne doit être lancée pour aujourd'hui`;
   }
@@ -45,7 +45,7 @@ export const validateCampaignCreatorForm = (values) => {
   else if (values.endsAt.isBefore(now.add(24, "minutes"))) {
     errors.endsAt = `Pour laisser le temps aux volontaires de se rendre dans votre établissement, la campagne ne peut se finir que dans 25 minutes au plus tôt, à partir de ${now
       .add(25, "minutes")
-      .format("HH:mm")}`;
+      .format("HH:mm")} (${utcTimezone(timezone)})`;
   } else if (values.endsAt.isBefore(values.startsAt.add(15, "minutes"))) {
     errors.endsAt = `Les volontaires doivent disposer d'un crénau d'au moins 15 minutes.`;
   }

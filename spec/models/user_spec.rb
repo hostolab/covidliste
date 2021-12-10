@@ -223,7 +223,6 @@ RSpec.describe User, type: :model do
       before { user.add_role(:super_admin) }
       it "should have all roles" do
         expect(user.has_role?(:admin)).to eq(true)
-        expect(user.has_role?(:dev_admin)).to eq(true)
         expect(user.has_role?(:supply_admin)).to eq(true)
         expect(user.has_role?(:supply_member)).to eq(true)
         expect(user.has_role?(:support_admin)).to eq(true)

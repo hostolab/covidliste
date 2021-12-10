@@ -1,6 +1,9 @@
 class SlotAlertMailer < ApplicationMailer
+  default :from => "Covidliste <alerte@covidliste.com>",
+          "X-Auto-Response-Suppress" => "OOF"
+
+  include ApplicationHelper
   helper ApplicationHelper
-  default from: "Covidliste <alerte@covidliste.com>"
 
   def notify
     @alert = params[:alert]
@@ -10,9 +13,14 @@ class SlotAlertMailer < ApplicationMailer
     @alert_token = @alert.token
     @slot = @alert.vmd_slot
 
+    @user = @alert.user
+    @passwordless_token = Devise::Passwordless::LoginToken.encode(@user)
+
+    distance = distance_delta({lat: @alert.user.lat, lon: @alert.user.lon}, {lat: @slot.latitude, lon: @slot.longitude})
+    subject = "#{@slot.slots_count} créneaux disponibles à #{distance[:delta_in_words]}, dès #{l(@slot.next_rdv, format: "%A %e %B")}"
     mail(
       to: @alert.user.email,
-      subject: "Des rendez-vous de vaccination sont disponibles près de chez vous."
+      subject: subject
     )
   end
 

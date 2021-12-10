@@ -1,6 +1,22 @@
 <div class="container">
+  <% if @match&.present? %>
+    <% if @match.confirmed? %>
+      <div class="alert alert-primary">
+        <span class="mr-2">Vous avez un confirmé un RDV de vaccination :</span>
+        <%= link_to "Cliquez ici pour voir les informations du RDV", match_url(match_confirmation_token: @match.match_confirmation_token, source: 'profile'), class: "btn btn-sm btn-primary" %>
+      </div>
+    <% else %>
+      <div class="alert alert-primary">
+        <span class="mr-2">
+          Bonne nouvelle !
+          Nous avons trouvé une dose de vaccin pour vous !
+        </span>
+        <%= link_to "Cliquez ici pour accéder à la proposition de RDV", match_url(match_confirmation_token: @match.match_confirmation_token, source: 'profile'), class: "btn btn-sm btn-primary" %>
+      </div>
+    <% end %>
+  <% end %>
   <div class="row">
-    <div class="col-12 col-sm-8 offset-sm-2">
+    <div class="col-12 col-sm-12">
       <p>
         Bonjour <%= @user %>,
       </p>
@@ -13,159 +29,39 @@
         <div class="ml-2"><%= facebook_share %></div>
       </div>
 
-      <p class="mt-3">
-        <strong>Vos informations</strong>
-      </p>
+      <div class="mt-2">
 
-      <% if @user.errors.any? %>
-        <div class="alert alert-danger" role="alert" style="position: inherit">
-          <% @user.errors.full_messages.each do |msg| %>
-            <%= msg %><br/>
-          <% end %>
-        </div>
-      <% end %>
+        <% tab = params[:tab] %>
 
-      <%= simple_form_for(@user, url: :profile, method: :put, wrapper: :horizontal_form) do |f| %>
-        <div class="row">
-          <div class="col-12 col-sm-3">
-            <label class="col-form-label">
-              Date de naissance
-            </label>
-          </div>
-          <div class="col-12 col-sm-9">
-            <%= f.input :birthdate, as: :date, label: false, start_year: Date.today.year - 120, end_year: Date.today.year - 18, order: [:day, :month, :year] %>
-          </div>
-        </div>
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="<%= class_names("nav-link", active: tab.blank? || tab == 'infos') %>" href="?tab=infos">Vos
+              informations</a>
+          </li>
+          <li class="nav-item">
+            <a class="<%= class_names("nav-link", active: tab == 'preferences') %>" href="?tab=preferences">Préférences
+              d'alertes</a>
+          </li>
+          <li class="nav-item">
+            <a class="<%= class_names("nav-link", active: tab == 'rdv') %>" href="?tab=rdv">Propositions de
+              rendez-vous</a>
+          </li>
+          <li class="nav-item">
+            <a class="<%= class_names("nav-link", active: tab == 'data') %>" href="?tab=data">Données personnelles</a>
+          </li>
+        </ul>
 
-        <%= f.input :address, label: "Adresse", error: "Adresse requise", placeholder: "Choisir une nouvelle adresse" %>
-
-        <small class="form-text text-muted mb-2">
-          Pour des raisons de protection des données personnelles, nous ne stockons pas votre adresse. Nous gardons
-          seulement une représentation de votre adresse sous la forme d'une coordonnée GPS (latitude/longitude),
-          randomisée à +/- 100 mètres.
-          <br/>
-          Si vous souhaitez modifier cette donnée, entrez une nouvelle adresse et cliquez sur "Je modifie mes
-          informations".
-        </small>
-
-        <%- if @user.lat.nil? || @user.lon.nil? %>
-          <div class="alert alert-danger mb-4 small" role="alert" style="position: inherit">
-            Nous n'avons pas pu géolocaliser l'adresse que vous avez renseignée lors de votre inscription.
-            Sans cette information, il nous sera impossible de vous mettre en relation avec l'un de nos centres
-            partenaires à proximité.
-            Merci de renseigner votre adresse une nouvelle fois.
-          </div>
-        <% else %>
-          <div class="mt-4 mb-4"
-               id="user_map"
-               style="height: 250px;"
-               data-lat="<%= @user.lat %>"
-               data-lon="<%= @user.lon %>"
-          >
-          </div>
+        <% if tab.blank? || tab == "infos" %>
+          <%= render partial: 'user_infos', locals: {user: @user} %>
+        <% elsif tab == "preferences" %>
+          <%= render partial: 'alerting_preferences', locals: {user: @user} %>
+        <% elsif tab == "rdv" %>
+          <%= render partial: 'matches_or_alerts', locals: {user: @user} %>
+        <% elsif tab == "data" %>
+          <%= render partial: 'personal_data', locals: {user: @user} %>
         <% end %>
+      </div>
 
-        <%= f.input_field :lat, as: :hidden %>
-        <%= f.input_field :lon, as: :hidden %>
-        <%= f.input :email, disabled: true, label: "Email", error: f.error(:email), placeholder: "jean@dupont.com" %>
-        <%= f.input :phone_number, label: "Numéro de téléphone", error: "", placeholder: "06 06 06 06 06" %>
-        <%= render partial: "input_statement", locals: {f: f, local_cgu_path: cgu_volontaires_path} %>
-
-        <% if @user.matches.confirmed.any? %>
-          <div class="alert alert-primary">
-            Vous ne pouvez pas modifier votre compte actuellement car vous avez confirmé un rendez-vous de
-            vaccination.<br/>
-            Votre profil sera anonymisé quelques jours après le RDV.
-          </div>
-        <% elsif @user.matches.pending.any? %>
-          <div class="alert alert-primary">
-            Vous ne pouvez pas modifier vos informations actuellement car vous avez une proposition rendez vous de
-            vaccination en cours.<br/>
-            Si vous ne confirmez pas le RDV, vous pourrez de nouveau modifier vos informations à partir du
-            <%= l(@user.matches.pending.maximum(:expires_at)) %>.<br/>
-          </div>
-        <% end %>
-        <%= f.button :submit, "Je modifie mes informations", class: "btn btn-primary", data: {disable_with: "Validation..."} %>
-      <% end %>
-      <%= render partial: "mentions" %>
-
-      <%- @matches = @user.matches.includes([:campaign, :vaccination_center]).order(id: :desc) %>
-      <% if @matches.any? %>
-        <hr class="my-4"/>
-
-        <p class="mt-4">
-          <strong>Vos propositions de RDV</strong>
-        </p>
-
-        <div class="table-responsive">
-          <table class="table table-bordered table-sm small text-center" aria-describedby="Vos propositions de RDV">
-            <thead class="thead-light">
-            <tr>
-              <th scope="col"> Vaccin</th>
-              <th scope="col"> Lieu</th>
-              <th scope="col"> Notification</th>
-              <th scope="col"> État</th>
-            </tr>
-            </thead>
-            <tbody>
-            <% @matches.order(id: :desc).each do |match| %>
-              <% vaccination_center = match.vaccination_center %>
-              <tr>
-                <td> <%= match.campaign&.vaccine_type.capitalize %> </td>
-                <td data-toggle="tooltip" title="<%= "#{vaccination_center.human_friendly_geo_area}" if vaccination_center.human_friendly_geo_area %>">
-                  <%= icon("fas", "map-marked-alt") if vaccination_center.human_friendly_geo_area %>
-                </td>
-                <td>
-                  <% if match.mail_sent_at %>
-                    Mail envoyé le <%= l match.mail_sent_at %><br />
-                  <% end %>
-                  <% if match.sms_sent_at %>
-                    SMS envoyé le <%= l match.sms_sent_at %><br />
-                  <% end %>
-                </td>
-                <td>
-                  <% if match.confirmed? %>
-                    <abbr title="RDV confirmé le <%= l match.confirmed_at %>" data-toggle="tooltip">Confirmée</abbr>
-                  <% elsif match.refused? %>
-                    <abbr title="RDV refusée le <%= l match.refused_at %>" data-toggle="tooltip">Refusée</abbr>
-                  <% elsif match.expired? %>
-                    <abbr title="Proposition de RDV expirée le <%= l match.expires_at %>" data-toggle="tooltip">Expirée</abbr>
-                  <% elsif !match.confirmable? %>
-                    <abbr title="Proposition de RDV expirée" data-toggle="tooltip">Expirée</abbr>
-                  <% elsif !match.expired? %>
-                    <abbr title="Proposition de RDV en attente de réponse" data-toggle="tooltip">En attente</abbr>
-                  <% end %>
-                </td>
-              </tr>
-            <% end %>
-            </tbody>
-          </table>
-        </div>
-      <% end %>
-      <hr class="my-4"/>
-
-      <p class="mt-4">
-        <strong>Données personnelles :</strong>
-      </p>
-
-      <p class="mt-3">
-        Vous souhaitez vérifier vos données personnelles ?
-        <%= link_to "Télécharger mes données (CSV)", profile_path(format: :csv) %>
-      </p>
-
-      <p class="mt-3">
-        Vous souhaitez supprimer votre compte ?<br/>
-        <% if @user.matches.confirmed.any? %>
-          <div class="alert alert-primary">
-            Vous ne pouvez pas supprimer votre compte actuellement car vous avez confirmé un rendez-vous de
-            vaccination.<br/>
-            Votre profil sera anonymisé quelques jours après le RDV.
-          </div>
-        <% end %>
-      <%= link_to "Supprimer mon compte", confirm_destroy_profile_path, class: 'btn btn-danger' %>
-      <hr class="my-4"/>
-
-      <%= button_to "Se déconnecter", destroy_user_session_path, method: :delete, class: "btn btn-warning" %>
     </div>
   </div>
 </div>

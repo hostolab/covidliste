@@ -1,3 +1,4 @@
+<% authentication_token = @alert.user.signed_id(purpose: "users.destroy", expires_in: 7.days) %>
 <mj-section padding-top="15px" padding-bottom="15px">
   <mj-column>
     <mj-text padding-bottom="0px">
@@ -9,7 +10,7 @@
       <br />
       Si c'est le cas nous vous invitons à supprimer votre compte Covidliste.
     </mj-text>
-    <mj-button href="<%= edit_slot_alerts_users_url(token: @alert_token) %>" padding-bottom="20px">
+    <mj-button href="<%= confirm_destroy_profile_url(authentication_token: authentication_token) %>" padding-bottom="20px">
       Supprimer mon compte
     </mj-button>
     <mj-text>

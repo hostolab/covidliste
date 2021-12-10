@@ -27,6 +27,18 @@ RSpec.describe Match, type: :model do
       expect(match.geo_context).to eq "GEO_CONTEXT"
     end
 
+    it "should increment user matches count" do
+      user = create(:user,
+        birthdate: Time.now.utc.to_date - 60.years,
+        zipcode: "75001",
+        city: "Paris",
+        geo_citycode: "75001",
+        geo_context: "GEO_CONTEXT")
+      create(:match, user: user)
+      user.reload
+      expect(user.matches_count).to eq(1)
+    end
+
     context "same campaign" do
       let(:user) { create(:user) }
       before do
@@ -40,7 +52,7 @@ RSpec.describe Match, type: :model do
     context "user has already too many matches" do
       let(:user) { create(:user) }
       before do
-        5.times.each do |i|
+        10.times.each do |i|
           create(:match, user: user)
         end
       end
@@ -56,6 +68,8 @@ RSpec.describe Match, type: :model do
       match = create(:match, user: user)
       match.confirm!
       expect(match.confirmed?).to be true
+      user.reload
+      expect(user.match_confirmed_at).not_to be_nil
     end
 
     context "When the match itself is already confirmed" do

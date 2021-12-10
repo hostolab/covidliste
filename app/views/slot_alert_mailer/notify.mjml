@@ -1,14 +1,15 @@
 <%- distance = distance_delta({lat: @alert.user.lat, lon: @alert.user.lon}, {lat: @slot.latitude, lon: @slot.longitude}) %>
+<% authentication_token = @alert.user.signed_id(purpose: "users.destroy", expires_in: 7.days) %>
 <mj-section padding-top="15px" padding-bottom="0px">
   <mj-column>
     <mj-text padding-bottom="0px">
-      <h1>Covidliste vous alerte aussi de rendez-vous disponibles.</h1>
-      <br />
-      Nous avons trouvé un centre situé à <%= distance[:delta_in_words] %> de chez vous qui dispose de rendez-vous de vaccination:
+      <h1>
+       <%= "#{@slot.slots_count} créneaux sont disponibles à #{distance[:delta_in_words]}" %>
+      </h1>
     </mj-text>
   </mj-column>
 </mj-section>
-<mj-section padding-top="0px" padding-bottom="0px">
+<mj-section padding-top="40px" padding-bottom="20px">
   <mj-column>
     <mj-table>
       <tr>
@@ -34,28 +35,47 @@
     </mj-table>
   </mj-column>
 </mj-section>
-<mj-section padding-top="0px" padding-bottom="15px">
+<mj-section padding-top="15px" padding-bottom="15px">
   <mj-column>
     <mj-button href="<%= slot_alert_url(token: @alert_token) %>" padding-bottom="0px">
       Réserver mon rendez-vous
     </mj-button>
-    <mj-text>
+    <mj-text padding-top="20px" padding-bottom="0px">
       <strong>Si le lien ne fonctionne pas</strong>, copiez et collez l’adresse suivante dans votre navigateur :
       <br />
       <%= slot_alert_url(token: @alert_token) %>
       <br />
-      <br />
-      <strong>Vous ne souhaitez plus être informé de doses ou de créneaux disponibles ?</strong>
-      <br />
-      <strong>
-        <%= link_to "Supprimer mon compte", edit_slot_alerts_users_url(token: @alert_token) %>
-      </strong>
     </mj-text>
+
     <mj-text padding-top="20px" padding-bottom="0px">
-      <h1>Et si j'arrive trop tard ?</h1>
-      <br />
-      Si vous n'arrivez pas à réserver un créneau ne vous inquiétez pas. Covidliste continue à vous notifier dès qu'une dose sur le point d'être perdue est disponible près de chez vous !
+      Si vous n’arrivez pas à réserver un créneau ne vous inquiétez pas.
+      Covidliste continue à vous notifier dès qu’une dose est sur le point d’être perdue est disponible près de chez vous !
     </mj-text>
+
+    <mj-text padding-top="20px" padding-bottom="0px">
+      <h1>Vous souhaitez modifier vos paramètres d'alertes?</h1>
+      <br /> 
+      <strong>
+        <%= link_to "Accéder à mon compte", users_magic_link_url({user: {email: @user.email, token: @passwordless_token}}) %>
+      </strong>  
+      <br /> 
+      <br /> 
+    </mj-text>
+
+    <mj-text padding-top="20px" padding-bottom="0px">
+      <h1>Vous ne souhaitez plus être informé de doses disponibles ?</h1>
+      <br /> 
+      <strong>
+        <%= link_to "Supprimer mon compte", confirm_destroy_profile_url(authentication_token: authentication_token) %>
+      </strong>  
+      <br /> 
+      <br /> 
+    </mj-text>
+
+    <mj-text padding-top="20px" padding-bottom="20px">
+      <p class='small'>Cette alerte vous a été envoyée grâce aux données mises à disposition par Vite Ma Dose.</p> 
+    </mj-text>
+
     <%= render partial: "mailer/social_networks", formats: [:html] %>
   </mj-column>  
 </mj-section>

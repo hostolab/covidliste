@@ -1,7 +1,9 @@
 require "rails_helper"
 
-RSpec.describe VaccinationCenter, type: :model do
+describe VaccinationCenter, type: :model do
   let(:vaccination_center) { build(:vaccination_center, :from_paris) }
+
+  it_behaves_like "a resource with a settable timezone"
 
   describe "validations" do
     context "when vaccination center has no lat neither lon" do

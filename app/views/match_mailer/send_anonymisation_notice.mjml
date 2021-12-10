@@ -42,10 +42,6 @@
       <p>
         <strong>Parlez-nous de votre expérience Covidliste</strong> : <%= link_to "Témoigner", "https://form.typeform.com/to/rHTAEqUZ", target: "_blank" %>
       </p>
-      <p>
-        <strong>Nous lançons un appel aux dons !</strong>
-        <%= link_to "Contribuer à partir d’1€", "https://fr.ulule.com/projects/129093/checkout/", target: "_blank" %>.
-      </p>
     </mj-text>
     <%= render partial: "mailer/social_networks", formats: [:html] %>
   </mj-column>
