@@ -380,7 +380,7 @@ GEM
       rails (>= 3.2)
       rainbow (~> 3.0)
       webpacker (>= 4.0)
-    redis (4.2.5)
+    redis (4.5.1)
     redlock (1.2.1)
       redis (>= 3.0.0, < 5.0)
     regexp_parser (2.1.1)
@@ -449,11 +449,10 @@ GEM
     sib-api-v3-sdk (7.4.0)
       json (~> 2.1, >= 2.1.0)
       typhoeus (~> 1.0, >= 1.0.1)
-    sidekiq (5.2.5)
-      connection_pool (~> 2.2, >= 2.2.2)
-      rack (>= 1.5.0)
-      rack-protection (>= 1.5.0)
-      redis (>= 3.3.5, < 5)
+    sidekiq (6.4.0)
+      connection_pool (>= 2.2.2)
+      rack (~> 2.0)
+      redis (>= 4.2.0)
     sidekiq-cron (1.2.0)
       fugit (~> 1.1)
       sidekiq (>= 4.2.1)
@@ -611,7 +610,7 @@ DEPENDENCIES
   sass-rails (>= 6)
   selenium-webdriver
   sib-api-v3-sdk
-  sidekiq (= 5.2.5)
+  sidekiq (= 6.4.0)
   sidekiq-cron
   sidekiq-failures
   simple_form
