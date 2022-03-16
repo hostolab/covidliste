@@ -1,0 +1,56 @@
+<mj-section padding-bottom="15px" padding-top="15px">
+  <mj-column>
+    <mj-text padding-bottom="0px">
+      <h1>Covidliste est en pause, nous vous avons désinscrit automatiquement.</h1>
+      <br/>
+      La tension vaccinale étant réduite, le service Covidliste est en pause.
+      Il n'est plus possible de s'inscrire, ni d'obtenir de rendez-vous. <br>
+      Pour protéger vos données personnelles, nous avons supprimé votre compte, et anonymisé vos données.
+    </mj-text>
+
+    <mj-text>
+      <strong> Vous ne serez plus averti lorsqu'un vaccin est disponible.</strong> <br>
+      Vous ne recevrez plus de mails ni de sms de notre part.
+    </mj-text>
+    <mj-text padding-top="15px" padding-bottom="0px">
+      <strong>Vous cherchez toujours un vaccin ?</strong> <br>
+      Nous vous conseillons de vous tourner vers les canaux traditionels, avec <a
+      href="https://vitemadose.covidtracker.fr/">Vitemadose</a>,
+      vous aurez toutes les chances d'obtenir une dose rapidement. <br>
+    </mj-text>
+    <mj-text padding-bottom="0px">
+      <b>Vous souhaitez avoir des nouvelles de Covidliste, et être au courant si nous relançons le service ? <br>
+        Suivez-nous sur :</b>
+    </mj-text>
+    <mj-social
+      font-size="15px"
+      icon-size="30px"
+      mode="horizontal"
+      align="left"
+      padding-top="0px"
+      padding-bottom="0px"
+    >
+      <mj-social-element
+        name="twitter"
+        alt="twitter-logo"
+        src="https://covidliste-files.s3.fr-par.scw.cloud/images/twitter.png"
+        href="https://twitter.com/covidliste"
+      ></mj-social-element>
+      <mj-social-element
+        name="facebook"
+        alt="facebook-logo"
+        src="https://covidliste-files.s3.fr-par.scw.cloud/images/facebook.png"
+        href="https://www.facebook.com/covidliste"
+      ></mj-social-element>
+      <mj-social-element
+        name="instagram"
+        alt="instagram-logo"
+        src="https://covidliste-files.s3.fr-par.scw.cloud/images/instagram.png"
+        href="https://www.instagram.com/covidliste/"
+      ></mj-social-element>
+    </mj-social>
+    <mj-text padding-top="0px" padding-bottom="0px">
+      <%= link_to "www.covidliste.com", "https://www.covidliste.com" %>
+    </mj-text>
+  </mj-column>
+</mj-section>
