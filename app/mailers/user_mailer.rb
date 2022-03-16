@@ -22,6 +22,15 @@ class UserMailer < ApplicationMailer
 
     return if user_email.blank?
 
+    if Flipper.enabled?(:pause_service)
+      mail(
+        to: user_email,
+        subject: "Nous avons supprimé votre compte Covidliste",
+        template_name: "send_inactive_user_anonymization_notice_service_paused"
+      )
+      return
+    end
+
     mail(
       to: user_email,
       subject: "Nous avons supprimé votre compte Covidliste"
