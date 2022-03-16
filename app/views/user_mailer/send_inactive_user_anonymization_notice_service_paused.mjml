@@ -19,8 +19,10 @@
       vous aurez toutes les chances d'obtenir une dose rapidement. <br>
     </mj-text>
     <mj-text padding-bottom="0px">
-      <b>Vous souhaitez avoir des nouvelles de Covidliste, et être au courant si nous relançons le service ? <br>
-        Suivez-nous sur :</b>
+      <strong>
+        Vous souhaitez avoir des nouvelles de Covidliste, et être au courant si nous relançons le service ? <br>
+        Suivez-nous sur :
+      </strong>
     </mj-text>
     <mj-social
       font-size="15px"
