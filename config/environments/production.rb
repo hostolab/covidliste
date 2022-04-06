@@ -113,6 +113,9 @@ Rails.application.configure do
     password: ENV["SMTP_PASSWORD"]
   }
 
+  config.action_mailbox.ingress = :postmark
+  config.action_mailbox.queues.routing = :low
+
   config.force_ssl = true
   config.ssl_options = {hsts: {subdomains: true, preload: true, expires: 1.year}}
 
