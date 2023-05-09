@@ -1,4 +1,4 @@
-<%- if Flipper.enabled?(:pause_service) %>
+<%- if Flipper.enabled?(:pause_service) or ENV["STATIC_SITE_GEN"]%>
   <div class="card bg-light mb-3" style="">
     <div class="card-body">
       <h5 class="card-title">Covidliste est en pause. Merci d'avoir été à nos côtés !</h5>

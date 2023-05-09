@@ -44,7 +44,7 @@ class PartnersController < ApplicationController
 
   def create
     @partner = Partner.new(partner_params)
-    if Flipper.enabled?(:pause_service)
+    if Flipper.enabled?(:pause_service) or ENV["STATIC_SITE_GEN"]
       flash.now[:error] = "Le service est en pause. La création de compte est désactivée."
       return render action: :new, status: :unprocessable_entity
     end

@@ -16,9 +16,11 @@
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav ml-auto">
       <% if !current_partner %>
+      <% if !ENV["STATIC_SITE_GEN"] %>
         <li class="<%= class_names("nav-item", active: current_page?(carte_path)) %>">
           <%= link_to "Carte", carte_path, class: "nav-link" %>
         </li>
+      <% end %>
         <li class="<%= class_names("nav-item", active: current_page?(faq_path)) %>">
           <%= link_to "Foire aux questions", faq_path, class: "nav-link" %>
         </li>
@@ -72,7 +74,7 @@
               <%= link_to "Déconnexion", destroy_partner_session_path, method: :delete, class: "dropdown-item" %>
             </div>
           </li>
-        <% else %>
+        <% elsif !ENV["STATIC_SITE_GEN"] %>
           <li class="<%= class_names("nav-item", "dropdown", active: current_page?(new_user_session_path) || current_page?(new_partner_session_path)) %>">
             <%= link_to "", class: "nav-link dropdown-toggle btn btn-primary font-weight-bold#{@page_pro ? " text-white" : ""}", id: "dropdown11", "aria-expanded": "false", "aria-haspopup": "true", "data-toggle": "dropdown" do %>
               Se connecter

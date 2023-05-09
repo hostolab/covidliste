@@ -22,7 +22,7 @@ module Partners
 
     def create
       @vaccination_center = VaccinationCenter.new(vaccination_center_params)
-      if Flipper.enabled?(:pause_service)
+      if Flipper.enabled?(:pause_service) or ENV["STATIC_SITE_GEN"]
         flash.now[:error] = "Le service est en pause. La création de lieux de vaccination est désactivée."
         return render action: :new, status: :unprocessable_entity
       end

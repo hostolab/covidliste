@@ -2,7 +2,7 @@ class SendSlotAlertsForUsersJob < ApplicationJob
   queue_as :default
 
   def perform
-    return if Flipper.enabled?(:pause_service)
+    return if Flipper.enabled?(:pause_service) or ENV["STATIC_SITE_GEN"]
 
     User.active.where(alerting_intensity: 3).find_each do |user|
       slot = VmdSlot

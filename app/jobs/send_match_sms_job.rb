@@ -4,7 +4,7 @@ class SendMatchSmsJob < ApplicationJob
 
   def perform(match_id)
     match = Match.find(match_id)
-    return if Flipper.enabled?(:pause_service)
+    return if Flipper.enabled?(:pause_service) or ENV["STATIC_SITE_GEN"]
 
     return unless match.sms_notification_needed?
 

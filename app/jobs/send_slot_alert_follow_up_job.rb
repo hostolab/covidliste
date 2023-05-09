@@ -2,7 +2,7 @@ class SendSlotAlertFollowUpJob < ApplicationJob
   queue_as :mailers
 
   def perform(alert_id)
-    return if Flipper.enabled?(:pause_service)
+    return if Flipper.enabled?(:pause_service) or ENV["STATIC_SITE_GEN"]
     alert = SlotAlert.find(alert_id)
 
     return unless alert.sent_at

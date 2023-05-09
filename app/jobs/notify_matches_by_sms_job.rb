@@ -6,7 +6,7 @@ class NotifyMatchesBySmsJob < ApplicationJob
   def perform(campaign_id)
     Rails.logger.info("Run NotifyMatchesBySmsJob for campaign_id #{campaign_id}")
     campaign = Campaign.find(campaign_id)
-    return if Flipper.enabled?(:pause_service)
+    return if Flipper.enabled?(:pause_service) or ENV["STATIC_SITE_GEN"]
     return unless campaign.running?
     return if campaign.ends_at > LEAD_TIME.from_now # do not send any SMS X minutes before campaign ends
     return if campaign.sms_budget_remaining <= 0

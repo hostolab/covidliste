@@ -61,7 +61,7 @@
       <% end %>
     </div>
   </div>
-  <%- if Flipper.enabled?(:pause_service) %>
+  <%- if Flipper.enabled?(:pause_service) or ENV["STATIC_SITE_GEN"]%>
     <div class="alert alert-dark mb-4 small" role="alert">
       Covidliste est en pause, la création de campagne est désactivée. À bientôt !
     </div>
