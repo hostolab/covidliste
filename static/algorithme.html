@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+  <title>Covidliste, comment ça marche ?</title>
+<meta name="description" content="Découvrez le fonctionnement de notre algorithme."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="http://localhost:3000/algorithme.html"/>
+<meta property="og:title" content="Covidliste, comment ça marche ?"/>
+<meta property="og:description" content="Découvrez le fonctionnement de notre algorithme."/>
+<meta property="og:image" content="http://localhost:3000/assets/meta/algo-1ed7d8b8b9ab29612d672c3f7066e1c845a22d63c1d339abe5304d585003752f.png"/>
+<meta property="twitter:card" content="summary_large_image"/>
+<meta property="twitter:url" content="http://localhost:3000/algorithme.html"/>
+<meta property="twitter:title" content="Covidliste, comment ça marche ?"/>
+<meta property="twitter:description" content="Découvrez le fonctionnement de notre algorithme."/>
+<meta property="twitter:image" content="http://localhost:3000/assets/meta/algo-1ed7d8b8b9ab29612d672c3f7066e1c845a22d63c1d339abe5304d585003752f.png"/>
+
+  <meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="GsY48r57eXly0LyHyh8a93ANvaj0RZJH8Cj1LWOCelLvWoHnyClqp4VzMnCg3uY6XWxktOBqk9S47gN6Q0R61Q" />
+  
+  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+  
+  <meta content="index;follow" name="robots"/>
+
+  <link rel="stylesheet" media="all" href="/assets/application-579affec893eed8cb81739e62c74f5e2d0d6bddf4460195e120da8d045e9af9c.css" data-turbolinks-track="reload" />
+  <script src="/packs/js/application-985e65316d409d1cd5d3.js" data-turbolinks-track="reload" defer="defer" nonce="+aSSr3GYNB3yKTBnfHoJ0g=="></script>
+    <style>
+      img:not([alt]), img[alt=""] {
+          border: 5px dashed red;
+      }
+  </style>
+
+</head>
+<body>
+<div class="layout">
+  <div class="layout__above-footer">
+    <!-- banner model to render in application layout if needed -->
+<div class="bg-light">
+  <div class="container py-2">
+    <div class="d-flex align-items-center justify-content-center flex-column flex-md-row font-weight-light text-center">
+      <span>La tension vaccinale est réduite : Covidliste est en pause 👋.</span>
+      <a target="_blank" class="text-decoration-underline text-primary mt-1 mt-md-0 ml-md-2" href="https://twitter.com/covidliste/">
+        Suivez-nous sur Twitter<i class="fas fa-chevron-right ml-2"></i>
+</a>    </div>
+  </div>
+</div>
+
+    
+    <nav class="navbar navbar-expand-xl px-lg-0 navbar-dark bg-theme">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <img height="40" width="32" loading="lazy" class="mr-2" alt="logo covidliste" src="/assets/covidliste-logo-1c771fa067965c5624376f9c3064eb6a1a08b3c0a91c36413747aaafba6d0b00.svg" />
+      <span class="font-weight-bolder">Covidliste</span>
+</a>
+    <button class="navbar-toggler" type="button" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation" data-target="#navbarNavDropdown" data-toggle="collapse">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/faq.html">Foire aux questions</a>
+        </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/pro.html">Professionnels de santé</a>
+          </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#dropdownHelpers" role="button" aria-haspopup="true" aria-expanded="false">Ils nous aident</a>
+          <div class="dropdown-menu" aria-labelledby="dropdownHelpers">
+            <a class="dropdown-item" href="/donateurs.html">Donateurs</a>
+            <a class="dropdown-item" href="/sponsors.html">Sponsors</a>
+            <a class="dropdown-item" href="/benevoles.html">Bénévoles</a>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="layout__content ">
+      
+      
+
+
+
+
+<div class="container">
+  <p>
+    <strong>
+      Algorithme de sélection des volontaires
+    </strong>
+  </p>
+
+  <p>Le centre de vaccination choisit, lors de la création de la campagne, les paramètres suivants :</p>
+
+<ul>
+  <li>la distance en km par rapport au centre de vaccination,</li>
+  <li>la tranche d’âge des volontaires,</li>
+  <li>le nombre de doses disponibles.</li>
+</ul>
+
+<p>Les volontaires sélectionné(e)s doivent remplir les critères suivants :</p>
+
+<ul>
+  <li>Le compte du volontaire doit être confirmé.</li>
+  <li>L’adresse déclarée par le volontaire doit se trouver à une distance inférieure à la distance choisie par le centre de vaccination.</li>
+  <li>L’âge déclaré du volontaire doit être dans la tranche d’âge choisie par le centre de vaccination.</li>
+  <li>Le volontaire ne doit pas avoir été contacté récemment.</li>
+</ul>
+
+<p>Les volontaires sélectionné(e)s sont ensuite ordonné(e)s pour optimiser nos chances d’avoir une réponse.</p>
+
+<p>Nous rentrons en contact avec chaque volontaire sélectionné(e) à hauteur des doses disponibles plus un facteur dit “d’overbooking” jusqu’à ce que toutes les doses disponibles soient réservées.</p>
+
+<p>Si vous êtes développeur, et que vous souhaitez consulter l’algorithme utilisé,
+celui-ci est disponible sur le
+<a target="_blank" rel="noopener" href="https://github.com/hostolab/covidliste">GitHub du projet</a>.</p>
+
+
+</div>
+
+    </div>
+  </div>
+  <div class="layout__footer">
+    <footer class="navbar text-lg-start small px-0 shadow-lg navbar-dark bg-light">
+  <div class="container p-4">
+    <div class="row w-100">
+      <div class="col-lg-4 col-md-12 mb-4 mb-md-0">
+        <div class="d-flex align-items-start mb-4">
+          <div class="h4 font-weight-bolder text-dark">Covidliste</div>
+        </div>
+        <p class="text-dark" style="max-width: 400px">
+          Une initiative citoyenne portée par
+          des <a class="text-dark text-decoration-underline" href="/benevoles.html">bénévoles</a>
+          dans le but d'accélerer la campagne vaccinale contre la COVID-19 <strong>#aucunedoseperdue</strong>
+        </p>
+      </div>
+
+      <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+        <ul class="list-unstyled mb-0">
+          <li>
+            <a class="text-dark d-inline-flex" href="/donateurs.html">Donateurs</a>
+          </li>
+          <li>
+            <a class="text-dark mt-2 d-inline-flex" href="/sponsors.html">Sponsors</a>
+          </li>
+          <li>
+            <a class="text-dark mt-2 d-inline-flex" href="/benevoles.html">Bénévoles</a>
+          </li>
+          <li>
+            <a class="text-dark mt-2 d-inline-flex" href="https://blog.covidliste.com/">Blog</a>
+          </li>
+          <li>
+            <a class="text-dark mt-2 d-inline-flex" href="/presse.html">Presse</a>
+          </li>
+          <li>
+            <a class="text-dark mt-2 d-inline-flex" href="/algorithme.html">Algorithme de sélection</a>
+          </li>
+          <li>
+            <a class="text-dark mt-2 d-inline-flex" href="/faq.html">Foire aux questions</a>
+          </li>
+          <li>
+            <a class="text-dark mt-2 d-inline-flex" href="/contact.html">Contact</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+        <ul class="list-unstyled mb-0">
+          <li>
+            <a class="text-dark d-inline-flex" href="/mentions_legales.html">Mentions légales</a>
+          </li>
+          <li>
+            <a class="text-dark mt-2 d-inline-flex" href="/cookies.html">Politique cookies</a>
+          </li>
+          <li>
+            <a class="text-dark mt-2 d-inline-flex" href="/cgu_volontaires.html">CGU - Volontaires non vaccinés</a>
+          </li>
+          <li>
+            <a class="text-dark mt-2 d-inline-flex" href="/cgu_pro.html">CGU - Professionnels de santé</a>
+          </li>
+          <li>
+            <a class="text-dark mt-2 d-inline-flex" href="/privacy_volontaires.html">Politique de protection des données personnelles - Volontaires non vaccinés</a>
+          </li>
+          <li>
+            <a class="text-dark mt-2 d-inline-flex" href="/privacy_pro.html">Politique de protection des données personnelles - Professionnels de santé</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="col-lg-2 col-md-6 mt-3 mt-md-0">
+        <ul class="list-unstyled mb-0">
+          <li>
+            <i class="fab fa-github text-dark mr-2"></i>
+            <a class="text-dark d-inline-flex" target="_blank" rel="noopener" href="https://github.com/hostolab/covidliste">GitHub</a>
+          </li>
+          <li>
+            <i class="fab fa-twitter text-dark mr-2"></i>
+            <a class="text-dark mt-2 d-inline-flex" target="_blank" rel="noopener" href="https://twitter.com/covidliste">Twitter</a>
+          </li>
+           <li>
+            <i class="fab fa-facebook text-dark mr-2"></i>
+            <a class="text-dark mt-2 d-inline-flex" target="_blank" rel="noopener" href="https://www.facebook.com/covidliste">Facebook</a>
+          </li>
+           <li>
+            <i class="fab fa-instagram text-dark mr-2"></i>
+            <a class="text-dark mt-2 d-inline-flex" target="_blank" rel="noopener" href="https://www.instagram.com/covidliste/">Instagram</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  </div>
+</div>
+
+<script async type="text/javascript" id="mini-profiler" src="/mini-profiler-resources/includes.js?v=8cccf9fed3d62814b1d70f252554501b" data-css-url="/mini-profiler-resources/includes.css?v=8cccf9fed3d62814b1d70f252554501b" data-version="8cccf9fed3d62814b1d70f252554501b" data-path="/mini-profiler-resources/" data-current-id="36hq5iy88q93v7slc0jo" data-ids="36hq5iy88q93v7slc0jo,6t2wssig3ynx95xlwbkg,uz26dtkx6y0i7zdynw0f,slypxjlvfwqpajz0eoqg,aws2ow7dqbnx0s4akhf7,7s7rgupa960rngp1mqmu,8hdv9jehluj06fbkx9k6,7q8e6vkdhr2ztvn9njiu,krzjuna5vta9uob6td3i,elob8r5ovvxpqbablew5,bsrspbeetonl54rjjylt,qsdlv5md0zhskbk3f65d,i1gqlj34fmqymzin1z6v,lmr7rbctxe1sv7zj4k2u,p4vs9mymplyo5r0cuk7b,tay0akvbpp4yr6aydj2o,urcuu1mnma9fl6y3hfp7,8wbbg9wdkk73dnlx46jl,f4sxnjerikg82w7evcos,71mxzkuicqhlvtize2v" data-horizontal-position="left" data-vertical-position="top" data-trivial="false" data-children="false" data-max-traces="20" data-controls="false" data-total-sql-count="false" data-authorized="true" data-toggle-shortcut="alt+p" data-start-hidden="false" data-collapse-results="true" data-html-container="body" data-hidden-custom-fields=""></script>
+</body>
+</html>

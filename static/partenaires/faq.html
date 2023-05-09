@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+  <title>Covidliste - Sauvons nos doses de vaccin 💉</title>
+<meta name="description" content="Soyez alertés si une dose est disponible près de chez vous."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="http://localhost:3000/partenaires/faq.html"/>
+<meta property="og:title" content="Covidliste - Sauvons nos doses de vaccin 💉"/>
+<meta property="og:description" content="Soyez alertés si une dose est disponible près de chez vous."/>
+<meta property="og:image" content="http://localhost:3000/assets/meta/main-67e0944f331dcd834b9480a528e938fa8ec71a95f54fc305c170ab8c8331b1b8.png"/>
+<meta property="twitter:card" content="summary_large_image"/>
+<meta property="twitter:url" content="http://localhost:3000/partenaires/faq.html"/>
+<meta property="twitter:title" content="Covidliste - Sauvons nos doses de vaccin 💉"/>
+<meta property="twitter:description" content="Soyez alertés si une dose est disponible près de chez vous."/>
+<meta property="twitter:image" content="http://localhost:3000/assets/meta/main-67e0944f331dcd834b9480a528e938fa8ec71a95f54fc305c170ab8c8331b1b8.png"/>
+
+  <meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="2_F8s43H8TXdUz5pgKF3Ed3zF4T0hTKGa2SpS9FkN0kubcWm-5Xi6yrwsJ7qYIvc8JLOmOCqMxUjol8c8aI3zg" />
+  
+  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+  
+  <meta content="index;follow" name="robots"/>
+
+  <link rel="stylesheet" media="all" href="/assets/application-579affec893eed8cb81739e62c74f5e2d0d6bddf4460195e120da8d045e9af9c.css" data-turbolinks-track="reload" />
+  <script src="/packs/js/application-985e65316d409d1cd5d3.js" data-turbolinks-track="reload" defer="defer" nonce="ptIsaqlLUPjEPfN8lrBzLA=="></script>
+    <style>
+      img:not([alt]), img[alt=""] {
+          border: 5px dashed red;
+      }
+  </style>
+
+</head>
+<body>
+<div class="layout">
+  <div class="layout__above-footer">
+    <!-- banner model to render in application layout if needed -->
+<div class="bg-light">
+  <div class="container py-2">
+    <div class="d-flex align-items-center justify-content-center flex-column flex-md-row font-weight-light text-center">
+      <span>La tension vaccinale est réduite : Covidliste est en pause 👋.</span>
+      <a target="_blank" class="text-decoration-underline text-primary mt-1 mt-md-0 ml-md-2" href="https://twitter.com/covidliste/">
+        Suivez-nous sur Twitter<i class="fas fa-chevron-right ml-2"></i>
+</a>    </div>
+  </div>
+</div>
+
+    
+    <nav class="navbar navbar-expand-xl px-lg-0 navbar-light bg-light">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <img height="40" width="32" loading="lazy" class="mr-2" alt="logo covidliste" src="/assets/covidliste-logo-reverse-3b8caf315564b626011f9b18ecbf015c89f5fe9faf936804c80921d23ec7503a.svg" />
+      <span class="font-weight-bolder">Covidliste</span>
+        <span class="badge align-top font-weight-light border text-dark border-dark" style="font-size: 0.66rem">Pro</span>
+        <span class="sr-only">Professionnels de santé</span>
+</a>
+    <button class="navbar-toggler" type="button" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation" data-target="#navbarNavDropdown" data-toggle="collapse">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/faq.html">Foire aux questions</a>
+        </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/pro.html">Professionnels de santé</a>
+          </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#dropdownHelpers" role="button" aria-haspopup="true" aria-expanded="false">Ils nous aident</a>
+          <div class="dropdown-menu" aria-labelledby="dropdownHelpers">
+            <a class="dropdown-item" href="/donateurs.html">Donateurs</a>
+            <a class="dropdown-item" href="/sponsors.html">Sponsors</a>
+            <a class="dropdown-item" href="/benevoles.html">Bénévoles</a>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="layout__content ">
+      
+      
+<div class="container" id="faq">
+  <div class="d-flex align-items-center mb-4">
+    <div class="rounded p-3 bg-light text-primary mr-3 h2">
+      <i class="fas fa-hospital-user"></i>
+    </div>
+    <h3>
+      Foire aux questions pour les professionnels de santé
+    </h3>
+  </div>
+
+  <p>
+    Vous trouverez sur cette page un ensemble de réponses aux questions les plus posées
+    pour les professionnels de santé, regroupées par thème.
+  </p>
+
+  <p class="mb-4">
+    Si vous n'êtes pas un professionnel de santé, consultez la
+    <a class="text-decoration-underline" href="/faq.html">foire aux questions pour les volontaires à la vaccination</a>.
+  </p>
+
+  <div id="fuzzy-search" data-fuzzy-search-source="/partenaires/faq.json" data-fuzzy-search-input="#search" data-fuzzy-search-none="#no-results" data-fuzzy-search-item-category=".faq-category" data-fuzzy-search-item=".faq-item" data-fuzzy-search-item-title=".faq-item--title">
+    <input type="search" name="search" id="search" placeholder="Saisissez un mot-clé pour trouver votre réponse" class="form-control string required" autocomplete="off" />
+    <div id="no-results" class="d-none alert alert-warning mt-2">Nous n’avons pas trouvé de réponse avec ces mots clefs, merci de reformuler votre demande.</div>
+    <div id="accordion" class="d-flex flex-column">
+        <h2 class="mt-5 mb-2 h4">Accès et compte professionnel de santé</h2>
+          <div class="mt-2 faq-item bg-white shadow-sm border border-light overflow-hidden" style="border-radius: 12px">
+  <h3 class="mb-0">
+    <button class="btn btn-link collapsed faq-item--title border-0 py-3 pl-3 pr-5"
+            data-toggle="collapse"
+            data-target="#collapse-je-suis-un-professionnel-de-sante-en-charge-de-la-vaccination-comment-acceder-a-votre-service"
+            aria-expanded="false"
+            aria-controls="collapse-je-suis-un-professionnel-de-sante-en-charge-de-la-vaccination-comment-acceder-a-votre-service">
+      Je suis un professionnel de santé en charge de la vaccination. Comment accéder à votre service ?
+    </button>
+  </h3>
+
+  <div id="collapse-je-suis-un-professionnel-de-sante-en-charge-de-la-vaccination-comment-acceder-a-votre-service"
+       class="collapse p-3"
+       aria-labelledby="collapse-je-suis-un-professionnel-de-sante-en-charge-de-la-vaccination-comment-acceder-a-votre-service"
+       data-parent="#accordion">
+    <p>Nous avons développé une interface de gestion automatisée des volontaires à la vaccination.</p>
+
+<p>Afin de référencer votre centre et obtenir un accès à notre interface, vous pouvez
+<a href="/partenaires/inscription.html">vous inscrire</a>.</p>
+
+<p>Si vous avez besoin d’accompagnement, nous vous invitons à contacter
+<a href="mailto:partenaires@covidliste.com">partenaires@covidliste.com</a>.</p>
+
+  </div>
+</div>
+
+          <div class="mt-2 faq-item bg-white shadow-sm border border-light overflow-hidden" style="border-radius: 12px">
+  <h3 class="mb-0">
+    <button class="btn btn-link collapsed faq-item--title border-0 py-3 pl-3 pr-5"
+            data-toggle="collapse"
+            data-target="#collapse-je-suis-un-professionnel-de-sante-et-je-n-arrive-pas-a-me-connecter-mon-email-n-est-pas-reconnu"
+            aria-expanded="false"
+            aria-controls="collapse-je-suis-un-professionnel-de-sante-et-je-n-arrive-pas-a-me-connecter-mon-email-n-est-pas-reconnu">
+      Je suis un professionnel de santé et je n’arrive pas à me connecter, mon email n’est pas reconnu
+    </button>
+  </h3>
+
+  <div id="collapse-je-suis-un-professionnel-de-sante-et-je-n-arrive-pas-a-me-connecter-mon-email-n-est-pas-reconnu"
+       class="collapse p-3"
+       aria-labelledby="collapse-je-suis-un-professionnel-de-sante-et-je-n-arrive-pas-a-me-connecter-mon-email-n-est-pas-reconnu"
+       data-parent="#accordion">
+    <p>Vérifiez que vous essayez de vous connecter sur
+<a href="/partners/login.html">l’espace professionnels de santé</a>
+et non comme volontaire à la vaccination.</p>
+
+  </div>
+</div>
+
+          <div class="mt-2 faq-item bg-white shadow-sm border border-light overflow-hidden" style="border-radius: 12px">
+  <h3 class="mb-0">
+    <button class="btn btn-link collapsed faq-item--title border-0 py-3 pl-3 pr-5"
+            data-toggle="collapse"
+            data-target="#collapse-nous-sommes-plusieurs-professionnels-a-vouloir-utiliser-covidliste-sur-un-meme-centre"
+            aria-expanded="false"
+            aria-controls="collapse-nous-sommes-plusieurs-professionnels-a-vouloir-utiliser-covidliste-sur-un-meme-centre">
+      Nous sommes plusieurs professionnels à vouloir utiliser Covidliste sur un même centre
+    </button>
+  </h3>
+
+  <div id="collapse-nous-sommes-plusieurs-professionnels-a-vouloir-utiliser-covidliste-sur-un-meme-centre"
+       class="collapse p-3"
+       aria-labelledby="collapse-nous-sommes-plusieurs-professionnels-a-vouloir-utiliser-covidliste-sur-un-meme-centre"
+       data-parent="#accordion">
+    <p>Chaque professionnel doit
+<a href="/partenaires/inscription.html">s’inscrire en tant que professionnel de santé</a>
+puis demander au référent du centre déjà créé de nous envoyer une demande d’ajout par email à
+<a href="mailto:partenaires@covidliste.com">partenaires@covidliste.com</a>
+en précisant l’adresse e-mail du professionnel de santé à ajouter.</p>
+
+<p><em>Vous ne devez pas re-créer le centre, puisqu’il existe déjà sur Covidliste.</em></p>
+
+  </div>
+</div>
+
+          <div class="mt-2 faq-item bg-white shadow-sm border border-light overflow-hidden" style="border-radius: 12px">
+  <h3 class="mb-0">
+    <button class="btn btn-link collapsed faq-item--title border-0 py-3 pl-3 pr-5"
+            data-toggle="collapse"
+            data-target="#collapse-je-n-ai-renseigne-qu-un-type-de-vaccin-sur-mon-centre-et-je-prevois-de-vacciner-avec-un-autre-type-prochainement"
+            aria-expanded="false"
+            aria-controls="collapse-je-n-ai-renseigne-qu-un-type-de-vaccin-sur-mon-centre-et-je-prevois-de-vacciner-avec-un-autre-type-prochainement">
+      Je n’ai renseigné qu’un type de vaccin sur mon centre et je prévois de vacciner avec un autre type prochainement
+    </button>
+  </h3>
+
+  <div id="collapse-je-n-ai-renseigne-qu-un-type-de-vaccin-sur-mon-centre-et-je-prevois-de-vacciner-avec-un-autre-type-prochainement"
+       class="collapse p-3"
+       aria-labelledby="collapse-je-n-ai-renseigne-qu-un-type-de-vaccin-sur-mon-centre-et-je-prevois-de-vacciner-avec-un-autre-type-prochainement"
+       data-parent="#accordion">
+    <p>Lors de la création d’une campagne, vous pouvez sélectionner le type de vaccin même s’il n’apparait pas
+dans les informations de votre centre. Il n’est pas nécessaire de créer un nouveau centre.</p>
+
+<p>Vous pouvez nous demander de mettre à jour votre fiche de centre en nous contactant par email sur
+<a href="mailto:partenaires@covidliste.com">partenaires@covidliste.com</a>.</p>
+
+  </div>
+</div>
+
+          <div class="mt-2 faq-item bg-white shadow-sm border border-light overflow-hidden" style="border-radius: 12px">
+  <h3 class="mb-0">
+    <button class="btn btn-link collapsed faq-item--title border-0 py-3 pl-3 pr-5"
+            data-toggle="collapse"
+            data-target="#collapse-je-souhaite-modifier-le-numero-de-telephone-de-mon-centre"
+            aria-expanded="false"
+            aria-controls="collapse-je-souhaite-modifier-le-numero-de-telephone-de-mon-centre">
+      Je souhaite modifier le numéro de téléphone de mon centre
+    </button>
+  </h3>
+
+  <div id="collapse-je-souhaite-modifier-le-numero-de-telephone-de-mon-centre"
+       class="collapse p-3"
+       aria-labelledby="collapse-je-souhaite-modifier-le-numero-de-telephone-de-mon-centre"
+       data-parent="#accordion">
+    <p>Vous pouvez nous demander de mettre à jour votre fiche de centre en nous contactant par email sur
+<a href="mailto:partenaires@covidliste.com">partenaires@covidliste.com</a>.</p>
+
+  </div>
+</div>
+
+        <h2 class="mt-5 mb-2 h4">Planification des campagnes</h2>
+          <div class="mt-2 faq-item bg-white shadow-sm border border-light overflow-hidden" style="border-radius: 12px">
+  <h3 class="mb-0">
+    <button class="btn btn-link collapsed faq-item--title border-0 py-3 pl-3 pr-5"
+            data-toggle="collapse"
+            data-target="#collapse-est-ce-qu-il-est-possible-de-proposer-des-doses-de-vaccins-sur-covidliste-un-ou-plusieurs-jours-a-l-avance"
+            aria-expanded="false"
+            aria-controls="collapse-est-ce-qu-il-est-possible-de-proposer-des-doses-de-vaccins-sur-covidliste-un-ou-plusieurs-jours-a-l-avance">
+      Est-ce qu’il est possible de proposer des doses de vaccins sur Covidliste un ou plusieurs jours à l’avance ?
+    </button>
+  </h3>
+
+  <div id="collapse-est-ce-qu-il-est-possible-de-proposer-des-doses-de-vaccins-sur-covidliste-un-ou-plusieurs-jours-a-l-avance"
+       class="collapse p-3"
+       aria-labelledby="collapse-est-ce-qu-il-est-possible-de-proposer-des-doses-de-vaccins-sur-covidliste-un-ou-plusieurs-jours-a-l-avance"
+       data-parent="#accordion">
+    <p>Covidliste vous permet actuellement de rechercher des volontaires à la vaccination pour le jour même.</p>
+
+<p>Chaque campagne de recherche doit donc être lancée le jour où aura lieu le rendez-vous pour la vaccination.</p>
+
+  </div>
+</div>
+
+          <div class="mt-2 faq-item bg-white shadow-sm border border-light overflow-hidden" style="border-radius: 12px">
+  <h3 class="mb-0">
+    <button class="btn btn-link collapsed faq-item--title border-0 py-3 pl-3 pr-5"
+            data-toggle="collapse"
+            data-target="#collapse-est-ce-que-je-peux-faire-plusieurs-campagnes-par-jour-par-exemple-une-le-matin-et-une-l-apres-midi"
+            aria-expanded="false"
+            aria-controls="collapse-est-ce-que-je-peux-faire-plusieurs-campagnes-par-jour-par-exemple-une-le-matin-et-une-l-apres-midi">
+      Est-ce que je peux faire plusieurs campagnes par jour, par exemple une le matin et une l’après-midi ?
+    </button>
+  </h3>
+
+  <div id="collapse-est-ce-que-je-peux-faire-plusieurs-campagnes-par-jour-par-exemple-une-le-matin-et-une-l-apres-midi"
+       class="collapse p-3"
+       aria-labelledby="collapse-est-ce-que-je-peux-faire-plusieurs-campagnes-par-jour-par-exemple-une-le-matin-et-une-l-apres-midi"
+       data-parent="#accordion">
+    <p>Nous vous recommandons de paramétrer des campagnes avec une grande amplitude horaire,
+entre l’heure du lancement et l’heure finale d’arrivée des volontaires (idéalement &gt; 4 heures).</p>
+
+<p>Ces campagnes sont les plus efficaces pour trouver le nombre de volontaires en leur laissant
+suffisamment de temps pour se déplacer.</p>
+
+<p>Les campagnes se lancent <strong>le jour du rendez-vous d’injection</strong>.</p>
+
+  </div>
+</div>
+
+          <div class="mt-2 faq-item bg-white shadow-sm border border-light overflow-hidden" style="border-radius: 12px">
+  <h3 class="mb-0">
+    <button class="btn btn-link collapsed faq-item--title border-0 py-3 pl-3 pr-5"
+            data-toggle="collapse"
+            data-target="#collapse-est-ce-que-des-volontaires-qui-s-inscrivent-pendant-qu-une-campagne-est-en-cours-sont-susceptibles-d-etre-notifies"
+            aria-expanded="false"
+            aria-controls="collapse-est-ce-que-des-volontaires-qui-s-inscrivent-pendant-qu-une-campagne-est-en-cours-sont-susceptibles-d-etre-notifies">
+      Est-ce que des volontaires qui s’inscrivent pendant qu’une campagne est en cours sont susceptibles d’être notifiés ?
+    </button>
+  </h3>
+
+  <div id="collapse-est-ce-que-des-volontaires-qui-s-inscrivent-pendant-qu-une-campagne-est-en-cours-sont-susceptibles-d-etre-notifies"
+       class="collapse p-3"
+       aria-labelledby="collapse-est-ce-que-des-volontaires-qui-s-inscrivent-pendant-qu-une-campagne-est-en-cours-sont-susceptibles-d-etre-notifies"
+       data-parent="#accordion">
+    <p>Oui, tant que les doses disponibles ne sont pas attribuées, un volontaire nouvellement inscrit et répondant
+aux critères de recherche peut tout à fait recevoir une notification.</p>
+
+  </div>
+</div>
+
+          <div class="mt-2 faq-item bg-white shadow-sm border border-light overflow-hidden" style="border-radius: 12px">
+  <h3 class="mb-0">
+    <button class="btn btn-link collapsed faq-item--title border-0 py-3 pl-3 pr-5"
+            data-toggle="collapse"
+            data-target="#collapse-est-il-possible-de-lancer-une-campagne-qui-cible-uniquement-des-personnes-en-recherche-d-une-deuxieme-dose-ou-d-une-unique-dose"
+            aria-expanded="false"
+            aria-controls="collapse-est-il-possible-de-lancer-une-campagne-qui-cible-uniquement-des-personnes-en-recherche-d-une-deuxieme-dose-ou-d-une-unique-dose">
+      Est-il possible de lancer une campagne qui cible uniquement des personnes en recherche d’une deuxième dose ou d’une unique dose ?
+    </button>
+  </h3>
+
+  <div id="collapse-est-il-possible-de-lancer-une-campagne-qui-cible-uniquement-des-personnes-en-recherche-d-une-deuxieme-dose-ou-d-une-unique-dose"
+       class="collapse p-3"
+       aria-labelledby="collapse-est-il-possible-de-lancer-une-campagne-qui-cible-uniquement-des-personnes-en-recherche-d-une-deuxieme-dose-ou-d-une-unique-dose"
+       data-parent="#accordion">
+    <p>Covidliste ne recueille aucune donnée médicale et n’a pas vocation à le faire.</p>
+
+<p>Il n’est donc pas possible de cibler de façon plus précise les volontaires à la vaccination.</p>
+
+  </div>
+</div>
+
+          <div class="mt-2 faq-item bg-white shadow-sm border border-light overflow-hidden" style="border-radius: 12px">
+  <h3 class="mb-0">
+    <button class="btn btn-link collapsed faq-item--title border-0 py-3 pl-3 pr-5"
+            data-toggle="collapse"
+            data-target="#collapse-je-ne-suis-pas-sur-de-pouvoir-administrer-la-deuxieme-injection-aux-patients-identifies-via-covidliste"
+            aria-expanded="false"
+            aria-controls="collapse-je-ne-suis-pas-sur-de-pouvoir-administrer-la-deuxieme-injection-aux-patients-identifies-via-covidliste">
+      Je ne suis pas sûr de pouvoir administrer la deuxième injection aux patients identifiés via Covidliste
+    </button>
+  </h3>
+
+  <div id="collapse-je-ne-suis-pas-sur-de-pouvoir-administrer-la-deuxieme-injection-aux-patients-identifies-via-covidliste"
+       class="collapse p-3"
+       aria-labelledby="collapse-je-ne-suis-pas-sur-de-pouvoir-administrer-la-deuxieme-injection-aux-patients-identifies-via-covidliste"
+       data-parent="#accordion">
+    <p>Le centre qui fait la première injection est chargé d’informer les patients sur la conduite à tenir pour la
+deuxième dose de vaccin.</p>
+
+<p>La réservation d’un rendez-vous pour la deuxième dose de vaccin, sur Doctolib ou site équivalent, n’est
+actuellement pas soumise à une restriction quelle qu’elle soit.</p>
+
+<p>Nous vous invitons à suivre scrupuleusement les indications de la DGS à ce sujet.</p>
+
+  </div>
+</div>
+
+          <div class="mt-2 faq-item bg-white shadow-sm border border-light overflow-hidden" style="border-radius: 12px">
+  <h3 class="mb-0">
+    <button class="btn btn-link collapsed faq-item--title border-0 py-3 pl-3 pr-5"
+            data-toggle="collapse"
+            data-target="#collapse-est-ce-que-je-peux-contacter-les-volontaires-a-qui-une-dose-vient-d-etre-attribuee-pour-repondre-a-un-questionnaire-d-eligibilite-au-vaccin"
+            aria-expanded="false"
+            aria-controls="collapse-est-ce-que-je-peux-contacter-les-volontaires-a-qui-une-dose-vient-d-etre-attribuee-pour-repondre-a-un-questionnaire-d-eligibilite-au-vaccin">
+      Est-ce que je peux contacter les volontaires à qui une dose vient d’être attribuée pour répondre à un questionnaire d’éligibilité au vaccin ?
+    </button>
+  </h3>
+
+  <div id="collapse-est-ce-que-je-peux-contacter-les-volontaires-a-qui-une-dose-vient-d-etre-attribuee-pour-repondre-a-un-questionnaire-d-eligibilite-au-vaccin"
+       class="collapse p-3"
+       aria-labelledby="collapse-est-ce-que-je-peux-contacter-les-volontaires-a-qui-une-dose-vient-d-etre-attribuee-pour-repondre-a-un-questionnaire-d-eligibilite-au-vaccin"
+       data-parent="#accordion">
+    <p>Covidliste vous permet de contacter les volontaires dès qu’ils apparaissent dans l’outil suivi de campagne.</p>
+
+<p>Vous pouvez également informer les volontaires qu’il devront répondre à un questionnaire, via le champ
+“Infos Supplémentaires” dans la campagne, mais les volontaires ne le verront qu’après avoir confirmé leur RDV.</p>
+
+<p><em>A noter : tout volontaire avec un RDV confirmé devant renoncer à sa vaccination devra se se réinscrire sur
+Covidliste après quelques jours pour pouvoir être remis dans la liste d’attente.</em></p>
+
+  </div>
+</div>
+
+        <h2 class="mt-5 mb-2 h4">Gestion des campagnes</h2>
+          <div class="mt-2 faq-item bg-white shadow-sm border border-light overflow-hidden" style="border-radius: 12px">
+  <h3 class="mb-0">
+    <button class="btn btn-link collapsed faq-item--title border-0 py-3 pl-3 pr-5"
+            data-toggle="collapse"
+            data-target="#collapse-dans-le-cas-ou-toutes-les-doses-ne-seraient-pas-attribuees-que-dois-je-faire"
+            aria-expanded="false"
+            aria-controls="collapse-dans-le-cas-ou-toutes-les-doses-ne-seraient-pas-attribuees-que-dois-je-faire">
+      Dans le cas où toutes les doses ne seraient pas attribuées, que dois-je faire ?
+    </button>
+  </h3>
+
+  <div id="collapse-dans-le-cas-ou-toutes-les-doses-ne-seraient-pas-attribuees-que-dois-je-faire"
+       class="collapse p-3"
+       aria-labelledby="collapse-dans-le-cas-ou-toutes-les-doses-ne-seraient-pas-attribuees-que-dois-je-faire"
+       data-parent="#accordion">
+    <p>Nous vous conseillons de lancer une nouvelle campagne, en modifiant les paramètres du profil volontaire
+(âge ou distance de votre centre de vaccination)</p>
+
+<p><em>Très important : attendre que la première campagne se termine (10/15 minutes) avant de lancer une nouvelle campagne.</em></p>
+
+  </div>
+</div>
+
+          <div class="mt-2 faq-item bg-white shadow-sm border border-light overflow-hidden" style="border-radius: 12px">
+  <h3 class="mb-0">
+    <button class="btn btn-link collapsed faq-item--title border-0 py-3 pl-3 pr-5"
+            data-toggle="collapse"
+            data-target="#collapse-est-il-possible-de-modifier-le-nombre-de-doses-d-un-une-campagne-deja-lancee-ex-si-un-volontaire-a-ete-trouve-hors-de-covidliste"
+            aria-expanded="false"
+            aria-controls="collapse-est-il-possible-de-modifier-le-nombre-de-doses-d-un-une-campagne-deja-lancee-ex-si-un-volontaire-a-ete-trouve-hors-de-covidliste">
+      Est-il possible de modifier le nombre de doses d’un une campagne déjà lancée ? (Ex : si un volontaire à été trouvé hors de Covidliste)
+    </button>
+  </h3>
+
+  <div id="collapse-est-il-possible-de-modifier-le-nombre-de-doses-d-un-une-campagne-deja-lancee-ex-si-un-volontaire-a-ete-trouve-hors-de-covidliste"
+       class="collapse p-3"
+       aria-labelledby="collapse-est-il-possible-de-modifier-le-nombre-de-doses-d-un-une-campagne-deja-lancee-ex-si-un-volontaire-a-ete-trouve-hors-de-covidliste"
+       data-parent="#accordion">
+    <p>Non, ce n’est pas possible si la campagne a été lancée et que les doses ont déjà été attribuées à des volontaires.</p>
+
+<p>Il est possible d’interrompre une campagne en cours, mais dans ce cas, les personnes notifiées pourront
+continuer à confirmer leur engagement, il est donc important de garder un œil ouvert sur le suivi de votre
+campagne, même si vous l’avez interrompue.</p>
+
+<p>Si vous n’êtes pas sûr des doses disponibles, nous vous conseillons de segmenter les campagnes dans une journée.</p>
+
+  </div>
+</div>
+
+        <h2 class="mt-5 mb-2 h4">Suivi des campagnes et relations avec les volontaires</h2>
+          <div class="mt-2 faq-item bg-white shadow-sm border border-light overflow-hidden" style="border-radius: 12px">
+  <h3 class="mb-0">
+    <button class="btn btn-link collapsed faq-item--title border-0 py-3 pl-3 pr-5"
+            data-toggle="collapse"
+            data-target="#collapse-j-ai-lance-ma-campagne-faut-il-que-je-rappelle-les-volontaires-selectionnes-pour-leur-confirmer-le-rendez-vous"
+            aria-expanded="false"
+            aria-controls="collapse-j-ai-lance-ma-campagne-faut-il-que-je-rappelle-les-volontaires-selectionnes-pour-leur-confirmer-le-rendez-vous">
+      J’ai lancé ma campagne, faut-il que je rappelle les volontaires sélectionnés pour leur confirmer le rendez-vous ?
+    </button>
+  </h3>
+
+  <div id="collapse-j-ai-lance-ma-campagne-faut-il-que-je-rappelle-les-volontaires-selectionnes-pour-leur-confirmer-le-rendez-vous"
+       class="collapse p-3"
+       aria-labelledby="collapse-j-ai-lance-ma-campagne-faut-il-que-je-rappelle-les-volontaires-selectionnes-pour-leur-confirmer-le-rendez-vous"
+       data-parent="#accordion">
+    <p>Ce pas nécessaire, les volontaires sélectionnés qui ont confirmé leur présence ont toutes les informations de rendez-vous.</p>
+
+<p>Vous avez néanmoins accès à leur coordonnées dans votre espace suivi de campagne et êtes libre de les contacter
+pour organiser votre planning.</p>
+
+  </div>
+</div>
+
+          <div class="mt-2 faq-item bg-white shadow-sm border border-light overflow-hidden" style="border-radius: 12px">
+  <h3 class="mb-0">
+    <button class="btn btn-link collapsed faq-item--title border-0 py-3 pl-3 pr-5"
+            data-toggle="collapse"
+            data-target="#collapse-est-ce-que-je-risque-d-avoir-plus-de-volontaires-que-de-doses-disponibles-dans-une-campagne"
+            aria-expanded="false"
+            aria-controls="collapse-est-ce-que-je-risque-d-avoir-plus-de-volontaires-que-de-doses-disponibles-dans-une-campagne">
+      Est-ce que je risque d’avoir plus de volontaires que de doses disponibles dans une campagne ?
+    </button>
+  </h3>
+
+  <div id="collapse-est-ce-que-je-risque-d-avoir-plus-de-volontaires-que-de-doses-disponibles-dans-une-campagne"
+       class="collapse p-3"
+       aria-labelledby="collapse-est-ce-que-je-risque-d-avoir-plus-de-volontaires-que-de-doses-disponibles-dans-une-campagne"
+       data-parent="#accordion">
+    <p>Non, l’algorithme est conçu pour vous adresser le bon nombre de volontaires.</p>
+
+  </div>
+</div>
+
+          <div class="mt-2 faq-item bg-white shadow-sm border border-light overflow-hidden" style="border-radius: 12px">
+  <h3 class="mb-0">
+    <button class="btn btn-link collapsed faq-item--title border-0 py-3 pl-3 pr-5"
+            data-toggle="collapse"
+            data-target="#collapse-une-fois-une-campagne-finalisee-comment-avons-nous-acces-a-la-liste-des-volontaires-confirmes"
+            aria-expanded="false"
+            aria-controls="collapse-une-fois-une-campagne-finalisee-comment-avons-nous-acces-a-la-liste-des-volontaires-confirmes">
+      Une fois une campagne finalisée comment avons-nous accès à la liste des volontaires confirmés ?
+    </button>
+  </h3>
+
+  <div id="collapse-une-fois-une-campagne-finalisee-comment-avons-nous-acces-a-la-liste-des-volontaires-confirmes"
+       class="collapse p-3"
+       aria-labelledby="collapse-une-fois-une-campagne-finalisee-comment-avons-nous-acces-a-la-liste-des-volontaires-confirmes"
+       data-parent="#accordion">
+    <p>Vous avez accès à la liste des volontaires qui ont confirmé le RDV dans votre espace professionnel,
+dans le suivi de campagne.</p>
+
+<p>En fonction du navigateur Internet que vous utilisez, il peut être nécessaire de rafraichir la page
+pour voir les noms au fur et à mesure.</p>
+
+  </div>
+</div>
+
+        <h2 class="mt-5 mb-2 h4">Accompagnement et contact</h2>
+          <div class="mt-2 faq-item bg-white shadow-sm border border-light overflow-hidden" style="border-radius: 12px">
+  <h3 class="mb-0">
+    <button class="btn btn-link collapsed faq-item--title border-0 py-3 pl-3 pr-5"
+            data-toggle="collapse"
+            data-target="#collapse-je-suis-un-professionnel-de-sante-en-charge-de-la-vaccination-et-j-ai-une-autre-question"
+            aria-expanded="false"
+            aria-controls="collapse-je-suis-un-professionnel-de-sante-en-charge-de-la-vaccination-et-j-ai-une-autre-question">
+      Je suis un professionnel de santé en charge de la vaccination et j’ai une autre question
+    </button>
+  </h3>
+
+  <div id="collapse-je-suis-un-professionnel-de-sante-en-charge-de-la-vaccination-et-j-ai-une-autre-question"
+       class="collapse p-3"
+       aria-labelledby="collapse-je-suis-un-professionnel-de-sante-en-charge-de-la-vaccination-et-j-ai-une-autre-question"
+       data-parent="#accordion">
+    <p>Nous avons développé une interface de gestion automatisée des volontaires à la vaccination.</p>
+
+<p>Afin de référencer votre centre et obtenir un accès à notre interface, vous pouvez
+<a href="/partenaires/inscription.html">vous inscrire</a>.</p>
+
+<p>Si vous avez besoin d’accompagnement, nous vous invitons à contacter
+<a href="mailto:partenaires@covidliste.com">partenaires@covidliste.com</a>.</p>
+
+  </div>
+</div>
+
+    </div>
+  </div>
+</div>
+
+    </div>
+  </div>
+  <div class="layout__footer">
+    <footer class="navbar text-lg-start small px-0 shadow-lg navbar-light bg-gradient-theme">
+  <div class="container p-4">
+    <div class="row w-100">
+      <div class="col-lg-4 col-md-12 mb-4 mb-md-0">
+        <div class="d-flex align-items-start mb-4">
+          <div class="h4 font-weight-bolder text-light">Covidliste</div>
+            <span class="ml-2 badge align-top font-weight-light border text-light border-light" style="font-size: 0.66rem">Pro</span>
+            <span class="sr-only">Professionnels de santé</span>
+        </div>
+        <p class="text-light" style="max-width: 400px">
+          Une initiative citoyenne portée par
+          des <a class="text-light text-decoration-underline" href="/benevoles.html">bénévoles</a>
+          dans le but d'accélerer la campagne vaccinale contre la COVID-19 <strong>#aucunedoseperdue</strong>
+        </p>
+      </div>
+
+      <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+        <ul class="list-unstyled mb-0">
+          <li>
+            <a class="text-light d-inline-flex" href="/donateurs.html">Donateurs</a>
+          </li>
+          <li>
+            <a class="text-light mt-2 d-inline-flex" href="/sponsors.html">Sponsors</a>
+          </li>
+          <li>
+            <a class="text-light mt-2 d-inline-flex" href="/benevoles.html">Bénévoles</a>
+          </li>
+          <li>
+            <a class="text-light mt-2 d-inline-flex" href="https://blog.covidliste.com/">Blog</a>
+          </li>
+          <li>
+            <a class="text-light mt-2 d-inline-flex" href="/presse.html">Presse</a>
+          </li>
+          <li>
+            <a class="text-light mt-2 d-inline-flex" href="/algorithme.html">Algorithme de sélection</a>
+          </li>
+          <li>
+            <a class="text-light mt-2 d-inline-flex" href="/faq.html">Foire aux questions</a>
+          </li>
+          <li>
+            <a class="text-light mt-2 d-inline-flex" href="/contact.html">Contact</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+        <ul class="list-unstyled mb-0">
+          <li>
+            <a class="text-light d-inline-flex" href="/mentions_legales.html">Mentions légales</a>
+          </li>
+          <li>
+            <a class="text-light mt-2 d-inline-flex" href="/cookies.html">Politique cookies</a>
+          </li>
+          <li>
+            <a class="text-light mt-2 d-inline-flex" href="/cgu_volontaires.html">CGU - Volontaires non vaccinés</a>
+          </li>
+          <li>
+            <a class="text-light mt-2 d-inline-flex" href="/cgu_pro.html">CGU - Professionnels de santé</a>
+          </li>
+          <li>
+            <a class="text-light mt-2 d-inline-flex" href="/privacy_volontaires.html">Politique de protection des données personnelles - Volontaires non vaccinés</a>
+          </li>
+          <li>
+            <a class="text-light mt-2 d-inline-flex" href="/privacy_pro.html">Politique de protection des données personnelles - Professionnels de santé</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="col-lg-2 col-md-6 mt-3 mt-md-0">
+        <ul class="list-unstyled mb-0">
+          <li>
+            <i class="fab fa-github text-light mr-2"></i>
+            <a class="text-light d-inline-flex" target="_blank" rel="noopener" href="https://github.com/hostolab/covidliste">GitHub</a>
+          </li>
+          <li>
+            <i class="fab fa-twitter text-light mr-2"></i>
+            <a class="text-light mt-2 d-inline-flex" target="_blank" rel="noopener" href="https://twitter.com/covidliste">Twitter</a>
+          </li>
+           <li>
+            <i class="fab fa-facebook text-light mr-2"></i>
+            <a class="text-light mt-2 d-inline-flex" target="_blank" rel="noopener" href="https://www.facebook.com/covidliste">Facebook</a>
+          </li>
+           <li>
+            <i class="fab fa-instagram text-light mr-2"></i>
+            <a class="text-light mt-2 d-inline-flex" target="_blank" rel="noopener" href="https://www.instagram.com/covidliste/">Instagram</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  </div>
+</div>
+
+<script async type="text/javascript" id="mini-profiler" src="/mini-profiler-resources/includes.js?v=8cccf9fed3d62814b1d70f252554501b" data-css-url="/mini-profiler-resources/includes.css?v=8cccf9fed3d62814b1d70f252554501b" data-version="8cccf9fed3d62814b1d70f252554501b" data-path="/mini-profiler-resources/" data-current-id="8mlhmcbg0n21rpiifxyk" data-ids="8mlhmcbg0n21rpiifxyk,bmj8cna8rzyciied2113,1w0b65irn1c5bbhp1vsi,ert318wvaqt1k0qd9lx9,y8b0f86zzfkfuryh9gf3,cjldhnbm8n6rfnyy1f1q,japgn928vuazu2t14mtt,pfskxneiebwhy5pye3jj,36hq5iy88q93v7slc0jo,6t2wssig3ynx95xlwbkg,uz26dtkx6y0i7zdynw0f,slypxjlvfwqpajz0eoqg,aws2ow7dqbnx0s4akhf7,7s7rgupa960rngp1mqmu,8hdv9jehluj06fbkx9k6,7q8e6vkdhr2ztvn9njiu,krzjuna5vta9uob6td3i,elob8r5ovvxpqbablew5,bsrspbeetonl54rjjylt,qsdlv5md0zhskbk3f65d" data-horizontal-position="left" data-vertical-position="top" data-trivial="false" data-children="false" data-max-traces="20" data-controls="false" data-total-sql-count="false" data-authorized="true" data-toggle-shortcut="alt+p" data-start-hidden="false" data-collapse-results="true" data-html-container="body" data-hidden-custom-fields=""></script>
+</body>
+</html>
