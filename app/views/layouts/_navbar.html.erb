@@ -16,9 +16,11 @@
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav ml-auto">
       <% if !current_partner %>
+      <% if !ENV["STATIC_SITE_GEN"] %>
         <li class="<%= class_names("nav-item", active: current_page?(carte_path)) %>">
           <%= link_to "Carte", carte_path, class: "nav-link" %>
         </li>
+      <% end %>
         <li class="<%= class_names("nav-item", active: current_page?(faq_path)) %>">
           <%= link_to "Foire aux questions", faq_path, class: "nav-link" %>
         </li>

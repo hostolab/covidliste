@@ -121,8 +121,8 @@
 
 <div class="bg-gradient-theme-reverse py-4 py-lg-5">
   <div class="container">
-    <div class="h1 font-weight-bold mb-3"><span class="text-secondary"><%= pretty_number(@vaccination_centers_count) %>
-      professionnels de santé équipés,<br><%= pretty_number(@confirmed_matched_users_count) %> RDV confirmés,</span><br><span class="text-dark">leur expérience</span>
+    <div class="h1 font-weight-bold mb-3"><span class="text-secondary"><%= ENV["STATIC_SITE_GEN"] ? "4 533" : pretty_number(@vaccination_centers_count) %>
+      professionnels de santé équipés,<br><%=  ENV["STATIC_SITE_GEN"] ? "43 740" : pretty_number(@confirmed_matched_users_count) %> RDV confirmés,</span><br><span class="text-dark">leur expérience</span>
     </div>
     <% @reviews[0..2].each do |review| %>
       <div class="mt-1 d-flex align-items-center align-items-sm-end">
