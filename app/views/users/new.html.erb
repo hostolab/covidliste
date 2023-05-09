@@ -112,15 +112,15 @@
   <div class="container pt-5 mt-5">
     <div class="d-flex align-items-center justify-content-around flex-column flex-lg-row">
       <div class="text-center mt-lg-0">
-        <div class="text-secondary font-weight-bolder display-3 mb-0 mb-lg-2"><%= pretty_number(@matched_users_count) %></div>
+        <div class="text-secondary font-weight-bolder display-3 mb-0 mb-lg-2"><%= ENV["STATIC_SITE_GEN"] ? "1 163 139" :  pretty_number(@matched_users_count) %></div>
         <div class="text-black font-weight-bold h3 mb-0">Volontaires<br>contactés</div>
       </div>
       <div class="text-center mt-5 mt-lg-0">
-        <div class="text-secondary font-weight-bolder display-3 mb-0 mb-lg-2"><%= pretty_number(@vaccination_centers_count) %></div>
+        <div class="text-secondary font-weight-bolder display-3 mb-0 mb-lg-2"><%=  ENV["STATIC_SITE_GEN"] ? "4 533" : pretty_number(@vaccination_centers_count) %></div>
         <div class="text-black font-weight-bold h3 mb-0">Centres de<br>vaccination</div>
       </div>
       <div class="text-center mt-5 mt-lg-0">
-        <div class="text-secondary font-weight-bolder display-3 mb-0 mb-lg-2"><%= pretty_number(@confirmed_matched_users_count) %></div>
+        <div class="text-secondary font-weight-bolder display-3 mb-0 mb-lg-2"><%= ENV["STATIC_SITE_GEN"] ? "43 740" : pretty_number(@confirmed_matched_users_count) %></div>
         <div class="text-black font-weight-bold h3 mb-0">RDV<br>confirmés</div>
       </div>
     </div>
@@ -170,8 +170,8 @@
 
 <div class="bg-gradient-theme-reverse py-4 py-lg-5">
   <div class="container">
-    <div class="h1 font-weight-bold mb-3"><span class="text-secondary"><%= pretty_number(@vaccination_centers_count) %>
-      professionnels de santé équipés<br><%= pretty_number(@confirmed_matched_users_count) %>
+    <div class="h1 font-weight-bold mb-3"><span class="text-secondary"><%=  ENV["STATIC_SITE_GEN"] ? "4 533" : pretty_number(@vaccination_centers_count) %>
+      professionnels de santé équipés<br><%=  ENV["STATIC_SITE_GEN"] ? "43 740" : pretty_number(@confirmed_matched_users_count) %>
       citoyens vaccinés,</span><br><span class="text-dark">leur expérience</span></div>
     <% @reviews[0..2].each do |review| %>
       <div class="mt-1 d-flex align-items-center align-items-sm-end">
@@ -186,7 +186,7 @@
     </div>
   </div>
 </div>
-<%- if Flipper.enabled?(:pause_service) or ENV["STATIC_SITE_GEN"] or ENV["STATIC_SITE_GEN"] %>
+<%- if Flipper.enabled?(:pause_service) or ENV["STATIC_SITE_GEN"]%>
   <%= render partial: "users/shared/box_cta", locals: {title: "S’inscrire à Covidliste", text: "Covidliste est en pause, les inscriptions sont désactivées.", cta_text: "Suivez-nous sur Twitter", cta_href: "https://twitter.com/covidliste", cta_target: "_self"} %>
 <% else %>
   <%= render partial: "users/shared/box_cta", locals: {title: "S’inscrire à Covidliste", text: "Vous serez contacté dès qu’une dose sera disponible !", cta_text: "S’inscrire à Covidliste", cta_href: "#inscription", cta_target: "_self"} %>
@@ -238,7 +238,7 @@
     </div>
   </div>
 </div>
-<%- if Flipper.enabled?(:pause_service) or ENV["STATIC_SITE_GEN"] or ENV["STATIC_SITE_GEN"] %>
+<%- if Flipper.enabled?(:pause_service) or ENV["STATIC_SITE_GEN"]%>
   <%= render partial: "users/shared/box_cta", locals: {title: "Vous êtes professionnel de santé ?", text: "Covidliste est en pause, les inscriptions sont désactivées.", cta_text: "Suivez-nous sur Twitter", cta_href: "https://twitter.com/covidliste", cta_target: "_self"} %>
 <% else %>
   <%= render partial: "users/shared/box_cta", locals: {title: "Vous êtes professionnel de santé ?", text: "Simplifiez la gestion de votre liste d’attente.<br>Commencez dès maintenant à gagner du temps.", cta_text: "Trouver des volontaires à la vaccination", cta_href: landing_page_pro_path, cta_target: "_self"} %>
@@ -268,7 +268,7 @@
     </div>
   </div>
 </div>
-<%- if Flipper.enabled?(:pause_service) or ENV["STATIC_SITE_GEN"] or ENV["STATIC_SITE_GEN"] %>
+<%- if Flipper.enabled?(:pause_service) or ENV["STATIC_SITE_GEN"]%>
   <%= render partial: "users/shared/box_cta", locals: {title: "Devenir bénévole", text: "Covidliste est en pause, découvrez notre histoire sur notre blog !", cta_text: "Lire le blog", cta_href: "https://blog.covidliste.com", cta_target: "_self"} %>
 <% else %>
   <%= render partial: "users/shared/box_cta", locals: {title: "Devenir bénévole", text: "Rejoignez une centaine de bénévoles qui chaque<br>jour contribuent à accélérer la campagne de vaccination !", cta_text: "Rejoindre l’équipe Covidliste", cta_href: benevoles_path, cta_target: "_self"} %>
