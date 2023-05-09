@@ -1,3 +1,4 @@
+<% if !ENV["STATIC_SITE_GEN"] %>
 <%= "User-agent: *" %>
 <% if Rails.env.production? %>
   <%= "Disallow: /profile" %>
@@ -5,4 +6,8 @@
   <%= "Disallow: /admin" %>
 <% else %>
   <%= "Disallow: /" %>
+<% end %>
+<% else %>
+<%= "User-agent: *" %>
+  <%= "Allow: /" %>
 <% end %>
