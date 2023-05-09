@@ -1,7 +1,7 @@
 require "sidekiq/web"
 require "sidekiq/cron/web"
-
 Rails.application.routes.draw do
+  scope format: true, defaults: { format: 'html' } do
   draw(:redirects)
 
   namespace :admin do
@@ -152,6 +152,6 @@ Rails.application.routes.draw do
 
   ## robots.txt
   get "/robots.txt", to: "pages#robots"
-
-  root to: "users#new"
+end
+root to: "users#new"
 end
