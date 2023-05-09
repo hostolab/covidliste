@@ -14,7 +14,7 @@
 <body>
 <div class="layout">
   <div class="layout__above-footer">
-    <%= render "layouts/banner" if Flipper.enabled?(:pause_service) %>
+    <%= render "layouts/banner" if Flipper.enabled?(:pause_service) or ENV["STATIC_SITE_GEN"] %>
     <%= render "layouts/third_dose_banner" if Flipper.enabled?(:third_dose_banner) %>
     <%= render "layouts/navbar" %>
     <div class="layout__content <%= "layout__content--no-padding" if @no_layout_content_padding ||= false %>">

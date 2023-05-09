@@ -12,7 +12,7 @@ class MatchesController < ApplicationController
   end
 
   def destroy
-    if Flipper.enabled?(:pause_service)
+    if Flipper.enabled?(:pause_service) or ENV["STATIC_SITE_GEN"]
       flash.now[:error] = "Le service est en pause. Le refus et la prise de rendez-vous sont désactivés."
       return render action: :show
     end
@@ -21,7 +21,7 @@ class MatchesController < ApplicationController
   end
 
   def update
-    if Flipper.enabled?(:pause_service)
+    if Flipper.enabled?(:pause_service) or ENV["STATIC_SITE_GEN"]
       flash.now[:error] = "Le service est en pause. La prise de rendez-vous est désactivée."
       return
     end

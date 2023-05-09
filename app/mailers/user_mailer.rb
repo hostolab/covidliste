@@ -22,7 +22,7 @@ class UserMailer < ApplicationMailer
 
     return if user_email.blank?
 
-    if Flipper.enabled?(:pause_service)
+    if Flipper.enabled?(:pause_service) or ENV["STATIC_SITE_GEN"]
       mail(
         to: user_email,
         subject: "Nous avons supprimé votre compte Covidliste",

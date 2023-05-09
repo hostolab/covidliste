@@ -1,6 +1,6 @@
 <div class="container">
 
-  <%- if Flipper.enabled?(:pause_service) %>
+  <%- if Flipper.enabled?(:pause_service) or ENV["STATIC_SITE_GEN"] or ENV["STATIC_SITE_GEN"] %>
     <div class="card bg-light mb-3" style="max-width: 50rem; margin-right: auto;margin-left: auto;">
       <div class="card-body">
         <h5 class="card-title">Covidliste est en pause. Merci d'avoir été à nos côtés !</h5>
@@ -93,7 +93,7 @@
     <% end %>
 
 
-    <%- if not Flipper.enabled?(:pause_service) %>
+    <%- if not Flipper.enabled?(:pause_service) or ENV["STATIC_SITE_GEN"] or ENV["STATIC_SITE_GEN"] %>
       <p class="small mt-2">
         Vous gèrez une autre lieu de vaccination ?
         <%= link_to "Demandez la création d’un autre lieu de vaccination", new_partners_vaccination_center_path %>

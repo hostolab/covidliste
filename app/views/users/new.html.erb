@@ -34,7 +34,7 @@
           </div>
         <% end %>
       <% else %>
-        <%- if Flipper.enabled?(:pause_service) %>
+        <%- if Flipper.enabled?(:pause_service) or ENV["STATIC_SITE_GEN"] or ENV["STATIC_SITE_GEN"]==1 %>
           <div class="card bg-light mb-3" style="max-width: 50rem; margin-right: auto;margin-left: auto;">
             <div class="card-body">
               <h5 class="card-title">Covidliste est en pause. Merci d'avoir été à nos côtés !</h5>
@@ -186,7 +186,7 @@
     </div>
   </div>
 </div>
-<%- if Flipper.enabled?(:pause_service) %>
+<%- if Flipper.enabled?(:pause_service) or ENV["STATIC_SITE_GEN"] or ENV["STATIC_SITE_GEN"] %>
   <%= render partial: "users/shared/box_cta", locals: {title: "S’inscrire à Covidliste", text: "Covidliste est en pause, les inscriptions sont désactivées.", cta_text: "Suivez-nous sur Twitter", cta_href: "https://twitter.com/covidliste", cta_target: "_self"} %>
 <% else %>
   <%= render partial: "users/shared/box_cta", locals: {title: "S’inscrire à Covidliste", text: "Vous serez contacté dès qu’une dose sera disponible !", cta_text: "S’inscrire à Covidliste", cta_href: "#inscription", cta_target: "_self"} %>
@@ -238,7 +238,7 @@
     </div>
   </div>
 </div>
-<%- if Flipper.enabled?(:pause_service) %>
+<%- if Flipper.enabled?(:pause_service) or ENV["STATIC_SITE_GEN"] or ENV["STATIC_SITE_GEN"] %>
   <%= render partial: "users/shared/box_cta", locals: {title: "Vous êtes professionnel de santé ?", text: "Covidliste est en pause, les inscriptions sont désactivées.", cta_text: "Suivez-nous sur Twitter", cta_href: "https://twitter.com/covidliste", cta_target: "_self"} %>
 <% else %>
   <%= render partial: "users/shared/box_cta", locals: {title: "Vous êtes professionnel de santé ?", text: "Simplifiez la gestion de votre liste d’attente.<br>Commencez dès maintenant à gagner du temps.", cta_text: "Trouver des volontaires à la vaccination", cta_href: landing_page_pro_path, cta_target: "_self"} %>
@@ -268,7 +268,7 @@
     </div>
   </div>
 </div>
-<%- if Flipper.enabled?(:pause_service) %>
+<%- if Flipper.enabled?(:pause_service) or ENV["STATIC_SITE_GEN"] or ENV["STATIC_SITE_GEN"] %>
   <%= render partial: "users/shared/box_cta", locals: {title: "Devenir bénévole", text: "Covidliste est en pause, découvrez notre histoire sur notre blog !", cta_text: "Lire le blog", cta_href: "https://blog.covidliste.com", cta_target: "_self"} %>
 <% else %>
   <%= render partial: "users/shared/box_cta", locals: {title: "Devenir bénévole", text: "Rejoignez une centaine de bénévoles qui chaque<br>jour contribuent à accélérer la campagne de vaccination !", cta_text: "Rejoindre l’équipe Covidliste", cta_href: benevoles_path, cta_target: "_self"} %>
