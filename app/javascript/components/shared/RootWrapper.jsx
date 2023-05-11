@@ -4,8 +4,9 @@ import { camelCaseDeep } from "components/shared/casing";
 
 const queryClient = new QueryClient();
 
-export const RootWrapper = (RootComponent) => (propsFromRails) => (
-  <QueryClientProvider client={queryClient}>
-    <RootComponent {...camelCaseDeep(propsFromRails)} />
-  </QueryClientProvider>
-);
+export const RootWrapper = (RootComponent) => (propsFromRails) =>
+  (
+    <QueryClientProvider client={queryClient}>
+      <RootComponent {...camelCaseDeep(propsFromRails)} />
+    </QueryClientProvider>
+  );

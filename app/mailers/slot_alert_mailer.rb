@@ -1,6 +1,5 @@
 class SlotAlertMailer < ApplicationMailer
-  default :from => "Covidliste <alerte@covidliste.com>",
-          "X-Auto-Response-Suppress" => "OOF"
+  default :from => "Covidliste <alerte@covidliste.com>", "X-Auto-Response-Suppress" => "OOF"
 
   include ApplicationHelper
   helper ApplicationHelper
